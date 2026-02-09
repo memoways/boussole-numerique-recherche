@@ -12,6 +12,13 @@ import { ArrowRight, FileText, Download, ExternalLink, TrendingUp, AlertTriangle
  */
 
 export default function Home() {
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <div className="min-h-screen">
       {/* Hero Section with Data Visualization Background */}
@@ -73,11 +80,11 @@ export default function Home() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="text-base group">
+            <Button size="lg" className="text-base group" onClick={() => scrollToSection('overview')}>
               Découvrir la recherche
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
-            <Button size="lg" variant="outline" className="text-base">
+            <Button size="lg" variant="outline" className="text-base" onClick={() => scrollToSection('documents')}>
               <Download className="mr-2 h-5 w-5" />
               Télécharger les documents
             </Button>
@@ -88,7 +95,7 @@ export default function Home() {
       {/* Main Content */}
       <section className="container py-20">
         {/* Introduction */}
-        <div className="max-w-4xl mx-auto mb-20">
+        <div id="overview" className="max-w-4xl mx-auto mb-20 scroll-mt-20">
           <h3 className="text-3xl font-bold mb-6">Vue d'ensemble</h3>
           <p className="text-lg text-muted-foreground leading-relaxed mb-4">
             Ce dossier contient le résultat d'une recherche approfondie sur la transformation numérique dans les industries culturelles et créatives, menée en février 2026. L'objectif est de fournir une base documentaire solide pour le projet <strong className="text-foreground">Boussole Numérique Culture</strong> et la préparation d'un dossier de subvention auprès de la Ville de Genève.
@@ -96,7 +103,7 @@ export default function Home() {
         </div>
 
         {/* Key Findings Grid */}
-        <div className="grid md:grid-cols-3 gap-8 mb-20">
+        <div id="findings" className="grid md:grid-cols-3 gap-8 mb-20 scroll-mt-20">
           {/* Challenges Card */}
           <Card className="border-accent/30 hover:border-accent/60 transition-all duration-300 hover:shadow-xl group">
             <CardHeader>
@@ -186,7 +193,7 @@ export default function Home() {
         </div>
 
         {/* Documents Section */}
-        <div className="mb-20">
+        <div id="documents" className="mb-20 scroll-mt-20">
           <h3 className="text-3xl font-bold mb-8">Documents Principaux</h3>
           
           <div className="grid md:grid-cols-2 gap-6">
@@ -209,9 +216,15 @@ export default function Home() {
                   <li>• Politiques publiques et mécanismes de soutien</li>
                   <li>• Recommandations stratégiques pour le projet Boussole</li>
                 </ul>
-                <Button variant="outline" className="w-full group">
-                  Consulter le document
-                  <ExternalLink className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                <Button 
+                  variant="outline" 
+                  className="w-full group"
+                  asChild
+                >
+                  <a href="/etat_des_lieux_transformation_numerique_culture.md" target="_blank" rel="noopener noreferrer">
+                    Consulter le document
+                    <ExternalLink className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </a>
                 </Button>
               </CardContent>
             </Card>
@@ -235,9 +248,15 @@ export default function Home() {
                   <li>• Couverture: Suisse, Europe, Québec</li>
                   <li>• Période: 2023-2026</li>
                 </ul>
-                <Button variant="outline" className="w-full group">
-                  Voir toutes les sources
-                  <ExternalLink className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                <Button 
+                  variant="outline" 
+                  className="w-full group"
+                  asChild
+                >
+                  <a href="/sources_trouvees.md" target="_blank" rel="noopener noreferrer">
+                    Voir toutes les sources
+                    <ExternalLink className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </a>
                 </Button>
               </CardContent>
             </Card>
@@ -245,7 +264,7 @@ export default function Home() {
         </div>
 
         {/* PDF Documents */}
-        <div className="mb-20">
+        <div id="pdfs" className="mb-20 scroll-mt-20">
           <h3 className="text-3xl font-bold mb-8">Documents PDF Téléchargés</h3>
           
           <div className="grid md:grid-cols-2 gap-6">
@@ -257,9 +276,11 @@ export default function Home() {
               <CardContent>
                 <Badge className="mb-3">Référence Internationale</Badge>
                 <p className="text-sm text-muted-foreground mb-4">MONDIACULT 2025 - Analyse complète de l'impact de l'IA sur le secteur culturel mondial</p>
-                <Button size="sm" variant="outline" className="w-full">
-                  <Download className="mr-2 h-4 w-4" />
-                  Télécharger (3.4 MB)
+                <Button size="sm" variant="outline" className="w-full" asChild>
+                  <a href="/UNESCO_AI_Culture_2025.pdf" download>
+                    <Download className="mr-2 h-4 w-4" />
+                    Télécharger (3.3 MB)
+                  </a>
                 </Button>
               </CardContent>
             </Card>
@@ -272,9 +293,11 @@ export default function Home() {
               <CardContent>
                 <Badge className="mb-3">Méthodologie Clé</Badge>
                 <p className="text-sm text-muted-foreground mb-4">Grille d'évaluation de maturité IA directement applicable au contexte suisse romand</p>
-                <Button size="sm" variant="outline" className="w-full">
-                  <Download className="mr-2 h-4 w-4" />
-                  Télécharger (8.2 MB)
+                <Button size="sm" variant="outline" className="w-full" asChild>
+                  <a href="/Quebec_IA_Culture_2025.pdf" download>
+                    <Download className="mr-2 h-4 w-4" />
+                    Télécharger (7.9 MB)
+                  </a>
                 </Button>
               </CardContent>
             </Card>
@@ -287,9 +310,11 @@ export default function Home() {
               <CardContent>
                 <Badge className="mb-3">Comparaison Européenne</Badge>
                 <p className="text-sm text-muted-foreground mb-4">Adoption de l'IA dans 6 pays européens - Patterns et barrières identifiés</p>
-                <Button size="sm" variant="outline" className="w-full">
-                  <Download className="mr-2 h-4 w-4" />
-                  Télécharger (782 KB)
+                <Button size="sm" variant="outline" className="w-full" asChild>
+                  <a href="/Europe_AI_Cultural_Industries_2025.pdf" download>
+                    <Download className="mr-2 h-4 w-4" />
+                    Télécharger (782 KB)
+                  </a>
                 </Button>
               </CardContent>
             </Card>
@@ -302,9 +327,11 @@ export default function Home() {
               <CardContent>
                 <Badge className="mb-3">Politiques Publiques</Badge>
                 <p className="text-sm text-muted-foreground mb-4">Analyse des politiques culturelles numériques en Europe, incluant la Suisse</p>
-                <Button size="sm" variant="outline" className="w-full">
-                  <Download className="mr-2 h-4 w-4" />
-                  Télécharger (2.2 MB)
+                <Button size="sm" variant="outline" className="w-full" asChild>
+                  <a href="/Digital_Transformation_Cultural_Policies_Europe_2024.pdf" download>
+                    <Download className="mr-2 h-4 w-4" />
+                    Télécharger (2.3 MB)
+                  </a>
                 </Button>
               </CardContent>
             </Card>
@@ -319,13 +346,17 @@ export default function Home() {
               Cette recherche constitue la base documentaire pour l'élaboration d'une application web d'auto-évaluation de la maturité numérique destinée aux acteurs culturels genevois.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg">
-                En savoir plus sur le projet
-                <ArrowRight className="ml-2 h-5 w-5" />
+              <Button size="lg" asChild>
+                <a href="https://memoways.com/" target="_blank" rel="noopener noreferrer">
+                  En savoir plus sur le projet
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </a>
               </Button>
-              <Button size="lg" variant="outline">
-                Contacter Memoways
-                <ExternalLink className="ml-2 h-5 w-5" />
+              <Button size="lg" variant="outline" asChild>
+                <a href="https://memoways.com/" target="_blank" rel="noopener noreferrer">
+                  Contacter Memoways
+                  <ExternalLink className="ml-2 h-5 w-5" />
+                </a>
               </Button>
             </div>
           </CardContent>
@@ -347,7 +378,7 @@ export default function Home() {
               <p className="text-sm text-muted-foreground">
                 <strong>Ulrich Fischer</strong><br />
                 Memoways<br />
-                <a href="https://memoways.com/" className="text-primary hover:underline">memoways.com</a>
+                <a href="https://memoways.com/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">memoways.com</a>
               </p>
             </div>
             <div>
