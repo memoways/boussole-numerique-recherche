@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, FileText, Download, ExternalLink, TrendingUp, AlertTriangle, Lightbulb, BookOpen } from "lucide-react";
+import Navigation from "@/components/Navigation";
 
 /**
  * Design Philosophy: Data-Driven Infographic
@@ -21,6 +22,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
+      <Navigation />
       {/* Hero Section with Data Visualization Background */}
       <section 
         className="relative min-h-[70vh] flex items-center justify-center overflow-hidden"
