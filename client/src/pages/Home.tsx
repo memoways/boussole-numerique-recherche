@@ -231,6 +231,38 @@ export default function Home() {
               </CardContent>
             </Card>
 
+            {/* Complete Study */}
+            <Card className="border-2 border-chart-4/20 hover:border-chart-4/40 transition-all duration-300 hover:shadow-xl">
+              <CardHeader>
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <Badge className="mb-3 bg-chart-4/10 text-chart-4 border-chart-4/20">Étude Complète</Badge>
+                    <CardTitle className="text-xl mb-2">Document Consolidé - Toute l'Étude</CardTitle>
+                    <CardDescription>Rapport complet incluant état des lieux, synthèse et sources</CardDescription>
+                  </div>
+                  <FileText className="w-8 h-8 text-chart-4 flex-shrink-0 ml-4" />
+                </div>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm text-muted-foreground mb-4">
+                  <li>• Résumé exécutif avec chiffres clés</li>
+                  <li>• État des lieux complet (4 sections)</li>
+                  <li>• Synthèse des 4 documents PDF</li>
+                  <li>• Liste des 89 sources + annexes méthodologiques</li>
+                </ul>
+                <Button 
+                  variant="outline" 
+                  className="w-full group"
+                  asChild
+                >
+                  <a href="/etude_complete_transformation_numerique_culture.md" download>
+                    Télécharger l'étude complète
+                    <Download className="ml-2 h-4 w-4 group-hover:translate-y-1 transition-transform" />
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
+
             {/* Sources List */}
             <Card className="border-2 border-secondary/20 hover:border-secondary/40 transition-all duration-300 hover:shadow-xl">
               <CardHeader>
