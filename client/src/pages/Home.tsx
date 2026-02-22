@@ -38,8 +38,8 @@ export default function Home() {
           </Badge>
           
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-            <span className="text-chart-2">Transformation</span>{" "}
-            <span className="text-chart-3">Numérique</span>
+            <span className="bg-gradient-to-r from-blue-500 via-teal-500 to-green-500 bg-clip-text text-transparent">Transformation</span>{" "}
+            <span className="bg-gradient-to-r from-green-500 via-yellow-500 to-orange-500 bg-clip-text text-transparent">Numérique</span>
             <br />
             <span className="text-foreground">dans le Secteur Culturel</span>
           </h1>
@@ -52,28 +52,28 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-5xl mx-auto mb-12">
             <Card className="bg-card/80 backdrop-blur-sm border-2 border-chart-2/20 hover:border-chart-2/40 transition-all">
               <CardContent className="pt-6 text-center">
-                <div className="text-4xl md:text-5xl font-bold text-chart-2 mb-2">104</div>
+                <div className="text-4xl md:text-5xl font-bold text-blue-500 mb-2">104</div>
                 <div className="text-sm text-muted-foreground">Sources identifiées</div>
               </CardContent>
             </Card>
             
             <Card className="bg-card/80 backdrop-blur-sm border-2 border-chart-3/20 hover:border-chart-3/40 transition-all">
               <CardContent className="pt-6 text-center">
-                <div className="text-4xl md:text-5xl font-bold text-chart-3 mb-2">4</div>
+                <div className="text-4xl md:text-5xl font-bold text-green-500 mb-2">4</div>
                 <div className="text-sm text-muted-foreground">Documents PDF clés</div>
               </CardContent>
             </Card>
             
             <Card className="bg-card/80 backdrop-blur-sm border-2 border-destructive/20 hover:border-destructive/40 transition-all">
               <CardContent className="pt-6 text-center">
-                <div className="text-4xl md:text-5xl font-bold text-destructive mb-2">70%</div>
+                <div className="text-4xl md:text-5xl font-bold text-orange-500 mb-2">70%</div>
                 <div className="text-sm text-muted-foreground">Taux d'échec</div>
               </CardContent>
             </Card>
             
             <Card className="bg-card/80 backdrop-blur-sm border-2 border-chart-1/20 hover:border-chart-1/40 transition-all">
               <CardContent className="pt-6 text-center">
-                <div className="text-4xl md:text-5xl font-bold text-chart-1 mb-2">3</div>
+                <div className="text-4xl md:text-5xl font-bold text-yellow-600 mb-2">3</div>
                 <div className="text-sm text-muted-foreground">Années couvertes</div>
               </CardContent>
             </Card>
