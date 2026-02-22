@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, FileText, Download, ExternalLink, TrendingUp, AlertTriangle, Lightbulb, BookOpen, Users, Target, Zap, Building2, Theater, Sparkles } from "lucide-react";
+import { ArrowRight, FileText, Download, ExternalLink, TrendingUp, AlertTriangle, Lightbulb, BookOpen, Users, Target, Zap, Building2, Theater, Sparkles, Eye } from "lucide-react";
+import { Link } from "wouter";
 import Navigation from "@/components/Navigation";
 
 /**
@@ -441,12 +442,12 @@ export default function Home() {
                 <p className="text-sm text-muted-foreground mb-4">
                   Résumé exécutif, état des lieux, synthèse des 4 PDF, 104 sources, grille d'évaluation maturité IA, recommandations stratégiques.
                 </p>
-                <Button className="w-full" style={{ backgroundColor: '#515792', borderColor: '#515792' }} asChild>
-                  <a href="/etude_complete_transformation_numerique_culture.md" download>
-                    <Download className="mr-2 h-4 w-4" />
-                    Télécharger (MD)
-                  </a>
-                </Button>
+                <Link href="/etude-complete">
+                  <Button className="w-full" style={{ backgroundColor: '#515792', borderColor: '#515792' }}>
+                    <Eye className="mr-2 h-4 w-4" />
+                    Consulter
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
 
@@ -461,12 +462,12 @@ export default function Home() {
                 <p className="text-sm text-muted-foreground mb-4">
                   Analyse détaillée de la transformation numérique, adoption de l'IA, politiques publiques, enjeux et recommandations.
                 </p>
-                <Button className="w-full" style={{ backgroundColor: '#E27227', borderColor: '#E27227' }} asChild>
-                  <a href="/etat_des_lieux_transformation_numerique_culture.md" download>
-                    <Download className="mr-2 h-4 w-4" />
-                    Télécharger (MD)
-                  </a>
-                </Button>
+                <Link href="/etat-des-lieux">
+                  <Button className="w-full" style={{ backgroundColor: '#E27227', borderColor: '#E27227' }}>
+                    <Eye className="mr-2 h-4 w-4" />
+                    Consulter
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
 
@@ -481,12 +482,12 @@ export default function Home() {
                 <p className="text-sm text-muted-foreground mb-4">
                   Analyse comparative de 3 outils français (Diag-numerique.fr, Visiativ, CMA) : ce qui fonctionne, limites, recommandations pour la Boussole.
                 </p>
-                <Button className="w-full" style={{ backgroundColor: '#262845', borderColor: '#262845' }} asChild>
-                  <a href="/analyse_outils_diagnostic_numerique_france.md" download>
-                    <Download className="mr-2 h-4 w-4" />
-                    Télécharger (MD)
-                  </a>
-                </Button>
+                <Link href="/analyse-outils">
+                  <Button className="w-full" style={{ backgroundColor: '#262845', borderColor: '#262845' }}>
+                    <Eye className="mr-2 h-4 w-4" />
+                    Consulter
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
 
@@ -501,12 +502,12 @@ export default function Home() {
                 <p className="text-sm text-muted-foreground mb-4">
                   Bibliographie complète avec liens, descriptions et catégorisation par thématique et géographie.
                 </p>
-                <Button className="w-full" style={{ backgroundColor: '#E58441', borderColor: '#E58441' }} asChild>
-                  <a href="/sources_trouvees.md" download>
-                    <Download className="mr-2 h-4 w-4" />
-                    Télécharger (MD)
-                  </a>
-                </Button>
+                <Link href="/sources">
+                  <Button className="w-full" style={{ backgroundColor: '#E58441', borderColor: '#E58441' }}>
+                    <Eye className="mr-2 h-4 w-4" />
+                    Consulter
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
 
@@ -521,12 +522,12 @@ export default function Home() {
                 <p className="text-sm text-muted-foreground mb-4">
                   Informations essentielles extraites des rapports UNESCO, Québec, Europe et politiques culturelles.
                 </p>
-                <Button className="w-full" style={{ backgroundColor: '#262845', borderColor: '#262845' }} asChild>
-                  <a href="/synthese_documents_cles.md" download>
-                    <Download className="mr-2 h-4 w-4" />
-                    Télécharger (MD)
-                  </a>
-                </Button>
+                <Link href="/synthese-documents">
+                  <Button className="w-full" style={{ backgroundColor: '#262845', borderColor: '#262845' }}>
+                    <Eye className="mr-2 h-4 w-4" />
+                    Consulter
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
 
