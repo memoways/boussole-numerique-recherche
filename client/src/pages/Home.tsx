@@ -33,10 +33,6 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/90 to-background"></div>
         
         <div className="container relative z-10 text-center px-4 py-16">
-          <Badge className="mb-6 text-base px-4 py-2" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>
-            Recherche • Février 2026
-          </Badge>
-          
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
             <span className="bg-gradient-to-r from-blue-500 via-teal-500 to-green-500 bg-clip-text text-transparent">Transformation</span>{" "}
             <span className="bg-gradient-to-r from-green-500 via-yellow-500 to-orange-500 bg-clip-text text-transparent">Numérique</span>
@@ -45,36 +41,37 @@ export default function Home() {
           </h1>
           
           <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto mb-12 leading-relaxed">
-            État des lieux complet sur l'adoption de l'IA et la transformation numérique dans les industries culturelles et créatives. Une base documentaire pour le projet <span className="font-semibold text-foreground">Boussole Numérique Culture</span>.
+            État des lieux sur l'adoption de l'IA et la transformation numérique dans les industries culturelles et créatives.<br/>
+            Une base documentaire pour le projet <span className="font-semibold text-foreground">Boussole Numérique Culture</span>.
           </p>
 
           {/* Key Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-5xl mx-auto mb-12">
             <Card className="bg-card/80 backdrop-blur-sm border-2 transition-all hover:border-[#515792]" style={{ borderColor: '#515792' }}>
               <CardContent className="pt-6 text-center">
-                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#515792' }}>104</div>
-                <div className="text-sm text-muted-foreground">Sources identifiées</div>
+                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#515792' }}>304</div>
+                <div className="text-sm text-muted-foreground">Structures culturelles (Suisse)</div>
               </CardContent>
             </Card>
             
             <Card className="bg-card/80 backdrop-blur-sm border-2 transition-all hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
               <CardContent className="pt-6 text-center">
-                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#E27227' }}>4</div>
-                <div className="text-sm text-muted-foreground">Documents PDF clés</div>
+                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#E27227' }}>62%</div>
+                <div className="text-sm text-muted-foreground">Utilisent déjà l'IA</div>
               </CardContent>
             </Card>
             
             <Card className="bg-card/80 backdrop-blur-sm border-2 transition-all hover:border-[#E58441]" style={{ borderColor: '#E58441' }}>
               <CardContent className="pt-6 text-center">
-                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#E58441' }}>70%</div>
-                <div className="text-sm text-muted-foreground">Taux d'échec</div>
+                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#E58441' }}>2,7M</div>
+                <div className="text-sm text-muted-foreground">Tests (Nos Gestes Climat)</div>
               </CardContent>
             </Card>
             
             <Card className="bg-card/80 backdrop-blur-sm border-2 transition-all hover:border-[#EFCFB7]" style={{ borderColor: '#EFCFB7' }}>
               <CardContent className="pt-6 text-center">
-                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#262845' }}>3</div>
-                <div className="text-sm text-muted-foreground">Années couvertes</div>
+                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#262845' }}>104</div>
+                <div className="text-sm text-muted-foreground">Sources analysées</div>
               </CardContent>
             </Card>
           </div>
@@ -109,7 +106,7 @@ export default function Home() {
           <div className="max-w-4xl mx-auto text-center mb-16">
             <h2 className="text-4xl font-bold mb-6">Vue d'Ensemble de la Recherche</h2>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Cette recherche approfondie analyse la transformation numérique dans les secteurs culturels et artistiques (cinéma, arts plastiques, théâtre, musées, festivals) en Suisse, France, Europe et Canada. Elle constitue la base documentaire du projet <strong>Boussole Numérique Culture</strong>, un outil d'auto-évaluation destiné aux acteurs culturels genevois.
+              Cette recherche approfondie analyse la transformation numérique dans les secteurs culturels et artistiques (cinéma, arts plastiques, théâtre, musées, festivals) en Suisse, France, Europe et Canada. Elle constitue la base documentaire du projet <strong>Boussole Numérique Culture</strong>, un outil de sensibilisation et d'accompagnement à l'image de <em>Nos Gestes Climat</em> : simple, concret, rapide à utiliser pour une première évaluation, puis utilisable régulièrement pour suivre ses avancées avec des points d'étape avant/après.
             </p>
           </div>
 
@@ -126,7 +123,7 @@ export default function Home() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground leading-relaxed">
-                  Fournir une base de réflexion solide pour élaborer le concept de la <strong>Boussole Numérique Culture</strong> et démontrer l'intérêt de réaliser cet outil d'auto-évaluation de la maturité numérique avec accompagnement IA personnalisé.
+                  Fournir une base de réflexion solide pour élaborer le concept de la <strong>Boussole Numérique Culture</strong>, un outil de sensibilisation permettant aux acteurs culturels de mieux appréhender les enjeux numériques et de l'IA, de s'approprier les nouvelles possibilités plutôt que de les subir. L'outil propose un accompagnement personnalisé complémentaire au travail de consultants.
                 </p>
               </CardContent>
             </Card>
@@ -288,34 +285,28 @@ export default function Home() {
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="p-6 border-l-4 rounded-r-lg mb-6" style={{ backgroundColor: 'rgba(239, 207, 183, 0.1)', borderColor: '#EFCFB7' }}>
-                  <p className="text-sm font-semibold mb-2" style={{ color: '#262845' }}>Outils existants : stagnation depuis 2019</p>
-                  <p className="text-sm text-muted-foreground">
-                    Meemoo (Belgique) et DigMus (Suède) n'ont pas évolué. Aucun outil spécifique pour la Suisse romande.
-                  </p>
+                <div className="space-y-4">
+                  <div className="p-6 border-l-4 rounded-r-lg" style={{ backgroundColor: 'rgba(239, 207, 183, 0.1)', borderColor: '#EFCFB7' }}>
+                    <p className="text-sm font-semibold mb-2" style={{ color: '#262845' }}>Un outil de sensibilisation, pas un audit</p>
+                    <p className="text-sm text-muted-foreground">
+                      À l'image de <em>Nos Gestes Climat</em> (2,7M tests), la Boussole propose un premier état des lieux accessible, rapide et gratuit. L'objectif : mieux appréhender les enjeux numériques et IA, s'approprier les possibilités plutôt que de les subir.
+                    </p>
+                  </div>
+                  
+                  <div className="p-6 border-l-4 rounded-r-lg" style={{ backgroundColor: 'rgba(81, 87, 146, 0.05)', borderColor: '#515792' }}>
+                    <p className="text-sm font-semibold mb-2" style={{ color: '#515792' }}>Complémentaire au travail de consultants</p>
+                    <p className="text-sm text-muted-foreground">
+                      Les consultants apportent bien plus qu'un audit : stratégie, accompagnement, expertise métier. La Boussole offre un point de départ pour identifier ses besoins avant d'engager un accompagnement professionnel, ou pour suivre régulièrement ses avancées avec des points d'étape avant/après.
+                    </p>
+                  </div>
+                  
+                  <div className="p-6 border-l-4 rounded-r-lg" style={{ backgroundColor: 'rgba(226, 114, 39, 0.05)', borderColor: '#E27227' }}>
+                    <p className="text-sm font-semibold mb-2" style={{ color: '#E27227' }}>Outils existants : stagnation depuis 2019</p>
+                    <p className="text-sm text-muted-foreground">
+                      Meemoo (Belgique) et DigMus (Suède) n'ont pas évolué. Aucun outil spécifique pour la Suisse romande avec accompagnement IA personnalisé.
+                    </p>
+                  </div>
                 </div>
-                
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b">
-                      <th className="text-left p-3 font-semibold">Type</th>
-                      <th className="text-left p-3 font-semibold">Coût</th>
-                      <th className="text-left p-3 font-semibold">Accessibilité</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="border-b">
-                      <td className="p-3">Audits externes</td>
-                      <td className="p-3 font-semibold" style={{ color: '#E58441' }}>5'000-20'000 CHF</td>
-                      <td className="p-3">Limitée</td>
-                    </tr>
-                    <tr>
-                      <td className="p-3">Auto-diagnostic</td>
-                      <td className="p-3 font-semibold" style={{ color: '#E27227' }}>Gratuit</td>
-                      <td className="p-3">Universelle</td>
-                    </tr>
-                  </tbody>
-                </table>
               </CardContent>
             </Card>
           </div>
