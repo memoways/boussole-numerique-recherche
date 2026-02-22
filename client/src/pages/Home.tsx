@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, FileText, Download, ExternalLink, TrendingUp, AlertTriangle, Lightbulb, BookOpen, Users, Target, Zap } from "lucide-react";
+import { ArrowRight, FileText, Download, ExternalLink, TrendingUp, AlertTriangle, Lightbulb, BookOpen, Users, Target, Zap, Building2, Theater, Sparkles } from "lucide-react";
 import Navigation from "@/components/Navigation";
 
 /**
@@ -49,29 +49,29 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-5xl mx-auto mb-12">
             <Card className="bg-card/80 backdrop-blur-sm border-2 transition-all hover:border-[#515792]" style={{ borderColor: '#515792' }}>
               <CardContent className="pt-6 text-center">
-                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#515792' }}>304</div>
-                <div className="text-sm text-muted-foreground">Structures culturelles (Suisse)</div>
+                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#515792' }}>60+</div>
+                <div className="text-sm text-muted-foreground">Institutions culturelles (Genève)</div>
               </CardContent>
             </Card>
             
             <Card className="bg-card/80 backdrop-blur-sm border-2 transition-all hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
               <CardContent className="pt-6 text-center">
-                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#E27227' }}>62%</div>
-                <div className="text-sm text-muted-foreground">Utilisent déjà l'IA</div>
+                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#E27227' }}>40%</div>
+                <div className="text-sm text-muted-foreground">Pourraient l'utiliser</div>
               </CardContent>
             </Card>
             
             <Card className="bg-card/80 backdrop-blur-sm border-2 transition-all hover:border-[#E58441]" style={{ borderColor: '#E58441' }}>
               <CardContent className="pt-6 text-center">
-                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#E58441' }}>2,7M</div>
-                <div className="text-sm text-muted-foreground">Tests (Nos Gestes Climat)</div>
+                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#E58441' }}>25h</div>
+                <div className="text-sm text-muted-foreground">Économisées par structure</div>
               </CardContent>
             </Card>
             
             <Card className="bg-card/80 backdrop-blur-sm border-2 transition-all hover:border-[#EFCFB7]" style={{ borderColor: '#EFCFB7' }}>
               <CardContent className="pt-6 text-center">
-                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#262845' }}>104</div>
-                <div className="text-sm text-muted-foreground">Sources analysées</div>
+                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#262845' }}>60M</div>
+                <div className="text-sm text-muted-foreground">CHF subventions annuelles</div>
               </CardContent>
             </Card>
           </div>
@@ -110,20 +110,20 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             <Card className="border-2 transition-all hover:border-[#515792]" style={{ borderColor: '#515792' }}>
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div>
                     <Badge className="mb-3" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Objectif</Badge>
-                    <CardTitle className="text-2xl">Base Documentaire Probante</CardTitle>
+                    <CardTitle className="text-xl">Base Documentaire Probante</CardTitle>
                   </div>
                   <Target className="w-8 h-8 flex-shrink-0" style={{ color: '#515792' }} />
                 </div>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground leading-relaxed">
-                  Fournir une base de réflexion solide pour élaborer le concept de la <strong>Boussole Numérique Culture</strong>, un outil de sensibilisation permettant aux acteurs culturels de mieux appréhender les enjeux numériques et de l'IA, de s'approprier les nouvelles possibilités plutôt que de les subir. L'outil propose un accompagnement personnalisé complémentaire au travail de consultants.
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Fournir une base de réflexion solide pour élaborer le concept de la <strong>Boussole Numérique Culture</strong>, un outil de sensibilisation permettant aux acteurs culturels de mieux appréhender les enjeux numériques et de l'IA.
                 </p>
               </CardContent>
             </Card>
@@ -132,18 +132,35 @@ export default function Home() {
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div>
-                    <Badge className="mb-3" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Méthodologie</Badge>
-                    <CardTitle className="text-2xl">Approche Rigoureuse</CardTitle>
+                    <Badge className="mb-3" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Impact</Badge>
+                    <CardTitle className="text-xl">Temps Libéré pour Créer</CardTitle>
                   </div>
-                  <BookOpen className="w-8 h-8 flex-shrink-0" style={{ color: '#E27227' }} />
+                  <Sparkles className="w-8 h-8 flex-shrink-0" style={{ color: '#E27227' }} />
                 </div>
               </CardHeader>
               <CardContent>
-                <ul className="space-y-2 text-muted-foreground">
-                  <li>• <strong>104 sources</strong> identifiées et analysées (2023-2026)</li>
-                  <li>• <strong>4 documents PDF</strong> majeurs téléchargés et synthétisés</li>
-                  <li>• Couverture : Suisse, France, Europe, Québec</li>
-                  <li>• Focus : transformation numérique, IA, politiques publiques</li>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  <strong>25h économisées</strong> par structure sur l'auto-évaluation. Ce temps gagné permet de se concentrer sur l'essentiel : <strong>projets artistiques, collaboration, intégration des publics</strong> et enjeux de société.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 transition-all hover:border-[#E58441]" style={{ borderColor: '#E58441' }}>
+              <CardHeader>
+                <div className="flex items-start justify-between">
+                  <div>
+                    <Badge className="mb-3" style={{ backgroundColor: '#E58441', color: 'white', borderColor: '#E58441' }}>Méthodologie</Badge>
+                    <CardTitle className="text-xl">Approche Rigoureuse</CardTitle>
+                  </div>
+                  <BookOpen className="w-8 h-8 flex-shrink-0" style={{ color: '#E58441' }} />
+                </div>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• <strong>104 sources</strong> (2023-2026)</li>
+                  <li>• <strong>4 PDF</strong> majeurs synthétisés</li>
+                  <li>• Suisse, France, Europe, Québec</li>
+                  <li>• Focus : numérique, IA, politiques</li>
                 </ul>
               </CardContent>
             </Card>
@@ -511,6 +528,107 @@ export default function Home() {
                     Télécharger PDF
                   </a>
                 </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Écosystème Genevois Section */}
+      <section className="py-20 bg-muted/30">
+        <div className="container">
+          <div className="max-w-4xl mx-auto text-center mb-16">
+            <h2 className="text-4xl font-bold mb-6">Écosystème Culturel Genevois</h2>
+            <p className="text-lg text-muted-foreground">
+              Genève dispose d'un écosystème culturel riche et diversifié, avec des institutions de renommée internationale et un tissu associatif dynamique.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-12">
+            <Card className="border-2 transition-all hover:border-[#515792]" style={{ borderColor: '#515792' }}>
+              <CardHeader>
+                <div className="flex items-start justify-between">
+                  <div>
+                    <Badge className="mb-3" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Musées</Badge>
+                    <CardTitle className="text-xl">16 Musées</CardTitle>
+                  </div>
+                  <Building2 className="w-8 h-8 flex-shrink-0" style={{ color: '#515792' }} />
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-3">
+                  MAH, MEG, Muséum d'histoire naturelle, MAMCO, Musée d'histoire des sciences, Conservatoire et Jardin botaniques, et plus.
+                </p>
+                <p className="text-xs text-muted-foreground italic">
+                  Source : Ville de Genève, janvier 2026
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 transition-all hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
+              <CardHeader>
+                <div className="flex items-start justify-between">
+                  <div>
+                    <Badge className="mb-3" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Scènes</Badge>
+                    <CardTitle className="text-xl">20+ Théâtres & Salles</CardTitle>
+                  </div>
+                  <Theater className="w-8 h-8 flex-shrink-0" style={{ color: '#E27227' }} />
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-3">
+                  Grand Théâtre, Comédie de Genève, Am Stram Gram, Alhambra, Arena, Victoria Hall, Casino Théâtre, et plus.
+                </p>
+                <p className="text-xs text-muted-foreground italic">
+                  Source : Culture accessible Genève
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 transition-all hover:border-[#E58441]" style={{ borderColor: '#E58441' }}>
+              <CardHeader>
+                <div className="flex items-start justify-between">
+                  <div>
+                    <Badge className="mb-3" style={{ backgroundColor: '#E58441', color: 'white', borderColor: '#E58441' }}>Soutien</Badge>
+                    <CardTitle className="text-xl">60M CHF/an</CardTitle>
+                  </div>
+                  <Sparkles className="w-8 h-8 flex-shrink-0" style={{ color: '#E58441' }} />
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-3">
+                  La Ville de Genève octroie plus de 60 millions de francs de subventions annuelles dans le domaine culturel.
+                </p>
+                <p className="text-xs text-muted-foreground italic">
+                  Source : Ville de Genève, février 2026
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <Card className="border-2" style={{ borderColor: '#515792' }}>
+              <CardHeader>
+                <CardTitle className="text-2xl">Impact et Fréquentation</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid md:grid-cols-3 gap-6 text-center">
+                  <div>
+                    <div className="text-3xl font-bold mb-2" style={{ color: '#515792' }}>1,5M</div>
+                    <p className="text-sm text-muted-foreground">Visiteurs musées 2024</p>
+                  </div>
+                  <div>
+                    <div className="text-3xl font-bold mb-2" style={{ color: '#E27227' }}>6,2%</div>
+                    <p className="text-sm text-muted-foreground">Emplois en industries culturelles</p>
+                  </div>
+                  <div>
+                    <div className="text-3xl font-bold mb-2" style={{ color: '#E58441' }}>135'000</div>
+                    <p className="text-sm text-muted-foreground">Participants médiation 2023</p>
+                  </div>
+                </div>
+                <p className="text-xs text-muted-foreground italic mt-6 text-center">
+                  Sources : Bilan (février 2025), RTS (étude juin 2023), Ville de Genève (septembre 2024)
+                </p>
               </CardContent>
             </Card>
           </div>
