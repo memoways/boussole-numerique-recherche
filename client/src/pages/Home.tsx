@@ -528,13 +528,34 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="py-12 border-t">
-        <div className="container text-center">
-          <p className="text-muted-foreground mb-4">
-            Recherche réalisée par <a href="https://memoways.com/" target="_blank" rel="noopener noreferrer" className="font-semibold hover:underline" style={{ color: '#515792' }}>Memoways</a> • Février 2026
-          </p>
-          <p className="text-sm text-muted-foreground">
-            Base documentaire pour le projet <strong>Boussole Numérique Culture</strong>
-          </p>
+        <div className="container">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-3">
+              <img 
+                src="/logo-memoways.png" 
+                alt="Memoways" 
+                className="h-12 w-auto"
+              />
+              <div className="text-left">
+                <p className="font-semibold" style={{ color: '#515792' }}>Memoways Research</p>
+                <p className="text-sm text-muted-foreground">Février 2026</p>
+              </div>
+            </div>
+            <div className="text-center md:text-right">
+              <p className="text-sm text-muted-foreground mb-2">
+                Base documentaire pour le projet <strong>Boussole Numérique Culture</strong>
+              </p>
+              <a 
+                href="https://memoways.com/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-sm font-semibold hover:underline"
+                style={{ color: '#515792' }}
+              >
+                memoways.com
+              </a>
+            </div>
+          </div>
         </div>
       </footer>
     </div>
