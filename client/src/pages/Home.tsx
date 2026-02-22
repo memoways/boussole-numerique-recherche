@@ -397,9 +397,19 @@ export default function Home() {
                   </div>
                   
                   <div className="p-6 border-l-4 rounded-r-lg" style={{ backgroundColor: 'rgba(226, 114, 39, 0.05)', borderColor: '#E27227' }}>
-                    <p className="text-sm font-semibold mb-2" style={{ color: '#E27227' }}>Outils existants : stagnation depuis 2019</p>
-                    <p className="text-sm text-muted-foreground">
-                      Meemoo (Belgique) et DigMus (Suède) n'ont pas évolué. Aucun outil spécifique pour la Suisse romande avec accompagnement IA personnalisé.
+                    <p className="text-sm font-semibold mb-2" style={{ color: '#E27227' }}>Outils existants : limites importantes</p>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      Meemoo (Belgique) et DigMus (Suède) n'ont pas évolué depuis 2019. Les outils français (Diag-numerique.fr, Visiativ, CMA) présentent des limites pour le secteur culturel :
+                    </p>
+                    <ul className="text-xs text-muted-foreground space-y-1 ml-4">
+                      <li>• <strong>Modèle opaque</strong> : Algorithmes non transparents, pas d'open source</li>
+                      <li>• <strong>Orientation commerciale</strong> : Lead generation (Visiativ, OPCALIA), pas de bien commun</li>
+                      <li>• <strong>Pas de suivi longitudinal</strong> : Impossible de mesurer les progrès dans le temps</li>
+                      <li>• <strong>Questions génériques</strong> : Peu adaptées aux spécificités du secteur culturel</li>
+                      <li>• <strong>Pas de dimension collaborative</strong> : Outils individuels, pas de mise en réseau</li>
+                    </ul>
+                    <p className="text-xs text-muted-foreground mt-3 italic">
+                      Source : Analyse comparative février 2026 (Diag-numerique.fr/MEDEF, Visiativ, CMA France)
                     </p>
                   </div>
                 </div>
@@ -453,6 +463,26 @@ export default function Home() {
                 </p>
                 <Button className="w-full" style={{ backgroundColor: '#E27227', borderColor: '#E27227' }} asChild>
                   <a href="/etat_des_lieux_transformation_numerique_culture.md" download>
+                    <Download className="mr-2 h-4 w-4" />
+                    Télécharger (MD)
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Analyse outils existants */}
+            <Card className="border-2 transition-all hover:shadow-lg hover:border-[#EFCFB7]" style={{ borderColor: '#EFCFB7' }}>
+              <CardHeader>
+                <FileText className="w-12 h-12 mb-4" style={{ color: '#262845' }} />
+                <CardTitle>Analyse outils existants</CardTitle>
+                <CardDescription>Diagnostic Numérique France</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Analyse comparative de 3 outils français (Diag-numerique.fr, Visiativ, CMA) : ce qui fonctionne, limites, recommandations pour la Boussole.
+                </p>
+                <Button className="w-full" style={{ backgroundColor: '#262845', borderColor: '#262845' }} asChild>
+                  <a href="/analyse_outils_diagnostic_numerique_france.md" download>
                     <Download className="mr-2 h-4 w-4" />
                     Télécharger (MD)
                   </a>
