@@ -23,7 +23,7 @@ export default function Home() {
       <Navigation />
       {/* Hero Section with Data Visualization Background */}
       <section 
-        className="relative min-h-[70vh] flex items-center justify-center overflow-hidden"
+        className="relative min-h-[85vh] flex items-center justify-center overflow-hidden"
         style={{
           backgroundImage: 'url(https://cdn.manus.space/i03jtsba6w88n8r7talhx-4adef7d1/01JJ7FQWP8KFXGCQNFVF5XJHQQ.png)',
           backgroundSize: 'cover',
@@ -32,17 +32,15 @@ export default function Home() {
       >
         <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/90 to-background"></div>
         
-        <div className="container relative z-10 text-center px-4 py-16">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-            <span className="bg-gradient-to-r from-blue-500 via-teal-500 to-green-500 bg-clip-text text-transparent">Transformation</span>{" "}
-            <span className="bg-gradient-to-r from-green-500 via-yellow-500 to-orange-500 bg-clip-text text-transparent">Numérique</span>
+        <div className="container relative z-10 text-center px-4 py-24 mt-16">
+          <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
+            <span className="bg-gradient-to-r from-blue-500 via-teal-500 to-green-500 bg-clip-text text-transparent">Transformation numérique</span>
             <br />
-            <span className="text-foreground">dans le Secteur Culturel</span>
+            <span className="bg-gradient-to-r from-green-500 via-yellow-500 to-orange-500 bg-clip-text text-transparent">dans le secteur culturel genevois</span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto mb-12 leading-relaxed">
-            État des lieux sur l'adoption de l'IA et la transformation numérique dans les industries culturelles et créatives.<br/>
-            Une base documentaire pour le projet <span className="font-semibold text-foreground">Boussole Numérique Culture</span>.
+          <p className="text-lg md:text-xl text-muted-foreground max-w-4xl mx-auto mb-12 leading-relaxed">
+            Un site compagnon pour le projet de Boussole numérique culture, pour proposer un état des lieux sur l'adoption de l'IA et la transformation numérique dans les industries culturelles et créatives genevoises.
           </p>
 
           {/* Key Stats */}
@@ -103,30 +101,30 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Vue d'ensemble Section */}
-      <section id="vue-ensemble" className="py-20 bg-muted/30">
+      {/* Description du projet Boussole numérique culturelle */}
+      <section id="description-projet" className="py-20 bg-muted/30">
         <div className="container">
           <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl font-bold mb-6">Vue d'Ensemble de la Recherche</h2>
+            <h2 className="text-4xl font-bold mb-6">Description du projet Boussole numérique culturelle</h2>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Cette recherche approfondie analyse la transformation numérique dans les secteurs culturels et artistiques (cinéma, arts plastiques, théâtre, musées, festivals) en Suisse, France, Europe et Canada. Elle constitue la base documentaire du projet <strong>Boussole Numérique Culture</strong>, un outil de sensibilisation et d'accompagnement à l'image de <em>Nos Gestes Climat</em> : simple, concret, rapide à utiliser pour une première évaluation, puis utilisable régulièrement pour suivre ses avancées avec des points d'étape avant/après.
+              Un outil de sensibilisation et d'accompagnement pour les acteurs culturels genevois, inspiré du modèle <em>Nos Gestes Climat</em> : simple, concret, rapide à utiliser pour une première évaluation, puis utilisable régulièrement pour suivre ses avancées avec des points d'étape avant/après.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
             <Card className="border-2 transition-all hover:border-[#515792]" style={{ borderColor: '#515792' }}>
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div>
                     <Badge className="mb-3" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Objectif</Badge>
-                    <CardTitle className="text-xl">Base Documentaire Probante</CardTitle>
+                    <CardTitle className="text-xl">Base documentaire probante</CardTitle>
                   </div>
                   <Target className="w-8 h-8 flex-shrink-0" style={{ color: '#515792' }} />
                 </div>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Fournir une base de réflexion solide pour élaborer le concept de la <strong>Boussole Numérique Culture</strong>, un outil de sensibilisation permettant aux acteurs culturels de mieux appréhender les enjeux numériques et de l'IA.
+                  Fournir une base de réflexion solide pour élaborer le concept de la <strong>Boussole numérique culture</strong>, un outil de sensibilisation permettant aux acteurs culturels de mieux appréhender les enjeux numériques et de l'IA.
                 </p>
               </CardContent>
             </Card>
@@ -136,24 +134,102 @@ export default function Home() {
                 <div className="flex items-start justify-between">
                   <div>
                     <Badge className="mb-3" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Impact</Badge>
-                    <CardTitle className="text-xl">Temps Libéré pour Créer</CardTitle>
+                    <CardTitle className="text-xl">Temps libéré pour créer</CardTitle>
                   </div>
                   <Sparkles className="w-8 h-8 flex-shrink-0" style={{ color: '#E27227' }} />
                 </div>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  <strong>25h économisées</strong> par structure sur l'auto-évaluation. Ce temps gagné permet de se concentrer sur l'essentiel : <strong>projets artistiques, collaboration, intégration des publics</strong> et enjeux de société.
+                  Un outil d'auto-évaluation rapide et accessible libère du temps pour se concentrer sur l'essentiel : <strong>projets artistiques, collaboration, intégration des publics</strong> et enjeux de société.
                 </p>
               </CardContent>
             </Card>
+          </div>
+        </div>
+      </section>
 
+      <section id="proposition" className="py-20 bg-muted/30">
+        <div className="container">
+          <div className="max-w-4xl mx-auto text-center mb-16">
+            <h2 className="text-4xl font-bold mb-6">La Boussole numérique culture</h2>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              Un outil de sensibilisation et d'accompagnement pour les acteurs culturels genevois, inspiré du modèle <em>Nos Gestes Climat</em>.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto mb-12">
+            <Card className="border-2" style={{ borderColor: '#515792' }}>
+              <CardHeader>
+                <Badge className="mb-3 w-fit" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Objectif</Badge>
+                <CardTitle className="text-2xl">Sensibilisation et appropriation</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  Permettre aux structures culturelles genevoises de mieux appréhender les enjeux numériques et de l'IA, de s'approprier les nouvelles possibilités plutôt que de les subir.
+                </p>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• Évaluation simple et rapide</li>
+                  <li>• Conseil personnalisé intégré</li>
+                  <li>• Suivi régulier avec points d'étape avant/après</li>
+                  <li>• Complémentaire au travail de consultants</li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2" style={{ borderColor: '#E27227' }}>
+              <CardHeader>
+                <Badge className="mb-3 w-fit" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Impact</Badge>
+                <CardTitle className="text-2xl">Temps libéré pour l'essentiel</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  Un outil d'auto-évaluation rapide et accessible libère du temps pour se concentrer sur l'essentiel :
+                </p>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• <strong>Projets artistiques</strong> et créatifs</li>
+                  <li>• <strong>Collaboration</strong> entre acteurs culturels</li>
+                  <li>• <strong>Intégration des publics</strong> dans les projets</li>
+                  <li>• <strong>Enjeux de société</strong> et communication</li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <Card className="border-2" style={{ borderColor: '#E58441' }}>
+              <CardHeader>
+                <Badge className="mb-3 w-fit" style={{ backgroundColor: '#E58441', color: 'white', borderColor: '#E58441' }}>Évolutivité</Badge>
+                <CardTitle className="text-2xl">Potentiel de transposition</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground leading-relaxed">
+                  Selon l'intérêt et le succès de cet outil à Genève, <strong>il est possible de le transposer à d'autres cantons et à l'ensemble de la Suisse</strong>. Le modèle genevois servira de pilote pour valider la méthodologie, les fonctionnalités et l'impact avant un déploiement plus large.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+
+      {/* Vue d'ensemble Section */}
+      <section id="vue-ensemble" className="py-20">
+        <div className="container">
+          <div className="max-w-4xl mx-auto text-center mb-16">
+            <h2 className="text-4xl font-bold mb-6">Vue d'ensemble de la recherche</h2>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              Cette recherche approfondie analyse la transformation numérique dans les secteurs culturels et artistiques (cinéma, arts plastiques, théâtre, musées, festivals) en Suisse, France, Europe et Canada. Elle constitue la base documentaire du projet <strong>Boussole Numérique Culture</strong>, un outil de sensibilisation et d'accompagnement à l'image de <em>Nos Gestes Climat</em> : simple, concret, rapide à utiliser pour une première évaluation, puis utilisable régulièrement pour suivre ses avancées avec des points d'étape avant/après.
+            </p>
+          </div>
+
+          <div className="max-w-2xl mx-auto">
             <Card className="border-2 transition-all hover:border-[#E58441]" style={{ borderColor: '#E58441' }}>
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div>
                     <Badge className="mb-3" style={{ backgroundColor: '#E58441', color: 'white', borderColor: '#E58441' }}>Méthodologie</Badge>
-                    <CardTitle className="text-xl">Approche Rigoureuse</CardTitle>
+                    <CardTitle className="text-xl">Approche rigoureuse</CardTitle>
                   </div>
                   <BookOpen className="w-8 h-8 flex-shrink-0" style={{ color: '#E58441' }} />
                 </div>
@@ -171,11 +247,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Constats Majeurs Section */}
+      {/* Constats majeurs Section */}
       <section id="constats" className="py-20">
         <div className="container">
           <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl font-bold mb-6">Constats Majeurs</h2>
+            <h2 className="text-4xl font-bold mb-6">Constats majeurs</h2>
             <p className="text-lg text-muted-foreground">
               Les résultats de cette recherche révèlent des défis importants mais aussi des opportunités significatives pour les acteurs culturels.
             </p>
@@ -188,7 +264,7 @@ export default function Home() {
                 <div className="flex items-start justify-between">
                   <div>
                     <Badge className="mb-3" style={{ backgroundColor: '#E58441', color: 'white', borderColor: '#E58441' }}>Problèmes</Badge>
-                    <CardTitle className="text-2xl">Défis Récurrents</CardTitle>
+                    <CardTitle className="text-2xl">Défis récurrents</CardTitle>
                   </div>
                   <AlertTriangle className="w-8 h-8 flex-shrink-0" style={{ color: '#E58441' }} />
                 </div>
@@ -225,7 +301,7 @@ export default function Home() {
                 <div className="flex items-start justify-between">
                   <div>
                     <Badge className="mb-3" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Opportunités</Badge>
-                    <CardTitle className="text-2xl">Leviers d'Action</CardTitle>
+                    <CardTitle className="text-2xl">Leviers d'action</CardTitle>
                   </div>
                   <Lightbulb className="w-8 h-8 flex-shrink-0 ml-4" style={{ color: '#E27227' }} />
                 </div>
@@ -262,7 +338,7 @@ export default function Home() {
                 <div className="flex items-start justify-between">
                   <div>
                     <Badge className="mb-3" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Enjeux</Badge>
-                    <CardTitle className="text-2xl">Enjeux Stratégiques</CardTitle>
+                    <CardTitle className="text-2xl">Enjeux stratégiques</CardTitle>
                   </div>
                   <TrendingUp className="w-8 h-8 flex-shrink-0 ml-4" style={{ color: '#515792' }} />
                 </div>
@@ -299,7 +375,7 @@ export default function Home() {
                 <div className="flex items-start justify-between">
                   <div>
                     <Badge className="mb-3" style={{ backgroundColor: '#EFCFB7', color: '#262845', borderColor: '#EFCFB7' }}>Analyse</Badge>
-                    <CardTitle className="text-2xl">Pourquoi un Nouvel Outil ?</CardTitle>
+                    <CardTitle className="text-2xl">Pourquoi un nouvel outil ?</CardTitle>
                   </div>
                   <Zap className="w-8 h-8 flex-shrink-0" style={{ color: '#262845' }} />
                 </div>
@@ -337,18 +413,18 @@ export default function Home() {
       <section id="documents" className="py-20 bg-muted/30">
         <div className="container">
           <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl font-bold mb-6">Documents Principaux</h2>
+            <h2 className="text-4xl font-bold mb-6">Documents principaux</h2>
             <p className="text-lg text-muted-foreground">
               Accédez aux synthèses et documents sources qui ont alimenté cette recherche.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {/* Étude Complète */}
+            {/* Étude complète */}
             <Card className="border-2 transition-all hover:shadow-lg hover:border-[#515792]" style={{ borderColor: '#515792' }}>
               <CardHeader>
                 <FileText className="w-12 h-12 mb-4" style={{ color: '#515792' }} />
-                <CardTitle>Étude Complète</CardTitle>
+                <CardTitle>Étude complète</CardTitle>
                 <CardDescription>Document Consolidé - Toute l'Étude</CardDescription>
               </CardHeader>
               <CardContent>
@@ -364,11 +440,11 @@ export default function Home() {
               </CardContent>
             </Card>
 
-            {/* État des Lieux */}
+            {/* État des lieux */}
             <Card className="border-2 transition-all hover:shadow-lg hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
               <CardHeader>
                 <FileText className="w-12 h-12 mb-4" style={{ color: '#E27227' }} />
-                <CardTitle>État des Lieux</CardTitle>
+                <CardTitle>État des lieux</CardTitle>
                 <CardDescription>Rapport de Synthèse Principal</CardDescription>
               </CardHeader>
               <CardContent>
@@ -384,11 +460,11 @@ export default function Home() {
               </CardContent>
             </Card>
 
-            {/* Liste des Sources */}
+            {/* Liste des sources */}
             <Card className="border-2 transition-all hover:shadow-lg hover:border-[#E58441]" style={{ borderColor: '#E58441' }}>
               <CardHeader>
                 <FileText className="w-12 h-12 mb-4" style={{ color: '#E58441' }} />
-                <CardTitle>Liste des Sources</CardTitle>
+                <CardTitle>Liste des sources</CardTitle>
                 <CardDescription>104 Sources Documentées</CardDescription>
               </CardHeader>
               <CardContent>
@@ -404,11 +480,11 @@ export default function Home() {
               </CardContent>
             </Card>
 
-            {/* Synthèse Documents Clés */}
+            {/* Synthèse documents clés */}
             <Card className="border-2 transition-all hover:shadow-lg hover:border-[#EFCFB7]" style={{ borderColor: '#EFCFB7' }}>
               <CardHeader>
                 <FileText className="w-12 h-12 mb-4" style={{ color: '#262845' }} />
-                <CardTitle>Synthèse Documents Clés</CardTitle>
+                <CardTitle>Synthèse documents clés</CardTitle>
                 <CardDescription>Extraction des 4 PDF Majeurs</CardDescription>
               </CardHeader>
               <CardContent>
@@ -428,7 +504,7 @@ export default function Home() {
             <Card className="border-2 transition-all hover:shadow-lg hover:border-[#515792]" style={{ borderColor: '#515792' }}>
               <CardHeader>
                 <FileText className="w-12 h-12 mb-4" style={{ color: '#515792' }} />
-                <CardTitle>Guide d'Utilisation</CardTitle>
+                <CardTitle>Guide d'utilisation</CardTitle>
                 <CardDescription>README - Mode d'Emploi</CardDescription>
               </CardHeader>
               <CardContent>
@@ -451,7 +527,7 @@ export default function Home() {
       <section id="pdfs" className="py-20">
         <div className="container">
           <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl font-bold mb-6">Documents PDF Clés</h2>
+            <h2 className="text-4xl font-bold mb-6">Documents PDF clés</h2>
             <p className="text-lg text-muted-foreground">
               Les 4 rapports majeurs qui ont structuré cette recherche.
             </p>
@@ -461,7 +537,7 @@ export default function Home() {
             <Card className="border-2 transition-all hover:shadow-lg hover:border-[#515792]" style={{ borderColor: '#515792' }}>
               <CardHeader>
                 <Badge className="mb-3 w-fit" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>UNESCO 2025</Badge>
-                <CardTitle>IA et Culture</CardTitle>
+                <CardTitle>IA et culture</CardTitle>
                 <CardDescription>Rapport du Groupe d'Experts Indépendants</CardDescription>
               </CardHeader>
               <CardContent>
@@ -480,7 +556,7 @@ export default function Home() {
             <Card className="border-2 transition-all hover:shadow-lg hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
               <CardHeader>
                 <Badge className="mb-3 w-fit" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Québec 2025</Badge>
-                <CardTitle>L'IA en Culture</CardTitle>
+                <CardTitle>L'IA en culture</CardTitle>
                 <CardDescription>Mieux Comprendre pour Agir Ensemble</CardDescription>
               </CardHeader>
               <CardContent>
@@ -499,7 +575,7 @@ export default function Home() {
             <Card className="border-2 transition-all hover:shadow-lg hover:border-[#E58441]" style={{ borderColor: '#E58441' }}>
               <CardHeader>
                 <Badge className="mb-3 w-fit" style={{ backgroundColor: '#E58441', color: 'white', borderColor: '#E58441' }}>Europe 2025</Badge>
-                <CardTitle>IA dans les Industries Culturelles</CardTitle>
+                <CardTitle>IA dans les industries culturelles</CardTitle>
                 <CardDescription>Adoption et Impact en Europe</CardDescription>
               </CardHeader>
               <CardContent>
@@ -518,7 +594,7 @@ export default function Home() {
             <Card className="border-2 transition-all hover:shadow-lg hover:border-[#EFCFB7]" style={{ borderColor: '#EFCFB7' }}>
               <CardHeader>
                 <Badge className="mb-3 w-fit" style={{ backgroundColor: '#EFCFB7', color: '#262845', borderColor: '#EFCFB7' }}>Europe 2024</Badge>
-                <CardTitle>Transformation Numérique et Politiques Culturelles</CardTitle>
+                <CardTitle>Transformation numérique et politiques culturelles</CardTitle>
                 <CardDescription>Perspectives Européennes</CardDescription>
               </CardHeader>
               <CardContent>
@@ -538,74 +614,12 @@ export default function Home() {
       </section>
 
       {/* Proposition Section */}
-      <section id="proposition" className="py-20 bg-muted/30">
-        <div className="container">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl font-bold mb-6">La Boussole Numérique Culture</h2>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              Un outil de sensibilisation et d'accompagnement pour les acteurs culturels genevois, inspiré du modèle <em>Nos Gestes Climat</em>.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto mb-12">
-            <Card className="border-2" style={{ borderColor: '#515792' }}>
-              <CardHeader>
-                <Badge className="mb-3 w-fit" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Objectif</Badge>
-                <CardTitle className="text-2xl">Sensibilisation & Appropriation</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground leading-relaxed mb-4">
-                  Permettre aux structures culturelles genevoises de mieux appréhender les enjeux numériques et de l'IA, de s'approprier les nouvelles possibilités plutôt que de les subir.
-                </p>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• Évaluation simple et rapide</li>
-                  <li>• Conseil personnalisé intégré</li>
-                  <li>• Suivi régulier avec points d'étape avant/après</li>
-                  <li>• Complémentaire au travail de consultants</li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2" style={{ borderColor: '#E27227' }}>
-              <CardHeader>
-                <Badge className="mb-3 w-fit" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Impact</Badge>
-                <CardTitle className="text-2xl">Temps Libéré pour l'Essentiel</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground leading-relaxed mb-4">
-                  Un outil d'auto-évaluation rapide et accessible libère du temps pour se concentrer sur l'essentiel :
-                </p>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• <strong>Projets artistiques</strong> et créatifs</li>
-                  <li>• <strong>Collaboration</strong> entre acteurs culturels</li>
-                  <li>• <strong>Intégration des publics</strong> dans les projets</li>
-                  <li>• <strong>Enjeux de société</strong> et communication</li>
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="max-w-4xl mx-auto">
-            <Card className="border-2" style={{ borderColor: '#E58441' }}>
-              <CardHeader>
-                <Badge className="mb-3 w-fit" style={{ backgroundColor: '#E58441', color: 'white', borderColor: '#E58441' }}>Évolutivité</Badge>
-                <CardTitle className="text-2xl">Potentiel de Transposition</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground leading-relaxed">
-                  Selon l'intérêt et le succès de cet outil à Genève, <strong>il est possible de le transposer à d'autres cantons et à l'ensemble de la Suisse</strong>. Le modèle genevois servira de pilote pour valider la méthodologie, les fonctionnalités et l'impact avant un déploiement plus large.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
 
       {/* Écosystème Genevois Section */}
       <section className="py-20">
         <div className="container">
           <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl font-bold mb-6">Écosystème Culturel Genevois</h2>
+            <h2 className="text-4xl font-bold mb-6">Écosystème culturel genevois</h2>
             <p className="text-lg text-muted-foreground">
               Genève dispose d'un écosystème culturel riche et diversifié, avec des institutions de renommée internationale et un tissu associatif dynamique.
             </p>
@@ -760,7 +774,7 @@ export default function Home() {
           <div className="max-w-4xl mx-auto">
             <Card className="border-2" style={{ borderColor: '#515792' }}>
               <CardHeader>
-                <CardTitle className="text-2xl">Impact et Fréquentation</CardTitle>
+                <CardTitle className="text-2xl">Impact et fréquentation</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="grid md:grid-cols-3 gap-6 text-center">
