@@ -40,15 +40,17 @@ export default function Navigation() {
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          {/* Logo / Title */}
+          {/* Logo Memoways */}
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="flex items-center gap-2 font-bold text-lg hover:opacity-80 transition-opacity"
+            className="flex items-center gap-3 hover:opacity-80 transition-opacity"
           >
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary via-secondary to-accent flex items-center justify-center">
-              <span className="text-white text-sm font-bold">TN</span>
-            </div>
-            <span className="hidden sm:inline">Transformation Numérique</span>
+            <img 
+              src="/logo-memoways.png" 
+              alt="Memoways" 
+              className="h-10 w-auto"
+            />
+            <span className="hidden sm:inline font-bold text-lg" style={{ color: '#515792' }}>Memoways Research</span>
           </button>
 
           {/* Desktop Navigation */}
@@ -67,6 +69,7 @@ export default function Navigation() {
               variant="default"
               size="sm"
               className="ml-2"
+              style={{ backgroundColor: '#E27227', borderColor: '#E27227' }}
               asChild
             >
               <a href="https://memoways.com/" target="_blank" rel="noopener noreferrer">
@@ -108,6 +111,7 @@ export default function Navigation() {
                 variant="default"
                 size="sm"
                 className="mt-2"
+                style={{ backgroundColor: '#E27227', borderColor: '#E27227' }}
                 asChild
               >
                 <a href="https://memoways.com/" target="_blank" rel="noopener noreferrer">
