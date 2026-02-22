@@ -56,22 +56,25 @@ export default function Home() {
             
             <Card className="bg-card/80 backdrop-blur-sm border-2 transition-all hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
               <CardContent className="pt-6 text-center">
-                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#E27227' }}>40%</div>
-                <div className="text-sm text-muted-foreground">Pourraient l'utiliser</div>
+                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#E27227' }}>62%</div>
+                <div className="text-sm text-muted-foreground">Utilisent déjà l'IA</div>
+                <div className="text-xs text-muted-foreground italic mt-2">Source : Étude québécoise 2025</div>
               </CardContent>
             </Card>
             
             <Card className="bg-card/80 backdrop-blur-sm border-2 transition-all hover:border-[#E58441]" style={{ borderColor: '#E58441' }}>
               <CardContent className="pt-6 text-center">
-                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#E58441' }}>25h</div>
-                <div className="text-sm text-muted-foreground">Économisées par structure</div>
+                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#E58441' }}>40%</div>
+                <div className="text-sm text-muted-foreground">Ont besoin d'accompagnement</div>
+                <div className="text-xs text-muted-foreground italic mt-2">Extrapolé PME suisses (SECO 2025)</div>
               </CardContent>
             </Card>
             
             <Card className="bg-card/80 backdrop-blur-sm border-2 transition-all hover:border-[#EFCFB7]" style={{ borderColor: '#EFCFB7' }}>
               <CardContent className="pt-6 text-center">
-                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#262845' }}>60M</div>
-                <div className="text-sm text-muted-foreground">CHF subventions annuelles</div>
+                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#262845' }}>104</div>
+                <div className="text-sm text-muted-foreground">Sources documentées</div>
+                <div className="text-xs text-muted-foreground italic mt-2">Recherche février 2026</div>
               </CardContent>
             </Card>
           </div>
@@ -570,7 +573,7 @@ export default function Home() {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground leading-relaxed mb-4">
-                  <strong>25 heures économisées</strong> par structure sur l'auto-évaluation. Ce temps gagné permet de se concentrer sur :
+                  Un outil d'auto-évaluation rapide et accessible libère du temps pour se concentrer sur l'essentiel :
                 </p>
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li>• <strong>Projets artistiques</strong> et créatifs</li>
