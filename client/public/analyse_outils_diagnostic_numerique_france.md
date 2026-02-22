@@ -1,7 +1,7 @@
-# Analyse des Outils de Diagnostic Numérique Français pour la Boussole Numérique Culture
+# Analyse des Outils de Diagnostic Numérique Existants pour la Boussole Numérique Culture
 
 **Date** : Février 2026  
-**Contexte** : Analyse comparative de 3 outils de diagnostic numérique français pour identifier les bonnes pratiques et limites à prendre en compte pour le projet Boussole Numérique Culture à Genève.
+**Contexte** : Analyse comparative de 4 outils de diagnostic numérique (3 français + 1 genevois) pour identifier les bonnes pratiques et limites à prendre en compte pour le projet Boussole Numérique Culture à Genève.
 
 ---
 
@@ -74,7 +74,57 @@
 
 ---
 
-## 3. CMA (Chambres de Métiers et de l'Artisanat) - Autodiagnostic Numérique
+## 3. Observatoire du numérique (Canton de Genève)
+
+### Description
+- **URL** : https://www.ge.ch/dossier/entreprises-numerique/ressources-outils/observatoire-du-numerique-outil-auto-evaluation-pme
+- **Porteur** : Département de l'économie et de l'emploi (DEE) du Canton de Genève, en partenariat avec UNIGE (CUI), HEG et Ethix Lab
+- **Cible** : PME genevoises (tous secteurs)
+- **Lancement** : Décembre 2022
+- **Promesse** : "Identifier votre degré de maturité en termes de numérisation et de responsabilité numérique"
+
+### Contexte de création
+Entre mai et septembre 2022, **plus de 1200 entreprises genevoises** ont participé à une enquête sur leurs pratiques numériques. L'analyse des données a permis de développer l'Observatoire du numérique, dévoilé lors du Forum économie numérique de décembre 2022.
+
+### Fonctionnement
+1. **Auto-évaluation de la maturité numérique** : Questionnaire en ligne
+2. **Comparaison anonyme** : Positionnement par rapport aux autres entreprises (par secteur et typologie)
+3. **Recommandations personnalisées** : Ressources adaptées au niveau de maturité
+4. **Plateforme évolutive** : Enrichissement continu, témoignages et échange de bonnes pratiques
+
+### Points forts ✅
+- **Ancrage local fort** : Développé spécifiquement pour le Canton de Genève avec données de 1200+ entreprises locales
+- **Partenariat académique solide** : UNIGE + HEG garantissent rigueur méthodologique
+- **Gratuité et libre accès** : Pas de barrière financière
+- **Comparaison anonyme** : Encourage participation sans crainte de jugement
+- **Approche évolutive** : Outil amené à s'enrichir dans le temps
+- **Dimension responsabilité numérique** : Intègre enjeux éthiques et juridiques
+- **Soutien institutionnel** : Porté par le DEE (département cantonal)
+- **Pas d'orientation commerciale** : Outil d'intérêt général, bien commun
+
+### Limites ❌
+- **Ciblage généraliste PME** : Non adapté spécifiquement au secteur culturel (questions orientées commerce, industrie, services)
+- **Absence de dimension IA** : Lancé en 2022, avant l'explosion de l'IA générative (pas d'évaluation de l'usage de l'IA)
+- **Modèle fermé** : Pas d'information sur l'open source, impossible de vérifier la méthodologie ou de réutiliser
+- **Pas de suivi longitudinal apparent** : Pas d'indication claire sur la possibilité de refaire le test régulièrement
+- **Dimension collaborative limitée** : Témoignages et échange de bonnes pratiques mentionnés mais peu détaillés
+- **Absence de lien avec l'accompagnement** : Recommandations de ressources mais pas de connexion directe avec consultants
+
+### Complémentarité potentielle avec la Boussole
+L'Observatoire du numérique et la Boussole Numérique Culture pourraient être **complémentaires** :
+- **L'Observatoire** : Pour les PME genevoises (tous secteurs)
+- **La Boussole** : Pour les structures culturelles et artistiques (Genève puis Suisse romande)
+
+**Opportunité de collaboration** : Le DEE pourrait soutenir la Boussole comme extension sectorielle de l'Observatoire, spécifique à la culture.
+
+### Sources
+- Page officielle ge.ch : https://www.ge.ch/dossier/entreprises-numerique/ressources-outils/observatoire-du-numerique-outil-auto-evaluation-pme
+- Article UNIGE (2022) : "Un nouvel outil pour évaluer la numérisation des entreprises" - https://www.unige.ch/lejournal/vie-unige/automne-2022/evaluation-numerique
+- ICT Journal (2022) : "Cet outil permet aux entreprises genevoises d'auto-évaluer leur maturité numérique" - https://www.ictjournal.ch/news/2022-12-14/cet-outil-permet-aux-entreprises-genevoises-dauto-evaluer-leur-maturite-numerique
+
+---
+
+## 4. CMA (Chambres de Métiers et de l'Artisanat) - Autodiagnostic Numérique
 
 ### Description
 - **URL** : https://autodiag-num.artisanat.fr/
@@ -215,7 +265,11 @@
 
 ## Conclusion
 
-Les 3 outils analysés (Diag-numerique.fr, Visiativ, CMA) partagent une **structure commune** (quiz rapide + score + conseils) qui fonctionne bien pour l'accessibilité et l'engagement initial. Cependant, ils présentent des **limites importantes** pour le projet Boussole Numérique Culture :
+Les 4 outils analysés (Diag-numerique.fr, Visiativ, Observatoire du numérique Genève, CMA) partagent une **structure commune** (quiz rapide + score + conseils) qui fonctionne bien pour l'accessibilité et l'engagement initial.
+
+**Point notable** : L'**Observatoire du numérique genevois** se distingue par son **ancrage local fort** (1200+ entreprises genevoises), son **partenariat académique** (UNIGE + HEG), et son **absence d'orientation commerciale** (bien commun). Cependant, il cible les PME tous secteurs et n'intègre pas la dimension IA (lancé en 2022).
+
+Les outils présentent néanmoins des **limites importantes** pour le projet Boussole Numérique Culture :
 
 1. **Opacité** : Modèles fermés, algorithmes non transparents
 2. **Orientation commerciale** : Lead generation, pas de bien commun

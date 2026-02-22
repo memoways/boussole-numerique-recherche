@@ -400,7 +400,7 @@ export default function Home() {
                   <div className="p-6 border-l-4 rounded-r-lg" style={{ backgroundColor: 'rgba(226, 114, 39, 0.05)', borderColor: '#E27227' }}>
                     <p className="text-sm font-semibold mb-2" style={{ color: '#E27227' }}>Outils existants : limites importantes</p>
                     <p className="text-sm text-muted-foreground mb-3">
-                      Meemoo (Belgique) et DigMus (Suède) n'ont pas évolué depuis 2019. Les outils français (Diag-numerique.fr, Visiativ, CMA) présentent des limites pour le secteur culturel :
+                      Meemoo (Belgique) et DigMus (Suède) n'ont pas évolué depuis 2019. L'<strong>Observatoire du numérique genevois</strong> (DEE + UNIGE + HEG, 1200+ entreprises) est excellent pour les PME tous secteurs, mais non adapté à la culture et sans dimension IA. Les outils français (Diag-numerique.fr, Visiativ, CMA) présentent des limites :
                     </p>
                     <ul className="text-xs text-muted-foreground space-y-1 ml-4">
                       <li>• <strong>Modèle opaque</strong> : Algorithmes non transparents, pas d'open source</li>
@@ -410,7 +410,7 @@ export default function Home() {
                       <li>• <strong>Pas de dimension collaborative</strong> : Outils individuels, pas de mise en réseau</li>
                     </ul>
                     <p className="text-xs text-muted-foreground mt-3 italic">
-                      Source : Analyse comparative février 2026 (Diag-numerique.fr/MEDEF, Visiativ, CMA France)
+                      Source : Analyse comparative février 2026 (Observatoire du numérique Genève, Diag-numerique.fr/MEDEF, Visiativ, CMA France)
                     </p>
                   </div>
                 </div>
@@ -480,7 +480,7 @@ export default function Home() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Analyse comparative de 3 outils français (Diag-numerique.fr, Visiativ, CMA) : ce qui fonctionne, limites, recommandations pour la Boussole.
+                  Analyse comparative de 4 outils (Observatoire du numérique Genève, Diag-numerique.fr, Visiativ, CMA) : ce qui fonctionne, limites, recommandations pour la Boussole.
                 </p>
                 <Link href="/analyse-outils">
                   <Button className="w-full" style={{ backgroundColor: '#262845', borderColor: '#262845' }}>
