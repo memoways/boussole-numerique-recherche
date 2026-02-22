@@ -81,9 +81,9 @@ export default function Home() {
               size="lg" 
               className="text-lg group"
               style={{ backgroundColor: '#515792', borderColor: '#515792' }}
-              onClick={() => scrollToSection('vue-ensemble')}
+              onClick={() => scrollToSection('constats')}
             >
-              Découvrir la recherche
+              Constats
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Button 
@@ -91,10 +91,10 @@ export default function Home() {
               variant="outline" 
               className="text-lg group"
               style={{ borderColor: '#E27227', color: '#E27227' }}
-              onClick={() => scrollToSection('documents')}
+              onClick={() => scrollToSection('proposition')}
             >
-              <Download className="mr-2 h-5 w-5 group-hover:translate-y-1 transition-transform" />
-              Télécharger les documents
+              Proposition
+              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
           </div>
         </div>
@@ -169,7 +169,7 @@ export default function Home() {
       </section>
 
       {/* Constats Majeurs Section */}
-      <section id="findings" className="py-20">
+      <section id="constats" className="py-20">
         <div className="container">
           <div className="max-w-4xl mx-auto text-center mb-16">
             <h2 className="text-4xl font-bold mb-6">Constats Majeurs</h2>
@@ -534,8 +534,72 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Proposition Section */}
+      <section id="proposition" className="py-20 bg-muted/30">
+        <div className="container">
+          <div className="max-w-4xl mx-auto text-center mb-16">
+            <h2 className="text-4xl font-bold mb-6">La Boussole Numérique Culture</h2>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              Un outil de sensibilisation et d'accompagnement pour les acteurs culturels genevois, inspiré du modèle <em>Nos Gestes Climat</em>.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto mb-12">
+            <Card className="border-2" style={{ borderColor: '#515792' }}>
+              <CardHeader>
+                <Badge className="mb-3 w-fit" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Objectif</Badge>
+                <CardTitle className="text-2xl">Sensibilisation & Appropriation</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  Permettre aux structures culturelles genevoises de mieux appréhender les enjeux numériques et de l'IA, de s'approprier les nouvelles possibilités plutôt que de les subir.
+                </p>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• Évaluation simple et rapide</li>
+                  <li>• Conseil personnalisé intégré</li>
+                  <li>• Suivi régulier avec points d'étape avant/après</li>
+                  <li>• Complémentaire au travail de consultants</li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2" style={{ borderColor: '#E27227' }}>
+              <CardHeader>
+                <Badge className="mb-3 w-fit" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Impact</Badge>
+                <CardTitle className="text-2xl">Temps Libéré pour l'Essentiel</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  <strong>25 heures économisées</strong> par structure sur l'auto-évaluation. Ce temps gagné permet de se concentrer sur :
+                </p>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• <strong>Projets artistiques</strong> et créatifs</li>
+                  <li>• <strong>Collaboration</strong> entre acteurs culturels</li>
+                  <li>• <strong>Intégration des publics</strong> dans les projets</li>
+                  <li>• <strong>Enjeux de société</strong> et communication</li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <Card className="border-2" style={{ borderColor: '#E58441' }}>
+              <CardHeader>
+                <Badge className="mb-3 w-fit" style={{ backgroundColor: '#E58441', color: 'white', borderColor: '#E58441' }}>Évolutivité</Badge>
+                <CardTitle className="text-2xl">Potentiel de Transposition</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground leading-relaxed">
+                  Selon l'intérêt et le succès de cet outil à Genève, <strong>il est possible de le transposer à d'autres cantons et à l'ensemble de la Suisse</strong>. Le modèle genevois servira de pilote pour valider la méthodologie, les fonctionnalités et l'impact avant un déploiement plus large.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Écosystème Genevois Section */}
-      <section className="py-20 bg-muted/30">
+      <section className="py-20">
         <div className="container">
           <div className="max-w-4xl mx-auto text-center mb-16">
             <h2 className="text-4xl font-bold mb-6">Écosystème Culturel Genevois</h2>
@@ -544,66 +608,150 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-12">
+          <div className="text-center mb-8">
+            <p className="text-muted-foreground">
+              Genève couvre <strong>11 domaines culturels</strong> selon la classification de la Ville de Genève (source : <a href="https://www.geneve.ch/actualites/dossiers-information/culture-creatrice-valeurs" target="_blank" rel="noopener noreferrer" className="underline" style={{ color: '#515792' }}>Ville de Genève, janvier 2026</a>)
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mb-12">
             <Card className="border-2 transition-all hover:border-[#515792]" style={{ borderColor: '#515792' }}>
               <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div>
-                    <Badge className="mb-3" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Musées</Badge>
-                    <CardTitle className="text-xl">16 Musées</CardTitle>
-                  </div>
-                  <Building2 className="w-8 h-8 flex-shrink-0" style={{ color: '#515792' }} />
-                </div>
+                <Badge className="mb-2" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Musées</Badge>
+                <CardTitle className="text-lg">16 Musées</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-muted-foreground mb-3">
-                  MAH, MEG, Muséum d'histoire naturelle, MAMCO, Musée d'histoire des sciences, Conservatoire et Jardin botaniques, et plus.
-                </p>
-                <p className="text-xs text-muted-foreground italic">
-                  Source : Ville de Genève, janvier 2026
+                <p className="text-xs text-muted-foreground">
+                  MAH, MEG, Muséum, MAMCO, Musée d'histoire des sciences, Conservatoire et Jardin botaniques, etc.
                 </p>
               </CardContent>
             </Card>
 
             <Card className="border-2 transition-all hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
               <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div>
-                    <Badge className="mb-3" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Scènes</Badge>
-                    <CardTitle className="text-xl">20+ Théâtres & Salles</CardTitle>
-                  </div>
-                  <Theater className="w-8 h-8 flex-shrink-0" style={{ color: '#E27227' }} />
-                </div>
+                <Badge className="mb-2" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Spectacle Vivant</Badge>
+                <CardTitle className="text-lg">20+ Scènes</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-muted-foreground mb-3">
-                  Grand Théâtre, Comédie de Genève, Am Stram Gram, Alhambra, Arena, Victoria Hall, Casino Théâtre, et plus.
-                </p>
-                <p className="text-xs text-muted-foreground italic">
-                  Source : Culture accessible Genève
+                <p className="text-xs text-muted-foreground">
+                  Grand Théâtre, Comédie, Am Stram Gram, Alhambra, Arena, Victoria Hall, Casino Théâtre, etc.
                 </p>
               </CardContent>
             </Card>
 
             <Card className="border-2 transition-all hover:border-[#E58441]" style={{ borderColor: '#E58441' }}>
               <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div>
-                    <Badge className="mb-3" style={{ backgroundColor: '#E58441', color: 'white', borderColor: '#E58441' }}>Soutien</Badge>
-                    <CardTitle className="text-xl">60M CHF/an</CardTitle>
-                  </div>
-                  <Sparkles className="w-8 h-8 flex-shrink-0" style={{ color: '#E58441' }} />
-                </div>
+                <Badge className="mb-2" style={{ backgroundColor: '#E58441', color: 'white', borderColor: '#E58441' }}>Musique</Badge>
+                <CardTitle className="text-lg">Tous Genres</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-muted-foreground mb-3">
-                  La Ville de Genève octroie plus de 60 millions de francs de subventions annuelles dans le domaine culturel.
-                </p>
-                <p className="text-xs text-muted-foreground italic">
-                  Source : Ville de Genève, février 2026
+                <p className="text-xs text-muted-foreground">
+                  Classique, jazz, musiques actuelles, opéra, musique improvisée (AMR), festivals musicaux.
                 </p>
               </CardContent>
             </Card>
+
+            <Card className="border-2 transition-all hover:border-[#515792]" style={{ borderColor: '#515792' }}>
+              <CardHeader>
+                <Badge className="mb-2" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Cinéma & Audiovisuel</Badge>
+                <CardTitle className="text-lg">Production & Diffusion</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-xs text-muted-foreground">
+                  Salles de cinéma, festivals (GIFF, etc.), production audiovisuelle, création vidéo.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 transition-all hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
+              <CardHeader>
+                <Badge className="mb-2" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Arts Visuels</Badge>
+                <CardTitle className="text-lg">Galeries & Ateliers</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-xs text-muted-foreground">
+                  Galeries d'art, espaces d'exposition, ateliers d'artistes, illustration, bande dessinée.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 transition-all hover:border-[#E58441]" style={{ borderColor: '#E58441' }}>
+              <CardHeader>
+                <Badge className="mb-2" style={{ backgroundColor: '#E58441', color: 'white', borderColor: '#E58441' }}>Littérature & Édition</Badge>
+                <CardTitle className="text-lg">Livres & Presse</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-xs text-muted-foreground">
+                  Bibliothèque de Genève (BGE), maisons d'édition, salons du livre, centres de littérature.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 transition-all hover:border-[#515792]" style={{ borderColor: '#515792' }}>
+              <CardHeader>
+                <Badge className="mb-2" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Patrimoine</Badge>
+                <CardTitle className="text-lg">Matériel & Immatériel</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-xs text-muted-foreground">
+                  Archives, conservation, patrimoine culturel immatériel (Escalade, Feuillu, etc.).
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 transition-all hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
+              <CardHeader>
+                <Badge className="mb-2" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Festivals</Badge>
+                <CardTitle className="text-lg">Manifestations</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-xs text-muted-foreground">
+                  Fête de la Musique, festivals de cinéma, festivals musicaux, manifestations culturelles.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 transition-all hover:border-[#E58441]" style={{ borderColor: '#E58441' }}>
+              <CardHeader>
+                <Badge className="mb-2" style={{ backgroundColor: '#E58441', color: 'white', borderColor: '#E58441' }}>Architecture & Design</Badge>
+                <CardTitle className="text-lg">Création & Exposition</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-xs text-muted-foreground">
+                  Bureaux d'architecture, design graphique et industriel, expositions, arts appliqués.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 transition-all hover:border-[#515792]" style={{ borderColor: '#515792' }}>
+              <CardHeader>
+                <Badge className="mb-2" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Médias Numériques</Badge>
+                <CardTitle className="text-lg">Création Digitale</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-xs text-muted-foreground">
+                  Création numérique, nouveaux médias, art digital, installations interactives.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 transition-all hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
+              <CardHeader>
+                <Badge className="mb-2" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Danse</Badge>
+                <CardTitle className="text-lg">Compagnies & Création</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-xs text-muted-foreground">
+                  Compagnies de danse, création chorégraphique, performances, enseignement.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="text-center mb-8">
+            <p className="text-xs text-muted-foreground italic">
+              Sources : Ville de Genève (janvier 2026), Culture accessible Genève, Canton de Genève
+            </p>
           </div>
 
           <div className="max-w-4xl mx-auto">
