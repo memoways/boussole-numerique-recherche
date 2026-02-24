@@ -154,9 +154,17 @@ export default function Home() {
         <div className="container">
           <div className="max-w-4xl mx-auto text-center mb-16">
             <h2 className="text-4xl font-bold mb-6">La Boussole numérique culture</h2>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              Un outil de sensibilisation et d'accompagnement pour les acteurs culturels genevois, inspiré du modèle <em>Nos Gestes Climat</em>.
+            <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+              Une <strong>application web gratuite</strong> avec expérience conversationnelle guidée pour les acteurs culturels genevois, inspirée du modèle <em>Nos Gestes Climat</em>. L'outil propose trois temps d'utilisation : une photo rapide (10-15 min), un panorama visuel avec pistes d'action, et un approfondissement avec suivi dans le temps.
             </p>
+            <div className="flex justify-center gap-4">
+              <Button asChild variant="outline" style={{ borderColor: '#515792', color: '#515792' }}>
+                <a href="https://typebot.memoways.com/transformation" target="_blank" rel="noopener noreferrer">
+                  <Eye className="w-4 h-4 mr-2" />
+                  Tester le prototype 2024
+                </a>
+              </Button>
+            </div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto mb-12">
@@ -213,6 +221,50 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Relation recherche ↔ développement */}
+      <section className="py-20 bg-gradient-to-br from-[#515792]/5 to-[#E27227]/5">
+        <div className="container">
+          <div className="max-w-4xl mx-auto">
+            <Card className="border-2" style={{ borderColor: '#515792' }}>
+              <CardHeader>
+                <div className="flex items-start justify-between">
+                  <div>
+                    <Badge className="mb-3" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Relation recherche ↔ développement</Badge>
+                    <CardTitle className="text-2xl">Comment ce site nourrit le projet Boussole</CardTitle>
+                  </div>
+                  <ArrowRight className="w-8 h-8 flex-shrink-0" style={{ color: '#515792' }} />
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground leading-relaxed mb-4">
+                  Ce site de recherche constitue <strong>la base de ressources existantes du projet Boussole</strong> et un <strong>terrain d'expérimentation</strong> pour guider et cadrer les choix de conception. La recherche approfondie menée ici a permis de :
+                </p>
+                <ul className="space-y-3 text-muted-foreground">
+                  <li className="flex items-start">
+                    <span className="mr-2" style={{ color: '#515792' }}>•</span>
+                    <span><strong>Valider les hypothèses</strong> et l'analyse de terrain sur les besoins des acteurs culturels</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2" style={{ color: '#515792' }}>•</span>
+                    <span><strong>Situer le projet</strong> dans un contexte plus large (Suisse, Europe, Québec)</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2" style={{ color: '#515792' }}>•</span>
+                    <span><strong>Identifier les modèles de référence</strong> (Nos Gestes Climat) et analyser les outils existants</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="mr-2" style={{ color: '#515792' }}>•</span>
+                    <span><strong>Alimenter la base de ressources</strong> qui sera intégrée dans les recommandations de la Boussole</span>
+                  </li>
+                </ul>
+                <p className="text-muted-foreground leading-relaxed mt-4">
+                  L'outil continuera d'être <strong>alimenté et amélioré tout au long du développement de la Boussole</strong>, assurant une évolution continue fondée sur des données probantes.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
 
       {/* Vue d'ensemble Section */}
       <section id="vue-ensemble" className="py-20">
