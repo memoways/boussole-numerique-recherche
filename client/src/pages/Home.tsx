@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, FileText, Download, ExternalLink, TrendingUp, AlertTriangle, Lightbulb, BookOpen, Users, Target, Zap, Building2, Theater, Sparkles, Eye } from "lucide-react";
+import { ArrowRight, FileText, Download, ExternalLink, TrendingUp, AlertTriangle, Lightbulb, BookOpen, Users, Target, Zap, Building2, Theater, Sparkles, Eye, Star, Compass, Globe, Shield, Layers } from "lucide-react";
 import { Link } from "wouter";
 import Navigation from "@/components/Navigation";
 
@@ -583,6 +583,26 @@ export default function Home() {
               </CardContent>
             </Card>
 
+            {/* Références inspirantes */}
+            <Card className="border-2 transition-all hover:shadow-lg hover:border-[#515792]" style={{ borderColor: '#515792' }}>
+              <CardHeader>
+                <Compass className="w-12 h-12 mb-4" style={{ color: '#515792' }} />
+                <CardTitle>Références inspirantes</CardTitle>
+                <CardDescription>Analyse Comparative Nos Gestes Climat & Skill Builder</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Analyse UX, logique pédagogique et proposition originale de la Boussole par contraste avec deux modèles internationaux.
+                </p>
+                <Link href="/references-inspirantes">
+                  <Button className="w-full" style={{ backgroundColor: '#515792', borderColor: '#515792' }}>
+                    <Eye className="mr-2 h-4 w-4" />
+                    Consulter
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+
             {/* README */}
             <Card className="border-2 transition-all hover:shadow-lg hover:border-[#515792]" style={{ borderColor: '#515792' }}>
               <CardHeader>
@@ -697,6 +717,245 @@ export default function Home() {
       </section>
 
       {/* Proposition Section */}
+
+      {/* Références inspirantes Section */}
+      <section id="references-inspirantes" className="py-20 bg-gradient-to-br from-[#515792]/5 to-[#E27227]/5">
+        <div className="container">
+          <div className="max-w-4xl mx-auto text-center mb-16">
+            <Badge className="mb-4" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Références inspirantes</Badge>
+            <h2 className="text-4xl font-bold mb-6">Deux modèles qui inspirent la Boussole</h2>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              La conception de la Boussole Numérique Culture s'appuie sur l'analyse approfondie de deux outils internationaux exemplaires dans leurs domaines respectifs : <strong>Nos Gestes Climat</strong> (ADEME, France) et le <strong>Skill Builder</strong> de DeepLearning.AI. Ni l'un ni l'autre n'est transposable tel quel au contexte genevois — mais chacun incarne des principes de conception dont la Boussole s'inspire.
+            </p>
+          </div>
+
+          {/* Nos Gestes Climat */}
+          <div className="max-w-6xl mx-auto mb-12">
+            <Card className="border-2" style={{ borderColor: '#515792' }}>
+              <CardHeader>
+                <div className="flex items-start justify-between">
+                  <div>
+                    <Badge className="mb-3" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Modèle 1 · Bien commun numérique</Badge>
+                    <CardTitle className="text-2xl">Nos Gestes Climat (ADEME, France)</CardTitle>
+                    <p className="text-muted-foreground mt-2">2,7 millions de tests · Gratuit · Open source · Sans inscription</p>
+                  </div>
+                  <Globe className="w-10 h-10 flex-shrink-0 ml-4" style={{ color: '#515792' }} />
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="grid md:grid-cols-2 gap-8">
+                  <div>
+                    <h4 className="font-semibold mb-3" style={{ color: '#515792' }}>Ce qui inspire la Boussole</h4>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li className="flex items-start">
+                        <span className="mr-2" style={{ color: '#515792' }}>•</span>
+                        <span><strong>Accessibilité radicale</strong> : sans inscription, sans expertise préalable, résultats immédiats</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="mr-2" style={{ color: '#515792' }}>•</span>
+                        <span><strong>Pédagogie par les ordres de grandeur</strong> : situer son profil dans un contexte plus large</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="mr-2" style={{ color: '#515792' }}>•</span>
+                        <span><strong>Recommandations chiffrées et actionnables</strong> : chaque action a un impact mesurable</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="mr-2" style={{ color: '#515792' }}>•</span>
+                        <span><strong>Dimension collective</strong> : groupes organisations, tableau de bord agrégé, anonymat préservé</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="mr-2" style={{ color: '#515792' }}>•</span>
+                        <span><strong>Modèle contributif et open source</strong> : calcul côté client, données souveraines, communauté de contributeurs</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold mb-3" style={{ color: '#E58441' }}>Limites pour notre contexte</h4>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li className="flex items-start">
+                        <span className="mr-2" style={{ color: '#E58441' }}>•</span>
+                        <span>Conçu pour la population française généraliste, pas pour un secteur professionnel spécifique</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="mr-2" style={{ color: '#E58441' }}>•</span>
+                        <span>Mesure des comportements et consommations, non des compétences organisationnelles</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="mr-2" style={{ color: '#E58441' }}>•</span>
+                        <span>Données françaises : pas de version suisse, pas d'adaptation au contexte genevois</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="mr-2" style={{ color: '#E58441' }}>•</span>
+                        <span>Format exclusivement formulaire : pas de modalités vocales, ludiques ou narratives</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* DeepLearning.AI Skill Builder */}
+          <div className="max-w-6xl mx-auto mb-12">
+            <Card className="border-2" style={{ borderColor: '#E27227' }}>
+              <CardHeader>
+                <div className="flex items-start justify-between">
+                  <div>
+                    <Badge className="mb-3" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Modèle 2 · Évaluation conversationnelle</Badge>
+                    <CardTitle className="text-2xl">DeepLearning.AI Skill Builder</CardTitle>
+                    <p className="text-muted-foreground mt-2">Conversation vocale · Parcours en 5 étapes · Recommandations personnalisées</p>
+                  </div>
+                  <Layers className="w-10 h-10 flex-shrink-0 ml-4" style={{ color: '#E27227' }} />
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="grid md:grid-cols-2 gap-8">
+                  <div>
+                    <h4 className="font-semibold mb-3" style={{ color: '#E27227' }}>Ce qui inspire la Boussole</h4>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li className="flex items-start">
+                        <span className="mr-2" style={{ color: '#E27227' }}>•</span>
+                        <span><strong>Interaction vocale naturelle</strong> : réduit la friction cognitive des formulaires, réponses plus nuancées</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="mr-2" style={{ color: '#E27227' }}>•</span>
+                        <span><strong>Personnalisation dynamique</strong> : l'agent adapte ses questions au profil émergent de l'utilisateur</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="mr-2" style={{ color: '#E27227' }}>•</span>
+                        <span><strong>Ton bienveillant et non normatif</strong> : posture d'accompagnement, pas d'évaluation culpabilisante</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="mr-2" style={{ color: '#E27227' }}>•</span>
+                        <span><strong>Suivi de progression</strong> : mesure de l'évolution dans le temps, pas seulement un état ponctuel</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold mb-3" style={{ color: '#E58441' }}>Limites pour notre contexte</h4>
+                    <ul className="space-y-2 text-sm text-muted-foreground">
+                      <li className="flex items-start">
+                        <span className="mr-2" style={{ color: '#E58441' }}>•</span>
+                        <span>Entièrement en anglais, conçu pour des professionnels de la tech à l'international</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="mr-2" style={{ color: '#E58441' }}>•</span>
+                        <span>Recommandations orientées vers le catalogue commercial de DeepLearning.AI</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="mr-2" style={{ color: '#E58441' }}>•</span>
+                        <span>Données hébergées aux États-Unis : incompatible avec les exigences de souveraineté suisse</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="mr-2" style={{ color: '#E58441' }}>•</span>
+                        <span>Pas de dimension territoriale ni d'orientation vers un écosystème local de soutien</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* AICred mention */}
+          <div className="max-w-6xl mx-auto mb-12">
+            <Card className="border-2" style={{ borderColor: '#EFCFB7' }}>
+              <CardHeader>
+                <div className="flex items-start justify-between">
+                  <div>
+                    <Badge className="mb-3" style={{ backgroundColor: '#EFCFB7', color: '#262845', borderColor: '#EFCFB7' }}>Mention complémentaire · Outil professionnel avancé</Badge>
+                    <CardTitle className="text-2xl">AICred.ai — Référence pour le positionnement</CardTitle>
+                    <p className="text-muted-foreground mt-2">Score 1-10 · 6 sections · 35-45 min · Validation externe PAICE</p>
+                  </div>
+                  <Star className="w-10 h-10 flex-shrink-0 ml-4" style={{ color: '#262845' }} />
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                  AICred.ai se présente comme « le standard pour l'évaluation de la fluidité IA ». Cet outil propose une évaluation conversationnelle approfondie organisée en 6 sections couvrant cinq dimensions de compétence : maîtrise du prompting, compréhension technique, application pratique, évaluation critique et conception de flux de travail. Les résultats sont exprimés sur une échelle de 1 à 10, assortis d'un plan d'apprentissage personnalisé et d'un profil public partageable.
+                </p>
+                <div className="p-4 rounded-lg" style={{ backgroundColor: 'rgba(239, 207, 183, 0.2)', borderLeft: '4px solid #EFCFB7' }}>
+                  <p className="text-sm text-muted-foreground">
+                    <strong>Positionnement de la Boussole par contraste :</strong> AICred.ai s'adresse à des professionnels souhaitant certifier leurs compétences individuelles en IA. La Boussole vise un objectif différent : permettre à des <em>structures culturelles</em> d'appréhender collectivement leurs enjeux de transformation numérique et d'identifier les leviers d'action adaptés à leur réalité institutionnelle, dans un cadre francophone, non commercial et ancré dans l'écosystème genevois.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* La proposition originale de la Boussole */}
+          <div className="max-w-6xl mx-auto">
+            <Card className="border-2" style={{ borderColor: '#515792' }}>
+              <CardHeader>
+                <div className="flex items-start justify-between">
+                  <div>
+                    <Badge className="mb-3" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Proposition originale</Badge>
+                    <CardTitle className="text-2xl">Ce que la Boussole apporte de différent</CardTitle>
+                  </div>
+                  <Compass className="w-10 h-10 flex-shrink-0 ml-4" style={{ color: '#515792' }} />
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+                  Aucun des outils analysés n'occupe l'espace que vise la Boussole : un outil d'auto-évaluation de la maturité numérique <strong>en français, gratuit, souverain, sectoriel, multimodal et écosystémique</strong>, conçu spécifiquement pour les structures culturelles de Genève et, par extension, de la Suisse romande.
+                </p>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="p-4 rounded-lg border" style={{ borderColor: '#515792', backgroundColor: 'rgba(81, 87, 146, 0.05)' }}>
+                    <div className="flex items-center gap-2 mb-2">
+                      <Globe className="w-4 h-4" style={{ color: '#515792' }} />
+                      <span className="font-semibold text-sm" style={{ color: '#515792' }}>Ancrage sectoriel</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">Questions, indicateurs et recommandations calibrés sur les réalités des structures culturelles genevoises</p>
+                  </div>
+                  <div className="p-4 rounded-lg border" style={{ borderColor: '#E27227', backgroundColor: 'rgba(226, 114, 39, 0.05)' }}>
+                    <div className="flex items-center gap-2 mb-2">
+                      <Layers className="w-4 h-4" style={{ color: '#E27227' }} />
+                      <span className="font-semibold text-sm" style={{ color: '#E27227' }}>Approche multimodale</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">Hybride : questionnaire Likert, conversation guidée, éléments ludiques, interaction vocale selon les préférences</p>
+                  </div>
+                  <div className="p-4 rounded-lg border" style={{ borderColor: '#E58441', backgroundColor: 'rgba(229, 132, 65, 0.05)' }}>
+                    <div className="flex items-center gap-2 mb-2">
+                      <Shield className="w-4 h-4" style={{ color: '#E58441' }} />
+                      <span className="font-semibold text-sm" style={{ color: '#E58441' }}>Souveraineté des données</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">Hébergement suisse ou européen, sans monétisation, sans inscription obligatoire — bien commun numérique</p>
+                  </div>
+                  <div className="p-4 rounded-lg border" style={{ borderColor: '#515792', backgroundColor: 'rgba(81, 87, 146, 0.05)' }}>
+                    <div className="flex items-center gap-2 mb-2">
+                      <Compass className="w-4 h-4" style={{ color: '#515792' }} />
+                      <span className="font-semibold text-sm" style={{ color: '#515792' }}>Orientation écosystémique</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">Recommandations vers l'écosystème genevois : formations locales, réseaux pairs, dispositifs de financement cantonaux</p>
+                  </div>
+                  <div className="p-4 rounded-lg border" style={{ borderColor: '#E27227', backgroundColor: 'rgba(226, 114, 39, 0.05)' }}>
+                    <div className="flex items-center gap-2 mb-2">
+                      <Users className="w-4 h-4" style={{ color: '#E27227' }} />
+                      <span className="font-semibold text-sm" style={{ color: '#E27227' }}>Approche contributive</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">Co-construction avec les structures culturelles : définition des indicateurs, validation des questions, enrichissement des recommandations</p>
+                  </div>
+                  <div className="p-4 rounded-lg border" style={{ borderColor: '#E58441', backgroundColor: 'rgba(229, 132, 65, 0.05)' }}>
+                    <div className="flex items-center gap-2 mb-2">
+                      <TrendingUp className="w-4 h-4" style={{ color: '#E58441' }} />
+                      <span className="font-semibold text-sm" style={{ color: '#E58441' }}>Suivi longitudinal</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">Points d'étape avant/après : mesurer la progression dans le temps, pas seulement un état ponctuel</p>
+                  </div>
+                </div>
+                <div className="mt-6 flex justify-center">
+                  <Link href="/references-inspirantes">
+                    <Button variant="outline" style={{ borderColor: '#515792', color: '#515792' }}>
+                      <Eye className="mr-2 h-4 w-4" />
+                      Lire l'analyse complète
+                    </Button>
+                  </Link>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
 
       {/* Écosystème Genevois Section */}
       <section className="py-20">

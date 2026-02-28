@@ -24,8 +24,9 @@ export default function Navigation() {
   };
 
   const navItems = [
-    { id: "overview", label: "Vue d'ensemble" },
-    { id: "findings", label: "Constats" },
+    { id: "vue-ensemble", label: "Vue d'ensemble" },
+    { id: "constats", label: "Constats" },
+    { id: "references-inspirantes", label: "Références" },
     { id: "documents", label: "Documents" },
     { id: "pdfs", label: "PDF" },
   ];
