@@ -24,11 +24,9 @@ export default function Navigation() {
   };
 
   const navItems = [
-    { id: "vue-ensemble", label: "Vue d'ensemble" },
-    { id: "constats", label: "Constats" },
-    { id: "references-inspirantes", label: "Références" },
-    { id: "documents", label: "Documents" },
-    { id: "pdfs", label: "PDF" },
+    { id: "boussole", label: "Boussole numérique culture" },
+    { id: "recherche-contexte", label: "Recherche & contexte" },
+    { id: "references-inspirantes", label: "Inspirations" },
   ];
 
   return (

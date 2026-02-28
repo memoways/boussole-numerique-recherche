@@ -41,7 +41,7 @@ export default function Home() {
           </h1>
           
           <p className="text-lg md:text-xl text-muted-foreground max-w-4xl mx-auto mb-12 leading-relaxed">
-            Un site compagnon pour le projet de Boussole numérique culture, pour proposer un état des lieux sur l'adoption de l'IA et la transformation numérique dans les industries culturelles et créatives genevoises.
+            Un site compagnon pour le projet de <strong>Boussole numérique culture</strong>, pour proposer un état des lieux sur l'adoption de l'IA et la transformation numérique dans les industries culturelles et créatives genevoises.
           </p>
 
           {/* Key Stats */}
@@ -102,69 +102,28 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Description du projet Boussole numérique culturelle */}
-      <section id="description-projet" className="py-20 bg-muted/30">
+      <section id="boussole" className="py-20 bg-muted/30">
         <div className="container">
           <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl font-bold mb-6">Description du projet Boussole numérique culturelle</h2>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              Un outil de sensibilisation et d'accompagnement pour les acteurs culturels genevois, inspiré du modèle <em>Nos Gestes Climat</em> : simple, concret, rapide à utiliser pour une première évaluation, puis utilisable régulièrement pour suivre ses avancées avec des points d'étape avant/après.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            <Card className="border-2 transition-all hover:border-[#515792]" style={{ borderColor: '#515792' }}>
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div>
-                    <Badge className="mb-3" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Objectif</Badge>
-                    <CardTitle className="text-xl">Base documentaire probante</CardTitle>
-                  </div>
-                  <Target className="w-8 h-8 flex-shrink-0" style={{ color: '#515792' }} />
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Fournir une base de réflexion solide pour élaborer le concept de la <strong>Boussole numérique culture</strong>, un outil de sensibilisation permettant aux acteurs culturels de mieux appréhender les enjeux numériques et de l'IA.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 transition-all hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div>
-                    <Badge className="mb-3" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Impact</Badge>
-                    <CardTitle className="text-xl">Temps libéré pour créer</CardTitle>
-                  </div>
-                  <Sparkles className="w-8 h-8 flex-shrink-0" style={{ color: '#E27227' }} />
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Un outil d'auto-évaluation rapide et accessible libère du temps pour se concentrer sur l'essentiel : <strong>projets artistiques, collaboration, intégration des publics</strong> et enjeux de société.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      <section id="proposition" className="py-20 bg-muted/30">
-        <div className="container">
-          <div className="max-w-4xl mx-auto text-center mb-16">
+            <Badge className="mb-4" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Projet en développement</Badge>
             <h2 className="text-4xl font-bold mb-6">La Boussole numérique culture</h2>
-            <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-              Une <strong>application web gratuite</strong> avec expérience conversationnelle guidée pour les acteurs culturels genevois, inspirée du modèle <em>Nos Gestes Climat</em>. L'outil propose trois temps d'utilisation : une photo rapide (10-15 min), un panorama visuel avec pistes d'action, et un approfondissement avec suivi dans le temps.
+            <p className="text-lg text-muted-foreground leading-relaxed mb-4">
+              La <strong>Boussole numérique culture</strong> est une <strong>application web gratuite</strong> conçue pour les acteurs culturels genevois non-techniciens — directeurs, chargés de projet, artistes, administrateurs. Elle propose une expérience d'auto-évaluation de la maturité numérique, accessible sans expertise préalable, inspirée du modèle <em>Nos Gestes Climat</em> (2,7 millions de tests).
             </p>
-            <div className="flex justify-center gap-4">
+            <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+              L'outil est conçu selon une <strong>approche contributive</strong> : dès le départ, les structures culturelles genevoises participent à la définition des indicateurs, à la validation des questions et à l'enrichissement des recommandations. L'expérience est <strong>multimodale et personnalisable</strong> : l'utilisateur choisit son type de parcours selon ses préférences (questionnaire rapide, conversation guidée, mode ludique ou interaction vocale). Les recommandations pointent vers l'écosystème genevois — formations locales, réseaux de pairs, dispositifs de financement cantonaux — sans orienter vers un acteur commercial unique.
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center gap-4 mb-2">
               <Button asChild variant="outline" style={{ borderColor: '#515792', color: '#515792' }}>
                 <a href="https://typebot.memoways.com/transformation" target="_blank" rel="noopener noreferrer">
                   <Eye className="w-4 h-4 mr-2" />
-                  Tester le prototype 2024
+                  Prototype 2024 (base d'expertise)
                 </a>
               </Button>
             </div>
+            <p className="text-xs text-muted-foreground italic">
+              Ce prototype constitue notre base d'expertise : certaines questions et approches seront reprises et intégrées dans la version 2.0, aujourd'hui en conception.
+            </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto mb-12">
@@ -266,8 +225,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Vue d'ensemble Section */}
-      <section id="vue-ensemble" className="py-20">
+      {/* Recherche & contexte Section */}
+      <section id="recherche-contexte" className="py-20">
         <div className="container">
           <div className="max-w-4xl mx-auto text-center mb-16">
             <h2 className="text-4xl font-bold mb-6">Vue d'ensemble de la recherche</h2>
@@ -282,7 +241,7 @@ export default function Home() {
                 <div className="flex items-start justify-between">
                   <div>
                     <Badge className="mb-3" style={{ backgroundColor: '#E58441', color: 'white', borderColor: '#E58441' }}>Méthodologie</Badge>
-                    <CardTitle className="text-xl">Approche rigoureuse</CardTitle>
+                    <CardTitle className="text-xl">Recherche assistée par IA</CardTitle>
                   </div>
                   <BookOpen className="w-8 h-8 flex-shrink-0" style={{ color: '#E58441' }} />
                 </div>
@@ -293,9 +252,161 @@ export default function Home() {
                   <li>• <strong>4 PDF</strong> majeurs synthétisés</li>
                   <li>• Suisse, France, Europe, Québec</li>
                   <li>• Focus : numérique, IA, politiques</li>
+                  <li>• Réalisée avec <strong>Perplexity</strong>, <strong>Manus</strong> et <strong>GenSpark</strong></li>
                 </ul>
               </CardContent>
             </Card>
+          </div>
+
+          {/* Écosystème Genevois intégré dans Recherche & contexte */}
+          <div className="mt-16">
+            <div className="max-w-4xl mx-auto text-center mb-12">
+              <h3 className="text-3xl font-bold mb-4">Écosystème culturel genevois</h3>
+              <p className="text-lg text-muted-foreground">
+                Genève dispose d'un écosystème culturel riche et diversifié, avec des institutions de renommée internationale et un tissu associatif dynamique.
+              </p>
+            </div>
+
+            <div className="text-center mb-8">
+              <p className="text-muted-foreground">
+                Genève couvre <strong>11 domaines culturels</strong> selon la classification de la Ville de Genève (source : <a href="https://www.geneve.ch/actualites/dossiers-information/culture-creatrice-valeurs" target="_blank" rel="noopener noreferrer" className="underline" style={{ color: '#515792' }}>Ville de Genève, janvier 2026</a>)
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mb-12">
+              <Card className="border-2 transition-all hover:border-[#515792]" style={{ borderColor: '#515792' }}>
+                <CardHeader>
+                  <Badge className="mb-2" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Musées</Badge>
+                  <CardTitle className="text-lg">16 Musées</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-xs text-muted-foreground">MAH, MEG, Muséum, MAMCO, Musée d'histoire des sciences, Conservatoire et Jardin botaniques, etc.</p>
+                </CardContent>
+              </Card>
+              <Card className="border-2 transition-all hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
+                <CardHeader>
+                  <Badge className="mb-2" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Spectacle Vivant</Badge>
+                  <CardTitle className="text-lg">20+ Scènes</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-xs text-muted-foreground">Grand Théâtre, Comédie, Am Stram Gram, Alhambra, Arena, Victoria Hall, Casino Théâtre, etc.</p>
+                </CardContent>
+              </Card>
+              <Card className="border-2 transition-all hover:border-[#E58441]" style={{ borderColor: '#E58441' }}>
+                <CardHeader>
+                  <Badge className="mb-2" style={{ backgroundColor: '#E58441', color: 'white', borderColor: '#E58441' }}>Musique</Badge>
+                  <CardTitle className="text-lg">Tous Genres</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-xs text-muted-foreground">Classique, jazz, musiques actuelles, opéra, musique improvisée (AMR), festivals musicaux.</p>
+                </CardContent>
+              </Card>
+              <Card className="border-2 transition-all hover:border-[#515792]" style={{ borderColor: '#515792' }}>
+                <CardHeader>
+                  <Badge className="mb-2" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Cinéma & Audiovisuel</Badge>
+                  <CardTitle className="text-lg">Production & Diffusion</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-xs text-muted-foreground">Salles de cinéma, festivals (GIFF, etc.), production audiovisuelle, création vidéo.</p>
+                </CardContent>
+              </Card>
+              <Card className="border-2 transition-all hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
+                <CardHeader>
+                  <Badge className="mb-2" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Arts Visuels</Badge>
+                  <CardTitle className="text-lg">Galeries & Ateliers</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-xs text-muted-foreground">Galeries d'art, espaces d'exposition, ateliers d'artistes, illustration, bande dessinée.</p>
+                </CardContent>
+              </Card>
+              <Card className="border-2 transition-all hover:border-[#E58441]" style={{ borderColor: '#E58441' }}>
+                <CardHeader>
+                  <Badge className="mb-2" style={{ backgroundColor: '#E58441', color: 'white', borderColor: '#E58441' }}>Littérature & Édition</Badge>
+                  <CardTitle className="text-lg">Livres & Presse</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-xs text-muted-foreground">Bibliothèque de Genève (BGE), maisons d'édition, salons du livre, centres de littérature.</p>
+                </CardContent>
+              </Card>
+              <Card className="border-2 transition-all hover:border-[#515792]" style={{ borderColor: '#515792' }}>
+                <CardHeader>
+                  <Badge className="mb-2" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Patrimoine</Badge>
+                  <CardTitle className="text-lg">Matériel & Immatériel</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-xs text-muted-foreground">Archives, conservation, patrimoine culturel immatériel (Escalade, Feuillu, etc.).</p>
+                </CardContent>
+              </Card>
+              <Card className="border-2 transition-all hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
+                <CardHeader>
+                  <Badge className="mb-2" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Festivals</Badge>
+                  <CardTitle className="text-lg">Manifestations</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-xs text-muted-foreground">Fête de la Musique, festivals de cinéma, festivals musicaux, manifestations culturelles.</p>
+                </CardContent>
+              </Card>
+              <Card className="border-2 transition-all hover:border-[#E58441]" style={{ borderColor: '#E58441' }}>
+                <CardHeader>
+                  <Badge className="mb-2" style={{ backgroundColor: '#E58441', color: 'white', borderColor: '#E58441' }}>Architecture & Design</Badge>
+                  <CardTitle className="text-lg">Création & Exposition</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-xs text-muted-foreground">Bureaux d'architecture, design graphique et industriel, expositions, arts appliqués.</p>
+                </CardContent>
+              </Card>
+              <Card className="border-2 transition-all hover:border-[#515792]" style={{ borderColor: '#515792' }}>
+                <CardHeader>
+                  <Badge className="mb-2" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Médias Numériques</Badge>
+                  <CardTitle className="text-lg">Création Digitale</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-xs text-muted-foreground">Création numérique, nouveaux médias, art digital, installations interactives.</p>
+                </CardContent>
+              </Card>
+              <Card className="border-2 transition-all hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
+                <CardHeader>
+                  <Badge className="mb-2" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Danse</Badge>
+                  <CardTitle className="text-lg">Compagnies & Création</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-xs text-muted-foreground">Compagnies de danse, création chorégraphique, performances, enseignement.</p>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="text-center mb-8">
+              <p className="text-xs text-muted-foreground italic">
+                Sources : Ville de Genève (janvier 2026), Culture accessible Genève, Canton de Genève
+              </p>
+            </div>
+
+            <div className="max-w-4xl mx-auto">
+              <Card className="border-2" style={{ borderColor: '#515792' }}>
+                <CardHeader>
+                  <CardTitle className="text-2xl">Impact et fréquentation</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid md:grid-cols-3 gap-6 text-center">
+                    <div>
+                      <div className="text-3xl font-bold mb-2" style={{ color: '#515792' }}>1,5M</div>
+                      <p className="text-sm text-muted-foreground">Visiteurs musées 2024</p>
+                    </div>
+                    <div>
+                      <div className="text-3xl font-bold mb-2" style={{ color: '#E27227' }}>6,2%</div>
+                      <p className="text-sm text-muted-foreground">Emplois en industries culturelles</p>
+                    </div>
+                    <div>
+                      <div className="text-3xl font-bold mb-2" style={{ color: '#E58441' }}>135'000</div>
+                      <p className="text-sm text-muted-foreground">Participants médiation 2023</p>
+                    </div>
+                  </div>
+                  <p className="text-xs text-muted-foreground italic mt-6 text-center">
+                    Sources : Bilan (février 2025), RTS (étude juin 2023), Ville de Genève (septembre 2024)
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </section>
@@ -951,191 +1062,6 @@ export default function Home() {
                     </Button>
                   </Link>
                 </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Écosystème Genevois Section */}
-      <section className="py-20">
-        <div className="container">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl font-bold mb-6">Écosystème culturel genevois</h2>
-            <p className="text-lg text-muted-foreground">
-              Genève dispose d'un écosystème culturel riche et diversifié, avec des institutions de renommée internationale et un tissu associatif dynamique.
-            </p>
-          </div>
-
-          <div className="text-center mb-8">
-            <p className="text-muted-foreground">
-              Genève couvre <strong>11 domaines culturels</strong> selon la classification de la Ville de Genève (source : <a href="https://www.geneve.ch/actualites/dossiers-information/culture-creatrice-valeurs" target="_blank" rel="noopener noreferrer" className="underline" style={{ color: '#515792' }}>Ville de Genève, janvier 2026</a>)
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mb-12">
-            <Card className="border-2 transition-all hover:border-[#515792]" style={{ borderColor: '#515792' }}>
-              <CardHeader>
-                <Badge className="mb-2" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Musées</Badge>
-                <CardTitle className="text-lg">16 Musées</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-xs text-muted-foreground">
-                  MAH, MEG, Muséum, MAMCO, Musée d'histoire des sciences, Conservatoire et Jardin botaniques, etc.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 transition-all hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
-              <CardHeader>
-                <Badge className="mb-2" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Spectacle Vivant</Badge>
-                <CardTitle className="text-lg">20+ Scènes</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-xs text-muted-foreground">
-                  Grand Théâtre, Comédie, Am Stram Gram, Alhambra, Arena, Victoria Hall, Casino Théâtre, etc.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 transition-all hover:border-[#E58441]" style={{ borderColor: '#E58441' }}>
-              <CardHeader>
-                <Badge className="mb-2" style={{ backgroundColor: '#E58441', color: 'white', borderColor: '#E58441' }}>Musique</Badge>
-                <CardTitle className="text-lg">Tous Genres</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-xs text-muted-foreground">
-                  Classique, jazz, musiques actuelles, opéra, musique improvisée (AMR), festivals musicaux.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 transition-all hover:border-[#515792]" style={{ borderColor: '#515792' }}>
-              <CardHeader>
-                <Badge className="mb-2" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Cinéma & Audiovisuel</Badge>
-                <CardTitle className="text-lg">Production & Diffusion</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-xs text-muted-foreground">
-                  Salles de cinéma, festivals (GIFF, etc.), production audiovisuelle, création vidéo.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 transition-all hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
-              <CardHeader>
-                <Badge className="mb-2" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Arts Visuels</Badge>
-                <CardTitle className="text-lg">Galeries & Ateliers</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-xs text-muted-foreground">
-                  Galeries d'art, espaces d'exposition, ateliers d'artistes, illustration, bande dessinée.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 transition-all hover:border-[#E58441]" style={{ borderColor: '#E58441' }}>
-              <CardHeader>
-                <Badge className="mb-2" style={{ backgroundColor: '#E58441', color: 'white', borderColor: '#E58441' }}>Littérature & Édition</Badge>
-                <CardTitle className="text-lg">Livres & Presse</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-xs text-muted-foreground">
-                  Bibliothèque de Genève (BGE), maisons d'édition, salons du livre, centres de littérature.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 transition-all hover:border-[#515792]" style={{ borderColor: '#515792' }}>
-              <CardHeader>
-                <Badge className="mb-2" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Patrimoine</Badge>
-                <CardTitle className="text-lg">Matériel & Immatériel</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-xs text-muted-foreground">
-                  Archives, conservation, patrimoine culturel immatériel (Escalade, Feuillu, etc.).
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 transition-all hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
-              <CardHeader>
-                <Badge className="mb-2" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Festivals</Badge>
-                <CardTitle className="text-lg">Manifestations</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-xs text-muted-foreground">
-                  Fête de la Musique, festivals de cinéma, festivals musicaux, manifestations culturelles.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 transition-all hover:border-[#E58441]" style={{ borderColor: '#E58441' }}>
-              <CardHeader>
-                <Badge className="mb-2" style={{ backgroundColor: '#E58441', color: 'white', borderColor: '#E58441' }}>Architecture & Design</Badge>
-                <CardTitle className="text-lg">Création & Exposition</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-xs text-muted-foreground">
-                  Bureaux d'architecture, design graphique et industriel, expositions, arts appliqués.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 transition-all hover:border-[#515792]" style={{ borderColor: '#515792' }}>
-              <CardHeader>
-                <Badge className="mb-2" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Médias Numériques</Badge>
-                <CardTitle className="text-lg">Création Digitale</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-xs text-muted-foreground">
-                  Création numérique, nouveaux médias, art digital, installations interactives.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 transition-all hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
-              <CardHeader>
-                <Badge className="mb-2" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Danse</Badge>
-                <CardTitle className="text-lg">Compagnies & Création</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-xs text-muted-foreground">
-                  Compagnies de danse, création chorégraphique, performances, enseignement.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="text-center mb-8">
-            <p className="text-xs text-muted-foreground italic">
-              Sources : Ville de Genève (janvier 2026), Culture accessible Genève, Canton de Genève
-            </p>
-          </div>
-
-          <div className="max-w-4xl mx-auto">
-            <Card className="border-2" style={{ borderColor: '#515792' }}>
-              <CardHeader>
-                <CardTitle className="text-2xl">Impact et fréquentation</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid md:grid-cols-3 gap-6 text-center">
-                  <div>
-                    <div className="text-3xl font-bold mb-2" style={{ color: '#515792' }}>1,5M</div>
-                    <p className="text-sm text-muted-foreground">Visiteurs musées 2024</p>
-                  </div>
-                  <div>
-                    <div className="text-3xl font-bold mb-2" style={{ color: '#E27227' }}>6,2%</div>
-                    <p className="text-sm text-muted-foreground">Emplois en industries culturelles</p>
-                  </div>
-                  <div>
-                    <div className="text-3xl font-bold mb-2" style={{ color: '#E58441' }}>135'000</div>
-                    <p className="text-sm text-muted-foreground">Participants médiation 2023</p>
-                  </div>
-                </div>
-                <p className="text-xs text-muted-foreground italic mt-6 text-center">
-                  Sources : Bilan (février 2025), RTS (étude juin 2023), Ville de Genève (septembre 2024)
-                </p>
               </CardContent>
             </Card>
           </div>
