@@ -46,34 +46,51 @@ export default function Home() {
 
           {/* Key Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-5xl mx-auto mb-12">
+            {/* Stat 1 : Pour qui ? */}
             <Card className="bg-card/80 backdrop-blur-sm border-2 transition-all hover:border-[#515792]" style={{ borderColor: '#515792' }}>
               <CardContent className="pt-6 text-center">
-                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#515792' }}>60+</div>
-                <div className="text-sm text-muted-foreground">Institutions et structures culturelles (Genève)</div>
+                <div className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: '#515792' }}>Pour qui ?</div>
+                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#515792' }}>~5 000</div>
+                <div className="text-sm text-muted-foreground">Structures et établissements des industries culturelles et créatives (canton de Genève)</div>
+                <div className="text-xs text-muted-foreground italic mt-2">
+                  <a href="https://www.geneve.ch/sites/default/files/2023-06/DCTN-etude-les-empreintes-creatives-2023-geneve.pdf" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#515792] transition-colors">Empreintes Créatives, DCTN 2023</a>
+                </div>
               </CardContent>
             </Card>
             
+            {/* Stat 2 : Combien ? */}
             <Card className="bg-card/80 backdrop-blur-sm border-2 transition-all hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
               <CardContent className="pt-6 text-center">
-                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#E27227' }}>62%</div>
-                <div className="text-sm text-muted-foreground">Artistes et acteurs culturels utilisant l'IA</div>
-                <div className="text-xs text-muted-foreground italic mt-2">Source : Étude québécoise 2025</div>
+                <div className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: '#E27227' }}>Combien ?</div>
+                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#E27227' }}>~25 000</div>
+                <div className="text-sm text-muted-foreground">Personnes actives dans une profession créative et culturelle (canton de Genève, 2020–2022)</div>
+                <div className="text-xs text-muted-foreground italic mt-2">
+                  <a href="https://www.geneve.ch/sites/default/files/2023-06/DCTN-etude-les-empreintes-creatives-2023-geneve.pdf" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#E27227] transition-colors">Empreintes Créatives, DCTN 2023</a>
+                </div>
               </CardContent>
             </Card>
             
+            {/* Stat 3 : Pourquoi ? */}
             <Card className="bg-card/80 backdrop-blur-sm border-2 transition-all hover:border-[#E58441]" style={{ borderColor: '#E58441' }}>
               <CardContent className="pt-6 text-center">
-                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#E58441' }}>40%</div>
-                <div className="text-sm text-muted-foreground">Ont besoin d'accompagnement</div>
-                <div className="text-xs text-muted-foreground italic mt-2">Extrapolé PME suisses (SECO 2025)</div>
+                <div className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: '#E58441' }}>Pourquoi ?</div>
+                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#E58441' }}>55–59%</div>
+                <div className="text-sm text-muted-foreground">Des professionnels culturels peinent à identifier leurs besoins en compétences IA — et 59% des actifs auront besoin de formation d'ici 2030</div>
+                <div className="text-xs text-muted-foreground italic mt-2">
+                  <a href="https://competenceculture.ca/nouvelles/sortie-de-letude-sur-le-developpement-des-competences-ia-en-culture/" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#E58441] transition-colors">Compétence Culture 2025</a>
+                  {' '}·{' '}
+                  <a href="https://www.weforum.org/press/2025/01/future-of-jobs-report-2025-78-million-new-job-opportunities-by-2030-but-urgent-upskilling-needed-to-prepare-workforces/" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#E58441] transition-colors">WEF 2025</a>
+                </div>
               </CardContent>
             </Card>
             
+            {/* Stat 4 : Sources */}
             <Card className="bg-card/80 backdrop-blur-sm border-2 transition-all hover:border-[#EFCFB7]" style={{ borderColor: '#EFCFB7' }}>
               <CardContent className="pt-6 text-center">
+                <div className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: '#262845' }}>Base documentaire</div>
                 <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#262845' }}>104</div>
-                <div className="text-sm text-muted-foreground">Sources documentées</div>
-                <div className="text-xs text-muted-foreground italic mt-2">Recherche février 2026</div>
+                <div className="text-sm text-muted-foreground">Sources documentées pour le projet Boussole numérique culture</div>
+                <div className="text-xs text-muted-foreground italic mt-2">Recherche réalisée en février 2026</div>
               </CardContent>
             </Card>
           </div>
