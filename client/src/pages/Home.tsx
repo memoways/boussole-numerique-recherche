@@ -45,7 +45,7 @@ export default function Home() {
           </p>
 
           {/* Key Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-5xl mx-auto mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 max-w-4xl mx-auto mb-12">
             {/* Stat 1 : Pour qui ? */}
             <Card className="bg-card/80 backdrop-blur-sm border-2 transition-all hover:border-[#515792]" style={{ borderColor: '#515792' }}>
               <CardContent className="pt-6 text-center">
@@ -62,8 +62,8 @@ export default function Home() {
             <Card className="bg-card/80 backdrop-blur-sm border-2 transition-all hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
               <CardContent className="pt-6 text-center">
                 <div className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: '#E27227' }}>Combien ?</div>
-                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#E27227' }}>~25 000</div>
-                <div className="text-sm text-muted-foreground">Personnes actives dans une profession créative et culturelle (canton de Genève, 2020–2022)</div>
+                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#E27227' }}>12 150</div>
+                <div className="text-sm text-muted-foreground">Personnes travaillant dans le secteur des ICC à Genève (Ville de Genève, 2020)</div>
                 <div className="text-xs text-muted-foreground italic mt-2">
                   <a href="https://www.geneve.ch/sites/default/files/2023-06/DCTN-etude-les-empreintes-creatives-2023-geneve.pdf" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#E27227] transition-colors">Empreintes Créatives, DCTN 2023</a>
                 </div>
@@ -84,15 +84,7 @@ export default function Home() {
               </CardContent>
             </Card>
             
-            {/* Stat 4 : Sources */}
-            <Card className="bg-card/80 backdrop-blur-sm border-2 transition-all hover:border-[#EFCFB7]" style={{ borderColor: '#EFCFB7' }}>
-              <CardContent className="pt-6 text-center">
-                <div className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: '#262845' }}>Base documentaire</div>
-                <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#262845' }}>104</div>
-                <div className="text-sm text-muted-foreground">Sources documentées pour le projet Boussole numérique culture</div>
-                <div className="text-xs text-muted-foreground italic mt-2">Recherche réalisée en février 2026</div>
-              </CardContent>
-            </Card>
+
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -248,7 +240,9 @@ export default function Home() {
           <div className="max-w-4xl mx-auto text-center mb-16">
             <h2 className="text-4xl font-bold mb-6">Vue d'ensemble de la recherche</h2>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Cette recherche approfondie analyse la transformation numérique dans les secteurs culturels et artistiques (cinéma, arts plastiques, théâtre, musées, festivals) en Suisse, France, Europe et Canada. Elle constitue la base documentaire du projet <strong>Boussole Numérique Culture</strong>, un outil de sensibilisation et d'accompagnement à l'image de <em>Nos Gestes Climat</em> : simple, concret, rapide à utiliser pour une première évaluation, puis utilisable régulièrement pour suivre ses avancées avec des points d'étape avant/après.
+              Une recherche approfondie assistée par des outils IA a permis d'analyser la transformation numérique dans les secteurs culturels et artistiques (cinéma, arts plastiques, théâtre, musées, festivals) en Suisse, France, Europe et Canada. Elle constitue la base documentaire du projet <strong>Boussole Numérique Culture</strong>.
+              <br /><br />
+              Cette recherche va être mise à jour de manière répétée, afin de rester en phase avec les derniers enseignements, projets et études.
             </p>
           </div>
 
