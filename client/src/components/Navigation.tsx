@@ -71,7 +71,7 @@ export default function Navigation() {
               style={{ backgroundColor: '#E27227', borderColor: '#E27227' }}
               asChild
             >
-              <a href="https://memoways.com/" target="_blank" rel="noopener noreferrer">
+              <a href="https://memoways.com/contact" target="_blank" rel="noopener noreferrer">
                 Contact
               </a>
             </Button>
@@ -113,7 +113,7 @@ export default function Navigation() {
                 style={{ backgroundColor: '#E27227', borderColor: '#E27227' }}
                 asChild
               >
-                <a href="https://memoways.com/" target="_blank" rel="noopener noreferrer">
+                <a href="https://memoways.com/contact" target="_blank" rel="noopener noreferrer">
                   Contact
                 </a>
               </Button>

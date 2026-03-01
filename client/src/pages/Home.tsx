@@ -35,9 +35,9 @@ export default function Home() {
         
         <div className="container relative z-10 text-center px-4 py-24 mt-16">
           <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
-            <span className="bg-gradient-to-r from-blue-500 via-teal-500 to-green-500 bg-clip-text text-transparent">Transformation numérique</span>
+            <span style={{ background: 'linear-gradient(to right, #515792, #4a7fc1, #3aab8a, #6dc05a)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Transformation numérique</span>
             <br />
-            <span className="bg-gradient-to-r from-green-500 via-yellow-500 to-orange-500 bg-clip-text text-transparent">dans le secteur culturel genevois</span>
+            <span style={{ background: 'linear-gradient(to right, #6dc05a, #c8b830, #E58441, #E27227)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>dans le secteur culturel genevois</span>
           </h1>
           
           <p className="text-lg md:text-xl text-muted-foreground max-w-4xl mx-auto mb-12 leading-relaxed">
@@ -49,14 +49,14 @@ export default function Home() {
             <Card className="bg-card/80 backdrop-blur-sm border-2 transition-all hover:border-[#515792]" style={{ borderColor: '#515792' }}>
               <CardContent className="pt-6 text-center">
                 <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#515792' }}>60+</div>
-                <div className="text-sm text-muted-foreground">Institutions culturelles (Genève)</div>
+                <div className="text-sm text-muted-foreground">Institutions et structures culturelles (Genève)</div>
               </CardContent>
             </Card>
             
             <Card className="bg-card/80 backdrop-blur-sm border-2 transition-all hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
               <CardContent className="pt-6 text-center">
                 <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#E27227' }}>62%</div>
-                <div className="text-sm text-muted-foreground">Utilisent déjà l'IA</div>
+                <div className="text-sm text-muted-foreground">Artistes et acteurs culturels utilisant l'IA</div>
                 <div className="text-xs text-muted-foreground italic mt-2">Source : Étude québécoise 2025</div>
               </CardContent>
             </Card>
