@@ -189,6 +189,62 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Teasing : Description du projet */}
+      <section id="projet-teasing" className="py-16 bg-gradient-to-r from-[#515792]/10 via-[#E27227]/5 to-[#3aab8a]/10">
+        <div className="container max-w-5xl">
+          <div className="text-center mb-10">
+            <Badge className="mb-4" style={{ backgroundColor: '#515792', color: 'white' }}>Dossier complet</Badge>
+            <h2 className="text-3xl font-bold mb-4" style={{ color: '#262845' }}>Découvrez le projet en détail</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Note d'intention, constat, proposition, parcours utilisateur, architecture technique et calendrier — tout le dossier de conception de la Boussole.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6 mb-8">
+            {[
+              {
+                icon: "🔍",
+                title: "Le constat",
+                desc: "Pourquoi les pratiques numériques actuelles coûtent cher en énergie créative, et ce qui a changé pour permettre d'agir.",
+                anchor: "constat",
+                color: '#c0392b',
+              },
+              {
+                icon: "🗺️",
+                title: "Les 3 temps de l'expérience",
+                desc: "De la photo rapide (10 min) au panorama visuel, jusqu'à l'approfondissement personnalisé avec suivi dans le temps.",
+                anchor: "proposition",
+                color: '#515792',
+              },
+              {
+                icon: "⚙️",
+                title: "Architecture technique",
+                desc: "Hébergement suisse, données souveraines, modèle de scoring transparent, open source — chaque choix expliqué en langage simple.",
+                anchor: "architecture",
+                color: '#3aab8a',
+              },
+            ].map((item, i) => (
+              <Link key={i} href={`/description-projet#${item.anchor}`}>
+                <Card className="border-2 hover:shadow-lg transition-all cursor-pointer group h-full" style={{ borderColor: item.color + '40' }}>
+                  <CardContent className="pt-6">
+                    <div className="text-3xl mb-3">{item.icon}</div>
+                    <div className="font-bold text-base mb-2 group-hover:underline" style={{ color: item.color }}>{item.title}</div>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+          <div className="text-center">
+            <Link href="/description-projet">
+              <Button size="lg" style={{ backgroundColor: '#515792', borderColor: '#515792' }}>
+                Lire le dossier complet
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Relation recherche ↔ développement */}
       <section className="py-20 bg-gradient-to-br from-[#515792]/5 to-[#E27227]/5">
         <div className="container">

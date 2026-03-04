@@ -11,6 +11,7 @@ import AnalyseOutils from "./pages/AnalyseOutils";
 import Sources from "./pages/Sources";
 import SyntheseDocuments from "./pages/SyntheseDocuments";
 import ReferencesInspirantes from "./pages/ReferencesInspirantes";
+import DescriptionProjet from "./pages/DescriptionProjet";
 
 
 function Router() {
@@ -23,6 +24,7 @@ function Router() {
       <Route path={"/sources"} component={Sources} />
       <Route path={"/synthese-documents"} component={SyntheseDocuments} />
       <Route path={"/references-inspirantes"} component={ReferencesInspirantes} />
+      <Route path={"/description-projet"} component={DescriptionProjet} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

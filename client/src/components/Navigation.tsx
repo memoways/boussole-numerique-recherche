@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { Link, useLocation } from "wouter";
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -23,10 +24,25 @@ export default function Navigation() {
     }
   };
 
+  const [location] = useLocation();
+  const isHome = location === "/";
+
+  const scrollOrNavigate = (id: string) => {
+    if (isHome) {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+        setIsMobileMenuOpen(false);
+      }
+    } else {
+      window.location.href = `/#${id}`;
+    }
+  };
+
   const navItems = [
-    { id: "boussole", label: "Boussole numérique culture" },
-    { id: "recherche-contexte", label: "Recherche & contexte" },
-    { id: "references-inspirantes", label: "Inspirations" },
+    { type: "link", href: "/description-projet", label: "Boussole numérique culture" },
+    { type: "scroll", id: "recherche-contexte", label: "Recherche & contexte" },
+    { type: "scroll", id: "references-inspirantes", label: "Inspirations" },
   ];
 
   return (
@@ -55,14 +71,20 @@ export default function Navigation() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-1">
             {navItems.map((item) => (
-              <Button
-                key={item.id}
-                variant="ghost"
-                onClick={() => scrollToSection(item.id)}
-                className="text-sm hover:bg-primary/10 hover:text-primary transition-colors"
-              >
-                {item.label}
-              </Button>
+              item.type === "link" ? (
+                <Button key={item.href} variant="ghost" className="text-sm hover:bg-primary/10 hover:text-primary transition-colors" asChild>
+                  <Link href={item.href!}>{item.label}</Link>
+                </Button>
+              ) : (
+                <Button
+                  key={item.id}
+                  variant="ghost"
+                  onClick={() => scrollOrNavigate(item.id!)}
+                  className="text-sm hover:bg-primary/10 hover:text-primary transition-colors"
+                >
+                  {item.label}
+                </Button>
+              )
             ))}
             <Button
               variant="default"
@@ -97,14 +119,20 @@ export default function Navigation() {
           <div className="md:hidden py-4 border-t border-border bg-background/95 backdrop-blur-md">
             <div className="flex flex-col gap-2">
               {navItems.map((item) => (
-                <Button
-                  key={item.id}
-                  variant="ghost"
-                  onClick={() => scrollToSection(item.id)}
-                  className="justify-start text-sm hover:bg-primary/10 hover:text-primary"
-                >
-                  {item.label}
-                </Button>
+                item.type === "link" ? (
+                  <Button key={item.href} variant="ghost" className="justify-start text-sm hover:bg-primary/10 hover:text-primary" asChild>
+                    <Link href={item.href!}>{item.label}</Link>
+                  </Button>
+                ) : (
+                  <Button
+                    key={item.id}
+                    variant="ghost"
+                    onClick={() => scrollOrNavigate(item.id!)}
+                    className="justify-start text-sm hover:bg-primary/10 hover:text-primary"
+                  >
+                    {item.label}
+                  </Button>
+                )
               ))}
               <Button
                 variant="default"
