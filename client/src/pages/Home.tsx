@@ -92,19 +92,21 @@ export default function Home() {
               size="lg" 
               className="text-lg group"
               style={{ backgroundColor: '#515792', borderColor: '#515792' }}
-              onClick={() => scrollToSection('constats')}
+              asChild
             >
-              Constats
-              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              <Link href="/description-projet">
+                Dossier complet du projet
+                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </Button>
             <Button 
               size="lg" 
               variant="outline" 
               className="text-lg group"
               style={{ borderColor: '#E27227', color: '#E27227' }}
-              onClick={() => scrollToSection('proposition')}
+              onClick={() => scrollToSection('constats')}
             >
-              Proposition
+              Constats majeurs
               <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
           </div>
