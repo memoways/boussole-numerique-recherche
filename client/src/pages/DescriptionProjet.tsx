@@ -221,7 +221,7 @@ function SchemaParcours() {
 
 // ─── Schéma 3 : Architecture technique ────────────────────────────────────────
 function SchemaArchitecture() {
-  const [hovered, setHovered] = useState<string | null>(null);
+  const [active, setActive] = useState<string | null>(null);
 
   const tooltips: Record<string, string> = {
     react: "React est un outil de développement web qui permet de créer des interfaces interactives. C'est la même technologie utilisée par Facebook, Instagram ou Airbnb.",
@@ -235,81 +235,91 @@ function SchemaArchitecture() {
     vocal: "La saisie vocale permet de répondre aux questions en parlant, comme dans une conversation. Le système retranscrit et structure automatiquement les réponses.",
   };
 
-  const Block = ({ id, label, sublabel, color, bg }: { id: string; label: string; sublabel?: string; color: string; bg: string }) => (
-    <div
-      className="relative rounded-lg border-2 px-3 py-2 text-center cursor-help transition-all text-sm font-medium"
-      style={{ borderColor: color, backgroundColor: hovered === id ? bg : 'white', color }}
-      onMouseEnter={() => setHovered(id)}
-      onMouseLeave={() => setHovered(null)}
-    >
-      {label}
-      {sublabel && <div className="text-xs font-normal text-muted-foreground">{sublabel}</div>}
-      {hovered === id && tooltips[id] && (
-        <div className="absolute z-50 bottom-full left-1/2 -translate-x-1/2 mb-2 w-72 rounded-xl bg-[#262845] text-white text-xs p-3 shadow-2xl leading-relaxed text-left font-normal">
-          <div className="flex items-start gap-2">
-            <Info className="w-4 h-4 flex-shrink-0 mt-0.5 text-[#E27227]" />
-            {tooltips[id]}
+  // Bloc individuel : cliquable sur mobile (tap pour info), hover sur desktop
+  const Block = ({ id, label, sublabel, color, bg }: { id: string; label: string; sublabel?: string; color: string; bg: string }) => {
+    const isActive = active === id;
+    return (
+      <div className="relative">
+        <button
+          className="w-full rounded-lg border-2 px-3 py-3 text-center transition-all text-sm font-medium focus:outline-none"
+          style={{ borderColor: color, backgroundColor: isActive ? bg : 'white', color }}
+          onMouseEnter={() => setActive(id)}
+          onMouseLeave={() => setActive(null)}
+          onClick={() => setActive(isActive ? null : id)}
+          aria-expanded={isActive}
+        >
+          <div className="font-semibold">{label}</div>
+          {sublabel && <div className="text-xs font-normal mt-0.5" style={{ color: '#6b7280' }}>{sublabel}</div>}
+          <div className="text-xs mt-1 font-normal" style={{ color }}>
+            {isActive ? '▲ Fermer' : 'ⓘ En savoir plus'}
           </div>
-          <span className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#262845]" />
-        </div>
-      )}
+        </button>
+        {isActive && tooltips[id] && (
+          <div className="mt-1 rounded-xl bg-[#262845] text-white text-xs p-3 shadow-xl leading-relaxed text-left">
+            <div className="flex items-start gap-2">
+              <Info className="w-4 h-4 flex-shrink-0 mt-0.5 text-[#E27227]" />
+              <span>{tooltips[id]}</span>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  // Couche : titre + blocs en grille responsive
+  const Layer = ({ title, color, children }: { title: string; color: string; children: React.ReactNode }) => (
+    <div className="rounded-xl border-2 border-dashed p-3 sm:p-4 mb-3" style={{ borderColor: color }}>
+      <div className="text-xs font-bold uppercase tracking-wider mb-3 text-center" style={{ color }}>{title}</div>
+      {children}
+    </div>
+  );
+
+  const Connector = ({ label }: { label: string }) => (
+    <div className="flex justify-center my-1.5">
+      <div className="text-xs text-muted-foreground bg-muted px-3 py-1 rounded-full">{label}</div>
     </div>
   );
 
   return (
     <div className="w-full">
-      <p className="text-sm text-muted-foreground text-center mb-6 italic">
-        Survolez chaque composant pour comprendre son rôle en langage simple.
+      <p className="text-xs sm:text-sm text-muted-foreground text-center mb-4 italic">
+        Appuyez sur chaque composant pour comprendre son rôle en langage simple.
       </p>
 
-      {/* Couche utilisateur */}
-      <div className="rounded-xl border-2 border-dashed p-4 mb-4" style={{ borderColor: '#515792' }}>
-        <div className="text-xs font-bold uppercase tracking-wider mb-3 text-center" style={{ color: '#515792' }}>Interface utilisateur (ce que vous voyez)</div>
-        <div className="grid grid-cols-3 gap-3">
+      <Layer title="Interface utilisateur (ce que vous voyez)" color="#515792">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
           <Block id="react" label="Interface web" sublabel="React + Tailwind" color="#515792" bg="#eef0f8" />
           <Block id="vocal" label="Saisie vocale" sublabel="Parole → texte" color="#515792" bg="#eef0f8" />
           <Block id="tailwind" label="Design adaptatif" sublabel="Mobile & desktop" color="#515792" bg="#eef0f8" />
         </div>
-      </div>
+      </Layer>
 
-      <div className="flex justify-center my-2">
-        <div className="text-xs text-muted-foreground bg-muted px-3 py-1 rounded-full">↕ Échanges sécurisés</div>
-      </div>
+      <Connector label="↕ Échanges sécurisés" />
 
-      {/* Couche IA */}
-      <div className="rounded-xl border-2 border-dashed p-4 mb-4" style={{ borderColor: '#E27227' }}>
-        <div className="text-xs font-bold uppercase tracking-wider mb-3 text-center" style={{ color: '#E27227' }}>Intelligence artificielle (le cerveau)</div>
-        <div className="grid grid-cols-3 gap-3">
+      <Layer title="Intelligence artificielle (le cerveau)" color="#E27227">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
           <Block id="ia" label="Agent IA" sublabel="Conversation guidée" color="#E27227" bg="#fef3ea" />
           <Block id="rag" label="Base de ressources" sublabel="RAG — recommandations" color="#E27227" bg="#fef3ea" />
           <Block id="publicodes" label="Modèle de scoring" sublabel="Publicodes — transparent" color="#E27227" bg="#fef3ea" />
         </div>
-      </div>
+      </Layer>
 
-      <div className="flex justify-center my-2">
-        <div className="text-xs text-muted-foreground bg-muted px-3 py-1 rounded-full">↕ Données chiffrées</div>
-      </div>
+      <Connector label="↕ Données chiffrées" />
 
-      {/* Couche données */}
-      <div className="rounded-xl border-2 border-dashed p-4 mb-4" style={{ borderColor: '#3aab8a' }}>
-        <div className="text-xs font-bold uppercase tracking-wider mb-3 text-center" style={{ color: '#3aab8a' }}>Données & hébergement (souveraineté suisse)</div>
-        <div className="grid grid-cols-2 gap-3">
+      <Layer title="Données & hébergement (souveraineté suisse)" color="#3aab8a">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           <Block id="infomaniak" label="Serveur Infomaniak" sublabel="Hébergé en Suisse 🇨🇭" color="#3aab8a" bg="#e8f8f3" />
           <Block id="supabase" label="Base de données" sublabel="Supabase — Europe 🇪🇺" color="#3aab8a" bg="#e8f8f3" />
         </div>
-      </div>
+      </Layer>
 
-      <div className="flex justify-center my-2">
-        <div className="text-xs text-muted-foreground bg-muted px-3 py-1 rounded-full">↕ Code ouvert et vérifiable</div>
-      </div>
+      <Connector label="↕ Code ouvert et vérifiable" />
 
-      {/* Open source */}
-      <div className="rounded-xl border-2 border-dashed p-3" style={{ borderColor: '#6c757d' }}>
-        <div className="text-xs font-bold uppercase tracking-wider mb-2 text-center text-muted-foreground">Transparence & partage</div>
+      <Layer title="Transparence & partage" color="#6c757d">
         <Block id="github" label="Code open source sur GitHub" sublabel="Vérifiable, réutilisable, améliorable par tous" color="#6c757d" bg="#f8f9fa" />
-      </div>
+      </Layer>
 
-      <p className="text-xs text-muted-foreground italic mt-4 text-center">
+      <p className="text-xs text-muted-foreground italic mt-3 text-center">
         Toutes les données personnelles restent en Suisse ou en Europe. Aucune donnée n'est vendue ni exploitée à des fins commerciales.
       </p>
     </div>
