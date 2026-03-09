@@ -33,19 +33,19 @@ export default function Home() {
       >
         <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/90 to-background"></div>
         
-        <div className="container relative z-10 text-center px-4 py-24 mt-16">
-          <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
+        <div className="container relative z-10 text-center px-4 py-16 sm:py-20 md:py-24 mt-12 sm:mt-16">
+          <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold mb-6 sm:mb-8 leading-tight">
             <span style={{ background: 'linear-gradient(to right, #515792, #4a7fc1, #3aab8a, #6dc05a)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Transformation numérique</span>
             <br />
             <span style={{ background: 'linear-gradient(to right, #6dc05a, #c8b830, #E58441, #E27227)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>dans le secteur culturel genevois</span>
           </h1>
           
-          <p className="text-lg md:text-xl text-muted-foreground max-w-4xl mx-auto mb-12 leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-4xl mx-auto mb-8 sm:mb-12 leading-relaxed px-2">
             Un site compagnon pour le projet de <strong>Boussole numérique culture</strong>, pour proposer un état des lieux sur l'adoption de l'IA et la transformation numérique dans les industries culturelles et créatives genevoises.
           </p>
 
           {/* Key Stats */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 max-w-4xl mx-auto mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 md:gap-6 max-w-4xl mx-auto mb-8 sm:mb-12">
             {/* Stat 1 : Pour qui ? */}
             <Card className="bg-card/80 backdrop-blur-sm border-2 transition-all hover:border-[#515792]" style={{ borderColor: '#515792' }}>
               <CardContent className="pt-6 text-center">
@@ -87,7 +87,7 @@ export default function Home() {
 
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4 sm:px-0">
             <Button 
               size="lg" 
               className="text-lg group"

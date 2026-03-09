@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { Link, useLocation } from "wouter";
 
+
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -53,26 +54,23 @@ export default function Navigation() {
           : "bg-transparent"
       }`}
     >
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+      <div className="container mx-auto px-3 sm:px-4">
+        <div className="flex items-center justify-between h-14 sm:h-16">
           {/* Logo Memoways */}
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="flex items-center gap-3 hover:opacity-80 transition-opacity"
-          >
+          <Link href="/" className="flex items-center gap-2 sm:gap-3 hover:opacity-80 transition-opacity">
             <img 
               src="/logo-memoways.png" 
               alt="Memoways" 
-              className="h-10 w-auto"
+              className="h-8 sm:h-10 w-auto"
             />
-            <span className="hidden sm:inline font-bold text-lg" style={{ color: '#515792' }}>Memoways Research</span>
-          </button>
+            <span className="font-bold text-sm sm:text-base md:text-lg" style={{ color: '#515792' }}>Memoways Research</span>
+          </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden md:flex items-center gap-0.5 lg:gap-1">
             {navItems.map((item) => (
               item.type === "link" ? (
-                <Button key={item.href} variant="ghost" className="text-sm hover:bg-primary/10 hover:text-primary transition-colors" asChild>
+                <Button key={item.href} variant="ghost" className="text-xs lg:text-sm px-2 lg:px-3 hover:bg-primary/10 hover:text-primary transition-colors" asChild>
                   <Link href={item.href!}>{item.label}</Link>
                 </Button>
               ) : (
@@ -80,7 +78,7 @@ export default function Navigation() {
                   key={item.id}
                   variant="ghost"
                   onClick={() => scrollOrNavigate(item.id!)}
-                  className="text-sm hover:bg-primary/10 hover:text-primary transition-colors"
+                  className="text-xs lg:text-sm px-2 lg:px-3 hover:bg-primary/10 hover:text-primary transition-colors"
                 >
                   {item.label}
                 </Button>
@@ -116,8 +114,8 @@ export default function Navigation() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-border bg-background/95 backdrop-blur-md">
-            <div className="flex flex-col gap-2">
+          <div className="md:hidden py-3 border-t border-border bg-background/95 backdrop-blur-md">
+            <div className="flex flex-col gap-1">
               {navItems.map((item) => (
                 item.type === "link" ? (
                   <Button key={item.href} variant="ghost" className="justify-start text-sm hover:bg-primary/10 hover:text-primary" asChild>

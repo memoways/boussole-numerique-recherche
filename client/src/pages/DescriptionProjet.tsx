@@ -75,7 +75,7 @@ function SchemaAvantApres() {
 
   return (
     <div className="w-full">
-      <div className="grid grid-cols-2 gap-0 mb-4 text-center">
+      <div className="grid grid-cols-2 gap-0 mb-4 text-center text-xs sm:text-sm">
         <div className="rounded-tl-xl rounded-bl-xl py-3 font-bold text-white text-sm" style={{ backgroundColor: '#c0392b' }}>
           ❌ Situation actuelle fréquente
         </div>
@@ -85,12 +85,12 @@ function SchemaAvantApres() {
       </div>
       <div className="space-y-2">
         {problems.map((p, i) => (
-          <div key={i} className="grid grid-cols-[1fr_40px_1fr] items-center gap-2">
-            <div className="rounded-lg p-3 text-sm text-white leading-snug" style={{ backgroundColor: '#f8d7da', color: '#721c24' }}>
+          <div key={i} className="grid grid-cols-[1fr_28px_1fr] sm:grid-cols-[1fr_40px_1fr] items-center gap-1 sm:gap-2">
+            <div className="rounded-lg p-2 sm:p-3 text-xs sm:text-sm text-white leading-snug" style={{ backgroundColor: '#f8d7da', color: '#721c24' }}>
               <span className="mr-2">{p.icon}</span>{p.avant}
             </div>
-            <div className="text-center text-xl font-bold" style={{ color: '#515792' }}>→</div>
-            <div className="rounded-lg p-3 text-sm leading-snug" style={{ backgroundColor: '#d4edda', color: '#155724' }}>
+            <div className="text-center text-base sm:text-xl font-bold" style={{ color: '#515792' }}>→</div>
+            <div className="rounded-lg p-2 sm:p-3 text-xs sm:text-sm leading-snug" style={{ backgroundColor: '#d4edda', color: '#155724' }}>
               <span className="mr-2">✓</span>{p.apres}
             </div>
           </div>
@@ -154,7 +154,7 @@ function SchemaParcours() {
       </div>
 
       {/* Choix du mode */}
-      <div className="grid grid-cols-2 gap-4 max-w-lg mx-auto mb-6">
+      <div className="grid grid-cols-1 xs:grid-cols-2 gap-3 max-w-lg mx-auto mb-6">
         <div className="rounded-lg border-2 p-3 text-center text-sm font-medium" style={{ borderColor: '#515792', color: '#515792' }}>
           👤 Mode individuel<br /><span className="text-xs font-normal text-muted-foreground">Artiste, freelance, créateur·trice</span>
         </div>
@@ -340,7 +340,7 @@ export default function DescriptionProjet() {
       <Navigation />
 
       {/* Hero */}
-      <section className="pt-28 pb-16 bg-gradient-to-b from-[#eef0f8] to-background">
+      <section className="pt-20 sm:pt-28 pb-10 sm:pb-16 bg-gradient-to-b from-[#eef0f8] to-background">
         <div className="container max-w-4xl">
           <Link href="/">
             <Button variant="ghost" size="sm" className="mb-6 text-muted-foreground hover:text-foreground">
@@ -349,11 +349,11 @@ export default function DescriptionProjet() {
             </Button>
           </Link>
           <Badge className="mb-4" style={{ backgroundColor: '#515792', color: 'white' }}>Dossier de projet</Badge>
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight" style={{ color: '#262845' }}>
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 leading-tight" style={{ color: '#262845' }}>
             Description du projet<br />
             <span style={{ color: '#515792' }}>Boussole Numérique Culture</span>
           </h1>
-          <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl">
+          <p className="text-base sm:text-xl text-muted-foreground leading-relaxed max-w-3xl">
             Un outil web gratuit pour aider les acteurs culturels genevois à évaluer leurs pratiques numériques, identifier leurs priorités et cheminer vers de meilleures façons de travailler — sans expertise technique préalable.
           </p>
         </div>
@@ -413,7 +413,7 @@ export default function DescriptionProjet() {
 
           {/* 5 dimensions */}
           <h3 className="text-xl font-bold mb-4" style={{ color: '#515792' }}>Les 5 dimensions évaluées</h3>
-          <div className="grid md:grid-cols-2 gap-4 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 mb-8 sm:mb-12">
             {dimensions.map((d, i) => (
               <Card key={i} className="border hover:shadow-md transition-shadow">
                 <CardContent className="pt-4">
