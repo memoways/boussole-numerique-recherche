@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight, Info, ChevronDown, ChevronUp } from "lucide-react";
+import { ArrowLeft, ArrowRight, Info, ChevronDown, ChevronUp, List, X } from "lucide-react";
 import Navigation from "@/components/Navigation";
 
 /**
@@ -12,6 +12,106 @@ import Navigation from "@/components/Navigation";
  * - Voix institutionnelle "nous"
  * - Public non-technique, pédagogue, tooltips explicatifs
  */
+
+// ─── Table of Contents ──────────────────────────────────────────────────────
+const TOC_SECTIONS = [
+  { id: "intention", label: "Note d'intention" },
+  { id: "constat", label: "Le constat" },
+  { id: "proposition", label: "La proposition" },
+  { id: "mode-structure", label: "Mode collaboratif" },
+  { id: "distinction", label: "Positionnement" },
+  { id: "principes", label: "Principes fondateurs" },
+  { id: "architecture", label: "Architecture technique" },
+  { id: "calendrier", label: "Calendrier" },
+  { id: "objectifs", label: "Objectifs à 2 ans" },
+];
+
+function TableOfContents() {
+  const [activeId, setActiveId] = useState<string>("");
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
+  useEffect(() => {
+    const handleIntersect = (entries: IntersectionObserverEntry[]) => {
+      // Find the topmost visible section
+      const visible = entries
+        .filter(e => e.isIntersecting)
+        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+      if (visible.length > 0) setActiveId(visible[0].target.id);
+    };
+    observerRef.current = new IntersectionObserver(handleIntersect, {
+      rootMargin: "-80px 0px -60% 0px",
+      threshold: 0,
+    });
+    TOC_SECTIONS.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observerRef.current!.observe(el);
+    });
+    return () => observerRef.current?.disconnect();
+  }, []);
+
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      const offset = 80;
+      const top = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top, behavior: "smooth" });
+    }
+    setMobileOpen(false);
+  };
+
+  const NavList = () => (
+    <nav className="space-y-0.5">
+      {TOC_SECTIONS.map(({ id, label }) => (
+        <button
+          key={id}
+          onClick={() => scrollTo(id)}
+          className={`w-full text-left text-sm px-3 py-2 rounded-lg transition-all ${
+            activeId === id
+              ? "font-semibold bg-[#eef0f8]"
+              : "text-muted-foreground hover:text-foreground hover:bg-muted/60"
+          }`}
+          style={activeId === id ? { color: '#515792' } : {}}
+        >
+          {activeId === id && (
+            <span className="inline-block w-1.5 h-1.5 rounded-full mr-2 mb-0.5 align-middle" style={{ backgroundColor: '#515792' }} />
+          )}
+          {label}
+        </button>
+      ))}
+    </nav>
+  );
+
+  return (
+    <>
+      {/* Desktop sidebar — visible xl+ */}
+      <aside className="hidden xl:block fixed top-24 left-4 w-52 z-40">
+        <div className="rounded-xl border bg-white/90 backdrop-blur-sm shadow-sm p-3">
+          <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3 px-2">Sommaire</div>
+          <NavList />
+        </div>
+      </aside>
+
+      {/* Mobile FAB + drawer */}
+      <div className="xl:hidden fixed bottom-6 right-4 z-50">
+        <button
+          onClick={() => setMobileOpen(o => !o)}
+          className="w-12 h-12 rounded-full shadow-lg flex items-center justify-center text-white transition-transform active:scale-95"
+          style={{ backgroundColor: '#515792' }}
+          aria-label="Sommaire"
+        >
+          {mobileOpen ? <X className="w-5 h-5" /> : <List className="w-5 h-5" />}
+        </button>
+        {mobileOpen && (
+          <div className="absolute bottom-14 right-0 w-64 rounded-2xl border bg-white shadow-2xl p-4 mb-2">
+            <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3">Aller à la section</div>
+            <NavList />
+          </div>
+        )}
+      </div>
+    </>
+  );
+}
 
 // ─── Tooltip Component ───────────────────────────────────────────────────────
 function Tooltip({ children, text }: { children: React.ReactNode; text: string }) {
@@ -348,6 +448,7 @@ export default function DescriptionProjet() {
   return (
     <div className="min-h-screen">
       <Navigation />
+      <TableOfContents />
 
       {/* Hero */}
       <section className="pt-20 sm:pt-28 pb-10 sm:pb-16 bg-gradient-to-b from-[#eef0f8] to-background">
