@@ -590,28 +590,125 @@ export default function DescriptionProjet() {
         </div>
       </section>
 
-      {/* Ce que la Boussole n'est pas */}
+      {/* Positionnement — Tableau comparatif */}
       <section id="distinction" className="py-16 bg-background">
-        <div className="container max-w-4xl">
-          <Badge className="mb-4" style={{ backgroundColor: '#6c757d', color: 'white' }}>Positionnement</Badge>
-          <h2 className="text-3xl font-bold mb-6" style={{ color: '#262845' }}>Ce que la Boussole n'est pas</h2>
-          <div className="grid md:grid-cols-3 gap-4">
+        <div className="container max-w-5xl">
+          <Badge className="mb-4" style={{ backgroundColor: '#515792', color: 'white' }}>Positionnement</Badge>
+          <h2 className="text-3xl font-bold mb-2" style={{ color: '#262845' }}>La Boussole face aux autres solutions</h2>
+          <p className="text-muted-foreground mb-8 text-lg">Pourquoi créer un nouvel outil alors qu'il en existe déjà ? Parce qu'aucun ne répond aux besoins spécifiques des acteurs culturels genevois.</p>
+
+          {/* Tableau — desktop */}
+          <div className="hidden md:block overflow-x-auto rounded-2xl border shadow-sm">
+            <table className="w-full text-sm border-collapse">
+              <thead>
+                <tr style={{ backgroundColor: '#262845' }}>
+                  <th className="text-left px-5 py-4 text-white font-semibold w-48">Critère</th>
+                  <th className="px-4 py-4 text-center font-semibold" style={{ color: '#EFCFB7' }}>ChatGPT / IA généraliste</th>
+                  <th className="px-4 py-4 text-center font-semibold" style={{ color: '#EFCFB7' }}>Audit externe</th>
+                  <th className="px-4 py-4 text-center font-semibold" style={{ color: '#EFCFB7' }}>Formation en ligne</th>
+                  <th className="px-4 py-4 text-center font-bold rounded-tr-xl" style={{ backgroundColor: '#515792', color: 'white' }}>✦ Boussole Numérique Culture</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  {
+                    critere: "Adapté au secteur culturel",
+                    chatgpt: { val: false, note: "Généraliste" },
+                    audit: { val: true, note: "Selon le prestataire" },
+                    formation: { val: false, note: "Rarement" },
+                    boussole: { val: true, note: "Conçu pour la culture" },
+                  },
+                  {
+                    critere: "Accessible sans expertise technique",
+                    chatgpt: { val: false, note: "Requiert de la maîtrise" },
+                    audit: { val: true, note: "Accompagnement humain" },
+                    formation: { val: true, note: "Variable" },
+                    boussole: { val: true, note: "Guidé, pédagogue" },
+                  },
+                  {
+                    critere: "Gratuit",
+                    chatgpt: { val: false, note: "Abonnement payant" },
+                    audit: { val: false, note: "Coût élevé" },
+                    formation: { val: false, note: "Souvent payant" },
+                    boussole: { val: true, note: "Gratuit 2 ans" },
+                  },
+                  {
+                    critere: "Données hébergées en Suisse/Europe",
+                    chatgpt: { val: false, note: "USA (OpenAI)" },
+                    audit: { val: null, note: "Variable" },
+                    formation: { val: null, note: "Variable" },
+                    boussole: { val: true, note: "Infomaniak (CH)" },
+                  },
+                  {
+                    critere: "Restitution visuelle personnalisée",
+                    chatgpt: { val: false, note: "Texte brut" },
+                    audit: { val: true, note: "Rapport PDF" },
+                    formation: { val: false, note: "Non" },
+                    boussole: { val: true, note: "Radar + synthèse" },
+                  },
+                  {
+                    critere: "Mode collaboratif (équipe)",
+                    chatgpt: { val: false, note: "Non" },
+                    audit: { val: true, note: "Entretiens multiples" },
+                    formation: { val: false, note: "Non" },
+                    boussole: { val: true, note: "Agrégation collective" },
+                  },
+                  {
+                    critere: "Recommandations vers l'écosystème local",
+                    chatgpt: { val: false, note: "Générique" },
+                    audit: { val: null, note: "Selon prestataire" },
+                    formation: { val: false, note: "Non" },
+                    boussole: { val: true, note: "Ressources genevoises" },
+                  },
+                ].map((row, i) => (
+                  <tr key={i} className={i % 2 === 0 ? 'bg-white' : 'bg-muted/20'}>
+                    <td className="px-5 py-3.5 font-medium text-sm" style={{ color: '#262845' }}>{row.critere}</td>
+                    {[row.chatgpt, row.audit, row.formation].map((cell, j) => (
+                      <td key={j} className="px-4 py-3.5 text-center">
+                        <div className="flex flex-col items-center gap-1">
+                          <span className="text-lg">{cell.val === true ? '✅' : cell.val === false ? '❌' : '〰️'}</span>
+                          <span className="text-xs text-muted-foreground">{cell.note}</span>
+                        </div>
+                      </td>
+                    ))}
+                    <td className="px-4 py-3.5 text-center" style={{ backgroundColor: '#f0f1f8' }}>
+                      <div className="flex flex-col items-center gap-1">
+                        <span className="text-lg">{row.boussole.val === true ? '✅' : '❌'}</span>
+                        <span className="text-xs font-medium" style={{ color: '#515792' }}>{row.boussole.note}</span>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Version mobile — cartes empilées */}
+          <div className="md:hidden space-y-3">
             {[
-              { title: "Pas un chatbot généraliste", desc: "Des outils comme ChatGPT ou Claude sont puissants, mais ils exigent un niveau de compétences numériques élevé pour être utiles dans ce contexte. La Boussole prend le contre-pied : toute la puissance de l'IA est pré-contextualisée pour les besoins spécifiques des acteurs culturels.", icon: "🤖" },
-              { title: "Pas un audit", desc: "La Boussole n'est pas un audit formel ou un diagnostic externe. C'est un outil d'auto-évaluation bienveillant, conçu pour que chacun puisse avancer à son propre rythme, sans jugement.", icon: "📋" },
-              { title: "Pas un cours en ligne", desc: "La Boussole ne dispense pas de formation. Elle identifie les priorités et oriente vers les ressources et formations existantes dans l'écosystème genevois.", icon: "🎓" },
-            ].map((item, i) => (
-              <Card key={i} className="border-2" style={{ borderColor: '#e9ecef' }}>
-                <CardHeader>
-                  <div className="text-3xl mb-2">{item.icon}</div>
-                  <CardTitle className="text-base" style={{ color: '#262845' }}>{item.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
-                </CardContent>
-              </Card>
+              { critere: "Adapté au secteur culturel", boussole: true, autres: "Les autres outils sont généralistes ou coûteux." },
+              { critere: "Accessible sans expertise technique", boussole: true, autres: "ChatGPT requiert de la maîtrise ; les formations sont variables." },
+              { critere: "Gratuit", boussole: true, autres: "Audit = coût élevé. ChatGPT = abonnement. Formations = payantes." },
+              { critere: "Données hébergées en Suisse/Europe", boussole: true, autres: "ChatGPT hébergé aux USA (OpenAI)." },
+              { critere: "Restitution visuelle personnalisée", boussole: true, autres: "ChatGPT = texte brut. Formations = aucune restitution." },
+              { critere: "Mode collaboratif (équipe)", boussole: true, autres: "Seul l'audit propose des entretiens multiples, mais à coût élevé." },
+              { critere: "Recommandations vers l'écosystème local", boussole: true, autres: "Les autres outils proposent des ressources génériques." },
+            ].map((row, i) => (
+              <div key={i} className="rounded-xl border p-4 bg-white">
+                <div className="font-semibold text-sm mb-2" style={{ color: '#262845' }}>{row.critere}</div>
+                <div className="flex items-start gap-2 text-sm">
+                  <span className="text-base mt-0.5">✅</span>
+                  <span className="font-medium" style={{ color: '#515792' }}>Boussole : oui</span>
+                </div>
+                <div className="flex items-start gap-2 text-sm mt-1 text-muted-foreground">
+                  <span className="text-base mt-0.5">❌</span>
+                  <span>{row.autres}</span>
+                </div>
+              </div>
             ))}
           </div>
+
+          <p className="text-xs text-muted-foreground mt-4 italic">〰️ = selon les cas. Ce tableau est indicatif et basé sur une analyse comparative réalisée en février 2026.</p>
         </div>
       </section>
 
