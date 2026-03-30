@@ -116,6 +116,51 @@ const LEARNINGS = [
     lien: { label: 'Description du projet', href: '/description-projet#proposition' },
     source: 'Dossier Boussole Numérique Culture · Analyse comparative février 2026',
   },
+  {
+    id: 11,
+    titre: "L'UNESCO appelle à un cadre éthique pour l'IA dans la culture",
+    resume: "Le rapport UNESCO 2025 pose les bases d'une gouvernance responsable de l'IA dans les secteurs culturels et créatifs.",
+    detail: "Le rapport du Groupe d'Experts Indépendants de l'UNESCO (2025) formule des recommandations claires pour l'usage éthique de l'IA dans les secteurs culturels : transparence algorithmique, protection des droits d'auteur, accessibilité des outils, et souveraineté des données culturelles. Ce cadre éthique inspire directement les principes fondateurs de la Boussole (neutralité, open source, souveraineté).",
+    tags: ['Enjeu', 'Perspective'] as LearningTag[],
+    lien: { label: 'PDF UNESCO 2025', href: '#pdfs' },
+    source: 'UNESCO IA et culture 2025 — Rapport du Groupe d’Experts Indépendants',
+  },
+  {
+    id: 12,
+    titre: "Le Québec a développé une grille de maturité IA validée pour la culture",
+    resume: "L'étude québécoise 2025 propose une méthodologie éprouvée d'évaluation de la maturité numérique et IA des organisations culturelles.",
+    detail: "L'étude \"L'IA en culture : Mieux comprendre pour agir ensemble\" (Québec, 2025) est la référence la plus proche de ce que la Boussole veut accomplir pour Genève. Elle propose une grille d'évaluation validée sur le terrain, une méthodologie de sondage éprouvée et des données comparatives précieuses. La Boussole s'en inspire tout en l'adaptant au contexte genevois et en y ajoutant la dimension multimodale.",
+    tags: ['Solution', 'Perspective'] as LearningTag[],
+    lien: { label: 'PDF Québec 2025', href: '#pdfs' },
+    source: 'Compétence Culture Québec 2025 — L’IA en culture',
+  },
+  {
+    id: 13,
+    titre: "L'Europe documente l'adoption de l'IA dans les ICC avec des données précises",
+    resume: "Le rapport européen 2025 fournit des données comparatives sur l'adoption de l'IA dans les industries culturelles et créatives à l'échelle du continent.",
+    detail: "Le rapport européen \"IA dans les industries culturelles : Adoption et impact en Europe\" (2025) documente les taux d'adoption de l'IA par sous-secteur culturel (musées, spectacle vivant, audiovisuel, édition), les barrières identifiées et les bonnes pratiques. Ces données permettent de situer le contexte genevois dans un cadre européen plus large et de calibrer les ambitions de la Boussole.",
+    tags: ['Enjeu', 'Opportunité'] as LearningTag[],
+    lien: { label: 'PDF Europe 2025', href: '#pdfs' },
+    source: 'Rapport européen IA et ICC 2025',
+  },
+  {
+    id: 14,
+    titre: "Les politiques culturelles européennes intègrent le numérique comme priorité stratégique",
+    resume: "Le rapport européen 2024 analyse comment les politiques publiques soutiennent (ou freinent) la transformation numérique des organisations culturelles.",
+    detail: "L'étude \"Transformation numérique et politiques culturelles : Perspectives européennes\" (2024) analyse les dispositifs de soutien public à la numérisation culturelle dans 15 pays européens. Elle identifie les modèles les plus efficaces (financement par projets, accompagnement intégré, formation continue) et les obstacles structurels. Ce contexte politique est directement pertinent pour le positionnement de la Boussole dans les appels à projets suisses et européens.",
+    tags: ['Enjeu', 'Opportunité'] as LearningTag[],
+    lien: { label: 'PDF Europe 2024', href: '#pdfs' },
+    source: 'Transformation numérique et politiques culturelles — Europe 2024',
+  },
+  {
+    id: 15,
+    titre: "104 sources documentaires : une base solide pour un outil crédible",
+    resume: "La recherche s'appuie sur 104 sources vérifiées (2023-2026) couvrant Suisse, France, Europe et Québec — une base documentaire qui légitime la Boussole auprès des financeurs.",
+    detail: "La base documentaire du projet Boussole Numérique Culture comprend 104 sources catégorisées par thématique (IA, transformation numérique, politiques culturelles, écosystème genevois) et par géographie (Suisse, France, Europe, Québec). Cette profondeur documentaire est un atout majeur pour les dossiers de financement institutionnel, qui exigent une ancrage empirique solide. Elle est accessible en ligne et sera mise à jour régulièrement.",
+    tags: ['Solution', 'Perspective'] as LearningTag[],
+    lien: { label: 'Liste des sources', href: '/sources' },
+    source: 'Recherche Memoways février 2026 — 104 sources documentées',
+  },
 ];
 
 const ALL_TAGS: LearningTag[] = ['Enjeu', 'Problématique', 'Solution', 'Perspective', 'Opportunité'];
@@ -573,154 +618,237 @@ export default function Home() {
             </Card>
           </div>
 
-          {/* Écosystème Genevois intégré dans Recherche & contexte */}
+          {/* Documents principaux */}
           <div className="mt-16">
             <div className="max-w-4xl mx-auto text-center mb-12">
-              <h3 className="text-3xl font-bold mb-4">Écosystème culturel genevois</h3>
-              <p className="text-lg text-muted-foreground">
-                Genève dispose d'un écosystème culturel riche et diversifié, avec des institutions de renommée internationale et un tissu associatif dynamique.
-              </p>
+              <h3 className="text-3xl font-bold mb-4">Documents principaux</h3>
+              <p className="text-lg text-muted-foreground">Accédez aux synthèses et documents sources qui ont alimenté cette recherche.</p>
             </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {/* Étude complète */}
+            <Card className="border-2 transition-all hover:shadow-lg hover:border-[#515792]" style={{ borderColor: '#515792' }}>
+              <CardHeader>
+                <FileText className="w-12 h-12 mb-4" style={{ color: '#515792' }} />
+                <CardTitle>Étude complète</CardTitle>
+                <CardDescription>Document Consolidé - Toute l'Étude</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Résumé exécutif, état des lieux, synthèse des 4 PDF, 104 sources, grille d'évaluation maturité IA, recommandations stratégiques.
+                </p>
+                <Link href="/etude-complete">
+                  <Button className="w-full" style={{ backgroundColor: '#515792', borderColor: '#515792' }}>
+                    <Eye className="mr-2 h-4 w-4" />
+                    Consulter
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
 
-            <div className="text-center mb-8">
-              <p className="text-muted-foreground">
-                Genève couvre <strong>11 domaines culturels</strong> selon la classification de la Ville de Genève (source : <a href="https://www.geneve.ch/actualites/dossiers-information/culture-creatrice-valeurs" target="_blank" rel="noopener noreferrer" className="underline" style={{ color: '#515792' }}>Ville de Genève, janvier 2026</a>)
-              </p>
+            {/* État des lieux */}
+            <Card className="border-2 transition-all hover:shadow-lg hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
+              <CardHeader>
+                <FileText className="w-12 h-12 mb-4" style={{ color: '#E27227' }} />
+                <CardTitle>État des lieux</CardTitle>
+                <CardDescription>Rapport de Synthèse Principal</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Analyse détaillée de la transformation numérique, adoption de l'IA, politiques publiques, enjeux et recommandations.
+                </p>
+                <Link href="/etat-des-lieux">
+                  <Button className="w-full" style={{ backgroundColor: '#E27227', borderColor: '#E27227' }}>
+                    <Eye className="mr-2 h-4 w-4" />
+                    Consulter
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+
+            {/* Analyse outils existants */}
+            <Card className="border-2 transition-all hover:shadow-lg hover:border-[#EFCFB7]" style={{ borderColor: '#EFCFB7' }}>
+              <CardHeader>
+                <FileText className="w-12 h-12 mb-4" style={{ color: '#262845' }} />
+                <CardTitle>Analyse outils existants</CardTitle>
+                <CardDescription>Diagnostic Numérique France</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Analyse comparative de 4 outils (Observatoire du numérique Genève, Diag-numerique.fr, Visiativ, CMA) : ce qui fonctionne, limites, recommandations pour la Boussole.
+                </p>
+                <Link href="/analyse-outils">
+                  <Button className="w-full" style={{ backgroundColor: '#262845', borderColor: '#262845' }}>
+                    <Eye className="mr-2 h-4 w-4" />
+                    Consulter
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+
+            {/* Liste des sources */}
+            <Card className="border-2 transition-all hover:shadow-lg hover:border-[#E58441]" style={{ borderColor: '#E58441' }}>
+              <CardHeader>
+                <FileText className="w-12 h-12 mb-4" style={{ color: '#E58441' }} />
+                <CardTitle>Liste des sources</CardTitle>
+                <CardDescription>104 Sources Documentées</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Bibliographie complète avec liens, descriptions et catégorisation par thématique et géographie.
+                </p>
+                <Link href="/sources">
+                  <Button className="w-full" style={{ backgroundColor: '#E58441', borderColor: '#E58441' }}>
+                    <Eye className="mr-2 h-4 w-4" />
+                    Consulter
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+
+            {/* Synthèse documents clés */}
+            <Card className="border-2 transition-all hover:shadow-lg hover:border-[#EFCFB7]" style={{ borderColor: '#EFCFB7' }}>
+              <CardHeader>
+                <FileText className="w-12 h-12 mb-4" style={{ color: '#262845' }} />
+                <CardTitle>Synthèse documents clés</CardTitle>
+                <CardDescription>Extraction des 4 PDF Majeurs</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Informations essentielles extraites des rapports UNESCO, Québec, Europe et politiques culturelles.
+                </p>
+                <Link href="/synthese-documents">
+                  <Button className="w-full" style={{ backgroundColor: '#262845', borderColor: '#262845' }}>
+                    <Eye className="mr-2 h-4 w-4" />
+                    Consulter
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+
+            {/* Références inspirantes */}
+            <Card className="border-2 transition-all hover:shadow-lg hover:border-[#515792]" style={{ borderColor: '#515792' }}>
+              <CardHeader>
+                <Compass className="w-12 h-12 mb-4" style={{ color: '#515792' }} />
+                <CardTitle>Références inspirantes</CardTitle>
+                <CardDescription>Analyse Comparative Nos Gestes Climat & Skill Builder</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Analyse UX, logique pédagogique et proposition originale de la Boussole par contraste avec deux modèles internationaux.
+                </p>
+                <Link href="/references-inspirantes">
+                  <Button className="w-full" style={{ backgroundColor: '#515792', borderColor: '#515792' }}>
+                    <Eye className="mr-2 h-4 w-4" />
+                    Consulter
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+
+            {/* README */}
+            <Card className="border-2 transition-all hover:shadow-lg hover:border-[#515792]" style={{ borderColor: '#515792' }}>
+              <CardHeader>
+                <FileText className="w-12 h-12 mb-4" style={{ color: '#515792' }} />
+                <CardTitle>Guide d'utilisation</CardTitle>
+                <CardDescription>README - Mode d'Emploi</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Instructions pour naviguer dans la base documentaire et utiliser les ressources efficacement.
+                </p>
+                <Button className="w-full" style={{ backgroundColor: '#515792', borderColor: '#515792' }} asChild>
+                  <a href="/README.md" download>
+                    <Download className="mr-2 h-4 w-4" />
+                    Télécharger (MD)
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
             </div>
+          </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mb-12">
-              <Card className="border-2 transition-all hover:border-[#515792]" style={{ borderColor: '#515792' }}>
-                <CardHeader>
-                  <Badge className="mb-2" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Musées</Badge>
-                  <CardTitle className="text-lg">16 Musées</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-xs text-muted-foreground">MAH, MEG, Muséum, MAMCO, Musée d'histoire des sciences, Conservatoire et Jardin botaniques, etc.</p>
-                </CardContent>
-              </Card>
-              <Card className="border-2 transition-all hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
-                <CardHeader>
-                  <Badge className="mb-2" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Spectacle Vivant</Badge>
-                  <CardTitle className="text-lg">20+ Scènes</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-xs text-muted-foreground">Grand Théâtre, Comédie, Am Stram Gram, Alhambra, Arena, Victoria Hall, Casino Théâtre, etc.</p>
-                </CardContent>
-              </Card>
-              <Card className="border-2 transition-all hover:border-[#E58441]" style={{ borderColor: '#E58441' }}>
-                <CardHeader>
-                  <Badge className="mb-2" style={{ backgroundColor: '#E58441', color: 'white', borderColor: '#E58441' }}>Musique</Badge>
-                  <CardTitle className="text-lg">Tous Genres</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-xs text-muted-foreground">Classique, jazz, musiques actuelles, opéra, musique improvisée (AMR), festivals musicaux.</p>
-                </CardContent>
-              </Card>
-              <Card className="border-2 transition-all hover:border-[#515792]" style={{ borderColor: '#515792' }}>
-                <CardHeader>
-                  <Badge className="mb-2" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Cinéma & Audiovisuel</Badge>
-                  <CardTitle className="text-lg">Production & Diffusion</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-xs text-muted-foreground">Salles de cinéma, festivals (GIFF, etc.), production audiovisuelle, création vidéo.</p>
-                </CardContent>
-              </Card>
-              <Card className="border-2 transition-all hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
-                <CardHeader>
-                  <Badge className="mb-2" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Arts Visuels</Badge>
-                  <CardTitle className="text-lg">Galeries & Ateliers</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-xs text-muted-foreground">Galeries d'art, espaces d'exposition, ateliers d'artistes, illustration, bande dessinée.</p>
-                </CardContent>
-              </Card>
-              <Card className="border-2 transition-all hover:border-[#E58441]" style={{ borderColor: '#E58441' }}>
-                <CardHeader>
-                  <Badge className="mb-2" style={{ backgroundColor: '#E58441', color: 'white', borderColor: '#E58441' }}>Littérature & Édition</Badge>
-                  <CardTitle className="text-lg">Livres & Presse</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-xs text-muted-foreground">Bibliothèque de Genève (BGE), maisons d'édition, salons du livre, centres de littérature.</p>
-                </CardContent>
-              </Card>
-              <Card className="border-2 transition-all hover:border-[#515792]" style={{ borderColor: '#515792' }}>
-                <CardHeader>
-                  <Badge className="mb-2" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Patrimoine</Badge>
-                  <CardTitle className="text-lg">Matériel & Immatériel</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-xs text-muted-foreground">Archives, conservation, patrimoine culturel immatériel (Escalade, Feuillu, etc.).</p>
-                </CardContent>
-              </Card>
-              <Card className="border-2 transition-all hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
-                <CardHeader>
-                  <Badge className="mb-2" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Festivals</Badge>
-                  <CardTitle className="text-lg">Manifestations</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-xs text-muted-foreground">Fête de la Musique, festivals de cinéma, festivals musicaux, manifestations culturelles.</p>
-                </CardContent>
-              </Card>
-              <Card className="border-2 transition-all hover:border-[#E58441]" style={{ borderColor: '#E58441' }}>
-                <CardHeader>
-                  <Badge className="mb-2" style={{ backgroundColor: '#E58441', color: 'white', borderColor: '#E58441' }}>Architecture & Design</Badge>
-                  <CardTitle className="text-lg">Création & Exposition</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-xs text-muted-foreground">Bureaux d'architecture, design graphique et industriel, expositions, arts appliqués.</p>
-                </CardContent>
-              </Card>
-              <Card className="border-2 transition-all hover:border-[#515792]" style={{ borderColor: '#515792' }}>
-                <CardHeader>
-                  <Badge className="mb-2" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Médias Numériques</Badge>
-                  <CardTitle className="text-lg">Création Digitale</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-xs text-muted-foreground">Création numérique, nouveaux médias, art digital, installations interactives.</p>
-                </CardContent>
-              </Card>
-              <Card className="border-2 transition-all hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
-                <CardHeader>
-                  <Badge className="mb-2" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Danse</Badge>
-                  <CardTitle className="text-lg">Compagnies & Création</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-xs text-muted-foreground">Compagnies de danse, création chorégraphique, performances, enseignement.</p>
-                </CardContent>
-              </Card>
+          {/* Documents PDF clés */}
+          <div className="mt-16">
+            <div className="max-w-4xl mx-auto text-center mb-12">
+              <h3 className="text-3xl font-bold mb-4">Documents PDF clés</h3>
+              <p className="text-lg text-muted-foreground">Les 4 rapports majeurs qui ont structuré cette recherche.</p>
             </div>
+            <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            <Card className="border-2 transition-all hover:shadow-lg hover:border-[#515792]" style={{ borderColor: '#515792' }}>
+              <CardHeader>
+                <Badge className="mb-3 w-fit" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>UNESCO 2025</Badge>
+                <CardTitle>IA et culture</CardTitle>
+                <CardDescription>Rapport du Groupe d'Experts Indépendants</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Cadre éthique et recommandations pour l'usage de l'IA dans les secteurs culturels et créatifs.
+                </p>
+                <Button className="w-full" style={{ backgroundColor: '#515792', borderColor: '#515792' }} asChild>
+                  <a href="/UNESCO_AI_Culture_2025.pdf" download>
+                    <Download className="mr-2 h-4 w-4" />
+                    Télécharger PDF
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
 
-            <div className="text-center mb-8">
-              <p className="text-xs text-muted-foreground italic">
-                Sources : Ville de Genève (janvier 2026), Culture accessible Genève, Canton de Genève
-              </p>
-            </div>
+            <Card className="border-2 transition-all hover:shadow-lg hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
+              <CardHeader>
+                <Badge className="mb-3 w-fit" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Québec 2025</Badge>
+                <CardTitle>L'IA en culture</CardTitle>
+                <CardDescription>Mieux Comprendre pour Agir Ensemble</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Grille d'évaluation de maturité numérique/IA validée, méthodologie de sondage éprouvée.
+                </p>
+                <Button className="w-full" style={{ backgroundColor: '#E27227', borderColor: '#E27227' }} asChild>
+                  <a href="/Quebec_IA_Culture_2025.pdf" download>
+                    <Download className="mr-2 h-4 w-4" />
+                    Télécharger PDF
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
 
-            <div className="max-w-4xl mx-auto">
-              <Card className="border-2" style={{ borderColor: '#515792' }}>
-                <CardHeader>
-                  <CardTitle className="text-2xl">Impact et fréquentation</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid md:grid-cols-3 gap-6 text-center">
-                    <div>
-                      <div className="text-3xl font-bold mb-2" style={{ color: '#515792' }}>1,5M</div>
-                      <p className="text-sm text-muted-foreground">Visiteurs musées 2024</p>
-                    </div>
-                    <div>
-                      <div className="text-3xl font-bold mb-2" style={{ color: '#E27227' }}>6,2%</div>
-                      <p className="text-sm text-muted-foreground">Emplois en industries culturelles</p>
-                    </div>
-                    <div>
-                      <div className="text-3xl font-bold mb-2" style={{ color: '#E58441' }}>135'000</div>
-                      <p className="text-sm text-muted-foreground">Participants médiation 2023</p>
-                    </div>
-                  </div>
-                  <p className="text-xs text-muted-foreground italic mt-6 text-center">
-                    Sources : Bilan (février 2025), RTS (étude juin 2023), Ville de Genève (septembre 2024)
-                  </p>
-                </CardContent>
-              </Card>
+            <Card className="border-2 transition-all hover:shadow-lg hover:border-[#E58441]" style={{ borderColor: '#E58441' }}>
+              <CardHeader>
+                <Badge className="mb-3 w-fit" style={{ backgroundColor: '#E58441', color: 'white', borderColor: '#E58441' }}>Europe 2025</Badge>
+                <CardTitle>IA dans les industries culturelles</CardTitle>
+                <CardDescription>Adoption et Impact en Europe</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Analyse de l'adoption de l'IA dans les industries culturelles et créatives européennes.
+                </p>
+                <Button className="w-full" style={{ backgroundColor: '#E58441', borderColor: '#E58441' }} asChild>
+                  <a href="/Europe_AI_Cultural_Industries_2025.pdf" download>
+                    <Download className="mr-2 h-4 w-4" />
+                    Télécharger PDF
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 transition-all hover:shadow-lg hover:border-[#EFCFB7]" style={{ borderColor: '#EFCFB7' }}>
+              <CardHeader>
+                <Badge className="mb-3 w-fit" style={{ backgroundColor: '#EFCFB7', color: '#262845', borderColor: '#EFCFB7' }}>Europe 2024</Badge>
+                <CardTitle>Transformation numérique et politiques culturelles</CardTitle>
+                <CardDescription>Perspectives Européennes</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Analyse des politiques publiques de soutien à la transformation numérique culturelle en Europe.
+                </p>
+                <Button className="w-full" style={{ backgroundColor: '#262845', borderColor: '#262845' }} asChild>
+                  <a href="/Digital_Transformation_Cultural_Policies_Europe_2024.pdf" download>
+                    <Download className="mr-2 h-4 w-4" />
+                    Télécharger PDF
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
             </div>
           </div>
         </div>
@@ -897,252 +1025,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Documents Section */}
-      <section id="documents" className="py-20 bg-muted/30">
-        <div className="container">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl font-bold mb-6">Documents principaux</h2>
-            <p className="text-lg text-muted-foreground">
-              Accédez aux synthèses et documents sources qui ont alimenté cette recherche.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {/* Étude complète */}
-            <Card className="border-2 transition-all hover:shadow-lg hover:border-[#515792]" style={{ borderColor: '#515792' }}>
-              <CardHeader>
-                <FileText className="w-12 h-12 mb-4" style={{ color: '#515792' }} />
-                <CardTitle>Étude complète</CardTitle>
-                <CardDescription>Document Consolidé - Toute l'Étude</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Résumé exécutif, état des lieux, synthèse des 4 PDF, 104 sources, grille d'évaluation maturité IA, recommandations stratégiques.
-                </p>
-                <Link href="/etude-complete">
-                  <Button className="w-full" style={{ backgroundColor: '#515792', borderColor: '#515792' }}>
-                    <Eye className="mr-2 h-4 w-4" />
-                    Consulter
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
-
-            {/* État des lieux */}
-            <Card className="border-2 transition-all hover:shadow-lg hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
-              <CardHeader>
-                <FileText className="w-12 h-12 mb-4" style={{ color: '#E27227' }} />
-                <CardTitle>État des lieux</CardTitle>
-                <CardDescription>Rapport de Synthèse Principal</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Analyse détaillée de la transformation numérique, adoption de l'IA, politiques publiques, enjeux et recommandations.
-                </p>
-                <Link href="/etat-des-lieux">
-                  <Button className="w-full" style={{ backgroundColor: '#E27227', borderColor: '#E27227' }}>
-                    <Eye className="mr-2 h-4 w-4" />
-                    Consulter
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
-
-            {/* Analyse outils existants */}
-            <Card className="border-2 transition-all hover:shadow-lg hover:border-[#EFCFB7]" style={{ borderColor: '#EFCFB7' }}>
-              <CardHeader>
-                <FileText className="w-12 h-12 mb-4" style={{ color: '#262845' }} />
-                <CardTitle>Analyse outils existants</CardTitle>
-                <CardDescription>Diagnostic Numérique France</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Analyse comparative de 4 outils (Observatoire du numérique Genève, Diag-numerique.fr, Visiativ, CMA) : ce qui fonctionne, limites, recommandations pour la Boussole.
-                </p>
-                <Link href="/analyse-outils">
-                  <Button className="w-full" style={{ backgroundColor: '#262845', borderColor: '#262845' }}>
-                    <Eye className="mr-2 h-4 w-4" />
-                    Consulter
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
-
-            {/* Liste des sources */}
-            <Card className="border-2 transition-all hover:shadow-lg hover:border-[#E58441]" style={{ borderColor: '#E58441' }}>
-              <CardHeader>
-                <FileText className="w-12 h-12 mb-4" style={{ color: '#E58441' }} />
-                <CardTitle>Liste des sources</CardTitle>
-                <CardDescription>104 Sources Documentées</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Bibliographie complète avec liens, descriptions et catégorisation par thématique et géographie.
-                </p>
-                <Link href="/sources">
-                  <Button className="w-full" style={{ backgroundColor: '#E58441', borderColor: '#E58441' }}>
-                    <Eye className="mr-2 h-4 w-4" />
-                    Consulter
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
-
-            {/* Synthèse documents clés */}
-            <Card className="border-2 transition-all hover:shadow-lg hover:border-[#EFCFB7]" style={{ borderColor: '#EFCFB7' }}>
-              <CardHeader>
-                <FileText className="w-12 h-12 mb-4" style={{ color: '#262845' }} />
-                <CardTitle>Synthèse documents clés</CardTitle>
-                <CardDescription>Extraction des 4 PDF Majeurs</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Informations essentielles extraites des rapports UNESCO, Québec, Europe et politiques culturelles.
-                </p>
-                <Link href="/synthese-documents">
-                  <Button className="w-full" style={{ backgroundColor: '#262845', borderColor: '#262845' }}>
-                    <Eye className="mr-2 h-4 w-4" />
-                    Consulter
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
-
-            {/* Références inspirantes */}
-            <Card className="border-2 transition-all hover:shadow-lg hover:border-[#515792]" style={{ borderColor: '#515792' }}>
-              <CardHeader>
-                <Compass className="w-12 h-12 mb-4" style={{ color: '#515792' }} />
-                <CardTitle>Références inspirantes</CardTitle>
-                <CardDescription>Analyse Comparative Nos Gestes Climat & Skill Builder</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Analyse UX, logique pédagogique et proposition originale de la Boussole par contraste avec deux modèles internationaux.
-                </p>
-                <Link href="/references-inspirantes">
-                  <Button className="w-full" style={{ backgroundColor: '#515792', borderColor: '#515792' }}>
-                    <Eye className="mr-2 h-4 w-4" />
-                    Consulter
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
-
-            {/* README */}
-            <Card className="border-2 transition-all hover:shadow-lg hover:border-[#515792]" style={{ borderColor: '#515792' }}>
-              <CardHeader>
-                <FileText className="w-12 h-12 mb-4" style={{ color: '#515792' }} />
-                <CardTitle>Guide d'utilisation</CardTitle>
-                <CardDescription>README - Mode d'Emploi</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Instructions pour naviguer dans la base documentaire et utiliser les ressources efficacement.
-                </p>
-                <Button className="w-full" style={{ backgroundColor: '#515792', borderColor: '#515792' }} asChild>
-                  <a href="/README.md" download>
-                    <Download className="mr-2 h-4 w-4" />
-                    Télécharger (MD)
-                  </a>
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* PDF Section */}
-      <section id="pdfs" className="py-20">
-        <div className="container">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl font-bold mb-6">Documents PDF clés</h2>
-            <p className="text-lg text-muted-foreground">
-              Les 4 rapports majeurs qui ont structuré cette recherche.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-            <Card className="border-2 transition-all hover:shadow-lg hover:border-[#515792]" style={{ borderColor: '#515792' }}>
-              <CardHeader>
-                <Badge className="mb-3 w-fit" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>UNESCO 2025</Badge>
-                <CardTitle>IA et culture</CardTitle>
-                <CardDescription>Rapport du Groupe d'Experts Indépendants</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Cadre éthique et recommandations pour l'usage de l'IA dans les secteurs culturels et créatifs.
-                </p>
-                <Button className="w-full" style={{ backgroundColor: '#515792', borderColor: '#515792' }} asChild>
-                  <a href="/UNESCO_AI_Culture_2025.pdf" download>
-                    <Download className="mr-2 h-4 w-4" />
-                    Télécharger PDF
-                  </a>
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 transition-all hover:shadow-lg hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
-              <CardHeader>
-                <Badge className="mb-3 w-fit" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Québec 2025</Badge>
-                <CardTitle>L'IA en culture</CardTitle>
-                <CardDescription>Mieux Comprendre pour Agir Ensemble</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Grille d'évaluation de maturité numérique/IA validée, méthodologie de sondage éprouvée.
-                </p>
-                <Button className="w-full" style={{ backgroundColor: '#E27227', borderColor: '#E27227' }} asChild>
-                  <a href="/Quebec_IA_Culture_2025.pdf" download>
-                    <Download className="mr-2 h-4 w-4" />
-                    Télécharger PDF
-                  </a>
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 transition-all hover:shadow-lg hover:border-[#E58441]" style={{ borderColor: '#E58441' }}>
-              <CardHeader>
-                <Badge className="mb-3 w-fit" style={{ backgroundColor: '#E58441', color: 'white', borderColor: '#E58441' }}>Europe 2025</Badge>
-                <CardTitle>IA dans les industries culturelles</CardTitle>
-                <CardDescription>Adoption et Impact en Europe</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Analyse de l'adoption de l'IA dans les industries culturelles et créatives européennes.
-                </p>
-                <Button className="w-full" style={{ backgroundColor: '#E58441', borderColor: '#E58441' }} asChild>
-                  <a href="/Europe_AI_Cultural_Industries_2025.pdf" download>
-                    <Download className="mr-2 h-4 w-4" />
-                    Télécharger PDF
-                  </a>
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card className="border-2 transition-all hover:shadow-lg hover:border-[#EFCFB7]" style={{ borderColor: '#EFCFB7' }}>
-              <CardHeader>
-                <Badge className="mb-3 w-fit" style={{ backgroundColor: '#EFCFB7', color: '#262845', borderColor: '#EFCFB7' }}>Europe 2024</Badge>
-                <CardTitle>Transformation numérique et politiques culturelles</CardTitle>
-                <CardDescription>Perspectives Européennes</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Analyse des politiques publiques de soutien à la transformation numérique culturelle en Europe.
-                </p>
-                <Button className="w-full" style={{ backgroundColor: '#262845', borderColor: '#262845' }} asChild>
-                  <a href="/Digital_Transformation_Cultural_Policies_Europe_2024.pdf" download>
-                    <Download className="mr-2 h-4 w-4" />
-                    Télécharger PDF
-                  </a>
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Proposition Section */}
 
       {/* Références inspirantes Section */}
       <section id="references-inspirantes" className="py-20 bg-gradient-to-br from-[#515792]/5 to-[#E27227]/5">
@@ -1379,6 +1261,161 @@ export default function Home() {
                 </div>
               </CardContent>
             </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Écosystème culturel genevois - en dernière position */}
+      <section id="ecosysteme" className="py-20 bg-muted/30">
+        <div className="container">
+          <div>
+            <div className="max-w-4xl mx-auto text-center mb-12">
+              <h3 className="text-3xl font-bold mb-4">Écosystème culturel genevois</h3>
+              <p className="text-lg text-muted-foreground">
+                Genève dispose d'un écosystème culturel riche et diversifié, avec des institutions de renommée internationale et un tissu associatif dynamique.
+              </p>
+            </div>
+
+            <div className="text-center mb-8">
+              <p className="text-muted-foreground">
+                Genève couvre <strong>11 domaines culturels</strong> selon la classification de la Ville de Genève (source : <a href="https://www.geneve.ch/actualites/dossiers-information/culture-creatrice-valeurs" target="_blank" rel="noopener noreferrer" className="underline" style={{ color: '#515792' }}>Ville de Genève, janvier 2026</a>)
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mb-12">
+              <Card className="border-2 transition-all hover:border-[#515792]" style={{ borderColor: '#515792' }}>
+                <CardHeader>
+                  <Badge className="mb-2" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Musées</Badge>
+                  <CardTitle className="text-lg">16 Musées</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-xs text-muted-foreground">MAH, MEG, Muséum, MAMCO, Musée d'histoire des sciences, Conservatoire et Jardin botaniques, etc.</p>
+                </CardContent>
+              </Card>
+              <Card className="border-2 transition-all hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
+                <CardHeader>
+                  <Badge className="mb-2" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Spectacle Vivant</Badge>
+                  <CardTitle className="text-lg">20+ Scènes</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-xs text-muted-foreground">Grand Théâtre, Comédie, Am Stram Gram, Alhambra, Arena, Victoria Hall, Casino Théâtre, etc.</p>
+                </CardContent>
+              </Card>
+              <Card className="border-2 transition-all hover:border-[#E58441]" style={{ borderColor: '#E58441' }}>
+                <CardHeader>
+                  <Badge className="mb-2" style={{ backgroundColor: '#E58441', color: 'white', borderColor: '#E58441' }}>Musique</Badge>
+                  <CardTitle className="text-lg">Tous Genres</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-xs text-muted-foreground">Classique, jazz, musiques actuelles, opéra, musique improvisée (AMR), festivals musicaux.</p>
+                </CardContent>
+              </Card>
+              <Card className="border-2 transition-all hover:border-[#515792]" style={{ borderColor: '#515792' }}>
+                <CardHeader>
+                  <Badge className="mb-2" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Cinéma & Audiovisuel</Badge>
+                  <CardTitle className="text-lg">Production & Diffusion</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-xs text-muted-foreground">Salles de cinéma, festivals (GIFF, etc.), production audiovisuelle, création vidéo.</p>
+                </CardContent>
+              </Card>
+              <Card className="border-2 transition-all hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
+                <CardHeader>
+                  <Badge className="mb-2" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Arts Visuels</Badge>
+                  <CardTitle className="text-lg">Galeries & Ateliers</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-xs text-muted-foreground">Galeries d'art, espaces d'exposition, ateliers d'artistes, illustration, bande dessinée.</p>
+                </CardContent>
+              </Card>
+              <Card className="border-2 transition-all hover:border-[#E58441]" style={{ borderColor: '#E58441' }}>
+                <CardHeader>
+                  <Badge className="mb-2" style={{ backgroundColor: '#E58441', color: 'white', borderColor: '#E58441' }}>Littérature & Édition</Badge>
+                  <CardTitle className="text-lg">Livres & Presse</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-xs text-muted-foreground">Bibliothèque de Genève (BGE), maisons d'édition, salons du livre, centres de littérature.</p>
+                </CardContent>
+              </Card>
+              <Card className="border-2 transition-all hover:border-[#515792]" style={{ borderColor: '#515792' }}>
+                <CardHeader>
+                  <Badge className="mb-2" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Patrimoine</Badge>
+                  <CardTitle className="text-lg">Matériel & Immatériel</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-xs text-muted-foreground">Archives, conservation, patrimoine culturel immatériel (Escalade, Feuillu, etc.).</p>
+                </CardContent>
+              </Card>
+              <Card className="border-2 transition-all hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
+                <CardHeader>
+                  <Badge className="mb-2" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Festivals</Badge>
+                  <CardTitle className="text-lg">Manifestations</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-xs text-muted-foreground">Fête de la Musique, festivals de cinéma, festivals musicaux, manifestations culturelles.</p>
+                </CardContent>
+              </Card>
+              <Card className="border-2 transition-all hover:border-[#E58441]" style={{ borderColor: '#E58441' }}>
+                <CardHeader>
+                  <Badge className="mb-2" style={{ backgroundColor: '#E58441', color: 'white', borderColor: '#E58441' }}>Architecture & Design</Badge>
+                  <CardTitle className="text-lg">Création & Exposition</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-xs text-muted-foreground">Bureaux d'architecture, design graphique et industriel, expositions, arts appliqués.</p>
+                </CardContent>
+              </Card>
+              <Card className="border-2 transition-all hover:border-[#515792]" style={{ borderColor: '#515792' }}>
+                <CardHeader>
+                  <Badge className="mb-2" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Médias Numériques</Badge>
+                  <CardTitle className="text-lg">Création Digitale</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-xs text-muted-foreground">Création numérique, nouveaux médias, art digital, installations interactives.</p>
+                </CardContent>
+              </Card>
+              <Card className="border-2 transition-all hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
+                <CardHeader>
+                  <Badge className="mb-2" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Danse</Badge>
+                  <CardTitle className="text-lg">Compagnies & Création</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-xs text-muted-foreground">Compagnies de danse, création chorégraphique, performances, enseignement.</p>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="text-center mb-8">
+              <p className="text-xs text-muted-foreground italic">
+                Sources : Ville de Genève (janvier 2026), Culture accessible Genève, Canton de Genève
+              </p>
+            </div>
+
+            <div className="max-w-4xl mx-auto">
+              <Card className="border-2" style={{ borderColor: '#515792' }}>
+                <CardHeader>
+                  <CardTitle className="text-2xl">Impact et fréquentation</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid md:grid-cols-3 gap-6 text-center">
+                    <div>
+                      <div className="text-3xl font-bold mb-2" style={{ color: '#515792' }}>1,5M</div>
+                      <p className="text-sm text-muted-foreground">Visiteurs musées 2024</p>
+                    </div>
+                    <div>
+                      <div className="text-3xl font-bold mb-2" style={{ color: '#E27227' }}>6,2%</div>
+                      <p className="text-sm text-muted-foreground">Emplois en industries culturelles</p>
+                    </div>
+                    <div>
+                      <div className="text-3xl font-bold mb-2" style={{ color: '#E58441' }}>135'000</div>
+                      <p className="text-sm text-muted-foreground">Participants médiation 2023</p>
+                    </div>
+                  </div>
+                  <p className="text-xs text-muted-foreground italic mt-6 text-center">
+                    Sources : Bilan (février 2025), RTS (étude juin 2023), Ville de Genève (septembre 2024)
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </section>
