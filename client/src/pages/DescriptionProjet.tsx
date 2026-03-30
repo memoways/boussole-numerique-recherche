@@ -584,6 +584,26 @@ function ComparatifInteractif() {
 
 // ─── Page principale ──────────────────────────────────────────────────────────────────────────────────
 export default function DescriptionProjet() {
+  // Scroll vers l'ancre du hash URL au chargement de la page
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const id = hash.replace('#', '');
+      // Attendre que le DOM soit rendu avant de scroller
+      const tryScroll = (attempts = 0) => {
+        const el = document.getElementById(id);
+        if (el) {
+          setTimeout(() => {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 100);
+        } else if (attempts < 10) {
+          setTimeout(() => tryScroll(attempts + 1), 100);
+        }
+      };
+      tryScroll();
+    }
+  }, []);
+
   const dimensions = [
     { icon: "🛠️", title: "Outils & méthodes de travail", desc: "Les logiciels et méthodes utilisés soutiennent-ils la collaboration ou créent-ils de la friction ? Comment circulent les fichiers, comment sont suivis les projets ?" },
     { icon: "🧠", title: "Compétences & culture numérique", desc: "Quel est le niveau de confiance avec les outils du quotidien ? Y a-t-il eu des formations récentes ? L'IA a-t-elle été expérimentée ?" },
