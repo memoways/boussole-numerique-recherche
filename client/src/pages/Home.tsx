@@ -329,9 +329,9 @@ export default function Home() {
           {/* Key Stats */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 md:gap-6 max-w-4xl mx-auto mb-8 sm:mb-12">
             {/* Stat 1 : Pour qui ? */}
-            <Card className="bg-card/80 backdrop-blur-sm border-2 transition-all hover:border-[#515792]" style={{ borderColor: '#515792' }}>
+            <Card className="bg-card/80 backdrop-blur-sm border-2 transition-all" style={{ borderColor: '#515792', backgroundColor: 'rgba(81,87,146,0.04)' }}>
               <CardContent className="pt-6 text-center">
-                <div className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: '#515792' }}>Pour qui ?</div>
+                <div className="text-xs font-black uppercase tracking-widest mb-2" style={{ color: '#515792' }}>Pour qui ?</div>
                 <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#515792' }}>~5 000</div>
                 <div className="text-sm text-muted-foreground">Structures et établissements des industries culturelles et créatives (canton de Genève)</div>
                 <div className="text-xs text-muted-foreground italic mt-2">
@@ -341,9 +341,9 @@ export default function Home() {
             </Card>
             
             {/* Stat 2 : Combien ? */}
-            <Card className="bg-card/80 backdrop-blur-sm border-2 transition-all hover:border-[#E27227]" style={{ borderColor: '#E27227' }}>
+            <Card className="bg-card/80 backdrop-blur-sm border-2 transition-all" style={{ borderColor: '#E27227', backgroundColor: 'rgba(226,114,39,0.04)' }}>
               <CardContent className="pt-6 text-center">
-                <div className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: '#E27227' }}>Combien ?</div>
+                <div className="text-xs font-black uppercase tracking-widest mb-2" style={{ color: '#E27227' }}>Combien ?</div>
                 <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#E27227' }}>12 150</div>
                 <div className="text-sm text-muted-foreground">Personnes travaillant dans le secteur des ICC à Genève (Ville de Genève, 2020)</div>
                 <div className="text-xs text-muted-foreground italic mt-2">
@@ -353,9 +353,9 @@ export default function Home() {
             </Card>
             
             {/* Stat 3 : Pourquoi ? */}
-            <Card className="bg-card/80 backdrop-blur-sm border-2 transition-all hover:border-[#E58441]" style={{ borderColor: '#E58441' }}>
+            <Card className="bg-card/80 backdrop-blur-sm border-2 transition-all" style={{ borderColor: '#E58441', backgroundColor: 'rgba(229,132,65,0.04)' }}>
               <CardContent className="pt-6 text-center">
-                <div className="text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: '#E58441' }}>Pourquoi ?</div>
+                <div className="text-xs font-black uppercase tracking-widest mb-2" style={{ color: '#E58441' }}>Pourquoi ?</div>
                 <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: '#E58441' }}>55–59%</div>
                 <div className="text-sm text-muted-foreground">Des professionnels culturels peinent à identifier leurs besoins en compétences IA — et 59% des actifs auront besoin de formation d'ici 2030</div>
                 <div className="text-xs text-muted-foreground italic mt-2">
