@@ -1031,9 +1031,9 @@ export default function Home() {
         <div className="container">
           <div className="max-w-4xl mx-auto text-center mb-16">
             <Badge className="mb-4" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Références inspirantes</Badge>
-            <h2 className="text-4xl font-bold mb-6">Deux modèles qui inspirent la Boussole</h2>
+            <h2 className="text-4xl font-bold mb-6">Trois outils qui inspirent la Boussole</h2>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              La conception de la Boussole Numérique Culture s'appuie sur l'analyse approfondie de deux outils internationaux exemplaires dans leurs domaines respectifs : <strong>Nos Gestes Climat</strong> (ADEME, France) et le <strong>Skill Builder</strong> de DeepLearning.AI. Ni l'un ni l'autre n'est transposable tel quel au contexte genevois — mais chacun incarne des principes de conception dont la Boussole s'inspire.
+              La conception de la Boussole Numérique Culture s'appuie sur l'analyse approfondie de trois outils internationaux exemplaires dans leurs domaines respectifs : <strong>Nos Gestes Climat</strong> (ADEME, France), le <strong>Skill Builder</strong> de DeepLearning.AI, et <strong>AICred.ai</strong>. Aucun n'est transposable tel quel au contexte genevois — mais chacun incarne des principes de conception dont la Boussole s'inspire et se distingue.
             </p>
           </div>
 
@@ -1044,7 +1044,9 @@ export default function Home() {
                 <div className="flex items-start justify-between">
                   <div>
                     <Badge className="mb-3" style={{ backgroundColor: '#515792', color: 'white', borderColor: '#515792' }}>Modèle 1 · Bien commun numérique</Badge>
-                    <CardTitle className="text-2xl">Nos Gestes Climat (ADEME, France)</CardTitle>
+                    <CardTitle className="text-2xl">
+                      <a href="https://nosgestesclimat.fr/" target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: 'inherit' }}>Nos Gestes Climat (ADEME, France) ↗</a>
+                    </CardTitle>
                     <p className="text-muted-foreground mt-2">2,7 millions de tests · Gratuit · Open source · Sans inscription</p>
                   </div>
                   <Globe className="w-10 h-10 flex-shrink-0 ml-4" style={{ color: '#515792' }} />
@@ -1110,7 +1112,9 @@ export default function Home() {
                 <div className="flex items-start justify-between">
                   <div>
                     <Badge className="mb-3" style={{ backgroundColor: '#E27227', color: 'white', borderColor: '#E27227' }}>Modèle 2 · Évaluation conversationnelle</Badge>
-                    <CardTitle className="text-2xl">DeepLearning.AI Skill Builder</CardTitle>
+                    <CardTitle className="text-2xl">
+                      <a href="https://skillbuilder.deeplearning.ai/" target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: 'inherit' }}>DeepLearning.AI Skill Builder ↗</a>
+                    </CardTitle>
                     <p className="text-muted-foreground mt-2">Conversation vocale · Parcours en 5 étapes · Recommandations personnalisées</p>
                   </div>
                   <Layers className="w-10 h-10 flex-shrink-0 ml-4" style={{ color: '#E27227' }} />
@@ -1171,8 +1175,10 @@ export default function Home() {
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div>
-                    <Badge className="mb-3" style={{ backgroundColor: '#EFCFB7', color: '#262845', borderColor: '#EFCFB7' }}>Mention complémentaire · Outil professionnel avancé</Badge>
-                    <CardTitle className="text-2xl">AICred.ai — Référence pour le positionnement</CardTitle>
+                    <Badge className="mb-3" style={{ backgroundColor: '#EFCFB7', color: '#262845', borderColor: '#EFCFB7' }}>Outil 3 · Référence professionnelle avancée</Badge>
+                    <CardTitle className="text-2xl">
+                      <a href="https://www.aicred.ai/" target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: 'inherit' }}>AICred.ai — Référence pour le positionnement ↗</a>
+                    </CardTitle>
                     <p className="text-muted-foreground mt-2">Score 1-10 · 6 sections · 35-45 min · Validation externe PAICE</p>
                   </div>
                   <Star className="w-10 h-10 flex-shrink-0 ml-4" style={{ color: '#262845' }} />
