@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, FileText, Download, ExternalLink, TrendingUp, AlertTriangle, Lightbulb, BookOpen, Users, Target, Zap, Building2, Theater, Sparkles, Eye, Star, Compass, Globe, Shield, Layers } from "lucide-react";
+import { ArrowRight, FileText, Download, ExternalLink, TrendingUp, AlertTriangle, Lightbulb, BookOpen, Users, Target, Zap, Building2, Theater, Sparkles, Eye, Star, Compass, Globe, Shield, Layers, ChevronDown, ChevronUp, Filter } from "lucide-react";
 import { Link } from "wouter";
 import Navigation from "@/components/Navigation";
 
@@ -11,6 +12,242 @@ import Navigation from "@/components/Navigation";
  * - Flashy gradients on main title
  * - Modern typography (Poppins/Open Sans/Roboto Mono)
  */
+
+// ─── Données des 10 learnings ────────────────────────────────────────────────
+
+type LearningTag = 'Enjeu' | 'Problématique' | 'Solution' | 'Perspective' | 'Opportunité';
+
+const TAG_COLORS: Record<LearningTag, { bg: string; text: string; border: string }> = {
+  'Enjeu':        { bg: '#515792', text: 'white', border: '#515792' },
+  'Problématique': { bg: '#E58441', text: 'white', border: '#E58441' },
+  'Solution':     { bg: '#3aab8a', text: 'white', border: '#3aab8a' },
+  'Perspective':  { bg: '#6c757d', text: 'white', border: '#6c757d' },
+  'Opportunité':  { bg: '#E27227', text: 'white', border: '#E27227' },
+};
+
+const LEARNINGS = [
+  {
+    id: 1,
+    titre: "70% des transformations numériques échouent",
+    resume: "Sans accompagnement adapté ni vision partagée, la majorité des projets de transformation numérique n'atteignent pas leurs objectifs.",
+    detail: "Les études BCG et McKinsey convergent : 70% des transformations numériques échouent, principalement par manque d'appropriation humaine, de stratégie claire et d'accompagnement sur la durée. Le secteur culturel, avec ses structures souvent petites et sous-dotées en ressources numériques, est particulièrement exposé à ce risque. La Boussole propose un point de départ diagnostique pour éviter ces écueils.",
+    tags: ['Problématique', 'Enjeu'] as LearningTag[],
+    lien: { label: 'Constats majeurs', href: '#constats' },
+    source: 'BCG / McKinsey (via synthèse recherche février 2026)',
+  },
+  {
+    id: 2,
+    titre: "55–59% des professionnels culturels peinent à identifier leurs besoins IA",
+    resume: "Plus de la moitié des acteurs culturels ne savent pas par où commencer face à l'IA — ni quelles questions poser.",
+    detail: "L'étude Compétence Culture (Québec, 2025) révèle que 55% des professionnels culturels ont du mal à identifier leurs besoins en compétences IA. Le WEF 2025 estime que 59% des travailleurs auront besoin de reskilling d'ici 2030. Ce manque de repères est précisément ce que la Boussole cherche à combler : un miroir lucide et bienveillant pour se situer sans jargon technique.",
+    tags: ['Problématique', 'Enjeu'] as LearningTag[],
+    lien: { label: 'Description du projet', href: '/description-projet' },
+    source: 'Compétence Culture 2025 · WEF Future of Jobs 2025',
+  },
+  {
+    id: 3,
+    titre: "~5 000 structures ICC à Genève, aucun outil d’auto-évaluation adapté",
+    resume: "Les outils existants sont généralistes, coûteux ou conçus pour les PME — pas pour les artistes et petites structures culturelles.",
+    detail: "Genève compte environ 5 000 établissements dans les industries culturelles et créatives (DCTN, 2023), dont une grande majorité de très petites structures. Les outils de diagnostic numérique existants (Observatoire du numérique genevois, Diag-numerique.fr, Visiativ) sont conçus pour les PME généralistes, sans dimension IA et sans ancrage culturel. Il existe un vide réel que la Boussole est positionnée pour combler.",
+    tags: ['Problématique', 'Enjeu', 'Opportunité'] as LearningTag[],
+    lien: { label: 'Inspirations & comparatif', href: '/references-inspirantes' },
+    source: 'DCTN Empreintes Créatives 2023 · Analyse comparative février 2026',
+  },
+  {
+    id: 4,
+    titre: "62% des acteurs culturels prévoient une adoption croissante de l’IA",
+    resume: "L’élan est là : la majorité des professionnels culturels anticipent d’utiliser davantage l’IA — mais sans accompagnement structuré.",
+    detail: "Selon l'étude Compétence Culture (Québec, 2025), 62% des organisations culturelles prévoient une adoption croissante de l'IA dans leurs activités. Cet élan est réel mais non accompagné : il manque des repères, des ressources accessibles et des outils adaptés au contexte culturel local. La Boussole se positionne comme le premier pas concret dans cette transition.",
+    tags: ['Opportunité', 'Perspective'] as LearningTag[],
+    lien: { label: 'Constats majeurs', href: '#constats' },
+    source: 'Compétence Culture Québec 2025',
+  },
+  {
+    id: 5,
+    titre: "Les données culturelles sont vulnérables",
+    resume: "Hébergement hors Europe, absence de politique de souveraineté : les structures culturelles exposent leurs données sans le savoir.",
+    detail: "La majorité des outils utilisés par les structures culturelles genevoises (Google Workspace, Notion, ChatGPT, Canva) hébergent les données aux États-Unis, hors du cadre légal européen. Peu de structures ont une politique de souveraineté numérique consciente. La Boussole intègre cette dimension comme l'une de ses 5 axes d'évaluation, et oriente vers des alternatives souveraines (Infomaniak, Nextcloud, etc.).",
+    tags: ['Enjeu', 'Problématique'] as LearningTag[],
+    lien: { label: 'Architecture technique', href: '/description-projet#architecture' },
+    source: 'Analyse comparative février 2026 · Dossier Boussole Numérique Culture',
+  },
+  {
+    id: 6,
+    titre: "Nos Gestes Climat : 2,7M tests — la preuve qu’un outil contributif change les pratiques",
+    resume: "Un outil gratuit, pédagogue, open source et contributif peut toucher des millions de personnes et modifier durablement les comportements.",
+    detail: "Nos Gestes Climat (ADEME) a été réalisé 2,7 millions de fois en 3 ans. Son succès repose sur trois piliers : gratuité, pédagogie accessible et modèle contributif open source. La Boussole s'inspire directement de cette approche pour le secteur culturel genevois, en y ajoutant la dimension multimodale (voix, texte, questionnaire) et l'ancrage dans l'écosystème local.",
+    tags: ['Solution', 'Perspective'] as LearningTag[],
+    lien: { label: 'Inspirations & comparatif', href: '/references-inspirantes' },
+    source: 'Nos Gestes Climat · ADEME 2024',
+  },
+  {
+    id: 7,
+    titre: "Nouveaux financements OFC/BAK 2026–2028 pour la transformation numérique culturelle",
+    resume: "Une fenêtre d’opportunité s’ouvre en Suisse pour des projets innovants de transformation numérique dans le secteur culturel.",
+    detail: "L'Office fédéral de la culture (OFC) et BAK Economics ont annoncé de nouveaux financements pour la période 2026-2028 dédiés à la transformation numérique des organisations culturelles. Ce contexte favorable crée une fenêtre d'opportunité pour des projets comme la Boussole, qui s'inscrivent dans une logique de bien commun, de souveraineté et d'impact mesurable.",
+    tags: ['Opportunité'] as LearningTag[],
+    lien: { label: 'Description du projet', href: '/description-projet#calendrier' },
+    source: 'OFC / BAK Economics · Politique culturelle suisse 2025-2028',
+  },
+  {
+    id: 8,
+    titre: "Les outils existants ne parlent pas aux artistes et petites structures",
+    resume: "Trop techniques, trop génériques, trop coûteux : les outils de diagnostic numérique actuels excluent de fait les acteurs culturels indépendants.",
+    detail: "L'analyse comparative de 4 outils (Observatoire du numérique Genève, Diag-numerique.fr/MEDEF, Visiativ, CMA France) montre que tous présentent des limites rédhibitoires pour le secteur culturel : orientation commerciale (lead generation), questions génériques, absence de dimension IA, interface peu accessible. La Boussole est conçue dès le départ pour un public non-technique, artiste et gestionnaire de petite structure.",
+    tags: ['Problématique', 'Solution'] as LearningTag[],
+    lien: { label: 'Positionnement comparatif', href: '/description-projet#distinction' },
+    source: 'Analyse comparative février 2026',
+  },
+  {
+    id: 9,
+    titre: "Le secteur culturel genevois : 6,2% des emplois, un écosystème à fort impact",
+    resume: "La culture représente une part significative de l’économie genevoise — un secteur qui mérite des outils d’accompagnement à la hauteur de son importance.",
+    detail: "Avec 6,2% des emplois genevois dans les industries culturelles et créatives, 1,5 million de visiteurs dans les musées en 2024 et 135 000 participants aux activités de médiation en 2023, le secteur culturel genevois est un pilier économique et social. Pourtant, il reste sous-équipé en outils numériques adaptés à ses spécificités. La Boussole s'adresse à cet écosystème dans sa diversité.",
+    tags: ['Enjeu', 'Perspective'] as LearningTag[],
+    lien: { label: 'Écosystème culturel genevois', href: '#recherche-contexte' },
+    source: 'Bilan février 2025 · Ville de Genève 2024 · RTS 2023',
+  },
+  {
+    id: 10,
+    titre: "L’approche contributive et multimodale est la clé de l’adoption",
+    resume: "Co-construire avec les usagers, proposer voix, texte et questionnaire selon le profil : c’est ce qui rend un outil vraiment accessible et durable.",
+    detail: "Les modèles les plus adoptés (Nos Gestes Climat, Wikipedia, OpenStreetMap) partagent un point commun : ils sont construits avec leurs utilisateurs, pas pour eux. La Boussole intègre cette logique dès le départ, avec une phase de co-construction avec des structures culturelles genevoises, et une expérience multimodale (voix, texte, questionnaire) pour s'adapter à tous les profils — de l'artiste indépendant à la grande institution.",
+    tags: ['Solution', 'Perspective', 'Opportunité'] as LearningTag[],
+    lien: { label: 'Description du projet', href: '/description-projet#proposition' },
+    source: 'Dossier Boussole Numérique Culture · Analyse comparative février 2026',
+  },
+];
+
+const ALL_TAGS: LearningTag[] = ['Enjeu', 'Problématique', 'Solution', 'Perspective', 'Opportunité'];
+
+function LearningsTable() {
+  const [activeTags, setActiveTags] = useState<LearningTag[]>([]);
+  const [expanded, setExpanded] = useState<number | null>(null);
+
+  const toggleTag = (tag: LearningTag) => {
+    setActiveTags(prev =>
+      prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
+    );
+  };
+
+  const filtered = activeTags.length === 0
+    ? LEARNINGS
+    : LEARNINGS.filter(l => l.tags.some(t => activeTags.includes(t)));
+
+  return (
+    <div className="mt-12">
+      {/* En-tête */}
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-6">
+        <div className="flex items-center gap-2">
+          <Filter className="w-4 h-4" style={{ color: '#515792' }} />
+          <span className="text-sm font-semibold" style={{ color: '#262845' }}>Filtrer par :</span>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {ALL_TAGS.map(tag => {
+            const c = TAG_COLORS[tag];
+            const isActive = activeTags.includes(tag);
+            return (
+              <button
+                key={tag}
+                onClick={() => toggleTag(tag)}
+                className="px-3 py-1.5 rounded-full text-xs font-medium border transition-all"
+                style={isActive
+                  ? { backgroundColor: c.bg, color: c.text, borderColor: c.border }
+                  : { backgroundColor: 'white', color: '#6b7280', borderColor: '#e5e7eb' }
+                }
+              >
+                {tag}
+              </button>
+            );
+          })}
+          {activeTags.length > 0 && (
+            <button
+              onClick={() => setActiveTags([])}
+              className="px-3 py-1.5 rounded-full text-xs font-medium border bg-white text-gray-400 border-gray-200 hover:bg-gray-50 transition-all"
+            >
+              × Tout afficher
+            </button>
+          )}
+        </div>
+        <span className="text-xs text-muted-foreground ml-auto hidden sm:block">
+          {filtered.length} insight{filtered.length > 1 ? 's' : ''} sur {LEARNINGS.length}
+        </span>
+      </div>
+
+      {/* Compteur mobile */}
+      <div className="sm:hidden text-xs text-muted-foreground mb-3">
+        {filtered.length} insight{filtered.length > 1 ? 's' : ''} sur {LEARNINGS.length}
+      </div>
+
+      {/* Liste */}
+      <div className="space-y-2">
+        {filtered.map(l => (
+          <div key={l.id} className="rounded-xl border bg-white overflow-hidden transition-all hover:shadow-sm">
+            {/* Ligne principale */}
+            <button
+              className="w-full text-left px-5 py-4 flex items-start gap-4"
+              onClick={() => setExpanded(expanded === l.id ? null : l.id)}
+            >
+              <span className="text-xs font-mono text-muted-foreground mt-0.5 w-5 flex-shrink-0">{String(l.id).padStart(2, '0')}</span>
+              <div className="flex-1 min-w-0">
+                <div className="font-semibold text-sm mb-1.5" style={{ color: '#262845' }}>{l.titre}</div>
+                <div className="text-xs text-muted-foreground leading-relaxed">{l.resume}</div>
+                <div className="flex flex-wrap gap-1.5 mt-2">
+                  {l.tags.map(tag => {
+                    const c = TAG_COLORS[tag];
+                    return (
+                      <span key={tag} className="text-xs px-2 py-0.5 rounded-full font-medium" style={{ backgroundColor: c.bg + '22', color: c.bg, border: `1px solid ${c.bg}44` }}>
+                        {tag}
+                      </span>
+                    );
+                  })}
+                </div>
+              </div>
+              <div className="flex-shrink-0 mt-1">
+                {expanded === l.id
+                  ? <ChevronUp className="w-4 h-4 text-muted-foreground" />
+                  : <ChevronDown className="w-4 h-4 text-muted-foreground" />}
+              </div>
+            </button>
+
+            {/* Détail expandable */}
+            {expanded === l.id && (
+              <div className="px-5 pb-4 pt-0 border-t" style={{ borderColor: '#eef0f8', backgroundColor: '#f8f9fc' }}>
+                <p className="text-sm text-muted-foreground leading-relaxed mt-3 mb-3">{l.detail}</p>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-xs">
+                  <a
+                    href={l.lien.href}
+                    className="inline-flex items-center gap-1.5 font-medium px-3 py-1.5 rounded-lg transition-colors"
+                    style={{ backgroundColor: '#515792', color: 'white' }}
+                    onClick={e => {
+                      if (l.lien.href.startsWith('#')) {
+                        e.preventDefault();
+                        const el = document.getElementById(l.lien.href.slice(1));
+                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }
+                    }}
+                  >
+                    <ArrowRight className="w-3 h-3" />
+                    {l.lien.label}
+                  </a>
+                  <span className="text-muted-foreground italic">Source : {l.source}</span>
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
+
+        {filtered.length === 0 && (
+          <div className="text-center py-10 text-muted-foreground text-sm">
+            Aucun insight pour cette combinaison de filtres.
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ─── Page principale ──────────────────────────────────────────────────────────
 export default function Home() {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -302,6 +539,15 @@ export default function Home() {
               <br /><br />
               Cette recherche va être mise à jour de manière répétée, afin de rester en phase avec les derniers enseignements, projets et études.
             </p>
+          </div>
+
+          {/* Tableau des 10 learnings */}
+          <div className="max-w-4xl mx-auto mb-12">
+            <div className="text-center mb-6">
+              <h3 className="text-2xl font-bold mb-2" style={{ color: '#262845' }}>10 insights clés de la recherche</h3>
+              <p className="text-sm text-muted-foreground">Cliquez sur un insight pour en savoir plus et accéder aux sources et sections détaillées.</p>
+            </div>
+            <LearningsTable />
           </div>
 
           <div className="max-w-2xl mx-auto">
