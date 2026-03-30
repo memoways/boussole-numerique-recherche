@@ -426,7 +426,163 @@ function SchemaArchitecture() {
   );
 }
 
-// ─── Page principale ──────────────────────────────────────────────────────────
+// ─── Composant ComparatifInteractif ──────────────────────────────────────────────────────────────────────────────────
+
+type CellVal = boolean | null;
+type SortKey = 'critere' | 'chatgpt' | 'audit' | 'formation' | 'boussole' | null;
+type SortDir = 'asc' | 'desc';
+
+const ALL_ROWS = [
+  { cat: "Adapté au secteur", critere: "Adapté au secteur culturel",             chatgpt: false as CellVal, chatgptNote: "Généraliste",            audit: true  as CellVal, auditNote: "Selon le prestataire",   formation: false as CellVal, formationNote: "Rarement",       boussole: true as CellVal, boussoleNote: "Conçu pour la culture" },
+  { cat: "Accessibilité",      critere: "Accessible sans expertise technique",   chatgpt: false as CellVal, chatgptNote: "Requiert de la maîtrise", audit: true  as CellVal, auditNote: "Accompagnement humain", formation: true  as CellVal, formationNote: "Variable",        boussole: true as CellVal, boussoleNote: "Guidé, pédagogue" },
+  { cat: "Coût",              critere: "Gratuit",                               chatgpt: false as CellVal, chatgptNote: "Abonnement payant",    audit: false as CellVal, auditNote: "Coût élevé",          formation: false as CellVal, formationNote: "Souvent payant",  boussole: true as CellVal, boussoleNote: "Gratuit 2 ans" },
+  { cat: "Données",           critere: "Données hébergées en Suisse/Europe",    chatgpt: false as CellVal, chatgptNote: "USA (OpenAI)",           audit: null  as CellVal, auditNote: "Variable",            formation: null  as CellVal, formationNote: "Variable",        boussole: true as CellVal, boussoleNote: "Infomaniak (CH)" },
+  { cat: "Fonctionnalités",   critere: "Restitution visuelle personnalisée",    chatgpt: false as CellVal, chatgptNote: "Texte brut",             audit: true  as CellVal, auditNote: "Rapport PDF",          formation: false as CellVal, formationNote: "Non",             boussole: true as CellVal, boussoleNote: "Radar + synthèse" },
+  { cat: "Fonctionnalités",   critere: "Mode collaboratif (équipe)",            chatgpt: false as CellVal, chatgptNote: "Non",                   audit: true  as CellVal, auditNote: "Entretiens multiples",  formation: false as CellVal, formationNote: "Non",             boussole: true as CellVal, boussoleNote: "Agrégation collective" },
+  { cat: "Adapté au secteur", critere: "Recommandations vers l'écosystème local", chatgpt: false as CellVal, chatgptNote: "Générique",             audit: null  as CellVal, auditNote: "Selon prestataire",    formation: false as CellVal, formationNote: "Non",             boussole: true as CellVal, boussoleNote: "Ressources genevoises" },
+];
+
+const CATS = ["Tous", "Adapté au secteur", "Accessibilité", "Coût", "Données", "Fonctionnalités"];
+
+function valScore(v: CellVal): number { return v === true ? 2 : v === null ? 1 : 0; }
+
+function CellIcon({ v }: { v: CellVal }) {
+  if (v === true)  return <span className="text-lg">&#x2705;</span>;
+  if (v === false) return <span className="text-lg">&#x274C;</span>;
+  return <span className="text-lg text-muted-foreground">&#x3030;&#xFE0F;</span>;
+}
+
+function ComparatifInteractif() {
+  const [cat, setCat] = useState("Tous");
+  const [sortKey, setSortKey] = useState<SortKey>(null);
+  const [sortDir, setSortDir] = useState<SortDir>('asc');
+
+  const handleSort = (key: SortKey) => {
+    if (sortKey === key) setSortDir(d => d === 'asc' ? 'desc' : 'asc');
+    else { setSortKey(key); setSortDir('asc'); }
+  };
+
+  const filtered = ALL_ROWS.filter(r => cat === "Tous" || r.cat === cat);
+  const sorted = [...filtered].sort((a, b) => {
+    if (!sortKey) return 0;
+    let va: number | string, vb: number | string;
+    if (sortKey === 'critere') { va = a.critere; vb = b.critere; }
+    else if (sortKey === 'chatgpt') { va = valScore(a.chatgpt); vb = valScore(b.chatgpt); }
+    else if (sortKey === 'audit') { va = valScore(a.audit); vb = valScore(b.audit); }
+    else if (sortKey === 'formation') { va = valScore(a.formation); vb = valScore(b.formation); }
+    else { va = valScore(a.boussole); vb = valScore(b.boussole); }
+    if (va < vb) return sortDir === 'asc' ? -1 : 1;
+    if (va > vb) return sortDir === 'asc' ? 1 : -1;
+    return 0;
+  });
+
+  const SortArrow = ({ k }: { k: SortKey }) => (
+    <span className="ml-1 text-xs opacity-70">{sortKey === k ? (sortDir === 'asc' ? '▲' : '▼') : '⇅'}</span>
+  );
+
+  const ThBtn = ({ k, label, thClass = "", thStyle = {} }: { k: SortKey; label: string; thClass?: string; thStyle?: React.CSSProperties }) => (
+    <th className={`px-4 py-4 text-center font-semibold cursor-pointer select-none hover:opacity-80 transition-opacity ${thClass}`} style={thStyle} onClick={() => handleSort(k)} title={`Trier par ${label}`}>
+      {label}<SortArrow k={k} />
+    </th>
+  );
+
+  return (
+    <div>
+      {/* Filtres */}
+      <div className="flex flex-wrap gap-2 mb-5">
+        {CATS.map(c => (
+          <button key={c} onClick={() => setCat(c)}
+            className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
+              cat === c ? 'text-white border-transparent shadow-sm' : 'bg-white text-muted-foreground border-border hover:border-[#515792] hover:text-[#515792]'
+            }`}
+            style={cat === c ? { backgroundColor: '#515792', borderColor: '#515792' } : {}}>
+            {c}
+          </button>
+        ))}
+        {sortKey && (
+          <button onClick={() => { setSortKey(null); setSortDir('asc'); }}
+            className="px-3 py-1.5 rounded-full text-xs font-medium border bg-orange-50 text-orange-600 border-orange-200 hover:bg-orange-100 transition-all">
+            × Réinitialiser le tri
+          </button>
+        )}
+      </div>
+
+      {/* Tableau desktop */}
+      <div className="hidden md:block overflow-x-auto rounded-2xl border shadow-sm">
+        <table className="w-full text-sm border-collapse">
+          <thead>
+            <tr style={{ backgroundColor: '#262845' }}>
+              <ThBtn k="critere" label="Critère" thClass="text-left w-52" thStyle={{ color: 'white' }} />
+              <ThBtn k="chatgpt" label="ChatGPT / IA généraliste" thStyle={{ color: '#EFCFB7' }} />
+              <ThBtn k="audit" label="Audit externe" thStyle={{ color: '#EFCFB7' }} />
+              <ThBtn k="formation" label="Formation en ligne" thStyle={{ color: '#EFCFB7' }} />
+              <ThBtn k="boussole" label="✦ Boussole" thClass="rounded-tr-xl" thStyle={{ backgroundColor: '#515792', color: 'white' }} />
+            </tr>
+          </thead>
+          <tbody>
+            {sorted.length === 0 ? (
+              <tr><td colSpan={5} className="text-center py-8 text-muted-foreground text-sm">Aucun critère pour cette catégorie.</td></tr>
+            ) : sorted.map((row, i) => (
+              <tr key={row.critere} className={i % 2 === 0 ? 'bg-white' : 'bg-muted/20'}>
+                <td className="px-5 py-3.5 font-medium text-sm" style={{ color: '#262845' }}>
+                  <span className="inline-block text-xs px-2 py-0.5 rounded-full mr-2 font-normal" style={{ backgroundColor: '#eef0f8', color: '#515792' }}>{row.cat}</span>
+                  {row.critere}
+                </td>
+                {([
+                  [row.chatgpt, row.chatgptNote],
+                  [row.audit, row.auditNote],
+                  [row.formation, row.formationNote],
+                ] as [CellVal, string][]).map(([v, note], j) => (
+                  <td key={j} className="px-4 py-3.5 text-center">
+                    <div className="flex flex-col items-center gap-1">
+                      <CellIcon v={v} />
+                      <span className="text-xs text-muted-foreground">{note}</span>
+                    </div>
+                  </td>
+                ))}
+                <td className="px-4 py-3.5 text-center" style={{ backgroundColor: '#f0f1f8' }}>
+                  <div className="flex flex-col items-center gap-1">
+                    <CellIcon v={row.boussole} />
+                    <span className="text-xs font-medium" style={{ color: '#515792' }}>{row.boussoleNote}</span>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Cartes mobile */}
+      <div className="md:hidden space-y-3">
+        {sorted.length === 0 ? (
+          <p className="text-center text-muted-foreground text-sm py-6">Aucun critère pour cette catégorie.</p>
+        ) : sorted.map((row) => (
+          <div key={row.critere} className="rounded-xl border p-4 bg-white">
+            <span className="text-xs px-2 py-0.5 rounded-full font-medium mb-2 inline-block" style={{ backgroundColor: '#eef0f8', color: '#515792' }}>{row.cat}</span>
+            <div className="font-semibold text-sm mb-3" style={{ color: '#262845' }}>{row.critere}</div>
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              {([
+                ['ChatGPT', row.chatgpt, row.chatgptNote],
+                ['Audit', row.audit, row.auditNote],
+                ['Formation', row.formation, row.formationNote],
+                ['Boussole', row.boussole, row.boussoleNote],
+              ] as [string, CellVal, string][]).map(([label, v, note]) => (
+                <div key={label} className={`rounded-lg p-2 border ${label === 'Boussole' ? 'border-[#515792] bg-[#f0f1f8]' : 'border-border bg-muted/30'}`}>
+                  <div className="font-semibold mb-1" style={label === 'Boussole' ? { color: '#515792' } : {}}>{label}</div>
+                  <div className="flex items-center gap-1"><CellIcon v={v} /><span className="text-muted-foreground">{note}</span></div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p className="text-xs text-muted-foreground mt-4 italic">&#x3030;&#xFE0F; = selon les cas. Cliquez sur un en-tête de colonne pour trier. Tableau indicatif basé sur une analyse de février 2026.</p>
+    </div>
+  );
+}
+
+// ─── Page principale ──────────────────────────────────────────────────────────────────────────────────
 export default function DescriptionProjet() {
   const dimensions = [
     { icon: "🛠️", title: "Outils & méthodes de travail", desc: "Les logiciels et méthodes utilisés soutiennent-ils la collaboration ou créent-ils de la friction ? Comment circulent les fichiers, comment sont suivis les projets ?" },
@@ -590,125 +746,14 @@ export default function DescriptionProjet() {
         </div>
       </section>
 
-      {/* Positionnement — Tableau comparatif */}
+      {/* Positionnement — Tableau comparatif interactif */}
       <section id="distinction" className="py-16 bg-background">
         <div className="container max-w-5xl">
           <Badge className="mb-4" style={{ backgroundColor: '#515792', color: 'white' }}>Positionnement</Badge>
           <h2 className="text-3xl font-bold mb-2" style={{ color: '#262845' }}>La Boussole face aux autres solutions</h2>
-          <p className="text-muted-foreground mb-8 text-lg">Pourquoi créer un nouvel outil alors qu'il en existe déjà ? Parce qu'aucun ne répond aux besoins spécifiques des acteurs culturels genevois.</p>
+          <p className="text-muted-foreground mb-6 text-lg">Pourquoi créer un nouvel outil alors qu'il en existe déjà ? Parce qu'aucun ne répond aux besoins spécifiques des acteurs culturels genevois.</p>
 
-          {/* Tableau — desktop */}
-          <div className="hidden md:block overflow-x-auto rounded-2xl border shadow-sm">
-            <table className="w-full text-sm border-collapse">
-              <thead>
-                <tr style={{ backgroundColor: '#262845' }}>
-                  <th className="text-left px-5 py-4 text-white font-semibold w-48">Critère</th>
-                  <th className="px-4 py-4 text-center font-semibold" style={{ color: '#EFCFB7' }}>ChatGPT / IA généraliste</th>
-                  <th className="px-4 py-4 text-center font-semibold" style={{ color: '#EFCFB7' }}>Audit externe</th>
-                  <th className="px-4 py-4 text-center font-semibold" style={{ color: '#EFCFB7' }}>Formation en ligne</th>
-                  <th className="px-4 py-4 text-center font-bold rounded-tr-xl" style={{ backgroundColor: '#515792', color: 'white' }}>✦ Boussole Numérique Culture</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  {
-                    critere: "Adapté au secteur culturel",
-                    chatgpt: { val: false, note: "Généraliste" },
-                    audit: { val: true, note: "Selon le prestataire" },
-                    formation: { val: false, note: "Rarement" },
-                    boussole: { val: true, note: "Conçu pour la culture" },
-                  },
-                  {
-                    critere: "Accessible sans expertise technique",
-                    chatgpt: { val: false, note: "Requiert de la maîtrise" },
-                    audit: { val: true, note: "Accompagnement humain" },
-                    formation: { val: true, note: "Variable" },
-                    boussole: { val: true, note: "Guidé, pédagogue" },
-                  },
-                  {
-                    critere: "Gratuit",
-                    chatgpt: { val: false, note: "Abonnement payant" },
-                    audit: { val: false, note: "Coût élevé" },
-                    formation: { val: false, note: "Souvent payant" },
-                    boussole: { val: true, note: "Gratuit 2 ans" },
-                  },
-                  {
-                    critere: "Données hébergées en Suisse/Europe",
-                    chatgpt: { val: false, note: "USA (OpenAI)" },
-                    audit: { val: null, note: "Variable" },
-                    formation: { val: null, note: "Variable" },
-                    boussole: { val: true, note: "Infomaniak (CH)" },
-                  },
-                  {
-                    critere: "Restitution visuelle personnalisée",
-                    chatgpt: { val: false, note: "Texte brut" },
-                    audit: { val: true, note: "Rapport PDF" },
-                    formation: { val: false, note: "Non" },
-                    boussole: { val: true, note: "Radar + synthèse" },
-                  },
-                  {
-                    critere: "Mode collaboratif (équipe)",
-                    chatgpt: { val: false, note: "Non" },
-                    audit: { val: true, note: "Entretiens multiples" },
-                    formation: { val: false, note: "Non" },
-                    boussole: { val: true, note: "Agrégation collective" },
-                  },
-                  {
-                    critere: "Recommandations vers l'écosystème local",
-                    chatgpt: { val: false, note: "Générique" },
-                    audit: { val: null, note: "Selon prestataire" },
-                    formation: { val: false, note: "Non" },
-                    boussole: { val: true, note: "Ressources genevoises" },
-                  },
-                ].map((row, i) => (
-                  <tr key={i} className={i % 2 === 0 ? 'bg-white' : 'bg-muted/20'}>
-                    <td className="px-5 py-3.5 font-medium text-sm" style={{ color: '#262845' }}>{row.critere}</td>
-                    {[row.chatgpt, row.audit, row.formation].map((cell, j) => (
-                      <td key={j} className="px-4 py-3.5 text-center">
-                        <div className="flex flex-col items-center gap-1">
-                          <span className="text-lg">{cell.val === true ? '✅' : cell.val === false ? '❌' : '〰️'}</span>
-                          <span className="text-xs text-muted-foreground">{cell.note}</span>
-                        </div>
-                      </td>
-                    ))}
-                    <td className="px-4 py-3.5 text-center" style={{ backgroundColor: '#f0f1f8' }}>
-                      <div className="flex flex-col items-center gap-1">
-                        <span className="text-lg">{row.boussole.val === true ? '✅' : '❌'}</span>
-                        <span className="text-xs font-medium" style={{ color: '#515792' }}>{row.boussole.note}</span>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          {/* Version mobile — cartes empilées */}
-          <div className="md:hidden space-y-3">
-            {[
-              { critere: "Adapté au secteur culturel", boussole: true, autres: "Les autres outils sont généralistes ou coûteux." },
-              { critere: "Accessible sans expertise technique", boussole: true, autres: "ChatGPT requiert de la maîtrise ; les formations sont variables." },
-              { critere: "Gratuit", boussole: true, autres: "Audit = coût élevé. ChatGPT = abonnement. Formations = payantes." },
-              { critere: "Données hébergées en Suisse/Europe", boussole: true, autres: "ChatGPT hébergé aux USA (OpenAI)." },
-              { critere: "Restitution visuelle personnalisée", boussole: true, autres: "ChatGPT = texte brut. Formations = aucune restitution." },
-              { critere: "Mode collaboratif (équipe)", boussole: true, autres: "Seul l'audit propose des entretiens multiples, mais à coût élevé." },
-              { critere: "Recommandations vers l'écosystème local", boussole: true, autres: "Les autres outils proposent des ressources génériques." },
-            ].map((row, i) => (
-              <div key={i} className="rounded-xl border p-4 bg-white">
-                <div className="font-semibold text-sm mb-2" style={{ color: '#262845' }}>{row.critere}</div>
-                <div className="flex items-start gap-2 text-sm">
-                  <span className="text-base mt-0.5">✅</span>
-                  <span className="font-medium" style={{ color: '#515792' }}>Boussole : oui</span>
-                </div>
-                <div className="flex items-start gap-2 text-sm mt-1 text-muted-foreground">
-                  <span className="text-base mt-0.5">❌</span>
-                  <span>{row.autres}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <p className="text-xs text-muted-foreground mt-4 italic">〰️ = selon les cas. Ce tableau est indicatif et basé sur une analyse comparative réalisée en février 2026.</p>
+          <ComparatifInteractif />
         </div>
       </section>
 
