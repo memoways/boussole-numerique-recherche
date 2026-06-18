@@ -1438,7 +1438,7 @@ export default function Home() {
               />
               <div className="text-left">
                 <p className="font-semibold" style={{ color: '#515792' }}>Memoways Research</p>
-                <p className="text-sm text-muted-foreground">Février 2026</p>
+                <p className="text-sm text-muted-foreground">Juin 2026</p>
               </div>
             </div>
             <div className="text-center md:text-right">
