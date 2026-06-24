@@ -75,11 +75,61 @@ const ETAPES_OUTIL = [
 // ─── Radar interactif (partagé avec /experience) ────────────────────────────
 
 const DIMS_RADAR = [
-  { label: "Outils",        emoji: "🛠️", couleur: "#515792", desc: "Les logiciels, applications et plateformes utilisés au quotidien. Cette dimension évalue si vos outils sont adaptés à vos usages réels — pas à ce qu'on vous a vendu." },
-  { label: "Compétences",   emoji: "🎓", couleur: "#E27227", desc: "Les savoir-faire numériques de votre équipe. La Boussole ne juge pas le niveau — elle aide à repérer les écarts entre les besoins du terrain et les compétences disponibles." },
-  { label: "Données",       emoji: "🗄️", couleur: "#3aab8a", desc: "La manière dont vous collectez, stockez et utilisez vos données (publics, projets, finances). Une dimension souvent sous-estimée, pourtant centrale pour piloter une structure culturelle." },
-  { label: "Diffusion",     emoji: "📡", couleur: "#9b59b6", desc: "Votre présence numérique — site web, réseaux sociaux, newsletters, billetterie en ligne. Cette dimension évalue la cohérence et l'efficacité de vos canaux de communication." },
-  { label: "Collaboration", emoji: "🔗", couleur: "#E58441", desc: "Les outils et pratiques de travail en équipe — partage de fichiers, gestion de projets, communication interne. Là où beaucoup de structures perdent le plus d'énergie au quotidien." },
+  {
+    label: "Outils",
+    emoji: "🛠️",
+    couleur: "#515792",
+    resume: "Logiciels, applications et plateformes utilisés au quotidien.",
+    desc: "La Boussole évalue si vos outils sont vraiment adaptés à vos usages réels — pas à ce qu'on vous a vendu. Quels logiciels utilisez-vous ? Sont-ils cohérents entre eux ? Payez-vous pour des fonctionnalités que vous n'utilisez jamais ?",
+    liens: [
+      { texte: "L'expérience Boussole", href: "/experience" },
+      { texte: "Dimensions évaluées", href: "/projet#proposition" },
+    ],
+  },
+  {
+    label: "Compétences",
+    emoji: "🎓",
+    couleur: "#E27227",
+    resume: "Savoir-faire numériques de l'équipe et culture du changement.",
+    desc: "La Boussole ne juge pas le niveau — elle aide à repérer les écarts entre les besoins du terrain et les compétences disponibles. Qui sait faire quoi ? Où sont les angles morts collectifs ? Comment l'équipe se forme-t-elle ?",
+    liens: [
+      { texte: "Recherche & contexte", href: "/recherche" },
+      { texte: "Méthode co-conçue", href: "/methode" },
+    ],
+  },
+  {
+    label: "Données",
+    emoji: "🗄️",
+    couleur: "#3aab8a",
+    resume: "Collecte, stockage et usage des données (publics, projets, finances).",
+    desc: "Une dimension souvent sous-estimée, pourtant centrale pour piloter une structure culturelle. Où sont stockées vos données ? Qui y a accès ? Avez-vous une politique de sauvegarde et d'archivage ?",
+    liens: [
+      { texte: "Gouvernance & neutralité", href: "/gouvernance" },
+      { texte: "Principes fondateurs", href: "/projet#principes" },
+    ],
+  },
+  {
+    label: "Diffusion",
+    emoji: "📡",
+    couleur: "#9b59b6",
+    resume: "Présence numérique, communication et relation aux publics.",
+    desc: "Site web, réseaux sociaux, newsletters, billetterie en ligne — cette dimension évalue la cohérence et l'efficacité de vos canaux. Vos outils de communication sont-ils adaptés à vos publics ? Mesurez-vous leur impact ?",
+    liens: [
+      { texte: "Références inspirantes", href: "/references" },
+      { texte: "Partenaires & terrain", href: "/partenaires" },
+    ],
+  },
+  {
+    label: "Collaboration",
+    emoji: "🔗",
+    couleur: "#E58441",
+    resume: "Pratiques de travail en équipe, partage et cohérence interne.",
+    desc: "Partage de fichiers, gestion de projets, communication interne — là où beaucoup de structures perdent le plus d'énergie au quotidien. Vos pratiques numériques sont-elles cohérentes entre les équipes ? Partagez-vous des ressources avec d'autres structures ?",
+    liens: [
+      { texte: "Méthode & co-conception", href: "/methode" },
+      { texte: "Calendrier du projet", href: "/timeline" },
+    ],
+  },
 ];
 
 const RADAR_A = [0.72, 0.50, 0.83, 0.45, 0.68];
@@ -161,30 +211,45 @@ function HomeRadar() {
               className="rounded-xl overflow-hidden transition-all duration-200"
               style={{ border: `1.5px solid ${activeDim === i ? dim.couleur : '#e5e7eb'}` }}
             >
-              {/* En-tête cliquable */}
+              {/* En-tête avec résumé visible par défaut */}
               <button
                 onClick={() => setActiveDim(activeDim === i ? null : i)}
-                className="w-full flex items-center gap-3 px-4 py-3 text-left transition-colors duration-200"
+                className="w-full flex items-start gap-3 px-4 py-3 text-left transition-colors duration-200"
                 style={{ backgroundColor: activeDim === i ? dim.couleur + '10' : '#f8f9fc' }}
               >
-                <span className="text-lg flex-shrink-0">{dim.emoji}</span>
-                <span className="font-semibold text-sm flex-1" style={{ color: activeDim === i ? dim.couleur : '#374151' }}>{dim.label}</span>
+                <span className="text-lg flex-shrink-0 mt-0.5">{dim.emoji}</span>
+                <span className="flex-1 min-w-0">
+                  <span className="font-semibold text-sm block" style={{ color: activeDim === i ? dim.couleur : '#374151' }}>{dim.label}</span>
+                  <span className="text-xs text-gray-500 leading-snug">{dim.resume}</span>
+                </span>
                 <ChevronDown
-                  className="h-4 w-4 flex-shrink-0 transition-transform duration-200"
+                  className="h-4 w-4 flex-shrink-0 mt-1 transition-transform duration-200"
                   style={{ color: activeDim === i ? dim.couleur : '#9ca3af', transform: activeDim === i ? 'rotate(180deg)' : 'rotate(0deg)' }}
                 />
               </button>
-              {/* Description dépliable */}
+              {/* Détails + liens dépliables au clic */}
               <div
                 className="overflow-hidden transition-all duration-300"
-                style={{ maxHeight: activeDim === i ? '120px' : '0px', opacity: activeDim === i ? 1 : 0 }}
+                style={{ maxHeight: activeDim === i ? '200px' : '0px', opacity: activeDim === i ? 1 : 0 }}
               >
-                <p
-                  className="px-4 py-3 text-sm text-gray-600 leading-relaxed"
+                <div
+                  className="px-4 py-3 space-y-3"
                   style={{ borderTop: `1px solid ${dim.couleur}20`, backgroundColor: dim.couleur + '06' }}
                 >
-                  {dim.desc}
-                </p>
+                  <p className="text-sm text-gray-600 leading-relaxed">{dim.desc}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {dim.liens.map((lien, li) => (
+                      <Link
+                        key={li}
+                        href={lien.href}
+                        className="inline-flex items-center gap-1 text-xs font-medium px-3 py-1 rounded-full transition-colors duration-150 hover:opacity-80"
+                        style={{ backgroundColor: dim.couleur + '15', color: dim.couleur, border: `1px solid ${dim.couleur}30` }}
+                      >
+                        {lien.texte} <ArrowRight className="h-3 w-3" />
+                      </Link>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           ))}
