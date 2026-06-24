@@ -152,46 +152,46 @@ function HomeRadar() {
         </svg>
       </div>
 
-      {/* Panneau droite : liste + description active */}
+      {/* Panneau droite : accordion inline */}
       <div className="flex-1 w-full">
-        <div className="space-y-2 mb-4">
+        <div className="space-y-2 mb-5">
           {DIMS_RADAR.map((dim, i) => (
-            <button
+            <div
               key={i}
-              onClick={() => setActiveDim(activeDim === i ? null : i)}
-              className="w-full flex items-center gap-3 rounded-xl px-4 py-3 text-left transition-all duration-200 hover:shadow-sm"
-              style={{
-                backgroundColor: activeDim === i ? dim.couleur + '12' : '#f8f9fc',
-                border: `1.5px solid ${activeDim === i ? dim.couleur : '#e5e7eb'}`,
-              }}
+              className="rounded-xl overflow-hidden transition-all duration-200"
+              style={{ border: `1.5px solid ${activeDim === i ? dim.couleur : '#e5e7eb'}` }}
             >
-              <span className="text-lg flex-shrink-0">{dim.emoji}</span>
-              <span className="font-semibold text-sm" style={{ color: activeDim === i ? dim.couleur : '#374151' }}>{dim.label}</span>
-              <ChevronDown className="ml-auto h-4 w-4 flex-shrink-0 transition-transform duration-200" style={{ color: activeDim === i ? dim.couleur : '#9ca3af', transform: activeDim === i ? 'rotate(180deg)' : 'rotate(0deg)' }} />
-            </button>
+              {/* En-tête cliquable */}
+              <button
+                onClick={() => setActiveDim(activeDim === i ? null : i)}
+                className="w-full flex items-center gap-3 px-4 py-3 text-left transition-colors duration-200"
+                style={{ backgroundColor: activeDim === i ? dim.couleur + '10' : '#f8f9fc' }}
+              >
+                <span className="text-lg flex-shrink-0">{dim.emoji}</span>
+                <span className="font-semibold text-sm flex-1" style={{ color: activeDim === i ? dim.couleur : '#374151' }}>{dim.label}</span>
+                <ChevronDown
+                  className="h-4 w-4 flex-shrink-0 transition-transform duration-200"
+                  style={{ color: activeDim === i ? dim.couleur : '#9ca3af', transform: activeDim === i ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                />
+              </button>
+              {/* Description dépliable */}
+              <div
+                className="overflow-hidden transition-all duration-300"
+                style={{ maxHeight: activeDim === i ? '120px' : '0px', opacity: activeDim === i ? 1 : 0 }}
+              >
+                <p
+                  className="px-4 py-3 text-sm text-gray-600 leading-relaxed"
+                  style={{ borderTop: `1px solid ${dim.couleur}20`, backgroundColor: dim.couleur + '06' }}
+                >
+                  {dim.desc}
+                </p>
+              </div>
+            </div>
           ))}
         </div>
-        {/* Description */}
-        <div
-          className="rounded-xl px-4 py-3 text-sm leading-relaxed transition-all duration-300"
-          style={{
-            minHeight: '64px',
-            backgroundColor: activeDim !== null ? DIMS_RADAR[activeDim].couleur + '10' : '#f0f1f8',
-            borderLeft: `3px solid ${activeDim !== null ? DIMS_RADAR[activeDim].couleur : '#d0d3ea'}`,
-            opacity: activeDim !== null ? 1 : 0.6,
-          }}
-        >
-          {activeDim !== null ? (
-            <p className="text-gray-600">{DIMS_RADAR[activeDim].desc}</p>
-          ) : (
-            <p className="text-gray-400 italic text-xs">Cliquez sur un point du radar ou sur une dimension pour en savoir plus.</p>
-          )}
-        </div>
-        <div className="mt-4">
-          <Button variant="outline" size="sm" className="text-xs" style={{ borderColor: '#515792', color: '#515792' }} asChild>
-            <Link href="/experience">Voir l'expérience complète <ArrowRight className="ml-1 h-3 w-3" /></Link>
-          </Button>
-        </div>
+        <Button variant="outline" size="sm" className="text-xs" style={{ borderColor: '#515792', color: '#515792' }} asChild>
+          <Link href="/experience">Voir l'expérience complète <ArrowRight className="ml-1 h-3 w-3" /></Link>
+        </Button>
       </div>
     </div>
   );
