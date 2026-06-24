@@ -76,11 +76,36 @@ const EXTRAS = [
 
 // Dimensions du radar
 const DIMS = [
-  { label: "Outils",       emoji: "🛠️", couleur: "#515792" },
-  { label: "Compétences",  emoji: "🎓", couleur: "#E27227" },
-  { label: "Données",      emoji: "🗄️", couleur: "#3aab8a" },
-  { label: "Diffusion",    emoji: "📡", couleur: "#9b59b6" },
-  { label: "Collaboration",emoji: "🔗", couleur: "#E58441" },
+  {
+    label: "Outils",
+    emoji: "🛠️",
+    couleur: "#515792",
+    desc: "Les logiciels, applications et plateformes utilisés au quotidien. Cette dimension évalue si vos outils sont adaptés à vos usages réels — pas à ce qu'on vous a vendu.",
+  },
+  {
+    label: "Compétences",
+    emoji: "🎓",
+    couleur: "#E27227",
+    desc: "Les savoir-faire numériques de votre équipe. La Boussole ne juge pas le niveau — elle aide à repérer les écarts entre les besoins du terrain et les compétences disponibles.",
+  },
+  {
+    label: "Données",
+    emoji: "🗄️",
+    couleur: "#3aab8a",
+    desc: "La manière dont vous collectez, stockez et utilisez vos données (publics, projets, finances). Une dimension souvent sous-estimée, pourtant centrale pour piloter une structure culturelle.",
+  },
+  {
+    label: "Diffusion",
+    emoji: "📡",
+    couleur: "#9b59b6",
+    desc: "Votre présence numérique — site web, réseaux sociaux, newsletters, billetterie en ligne. Cette dimension évalue la cohérence et l'efficacité de vos canaux de communication.",
+  },
+  {
+    label: "Collaboration",
+    emoji: "🔗",
+    couleur: "#E58441",
+    desc: "Les outils et pratiques de travail en équipe — partage de fichiers, gestion de projets, communication interne. Là où beaucoup de structures perdent le plus d'énergie au quotidien.",
+  },
 ];
 
 // Valeurs cibles qui oscillent entre min et max
@@ -90,6 +115,7 @@ const TARGETS_B = [0.40, 0.78, 0.55, 0.82, 0.35];
 function AnimatedRadar() {
   const [vals, setVals] = useState(TARGETS_A);
   const [orbitAngle, setOrbitAngle] = useState(0);
+  const [activeDim, setActiveDim] = useState<number | null>(null);
   const rafRef = useRef<number | null>(null);
   const startRef = useRef<number | null>(null);
   const phaseRef = useRef(0); // 0 = vers B, 1 = vers A
@@ -140,6 +166,7 @@ function AnimatedRadar() {
   const radarPath = radarPoints.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x.toFixed(2)},${p.y.toFixed(2)}`).join(' ') + ' Z';
 
   return (
+    <div className="flex flex-col items-center gap-4 w-full">
     <svg viewBox="0 0 300 300" className="w-64 h-64 sm:w-80 sm:h-80" style={{ overflow: 'visible' }}>
       {/* Grille pentagone */}
       {[1, 0.75, 0.5, 0.25].map((scale, si) => {
@@ -156,9 +183,17 @@ function AnimatedRadar() {
       })}
       {/* Zone radar animée */}
       <path d={radarPath} fill="#515792" fillOpacity="0.18" stroke="#515792" strokeWidth="2" strokeLinejoin="round" />
-      {/* Points sur les pointes */}
+      {/* Points sur les pointes — cliquables */}
       {radarPoints.map((p, i) => (
-        <circle key={i} cx={p.x.toFixed(2)} cy={p.y.toFixed(2)} r="4.5" fill={DIMS[i].couleur} stroke="white" strokeWidth="1.5" />
+        <g key={i} style={{ cursor: 'pointer' }} onClick={() => setActiveDim(activeDim === i ? null : i)}>
+          {/* Halo de clic élargi */}
+          <circle cx={p.x.toFixed(2)} cy={p.y.toFixed(2)} r="14" fill="transparent" />
+          {/* Anneau de sélection */}
+          {activeDim === i && (
+            <circle cx={p.x.toFixed(2)} cy={p.y.toFixed(2)} r="9" fill={DIMS[i].couleur} fillOpacity="0.2" stroke={DIMS[i].couleur} strokeWidth="1" />
+          )}
+          <circle cx={p.x.toFixed(2)} cy={p.y.toFixed(2)} r={activeDim === i ? 6 : 4.5} fill={DIMS[i].couleur} stroke="white" strokeWidth="1.5" />
+        </g>
       ))}
       {/* Icônes en orbite dans le sens horaire */}
       {DIMS.map((dim, i) => {
@@ -174,6 +209,29 @@ function AnimatedRadar() {
         );
       })}
     </svg>
+
+    {/* Panneau description dimension active */}
+    <div
+      className="w-full max-w-xs rounded-xl px-4 py-3 text-sm leading-relaxed transition-all duration-300"
+      style={{
+        minHeight: '72px',
+        backgroundColor: activeDim !== null ? DIMS[activeDim].couleur + '12' : '#f8f9fc',
+        borderLeft: activeDim !== null ? `3px solid ${DIMS[activeDim].couleur}` : '3px solid #e5e7eb',
+        opacity: activeDim !== null ? 1 : 0.5,
+      }}
+    >
+      {activeDim !== null ? (
+        <>
+          <p className="font-bold mb-1" style={{ color: DIMS[activeDim].couleur }}>
+            {DIMS[activeDim].emoji} {DIMS[activeDim].label}
+          </p>
+          <p className="text-gray-600">{DIMS[activeDim].desc}</p>
+        </>
+      ) : (
+        <p className="text-gray-400 italic text-xs">Cliquez sur un point du radar pour découvrir la dimension correspondante.</p>
+      )}
+    </div>
+    </div>
   );
 }
 
