@@ -122,33 +122,47 @@ export default function Timeline() {
       <section className="py-14 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
 
-          {/* Barre de progression desktop */}
-          <div className="hidden md:flex items-center mb-12 gap-0">
-            {PHASES.map((phase, i) => {
-              const Icon = phase.icon;
-              return (
-                <div key={i} className="flex items-center flex-1">
+          {/* Barre de progression desktop — cercles alignés + titres complets */}
+          <div className="hidden md:block mb-12">
+            {/* Rangée des cercles avec la ligne de connexion */}
+            <div className="relative flex items-center justify-between">
+              {/* Ligne de fond */}
+              <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-0.5" style={{ backgroundColor: '#e5e7eb', zIndex: 0 }}></div>
+              {PHASES.map((phase, i) => {
+                const Icon = phase.icon;
+                const isActive = phaseOuverte === i;
+                return (
                   <button
-                    className="flex flex-col items-center gap-2 group"
-                    onClick={() => setPhaseOuverte(phaseOuverte === i ? null : i)}
+                    key={i}
+                    className="relative z-10 flex flex-col items-center gap-0 group flex-1"
+                    onClick={() => setPhaseOuverte(isActive ? null : i)}
                   >
                     <div
-                      className="w-12 h-12 rounded-full flex items-center justify-center transition-all group-hover:scale-110"
-                      style={{ backgroundColor: phaseOuverte === i ? phase.couleur : '#e5e7eb' }}
+                      className="w-14 h-14 rounded-full flex items-center justify-center transition-all duration-200 group-hover:scale-110 shadow-sm"
+                      style={{ backgroundColor: isActive ? phase.couleur : '#e5e7eb' }}
                     >
-                      <Icon className="h-5 w-5" style={{ color: phaseOuverte === i ? 'white' : '#9ca3af' }} />
-                    </div>
-                    <div className="text-center">
-                      <p className="text-xs font-bold" style={{ color: phaseOuverte === i ? phase.couleur : '#9ca3af' }}>{phase.num}</p>
-                      <p className="text-xs text-gray-500 max-w-16 leading-tight">{phase.titre.split(' ').slice(0, 2).join(' ')}</p>
+                      <Icon className="h-6 w-6" style={{ color: isActive ? 'white' : '#9ca3af' }} />
                     </div>
                   </button>
-                  {i < PHASES.length - 1 && (
-                    <div className="flex-1 h-0.5 mx-1 mt-[-20px]" style={{ backgroundColor: '#e5e7eb' }}></div>
-                  )}
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
+            {/* Rangée des légendes (numéro + titre) */}
+            <div className="flex items-start justify-between mt-3">
+              {PHASES.map((phase, i) => {
+                const isActive = phaseOuverte === i;
+                return (
+                  <button
+                    key={i}
+                    className="flex-1 flex flex-col items-center text-center px-1 group"
+                    onClick={() => setPhaseOuverte(isActive ? null : i)}
+                  >
+                    <p className="text-xs font-bold mb-0.5" style={{ color: isActive ? phase.couleur : '#9ca3af' }}>{phase.num}</p>
+                    <p className="text-xs leading-tight" style={{ color: isActive ? phase.couleur : '#6b7280' }}>{phase.titre}</p>
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
           {/* Détail de la phase sélectionnée (desktop) */}
