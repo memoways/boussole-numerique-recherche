@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -73,6 +73,109 @@ const EXTRAS = [
     couleur: "#3aab8a",
   },
 ];
+
+// Dimensions du radar
+const DIMS = [
+  { label: "Outils",       emoji: "🛠️", couleur: "#515792" },
+  { label: "Compétences",  emoji: "🎓", couleur: "#E27227" },
+  { label: "Données",      emoji: "🗄️", couleur: "#3aab8a" },
+  { label: "Diffusion",    emoji: "📡", couleur: "#9b59b6" },
+  { label: "Collaboration",emoji: "🔗", couleur: "#E58441" },
+];
+
+// Valeurs cibles qui oscillent entre min et max
+const TARGETS_A = [0.72, 0.50, 0.83, 0.45, 0.68];
+const TARGETS_B = [0.40, 0.78, 0.55, 0.82, 0.35];
+
+function AnimatedRadar() {
+  const [vals, setVals] = useState(TARGETS_A);
+  const [orbitAngle, setOrbitAngle] = useState(0);
+  const rafRef = useRef<number | null>(null);
+  const startRef = useRef<number | null>(null);
+  const phaseRef = useRef(0); // 0 = vers B, 1 = vers A
+  const progressRef = useRef(0);
+
+  useEffect(() => {
+    const ORBIT_SPEED = 0.008; // degrés par ms → ~125s/tour
+    const MORPH_DURATION = 4000; // ms pour passer d'un état à l'autre
+    let lastTime = 0;
+
+    const tick = (ts: number) => {
+      if (!startRef.current) startRef.current = ts;
+      const dt = ts - lastTime;
+      lastTime = ts;
+
+      // Orbite
+      setOrbitAngle(prev => (prev + ORBIT_SPEED * dt) % 360);
+
+      // Morphing des pointes
+      progressRef.current = Math.min(progressRef.current + dt / MORPH_DURATION, 1);
+      const t = progressRef.current;
+      // easing sinusoïdal
+      const ease = (1 - Math.cos(t * Math.PI)) / 2;
+      const from = phaseRef.current === 0 ? TARGETS_A : TARGETS_B;
+      const to   = phaseRef.current === 0 ? TARGETS_B : TARGETS_A;
+      setVals(from.map((f, i) => f + (to[i] - f) * ease));
+
+      if (progressRef.current >= 1) {
+        progressRef.current = 0;
+        phaseRef.current = phaseRef.current === 0 ? 1 : 0;
+      }
+
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
+  }, []);
+
+  const CX = 150, CY = 150, R_GRID = 100, R_ORBIT = 138;
+
+  // Calcule les points du radar
+  const radarPoints = vals.map((v, i) => {
+    const angle = (i * 72 - 90) * Math.PI / 180;
+    const r = R_GRID * v;
+    return { x: CX + r * Math.cos(angle), y: CY + r * Math.sin(angle) };
+  });
+  const radarPath = radarPoints.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x.toFixed(2)},${p.y.toFixed(2)}`).join(' ') + ' Z';
+
+  return (
+    <svg viewBox="0 0 300 300" className="w-64 h-64 sm:w-80 sm:h-80" style={{ overflow: 'visible' }}>
+      {/* Grille pentagone */}
+      {[1, 0.75, 0.5, 0.25].map((scale, si) => {
+        const pts = [0,1,2,3,4].map(i => {
+          const a = (i * 72 - 90) * Math.PI / 180;
+          return `${(CX + R_GRID * scale * Math.cos(a)).toFixed(1)},${(CY + R_GRID * scale * Math.sin(a)).toFixed(1)}`;
+        }).join(' ');
+        return <polygon key={si} points={pts} fill="none" stroke="#e5e7eb" strokeWidth="1" />;
+      })}
+      {/* Axes */}
+      {[0,1,2,3,4].map(i => {
+        const a = (i * 72 - 90) * Math.PI / 180;
+        return <line key={i} x1={CX} y1={CY} x2={(CX + R_GRID * Math.cos(a)).toFixed(1)} y2={(CY + R_GRID * Math.sin(a)).toFixed(1)} stroke="#e5e7eb" strokeWidth="1" />;
+      })}
+      {/* Zone radar animée */}
+      <path d={radarPath} fill="#515792" fillOpacity="0.18" stroke="#515792" strokeWidth="2" strokeLinejoin="round" />
+      {/* Points sur les pointes */}
+      {radarPoints.map((p, i) => (
+        <circle key={i} cx={p.x.toFixed(2)} cy={p.y.toFixed(2)} r="4.5" fill={DIMS[i].couleur} stroke="white" strokeWidth="1.5" />
+      ))}
+      {/* Icônes en orbite dans le sens horaire */}
+      {DIMS.map((dim, i) => {
+        const baseAngle = i * 72 - 90;
+        const a = (baseAngle + orbitAngle) * Math.PI / 180;
+        const x = CX + R_ORBIT * Math.cos(a);
+        const y = CY + R_ORBIT * Math.sin(a);
+        return (
+          <g key={i}>
+            <circle cx={x.toFixed(1)} cy={y.toFixed(1)} r="16" fill="white" stroke={dim.couleur} strokeWidth="1.5" style={{ filter: 'drop-shadow(0 1px 3px rgba(0,0,0,0.12))' }} />
+            <text x={x.toFixed(1)} y={y.toFixed(1)} textAnchor="middle" dominantBaseline="middle" fontSize="14">{dim.emoji}</text>
+          </g>
+        );
+      })}
+    </svg>
+  );
+}
 
 export default function Experience() {
   const [etapeOuverte, setEtapeOuverte] = useState<number | null>(0);
@@ -201,50 +304,9 @@ export default function Experience() {
               <p className="text-gray-600 leading-relaxed mb-4">À la fin du questionnaire, vous recevez une carte visuelle de vos pratiques numériques. Un radar en cinq dimensions, lisible en un coup d'œil.</p>
               <p className="text-gray-500 text-sm leading-relaxed">Ce n'est pas une note. C'est une carte. Elle montre où vous êtes aujourd'hui — pour mieux choisir où aller demain.</p>
             </div>
-            {/* Radar SVG illustratif */}
+            {/* Radar animé */}
             <div className="flex justify-center">
-              <svg viewBox="0 0 300 300" className="w-64 h-64 sm:w-72 sm:h-72">
-                {/* Grille pentagone */}
-                {[1, 0.75, 0.5, 0.25].map((scale, si) => {
-                  const points = [0, 1, 2, 3, 4].map(i => {
-                    const angle = (i * 72 - 90) * Math.PI / 180;
-                    const r = 110 * scale;
-                    return `${150 + r * Math.cos(angle)},${150 + r * Math.sin(angle)}`;
-                  }).join(' ');
-                  return <polygon key={si} points={points} fill="none" stroke="#e5e7eb" strokeWidth="1" />;
-                })}
-                {/* Axes */}
-                {[0, 1, 2, 3, 4].map(i => {
-                  const angle = (i * 72 - 90) * Math.PI / 180;
-                  return <line key={i} x1="150" y1="150" x2={150 + 110 * Math.cos(angle)} y2={150 + 110 * Math.sin(angle)} stroke="#e5e7eb" strokeWidth="1" />;
-                })}
-                {/* Données (exemple illustratif) */}
-                {(() => {
-                  const vals = [0.7, 0.5, 0.8, 0.45, 0.65];
-                  const points = vals.map((v, i) => {
-                    const angle = (i * 72 - 90) * Math.PI / 180;
-                    const r = 110 * v;
-                    return `${150 + r * Math.cos(angle)},${150 + r * Math.sin(angle)}`;
-                  }).join(' ');
-                  return <polygon points={points} fill="#515792" fillOpacity="0.2" stroke="#515792" strokeWidth="2" />;
-                })()}
-                {/* Points */}
-                {[0.7, 0.5, 0.8, 0.45, 0.65].map((v, i) => {
-                  const angle = (i * 72 - 90) * Math.PI / 180;
-                  const r = 110 * v;
-                  return <circle key={i} cx={150 + r * Math.cos(angle)} cy={150 + r * Math.sin(angle)} r="5" fill="#515792" />;
-                })}
-                {/* Labels */}
-                {["🛠️", "🎓", "🗄️", "📡", "🔗"].map((emoji, i) => {
-                  const angle = (i * 72 - 90) * Math.PI / 180;
-                  const r = 130;
-                  return (
-                    <text key={i} x={150 + r * Math.cos(angle)} y={150 + r * Math.sin(angle)} textAnchor="middle" dominantBaseline="middle" fontSize="18">
-                      {emoji}
-                    </text>
-                  );
-                })}
-              </svg>
+              <AnimatedRadar />
             </div>
           </div>
         </div>
