@@ -82,42 +82,59 @@ export default function Home() {
       <Navigation />
 
       {/* ── HERO ─────────────────────────────────────────────────────────────── */}
-      <section className="pt-20 sm:pt-24 pb-16 sm:pb-20 px-4 bg-gradient-to-b from-slate-50 to-white">
+      <section className="pt-20 sm:pt-24 pb-20 sm:pb-28 px-4" style={{ background: 'linear-gradient(160deg, #f4f5fb 0%, #fdf6f0 50%, #f4f5fb 100%)' }}>
         <div className="max-w-4xl mx-auto text-center">
-          {/* Titre principal */}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
-            <span style={{
-              background: 'linear-gradient(135deg, #515792 0%, #3a4580 30%, #E27227 70%, #E58441 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}>
-              Boussole Numérique Culture
+
+          {/* Badge décoratif */}
+          <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest border" style={{ borderColor: '#515792', color: '#515792', backgroundColor: 'rgba(81,87,146,0.06)' }}>
+            <Compass className="h-3.5 w-3.5" />
+            Memoways Research · Genève
+          </div>
+
+          {/* Titre multicolore mot-par-mot */}
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.15] mb-8 tracking-tight">
+            <span className="block">
+              <span style={{ color: '#515792' }}>Boussole</span>
+              {' '}
+              <span style={{ color: '#3aab8a' }}>Numérique</span>
+            </span>
+            <span className="block">
+              <span style={{ color: '#7ab648' }}>Culture</span>
+              {' '}
+              <span style={{ color: '#E27227' }}>Genev</span><span style={{ color: '#E58441' }}>oise</span>
             </span>
           </h1>
 
           {/* Sous-titre */}
-          <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto mb-8 leading-relaxed">
-            Un outil genevois gratuit pour aider les actrices et acteurs culturels à comprendre leurs pratiques numériques, repérer les frictions du quotidien et choisir des pistes d'amélioration réalistes.
+          <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto mb-10 leading-relaxed">
+            Un outil gratuit pour aider les actrices et acteurs culturels à{' '}
+            <strong style={{ color: '#515792' }}>comprendre leurs pratiques numériques</strong>,
+            {' '}repérer les frictions du quotidien et choisir des pistes d'amélioration réalistes.
           </p>
 
           {/* Badges */}
           <div className="flex flex-wrap justify-center gap-2 mb-10">
-            {["Gratuit", "Open source", "Hébergé en Suisse", "Co-construit avec le terrain", "Pensé pour le secteur culturel"].map((badge) => (
-              <Badge key={badge} variant="outline" className="text-xs sm:text-sm px-3 py-1 border-gray-300 text-gray-600 bg-white">
-                {badge}
+            {[
+              { label: 'Gratuit', color: '#515792' },
+              { label: 'Open source', color: '#3aab8a' },
+              { label: 'Hébergé en Suisse', color: '#7ab648' },
+              { label: 'Co-construit avec le terrain', color: '#E27227' },
+              { label: 'Secteur culturel', color: '#E58441' },
+            ].map(({ label, color }) => (
+              <Badge key={label} variant="outline" className="text-xs sm:text-sm px-3 py-1 bg-white font-medium" style={{ borderColor: color + '60', color }}>
+                {label}
               </Badge>
             ))}
           </div>
 
           {/* CTAs principaux */}
-          <div className="flex flex-col sm:flex-row gap-3 justify-center mb-4">
-            <Button size="lg" className="font-semibold text-sm sm:text-base" style={{ backgroundColor: '#515792' }} asChild>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center mb-5">
+            <Button size="lg" className="font-semibold text-sm sm:text-base shadow-md hover:shadow-lg transition-shadow" style={{ backgroundColor: '#515792' }} asChild>
               <Link href="/projet">
                 Découvrir le projet <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
-            <Button size="lg" variant="outline" className="font-semibold text-sm sm:text-base border-2" style={{ borderColor: '#515792', color: '#515792' }} asChild>
+            <Button size="lg" variant="outline" className="font-semibold text-sm sm:text-base border-2" style={{ borderColor: '#3aab8a', color: '#3aab8a' }} asChild>
               <Link href="/experience">Voir l'expérience</Link>
             </Button>
             <Button size="lg" variant="outline" className="font-semibold text-sm sm:text-base border-2" style={{ borderColor: '#E27227', color: '#E27227' }} asChild>
@@ -126,12 +143,15 @@ export default function Home() {
           </div>
 
           {/* CTA secondaire */}
-          <div>
-            <Button variant="ghost" size="sm" className="text-gray-500 hover:text-gray-700 text-sm" asChild>
-              <Link href="/partenaires">
-                Suivre l'avancement →
-              </Link>
-            </Button>
+          <Button variant="ghost" size="sm" className="text-gray-400 hover:text-gray-600 text-sm" asChild>
+            <Link href="/partenaires">Suivre l'avancement →</Link>
+          </Button>
+
+          {/* Ligne décorative */}
+          <div className="mt-14 flex items-center justify-center gap-3">
+            <div className="h-px w-16" style={{ backgroundImage: 'linear-gradient(to right, transparent, #51579260)' }}></div>
+            <Compass className="h-4 w-4 opacity-30" style={{ color: '#515792' }} />
+            <div className="h-px w-16" style={{ backgroundImage: 'linear-gradient(to left, transparent, #51579260)' }}></div>
           </div>
         </div>
       </section>
@@ -145,20 +165,27 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { icon: Eye, titre: "Observer", texte: "Faire une photo claire de ses pratiques numériques.", couleur: "#515792", bg: "#f0f1f8" },
-              { icon: Lightbulb, titre: "Comprendre", texte: "Identifier les points de friction, les habitudes utiles et les angles morts.", couleur: "#E27227", bg: "#fdf3ec" },
-              { icon: Zap, titre: "Agir", texte: "Choisir quelques pistes réalistes, adaptées à sa situation.", couleur: "#3aab8a", bg: "#f0faf6" },
-            ].map(({ icon: Icon, titre, texte, couleur, bg }) => (
+              { icon: Eye, titre: "Observer", texte: "Faire une photo claire de ses pratiques numériques.", detail: "Un questionnaire structuré en 5 dimensions, sans jargon technique.", couleur: "#515792", bg: "#f0f1f8" },
+              { icon: Lightbulb, titre: "Comprendre", texte: "Identifier les points de friction, les habitudes utiles et les angles morts.", detail: "Une carte visuelle de vos pratiques, lisible en un coup d'oeil.", couleur: "#E27227", bg: "#fdf3ec" },
+              { icon: Zap, titre: "Agir", texte: "Choisir quelques pistes réalistes, adaptées à sa situation.", detail: "Des ressources et suggestions concrètes, calibrées à votre contexte.", couleur: "#3aab8a", bg: "#f0faf6" },
+            ].map(({ icon: Icon, titre, texte, detail, couleur, bg }) => (
               <div
                 key={titre}
-                className="group rounded-2xl p-8 text-center transition-all duration-300 hover:shadow-lg hover:-translate-y-1 cursor-default"
+                className="group rounded-2xl p-8 text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-2 cursor-default relative overflow-hidden"
                 style={{ backgroundColor: bg }}
               >
-                <div className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5 transition-transform duration-300 group-hover:scale-110" style={{ backgroundColor: couleur }}>
-                  <Icon className="h-7 w-7 text-white" />
+                {/* Fond coloré au hover */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"
+                  style={{ background: `linear-gradient(135deg, ${couleur}08 0%, ${couleur}15 100%)` }}
+                />
+                <div className="relative z-10">
+                  <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5 transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg" style={{ backgroundColor: couleur }}>
+                    <Icon className="h-8 w-8 text-white transition-transform duration-300 group-hover:rotate-12" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 transition-colors duration-200" style={{ color: couleur }}>{titre}</h3>
+                  <p className="text-gray-600 leading-relaxed transition-all duration-300 group-hover:opacity-0 group-hover:h-0 group-hover:mb-0 group-hover:overflow-hidden">{texte}</p>
+                  <p className="text-gray-700 leading-relaxed text-sm font-medium absolute left-8 right-8 opacity-0 group-hover:opacity-100 transition-all duration-300" style={{ color: couleur }}>{detail}</p>
                 </div>
-                <h3 className="text-xl font-bold mb-3" style={{ color: couleur }}>{titre}</h3>
-                <p className="text-gray-600 leading-relaxed">{texte}</p>
               </div>
             ))}
           </div>
@@ -183,32 +210,60 @@ export default function Home() {
                 </Button>
               </div>
             </div>
-            {/* Illustration abstraite */}
+            {/* Illustration : cercles concentriques avec icônes tournantes */}
             <div className="flex justify-center">
-              <div className="relative w-64 h-64 sm:w-80 sm:h-80">
-                {/* Cercles concentriques */}
-                <div className="absolute inset-0 rounded-full border-2 border-dashed opacity-20" style={{ borderColor: '#515792' }}></div>
-                <div className="absolute inset-6 rounded-full border-2 border-dashed opacity-30" style={{ borderColor: '#E27227' }}></div>
-                <div className="absolute inset-12 rounded-full border-2 border-dashed opacity-40" style={{ borderColor: '#515792' }}></div>
-                <div className="absolute inset-20 rounded-full flex items-center justify-center" style={{ backgroundColor: '#515792' }}>
-                  <Compass className="h-10 w-10 text-white" />
+              <style>{`
+                @keyframes spin-orbit-1 { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+                @keyframes spin-orbit-2 { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+                @keyframes spin-orbit-3 { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+                @keyframes spin-counter-1 { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(-360deg); } }
+                @keyframes spin-counter-2 { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
+                @keyframes spin-counter-3 { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(-360deg); } }
+                .ring-1 { animation: spin-orbit-1 32s linear infinite; }
+                .ring-2 { animation: spin-orbit-2 20s linear infinite; }
+                .ring-3 { animation: spin-orbit-3 13s linear infinite; }
+                .icon-1 { animation: spin-counter-1 32s linear infinite; }
+                .icon-2 { animation: spin-counter-2 20s linear infinite; }
+                .icon-3 { animation: spin-counter-3 13s linear infinite; }
+              `}</style>
+              <div className="relative" style={{ width: 300, height: 300 }}>
+
+                {/* Anneau externe — 28s — icône 🛠️ */}
+                <div className="ring-1 absolute rounded-full border-2 border-dashed" style={{ inset: 0, borderColor: '#515792', opacity: 0.22 }}>
+                  <div className="icon-1 absolute w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-lg"
+                    style={{ left: '50%', top: 0, transform: 'translate(-50%, -50%)' }}>
+                    🛠️
+                  </div>
                 </div>
-                {/* Points cardinaux */}
-                {["🛠️", "🎓", "🗄️", "📡", "🔗"].map((emoji, i) => {
-                  const angle = (i * 72 - 90) * (Math.PI / 180);
-                  const r = 110;
-                  const x = 50 + (r / 160) * 50 * Math.cos(angle);
-                  const y = 50 + (r / 160) * 50 * Math.sin(angle);
-                  return (
-                    <div
-                      key={i}
-                      className="absolute w-9 h-9 rounded-full bg-white shadow-md flex items-center justify-center text-base"
-                      style={{ left: `${x}%`, top: `${y}%`, transform: 'translate(-50%, -50%)' }}
-                    >
-                      {emoji}
-                    </div>
-                  );
-                })}
+
+                {/* Anneau intermédiaire — 20s inverse — icône 🎓 */}
+                <div className="ring-2 absolute rounded-full border-2 border-dashed" style={{ inset: 36, borderColor: '#E27227', opacity: 0.32 }}>
+                  <div className="icon-2 absolute w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-lg"
+                    style={{ left: '50%', top: 0, transform: 'translate(-50%, -50%)' }}>
+                    🎓
+                  </div>
+                </div>
+
+                {/* Anneau interne — 13s — icône 🗄️ */}
+                <div className="ring-3 absolute rounded-full border-2 border-dashed" style={{ inset: 72, borderColor: '#3aab8a', opacity: 0.45 }}>
+                  <div className="icon-3 absolute w-9 h-9 rounded-full bg-white shadow-md flex items-center justify-center text-base"
+                    style={{ left: '50%', top: 0, transform: 'translate(-50%, -50%)' }}>
+                    🗄️
+                  </div>
+                </div>
+
+                {/* Centre fixe */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-16 h-16 rounded-full flex items-center justify-center shadow-lg" style={{ backgroundColor: '#515792' }}>
+                    <Compass className="h-8 w-8 text-white" />
+                  </div>
+                </div>
+
+                {/* Icônes fixes aux extrémités */}
+                <div className="absolute w-9 h-9 rounded-full bg-white shadow-sm flex items-center justify-center text-base"
+                  style={{ left: '8%', top: '62%', transform: 'translate(-50%,-50%)' }}>📡</div>
+                <div className="absolute w-9 h-9 rounded-full bg-white shadow-sm flex items-center justify-center text-base"
+                  style={{ left: '92%', top: '62%', transform: 'translate(-50%,-50%)' }}>🔗</div>
               </div>
             </div>
           </div>
@@ -227,16 +282,21 @@ export default function Home() {
           {/* Desktop: horizontal / Mobile: vertical */}
           <div className="hidden md:flex items-start gap-0">
             {ETAPES_OUTIL.map(({ num, titre, desc, icon: Icon }, i) => (
-              <div key={num} className="flex-1 flex flex-col items-center text-center px-4">
+              <div key={num}
+                className="flex-1 flex flex-col items-center text-center px-4 group cursor-default"
+              >
                 <div className="relative flex items-center w-full mb-6">
-                  <div className="flex-1 h-0.5 bg-gray-200" style={{ visibility: i === 0 ? 'hidden' : 'visible' }}></div>
-                  <div className="w-12 h-12 rounded-full flex items-center justify-center font-bold text-white text-sm flex-shrink-0" style={{ backgroundColor: '#515792' }}>
-                    {num}
+                  <div className="flex-1 h-0.5 transition-colors duration-300" style={{ backgroundColor: i === 0 ? 'transparent' : '#e5e7eb', visibility: i === 0 ? 'hidden' : 'visible' }}></div>
+                  <div className="w-14 h-14 rounded-full flex items-center justify-center font-bold text-white text-sm flex-shrink-0 shadow-md transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg"
+                    style={{ backgroundColor: '#515792' }}>
+                    <span className="text-lg">{num}</span>
                   </div>
-                  <div className="flex-1 h-0.5 bg-gray-200" style={{ visibility: i === ETAPES_OUTIL.length - 1 ? 'hidden' : 'visible' }}></div>
+                  <div className="flex-1 h-0.5" style={{ backgroundColor: i === ETAPES_OUTIL.length - 1 ? 'transparent' : '#e5e7eb', visibility: i === ETAPES_OUTIL.length - 1 ? 'hidden' : 'visible' }}></div>
                 </div>
-                <Icon className="h-6 w-6 mb-3" style={{ color: '#E27227' }} />
-                <h3 className="font-bold text-gray-900 mb-2">{titre}</h3>
+                <div className="w-10 h-10 rounded-full flex items-center justify-center mb-3 transition-all duration-300 group-hover:scale-110" style={{ backgroundColor: '#E2722715' }}>
+                  <Icon className="h-5 w-5 transition-colors duration-300" style={{ color: '#E27227' }} />
+                </div>
+                <h3 className="font-bold text-gray-900 mb-2 transition-colors duration-300 group-hover:text-[#515792]">{titre}</h3>
                 <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
               </div>
             ))}
@@ -281,26 +341,31 @@ export default function Home() {
             {DIMENSIONS.map((dim) => (
               <div
                 key={dim.id}
-                className="rounded-xl border-2 bg-white cursor-pointer transition-all duration-200 hover:shadow-md"
-                style={{ borderColor: dimensionOuverte === dim.id ? dim.couleur : '#e5e7eb' }}
+                className="rounded-xl border-2 cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
+                style={{
+                  borderColor: dimensionOuverte === dim.id ? dim.couleur : '#e5e7eb',
+                  backgroundColor: dimensionOuverte === dim.id ? dim.couleur + '08' : 'white',
+                }}
                 onClick={() => setDimensionOuverte(dimensionOuverte === dim.id ? null : dim.id)}
               >
                 <div className="p-5">
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex items-center gap-3">
-                      <span className="text-2xl">{dim.icon}</span>
-                      <h3 className="font-semibold text-gray-900 text-sm leading-tight">{dim.titre}</h3>
+                      <span className="text-2xl transition-transform duration-300" style={{ display: 'inline-block', transform: dimensionOuverte === dim.id ? 'scale(1.2)' : 'scale(1)' }}>{dim.icon}</span>
+                      <h3 className="font-semibold text-sm leading-tight transition-colors duration-200" style={{ color: dimensionOuverte === dim.id ? dim.couleur : '#111827' }}>{dim.titre}</h3>
                     </div>
-                    {dimensionOuverte === dim.id
-                      ? <ChevronUp className="h-4 w-4 flex-shrink-0 text-gray-400" />
-                      : <ChevronDown className="h-4 w-4 flex-shrink-0 text-gray-400" />
-                    }
+                    <div className="transition-transform duration-300" style={{ transform: dimensionOuverte === dim.id ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                      <ChevronDown className="h-4 w-4 flex-shrink-0" style={{ color: dimensionOuverte === dim.id ? dim.couleur : '#9ca3af' }} />
+                    </div>
                   </div>
-                  {dimensionOuverte === dim.id && (
+                  <div
+                    className="overflow-hidden transition-all duration-300"
+                    style={{ maxHeight: dimensionOuverte === dim.id ? 200 : 0, opacity: dimensionOuverte === dim.id ? 1 : 0 }}
+                  >
                     <p className="mt-4 text-sm text-gray-600 leading-relaxed border-t pt-4" style={{ borderColor: dim.couleur + '30' }}>
                       {dim.exemple}
                     </p>
-                  )}
+                  </div>
                 </div>
               </div>
             ))}
@@ -325,9 +390,20 @@ export default function Home() {
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Une méthode construite avec le terrain</h2>
               <p className="text-gray-600 leading-relaxed mb-6">La Boussole ne sera pas conçue dans un bureau, puis livrée aux structures culturelles. Elle sera construite avec elles, étape par étape, en intégrant leurs retours à chaque phase.</p>
               <div className="flex flex-wrap gap-2 mb-8">
-                {["Cadrage", "Maquettes", "Tests", "Ajustements", "Mise à disposition", "Retours d'usage", "Documentation"].map((etape) => (
-                  <span key={etape} className="text-xs px-3 py-1.5 rounded-full font-medium text-white" style={{ backgroundColor: '#515792' }}>
-                    {etape}
+                {[
+                  { label: 'Cadrage', color: '#515792' },
+                  { label: 'Maquettes', color: '#3aab8a' },
+                  { label: 'Tests', color: '#7ab648' },
+                  { label: 'Ajustements', color: '#E27227' },
+                  { label: 'Mise à disposition', color: '#E58441' },
+                  { label: "Retours d'usage", color: '#9b59b6' },
+                  { label: 'Documentation', color: '#515792' },
+                ].map(({ label, color }, i) => (
+                  <span key={label}
+                    className="text-xs px-3 py-1.5 rounded-full font-medium text-white transition-all duration-200 hover:scale-105 hover:shadow-sm cursor-default"
+                    style={{ backgroundColor: color, animationDelay: `${i * 80}ms` }}
+                  >
+                    {label}
                   </span>
                 ))}
               </div>
