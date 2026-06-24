@@ -361,29 +361,50 @@ export default function Home() {
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Recherche & inspirations</h2>
             <p className="text-gray-500 mt-3 max-w-xl mx-auto">La Boussole repose sur une base documentaire solide : études internationales, benchmarks d'outils existants, et analyses du contexte genevois.</p>
           </div>
+          {/* Chiffres clés sourcés */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
+            {[
+              { val: "55%", label: "peinent à identifier leurs besoins IA", source: "Compétence Culture Québec, nov. 2025", url: "https://competenceculture.ca/wp-content/uploads/sites/2/2025/11/ia-etude-21-novembre-2025_competence_culture.pdf" },
+              { val: ">3M", label: "tests Nos Gestes Climat", source: "beta.gouv.fr, mai 2026", url: "https://beta.gouv.fr/startups/nosgestesclimat.html" },
+              { val: "70%", label: "des transformations numériques échouent", source: "BCG 2020 · McKinsey 2022", url: "https://www.bcg.com/publications/2020/increasing-odds-of-success-in-digital-transformation" },
+              { val: "2 800", label: "structures ICC en Ville de Genève", source: "DCTN Empreintes Créatives 2023", url: "https://www.geneve.ch/sites/default/files/2023-06/DCTN-etude-les-empreintes-creatives-2023-geneve.pdf" },
+            ].map(({ val, label, source, url }) => (
+              <div key={val} className="rounded-xl bg-white border border-gray-100 p-4 text-center">
+                <div className="text-2xl font-extrabold mb-1" style={{ color: '#515792' }}>{val}</div>
+                <div className="text-xs text-gray-600 mb-2 leading-tight">{label}</div>
+                <a href={url} target="_blank" rel="noopener noreferrer"
+                  className="text-xs flex items-center justify-center gap-0.5 hover:underline"
+                  style={{ color: '#E27227' }}
+                >
+                  <ExternalLink className="h-2.5 w-2.5" />{source}
+                </a>
+              </div>
+            ))}
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
                 href: "/recherche",
                 icon: BookOpen,
                 titre: "État de l'art",
-                texte: "104 sources, 4 études majeures (UNESCO, Québec, Europe), 15 insights clés sur la transformation numérique culturelle.",
+                texte: "104 sources, 6 études majeures (UNESCO, Québec, DCTN Genève, WEF, BCG, Europe), 15 insights clés sur la transformation numérique culturelle.",
                 couleur: "#515792",
                 bg: "#f0f1f8",
               },
               {
                 href: "/references",
                 icon: Lightbulb,
-                titre: "Références inspirantes",
-                texte: "Nos Gestes Climat, DeepLearning.AI Skill Builder, AICred — trois modèles qui inspirent l'approche de la Boussole.",
+                titre: "5 références analysées",
+                texte: "Nos Gestes Climat, DeepLearning.AI Skill Builder, AICred, Diag-numerique.fr, Observatoire genevois — avec tableau comparatif détaillé.",
                 couleur: "#E27227",
                 bg: "#fdf3ec",
               },
               {
                 href: "/ressources",
                 icon: ExternalLink,
-                titre: "Ressources & sources",
-                texte: "Accès aux documents complets, PDFs téléchargeables, analyses et sources citées dans la recherche.",
+                titre: "Sources & documents",
+                texte: "Accès direct aux sources originales : PDFs officiels, rapports institutionnels, études citées dans la recherche.",
                 couleur: "#3aab8a",
                 bg: "#f0faf6",
               },

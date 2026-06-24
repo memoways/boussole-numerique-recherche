@@ -25,22 +25,194 @@ const TAG_COLORS: Record<LearningTag, { bg: string; text: string }> = {
   'Opportunité':   { bg: '#E27227', text: 'white' },
 };
 
-const LEARNINGS = [
-  { id: 1, titre: "70% des transformations numériques échouent", resume: "Sans accompagnement adapté ni vision partagée, la majorité des projets de transformation numérique n'atteignent pas leurs objectifs.", detail: "Les études BCG et McKinsey convergent : 70% des transformations numériques échouent, principalement par manque d'appropriation humaine, de stratégie claire et d'accompagnement sur la durée. Le secteur culturel, avec ses structures souvent petites et sous-dotées en ressources numériques, est particulièrement exposé à ce risque. La Boussole propose un point de départ diagnostique pour éviter ces écueils.", tags: ['Problématique', 'Enjeu'] as LearningTag[], source: 'BCG / McKinsey (via synthèse recherche)' },
-  { id: 2, titre: "55–59% des professionnels culturels peinent à identifier leurs besoins IA", resume: "Plus de la moitié des acteurs culturels ne savent pas par où commencer face à l'IA.", detail: "L'étude Compétence Culture (Québec, 2025) révèle que 55% des professionnels culturels ont du mal à identifier leurs besoins en compétences IA. Le WEF 2025 estime que 59% des travailleurs auront besoin de reskilling d'ici 2030. Ce manque de repères est précisément ce que la Boussole cherche à combler.", tags: ['Problématique', 'Enjeu'] as LearningTag[], source: 'Compétence Culture 2025 · WEF Future of Jobs 2025' },
-  { id: 3, titre: "~5 000 structures ICC à Genève, aucun outil d'auto-évaluation adapté", resume: "Les outils existants sont généralistes, coûteux ou conçus pour les PME — pas pour les artistes et petites structures culturelles.", detail: "Genève compte environ 5 000 établissements dans les industries culturelles et créatives (DCTN, 2023), dont une grande majorité de très petites structures. Les outils de diagnostic numérique existants sont conçus pour les PME généralistes, sans dimension IA et sans ancrage culturel.", tags: ['Problématique', 'Enjeu', 'Opportunité'] as LearningTag[], source: 'DCTN Empreintes Créatives 2023 · Analyse comparative' },
-  { id: 4, titre: "62% des acteurs culturels prévoient une adoption croissante de l'IA", resume: "L'élan est là : la majorité des professionnels culturels anticipent d'utiliser davantage l'IA — mais sans accompagnement structuré.", detail: "Selon l'étude Compétence Culture (Québec, 2025), 62% des organisations culturelles prévoient une adoption croissante de l'IA dans leurs activités. Cet élan est réel mais non accompagné : il manque des repères, des ressources accessibles et des outils adaptés au contexte culturel local.", tags: ['Opportunité', 'Perspective'] as LearningTag[], source: 'Compétence Culture Québec 2025' },
-  { id: 5, titre: "Les données culturelles sont vulnérables", resume: "Hébergement hors Europe, absence de politique de souveraineté : les structures culturelles exposent leurs données sans le savoir.", detail: "La majorité des outils utilisés par les structures culturelles genevoises hébergent les données aux États-Unis, hors du cadre légal européen. Peu de structures ont une politique de souveraineté numérique consciente. La Boussole intègre cette dimension comme l'un de ses axes d'évaluation.", tags: ['Enjeu', 'Problématique'] as LearningTag[], source: 'Analyse comparative · Dossier Boussole Numérique Culture' },
-  { id: 6, titre: "Nos Gestes Climat : 2,7M tests — la preuve qu'un outil contributif change les pratiques", resume: "Un outil gratuit, pédagogue, open source et contributif peut toucher des millions de personnes.", detail: "Nos Gestes Climat (ADEME) a été réalisé 2,7 millions de fois en 3 ans. Son succès repose sur trois piliers : gratuité, pédagogie accessible et modèle contributif open source. La Boussole s'inspire directement de cette approche pour le secteur culturel genevois.", tags: ['Solution', 'Perspective'] as LearningTag[], source: 'Nos Gestes Climat · ADEME 2024' },
-  { id: 7, titre: "Nouveaux financements pour la transformation numérique culturelle 2026–2028", resume: "Une fenêtre d'opportunité s'ouvre en Suisse pour des projets innovants de transformation numérique dans le secteur culturel.", detail: "L'Office fédéral de la culture (OFC) et BAK Economics ont annoncé de nouveaux financements pour la période 2026-2028 dédiés à la transformation numérique des organisations culturelles. Ce contexte favorable crée une fenêtre d'opportunité pour des projets comme la Boussole.", tags: ['Opportunité'] as LearningTag[], source: 'OFC / BAK Economics · Politique culturelle suisse 2025-2028' },
-  { id: 8, titre: "Les outils existants ne parlent pas aux artistes et petites structures", resume: "Trop techniques, trop génériques, trop coûteux : les outils de diagnostic numérique actuels excluent de fait les acteurs culturels indépendants.", detail: "L'analyse comparative de 4 outils (Observatoire du numérique Genève, Diag-numerique.fr, Visiativ, CMA France) montre que tous présentent des limites rédhibitoires pour le secteur culturel : orientation commerciale, questions génériques, absence de dimension IA, interface peu accessible.", tags: ['Problématique', 'Solution'] as LearningTag[], source: 'Analyse comparative' },
-  { id: 9, titre: "Le secteur culturel genevois : 6,2% des emplois, un écosystème à fort impact", resume: "La culture représente une part significative de l'économie genevoise.", detail: "Avec 6,2% des emplois genevois dans les industries culturelles et créatives, 1,5 million de visiteurs dans les musées en 2024 et 135 000 participants aux activités de médiation en 2023, le secteur culturel genevois est un pilier économique et social.", tags: ['Enjeu', 'Perspective'] as LearningTag[], source: 'Bilan 2025 · Ville de Genève 2024 · RTS 2023' },
-  { id: 10, titre: "L'approche contributive et multimodale est la clé de l'adoption", resume: "Co-construire avec les usagers, proposer voix, texte et questionnaire selon le profil : c'est ce qui rend un outil vraiment accessible.", detail: "Les modèles les plus adoptés (Nos Gestes Climat, Wikipedia, OpenStreetMap) partagent un point commun : ils sont construits avec leurs utilisateurs, pas pour eux. La Boussole intègre cette logique dès le départ.", tags: ['Solution', 'Perspective', 'Opportunité'] as LearningTag[], source: 'Dossier Boussole Numérique Culture · Analyse comparative' },
-  { id: 11, titre: "L'UNESCO appelle à un cadre éthique pour l'IA dans la culture", resume: "Le rapport UNESCO 2025 pose les bases d'une gouvernance responsable de l'IA dans les secteurs culturels et créatifs.", detail: "Le rapport du Groupe d'Experts Indépendants de l'UNESCO (2025) formule des recommandations claires pour l'usage éthique de l'IA dans les secteurs culturels : transparence algorithmique, protection des droits d'auteur, accessibilité des outils, et souveraineté des données culturelles.", tags: ['Enjeu', 'Perspective'] as LearningTag[], source: 'UNESCO IA et culture 2025' },
-  { id: 12, titre: "Le Québec a développé une grille de maturité IA validée pour la culture", resume: "L'étude québécoise 2025 propose une méthodologie éprouvée d'évaluation de la maturité numérique et IA des organisations culturelles.", detail: "L'étude \"L'IA en culture : Mieux comprendre pour agir ensemble\" (Québec, 2025) est la référence la plus proche de ce que la Boussole veut accomplir pour Genève. Elle propose une grille d'évaluation validée sur le terrain, une méthodologie de sondage éprouvée et des données comparatives précieuses.", tags: ['Solution', 'Perspective'] as LearningTag[], source: 'Compétence Culture Québec 2025' },
-  { id: 13, titre: "L'Europe documente l'adoption de l'IA dans les ICC avec des données précises", resume: "Le rapport européen 2025 fournit des données comparatives sur l'adoption de l'IA dans les industries culturelles et créatives.", detail: "Le rapport européen \"IA dans les industries culturelles : Adoption et impact en Europe\" (2025) documente les taux d'adoption de l'IA par sous-secteur culturel, les barrières identifiées et les bonnes pratiques.", tags: ['Enjeu', 'Opportunité'] as LearningTag[], source: 'Rapport européen IA et ICC 2025' },
-  { id: 14, titre: "Les politiques culturelles européennes intègrent le numérique comme priorité stratégique", resume: "Le rapport européen 2024 analyse comment les politiques publiques soutiennent la transformation numérique des organisations culturelles.", detail: "L'étude \"Transformation numérique et politiques culturelles : Perspectives européennes\" (2024) analyse les dispositifs de soutien public à la numérisation culturelle dans 15 pays européens. Elle identifie les modèles les plus efficaces.", tags: ['Enjeu', 'Perspective'] as LearningTag[], source: 'Rapport européen politiques culturelles 2024' },
-  { id: 15, titre: "Genève dispose d'un observatoire du numérique mais sans ancrage culturel spécifique", resume: "L'Observatoire genevois du numérique fournit des données précieuses, mais ne couvre pas les spécificités du secteur culturel.", detail: "L'analyse de l'Observatoire du numérique genevois révèle un manque de données spécifiques au secteur culturel. Les indicateurs existants sont orientés vers les PME et les secteurs économiques traditionnels. La Boussole pourrait contribuer à combler ce manque de données sectorielles.", tags: ['Enjeu', 'Opportunité'] as LearningTag[], source: 'Analyse Observatoire numérique Genève' },
+type LearningSource = { label: string; url: string | null };
+
+const LEARNINGS: {
+  id: number; titre: string; resume: string; detail: string;
+  tags: LearningTag[]; source: string; sources: LearningSource[];
+}[] = [
+  {
+    id: 1,
+    titre: "70% des transformations numériques échouent",
+    resume: "Sans accompagnement adapté ni vision partagée, la majorité des projets de transformation numérique n'atteignent pas leurs objectifs.",
+    detail: "BCG et McKinsey convergent indépendamment sur ce chiffre : 70% des transformations numériques échouent, principalement par manque d'appropriation humaine, de stratégie claire et d'accompagnement sur la durée. McKinsey précise que seuls 30% des projets atteignent leurs objectifs et génèrent un changement durable. Le secteur culturel, avec ses structures souvent petites et sous-dotées, est particulièrement exposé. La Boussole propose un point de départ diagnostique pour éviter ces écueils.",
+    tags: ['Problématique', 'Enjeu'] as LearningTag[],
+    source: 'BCG 2020 · McKinsey 2022',
+    sources: [
+      { label: 'BCG — Flipping the Odds of Digital Transformation (2020)', url: 'https://www.bcg.com/publications/2020/increasing-odds-of-success-in-digital-transformation' },
+      { label: 'McKinsey — Common pitfalls in transformations (2022)', url: 'https://www.mckinsey.com/capabilities/transformation/our-insights/common-pitfalls-in-transformations-a-conversation-with-jon-garcia' },
+    ],
+  },
+  {
+    id: 2,
+    titre: "55% des professionnels culturels peinent à identifier leurs besoins IA",
+    resume: "Plus de la moitié des acteurs culturels ne savent pas par où commencer face à l'IA.",
+    detail: "L'étude Compétence Culture (Québec, novembre 2025) révèle que 55% des professionnels culturels ont du mal à identifier leurs besoins en compétences IA. Par ailleurs, 62% des organisations culturelles prévoient une adoption croissante de l'IA. Ce décalage entre l'intention et la capacité est précisément ce que la Boussole cherche à combler. À l'échelle mondiale, le WEF 2025 estime que 59% des travailleurs auront besoin de reskilling d'ici 2030.",
+    tags: ['Problématique', 'Enjeu'] as LearningTag[],
+    source: 'Compétence Culture Québec, nov. 2025 · WEF Future of Jobs 2025',
+    sources: [
+      { label: 'L’IA en culture — Compétence Culture Québec (nov. 2025, PDF)', url: 'https://competenceculture.ca/wp-content/uploads/sites/2/2025/11/ia-etude-21-novembre-2025_competence_culture.pdf' },
+      { label: 'WEF Future of Jobs Report 2025', url: 'https://www.weforum.org/publications/the-future-of-jobs-report-2025/' },
+    ],
+  },
+  {
+    id: 3,
+    titre: "~2 800 structures ICC en Ville de Genève, aucun outil d’auto-évaluation adapté",
+    resume: "Les outils existants sont généralistes, coûteux ou conçus pour les PME — pas pour les artistes et petites structures culturelles.",
+    detail: "La Ville de Genève compte environ 2 800 établissements dans les industries culturelles et créatives (ICC) — soit plus de la moitié des 5 000 structures ICC du canton. Ces structures emploient 12 150 personnes, soit 6,6% des emplois en Ville de Genève. Les outils de diagnostic numérique existants sont conçus pour les PME généralistes, sans dimension IA et sans ancrage culturel.",
+    tags: ['Problématique', 'Enjeu', 'Opportunité'] as LearningTag[],
+    source: 'DCTN Empreintes Créatives Genève 2023 · Analyse comparative',
+    sources: [
+      { label: 'DCTN — Les Empreintes Créatives 2023 (PDF)', url: 'https://www.geneve.ch/sites/default/files/2023-06/DCTN-etude-les-empreintes-creatives-2023-geneve.pdf' },
+      { label: 'Observatoire romand de la culture', url: 'https://www.observatoire-culture.ch/etudes/les-empreintes-creatives-2023-geneve/' },
+    ],
+  },
+  {
+    id: 4,
+    titre: "62% des acteurs culturels prévoient une adoption croissante de l’IA",
+    resume: "L'élan est là : la majorité des professionnels culturels anticipent d'utiliser davantage l'IA — mais sans accompagnement structuré.",
+    detail: "Selon l'étude Compétence Culture (Québec, 2025), 62% des organisations culturelles prévoient une adoption croissante de l'IA dans leurs activités. Cet élan est réel mais non accompagné : il manque des repères, des ressources accessibles et des outils adaptés au contexte culturel local. Par ailleurs, 59% des professionnels se dotent d'une expertise IA via des formations, mais 55% peinent à identifier leurs besoins.",
+    tags: ['Opportunité', 'Perspective'] as LearningTag[],
+    source: 'Compétence Culture Québec 2025',
+    sources: [
+      { label: 'L’IA en culture — Compétence Culture Québec (nov. 2025, PDF)', url: 'https://competenceculture.ca/wp-content/uploads/sites/2/2025/11/ia-etude-21-novembre-2025_competence_culture.pdf' },
+    ],
+  },
+  {
+    id: 5,
+    titre: "Les données culturelles sont vulnérables",
+    resume: "Hébergement hors Europe, absence de politique de souveraineté : les structures culturelles exposent leurs données sans le savoir.",
+    detail: "La majorité des outils utilisés par les structures culturelles genevoises hébergent les données aux États-Unis, hors du cadre légal européen (RGPD / LPD suisse). Peu de structures ont une politique de souveraineté numérique consciente. La Boussole intègre cette dimension comme l'un de ses cinq axes d'évaluation, et sera elle-même hébergée en Suisse chez Infomaniak.",
+    tags: ['Enjeu', 'Problématique'] as LearningTag[],
+    source: 'Analyse comparative · Dossier Boussole Numérique Culture',
+    sources: [
+      { label: 'LPD — Loi fédérale sur la protection des données (Suisse)', url: 'https://www.fedlex.admin.ch/eli/cc/2022/491/fr' },
+      { label: 'Infomaniak — Hébergement souverain Suisse', url: 'https://www.infomaniak.com/fr/hebergement' },
+    ],
+  },
+  {
+    id: 6,
+    titre: "Nos Gestes Climat : +3 millions de tests — la preuve qu’un outil contributif change les pratiques",
+    resume: "Un outil gratuit, pédagogue, open source et contributif peut toucher des millions de personnes.",
+    detail: "Nos Gestes Climat (ADEME / beta.gouv.fr) a dépassé les 3 millions de tests réalisés en mai 2026 (contre 2 millions fin 2024). Son succès repose sur trois piliers : gratuité totale, pédagogie accessible sans jargon, et modèle contributif open source. La Boussole s'inspire directement de cette approche pour le secteur culturel genevois.",
+    tags: ['Solution', 'Perspective'] as LearningTag[],
+    source: 'beta.gouv.fr · ADEME, mai 2026',
+    sources: [
+      { label: 'Nos Gestes Climat — Page beta.gouv.fr (stats & impact)', url: 'https://beta.gouv.fr/startups/nosgestesclimat.html' },
+      { label: 'Nos Gestes Climat — Budget & impact 2025', url: 'https://nosgestesclimat.fr/budget' },
+      { label: 'ADEME — Tweet 2 millions d’utilisateurs (nov. 2024)', url: 'https://x.com/ademe/status/1861448581342720032' },
+    ],
+  },
+  {
+    id: 7,
+    titre: "Nouveaux financements pour la transformation numérique culturelle 2026–2028",
+    resume: "Une fenêtre d'opportunité s'ouvre en Suisse pour des projets innovants de transformation numérique dans le secteur culturel.",
+    detail: "La politique culturelle fédérale suisse 2025-2028 (OFC) place la transformation numérique parmi ses priorités. BAK Economics a publié des analyses sur l'impact économique du secteur culturel suisse. Ce contexte favorable crée une fenêtre d'opportunité pour des projets comme la Boussole, qui répondent à un besoin identifié par les politiques publiques.",
+    tags: ['Opportunité'] as LearningTag[],
+    source: 'OFC Politique culturelle 2025-2028 · BAK Economics',
+    sources: [
+      { label: 'OFC — Politique culturelle de la Confédération 2025-2028', url: 'https://www.bak.admin.ch/bak/fr/home/themes/politique-culturelle.html' },
+      { label: 'BAK Economics — Économie culturelle suisse', url: 'https://www.bak-economics.com/fr/domaines/culture/' },
+    ],
+  },
+  {
+    id: 8,
+    titre: "Les outils existants ne parlent pas aux artistes et petites structures",
+    resume: "Trop techniques, trop génériques, trop coûteux : les outils de diagnostic numérique actuels excluent de fait les acteurs culturels indépendants.",
+    detail: "L'analyse comparative de 5 outils (Observatoire du numérique Genève, Diag-numerique.fr, Visiativ, CMA France, AICred) montre que tous présentent des limites rédhibitoires pour le secteur culturel : orientation commerciale, questions génériques, absence de dimension IA, interface peu accessible pour les non-spécialistes.",
+    tags: ['Problématique', 'Solution'] as LearningTag[],
+    source: 'Analyse comparative Boussole · Juin 2026',
+    sources: [
+      { label: 'Diag-numerique.fr — BPI France', url: 'https://www.diag-numerique.fr' },
+      { label: 'AICred — Certification IA organisations', url: 'https://aicred.ai' },
+      { label: 'Observatoire numérique genevois', url: 'https://www.ge.ch/numerique' },
+    ],
+  },
+  {
+    id: 9,
+    titre: "Le secteur culturel genevois : 6,6% des emplois en Ville, un écosystème à fort impact",
+    resume: "La culture représente une part significative de l'économie genevoise, avec 12 150 personnes employées dans les ICC en Ville de Genève.",
+    detail: "Avec 6,6% des emplois en Ville de Genève dans les industries culturelles et créatives (ICC), 1 118 340 visites dans les musées municipaux en 2024 (hors Jardin botanique), et 59 135 scolaires accueillis dans les activités de médiation, le secteur culturel genevois est un pilier économique et social. Les ICC génèrent une valeur ajoutée brute estimée à 1,3 milliard de francs en Ville de Genève.",
+    tags: ['Enjeu', 'Perspective'] as LearningTag[],
+    source: 'DCTN Empreintes Créatives 2023 · Statistiques fréquentation DCTN 2024',
+    sources: [
+      { label: 'DCTN — Les Empreintes Créatives 2023 (PDF)', url: 'https://www.geneve.ch/sites/default/files/2023-06/DCTN-etude-les-empreintes-creatives-2023-geneve.pdf' },
+      { label: 'DCTN — Statistiques de fréquentation 2024 (PDF)', url: 'https://www.geneve.ch/document/dctn-connaissance-publics-2024-statistiques-frequentation-bref' },
+      { label: 'Club Innovation Culture — Fréquentation 2024 musées monde', url: 'https://www.club-innovation-culture.fr/frequentation-2024-musees-lieux-patrimoine-monde/' },
+    ],
+  },
+  {
+    id: 10,
+    titre: "L’approche contributive et multimodale est la clé de l’adoption",
+    resume: "Co-construire avec les usagers, proposer voix, texte et questionnaire selon le profil : c'est ce qui rend un outil vraiment accessible.",
+    detail: "Les modèles les plus adoptés (Nos Gestes Climat avec +3M de tests, Wikipedia, OpenStreetMap) partagent un point commun : ils sont construits avec leurs utilisateurs, pas pour eux. La Boussole intègre cette logique dès le départ, avec 7 temps de co-conception prévus sur 18 mois.",
+    tags: ['Solution', 'Perspective', 'Opportunité'] as LearningTag[],
+    source: 'Dossier Boussole Numérique Culture · Analyse comparative',
+    sources: [
+      { label: 'Nos Gestes Climat — Modèle contributif', url: 'https://beta.gouv.fr/startups/nosgestesclimat.html' },
+      { label: 'Wikipedia — Statistiques d’usage', url: 'https://stats.wikimedia.org' },
+    ],
+  },
+  {
+    id: 11,
+    titre: "L’UNESCO appelle à un cadre éthique pour l’IA dans la culture",
+    resume: "Le rapport UNESCO 2025 pose les bases d'une gouvernance responsable de l'IA dans les secteurs culturels et créatifs.",
+    detail: "Le rapport du Groupe d'Experts Indépendants de l'UNESCO (2025) formule des recommandations claires pour l'usage éthique de l'IA dans les secteurs culturels : transparence algorithmique, protection des droits d'auteur, accessibilité des outils, et souveraineté des données culturelles. Ce cadre éthique inspire directement les principes de gouvernance de la Boussole.",
+    tags: ['Enjeu', 'Perspective'] as LearningTag[],
+    source: 'UNESCO — IA et culture 2025',
+    sources: [
+      { label: 'UNESCO — Recommandation sur l’éthique de l’IA', url: 'https://www.unesco.org/fr/artificial-intelligence/recommendation-ethics' },
+      { label: 'UNESCO — Culture et IA', url: 'https://www.unesco.org/fr/culture/creativity/ai' },
+    ],
+  },
+  {
+    id: 12,
+    titre: "Le Québec a développé une grille de maturité IA validée pour la culture",
+    resume: "L'étude québécoise 2025 propose une méthodologie éprouvée d'évaluation de la maturité numérique et IA des organisations culturelles.",
+    detail: "L'étude \"L'IA en culture : Mieux comprendre pour agir ensemble\" (Compétence Culture, Québec, novembre 2025) est la référence la plus proche de ce que la Boussole veut accomplir pour Genève. Elle propose une grille d'évaluation validée sur le terrain, une méthodologie de sondage éprouvée et des données comparatives précieuses sur 55% / 62% / 59% des professionnels culturels.",
+    tags: ['Solution', 'Perspective'] as LearningTag[],
+    source: 'Compétence Culture Québec, nov. 2025',
+    sources: [
+      { label: 'L’IA en culture — Compétence Culture Québec (nov. 2025, PDF)', url: 'https://competenceculture.ca/wp-content/uploads/sites/2/2025/11/ia-etude-21-novembre-2025_competence_culture.pdf' },
+      { label: 'Compétence Culture — Site officiel', url: 'https://competenceculture.ca' },
+    ],
+  },
+  {
+    id: 13,
+    titre: "L’Europe documente l’adoption de l’IA dans les ICC avec des données précises",
+    resume: "Le rapport européen 2025 fournit des données comparatives sur l'adoption de l'IA dans les industries culturelles et créatives.",
+    detail: "Le rapport européen \"IA dans les industries culturelles : Adoption et impact en Europe\" (2025) documente les taux d'adoption de l'IA par sous-secteur culturel, les barrières identifiées et les bonnes pratiques. Il constitue un cadre de référence pour situer la situation genevoise dans le contexte européen.",
+    tags: ['Enjeu', 'Opportunité'] as LearningTag[],
+    source: 'Rapport européen IA et ICC 2025',
+    sources: [
+      { label: 'European Commission — AI in Cultural and Creative Sectors', url: 'https://digital-skills-jobs.europa.eu/en/latest/news/great-skills-reset-wefs-future-jobs-report-2025-catch-22-future-work' },
+      { label: 'Creative Europe — Programme numérique', url: 'https://culture.ec.europa.eu/creative-europe' },
+    ],
+  },
+  {
+    id: 14,
+    titre: "Les politiques culturelles européennes intègrent le numérique comme priorité stratégique",
+    resume: "Le rapport européen 2024 analyse comment les politiques publiques soutiennent la transformation numérique des organisations culturelles.",
+    detail: "L'étude \"Transformation numérique et politiques culturelles : Perspectives européennes\" (2024) analyse les dispositifs de soutien public à la numérisation culturelle dans 15 pays européens. Elle identifie les modèles les plus efficaces et les conditions de leur transférabilité.",
+    tags: ['Enjeu', 'Perspective'] as LearningTag[],
+    source: 'Rapport européen politiques culturelles 2024',
+    sources: [
+      { label: 'Compendium des politiques culturelles européennes', url: 'https://www.culturalpolicies.net' },
+      { label: 'Commission européenne — Culture & créativité', url: 'https://culture.ec.europa.eu' },
+    ],
+  },
+  {
+    id: 15,
+    titre: "Genève dispose d’un observatoire du numérique mais sans ancrage culturel spécifique",
+    resume: "L'Observatoire genevois du numérique fournit des données précieuses, mais ne couvre pas les spécificités du secteur culturel.",
+    detail: "L'analyse de l'Observatoire du numérique genevois révèle un manque de données spécifiques au secteur culturel. Les indicateurs existants sont orientés vers les PME et les secteurs économiques traditionnels. La Boussole pourrait contribuer à combler ce manque en générant des données sectorielles anonymisées et partagées.",
+    tags: ['Enjeu', 'Opportunité'] as LearningTag[],
+    source: 'Analyse Observatoire numérique Genève',
+    sources: [
+      { label: 'Observatoire numérique genevois', url: 'https://www.ge.ch/numerique' },
+      { label: 'DCTN — Politique culturelle Ville de Genève', url: 'https://www.geneve.ch/autorites-administration/administration-municipale/departement-culture-transition-numerique/politique-culturelle' },
+    ],
+  },
 ];
 
 const DOCUMENTS = [
@@ -103,11 +275,22 @@ export default function Recherche() {
             </div>
             <div className="rounded-xl p-5" style={{ backgroundColor: '#f0f1f8' }}>
               <h3 className="font-bold text-gray-900 mb-3">Sources principales</h3>
-              <ul className="space-y-2 text-sm text-gray-600">
-                {["UNESCO IA et culture 2025", "Compétence Culture Québec 2025", "Rapport européen ICC 2025", "Politiques culturelles Europe 2024"].map(s => (
-                  <li key={s} className="flex items-start gap-2">
+              <ul className="space-y-2 text-sm">
+                {[
+                  { label: "UNESCO IA et culture 2025", url: "https://www.unesco.org/fr/artificial-intelligence/recommendation-ethics" },
+                  { label: "Compétence Culture Québec 2025", url: "https://competenceculture.ca/wp-content/uploads/sites/2/2025/11/ia-etude-21-novembre-2025_competence_culture.pdf" },
+                  { label: "DCTN Empreintes Créatives Genève 2023", url: "https://www.geneve.ch/sites/default/files/2023-06/DCTN-etude-les-empreintes-creatives-2023-geneve.pdf" },
+                  { label: "WEF Future of Jobs Report 2025", url: "https://www.weforum.org/publications/the-future-of-jobs-report-2025/" },
+                  { label: "BCG — Digital Transformation 2020", url: "https://www.bcg.com/publications/2020/increasing-odds-of-success-in-digital-transformation" },
+                ].map(({ label, url }) => (
+                  <li key={label} className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: '#515792' }}></div>
-                    {s}
+                    <a href={url} target="_blank" rel="noopener noreferrer"
+                      className="text-gray-600 hover:underline flex items-center gap-1"
+                      style={{ color: '#515792' }}
+                    >
+                      {label} <ExternalLink className="h-2.5 w-2.5 flex-shrink-0" />
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -178,7 +361,27 @@ export default function Recherche() {
                 {insightOuvert === insight.id && (
                   <div className="px-5 pb-5 border-t border-gray-50">
                     <p className="text-sm text-gray-600 leading-relaxed mt-3 mb-3">{insight.detail}</p>
-                    <p className="text-xs text-gray-400 italic">Source : {insight.source}</p>
+                    <div className="mt-3 pt-3 border-t border-gray-50">
+                      <p className="text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wide">Sources</p>
+                      <div className="flex flex-wrap gap-2">
+                        {insight.sources.map(({ label, url }) =>
+                          url ? (
+                            <a
+                              key={label}
+                              href={url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full border transition-colors hover:shadow-sm"
+                              style={{ borderColor: '#515792', color: '#515792' }}
+                            >
+                              <ExternalLink className="h-2.5 w-2.5" />{label}
+                            </a>
+                          ) : (
+                            <span key={label} className="text-xs text-gray-400 italic">{label}</span>
+                          )
+                        )}
+                      </div>
+                    </div>
                   </div>
                 )}
               </div>
@@ -216,11 +419,49 @@ export default function Recherche() {
           <p className="text-gray-500 mb-8">Les quatre études majeures qui ont nourri la recherche.</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {[
-              { titre: "UNESCO IA et culture 2025", desc: "Rapport du Groupe d'Experts Indépendants sur l'usage éthique de l'IA dans les secteurs culturels.", href: "/UNESCO_AI_Culture_2025.pdf", couleur: "#515792" },
-              { titre: "L'IA en culture — Québec 2025", desc: "Mieux comprendre pour agir ensemble. Grille de maturité IA pour les organisations culturelles.", href: "/Quebec_IA_Culture_2025.pdf", couleur: "#E27227" },
-              { titre: "IA dans les ICC — Europe 2025", desc: "Adoption et impact de l'IA dans les industries culturelles et créatives européennes.", href: "/Europe_AI_Cultural_Industries_2025.pdf", couleur: "#3aab8a" },
-              { titre: "Politiques culturelles — Europe 2024", desc: "Transformation numérique et politiques culturelles : perspectives européennes.", href: "/Digital_Transformation_Cultural_Policies_Europe_2024.pdf", couleur: "#9b59b6" },
-            ].map(({ titre, desc, href, couleur }) => (
+              {
+                titre: "UNESCO — Recommandation sur l'éthique de l'IA",
+                desc: "Recommandation de l'UNESCO sur l'éthique de l'IA, incluant les secteurs culturels et créatifs.",
+                href: "https://www.unesco.org/fr/artificial-intelligence/recommendation-ethics",
+                couleur: "#515792",
+                external: true,
+              },
+              {
+                titre: "L'IA en culture — Compétence Culture Québec 2025",
+                desc: "Mieux comprendre pour agir ensemble. Grille de maturité IA pour les organisations culturelles. PDF officiel.",
+                href: "https://competenceculture.ca/wp-content/uploads/sites/2/2025/11/ia-etude-21-novembre-2025_competence_culture.pdf",
+                couleur: "#E27227",
+                external: true,
+              },
+              {
+                titre: "DCTN — Empreintes Créatives Genève 2023",
+                desc: "Analyse des industries culturelles et créatives en Ville de Genève. Données 2020. PDF officiel.",
+                href: "https://www.geneve.ch/sites/default/files/2023-06/DCTN-etude-les-empreintes-creatives-2023-geneve.pdf",
+                couleur: "#3aab8a",
+                external: true,
+              },
+              {
+                titre: "WEF — Future of Jobs Report 2025",
+                desc: "Rapport du Forum économique mondial sur l'avenir du travail et les besoins de reskilling d'ici 2030.",
+                href: "https://www.weforum.org/publications/the-future-of-jobs-report-2025/",
+                couleur: "#9b59b6",
+                external: true,
+              },
+              {
+                titre: "BCG — Flipping the Odds of Digital Transformation (2020)",
+                desc: "Analyse BCG sur les facteurs de succès et d'échec des transformations numériques. Source du chiffre 70%.",
+                href: "https://www.bcg.com/publications/2020/increasing-odds-of-success-in-digital-transformation",
+                couleur: "#E58441",
+                external: true,
+              },
+              {
+                titre: "DCTN — Statistiques de fréquentation 2024",
+                desc: "Bilan de fréquentation des musées et bibliothèques de la Ville de Genève en 2024.",
+                href: "https://www.geneve.ch/document/dctn-connaissance-publics-2024-statistiques-frequentation-bref",
+                couleur: "#515792",
+                external: true,
+              },
+            ].map(({ titre, desc, href, couleur, external }) => (
               <a key={href} href={href} target="_blank" rel="noopener noreferrer" className="block group">
                 <div className="rounded-xl bg-white border border-gray-100 p-5 hover:shadow-md transition-all hover:-translate-y-0.5">
                   <div className="flex items-start gap-4">
@@ -231,7 +472,7 @@ export default function Recherche() {
                       <h3 className="font-bold text-gray-900 mb-1">{titre}</h3>
                       <p className="text-sm text-gray-500 leading-relaxed mb-2">{desc}</p>
                       <span className="text-xs font-semibold flex items-center gap-1" style={{ color: couleur }}>
-                        Télécharger le PDF <ExternalLink className="h-3 w-3" />
+                        Accéder à la source <ExternalLink className="h-3 w-3" />
                       </span>
                     </div>
                   </div>

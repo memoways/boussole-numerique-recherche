@@ -86,16 +86,26 @@ export default function Projet() {
                   <Compass className="h-6 w-6" style={{ color: '#515792' }} />
                   <h3 className="font-bold text-gray-900">En chiffres</h3>
                 </div>
-                <div className="space-y-3">
+                <div className="space-y-4">
                   {[
-                    { val: "~5 000", label: "structures ICC à Genève" },
-                    { val: "12 150", label: "personnes dans le secteur" },
-                    { val: "55–59%", label: "peinent à identifier leurs besoins IA" },
-                    { val: "5", label: "dimensions explorées" },
-                  ].map(({ val, label }) => (
-                    <div key={label} className="flex items-baseline gap-3">
-                      <span className="text-xl font-extrabold" style={{ color: '#515792' }}>{val}</span>
-                      <span className="text-sm text-gray-500">{label}</span>
+                    { val: "~2 800", label: "structures ICC en Ville de Genève", note: "DCTN Empreintes Créatives 2023", url: "https://www.geneve.ch/sites/default/files/2023-06/DCTN-etude-les-empreintes-creatives-2023-geneve.pdf" },
+                    { val: "12 150", label: "personnes dans le secteur ICC", note: "DCTN Empreintes Créatives 2023", url: "https://www.geneve.ch/sites/default/files/2023-06/DCTN-etude-les-empreintes-creatives-2023-geneve.pdf" },
+                    { val: "55%", label: "ont du mal à identifier leurs besoins IA", note: "Compétence Culture Québec, nov. 2025", url: "https://competenceculture.ca/wp-content/uploads/sites/2/2025/11/ia-etude-21-novembre-2025_competence_culture.pdf" },
+                    { val: "59%", label: "des travailleurs auront besoin de reskilling d'ici 2030", note: "WEF Future of Jobs 2025", url: "https://www.weforum.org/publications/the-future-of-jobs-report-2025/" },
+                    { val: "5", label: "dimensions explorées par la Boussole", note: "Cadre conceptuel Boussole", url: null },
+                  ].map(({ val, label, note, url }) => (
+                    <div key={label} className="border-b border-gray-200 pb-3 last:border-0 last:pb-0">
+                      <div className="flex items-baseline gap-3">
+                        <span className="text-xl font-extrabold" style={{ color: '#515792' }}>{val}</span>
+                        <span className="text-sm text-gray-600">{label}</span>
+                      </div>
+                      {url ? (
+                        <a href={url} target="_blank" rel="noopener noreferrer" className="text-xs mt-0.5 flex items-center gap-1 hover:underline" style={{ color: '#E27227' }}>
+                          <ExternalLink className="h-2.5 w-2.5" />{note}
+                        </a>
+                      ) : (
+                        <span className="text-xs mt-0.5 block" style={{ color: '#9ca3af' }}>{note}</span>
+                      )}
                     </div>
                   ))}
                 </div>
