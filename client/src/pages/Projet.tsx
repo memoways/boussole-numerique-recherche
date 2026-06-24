@@ -196,6 +196,31 @@ export default function Projet() {
             <blockquote className="mt-6 pl-4 border-l-4 italic text-gray-500" style={{ borderColor: '#515792' }}>
               "Ce qu'on peut évaluer, on peut l'améliorer — et l'amélioration se mesure."
             </blockquote>
+
+            {/* Encadré Memoways */}
+            <div className="mt-8 rounded-2xl p-5 flex items-start gap-4" style={{ backgroundColor: '#f0f1f8', border: '1px solid #d0d3ea' }}>
+              <div className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: '#515792' }}>
+                <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6">
+                  <path d="M5 30 L13 10 L20 24 L27 10 L35 30" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+                </svg>
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: '#515792' }}>Qui est Memoways ?</p>
+                <p className="text-sm text-gray-700 leading-relaxed">
+                  Memoways est une agence genevoise fondée par Ulrich Fischer, spécialisée dans la transformation numérique des organisations culturelles et créatives. Forte de plus de trente ans de pratique professionnelle au cœur de l'écosystème culturel romand, elle accompagne musées, théâtres, associations et institutions dans leurs transitions numériques — avec une approche ancrée dans les réalités du terrain.
+                </p>
+                <a
+                  href="https://memoways.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 mt-3 text-sm font-semibold transition-opacity hover:opacity-70"
+                  style={{ color: '#515792' }}
+                >
+                  <ExternalLink className="h-3.5 w-3.5" />
+                  memoways.com
+                </a>
+              </div>
+            </div>
           </section>
 
           {/* ── 2. CONTEXTE ─────────────────────────────────────────────────── */}
