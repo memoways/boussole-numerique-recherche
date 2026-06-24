@@ -58,7 +58,7 @@ export default function Navigation() {
             />
             <div className="hidden sm:flex flex-col leading-tight">
               <span className="font-bold text-sm" style={{ color: '#515792' }}>Boussole Numérique</span>
-              <span className="text-xs text-gray-500 font-medium">Culture · Memoways</span>
+              <span className="text-xs text-gray-500 font-medium">Culture</span>
             </div>
           </Link>
 

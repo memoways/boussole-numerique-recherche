@@ -85,12 +85,6 @@ export default function Home() {
       <section className="pt-20 sm:pt-24 pb-20 sm:pb-28 px-4" style={{ background: 'linear-gradient(160deg, #f4f5fb 0%, #fdf6f0 50%, #f4f5fb 100%)' }}>
         <div className="max-w-4xl mx-auto text-center">
 
-          {/* Badge décoratif */}
-          <div className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest border" style={{ borderColor: '#515792', color: '#515792', backgroundColor: 'rgba(81,87,146,0.06)' }}>
-            <Compass className="h-3.5 w-3.5" />
-            Memoways Research · Genève
-          </div>
-
           {/* Titre gradient fluide — inspiré du screenshot */}
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.15] mb-8 tracking-tight">
             <span style={{
@@ -224,15 +218,18 @@ export default function Home() {
                 @keyframes spin-orbit-1 { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
                 @keyframes spin-orbit-2 { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
                 @keyframes spin-orbit-3 { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+                @keyframes spin-orbit-4 { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
                 @keyframes spin-counter-1 { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(-360deg); } }
                 @keyframes spin-counter-2 { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
                 @keyframes spin-counter-3 { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(-360deg); } }
+                @keyframes spin-counter-4 { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
                 .ring-1 { animation: spin-orbit-1 32s linear infinite; }
                 .ring-2 { animation: spin-orbit-2 20s linear infinite; }
                 .ring-3 { animation: spin-orbit-3 13s linear infinite; }
                 .icon-1 { animation: spin-counter-1 32s linear infinite; }
                 .icon-2 { animation: spin-counter-2 20s linear infinite; }
                 .icon-3 { animation: spin-counter-3 13s linear infinite; }
+                .icon-4 { animation: spin-counter-4 45s linear infinite; }
               `}</style>
               <div className="relative" style={{ width: 300, height: 300 }}>
 
@@ -267,11 +264,37 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Icônes fixes aux extrémités */}
-                <div className="absolute w-9 h-9 rounded-full bg-white shadow-sm flex items-center justify-center text-base"
-                  style={{ left: '8%', top: '62%', transform: 'translate(-50%,-50%)' }}>📡</div>
-                <div className="absolute w-9 h-9 rounded-full bg-white shadow-sm flex items-center justify-center text-base"
-                  style={{ left: '92%', top: '62%', transform: 'translate(-50%,-50%)' }}>🔗</div>
+                {/* Anneau externe 2 — 45s inverse — icône 📡 — décalé de 180° */}
+                <div className="ring-4 absolute rounded-full" style={{ inset: -18, border: 'none', opacity: 0 }}>
+                  {/* Invisible ring just for orbit reference */}
+                </div>
+
+                {/* Orbite 📡 — anneau le plus externe, 45s inverse */}
+                <div style={{
+                  position: 'absolute',
+                  inset: -18,
+                  borderRadius: '50%',
+                  animation: 'spin-orbit-4 45s linear infinite',
+                }}>
+                  <div className="icon-4 absolute w-9 h-9 rounded-full bg-white shadow-md flex items-center justify-center text-base"
+                    style={{ left: '50%', top: 0, transform: 'translate(-50%, -50%)' }}>
+                    📡
+                  </div>
+                </div>
+
+                {/* Orbite 🔗 — même anneau, décalé de 180° */}
+                <div style={{
+                  position: 'absolute',
+                  inset: -18,
+                  borderRadius: '50%',
+                  animation: 'spin-orbit-4 45s linear infinite',
+                  animationDelay: '-22.5s',
+                }}>
+                  <div className="icon-4 absolute w-9 h-9 rounded-full bg-white shadow-md flex items-center justify-center text-base"
+                    style={{ left: '50%', top: 0, transform: 'translate(-50%, -50%)' }}>
+                    🔗
+                  </div>
+                </div>
               </div>
             </div>
           </div>
