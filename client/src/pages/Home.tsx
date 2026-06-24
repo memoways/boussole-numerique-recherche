@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -71,6 +71,131 @@ const ETAPES_OUTIL = [
   { num: "03", titre: "Recevoir un panorama visuel", desc: "Une carte claire de vos pratiques numériques, en cinq dimensions.", icon: Eye },
   { num: "04", titre: "Explorer des pistes d'action", desc: "Des ressources et suggestions adaptées à votre contexte réel.", icon: ArrowRight },
 ];
+
+// ─── Radar interactif (partagé avec /experience) ────────────────────────────
+
+const DIMS_RADAR = [
+  { label: "Outils",        emoji: "🛠️", couleur: "#515792", desc: "Les logiciels, applications et plateformes utilisés au quotidien. Cette dimension évalue si vos outils sont adaptés à vos usages réels — pas à ce qu'on vous a vendu." },
+  { label: "Compétences",   emoji: "🎓", couleur: "#E27227", desc: "Les savoir-faire numériques de votre équipe. La Boussole ne juge pas le niveau — elle aide à repérer les écarts entre les besoins du terrain et les compétences disponibles." },
+  { label: "Données",       emoji: "🗄️", couleur: "#3aab8a", desc: "La manière dont vous collectez, stockez et utilisez vos données (publics, projets, finances). Une dimension souvent sous-estimée, pourtant centrale pour piloter une structure culturelle." },
+  { label: "Diffusion",     emoji: "📡", couleur: "#9b59b6", desc: "Votre présence numérique — site web, réseaux sociaux, newsletters, billetterie en ligne. Cette dimension évalue la cohérence et l'efficacité de vos canaux de communication." },
+  { label: "Collaboration", emoji: "🔗", couleur: "#E58441", desc: "Les outils et pratiques de travail en équipe — partage de fichiers, gestion de projets, communication interne. Là où beaucoup de structures perdent le plus d'énergie au quotidien." },
+];
+
+const RADAR_A = [0.72, 0.50, 0.83, 0.45, 0.68];
+const RADAR_B = [0.40, 0.78, 0.55, 0.82, 0.35];
+
+function HomeRadar() {
+  const [vals, setVals] = useState(RADAR_A);
+  const [orbitAngle, setOrbitAngle] = useState(0);
+  const [activeDim, setActiveDim] = useState<number | null>(null);
+  const rafRef = useRef<number | null>(null);
+  const phaseRef = useRef(0);
+  const progressRef = useRef(0);
+  const lastTimeRef = useRef(0);
+
+  useEffect(() => {
+    const ORBIT_SPEED = 0.008;
+    const MORPH_DURATION = 4000;
+
+    const tick = (ts: number) => {
+      const dt = ts - (lastTimeRef.current || ts);
+      lastTimeRef.current = ts;
+      setOrbitAngle(prev => (prev + ORBIT_SPEED * dt) % 360);
+      progressRef.current = Math.min(progressRef.current + dt / MORPH_DURATION, 1);
+      const ease = (1 - Math.cos(progressRef.current * Math.PI)) / 2;
+      const from = phaseRef.current === 0 ? RADAR_A : RADAR_B;
+      const to   = phaseRef.current === 0 ? RADAR_B : RADAR_A;
+      setVals(from.map((f, i) => f + (to[i] - f) * ease));
+      if (progressRef.current >= 1) { progressRef.current = 0; phaseRef.current ^= 1; }
+      rafRef.current = requestAnimationFrame(tick);
+    };
+    rafRef.current = requestAnimationFrame(tick);
+    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
+  }, []);
+
+  const CX = 150, CY = 150, R_GRID = 100, R_ORBIT = 138;
+  const radarPoints = vals.map((v, i) => {
+    const a = (i * 72 - 90) * Math.PI / 180;
+    return { x: CX + R_GRID * v * Math.cos(a), y: CY + R_GRID * v * Math.sin(a) };
+  });
+  const radarPath = radarPoints.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x.toFixed(2)},${p.y.toFixed(2)}`).join(' ') + ' Z';
+
+  return (
+    <div className="flex flex-col lg:flex-row items-center gap-8 w-full">
+      {/* SVG */}
+      <div className="flex-shrink-0">
+        <svg viewBox="0 0 300 300" className="w-64 h-64 sm:w-72 sm:h-72" style={{ overflow: 'visible' }}>
+          {[1, 0.75, 0.5, 0.25].map((scale, si) => {
+            const pts = [0,1,2,3,4].map(i => { const a = (i*72-90)*Math.PI/180; return `${(CX+R_GRID*scale*Math.cos(a)).toFixed(1)},${(CY+R_GRID*scale*Math.sin(a)).toFixed(1)}`; }).join(' ');
+            return <polygon key={si} points={pts} fill="none" stroke="#e5e7eb" strokeWidth="1" />;
+          })}
+          {[0,1,2,3,4].map(i => { const a=(i*72-90)*Math.PI/180; return <line key={i} x1={CX} y1={CY} x2={(CX+R_GRID*Math.cos(a)).toFixed(1)} y2={(CY+R_GRID*Math.sin(a)).toFixed(1)} stroke="#e5e7eb" strokeWidth="1" />; })}
+          <path d={radarPath} fill="#515792" fillOpacity="0.18" stroke="#515792" strokeWidth="2" strokeLinejoin="round" />
+          {radarPoints.map((p, i) => (
+            <g key={i} style={{ cursor: 'pointer' }} onClick={() => setActiveDim(activeDim === i ? null : i)}>
+              <circle cx={p.x.toFixed(2)} cy={p.y.toFixed(2)} r="14" fill="transparent" />
+              {activeDim === i && <circle cx={p.x.toFixed(2)} cy={p.y.toFixed(2)} r="9" fill={DIMS_RADAR[i].couleur} fillOpacity="0.2" stroke={DIMS_RADAR[i].couleur} strokeWidth="1" />}
+              <circle cx={p.x.toFixed(2)} cy={p.y.toFixed(2)} r={activeDim === i ? 6 : 4.5} fill={DIMS_RADAR[i].couleur} stroke="white" strokeWidth="1.5" />
+            </g>
+          ))}
+          {DIMS_RADAR.map((dim, i) => {
+            const a = (i*72 - 90 + orbitAngle) * Math.PI / 180;
+            const x = CX + R_ORBIT * Math.cos(a), y = CY + R_ORBIT * Math.sin(a);
+            return (
+              <g key={i} style={{ cursor: 'pointer' }} onClick={() => setActiveDim(activeDim === i ? null : i)}>
+                <circle cx={x.toFixed(1)} cy={y.toFixed(1)} r="16" fill="white" stroke={dim.couleur} strokeWidth="1.5" style={{ filter: 'drop-shadow(0 1px 3px rgba(0,0,0,0.12))' }} />
+                <text x={x.toFixed(1)} y={y.toFixed(1)} textAnchor="middle" dominantBaseline="middle" fontSize="14">{dim.emoji}</text>
+              </g>
+            );
+          })}
+        </svg>
+      </div>
+
+      {/* Panneau droite : liste + description active */}
+      <div className="flex-1 w-full">
+        <div className="space-y-2 mb-4">
+          {DIMS_RADAR.map((dim, i) => (
+            <button
+              key={i}
+              onClick={() => setActiveDim(activeDim === i ? null : i)}
+              className="w-full flex items-center gap-3 rounded-xl px-4 py-3 text-left transition-all duration-200 hover:shadow-sm"
+              style={{
+                backgroundColor: activeDim === i ? dim.couleur + '12' : '#f8f9fc',
+                border: `1.5px solid ${activeDim === i ? dim.couleur : '#e5e7eb'}`,
+              }}
+            >
+              <span className="text-lg flex-shrink-0">{dim.emoji}</span>
+              <span className="font-semibold text-sm" style={{ color: activeDim === i ? dim.couleur : '#374151' }}>{dim.label}</span>
+              <ChevronDown className="ml-auto h-4 w-4 flex-shrink-0 transition-transform duration-200" style={{ color: activeDim === i ? dim.couleur : '#9ca3af', transform: activeDim === i ? 'rotate(180deg)' : 'rotate(0deg)' }} />
+            </button>
+          ))}
+        </div>
+        {/* Description */}
+        <div
+          className="rounded-xl px-4 py-3 text-sm leading-relaxed transition-all duration-300"
+          style={{
+            minHeight: '64px',
+            backgroundColor: activeDim !== null ? DIMS_RADAR[activeDim].couleur + '10' : '#f0f1f8',
+            borderLeft: `3px solid ${activeDim !== null ? DIMS_RADAR[activeDim].couleur : '#d0d3ea'}`,
+            opacity: activeDim !== null ? 1 : 0.6,
+          }}
+        >
+          {activeDim !== null ? (
+            <p className="text-gray-600">{DIMS_RADAR[activeDim].desc}</p>
+          ) : (
+            <p className="text-gray-400 italic text-xs">Cliquez sur un point du radar ou sur une dimension pour en savoir plus.</p>
+          )}
+        </div>
+        <div className="mt-4">
+          <Button variant="outline" size="sm" className="text-xs" style={{ borderColor: '#515792', color: '#515792' }} asChild>
+            <Link href="/experience">Voir l'expérience complète <ArrowRight className="ml-1 h-3 w-3" /></Link>
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 // ─── Composant principal ───────────────────────────────────────────────────────
 
@@ -368,47 +493,7 @@ export default function Home() {
             <p className="text-gray-500 mt-3 max-w-xl mx-auto">La Boussole explore cinq grandes dimensions des pratiques numériques. Cliquez sur chacune pour voir un exemple concret.</p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {DIMENSIONS.map((dim) => (
-              <div
-                key={dim.id}
-                className="rounded-xl border-2 cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
-                style={{
-                  borderColor: dimensionOuverte === dim.id ? dim.couleur : '#e5e7eb',
-                  backgroundColor: dimensionOuverte === dim.id ? dim.couleur + '08' : 'white',
-                }}
-                onClick={() => setDimensionOuverte(dimensionOuverte === dim.id ? null : dim.id)}
-              >
-                <div className="p-5">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex items-center gap-3">
-                      <span className="text-2xl transition-transform duration-300" style={{ display: 'inline-block', transform: dimensionOuverte === dim.id ? 'scale(1.2)' : 'scale(1)' }}>{dim.icon}</span>
-                      <h3 className="font-semibold text-sm leading-tight transition-colors duration-200" style={{ color: dimensionOuverte === dim.id ? dim.couleur : '#111827' }}>{dim.titre}</h3>
-                    </div>
-                    <div className="transition-transform duration-300" style={{ transform: dimensionOuverte === dim.id ? 'rotate(180deg)' : 'rotate(0deg)' }}>
-                      <ChevronDown className="h-4 w-4 flex-shrink-0" style={{ color: dimensionOuverte === dim.id ? dim.couleur : '#9ca3af' }} />
-                    </div>
-                  </div>
-                  <div
-                    className="overflow-hidden transition-all duration-300"
-                    style={{ maxHeight: dimensionOuverte === dim.id ? 200 : 0, opacity: dimensionOuverte === dim.id ? 1 : 0 }}
-                  >
-                    <p className="mt-4 text-sm text-gray-600 leading-relaxed border-t pt-4" style={{ borderColor: dim.couleur + '30' }}>
-                      {dim.exemple}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-            {/* Carte "En savoir plus" */}
-            <div className="rounded-xl border-2 border-dashed border-gray-200 bg-white p-5 flex flex-col items-center justify-center text-center gap-3 hover:border-gray-300 transition-colors">
-              <Compass className="h-8 w-8" style={{ color: '#515792' }} />
-              <p className="text-sm text-gray-500">Découvrez comment ces dimensions sont explorées dans l'expérience Boussole.</p>
-              <Button variant="outline" size="sm" className="text-xs" style={{ borderColor: '#515792', color: '#515792' }} asChild>
-                <Link href="/projet">Voir le projet</Link>
-              </Button>
-            </div>
-          </div>
+          <HomeRadar />
         </div>
       </section>
 
