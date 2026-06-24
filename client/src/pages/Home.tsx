@@ -91,17 +91,25 @@ export default function Home() {
             Memoways Research · Genève
           </div>
 
-          {/* Titre multicolore mot-par-mot */}
+          {/* Titre gradient fluide — inspiré du screenshot */}
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.15] mb-8 tracking-tight">
-            <span className="block">
-              <span style={{ color: '#515792' }}>Boussole</span>
-              {' '}
-              <span style={{ color: '#3aab8a' }}>Numérique</span>
+            <span style={{
+              background: 'linear-gradient(90deg, #515792 0%, #3a7fc1 20%, #3aab8a 40%, #7ab648 58%, #E27227 78%, #E58441 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              display: 'block',
+            }}>
+              Boussole Numérique
             </span>
-            <span className="block">
-              <span style={{ color: '#7ab648' }}>Culture</span>
-              {' '}
-              <span style={{ color: '#E27227' }}>Genev</span><span style={{ color: '#E58441' }}>oise</span>
+            <span style={{
+              background: 'linear-gradient(90deg, #7ab648 0%, #b5c93a 25%, #E27227 55%, #E58441 80%, #d94f1e 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              display: 'block',
+            }}>
+              Culture Genevoise
             </span>
           </h1>
 
