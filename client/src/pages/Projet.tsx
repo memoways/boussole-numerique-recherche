@@ -3,8 +3,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   ArrowRight, ChevronDown, CheckCircle, XCircle,
-  Users, Wrench, Globe, BookOpen, Shield, Lock, Zap, GitBranch,
-  Heart, Database, Eye, Compass, ExternalLink, ArrowLeft
+  Shield, Lock, GitBranch, Users,
+  Heart, Database, Compass, ExternalLink, ArrowLeft
 } from "lucide-react";
 import { Link } from "wouter";
 import Navigation from "@/components/Navigation";
@@ -75,12 +75,7 @@ const PRINCIPES = [
   { icon: Users, titre: "Approche contributive", desc: "Les structures culturelles genevoises participent dès la définition des indicateurs et à l'enrichissement des recommandations.", couleur: "#E58441" },
 ];
 
-const PHASES_CALENDRIER = [
-  { num: "A", mois: "Mois 1–3", titre: "MVP", couleur: "#515792", items: ["Questionnaire adaptatif (5 dimensions)", "Saisie vocale", "Restitution visuelle (radar + synthèse)", "Export PDF", "Mode conversationnel guidé"] },
-  { num: "B", mois: "Mois 4", titre: "Beta test", couleur: "#3aab8a", items: ["Tests avec structures culturelles pilotes genevoises", "Ajustements UX et formulations", "Mise en place de l'annuaire de ressources"] },
-  { num: "C", mois: "Mois 5–8", titre: "Version 2", couleur: "#E27227", items: ["Mode structure collaboratif (multi-répondants + synthèse collective)", "Upload de documents", "Enrichissement de la base de ressources"] },
-  { num: "D", mois: "Mois 9–24", titre: "Exploitation & amélioration continue", couleur: "#9b59b6", items: ["Comparaison anonymisée avec la moyenne des répondants", "Optimisations continues", "Extension des partenariats", "Objectif : 500 utilisateurs inscrits"] },
-];
+
 
 const OBJECTIFS = [
   "500 utilisateurs inscrits, dont 50% utilisent l'outil régulièrement",
@@ -111,7 +106,6 @@ function CellIcon({ val }: { val: CellVal }) {
 
 export default function Projet() {
   const [etapeOuverte, setEtapeOuverte] = useState<number | null>(0);
-  const [phaseOuverte, setPhaseOuverte] = useState<number | null>(null);
   const [archOpen, setArchOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("intention");
 
@@ -182,10 +176,10 @@ export default function Projet() {
         </aside>
 
         {/* Contenu principal */}
-        <main className="flex-1 min-w-0 space-y-20">
+        <main className="flex-1 min-w-0 space-y-20" style={{ scrollPaddingTop: '80px' }}>
 
           {/* ── 1. NOTE D'INTENTION ─────────────────────────────────────────── */}
-          <section id="intention">
+          <section id="intention" style={{ scrollMarginTop: '80px' }}>
             <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#515792' }}>Note d'intention</Badge>
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-5">Un outil pour voir où l'on en est</h2>
             <div className="space-y-4 text-gray-600 leading-relaxed">
@@ -205,7 +199,7 @@ export default function Projet() {
           </section>
 
           {/* ── 2. CONTEXTE ─────────────────────────────────────────────────── */}
-          <section id="contexte">
+          <section id="contexte" style={{ scrollMarginTop: '80px' }}>
             <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#E27227' }}>Le contexte</Badge>
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-5">Des pratiques numériques qui coûtent cher en énergie créative</h2>
             <div className="space-y-4 text-gray-600 leading-relaxed mb-8">
@@ -246,7 +240,7 @@ export default function Projet() {
           </section>
 
           {/* ── 3. LA PROPOSITION ───────────────────────────────────────────── */}
-          <section id="proposition">
+          <section id="proposition" style={{ scrollMarginTop: '80px' }}>
             <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#3aab8a' }}>La proposition</Badge>
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-5">Ce que fait la Boussole, concrètement</h2>
             <p className="text-gray-600 leading-relaxed mb-8">
@@ -318,7 +312,7 @@ export default function Projet() {
           </section>
 
           {/* ── 4. MODE COLLABORATIF ────────────────────────────────────────── */}
-          <section id="collaboratif">
+          <section id="collaboratif" style={{ scrollMarginTop: '80px' }}>
             <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#9b59b6' }}>Mode collaboratif</Badge>
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-5">Donner la parole à toute une équipe</h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -350,7 +344,7 @@ export default function Projet() {
           </section>
 
           {/* ── 5. POSITIONNEMENT ───────────────────────────────────────────── */}
-          <section id="positionnement">
+          <section id="positionnement" style={{ scrollMarginTop: '80px' }}>
             <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#515792' }}>Positionnement</Badge>
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">La Boussole face aux autres solutions</h2>
             <p className="text-gray-600 leading-relaxed mb-6">
@@ -394,7 +388,7 @@ export default function Projet() {
           </section>
 
           {/* ── 6. PRINCIPES FONDATEURS ─────────────────────────────────────── */}
-          <section id="principes">
+          <section id="principes" style={{ scrollMarginTop: '80px' }}>
             <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#7ab648' }}>Un projet de service public</Badge>
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Nos principes fondateurs</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -411,7 +405,7 @@ export default function Projet() {
           </section>
 
           {/* ── 7. ARCHITECTURE TECHNIQUE ───────────────────────────────────── */}
-          <section id="architecture">
+          <section id="architecture" style={{ scrollMarginTop: '80px' }}>
             <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#E58441' }}>Architecture technique</Badge>
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Comment la Boussole est construite</h2>
             <p className="text-gray-600 leading-relaxed mb-6">
@@ -492,53 +486,40 @@ export default function Projet() {
           </section>
 
           {/* ── 8. CALENDRIER ───────────────────────────────────────────────── */}
-          <section id="calendrier">
+          <section id="calendrier" style={{ scrollMarginTop: '80px' }}>
             <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#9b59b6' }}>Calendrier</Badge>
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Développement en 4 phases sur 2 ans</h2>
-            <div className="space-y-3">
-              {PHASES_CALENDRIER.map((phase, i) => (
-                <div
-                  key={i}
-                  className="rounded-xl border-2 overflow-hidden cursor-pointer transition-all duration-200"
-                  style={{ borderColor: phaseOuverte === i ? phase.couleur : '#e5e7eb' }}
-                  onClick={() => setPhaseOuverte(phaseOuverte === i ? null : i)}
-                >
-                  <div className="flex items-center gap-4 p-4">
-                    <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0" style={{ backgroundColor: phase.couleur }}>
-                      {phase.num}
-                    </div>
-                    <div className="flex-1">
-                      <span className="text-xs font-medium" style={{ color: phase.couleur }}>{phase.mois}</span>
-                      <p className="font-bold text-gray-900 text-sm">{phase.titre}</p>
-                    </div>
-                    <div className="transition-transform duration-200 flex-shrink-0" style={{ transform: phaseOuverte === i ? 'rotate(180deg)' : 'rotate(0deg)' }}>
-                      <ChevronDown className="h-4 w-4 text-gray-400" />
-                    </div>
-                  </div>
-                  {phaseOuverte === i && (
-                    <div className="px-5 pb-4 border-t" style={{ borderColor: phase.couleur + '20', backgroundColor: phase.couleur + '05' }}>
-                      <ul className="mt-3 space-y-1.5">
-                        {phase.items.map((item) => (
-                          <li key={item} className="flex items-start gap-2 text-sm text-gray-600">
-                            <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: phase.couleur }}></div>
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Un projet de 18 mois en 5 phases</h2>
+            <p className="text-gray-600 leading-relaxed mb-6">
+              Le développement de la Boussole est organisé en cinq phases progressives — de la co-conception avec les partenaires culturels genevois jusqu'au bilan ouvert et à la transmission de la méthode. La phase 1 (cadrage et co-conception) est actuellement en cours.
+            </p>
+            <div className="grid grid-cols-5 gap-2 mb-6">
+              {[
+                { num: '01', titre: 'Cadrage et co-conception', mois: 'Mois 1–4', couleur: '#515792', statut: 'En cours' },
+                { num: '02', titre: 'Prototype fonctionnel', mois: 'Mois 5–9', couleur: '#E27227', statut: 'À venir' },
+                { num: '03', titre: 'Tests et affinages', mois: 'Mois 10–13', couleur: '#3aab8a', statut: 'À venir' },
+                { num: '04', titre: 'Fonctionnement public', mois: 'Mois 14–16', couleur: '#9b59b6', statut: 'À venir' },
+                { num: '05', titre: 'Bilan et transmission', mois: 'Mois 17–18', couleur: '#E58441', statut: 'À venir' },
+              ].map((p) => (
+                <div key={p.num} className="rounded-xl p-3 text-center border" style={{ borderColor: p.couleur + '30', backgroundColor: p.couleur + '08' }}>
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-xs mx-auto mb-2" style={{ backgroundColor: p.couleur }}>{p.num}</div>
+                  <p className="text-xs font-semibold text-gray-700 leading-tight mb-1">{p.titre}</p>
+                  <p className="text-xs text-gray-400">{p.mois}</p>
+                  {p.statut === 'En cours' && (
+                    <span className="inline-block mt-1 text-xs px-2 py-0.5 rounded-full font-medium" style={{ backgroundColor: '#3aab8a20', color: '#3aab8a' }}>En cours</span>
                   )}
                 </div>
               ))}
             </div>
-            <div className="mt-4 text-right">
-              <Button variant="outline" size="sm" className="text-xs" style={{ borderColor: '#515792', color: '#515792' }} asChild>
-                <Link href="/timeline">Voir le calendrier détaillé <ArrowRight className="ml-1 h-3 w-3" /></Link>
+            <div className="rounded-xl p-4 flex items-center justify-between gap-4" style={{ backgroundColor: '#f0f1f8' }}>
+              <p className="text-sm text-gray-600">Le calendrier détaillé présente les livrables, activités et jalons de chaque phase.</p>
+              <Button style={{ backgroundColor: '#515792', flexShrink: 0 }} size="sm" asChild>
+                <Link href="/timeline">Voir le calendrier <ArrowRight className="ml-1 h-3 w-3" /></Link>
               </Button>
             </div>
           </section>
 
           {/* ── 9. OBJECTIFS À 2 ANS ────────────────────────────────────────── */}
-          <section id="objectifs">
+          <section id="objectifs" style={{ scrollMarginTop: '80px' }}>
             <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#E27227' }}>Impact</Badge>
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Objectifs à deux ans</h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
