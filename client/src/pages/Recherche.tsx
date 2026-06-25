@@ -229,6 +229,61 @@ export default function Recherche() {
   const [activeTag, setActiveTag] = useState<LearningTag | null>(null);
   const [insightOuvert, setInsightOuvert] = useState<number | null>(null);
 
+  // ── État tableau comparatif ───────────────────────────────────────────
+  const [filtresCriteres, setFiltresCriteres] = useState<Set<number>>(new Set());
+  const [sortColComp, setSortColComp] = useState<number | null>(null);
+  const [sortDirComp, setSortDirComp] = useState<'desc' | 'asc'>('desc');
+
+  const COLS_COMP = [
+    { nom: "Boussole", short: "Boussole", couleur: "#515792", estBoussole: true },
+    { nom: "Nos Gestes Climat", short: "NGC", couleur: "#3aab8a", estBoussole: false },
+    { nom: "Diag-numérique.fr", short: "Diag-num.", couleur: "#E27227", estBoussole: false },
+    { nom: "AICred", short: "AICred", couleur: "#9b59b6", estBoussole: false },
+    { nom: "DL.AI Skill Builder", short: "DL.AI", couleur: "#515792", estBoussole: false },
+    { nom: "Obs. GE", short: "Obs. GE", couleur: "#E58441", estBoussole: false },
+  ];
+
+  const ROWS_COMP = [
+    { label: "Gratuit", vals: [true, true, true, false, "partiel" as const, true] },
+    { label: "Open source", vals: [true, true, false, false, false, false] },
+    { label: "Secteur culturel", vals: [true, false, false, false, false, false] },
+    { label: "Dimension IA", vals: [true, false, false, true, true, false] },
+    { label: "Petites structures", vals: [true, true, "partiel" as const, false, "partiel" as const, false] },
+    { label: "Ancrage local (GE)", vals: [true, false, "partiel" as const, false, false, true] },
+    { label: "Multimodal", vals: [true, false, false, false, false, false] },
+    { label: "Restitution visuelle", vals: [true, true, true, true, "partiel" as const, "partiel" as const] },
+    { label: "Comparaison pairs", vals: [true, false, true, "partiel" as const, false, false] },
+    { label: "Souveraineté données", vals: [true, true, "partiel" as const, false, false, true] },
+  ];
+
+  const score = (v: boolean | 'partiel') => v === true ? 2 : v === 'partiel' ? 1 : 0;
+
+  // Lignes filtrées selon les critères actifs
+  const rowsAffiches = filtresCriteres.size === 0
+    ? ROWS_COMP
+    : ROWS_COMP.filter((_, ri) => filtresCriteres.has(ri));
+
+  // Colonnes triées (Boussole toujours en 1ère position)
+  const colsOrdre = (() => {
+    const indices = COLS_COMP.map((_, i) => i);
+    if (sortColComp === null) return indices;
+    const [boussole, ...rest] = indices;
+    rest.sort((a, b) => {
+      const scoreA = rowsAffiches.reduce((acc, row) => acc + score(row.vals[a] as boolean | 'partiel'), 0);
+      const scoreB = rowsAffiches.reduce((acc, row) => acc + score(row.vals[b] as boolean | 'partiel'), 0);
+      return sortDirComp === 'desc' ? scoreB - scoreA : scoreA - scoreB;
+    });
+    return [boussole, ...rest];
+  })();
+
+  function toggleFiltreComp(ri: number) {
+    setFiltresCriteres(prev => {
+      const next = new Set(prev);
+      if (next.has(ri)) next.delete(ri); else next.add(ri);
+      return next;
+    });
+  }
+
   const filtered = activeTag
     ? LEARNINGS.filter(l => l.tags.includes(activeTag))
     : LEARNINGS;
@@ -483,61 +538,154 @@ export default function Recherche() {
             ))}
           </div>
 
-          {/* Tableau comparatif 10 critères */}
-          <h3 className="text-lg font-bold text-gray-900 mb-4">Tableau comparatif — 10 critères clés</h3>
+          {/* Tableau comparatif interactif */}
+          <div className="mb-4 flex items-center gap-2 flex-wrap">
+            <span className="text-xs font-bold text-gray-500 uppercase tracking-wide flex items-center gap-1">
+              <Filter className="h-3 w-3" /> Filtrer par critère
+            </span>
+            <button
+              onClick={() => setFiltresCriteres(new Set())}
+              className={`text-xs px-3 py-1 rounded-full border transition-all ${
+                filtresCriteres.size === 0
+                  ? 'text-white border-transparent'
+                  : 'text-gray-500 border-gray-200 hover:border-gray-400'
+              }`}
+              style={filtresCriteres.size === 0 ? { backgroundColor: '#515792' } : {}}
+            >
+              Tous ({ROWS_COMP.length})
+            </button>
+            {ROWS_COMP.map((row, ri) => {
+              const actif = filtresCriteres.has(ri);
+              return (
+                <button
+                  key={ri}
+                  onClick={() => toggleFiltreComp(ri)}
+                  className={`text-xs px-3 py-1 rounded-full border transition-all ${
+                    actif ? 'text-white border-transparent' : 'text-gray-500 border-gray-200 hover:border-gray-400'
+                  }`}
+                  style={actif ? { backgroundColor: '#515792' } : {}}
+                >
+                  {row.label}
+                </button>
+              );
+            })}
+          </div>
+
+          {filtresCriteres.size > 0 && (
+            <p className="text-xs text-gray-400 mb-3 italic">
+              {filtresCriteres.size} critère{filtresCriteres.size > 1 ? 's' : ''} sélectionné{filtresCriteres.size > 1 ? 's' : ''} — seuls les outils qui les satisfont pleinement sont mis en avant.
+            </p>
+          )}
+
+          <h3 className="text-lg font-bold text-gray-900 mb-2">Tableau comparatif — {rowsAffiches.length} critère{rowsAffiches.length > 1 ? 's' : ''}</h3>
+          <p className="text-xs text-gray-400 mb-4">Cliquez sur un en-tête de colonne pour trier les outils par score sur les critères affichés.</p>
           <div className="rounded-2xl border border-gray-200 overflow-hidden shadow-sm bg-white">
             <div className="overflow-x-auto">
               <table className="w-full text-xs">
                 <thead>
                   <tr style={{ backgroundColor: '#f8f9fc' }}>
-                    <th className="text-left px-4 py-3 font-bold text-gray-500 uppercase tracking-wider min-w-[160px]">Critère</th>
-                    {[
-                      { nom: "Boussole ✓", couleur: "#515792" },
-                      { nom: "Nos Gestes Climat", couleur: "#3aab8a" },
-                      { nom: "Diag-num.", couleur: "#E27227" },
-                      { nom: "AICred", couleur: "#9b59b6" },
-                      { nom: "DL.AI Skill", couleur: "#515792" },
-                      { nom: "Obs. GE", couleur: "#E58441" },
-                    ].map((col, i) => (
-                      <th key={i} className="px-3 py-3 text-center font-semibold min-w-[80px]"
-                        style={{ color: col.couleur, backgroundColor: i === 0 ? col.couleur + '10' : undefined }}>
-                        {col.nom}
-                      </th>
-                    ))}
+                    <th className="text-left px-4 py-3 font-bold text-gray-500 uppercase tracking-wider min-w-[160px] sticky left-0 bg-slate-50 z-10">Critère</th>
+                    {colsOrdre.map((ci) => {
+                      const col = COLS_COMP[ci];
+                      const colScore = rowsAffiches.reduce((acc, row) => acc + score(row.vals[ci] as boolean | 'partiel'), 0);
+                      const maxScore = rowsAffiches.length * 2;
+                      const pct = maxScore > 0 ? Math.round((colScore / maxScore) * 100) : 0;
+                      return (
+                        <th
+                          key={ci}
+                          className="px-3 py-2 text-center font-semibold min-w-[90px] cursor-pointer select-none group"
+                          style={{
+                            color: col.couleur,
+                            backgroundColor: col.estBoussole ? col.couleur + '12' : undefined,
+                          }}
+                          onClick={() => {
+                            if (!col.estBoussole) {
+                              if (sortColComp === ci) setSortDirComp(d => d === 'desc' ? 'asc' : 'desc');
+                              else { setSortColComp(ci); setSortDirComp('desc'); }
+                            }
+                          }}
+                        >
+                          <div className="flex flex-col items-center gap-0.5">
+                            <span className="flex items-center gap-0.5">
+                              {col.short}
+                              {!col.estBoussole && (
+                                <span className="text-gray-300 text-xs ml-0.5">
+                                  {sortColComp === ci ? (sortDirComp === 'desc' ? '↓' : '↑') : '↕'}
+                                </span>
+                              )}
+                              {col.estBoussole && <span className="ml-0.5">✓</span>}
+                            </span>
+                            <span className="text-xs font-normal" style={{ color: col.couleur + 'aa' }}>{pct}%</span>
+                          </div>
+                        </th>
+                      );
+                    })}
                   </tr>
                 </thead>
                 <tbody>
-                  {[
-                    { label: "Gratuit", vals: [true, true, true, false, "partiel", true] },
-                    { label: "Open source", vals: [true, true, false, false, false, false] },
-                    { label: "Secteur culturel", vals: [true, false, false, false, false, false] },
-                    { label: "Dimension IA", vals: [true, false, false, true, true, false] },
-                    { label: "Petites structures", vals: [true, true, "partiel", false, "partiel", false] },
-                    { label: "Ancrage local (GE)", vals: [true, false, "partiel", false, false, true] },
-                    { label: "Multimodal", vals: [true, false, false, false, false, false] },
-                    { label: "Restitution visuelle", vals: [true, true, true, true, "partiel", "partiel"] },
-                    { label: "Comparaison pairs", vals: [true, false, true, "partiel", false, false] },
-                    { label: "Souveraineté données", vals: [true, true, "partiel", false, false, true] },
-                  ].map((row, ri) => (
-                    <tr key={ri} className="border-t border-gray-100 hover:bg-gray-50 transition-colors">
-                      <td className="px-4 py-2.5 text-gray-700 font-medium">{row.label}</td>
-                      {row.vals.map((v, vi) => (
-                        <td key={vi} className="px-3 py-2.5 text-center" style={{ backgroundColor: vi === 0 ? '#51579208' : undefined }}>
-                          {v === true
-                            ? <span className="inline-flex items-center justify-center w-5 h-5 rounded-full" style={{ backgroundColor: '#3aab8a20' }}><span style={{ color: '#3aab8a', fontSize: '10px', fontWeight: 'bold' }}>✓</span></span>
-                            : v === 'partiel'
-                            ? <span className="text-gray-400 text-xs">—</span>
-                            : <span className="text-gray-200 text-xs">✕</span>
-                          }
+                  {rowsAffiches.map((row, ri) => {
+                    const origRi = ROWS_COMP.indexOf(row);
+                    const actif = filtresCriteres.has(origRi);
+                    return (
+                      <tr
+                        key={ri}
+                        className="border-t border-gray-100 transition-colors cursor-pointer"
+                        style={{ backgroundColor: actif ? '#51579208' : undefined }}
+                        onClick={() => toggleFiltreComp(origRi)}
+                        title={actif ? 'Retirer ce filtre' : 'Filtrer sur ce critère'}
+                      >
+                        <td className="px-4 py-2.5 font-medium sticky left-0 bg-white z-10" style={{ color: actif ? '#515792' : '#374151' }}>
+                          <span className="flex items-center gap-1.5">
+                            {actif && <span className="w-1.5 h-1.5 rounded-full inline-block flex-shrink-0" style={{ backgroundColor: '#515792' }} />}
+                            {row.label}
+                          </span>
                         </td>
-                      ))}
-                    </tr>
-                  ))}
+                        {colsOrdre.map((ci) => {
+                          const v = row.vals[ci];
+                          const col = COLS_COMP[ci];
+                          return (
+                            <td key={ci} className="px-3 py-2.5 text-center" style={{ backgroundColor: col.estBoussole ? '#51579208' : undefined }}>
+                              {v === true
+                                ? <span className="inline-flex items-center justify-center w-5 h-5 rounded-full" style={{ backgroundColor: '#3aab8a20' }}>
+                                    <span style={{ color: '#3aab8a', fontSize: '11px', fontWeight: 'bold' }}>✓</span>
+                                  </span>
+                                : v === 'partiel'
+                                ? <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-amber-50">
+                                    <span className="text-amber-400 text-xs font-bold">~</span>
+                                  </span>
+                                : <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-gray-50">
+                                    <span className="text-gray-300 text-xs">✕</span>
+                                  </span>
+                              }
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    );
+                  })}
                 </tbody>
+                <tfoot>
+                  <tr className="border-t-2 border-gray-200" style={{ backgroundColor: '#f8f9fc' }}>
+                    <td className="px-4 py-2.5 text-xs font-bold text-gray-500 uppercase tracking-wide sticky left-0" style={{ backgroundColor: '#f8f9fc' }}>Score total</td>
+                    {colsOrdre.map((ci) => {
+                      const col = COLS_COMP[ci];
+                      const colScore = rowsAffiches.reduce((acc, row) => acc + score(row.vals[ci] as boolean | 'partiel'), 0);
+                      const maxScore = rowsAffiches.length * 2;
+                      return (
+                        <td key={ci} className="px-3 py-2.5 text-center" style={{ backgroundColor: col.estBoussole ? col.couleur + '12' : undefined }}>
+                          <span className="text-xs font-bold" style={{ color: col.couleur }}>
+                            {colScore}/{maxScore}
+                          </span>
+                        </td>
+                      );
+                    })}
+                  </tr>
+                </tfoot>
               </table>
             </div>
-            <div className="px-4 py-2 text-xs text-gray-400 italic border-t border-gray-100" style={{ backgroundColor: '#f8f9fc' }}>
-              Analyse comparative réalisée en juin 2026. Voir les fiches détaillées sur la <a href="/references" className="underline" style={{ color: '#515792' }}>page Références</a>.
+            <div className="px-4 py-2 text-xs text-gray-400 italic border-t border-gray-100 flex items-center justify-between flex-wrap gap-2" style={{ backgroundColor: '#f8f9fc' }}>
+              <span>Analyse comparative réalisée en juin 2026 · ✓ = oui · ~ = partiel · ✕ = non</span>
+              <a href="/references" className="underline" style={{ color: '#515792' }}>Fiches détaillées →</a>
             </div>
           </div>
 
