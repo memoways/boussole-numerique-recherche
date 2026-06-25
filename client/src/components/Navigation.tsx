@@ -57,8 +57,7 @@ export default function Navigation() {
               className="h-8 sm:h-9 w-auto"
             />
             <div className="hidden sm:flex flex-col leading-tight">
-              <span className="font-bold text-sm" style={{ color: '#515792' }}>Boussole Numérique</span>
-              <span className="text-xs text-gray-500 font-medium">Culture</span>
+              <span className="font-bold text-sm" style={{ color: '#515792' }}>Memoways Research</span>
             </div>
           </Link>
 
@@ -71,9 +70,12 @@ export default function Navigation() {
                 size="sm"
                 className={`text-xs xl:text-sm px-2 xl:px-3 transition-colors ${
                   isActive(item.href)
-                    ? "text-primary font-semibold bg-primary/10"
-                    : "text-gray-600 hover:text-primary hover:bg-primary/8"
+                    ? 'font-semibold'
+                    : 'text-gray-600'
                 }`}
+                style={isActive(item.href) ? { color: '#515792', backgroundColor: '#51579214' } : undefined}
+                onMouseEnter={e => { if (!isActive(item.href)) { (e.currentTarget as HTMLElement).style.color = '#515792'; (e.currentTarget as HTMLElement).style.backgroundColor = '#51579210'; } }}
+                onMouseLeave={e => { if (!isActive(item.href)) { (e.currentTarget as HTMLElement).style.color = ''; (e.currentTarget as HTMLElement).style.backgroundColor = ''; } }}
                 asChild
               >
                 <Link href={item.href}>{item.label}</Link>
@@ -97,10 +99,11 @@ export default function Navigation() {
                 variant="ghost"
                 size="sm"
                 className={`text-xs px-2 transition-colors ${
-                  isActive(item.href)
-                    ? "text-primary font-semibold bg-primary/10"
-                    : "text-gray-600 hover:text-primary hover:bg-primary/8"
+                  isActive(item.href) ? 'font-semibold' : 'text-gray-600'
                 }`}
+                style={isActive(item.href) ? { color: '#515792', backgroundColor: '#51579214' } : undefined}
+                onMouseEnter={e => { if (!isActive(item.href)) { (e.currentTarget as HTMLElement).style.color = '#515792'; (e.currentTarget as HTMLElement).style.backgroundColor = '#51579210'; } }}
+                onMouseLeave={e => { if (!isActive(item.href)) { (e.currentTarget as HTMLElement).style.color = ''; (e.currentTarget as HTMLElement).style.backgroundColor = ''; } }}
                 asChild
               >
                 <Link href={item.href}>{item.label}</Link>
@@ -148,10 +151,11 @@ export default function Navigation() {
                   key={item.href}
                   variant="ghost"
                   className={`justify-start text-sm transition-colors ${
-                    isActive(item.href)
-                      ? "text-primary font-semibold bg-primary/10"
-                      : "text-gray-700 hover:text-primary hover:bg-primary/8"
+                    isActive(item.href) ? 'font-semibold' : 'text-gray-700'
                   }`}
+                style={isActive(item.href) ? { color: '#515792', backgroundColor: '#51579214' } : undefined}
+                onMouseEnter={e => { if (!isActive(item.href)) { (e.currentTarget as HTMLElement).style.color = '#515792'; (e.currentTarget as HTMLElement).style.backgroundColor = '#51579210'; } }}
+                onMouseLeave={e => { if (!isActive(item.href)) { (e.currentTarget as HTMLElement).style.color = ''; (e.currentTarget as HTMLElement).style.backgroundColor = ''; } }}
                   asChild
                 >
                   <Link href={item.href}>{item.label}</Link>
