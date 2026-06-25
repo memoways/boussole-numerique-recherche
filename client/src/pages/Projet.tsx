@@ -84,12 +84,66 @@ const OBJECTIFS = [
   "Des données anonymisées permettant un diagnostic de l'écosystème culturel genevois",
 ];
 
+const INSPIRATIONS = [
+  {
+    id: 1,
+    nom: "Nos Gestes Climat",
+    url: "https://nosgestesclimat.fr",
+    porteur: "ADEME / beta.gouv.fr (France)",
+    couleur: "#3aab8a",
+    chiffre: "> 3 millions de tests (mai 2026)",
+    lecon: "La gratuité et l'open source ne sont pas des contraintes : ce sont des leviers d'adoption massive. Un outil pédagogue, sans jargon, peut toucher des millions de personnes.",
+    diff: "La Boussole s'adresse à un secteur spécifique (la culture genevoise) et explore des pratiques numériques plutôt que l'empreinte carbone.",
+  },
+  {
+    id: 2,
+    nom: "Diag-numérique.fr",
+    url: "https://www.diag-numerique.fr",
+    porteur: "BPI France / DGE (France)",
+    couleur: "#E27227",
+    chiffre: "Outil de référence PME françaises",
+    lecon: "La structuration en dimensions mesurables et la comparaison avec des pairs sectoriels sont des qualités à retenir.",
+    diff: "Diag-numérique est conçu pour les PME généralistes. Il n'intègre pas la dimension culturelle ni les enjeux spécifiques des artistes. Pas de dimension IA.",
+  },
+  {
+    id: 3,
+    nom: "AICred",
+    url: "https://aicred.ai",
+    porteur: "AICred (startup internationale)",
+    couleur: "#9b59b6",
+    chiffre: "Certification IA pour organisations",
+    lecon: "La rigueur d'un modèle d'évaluation structuré, avec des dimensions claires et des niveaux de maturité progressifs.",
+    diff: "La Boussole ne certifie pas. Elle ne classe pas. Elle s'adresse aux structures culturelles, avec un ton bienveillant et sans enjeu de performance.",
+  },
+  {
+    id: 4,
+    nom: "DeepLearning.AI Skill Builder",
+    url: "https://learn.deeplearning.ai",
+    porteur: "DeepLearning.AI (Andrew Ng)",
+    couleur: "#515792",
+    chiffre: "+7 millions d'apprenants",
+    lecon: "La fluidité d'une conversation guidée, la personnalisation selon le profil, et la clarté de la progression sont des qualités essentielles.",
+    diff: "La Boussole n'est pas un outil de formation. Elle ne cherche pas à enseigner, mais à rendre visible. Elle s'adresse à des non-spécialistes.",
+  },
+  {
+    id: 5,
+    nom: "Observatoire du numérique genevois",
+    url: "https://www.ge.ch/numerique",
+    porteur: "État de Genève / DSIN",
+    couleur: "#E58441",
+    chiffre: "Données de référence cantonales",
+    lecon: "L'importance des données locales et contextualisées. Un observatoire ancré dans le territoire crée de la confiance et de la légitimité.",
+    diff: "L'Observatoire couvre tous les secteurs économiques sans focus culturel. La Boussole pourrait contribuer à combler ce manque en générant des données sectorielles.",
+  },
+];
+
 const SECTIONS = [
   { id: "intention", label: "Note d'intention" },
   { id: "contexte", label: "Le contexte" },
   { id: "proposition", label: "La proposition" },
   { id: "collaboratif", label: "Mode collaboratif" },
   { id: "positionnement", label: "Positionnement" },
+  { id: "inspirations", label: "Exemples comparables" },
   { id: "principes", label: "Principes fondateurs" },
   { id: "architecture", label: "Architecture technique" },
   { id: "calendrier", label: "Calendrier" },
@@ -409,6 +463,63 @@ export default function Projet() {
               <div className="px-4 py-2 text-xs text-gray-400 italic border-t border-gray-100" style={{ backgroundColor: '#f8f9fc' }}>
                 — Tableau basé sur une analyse de février 2026.
               </div>
+            </div>
+          </section>
+
+
+          {/* ── 5b. EXEMPLES COMPARABLES & INSPIRATIONS ─────────────────────────── */}
+          <section id="inspirations" style={{ scrollMarginTop: '80px' }}>
+            <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#3aab8a' }}>Exemples comparables</Badge>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">Ce qui nous a inspirés</h2>
+            <p className="text-gray-600 leading-relaxed mb-6">
+              Cinq outils existants ont été analysés en profondeur. Aucun ne répond aux besoins spécifiques des acteurs culturels genevois — mais chacun apporte une leçon précieuse.
+              Le tableau comparatif complet est disponible sur la{' '}
+              <Link href="/references" className="underline" style={{ color: '#515792' }}>page Références</Link>{' '}et la{' '}
+              <Link href="/recherche" className="underline" style={{ color: '#515792' }}>page Recherche</Link>.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+              {INSPIRATIONS.map((ref) => (
+                <div
+                  key={ref.id}
+                  className="rounded-xl border p-5 hover:shadow-md hover:-translate-y-0.5 transition-all group"
+                  style={{ borderColor: ref.couleur + '30', borderLeftWidth: '4px', borderLeftColor: ref.couleur }}
+                >
+                  <div className="flex items-start justify-between gap-2 mb-2">
+                    <div>
+                      <h3 className="font-bold text-gray-900 text-sm">{ref.nom}</h3>
+                      <p className="text-xs text-gray-400">{ref.porteur}</p>
+                    </div>
+                    <a
+                      href={ref.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-shrink-0 p-1.5 rounded-lg transition-colors hover:opacity-70"
+                      style={{ backgroundColor: ref.couleur + '15', color: ref.couleur }}
+                    >
+                      <ExternalLink className="h-3.5 w-3.5" />
+                    </a>
+                  </div>
+                  <p className="text-xs font-semibold mb-3" style={{ color: ref.couleur }}>{ref.chiffre}</p>
+                  <div className="space-y-2">
+                    <div>
+                      <span className="text-xs font-bold text-gray-500 uppercase tracking-wide block mb-0.5">💡 Ce qu'on en apprend</span>
+                      <p className="text-xs text-gray-600 leading-relaxed">{ref.lecon}</p>
+                    </div>
+                    <div>
+                      <span className="text-xs font-bold text-gray-500 uppercase tracking-wide block mb-0.5">🧭 Ce que la Boussole fait différemment</span>
+                      <p className="text-xs text-gray-600 leading-relaxed">{ref.diff}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Button variant="outline" size="sm" style={{ borderColor: '#3aab8a', color: '#3aab8a' }} asChild>
+                <Link href="/references">Tableau comparatif détaillé (10 critères) <ArrowRight className="ml-1 h-3 w-3" /></Link>
+              </Button>
+              <Button variant="outline" size="sm" style={{ borderColor: '#515792', color: '#515792' }} asChild>
+                <Link href="/recherche">Analyse complète sur la page Recherche <ArrowRight className="ml-1 h-3 w-3" /></Link>
+              </Button>
             </div>
           </section>
 

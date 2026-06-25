@@ -390,6 +390,165 @@ export default function Recherche() {
         </div>
       </section>
 
+      {/* ── COMPARATIF OUTILS ──────────────────────────────────────────────── */}
+      <section id="comparatif" className="py-14 px-4" style={{ scrollMarginTop: '80px', backgroundColor: '#f8f9fc' }}>
+        <div className="max-w-5xl mx-auto">
+          <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#515792' }}>Analyse comparative</Badge>
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">Outils comparables & inspirations</h2>
+          <p className="text-gray-600 leading-relaxed mb-2">
+            Cinq outils ont été analysés en profondeur avant de concevoir la Boussole. Aucun ne répond aux besoins spécifiques des acteurs culturels genevois — mais chacun apporte une leçon précieuse.
+          </p>
+          <p className="text-sm text-gray-400 mb-8">
+            Tableau interactif sur 10 critères. La colonne Boussole est toujours affichée en premier.
+            Voir aussi la <a href="/references" className="underline" style={{ color: '#515792' }}>page Références</a> pour les fiches détaillées.
+          </p>
+
+          {/* Fiches résumées */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+            {[
+              {
+                nom: "Nos Gestes Climat",
+                porteur: "ADEME / beta.gouv.fr (France)",
+                url: "https://nosgestesclimat.fr",
+                couleur: "#3aab8a",
+                chiffre: "> 3 millions de tests (mai 2026)",
+                lecon: "La gratuité et l'open source sont des leviers d'adoption massive. Un outil pédagogue, sans jargon, peut toucher des millions de personnes.",
+                diff: "La Boussole s'adresse à un secteur spécifique et explore des pratiques numériques plutôt que l'empreinte carbone.",
+              },
+              {
+                nom: "Diag-numérique.fr",
+                porteur: "BPI France / DGE (France)",
+                url: "https://www.diag-numerique.fr",
+                couleur: "#E27227",
+                chiffre: "Outil de référence PME françaises",
+                lecon: "La structuration en dimensions mesurables et la comparaison avec des pairs sectoriels sont des qualités essentielles.",
+                diff: "Conçu pour les PME généralistes. Pas de dimension IA ni d'ancrage culturel.",
+              },
+              {
+                nom: "AICred",
+                porteur: "AICred (startup internationale)",
+                url: "https://aicred.ai",
+                couleur: "#9b59b6",
+                chiffre: "Certification IA pour organisations",
+                lecon: "La rigueur d'un modèle d'évaluation structuré avec des niveaux de maturité progressifs.",
+                diff: "La Boussole ne certifie pas. Elle s'adresse aux structures culturelles, sans enjeu de performance.",
+              },
+              {
+                nom: "DeepLearning.AI Skill Builder",
+                porteur: "DeepLearning.AI (Andrew Ng)",
+                url: "https://learn.deeplearning.ai",
+                couleur: "#515792",
+                chiffre: "+7 millions d'apprenants",
+                lecon: "La fluidité d'une conversation guidée et la personnalisation selon le profil sont des qualités essentielles.",
+                diff: "La Boussole n'est pas un outil de formation. Elle rend visible, pas enseigne.",
+              },
+              {
+                nom: "Observatoire numérique genevois",
+                porteur: "État de Genève / DSIN",
+                url: "https://www.ge.ch/numerique",
+                couleur: "#E58441",
+                chiffre: "Données de référence cantonales",
+                lecon: "L'importance des données locales et contextualisées. Un ancrage territorial crée de la confiance.",
+                diff: "L'Observatoire couvre tous les secteurs sans focus culturel. La Boussole comble ce manque.",
+              },
+            ].map((ref, i) => (
+              <div
+                key={i}
+                className="bg-white rounded-xl border p-5 hover:shadow-md hover:-translate-y-0.5 transition-all"
+                style={{ borderColor: ref.couleur + '30', borderLeftWidth: '4px', borderLeftColor: ref.couleur }}
+              >
+                <div className="flex items-start justify-between gap-2 mb-2">
+                  <div>
+                    <h3 className="font-bold text-gray-900 text-sm">{ref.nom}</h3>
+                    <p className="text-xs text-gray-400">{ref.porteur}</p>
+                  </div>
+                  <a href={ref.url} target="_blank" rel="noopener noreferrer"
+                    className="flex-shrink-0 p-1.5 rounded-lg hover:opacity-70 transition-colors"
+                    style={{ backgroundColor: ref.couleur + '15', color: ref.couleur }}>
+                    <ExternalLink className="h-3.5 w-3.5" />
+                  </a>
+                </div>
+                <p className="text-xs font-semibold mb-3" style={{ color: ref.couleur }}>{ref.chiffre}</p>
+                <div className="space-y-2">
+                  <div>
+                    <span className="text-xs font-bold text-gray-500 uppercase tracking-wide block mb-0.5">💡 Leçon retenue</span>
+                    <p className="text-xs text-gray-600 leading-relaxed">{ref.lecon}</p>
+                  </div>
+                  <div>
+                    <span className="text-xs font-bold text-gray-500 uppercase tracking-wide block mb-0.5">🧭 Ce que la Boussole fait différemment</span>
+                    <p className="text-xs text-gray-600 leading-relaxed">{ref.diff}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Tableau comparatif 10 critères */}
+          <h3 className="text-lg font-bold text-gray-900 mb-4">Tableau comparatif — 10 critères clés</h3>
+          <div className="rounded-2xl border border-gray-200 overflow-hidden shadow-sm bg-white">
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs">
+                <thead>
+                  <tr style={{ backgroundColor: '#f8f9fc' }}>
+                    <th className="text-left px-4 py-3 font-bold text-gray-500 uppercase tracking-wider min-w-[160px]">Critère</th>
+                    {[
+                      { nom: "Boussole ✓", couleur: "#515792" },
+                      { nom: "Nos Gestes Climat", couleur: "#3aab8a" },
+                      { nom: "Diag-num.", couleur: "#E27227" },
+                      { nom: "AICred", couleur: "#9b59b6" },
+                      { nom: "DL.AI Skill", couleur: "#515792" },
+                      { nom: "Obs. GE", couleur: "#E58441" },
+                    ].map((col, i) => (
+                      <th key={i} className="px-3 py-3 text-center font-semibold min-w-[80px]"
+                        style={{ color: col.couleur, backgroundColor: i === 0 ? col.couleur + '10' : undefined }}>
+                        {col.nom}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    { label: "Gratuit", vals: [true, true, true, false, "partiel", true] },
+                    { label: "Open source", vals: [true, true, false, false, false, false] },
+                    { label: "Secteur culturel", vals: [true, false, false, false, false, false] },
+                    { label: "Dimension IA", vals: [true, false, false, true, true, false] },
+                    { label: "Petites structures", vals: [true, true, "partiel", false, "partiel", false] },
+                    { label: "Ancrage local (GE)", vals: [true, false, "partiel", false, false, true] },
+                    { label: "Multimodal", vals: [true, false, false, false, false, false] },
+                    { label: "Restitution visuelle", vals: [true, true, true, true, "partiel", "partiel"] },
+                    { label: "Comparaison pairs", vals: [true, false, true, "partiel", false, false] },
+                    { label: "Souveraineté données", vals: [true, true, "partiel", false, false, true] },
+                  ].map((row, ri) => (
+                    <tr key={ri} className="border-t border-gray-100 hover:bg-gray-50 transition-colors">
+                      <td className="px-4 py-2.5 text-gray-700 font-medium">{row.label}</td>
+                      {row.vals.map((v, vi) => (
+                        <td key={vi} className="px-3 py-2.5 text-center" style={{ backgroundColor: vi === 0 ? '#51579208' : undefined }}>
+                          {v === true
+                            ? <span className="inline-flex items-center justify-center w-5 h-5 rounded-full" style={{ backgroundColor: '#3aab8a20' }}><span style={{ color: '#3aab8a', fontSize: '10px', fontWeight: 'bold' }}>✓</span></span>
+                            : v === 'partiel'
+                            ? <span className="text-gray-400 text-xs">—</span>
+                            : <span className="text-gray-200 text-xs">✕</span>
+                          }
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="px-4 py-2 text-xs text-gray-400 italic border-t border-gray-100" style={{ backgroundColor: '#f8f9fc' }}>
+              Analyse comparative réalisée en juin 2026. Voir les fiches détaillées sur la <a href="/references" className="underline" style={{ color: '#515792' }}>page Références</a>.
+            </div>
+          </div>
+
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Button variant="outline" size="sm" style={{ borderColor: '#515792', color: '#515792' }} asChild>
+              <Link href="/references">Fiches détaillées par outil <ArrowRight className="ml-1 h-3 w-3" /></Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
       {/* Documents */}
       <section className="py-14 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
