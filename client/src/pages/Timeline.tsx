@@ -3,7 +3,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown, ChevronUp, Calendar, Users, Wrench, TestTube, Globe, BookOpen } from "lucide-react";
 import { Link } from "wouter";
-import Navigation from "@/components/Navigation";
 
 /**
  * Page /timeline — Calendrier du projet (18 mois, 5 phases)
@@ -99,7 +98,6 @@ export default function Timeline() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navigation />
 
       {/* Hero */}
       <section className="pt-20 sm:pt-24 pb-12 px-4 bg-gradient-to-b from-slate-50 to-white">

@@ -7,7 +7,6 @@ import {
   Heart, Lock, Server, BookOpen, Users, ChevronDown, ChevronUp, ExternalLink
 } from "lucide-react";
 import { Link } from "wouter";
-import Navigation from "@/components/Navigation";
 
 /**
  * Home — Boussole Numérique Culture
@@ -269,7 +268,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navigation />
 
       {/* ── HERO ─────────────────────────────────────────────────────────────── */}
       <section className="pt-20 sm:pt-24 pb-20 sm:pb-28 px-4" style={{ background: 'linear-gradient(160deg, #f4f5fb 0%, #fdf6f0 50%, #f4f5fb 100%)' }}>

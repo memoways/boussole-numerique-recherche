@@ -2,7 +2,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Heart, Shield, Code2, Server, Globe, Lock, AlertTriangle, CheckCircle } from "lucide-react";
 import { Link } from "wouter";
-import Navigation from "@/components/Navigation";
 
 /**
  * Page /gouvernance — Données, neutralité & gouvernance
@@ -57,7 +56,6 @@ const PRINCIPES = [
 export default function Gouvernance() {
   return (
     <div className="min-h-screen bg-white">
-      <Navigation />
 
       {/* Hero */}
       <section className="pt-20 sm:pt-24 pb-12 px-4 bg-gradient-to-b from-slate-50 to-white">

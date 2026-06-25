@@ -7,7 +7,6 @@ import {
   Heart, Database, Compass, ExternalLink, ArrowLeft
 } from "lucide-react";
 import { Link } from "wouter";
-import Navigation from "@/components/Navigation";
 
 /**
  * Page /projet — Description du projet Boussole Numérique Culture
@@ -173,7 +172,6 @@ export default function Projet() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navigation />
 
       {/* ── HERO ──────────────────────────────────────────────────────────────── */}
       <section className="pt-20 sm:pt-24 pb-10 px-4" style={{ background: 'linear-gradient(160deg, #f4f5fb 0%, #fdf6f0 60%, #f4f5fb 100%)' }}>

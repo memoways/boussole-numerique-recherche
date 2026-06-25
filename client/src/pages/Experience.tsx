@@ -6,7 +6,6 @@ import {
   Clock, ChevronRight, BarChart3, FileText, Zap
 } from "lucide-react";
 import { Link } from "wouter";
-import Navigation from "@/components/Navigation";
 
 /**
  * Page /experience — L'expérience Boussole
@@ -240,7 +239,6 @@ export default function Experience() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navigation />
 
       {/* Hero */}
       <section className="pt-20 sm:pt-24 pb-12 px-4 bg-gradient-to-b from-slate-50 to-white">

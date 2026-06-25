@@ -4,7 +4,6 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight, Info, ChevronDown, ChevronUp, List, X } from "lucide-react";
-import Navigation from "@/components/Navigation";
 
 /**
  * Design Philosophy: Data-Driven Infographic with Memoways Branding
@@ -623,7 +622,6 @@ export default function DescriptionProjet() {
 
   return (
     <div className="min-h-screen">
-      <Navigation />
       <TableOfContents />
 
       {/* Hero */}

@@ -2,7 +2,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Users, MessageSquare, Wrench, TestTube, RefreshCw, FileText, Share2 } from "lucide-react";
 import { Link } from "wouter";
-import Navigation from "@/components/Navigation";
 
 /**
  * Page /methode — Méthode & co-conception
@@ -30,7 +29,6 @@ const IMPLICATIONS_PARTENAIRES = [
 export default function Methode() {
   return (
     <div className="min-h-screen bg-white">
-      <Navigation />
 
       {/* Hero */}
       <section className="pt-20 sm:pt-24 pb-12 px-4 bg-gradient-to-b from-slate-50 to-white">

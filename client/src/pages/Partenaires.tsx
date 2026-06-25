@@ -2,7 +2,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Users, Building2, TestTube, Heart, MessageSquare, ChevronRight } from "lucide-react";
 import { Link } from "wouter";
-import Navigation from "@/components/Navigation";
 
 /**
  * Page /partenaires — Partenaires & premiers utilisateurs
@@ -33,7 +32,6 @@ const PARCOURS_PARTENAIRE = [
 export default function Partenaires() {
   return (
     <div className="min-h-screen bg-white">
-      <Navigation />
 
       {/* Hero */}
       <section className="pt-20 sm:pt-24 pb-12 px-4 bg-gradient-to-b from-slate-50 to-white">

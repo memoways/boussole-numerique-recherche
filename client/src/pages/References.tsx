@@ -3,7 +3,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ExternalLink, ChevronDown, ChevronUp, Lightbulb, Check, X, Minus } from "lucide-react";
 import { Link } from "wouter";
-import Navigation from "@/components/Navigation";
 
 /**
  * Page /references — Références inspirantes
@@ -219,7 +218,6 @@ export default function References() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navigation />
 
       {/* ── HERO ─────────────────────────────────────────────────────────────── */}
       <section className="pt-20 sm:pt-24 pb-12 px-4 bg-gradient-to-b from-slate-50 to-white">

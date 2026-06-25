@@ -7,7 +7,6 @@ import {
   TrendingUp, AlertTriangle, Lightbulb, Eye, Target, ExternalLink, Filter
 } from "lucide-react";
 import { Link } from "wouter";
-import Navigation from "@/components/Navigation";
 
 /**
  * Page /recherche — Recherche & état de l'art
@@ -290,7 +289,6 @@ export default function Recherche() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navigation />
 
       {/* Hero */}
       <section className="pt-20 sm:pt-24 pb-12 px-4 bg-gradient-to-b from-slate-50 to-white">

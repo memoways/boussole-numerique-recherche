@@ -6,6 +6,8 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import ScrollToTop from "./components/ScrollToTop";
+import Navigation from "./components/Navigation";
+import Footer from "./components/Footer";
 
 // Pages existantes (conservées)
 import ReferencesInspirantes from "./pages/ReferencesInspirantes";
@@ -30,6 +32,8 @@ function Router() {
   return (
     <>
       <ScrollToTop />
+      <Navigation />
+      <main className="min-h-screen">
       <Switch>
         {/* Home */}
         <Route path={"/"} component={Home} />
@@ -57,6 +61,8 @@ function Router() {
         <Route path={"/404"} component={NotFound} />
         <Route component={NotFound} />
       </Switch>
+      </main>
+      <Footer />
     </>
   );
 }
