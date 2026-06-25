@@ -3,8 +3,9 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
-  ArrowRight, Eye, Lightbulb, Zap, Compass, Shield, Globe, Code2,
-  Heart, Lock, Server, BookOpen, Users, ChevronDown, ChevronUp, ExternalLink
+  ArrowRight, Eye, Compass, Shield, Globe, Code2,
+  Heart, Lock, Server, Users, ChevronDown, ChevronUp, ExternalLink,
+  ChevronLeft, ChevronRight, Lightbulb, Zap, BookOpen
 } from "lucide-react";
 import { Link } from "wouter";
 
@@ -131,131 +132,265 @@ const DIMS_RADAR = [
   },
 ];
 
-const RADAR_A = [0.72, 0.50, 0.83, 0.45, 0.68];
-const RADAR_B = [0.40, 0.78, 0.55, 0.82, 0.35];
+// ─── Questions type pour la démo Boussole ──────────────────────────────────
 
-function HomeRadar() {
-  const [vals, setVals] = useState(RADAR_A);
-  const [orbitAngle, setOrbitAngle] = useState(0);
-  const [activeDim, setActiveDim] = useState<number | null>(null);
+const QUESTIONS_DEMO = [
+  {
+    dimIndex: 0, // Outils
+    question: "On utilise 4 outils différents pour partager des fichiers. Est-ce normal ?",
+    pistes: [
+      "Cartographier les outils réellement utilisés par chacun",
+      "Identifier les doublons et les frictions du quotidien",
+      "Choisir un outil central adapté à la taille de l'équipe",
+    ],
+    note: "La Boussole révèle souvent 3 à 5 outils redondants dans les petites structures.",
+  },
+  {
+    dimIndex: 1, // Compétences
+    question: "Seule une personne sait gérer notre site web. Que faire si elle part ?",
+    pistes: [
+      "Documenter les accès et les procédures clés",
+      "Former au moins deux personnes aux tâches critiques",
+      "Évaluer les compétences numériques collectives sans jugement",
+    ],
+    note: "La dépendance à une seule personne est l'un des risques les plus fréquents identifiés.",
+  },
+  {
+    dimIndex: 2, // Données
+    question: "Nos contacts publics sont éparpillés entre Excel, Gmail et des carnets papier.",
+    pistes: [
+      "Centraliser les données dans un outil unique et partagé",
+      "Définir qui est responsable de la mise à jour",
+      "Vérifier la conformité RGPD des données collectées",
+    ],
+    note: "Les données éparpillées sont la première source de perte d'énergie dans les équipes culturelles.",
+  },
+  {
+    dimIndex: 3, // Diffusion
+    question: "On publie sur 5 réseaux sociaux mais on ne sait pas si ça sert à quelque chose.",
+    pistes: [
+      "Choisir 2 canaux prioritaires selon votre public réel",
+      "Mettre en place des indicateurs simples de suivi",
+      "Aligner la communication numérique avec la stratégie de la structure",
+    ],
+    note: "Moins de canaux, mieux gérés : c'est souvent plus efficace que la présence partout.",
+  },
+  {
+    dimIndex: 4, // Collaboration
+    question: "Chaque équipe a ses propres dossiers. Personne ne sait où est la dernière version.",
+    pistes: [
+      "Définir une arborescence commune et la documenter",
+      "Adopter une convention de nommage simple et partagée",
+      "Choisir un espace de travail collaboratif adapté à l'équipe",
+    ],
+    note: "La gestion documentaire est le chantier numérique le plus universel dans le secteur culturel.",
+  },
+];
+
+// ─── Composant Boussole démo interactive ────────────────────────────────────
+
+function BoussoleDemoInteractive() {
+  const [qIndex, setQIndex] = useState(0);
+  const [needleAngle, setNeedleAngle] = useState(0);
+  const [animating, setAnimating] = useState(false);
   const rafRef = useRef<number | null>(null);
-  const phaseRef = useRef(0);
-  const progressRef = useRef(0);
-  const lastTimeRef = useRef(0);
+  const currentAngleRef = useRef(0);
 
-  useEffect(() => {
-    const ORBIT_SPEED = 0.008;
-    const MORPH_DURATION = 4000;
+  const q = QUESTIONS_DEMO[qIndex];
+  const dim = DIMS_RADAR[q.dimIndex];
 
-    const tick = (ts: number) => {
-      const dt = ts - (lastTimeRef.current || ts);
-      lastTimeRef.current = ts;
-      setOrbitAngle(prev => (prev + ORBIT_SPEED * dt) % 360);
-      progressRef.current = Math.min(progressRef.current + dt / MORPH_DURATION, 1);
-      const ease = (1 - Math.cos(progressRef.current * Math.PI)) / 2;
-      const from = phaseRef.current === 0 ? RADAR_A : RADAR_B;
-      const to   = phaseRef.current === 0 ? RADAR_B : RADAR_A;
-      setVals(from.map((f, i) => f + (to[i] - f) * ease));
-      if (progressRef.current >= 1) { progressRef.current = 0; phaseRef.current ^= 1; }
-      rafRef.current = requestAnimationFrame(tick);
+  // Angles cibles des 5 icônes autour de la boussole (en degrés, sens horaire depuis le haut)
+  const ICON_ANGLES = [270, 342, 54, 126, 198]; // Outils haut-gauche, Compétences haut-droite, etc.
+  const targetAngle = ICON_ANGLES[q.dimIndex];
+
+  const animateTo = (target: number) => {
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    setAnimating(true);
+    const start = currentAngleRef.current;
+    // Calculer le chemin le plus court
+    let delta = ((target - start) % 360 + 540) % 360 - 180;
+    const startTime = performance.now();
+    const duration = 900;
+
+    const tick = (now: number) => {
+      const t = Math.min((now - startTime) / duration, 1);
+      const ease = t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2;
+      const angle = start + delta * ease;
+      currentAngleRef.current = angle;
+      setNeedleAngle(angle);
+      if (t < 1) {
+        rafRef.current = requestAnimationFrame(tick);
+      } else {
+        currentAngleRef.current = target;
+        setNeedleAngle(target);
+        setAnimating(false);
+      }
     };
     rafRef.current = requestAnimationFrame(tick);
-    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
-  }, []);
+  };
 
-  const CX = 150, CY = 150, R_GRID = 100, R_ORBIT = 138;
-  const radarPoints = vals.map((v, i) => {
-    const a = (i * 72 - 90) * Math.PI / 180;
-    return { x: CX + R_GRID * v * Math.cos(a), y: CY + R_GRID * v * Math.sin(a) };
+  useEffect(() => {
+    animateTo(targetAngle);
+    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
+  }, [qIndex]);
+
+  const goTo = (idx: number) => {
+    if (animating) return;
+    setQIndex(idx);
+  };
+  const prev = () => goTo((qIndex - 1 + QUESTIONS_DEMO.length) % QUESTIONS_DEMO.length);
+  const next = () => goTo((qIndex + 1) % QUESTIONS_DEMO.length);
+
+  // Positions des 5 icônes sur un cercle de rayon R autour du centre
+  const CX = 160, CY = 160, R_ICONS = 120;
+  const iconPositions = DIMS_RADAR.map((_, i) => {
+    const a = (ICON_ANGLES[i] - 90) * Math.PI / 180;
+    return { x: CX + R_ICONS * Math.cos(a), y: CY + R_ICONS * Math.sin(a) };
   });
-  const radarPath = radarPoints.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x.toFixed(2)},${p.y.toFixed(2)}`).join(' ') + ' Z';
+
+  // Aiguille de boussole — pointe vers l'angle cible
+  const needleRad = (needleAngle - 90) * Math.PI / 180;
+  const NEEDLE_LEN = 72;
+  const nx = CX + NEEDLE_LEN * Math.cos(needleRad);
+  const ny = CY + NEEDLE_LEN * Math.sin(needleRad);
+  const tailX = CX - (NEEDLE_LEN * 0.4) * Math.cos(needleRad);
+  const tailY = CY - (NEEDLE_LEN * 0.4) * Math.sin(needleRad);
 
   return (
-    <div className="flex flex-col lg:flex-row items-center gap-8 w-full">
-      {/* SVG */}
-      <div className="flex-shrink-0">
-        <svg viewBox="0 0 300 300" className="w-64 h-64 sm:w-72 sm:h-72" style={{ overflow: 'visible' }}>
-          {[1, 0.75, 0.5, 0.25].map((scale, si) => {
-            const pts = [0,1,2,3,4].map(i => { const a = (i*72-90)*Math.PI/180; return `${(CX+R_GRID*scale*Math.cos(a)).toFixed(1)},${(CY+R_GRID*scale*Math.sin(a)).toFixed(1)}`; }).join(' ');
-            return <polygon key={si} points={pts} fill="none" stroke="#e5e7eb" strokeWidth="1" />;
-          })}
-          {[0,1,2,3,4].map(i => { const a=(i*72-90)*Math.PI/180; return <line key={i} x1={CX} y1={CY} x2={(CX+R_GRID*Math.cos(a)).toFixed(1)} y2={(CY+R_GRID*Math.sin(a)).toFixed(1)} stroke="#e5e7eb" strokeWidth="1" />; })}
-          <path d={radarPath} fill="#515792" fillOpacity="0.18" stroke="#515792" strokeWidth="2" strokeLinejoin="round" />
-          {radarPoints.map((p, i) => (
-            <g key={i} style={{ cursor: 'pointer' }} onClick={() => setActiveDim(activeDim === i ? null : i)}>
-              <circle cx={p.x.toFixed(2)} cy={p.y.toFixed(2)} r="14" fill="transparent" />
-              {activeDim === i && <circle cx={p.x.toFixed(2)} cy={p.y.toFixed(2)} r="9" fill={DIMS_RADAR[i].couleur} fillOpacity="0.2" stroke={DIMS_RADAR[i].couleur} strokeWidth="1" />}
-              <circle cx={p.x.toFixed(2)} cy={p.y.toFixed(2)} r={activeDim === i ? 6 : 4.5} fill={DIMS_RADAR[i].couleur} stroke="white" strokeWidth="1.5" />
-            </g>
-          ))}
-          {DIMS_RADAR.map((dim, i) => {
-            const a = (i*72 - 90 + orbitAngle) * Math.PI / 180;
-            const x = CX + R_ORBIT * Math.cos(a), y = CY + R_ORBIT * Math.sin(a);
-            return (
-              <g key={i} style={{ cursor: 'pointer' }} onClick={() => setActiveDim(activeDim === i ? null : i)}>
-                <circle cx={x.toFixed(1)} cy={y.toFixed(1)} r="16" fill="white" stroke={dim.couleur} strokeWidth="1.5" style={{ filter: 'drop-shadow(0 1px 3px rgba(0,0,0,0.12))' }} />
-                <text x={x.toFixed(1)} y={y.toFixed(1)} textAnchor="middle" dominantBaseline="middle" fontSize="14">{dim.emoji}</text>
-              </g>
-            );
-          })}
-        </svg>
+    <div className="w-full">
+      {/* Capsule question */}
+      <div className="rounded-2xl border-2 p-5 mb-8 relative" style={{ borderColor: dim.couleur, backgroundColor: dim.couleur + '0d' }}>
+        <div className="flex items-start gap-3">
+          <span className="text-2xl flex-shrink-0 mt-0.5">{dim.emoji}</span>
+          <div className="flex-1">
+            <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: dim.couleur }}>
+              Question {qIndex + 1}/5 — {dim.label}
+            </p>
+            <p className="text-gray-800 font-semibold text-base leading-snug">"{q.question}"</p>
+          </div>
+        </div>
+        {/* Navigation flèches */}
+        <div className="flex items-center gap-2 mt-4">
+          <button
+            onClick={prev}
+            disabled={animating}
+            className="w-8 h-8 rounded-full flex items-center justify-center border transition-all disabled:opacity-40"
+            style={{ borderColor: dim.couleur, color: dim.couleur }}
+            aria-label="Question précédente"
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </button>
+          <div className="flex gap-1.5">
+            {QUESTIONS_DEMO.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => goTo(i)}
+                disabled={animating}
+                className="w-2 h-2 rounded-full transition-all disabled:opacity-40"
+                style={{ backgroundColor: i === qIndex ? dim.couleur : '#d1d5db' }}
+                aria-label={`Question ${i + 1}`}
+              />
+            ))}
+          </div>
+          <button
+            onClick={next}
+            disabled={animating}
+            className="w-8 h-8 rounded-full flex items-center justify-center border transition-all disabled:opacity-40"
+            style={{ borderColor: dim.couleur, color: dim.couleur }}
+            aria-label="Question suivante"
+          >
+            <ChevronRight className="h-4 w-4" />
+          </button>
+        </div>
       </div>
 
-      {/* Panneau droite : accordion inline */}
-      <div className="flex-1 w-full">
-        <div className="space-y-2 mb-5">
-          {DIMS_RADAR.map((dim, i) => (
-            <div
-              key={i}
-              className="rounded-xl overflow-hidden transition-all duration-200"
-              style={{ border: `1.5px solid ${activeDim === i ? dim.couleur : '#e5e7eb'}` }}
-            >
-              {/* En-tête avec résumé visible par défaut */}
-              <button
-                onClick={() => setActiveDim(activeDim === i ? null : i)}
-                className="w-full flex items-start gap-3 px-4 py-3 text-left transition-colors duration-200"
-                style={{ backgroundColor: activeDim === i ? dim.couleur + '10' : '#f8f9fc' }}
-              >
-                <span className="text-lg flex-shrink-0 mt-0.5">{dim.emoji}</span>
-                <span className="flex-1 min-w-0">
-                  <span className="font-semibold text-sm block" style={{ color: activeDim === i ? dim.couleur : '#374151' }}>{dim.label}</span>
-                  <span className="text-xs text-gray-500 leading-snug">{dim.resume}</span>
-                </span>
-                <ChevronDown
-                  className="h-4 w-4 flex-shrink-0 mt-1 transition-transform duration-200"
-                  style={{ color: activeDim === i ? dim.couleur : '#9ca3af', transform: activeDim === i ? 'rotate(180deg)' : 'rotate(0deg)' }}
-                />
-              </button>
-              {/* Détails + liens dépliables au clic */}
-              <div
-                className="overflow-hidden transition-all duration-300"
-                style={{ maxHeight: activeDim === i ? '200px' : '0px', opacity: activeDim === i ? 1 : 0 }}
-              >
-                <div
-                  className="px-4 py-3 space-y-3"
-                  style={{ borderTop: `1px solid ${dim.couleur}20`, backgroundColor: dim.couleur + '06' }}
-                >
-                  <p className="text-sm text-gray-600 leading-relaxed">{dim.desc}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {dim.liens.map((lien, li) => (
-                      <Link
-                        key={li}
-                        href={lien.href}
-                        className="inline-flex items-center gap-1 text-xs font-medium px-3 py-1 rounded-full transition-colors duration-150 hover:opacity-80"
-                        style={{ backgroundColor: dim.couleur + '15', color: dim.couleur, border: `1px solid ${dim.couleur}30` }}
-                      >
-                        {lien.texte} <ArrowRight className="h-3 w-3" />
-                      </Link>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
+      {/* Boussole + pistes */}
+      <div className="flex flex-col lg:flex-row items-center gap-8">
+
+        {/* SVG Boussole */}
+        <div className="flex-shrink-0 flex justify-center">
+          <svg viewBox="0 0 320 320" className="w-64 h-64 sm:w-72 sm:h-72">
+            {/* Cercle de fond */}
+            <circle cx={CX} cy={CY} r="130" fill="#f8f9fc" stroke="#e5e7eb" strokeWidth="1" />
+            <circle cx={CX} cy={CY} r="90" fill="none" stroke="#e5e7eb" strokeWidth="0.5" strokeDasharray="4 4" />
+            <circle cx={CX} cy={CY} r="50" fill="none" stroke="#e5e7eb" strokeWidth="0.5" strokeDasharray="4 4" />
+
+            {/* Lignes cardinales */}
+            {[0, 45, 90, 135].map(a => {
+              const r = a * Math.PI / 180;
+              return <line key={a} x1={(CX + 130*Math.cos(r)).toFixed(1)} y1={(CY + 130*Math.sin(r)).toFixed(1)}
+                x2={(CX - 130*Math.cos(r)).toFixed(1)} y2={(CY - 130*Math.sin(r)).toFixed(1)}
+                stroke="#e5e7eb" strokeWidth="0.5" />;
+            })}
+
+            {/* Icônes des 5 dimensions */}
+            {DIMS_RADAR.map((d, i) => {
+              const pos = iconPositions[i];
+              const isActive = i === q.dimIndex;
+              return (
+                <g key={i} style={{ cursor: 'pointer' }} onClick={() => {
+                  if (!animating) {
+                    const newIdx = QUESTIONS_DEMO.findIndex(qq => qq.dimIndex === i);
+                    if (newIdx >= 0) goTo(newIdx);
+                  }
+                }}>
+                  <circle
+                    cx={pos.x.toFixed(1)} cy={pos.y.toFixed(1)} r={isActive ? 22 : 18}
+                    fill={isActive ? d.couleur : 'white'}
+                    stroke={d.couleur}
+                    strokeWidth={isActive ? 0 : 1.5}
+                    style={{ filter: isActive ? `drop-shadow(0 2px 8px ${d.couleur}66)` : 'drop-shadow(0 1px 3px rgba(0,0,0,0.10))', transition: 'all 0.4s' }}
+                  />
+                  <text x={pos.x.toFixed(1)} y={pos.y.toFixed(1)} textAnchor="middle" dominantBaseline="middle" fontSize={isActive ? 16 : 14}>
+                    {d.emoji}
+                  </text>
+                </g>
+              );
+            })}
+
+            {/* Aiguille de boussole */}
+            {/* Pointe (couleur active) */}
+            <line
+              x1={CX.toFixed(1)} y1={CY.toFixed(1)}
+              x2={nx.toFixed(2)} y2={ny.toFixed(2)}
+              stroke={dim.couleur} strokeWidth="4" strokeLinecap="round"
+              style={{ transition: 'none' }}
+            />
+            {/* Queue (gris) */}
+            <line
+              x1={CX.toFixed(1)} y1={CY.toFixed(1)}
+              x2={tailX.toFixed(2)} y2={tailY.toFixed(2)}
+              stroke="#9ca3af" strokeWidth="2.5" strokeLinecap="round"
+            />
+            {/* Pointe flèche */}
+            <circle cx={nx.toFixed(2)} cy={ny.toFixed(2)} r="5" fill={dim.couleur} />
+            {/* Centre */}
+            <circle cx={CX} cy={CY} r="10" fill="white" stroke={dim.couleur} strokeWidth="2" />
+            <circle cx={CX} cy={CY} r="4" fill={dim.couleur} />
+          </svg>
         </div>
-        <Button variant="outline" size="sm" className="text-xs" style={{ borderColor: '#515792', color: '#515792' }} asChild>
-          <Link href="/experience">Voir l'expérience complète <ArrowRight className="ml-1 h-3 w-3" /></Link>
-        </Button>
+
+        {/* Pistes de réponse */}
+        <div className="flex-1 w-full">
+          <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: dim.couleur }}>
+            La Boussole oriente vers
+          </p>
+          <h3 className="text-lg font-bold text-gray-900 mb-4">{dim.label}</h3>
+          <div className="space-y-3 mb-5">
+            {q.pistes.map((piste, i) => (
+              <div key={i} className="flex items-start gap-3 p-3 rounded-xl" style={{ backgroundColor: dim.couleur + '0d' }}>
+                <span className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 text-white" style={{ backgroundColor: dim.couleur }}>{i + 1}</span>
+                <p className="text-sm text-gray-700 leading-relaxed">{piste}</p>
+              </div>
+            ))}
+          </div>
+          <p className="text-xs text-gray-500 italic border-l-2 pl-3 mb-5" style={{ borderColor: dim.couleur + '60' }}>
+            {q.note}
+          </p>
+          <Button variant="outline" size="sm" className="text-xs font-semibold" style={{ borderColor: dim.couleur, color: dim.couleur }} asChild>
+            <Link href="/experience">Voir l'expérience complète <ArrowRight className="ml-1 h-3 w-3" /></Link>
+          </Button>
+        </div>
       </div>
     </div>
   );
@@ -385,107 +520,12 @@ export default function Home() {
       {/* ── POURQUOI UNE BOUSSOLE ────────────────────────────────────────────── */}
       <section className="py-16 sm:py-20 px-4" style={{ backgroundColor: '#f8f9fc' }}>
         <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#515792' }}>Pourquoi une Boussole ?</p>
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">De la confusion vers une carte lisible</h2>
-              <div className="space-y-4 text-gray-600 leading-relaxed">
-                <p>Le numérique est déjà partout dans les pratiques culturelles. Mais les problèmes sont souvent ordinaires : fichiers éparpillés, versions multiples, contacts perdus, outils inadaptés, données vulnérables, communication fragmentée.</p>
-                <p>On ne peut pas améliorer ce qu'on ne voit pas. La Boussole rend visibles ces pratiques — sans jugement, sans jargon — pour que chacun puisse choisir un premier pas réaliste.</p>
-                <p className="font-medium" style={{ color: '#515792' }}>Elle n'est pas un audit culpabilisant. C'est un miroir bienveillant.</p>
-              </div>
-              <div className="mt-8">
-                <Button variant="outline" className="font-semibold" style={{ borderColor: '#515792', color: '#515792' }} asChild>
-                  <Link href="/projet">En savoir plus sur le projet <ArrowRight className="ml-2 h-4 w-4" /></Link>
-                </Button>
-              </div>
-            </div>
-            {/* Illustration : cercles concentriques avec icônes tournantes */}
-            <div className="flex justify-center">
-              <style>{`
-                @keyframes spin-orbit-1 { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-                @keyframes spin-orbit-2 { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
-                @keyframes spin-orbit-3 { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-                @keyframes spin-orbit-4 { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
-                @keyframes spin-counter-1 { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(-360deg); } }
-                @keyframes spin-counter-2 { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
-                @keyframes spin-counter-3 { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(-360deg); } }
-                @keyframes spin-counter-4 { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
-                .ring-1 { animation: spin-orbit-1 32s linear infinite; }
-                .ring-2 { animation: spin-orbit-2 20s linear infinite; }
-                .ring-3 { animation: spin-orbit-3 13s linear infinite; }
-                .icon-1 { animation: spin-counter-1 32s linear infinite; }
-                .icon-2 { animation: spin-counter-2 20s linear infinite; }
-                .icon-3 { animation: spin-counter-3 13s linear infinite; }
-                .icon-4 { animation: spin-counter-4 45s linear infinite; }
-              `}</style>
-              <div className="relative" style={{ width: 300, height: 300 }}>
-
-                {/* Anneau externe — 28s — icône 🛠️ */}
-                <div className="ring-1 absolute rounded-full border-2 border-dashed" style={{ inset: 0, borderColor: '#515792', opacity: 0.22 }}>
-                  <div className="icon-1 absolute w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-lg"
-                    style={{ left: '50%', top: 0, transform: 'translate(-50%, -50%)' }}>
-                    🛠️
-                  </div>
-                </div>
-
-                {/* Anneau intermédiaire — 20s inverse — icône 🎓 */}
-                <div className="ring-2 absolute rounded-full border-2 border-dashed" style={{ inset: 36, borderColor: '#E27227', opacity: 0.32 }}>
-                  <div className="icon-2 absolute w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-lg"
-                    style={{ left: '50%', top: 0, transform: 'translate(-50%, -50%)' }}>
-                    🎓
-                  </div>
-                </div>
-
-                {/* Anneau interne — 13s — icône 🗄️ */}
-                <div className="ring-3 absolute rounded-full border-2 border-dashed" style={{ inset: 72, borderColor: '#3aab8a', opacity: 0.45 }}>
-                  <div className="icon-3 absolute w-9 h-9 rounded-full bg-white shadow-md flex items-center justify-center text-base"
-                    style={{ left: '50%', top: 0, transform: 'translate(-50%, -50%)' }}>
-                    🗄️
-                  </div>
-                </div>
-
-                {/* Centre fixe */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-16 h-16 rounded-full flex items-center justify-center shadow-lg" style={{ backgroundColor: '#515792' }}>
-                    <Compass className="h-8 w-8 text-white" />
-                  </div>
-                </div>
-
-                {/* Anneau externe 2 — 45s inverse — icône 📡 — décalé de 180° */}
-                <div className="ring-4 absolute rounded-full" style={{ inset: -18, border: 'none', opacity: 0 }}>
-                  {/* Invisible ring just for orbit reference */}
-                </div>
-
-                {/* Orbite 📡 — anneau le plus externe, 45s inverse */}
-                <div style={{
-                  position: 'absolute',
-                  inset: -18,
-                  borderRadius: '50%',
-                  animation: 'spin-orbit-4 45s linear infinite',
-                }}>
-                  <div className="icon-4 absolute w-9 h-9 rounded-full bg-white shadow-md flex items-center justify-center text-base"
-                    style={{ left: '50%', top: 0, transform: 'translate(-50%, -50%)' }}>
-                    📡
-                  </div>
-                </div>
-
-                {/* Orbite 🔗 — même anneau, décalé de 180° */}
-                <div style={{
-                  position: 'absolute',
-                  inset: -18,
-                  borderRadius: '50%',
-                  animation: 'spin-orbit-4 45s linear infinite',
-                  animationDelay: '-22.5s',
-                }}>
-                  <div className="icon-4 absolute w-9 h-9 rounded-full bg-white shadow-md flex items-center justify-center text-base"
-                    style={{ left: '50%', top: 0, transform: 'translate(-50%, -50%)' }}>
-                    🔗
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div className="mb-10">
+            <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#515792' }}>Pourquoi une Boussole ?</p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">De la confusion vers une carte lisible</h2>
+            <p className="text-gray-600 leading-relaxed max-w-2xl">Le numérique est déjà partout dans les pratiques culturelles. Mais les problèmes sont souvent ordinaires : fichiers éparpillés, versions multiples, contacts perdus, outils inadaptés. On ne peut pas améliorer ce qu'on ne voit pas. La Boussole rend visibles ces pratiques — sans jugement, sans jargon.</p>
           </div>
+          <BoussoleDemoInteractive />
         </div>
       </section>
 
@@ -551,12 +591,12 @@ export default function Home() {
       <section className="py-16 sm:py-20 px-4" style={{ backgroundColor: '#f8f9fc' }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#515792' }}>Structure de l'évaluation</p>
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Les cinq dimensions</h2>
-            <p className="text-gray-500 mt-3 max-w-xl mx-auto">La Boussole explore cinq grandes dimensions des pratiques numériques. Cliquez sur chacune pour voir un exemple concret.</p>
+            <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#515792' }}>Démo interactive</p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Comment la Boussole oriente</h2>
+            <p className="text-gray-500 mt-3 max-w-xl mx-auto">Une question réelle, une dimension identifiée, des pistes concrètes. Naviguez entre les 5 questions pour voir comment la Boussole fonctionne.</p>
           </div>
 
-          <HomeRadar />
+          <BoussoleDemoInteractive />
         </div>
       </section>
 
