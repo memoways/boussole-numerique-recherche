@@ -263,21 +263,6 @@ export default function Timeline() {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="py-8 px-4 border-t border-gray-100 bg-white">
-        <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-400">
-          <div className="flex items-center gap-2">
-            <img src="/logo-memoways.png" alt="Memoways" className="h-7 w-auto" />
-            <span>Memoways Research · Juin 2026</span>
-          </div>
-          <div className="flex gap-4">
-            <Link href="/" className="hover:text-gray-600">Accueil</Link>
-            <Link href="/methode" className="hover:text-gray-600">Méthode</Link>
-            <Link href="/partenaires" className="hover:text-gray-600">Partenaires</Link>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

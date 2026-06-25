@@ -736,29 +736,6 @@ export default function Home() {
       </section>
 
       {/* ── FOOTER ───────────────────────────────────────────────────────────── */}
-      <footer className="py-10 px-4 border-t border-gray-100 bg-white">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-3">
-            <img src="/logo-memoways.png" alt="Memoways" className="h-10 w-auto" />
-            <div className="text-left">
-              <p className="font-semibold" style={{ color: '#515792' }}>Memoways Research</p>
-              <p className="text-sm text-gray-400">Juin 2026</p>
-            </div>
-          </div>
-          <div className="text-center md:text-right">
-            <p className="text-sm text-gray-400 mb-2">
-              Site compagnon du projet <span className="font-medium text-gray-600">Boussole Numérique Culture</span>
-            </p>
-            <div className="flex flex-wrap gap-3 justify-center md:justify-end text-xs text-gray-400">
-              <Link href="/gouvernance" className="hover:text-gray-600 transition-colors">Gouvernance & données</Link>
-              <Link href="/ressources" className="hover:text-gray-600 transition-colors">Ressources</Link>
-              <a href="https://memoways.com" target="_blank" rel="noopener noreferrer" className="hover:text-gray-600 transition-colors flex items-center gap-1">
-                memoways.com <ExternalLink className="h-3 w-3" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

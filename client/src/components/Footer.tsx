@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Mail, ExternalLink, Compass } from "lucide-react";
+import { MessageCircle, ExternalLink, Compass } from "lucide-react";
 
 /**
  * Footer global — Boussole Numérique Culture
@@ -60,16 +60,16 @@ export default function Footer() {
             <p className="text-sm text-gray-500 leading-relaxed mb-5">
               Un outil gratuit pour aider les actrices et acteurs culturels genevois à comprendre leurs pratiques numériques.
             </p>
-            {/* Contact */}
+            {/* Bouton contact */}
             <a
-              href="mailto:ulrich@memoways.com"
-              className="inline-flex items-center gap-2 text-sm font-medium transition-colors"
-              style={{ color: "#515792" }}
-              onMouseEnter={e => (e.currentTarget.style.color = "#E27227")}
-              onMouseLeave={e => (e.currentTarget.style.color = "#515792")}
+              href="mailto:ulrich@memoways.com?subject=Boussole%20Num%C3%A9rique%20Culture"
+              className="inline-flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded-lg transition-all"
+              style={{ backgroundColor: '#515792', color: '#fff' }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#E27227'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#515792'; }}
             >
-              <Mail className="h-4 w-4" />
-              ulrich@memoways.com
+              <MessageCircle className="h-4 w-4" />
+              Écrire à Memoways
             </a>
           </div>
 

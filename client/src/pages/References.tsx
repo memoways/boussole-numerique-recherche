@@ -470,19 +470,6 @@ export default function References() {
       </section>
 
       {/* ── FOOTER ───────────────────────────────────────────────────────────── */}
-      <footer className="py-8 px-4 border-t border-gray-100 bg-white">
-        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-400">
-          <div className="flex items-center gap-2">
-            <img src="/logo-memoways.png" alt="Memoways" className="h-7 w-auto" />
-            <span>Memoways Research · Juin 2026</span>
-          </div>
-          <div className="flex gap-4">
-            <Link href="/" className="hover:text-gray-600">Accueil</Link>
-            <Link href="/recherche" className="hover:text-gray-600">Recherche</Link>
-            <Link href="/ressources" className="hover:text-gray-600">Ressources</Link>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
