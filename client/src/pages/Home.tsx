@@ -398,6 +398,134 @@ function BoussoleDemoInteractive() {
 
 // ─── Composant principal ───────────────────────────────────────────────────────
 
+// ─── Composant Radar + Accordion (Les cinq dimensions) ─────────────────────────────
+
+const RADAR_A = [0.72, 0.50, 0.83, 0.45, 0.68];
+const RADAR_B = [0.40, 0.78, 0.55, 0.82, 0.35];
+
+function RadarAccordion() {
+  const [activeDim, setActiveDim] = useState<number | null>(null);
+  const [vals, setVals] = useState(RADAR_A);
+  const rafRef = useRef<number | null>(null);
+  const phaseRef = useRef(0);
+  const progressRef = useRef(0);
+  const lastTimeRef = useRef(0);
+
+  useEffect(() => {
+    const MORPH_DURATION = 4000;
+    const tick = (ts: number) => {
+      const dt = ts - (lastTimeRef.current || ts);
+      lastTimeRef.current = ts;
+      progressRef.current = Math.min(progressRef.current + dt / MORPH_DURATION, 1);
+      const ease = (1 - Math.cos(progressRef.current * Math.PI)) / 2;
+      const from = phaseRef.current === 0 ? RADAR_A : RADAR_B;
+      const to   = phaseRef.current === 0 ? RADAR_B : RADAR_A;
+      setVals(from.map((f, i) => f + (to[i] - f) * ease));
+      if (progressRef.current >= 1) { progressRef.current = 0; phaseRef.current ^= 1; }
+      rafRef.current = requestAnimationFrame(tick);
+    };
+    rafRef.current = requestAnimationFrame(tick);
+    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
+  }, []);
+
+  const CX = 150, CY = 150, R_GRID = 100;
+  const radarPoints = vals.map((v, i) => {
+    const a = (i * 72 - 90) * Math.PI / 180;
+    return { x: CX + R_GRID * v * Math.cos(a), y: CY + R_GRID * v * Math.sin(a) };
+  });
+  const radarPath = radarPoints.map((p: {x:number,y:number}, i: number) => `${i === 0 ? 'M' : 'L'}${p.x.toFixed(2)},${p.y.toFixed(2)}`).join(' ') + ' Z';
+
+  return (
+    <div className="flex flex-col lg:flex-row items-center gap-8 w-full">
+      {/* SVG Radar animé */}
+      <div className="flex-shrink-0">
+        <svg viewBox="0 0 300 300" className="w-64 h-64 sm:w-72 sm:h-72" style={{ overflow: 'visible' }}>
+          {[1, 0.75, 0.5, 0.25].map((scale, si) => {
+            const pts = [0,1,2,3,4].map((i: number) => { const a = (i*72-90)*Math.PI/180; return `${(CX+R_GRID*scale*Math.cos(a)).toFixed(1)},${(CY+R_GRID*scale*Math.sin(a)).toFixed(1)}`; }).join(' ');
+            return <polygon key={si} points={pts} fill="none" stroke="#e5e7eb" strokeWidth="1" />;
+          })}
+          {[0,1,2,3,4].map((i: number) => { const a=(i*72-90)*Math.PI/180; return <line key={i} x1={CX} y1={CY} x2={(CX+R_GRID*Math.cos(a)).toFixed(1)} y2={(CY+R_GRID*Math.sin(a)).toFixed(1)} stroke="#e5e7eb" strokeWidth="1" />; })}
+          <path d={radarPath} fill="#515792" fillOpacity="0.18" stroke="#515792" strokeWidth="2" strokeLinejoin="round" />
+          {radarPoints.map((p: {x:number,y:number}, i: number) => (
+            <g key={i} style={{ cursor: 'pointer' }} onClick={() => setActiveDim(activeDim === i ? null : i)}>
+              <circle cx={p.x.toFixed(2)} cy={p.y.toFixed(2)} r="14" fill="transparent" />
+              {activeDim === i && <circle cx={p.x.toFixed(2)} cy={p.y.toFixed(2)} r="9" fill={DIMS_RADAR[i].couleur} fillOpacity="0.2" stroke={DIMS_RADAR[i].couleur} strokeWidth="1" />}
+              <circle cx={p.x.toFixed(2)} cy={p.y.toFixed(2)} r={activeDim === i ? 6 : 4.5} fill={DIMS_RADAR[i].couleur} stroke="white" strokeWidth="1.5" />
+            </g>
+          ))}
+          {/* Labels des dimensions sur les pointes */}
+          {DIMS_RADAR.map((dim, i) => {
+            const a = (i * 72 - 90) * Math.PI / 180;
+            const lx = CX + (R_GRID + 22) * Math.cos(a);
+            const ly = CY + (R_GRID + 22) * Math.sin(a);
+            return (
+              <text key={i} x={lx.toFixed(1)} y={ly.toFixed(1)} textAnchor="middle" dominantBaseline="middle" fontSize="18" style={{ cursor: 'pointer' }}
+                onClick={() => setActiveDim(activeDim === i ? null : i)}>
+                {dim.emoji}
+              </text>
+            );
+          })}
+        </svg>
+      </div>
+
+      {/* Accordion inline */}
+      <div className="flex-1 w-full">
+        <div className="space-y-2 mb-5">
+          {DIMS_RADAR.map((dim, i) => (
+            <div
+              key={i}
+              className="rounded-xl overflow-hidden transition-all duration-200"
+              style={{ border: `1.5px solid ${activeDim === i ? dim.couleur : '#e5e7eb'}` }}
+            >
+              <button
+                onClick={() => setActiveDim(activeDim === i ? null : i)}
+                className="w-full flex items-start gap-3 px-4 py-3 text-left transition-colors duration-200"
+                style={{ backgroundColor: activeDim === i ? dim.couleur + '10' : '#f8f9fc' }}
+              >
+                <span className="text-lg flex-shrink-0 mt-0.5">{dim.emoji}</span>
+                <span className="flex-1 min-w-0">
+                  <span className="font-semibold text-sm block" style={{ color: activeDim === i ? dim.couleur : '#374151' }}>{dim.label}</span>
+                  <span className="text-xs text-gray-500 leading-snug">{dim.resume}</span>
+                </span>
+                <ChevronDown
+                  className="h-4 w-4 flex-shrink-0 mt-1 transition-transform duration-200"
+                  style={{ color: activeDim === i ? dim.couleur : '#9ca3af', transform: activeDim === i ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                />
+              </button>
+              <div
+                className="overflow-hidden transition-all duration-300"
+                style={{ maxHeight: activeDim === i ? '220px' : '0px', opacity: activeDim === i ? 1 : 0 }}
+              >
+                <div
+                  className="px-4 py-3 space-y-3"
+                  style={{ borderTop: `1px solid ${dim.couleur}20`, backgroundColor: dim.couleur + '06' }}
+                >
+                  <p className="text-sm text-gray-600 leading-relaxed">{dim.desc}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {dim.liens.map((lien: {texte: string, href: string}, li: number) => (
+                      <Link
+                        key={li}
+                        href={lien.href}
+                        className="inline-flex items-center gap-1 text-xs font-medium px-3 py-1 rounded-full transition-colors duration-150 hover:opacity-80"
+                        style={{ backgroundColor: dim.couleur + '15', color: dim.couleur, border: `1px solid ${dim.couleur}30` }}
+                      >
+                        {lien.texte} <ArrowRight className="h-3 w-3" />
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <Button variant="outline" size="sm" className="text-xs" style={{ borderColor: '#515792', color: '#515792' }} asChild>
+          <Link href="/experience">Voir l'expérience complète <ArrowRight className="ml-1 h-3 w-3" /></Link>
+        </Button>
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   const [dimensionOuverte, setDimensionOuverte] = useState<number | null>(null);
 
@@ -587,16 +715,16 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── LES CINQ DIMENSIONS ──────────────────────────────────────────────── */}
+      {/* ── LES CINQ DIMENSIONS ────────────────────────────────────────────────── */}
       <section className="py-16 sm:py-20 px-4" style={{ backgroundColor: '#f8f9fc' }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#515792' }}>Démo interactive</p>
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Comment la Boussole oriente</h2>
-            <p className="text-gray-500 mt-3 max-w-xl mx-auto">Une question réelle, une dimension identifiée, des pistes concrètes. Naviguez entre les 5 questions pour voir comment la Boussole fonctionne.</p>
+            <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#515792' }}>Structure de l'évaluation</p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Les cinq dimensions</h2>
+            <p className="text-gray-500 mt-3 max-w-xl mx-auto">La Boussole explore cinq grandes dimensions des pratiques numériques. Cliquez sur chacune pour voir un exemple concret.</p>
           </div>
 
-          <BoussoleDemoInteractive />
+          <RadarAccordion />
         </div>
       </section>
 
