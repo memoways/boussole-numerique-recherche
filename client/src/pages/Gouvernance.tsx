@@ -150,7 +150,7 @@ export default function Gouvernance() {
           <p className="text-gray-500 mb-8">N'hésitez pas à nous contacter pour toute question sur les données, la neutralité ou les principes de la Boussole.</p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Button style={{ backgroundColor: '#515792' }} asChild>
-              <a href="mailto:contact@memoways.com?subject=Question gouvernance Boussole">
+              <a href="mailto:ulrich.fischer@memoways.com?subject=Question gouvernance Boussole">
                 Écrire à Memoways <ArrowRight className="ml-2 h-4 w-4" />
               </a>
             </Button>

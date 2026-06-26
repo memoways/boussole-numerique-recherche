@@ -62,7 +62,7 @@ export default function Footer() {
             </p>
             {/* Bouton contact */}
             <a
-              href="mailto:ulrich@memoways.com?subject=Boussole%20Num%C3%A9rique%20Culture"
+              href="mailto:ulrich.fischer@memoways.com?subject=Boussole%20Num%C3%A9rique%20Culture"
               className="inline-flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded-lg transition-all"
               style={{ backgroundColor: '#515792', color: '#fff' }}
               onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#E27227'; }}

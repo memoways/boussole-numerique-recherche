@@ -45,7 +45,7 @@ export default function Partenaires() {
           </p>
           <div className="flex flex-wrap gap-3">
             <Button style={{ backgroundColor: '#515792' }} asChild>
-              <a href="mailto:contact@memoways.com?subject=Boussole Numérique Culture — Je souhaite participer">
+              <a href="mailto:ulrich.fischer@memoways.com?subject=Boussole Numérique Culture — Je souhaite participer">
                 <MessageSquare className="mr-2 h-4 w-4" />
                 Signaler mon intérêt
               </a>
@@ -194,7 +194,7 @@ export default function Partenaires() {
           <p className="text-gray-500 mb-8 max-w-xl mx-auto">Pas besoin d'un engagement formel. Un message suffit pour commencer. Nous prendrons contact pour vous expliquer les prochaines étapes.</p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Button size="lg" style={{ backgroundColor: '#515792' }} asChild>
-              <a href="mailto:contact@memoways.com?subject=Boussole Numérique Culture — Je souhaite participer">
+              <a href="mailto:ulrich.fischer@memoways.com?subject=Boussole Numérique Culture — Je souhaite participer">
                 <MessageSquare className="mr-2 h-4 w-4" />
                 Écrire à Memoways
               </a>
@@ -205,7 +205,7 @@ export default function Partenaires() {
           </div>
           <p className="mt-4 text-xs text-gray-400">
             Ou écrire directement à{" "}
-            <a href="mailto:contact@memoways.com" className="underline hover:text-gray-600">contact@memoways.com</a>
+            <a href="mailto:ulrich.fischer@memoways.com" className="underline hover:text-gray-600">ulrich.fischer@memoways.com</a>
           </p>
         </div>
       </section>
