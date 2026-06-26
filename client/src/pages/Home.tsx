@@ -551,8 +551,7 @@ export default function Home() {
 
           {/* Sous-titre */}
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto mb-10 leading-relaxed">
-            Un outil gratuit conçu pour les actrices et acteurs culturels de{' '}
-            <strong style={{ color: '#515792' }}>Genève et de la région lémanique</strong>{' '}
+            Un outil gratuit conçu pour les actrices et acteurs culturels de Genève
             — pour comprendre leurs pratiques numériques, repérer les frictions du quotidien et choisir des pistes d'amélioration réalistes.
           </p>
 
