@@ -539,30 +539,21 @@ export default function Home() {
           {/* Titre gradient fluide — inspiré du screenshot */}
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.15] mb-8 tracking-tight">
             <span style={{
-              background: 'linear-gradient(90deg, #515792 0%, #3a7fc1 20%, #3aab8a 40%, #7ab648 58%, #E27227 78%, #E58441 100%)',
+              background: 'linear-gradient(90deg, #515792 0%, #3a7fc1 18%, #3aab8a 36%, #7ab648 54%, #E27227 72%, #E58441 88%, #d94f1e 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
               display: 'block',
             }}>
-              Boussole Numérique
-            </span>
-            <span style={{
-              background: 'linear-gradient(90deg, #7ab648 0%, #b5c93a 25%, #E27227 55%, #E58441 80%, #d94f1e 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              display: 'block',
-            }}>
-              Culture Genevoise
+              Boussole Numérique Culture
             </span>
           </h1>
 
           {/* Sous-titre */}
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto mb-10 leading-relaxed">
-            Un outil gratuit pour aider les actrices et acteurs culturels à{' '}
-            <strong style={{ color: '#515792' }}>comprendre leurs pratiques numériques</strong>,
-            {' '}repérer les frictions du quotidien et choisir des pistes d'amélioration réalistes.
+            Un outil gratuit conçu pour les actrices et acteurs culturels de{' '}
+            <strong style={{ color: '#515792' }}>Genève et de la région lémanique</strong>{' '}
+            — pour comprendre leurs pratiques numériques, repérer les frictions du quotidien et choisir des pistes d'amélioration réalistes.
           </p>
 
           {/* Badges */}
