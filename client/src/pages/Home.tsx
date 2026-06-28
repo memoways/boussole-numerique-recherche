@@ -608,27 +608,20 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { icon: Eye, titre: "Observer", texte: "Faire une photo claire de ses pratiques numériques.", detail: "Un questionnaire structuré en 5 dimensions, sans jargon technique.", couleur: "#515792", bg: "#f0f1f8" },
-              { icon: Lightbulb, titre: "Comprendre", texte: "Identifier ce qui fonctionne, ce qui coince, et les priorités d'amélioration.", detail: "Une carte visuelle de vos pratiques, lisible en un coup d'oeil.", couleur: "#E27227", bg: "#fdf3ec" },
-              { icon: Zap, titre: "Agir", texte: "Choisir quelques pistes réalistes, adaptées à sa situation.", detail: "Des ressources et suggestions concrètes, calibrées à votre contexte.", couleur: "#3aab8a", bg: "#f0faf6" },
-            ].map(({ icon: Icon, titre, texte, detail, couleur, bg }) => (
+              { icon: Eye, titre: "Observer", texte: "Faire une photo claire de ses pratiques numériques à travers un questionnaire structuré en 5 dimensions, sans jargon technique.", couleur: "#515792", bg: "#f0f1f8" },
+              { icon: Lightbulb, titre: "Comprendre", texte: "Identifier ce qui fonctionne, ce qui coince et les priorités d'amélioration — visualisées sur une carte lisible en un coup d'œil.", couleur: "#E27227", bg: "#fdf3ec" },
+              { icon: Zap, titre: "Agir", texte: "Choisir quelques pistes réalistes, adaptées à sa situation, avec des ressources et suggestions concrètes.", couleur: "#3aab8a", bg: "#f0faf6" },
+            ].map(({ icon: Icon, titre, texte, couleur, bg }) => (
               <div
                 key={titre}
-                className="group rounded-2xl p-8 text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-2 cursor-default relative overflow-hidden"
+                className="rounded-2xl p-8 text-center"
                 style={{ backgroundColor: bg }}
               >
-                {/* Fond coloré au hover */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"
-                  style={{ background: `linear-gradient(135deg, ${couleur}08 0%, ${couleur}15 100%)` }}
-                />
-                <div className="relative z-10">
-                  <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5 transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg" style={{ backgroundColor: couleur }}>
-                    <Icon className="h-8 w-8 text-white transition-transform duration-300 group-hover:rotate-12" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-3 transition-colors duration-200" style={{ color: couleur }}>{titre}</h3>
-                  <p className="text-gray-600 leading-relaxed transition-all duration-300 group-hover:opacity-0 group-hover:h-0 group-hover:mb-0 group-hover:overflow-hidden">{texte}</p>
-                  <p className="text-gray-700 leading-relaxed text-sm font-medium absolute left-8 right-8 opacity-0 group-hover:opacity-100 transition-all duration-300" style={{ color: couleur }}>{detail}</p>
+                <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5" style={{ backgroundColor: couleur }}>
+                  <Icon className="h-8 w-8 text-white" />
                 </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3">{titre}</h3>
+                <p className="text-gray-600 leading-relaxed">{texte}</p>
               </div>
             ))}
           </div>
