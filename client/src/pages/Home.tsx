@@ -552,7 +552,7 @@ export default function Home() {
           {/* Sous-titre */}
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto mb-10 leading-relaxed">
             Un outil gratuit conçu pour les actrices et acteurs culturels de Genève
-            — pour comprendre leurs pratiques numériques, repérer les frictions du quotidien et choisir des pistes d'amélioration réalistes.
+            — pour comprendre leurs pratiques numériques, identifier ce qui freine leur travail et choisir des pistes d'amélioration adaptées à leur situation.
           </p>
 
           {/* Badges */}
@@ -609,7 +609,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { icon: Eye, titre: "Observer", texte: "Faire une photo claire de ses pratiques numériques.", detail: "Un questionnaire structuré en 5 dimensions, sans jargon technique.", couleur: "#515792", bg: "#f0f1f8" },
-              { icon: Lightbulb, titre: "Comprendre", texte: "Identifier les points de friction, les habitudes utiles et les angles morts.", detail: "Une carte visuelle de vos pratiques, lisible en un coup d'oeil.", couleur: "#E27227", bg: "#fdf3ec" },
+              { icon: Lightbulb, titre: "Comprendre", texte: "Identifier ce qui fonctionne, ce qui coince, et les priorités d'amélioration.", detail: "Une carte visuelle de vos pratiques, lisible en un coup d'oeil.", couleur: "#E27227", bg: "#fdf3ec" },
               { icon: Zap, titre: "Agir", texte: "Choisir quelques pistes réalistes, adaptées à sa situation.", detail: "Des ressources et suggestions concrètes, calibrées à votre contexte.", couleur: "#3aab8a", bg: "#f0faf6" },
             ].map(({ icon: Icon, titre, texte, detail, couleur, bg }) => (
               <div
@@ -641,7 +641,7 @@ export default function Home() {
           <div className="mb-10">
             <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#515792' }}>Pourquoi une Boussole ?</p>
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">De la confusion vers une carte lisible</h2>
-            <p className="text-gray-600 leading-relaxed max-w-2xl">Le numérique est déjà partout dans les pratiques culturelles. Mais les problèmes sont souvent ordinaires : fichiers éparpillés, versions multiples, contacts perdus, outils inadaptés. On ne peut pas améliorer ce qu'on ne voit pas. La Boussole rend visibles ces pratiques — sans jugement, sans jargon.</p>
+            <p className="text-gray-600 leading-relaxed max-w-2xl">Le numérique est présent dans toutes les pratiques culturelles. Les difficultés sont souvent ordinaires : fichiers éparpillés, outils inadaptés, coordination qui prend trop de place. La Boussole aide à les nommer, à les situer, et à identifier où agir en premier.</p>
           </div>
           <BoussoleDemoInteractive />
         </div>
@@ -725,7 +725,7 @@ export default function Home() {
             <div>
               <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#E27227' }}>Co-conception</p>
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Une méthode construite avec le terrain</h2>
-              <p className="text-gray-600 leading-relaxed mb-6">La Boussole ne sera pas conçue dans un bureau, puis livrée aux structures culturelles. Elle sera construite avec elles, étape par étape, en intégrant leurs retours à chaque phase.</p>
+              <p className="text-gray-600 leading-relaxed mb-6">La Boussole est construite avec les professionnels et les structures du secteur culturel, étape par étape. Les retours du terrain orientent chaque phase — de la formulation des questions à la pertinence des recommandations.</p>
               <div className="flex flex-wrap gap-2 mb-8">
                 {[
                   { label: 'Cadrage', color: '#515792' },
@@ -750,14 +750,14 @@ export default function Home() {
             </div>
             <div className="rounded-2xl p-8" style={{ backgroundColor: '#f0f1f8' }}>
               <blockquote className="text-gray-700 italic leading-relaxed text-lg">
-                "La co-conception n'est pas un supplément de communication. C'est une manière de réduire le risque de produire un outil trop technique, trop général ou trop éloigné des pratiques réelles."
+                "Un outil utile se construit avec ceux qui l'utiliseront. La co-conception réduit le risque de produire quelque chose de trop technique, trop général ou trop éloigné du quotidien."
               </blockquote>
               <div className="mt-6 flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{ backgroundColor: '#515792' }}>
                   <Users className="h-5 w-5 text-white" />
                 </div>
                 <div>
-                  <p className="font-semibold text-sm text-gray-900">Memoways Research</p>
+                  <p className="font-semibold text-sm text-gray-900">Équipe de projet</p>
                   <p className="text-xs text-gray-500">Principe fondateur du projet</p>
                 </div>
               </div>
@@ -772,7 +772,7 @@ export default function Home() {
           <div className="text-center mb-12">
             <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#515792' }}>Fondements</p>
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Recherche & inspirations</h2>
-            <p className="text-gray-500 mt-3 max-w-xl mx-auto">La Boussole repose sur une base documentaire solide : études internationales, benchmarks d'outils existants, et analyses du contexte genevois.</p>
+            <p className="text-gray-500 mt-3 max-w-xl mx-auto">La Boussole repose sur une base documentaire solide : études internationales, benchmarks d'outils existants et analyses du contexte culturel local.</p>
           </div>
           {/* Chiffres clés sourcés */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">

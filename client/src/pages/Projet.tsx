@@ -77,10 +77,10 @@ const PRINCIPES = [
 
 
 const OBJECTIFS = [
-  "500 utilisateurs inscrits, dont 50% utilisent l'outil régulièrement",
+  "Des centaines d'utilisateurs actifs, avec un taux de retour significatif (objectif indicatif, à affiner avec les partenaires)",
   "Un relai actif par les partenaires institutionnels genevois",
   "Une base de connaissances enrichie par la communauté et les retours d'usage",
-  "Des données anonymisées permettant un diagnostic de l'écosystème culturel genevois",
+  "Des données anonymisées permettant un diagnostic collectif des pratiques numériques du secteur",
 ];
 
 const INSPIRATIONS = [
@@ -195,7 +195,7 @@ export default function Projet() {
             </span>
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl leading-relaxed">
-            Un outil web gratuit pour aider les acteurs culturels genevois à évaluer leurs pratiques numériques, identifier leurs priorités et cheminer vers de meilleures façons de travailler — sans expertise technique préalable.
+            Un outil web gratuit pour évaluer les pratiques numériques des actrices et acteurs culturels, identifier les priorités et cheminer vers de meilleures façons de travailler — sans expertise technique préalable.
           </p>
         </div>
       </section>
@@ -236,13 +236,13 @@ export default function Projet() {
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-5">Un outil pour voir où l'on en est</h2>
             <div className="space-y-4 text-gray-600 leading-relaxed">
               <p>
-                La <strong className="text-gray-900">Boussole Numérique Culture</strong> est une application web interactive et gratuite qui permet aux actrices et acteurs culturels genevois de faire un état des lieux de leurs usages numériques — ce qui fonctionne, ce qui coince, les envies, les besoins, les questionnements — puis de recevoir un accompagnement conversationnel personnalisé pour cheminer vers de meilleures pratiques numériques.
+                La <strong className="text-gray-900">Boussole Numérique Culture</strong> est une application web interactive et gratuite qui permet aux actrices et acteurs culturels de faire un état des lieux de leurs usages numériques — ce qui fonctionne, ce qui coince, les envies, les besoins, les questionnements — puis de recevoir un accompagnement conversationnel personnalisé pour cheminer vers de meilleures pratiques numériques.
               </p>
               <p>
-                L'outil repose sur un questionnaire adaptatif d'une dizaine de minutes, suivi d'une restitution visuelle et d'un dialogue guidé par une intelligence artificielle spécialement conçue pour la réalité du secteur culturel. Ce n'est ni un audit, ni un cours, ni un chatbot généraliste : c'est un <strong className="text-gray-900">miroir lucide et bienveillant</strong>, conçu pour aider chacun et chacune à identifier les endroits précis où un petit changement pourrait avoir un vrai impact sur leur quotidien de travail.
+                L'outil repose sur un questionnaire adaptatif d'une dizaine de minutes, suivi d'une restitution visuelle et d'un dialogue guidé par une intelligence artificielle spécialement conçue pour la réalité du secteur culturel. L'outil propose un <strong className="text-gray-900">diagnostic structuré et personnalisé</strong>, conçu pour aider chacun et chacune à identifier les endroits précis où un changement ciblé peut avoir un impact réel sur leur quotidien de travail.
               </p>
               <p>
-                Le projet émane de <strong className="text-gray-900">Memoways</strong>, agence genevoise spécialisée dans la transformation numérique des organisations culturelles et créatives, forte de plus de trente ans de pratique professionnelle au cœur de l'écosystème culturel genevois et suisse.
+                Le projet est porté par une équipe spécialisée dans la transformation numérique des organisations culturelles et créatives, avec une pratique professionnelle ancrée dans le secteur culturel suisse.
               </p>
             </div>
             <blockquote className="mt-6 pl-4 border-l-4 italic text-gray-500" style={{ borderColor: '#515792' }}>
@@ -259,7 +259,7 @@ export default function Projet() {
               <div className="flex-1 min-w-0">
                 <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: '#515792' }}>Qui est Memoways ?</p>
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  Memoways est une agence genevoise fondée par Ulrich Fischer, spécialisée dans la transformation numérique des organisations culturelles et créatives. Forte de plus de trente ans de pratique professionnelle au cœur de l'écosystème culturel romand, elle accompagne musées, théâtres, associations et institutions dans leurs transitions numériques — avec une approche ancrée dans les réalités du terrain.
+                  Memoways est une agence fondée à Genève en 2011 par Ulrich Fischer, spécialisée dans la transformation numérique des organisations culturelles et créatives. Elle accompagne musées, théâtres, associations et institutions dans leurs transitions numériques — avec une approche ancrée dans les réalités du terrain.
                 </p>
                 <a
                   href="https://memoways.com"
@@ -281,7 +281,7 @@ export default function Projet() {
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-5">Des pratiques numériques qui coûtent cher en énergie créative</h2>
             <div className="space-y-4 text-gray-600 leading-relaxed mb-8">
               <p>
-                Dans de nombreuses structures culturelles, une part importante de l'énergie créative se dissipe dans des pratiques numériques inadéquates. Des fichiers qui circulent par email en plusieurs versions, des projets suivis sur des tableaux bricolés, des équipes qui passent plus de temps à se coordonner qu'à créer. Ce n'est pas la faute de personne — c'est un angle mort collectif.
+                Dans de nombreuses structures culturelles, une part du temps de travail est absorbée par des pratiques numériques inadéquates : fichiers qui circulent par email en plusieurs versions, projets suivis sur des tableaux bricolés, équipes qui passent plus de temps à se coordonner qu'à créer. Ces situations sont fréquentes et souvent invisibles.
               </p>
               <p>
                 Ce qui a changé, c'est qu'aujourd'hui, les conditions sont réunies pour agir. L'intelligence artificielle conversationnelle a atteint un niveau de maturité qui permet de créer des outils d'accompagnement véritablement personnalisés, à un coût accessible.
@@ -321,7 +321,7 @@ export default function Projet() {
             <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#3aab8a' }}>La proposition</Badge>
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-5">Ce que fait la Boussole, concrètement</h2>
             <p className="text-gray-600 leading-relaxed mb-8">
-              La Boussole Numérique Culture est une application web gratuite qui propose une <strong className="text-gray-900">expérience conversationnelle guidée</strong> — pas un formulaire classique, mais un dialogue structuré avec un agent intelligent spécialement conçu pour le secteur culturel. L'application finale évoluera au fil des discussions avec les partenaires, des expérimentations techniques et des retours des premières structures pilotes. C'est dans la nature même du projet — un outil vivant, qui se construit en dialogue avec ses futurs utilisateurs.
+              La Boussole Numérique Culture est une application web gratuite qui propose une <strong className="text-gray-900">expérience conversationnelle guidée</strong> — un dialogue structuré avec un agent intelligent conçu pour le secteur culturel. L'application finale évoluera au fil des discussions avec les partenaires, des expérimentations techniques et des retours des premières structures pilotes. C'est dans la nature même du projet — un outil vivant, qui se construit en dialogue avec ses futurs utilisateurs.
             </p>
 
             {/* Les 5 dimensions */}
@@ -686,7 +686,7 @@ export default function Projet() {
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-3">Vous souhaitez en savoir plus ou participer ?</h2>
           <p className="text-gray-500 mb-8 leading-relaxed">
-            La Boussole se construit en dialogue avec ses futurs utilisateurs. Structures culturelles genevoises, partenaires institutionnels, acteurs de l'écosystème numérique — toutes les contributions sont bienvenues.
+            La Boussole se construit en dialogue avec ses futurs utilisateurs. Structures culturelles, partenaires institutionnels, professionnels du secteur — toutes les contributions sont bienvenues.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Button style={{ backgroundColor: '#E27227' }} asChild>

@@ -13,7 +13,7 @@ const PRINCIPES = [
     icon: Heart,
     titre: "Gratuité",
     couleur: "#E27227",
-    texte: "La Boussole est et restera gratuite pour toutes les structures culturelles. La gratuité n'est pas un modèle économique en attente de monétisation : c'est un principe fondateur. Un outil payant exclut les structures les plus petites — celles qui en ont souvent le plus besoin.",
+    texte: "La Boussole est et restera gratuite pour toutes les structures culturelles. La gratuité est un engagement fondateur. Un outil payant exclut les structures les plus petites — celles qui en ont souvent le plus besoin.",
     engagements: ["Aucun abonnement", "Aucun freemium", "Aucune fonctionnalité payante"],
   },
   {
@@ -28,7 +28,7 @@ const PRINCIPES = [
     titre: "Neutralité des recommandations",
     couleur: "#3aab8a",
     texte: "Les recommandations proposées par la Boussole ne favorisent aucun prestataire, aucun produit commercial, aucune solution propriétaire. Elles sont fondées sur des critères de pertinence, d'accessibilité et d'adéquation au contexte culturel.",
-    engagements: ["Pas de recommandations sponsorisées", "Priorité aux outils libres et open source", "Transparence sur les critères de sélection"],
+    engagements: ["Recommandations indépendantes de tout partenariat commercial", "Priorité aux outils libres et open source", "Transparence sur les critères de sélection"],
   },
   {
     icon: Code2,
@@ -41,7 +41,7 @@ const PRINCIPES = [
     icon: Server,
     titre: "Hébergement souverain",
     couleur: "#E58441",
-    texte: "La Boussole est hébergée en Suisse, chez Infomaniak. Les données restent en Europe, sous le cadre légal suisse et européen. Ce choix est délibéré : il garantit que les données des structures culturelles genevoises ne transitent pas par des serveurs américains.",
+    texte: "La Boussole est hébergée en Suisse, chez Infomaniak. Les données restent en Europe, sous le cadre légal suisse et européen. Ce choix garantit que les données des structures culturelles ne transitent pas par des serveurs hors du cadre légal européen.",
     engagements: ["Hébergement Infomaniak (Suisse)", "Données en Europe", "Conformité RGPD et LPD suisse"],
   },
   {
@@ -65,7 +65,7 @@ export default function Gouvernance() {
             Données, neutralité & gouvernance
           </h1>
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl leading-relaxed">
-            La Boussole repose sur des principes non négociables, inscrits dans sa conception depuis le premier jour. Voici ce que cela signifie concrètement.
+            La Boussole repose sur des engagements inscrits dans sa conception depuis le premier jour. Voici ce que cela signifie concrètement.
           </p>
         </div>
       </section>
