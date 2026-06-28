@@ -39,7 +39,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="border-t border-gray-100 mt-24"
+      className="border-t border-gray-100"
       style={{ backgroundColor: "#f8f9fc" }}
     >
       {/* Bande supérieure */}
@@ -58,7 +58,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-sm text-gray-500 leading-relaxed mb-5">
-              Un outil gratuit pour aider les actrices et acteurs culturels genevois à comprendre leurs pratiques numériques.
+              Un outil gratuit pour aider les actrices et acteurs culturels à comprendre leurs pratiques numériques.
             </p>
             {/* Bouton contact */}
             <a
@@ -69,7 +69,7 @@ export default function Footer() {
               onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#515792'; }}
             >
               <MessageCircle className="h-4 w-4" />
-              Écrire à Memoways
+              Nous écrire
             </a>
           </div>
 

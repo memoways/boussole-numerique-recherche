@@ -55,7 +55,7 @@ const PRINCIPES = [
 
 export default function Gouvernance() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="bg-white">
 
       {/* Hero */}
       <section className="pt-20 sm:pt-24 pb-12 px-4 bg-gradient-to-b from-slate-50 to-white">
@@ -151,7 +151,7 @@ export default function Gouvernance() {
           <div className="flex flex-wrap gap-3 justify-center">
             <Button style={{ backgroundColor: '#515792' }} asChild>
               <a href="mailto:ulrich.fischer@memoways.com?subject=Question gouvernance Boussole">
-                Écrire à Memoways <ArrowRight className="ml-2 h-4 w-4" />
+                Nous écrire <ArrowRight className="ml-2 h-4 w-4" />
               </a>
             </Button>
             <Button variant="outline" style={{ borderColor: '#515792', color: '#515792' }} asChild>

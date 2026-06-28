@@ -171,7 +171,7 @@ export default function Projet() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="bg-white">
 
       {/* ── HERO ──────────────────────────────────────────────────────────────── */}
       <section className="pt-20 sm:pt-24 pb-10 px-4" style={{ background: 'linear-gradient(160deg, #f4f5fb 0%, #fdf6f0 60%, #f4f5fb 100%)' }}>
@@ -692,9 +692,7 @@ export default function Projet() {
             <Button style={{ backgroundColor: '#E27227' }} asChild>
               <Link href="/partenaires">Nous contacter <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
-            <Button variant="outline" style={{ borderColor: '#515792', color: '#515792' }} asChild>
-              <Link href="/">Retour à l'accueil</Link>
-            </Button>
+
           </div>
         </div>
       </section>

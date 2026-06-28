@@ -31,7 +31,7 @@ const PARCOURS_PARTENAIRE = [
 
 export default function Partenaires() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="bg-white">
 
       {/* Hero */}
       <section className="pt-20 sm:pt-24 pb-12 px-4 bg-gradient-to-b from-slate-50 to-white">
@@ -196,7 +196,7 @@ export default function Partenaires() {
             <Button size="lg" style={{ backgroundColor: '#515792' }} asChild>
               <a href="mailto:ulrich.fischer@memoways.com?subject=Boussole Numérique Culture — Je souhaite participer">
                 <MessageSquare className="mr-2 h-4 w-4" />
-                Écrire à Memoways
+                Nous écrire
               </a>
             </Button>
             <Button size="lg" variant="outline" style={{ borderColor: '#E27227', color: '#E27227' }} asChild>

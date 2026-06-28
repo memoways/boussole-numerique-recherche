@@ -238,7 +238,7 @@ export default function Experience() {
   const [etapeOuverte, setEtapeOuverte] = useState<number | null>(0);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="bg-white">
 
       {/* Hero */}
       <section className="pt-20 sm:pt-24 pb-12 px-4 bg-gradient-to-b from-slate-50 to-white">
