@@ -5,7 +5,8 @@ import { Link, useLocation } from "wouter";
 
 /**
  * Navigation — Boussole Numérique Culture
- * 7 entrées selon le PRD : Projet | Expérience | Méthode | Recherche | Partenaires | Gouvernance | Ressources
+ * 6 entrées : Projet | Expérience | Méthode | Recherche | Partenaires | Ressources
+ * (Gouvernance fusionnée dans Méthode)
  * Couleurs Memoways : bleu #515792, orange #E27227
  */
 
@@ -15,7 +16,6 @@ const NAV_ITEMS = [
   { href: "/methode", label: "Méthode" },
   { href: "/recherche", label: "Recherche" },
   { href: "/partenaires", label: "Partenaires" },
-  { href: "/gouvernance", label: "Gouvernance" },
   { href: "/ressources", label: "Ressources" },
 ];
 

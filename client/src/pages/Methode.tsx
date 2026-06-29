@@ -1,11 +1,15 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Users, MessageSquare, Wrench, TestTube, RefreshCw, FileText, Share2 } from "lucide-react";
+import {
+  ArrowRight, Users, MessageSquare, Wrench, TestTube, RefreshCw, FileText, Share2,
+  Heart, Shield, Code2, Server, Globe, Lock, AlertTriangle, CheckCircle
+} from "lucide-react";
 import { Link } from "wouter";
 
 /**
- * Page /methode — Méthode & co-conception
- * Couleurs Memoways : bleu #515792, orange #E27227
+ * Page /methode — Méthode, co-conception & gouvernance
+ * Fusion de l'ancienne page /methode et de l'ancienne page /gouvernance
+ * Couleurs Memoways : bleu #515792, orange #E27227, vert #3aab8a
  */
 
 const ETAPES_METHODE = [
@@ -26,19 +30,64 @@ const IMPLICATIONS_PARTENAIRES = [
   { titre: "Retours d'usage", desc: "Après la mise à disposition, partage d'observations sur l'utilité et les limites de l'outil." },
 ];
 
+const PRINCIPES_GOUVERNANCE = [
+  {
+    icon: Heart,
+    titre: "Gratuité",
+    couleur: "#E27227",
+    texte: "La Boussole est et restera gratuite pour toutes les structures culturelles. Un outil payant exclut les structures les plus petites — celles qui en ont souvent le plus besoin.",
+    engagements: ["Aucun abonnement", "Aucun freemium", "Aucune fonctionnalité payante"],
+  },
+  {
+    icon: Globe,
+    titre: "Non-commercialité",
+    couleur: "#515792",
+    texte: "La Boussole ne repose pas sur la captation des données ni sur la conversion des utilisateurs en clients. Sa valeur tient à l'utilité du diagnostic et à la qualité des ressources partagées.",
+    engagements: ["Aucune revente de données", "Aucun partenariat commercial", "Aucune logique de lead generation"],
+  },
+  {
+    icon: Shield,
+    titre: "Neutralité des recommandations",
+    couleur: "#3aab8a",
+    texte: "Les recommandations ne favorisent aucun prestataire, aucun produit commercial, aucune solution propriétaire. Elles sont fondées sur des critères de pertinence, d'accessibilité et d'adéquation au contexte culturel.",
+    engagements: ["Indépendantes de tout partenariat commercial", "Priorité aux outils libres et open source", "Transparence sur les critères de sélection"],
+  },
+  {
+    icon: Code2,
+    titre: "Open source",
+    couleur: "#9b59b6",
+    texte: "Le code source est ouvert et consultable. La méthode est documentée. Toute structure peut s'en inspirer, l'adapter ou contribuer à son amélioration.",
+    engagements: ["Code source public", "Licence ouverte", "Documentation de la méthode accessible"],
+  },
+  {
+    icon: Server,
+    titre: "Hébergement souverain",
+    couleur: "#E58441",
+    texte: "La Boussole est hébergée en Suisse, chez Infomaniak. Les données restent en Europe, sous le cadre légal suisse et européen.",
+    engagements: ["Hébergement Infomaniak (Suisse)", "Données en Europe", "Conformité RGPD et LPD suisse"],
+  },
+  {
+    icon: Lock,
+    titre: "Données et consentement",
+    couleur: "#515792",
+    texte: "Les réponses au questionnaire sont anonymisées. Aucune donnée personnelle n'est collectée sans consentement explicite. Les résultats individuels ne sont jamais partagés sans accord.",
+    engagements: ["Anonymisation des réponses", "Consentement explicite", "Pas de partage sans accord"],
+  },
+];
+
 export default function Methode() {
   return (
     <div className="bg-white">
 
-      {/* Hero */}
+      {/* ── HERO ─────────────────────────────────────────────────────────────── */}
       <section className="pt-20 sm:pt-24 pb-12 px-4 bg-gradient-to-b from-slate-50 to-white">
         <div className="max-w-4xl mx-auto">
-          <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#3aab8a' }}>Méthode</Badge>
+          <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#3aab8a' }}>Méthode & gouvernance</Badge>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4 leading-tight">
-            Méthode & co-conception
+            Méthode, co-conception & gouvernance
           </h1>
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl leading-relaxed mb-8">
-            La Boussole sera construite avec les structures culturelles genevoises — pas pour elles. La co-conception est au cœur de la démarche.
+            La Boussole sera construite avec les structures culturelles — pas pour elles. Et ses engagements fondateurs sont inscrits dans sa conception depuis le premier jour.
           </p>
           <div className="flex flex-wrap gap-3">
             <Button style={{ backgroundColor: '#515792' }} asChild>
@@ -51,7 +100,7 @@ export default function Methode() {
         </div>
       </section>
 
-      {/* Pourquoi co-construire */}
+      {/* ── POURQUOI CO-CONSTRUIRE ────────────────────────────────────────────── */}
       <section className="py-14 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
@@ -59,7 +108,7 @@ export default function Methode() {
               <h2 className="text-2xl font-bold text-gray-900 mb-5">Pourquoi co-construire ?</h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>Un outil conçu sans ses utilisateurs risque d'être trop technique, trop général ou trop éloigné des pratiques réelles. La co-conception réduit ce risque en intégrant les retours du terrain à chaque étape.</p>
-                <p>Les structures culturelles genevoises ont des pratiques très diverses — artistes indépendants, grandes institutions, associations de médiation, compagnies de spectacle vivant. Un outil utile doit tenir compte de cette diversité dès sa conception.</p>
+                <p>Les structures culturelles ont des pratiques très diverses — artistes indépendants, grandes institutions, associations de médiation, compagnies de spectacle vivant. Un outil utile doit tenir compte de cette diversité dès sa conception.</p>
                 <p>La co-conception, c'est aussi une manière de construire la confiance. Un outil que les structures ont contribué à façonner est un outil qu'elles s'approprieront plus facilement.</p>
               </div>
             </div>
@@ -73,7 +122,7 @@ export default function Methode() {
         </div>
       </section>
 
-      {/* Timeline de la méthode */}
+      {/* ── LES SEPT TEMPS DE LA MÉTHODE ─────────────────────────────────────── */}
       <section className="py-14 px-4" style={{ backgroundColor: '#f8f9fc' }}>
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold text-gray-900 mb-3">Les sept temps de la méthode</h2>
@@ -112,14 +161,75 @@ export default function Methode() {
         </div>
       </section>
 
-      {/* Comment les partenaires seront impliqués */}
+      {/* ── GOUVERNANCE & ENGAGEMENTS FONDATEURS ─────────────────────────────── */}
       <section className="py-14 px-4 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#515792' }}>Gouvernance</Badge>
+          <h2 className="text-2xl font-bold text-gray-900 mb-3">Engagements fondateurs</h2>
+          <p className="text-gray-500 mb-10 max-w-xl">
+            La Boussole repose sur six principes inscrits dans sa conception depuis le premier jour — indépendamment des financements ou des partenariats.
+          </p>
+          <div className="space-y-4">
+            {PRINCIPES_GOUVERNANCE.map(({ icon: Icon, titre, couleur, texte, engagements }) => (
+              <div key={titre} className="rounded-2xl p-6 border border-gray-100">
+                <div className="flex items-start gap-5">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: couleur + '15' }}>
+                    <Icon className="h-6 w-6" style={{ color: couleur }} />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-bold text-gray-900 text-lg mb-2">{titre}</h3>
+                    <p className="text-gray-600 leading-relaxed mb-4">{texte}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {engagements.map(e => (
+                        <span key={e} className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full font-medium" style={{ backgroundColor: couleur + '15', color: couleur }}>
+                          <CheckCircle className="h-3 w-3" />
+                          {e}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Anonymisation & limites */}
+          <div className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <div>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Anonymisation des données</h3>
+              <div className="space-y-4 text-gray-600 leading-relaxed">
+                <p>Les réponses individuelles ne sont jamais publiées ni partagées sans consentement explicite. Seules des synthèses agrégées et anonymisées pourront être utilisées pour améliorer l'outil ou documenter les tendances du secteur.</p>
+                <p>L'objectif de la collecte de données n'est pas de constituer une base de données sur les structures culturelles, mais d'améliorer la pertinence des recommandations de manière anonyme.</p>
+              </div>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Limites claires</h3>
+              <div className="space-y-3">
+                {[
+                  "La Boussole ne remplace pas un conseil juridique ou un audit de sécurité.",
+                  "Elle ne garantit pas que toutes les recommandations seront adaptées à chaque situation.",
+                  "Elle ne collecte pas de données sensibles (données personnelles, financières, RH).",
+                  "Elle ne prétend pas mesurer la performance ou la compétitivité d'une structure.",
+                ].map(limite => (
+                  <div key={limite} className="flex items-start gap-3 p-3 rounded-lg" style={{ backgroundColor: '#fef3ec' }}>
+                    <AlertTriangle className="h-4 w-4 flex-shrink-0 mt-0.5" style={{ color: '#E27227' }} />
+                    <p className="text-sm text-gray-600 leading-relaxed">{limite}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── COMMENT LES PARTENAIRES SERONT IMPLIQUÉS ─────────────────────────── */}
+      <section className="py-14 px-4" style={{ backgroundColor: '#f8f9fc' }}>
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold text-gray-900 mb-3">Comment les partenaires seront impliqués</h2>
           <p className="text-gray-500 mb-8 max-w-xl">Plusieurs formes de participation sont prévues, selon la disponibilité et l'intérêt de chaque structure.</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {IMPLICATIONS_PARTENAIRES.map(({ titre, desc }) => (
-              <div key={titre} className="flex gap-4 items-start p-5 rounded-xl" style={{ backgroundColor: '#f8f9fc' }}>
+              <div key={titre} className="flex gap-4 items-start p-5 rounded-xl bg-white">
                 <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0" style={{ backgroundColor: '#515792' }}></div>
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-1">{titre}</h3>
@@ -131,15 +241,15 @@ export default function Methode() {
         </div>
       </section>
 
-      {/* Comment les retours seront intégrés */}
-      <section className="py-14 px-4" style={{ backgroundColor: '#f8f9fc' }}>
+      {/* ── COMMENT LES RETOURS SERONT INTÉGRÉS ──────────────────────────────── */}
+      <section className="py-14 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <div>
               <h2 className="text-2xl font-bold text-gray-900 mb-5">Comment les retours seront intégrés</h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>Chaque session de test donnera lieu à une synthèse documentée. Les retours seront catégorisés : formulations à clarifier, dimensions à ajuster, recommandations à améliorer, bugs UX à corriger.</p>
-                <p>Les décisions prises à la suite des retours seront documentées et publiées sur ce portail. Pas de boîte noire : les partenaires pourront voir comment leurs retours ont été pris en compte.</p>
+                <p>Les décisions prises à la suite des retours seront documentées et publiées sur ce portail. Les partenaires pourront voir comment leurs retours ont été pris en compte.</p>
               </div>
             </div>
             <div>
@@ -153,14 +263,21 @@ export default function Methode() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-14 px-4 bg-white">
+      {/* ── CTA ──────────────────────────────────────────────────────────────── */}
+      <section className="py-14 px-4" style={{ backgroundColor: '#f8f9fc' }}>
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Participer à la co-conception</h2>
-          <p className="text-gray-500 mb-8">Vous êtes une structure culturelle genevoise ? Votre participation peut prendre la forme d'un entretien, d'un atelier ou d'un test utilisateur.</p>
+          <p className="text-gray-500 mb-8 max-w-xl mx-auto">
+            Vous êtes une structure culturelle ? Votre participation peut prendre la forme d'un entretien, d'un atelier ou d'un test utilisateur. Pour toute question sur les données ou la gouvernance, n'hésitez pas à nous écrire.
+          </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Button style={{ backgroundColor: '#515792' }} asChild>
               <Link href="/partenaires">Signaler mon intérêt <ArrowRight className="ml-2 h-4 w-4" /></Link>
+            </Button>
+            <Button variant="outline" style={{ borderColor: '#E27227', color: '#E27227' }} asChild>
+              <a href="mailto:ulrich.fischer@memoways.com?subject=Question méthode ou gouvernance Boussole">
+                Nous écrire
+              </a>
             </Button>
             <Button variant="outline" style={{ borderColor: '#515792', color: '#515792' }} asChild>
               <Link href="/timeline">Voir le calendrier</Link>

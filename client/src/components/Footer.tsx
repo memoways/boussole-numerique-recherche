@@ -29,7 +29,7 @@ const NAV_COLUMNS = [
     title: "Engagement",
     links: [
       { href: "/partenaires", label: "Partenaires & pilotes" },
-      { href: "/gouvernance", label: "Données & gouvernance" },
+      { href: "/methode", label: "Données & gouvernance" },
     ],
   },
 ];
@@ -120,7 +120,7 @@ export default function Footer() {
             </a>
             <span className="text-gray-300">·</span>
             <Link
-              href="/gouvernance"
+              href="/methode"
               className="text-xs text-gray-400 hover:text-gray-700 transition-colors"
             >
               Données & confidentialité
