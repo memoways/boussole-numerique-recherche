@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -161,12 +161,65 @@ export default function Projet() {
   const [etapeOuverte, setEtapeOuverte] = useState<number | null>(0);
   const [archOpen, setArchOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("intention");
+  // Ref pour bloquer temporairement l'observer après un clic (évite le flash)
+  const scrollingRef = useRef(false);
+  const scrollTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // IntersectionObserver : met à jour activeSection quand une section entre dans le viewport
+  useEffect(() => {
+    const sectionIds = SECTIONS.map((s) => s.id);
+    const observers: IntersectionObserver[] = [];
+
+    // On garde une map de visibilité pour choisir la section la plus haute visible
+    const visibilityMap: Record<string, boolean> = {};
+
+    const pickActive = () => {
+      if (scrollingRef.current) return;
+      // Parcourir les sections dans l'ordre du document et prendre la première visible
+      for (const id of sectionIds) {
+        if (visibilityMap[id]) {
+          setActiveSection(id);
+          return;
+        }
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          visibilityMap[entry.target.id] = entry.isIntersecting;
+        });
+        pickActive();
+      },
+      {
+        // rootMargin : on déclenche quand la section entre dans la zone 80px–50% du viewport
+        rootMargin: "-80px 0px -50% 0px",
+        threshold: 0,
+      }
+    );
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      observer.disconnect();
+      observers.forEach((o) => o.disconnect());
+    };
+  }, []);
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      // Bloquer l'observer pendant le scroll animé pour éviter les sauts
+      scrollingRef.current = true;
       setActiveSection(id);
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (scrollTimerRef.current) clearTimeout(scrollTimerRef.current);
+      scrollTimerRef.current = setTimeout(() => {
+        scrollingRef.current = false;
+      }, 800);
     }
   };
 
