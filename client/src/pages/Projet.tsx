@@ -88,51 +88,55 @@ const INSPIRATIONS = [
     id: 1,
     nom: "Nos Gestes Climat",
     url: "https://nosgestesclimat.fr",
-    porteur: "ADEME / beta.gouv.fr (France)",
+    porteur: "ADEME / beta.gouv.fr · France",
     couleur: "#3aab8a",
-    chiffre: "> 3 millions de tests (mai 2026)",
-    lecon: "La gratuité et l'open source ne sont pas des contraintes : ce sont des leviers d'adoption massive. Un outil pédagogue, sans jargon, peut toucher des millions de personnes.",
-    diff: "La Boussole s'adresse à un secteur spécifique (la culture genevoise) et explore des pratiques numériques plutôt que l'empreinte carbone.",
+    chiffre: "> 3 millions de tests",
+    lecon: "Gratuité + open source = adoption massive. La restitution visuelle immédiate est la clé de l'engagement.",
   },
   {
     id: 2,
-    nom: "Diag-numérique.fr",
-    url: "https://www.diag-numerique.fr",
-    porteur: "BPI France / DGE (France)",
-    couleur: "#E27227",
-    chiffre: "Outil de référence PME françaises",
-    lecon: "La structuration en dimensions mesurables et la comparaison avec des pairs sectoriels sont des qualités à retenir.",
-    diff: "Diag-numérique est conçu pour les PME généralistes. Il n'intègre pas la dimension culturelle ni les enjeux spécifiques des artistes. Pas de dimension IA.",
+    nom: "Digital Culture Compass",
+    url: "https://digitalculturecompass.org.uk",
+    porteur: "Arts Council England · Royaume-Uni",
+    couleur: "#1a6fb5",
+    chiffre: "Référence mondiale pour la culture",
+    lecon: "Niveaux d'engagement progressifs (Charte → Wayfinder → Tracker) : chaque organisation entre à son rythme.",
   },
   {
     id: 3,
-    nom: "AICred",
-    url: "https://aicred.ai",
-    porteur: "AICred (startup internationale)",
-    couleur: "#9b59b6",
-    chiffre: "Certification IA pour organisations",
-    lecon: "La rigueur d'un modèle d'évaluation structuré, avec des dimensions claires et des niveaux de maturité progressifs.",
-    diff: "La Boussole ne certifie pas. Elle ne classe pas. Elle s'adresse aux structures culturelles, avec un ton bienveillant et sans enjeu de performance.",
+    nom: "Zelfevaluatietool meemoo",
+    url: "https://www.digitalematuriteit.be",
+    porteur: "meemoo · Flandre (Belgique)",
+    couleur: "#2d6a4f",
+    chiffre: "47 affirmations · 5 catégories",
+    lecon: "La comparaison avec des pairs du même type est ce qui rend les résultats vraiment actionnables.",
   },
   {
     id: 4,
-    nom: "DeepLearning.AI Skill Builder",
-    url: "https://learn.deeplearning.ai",
-    porteur: "DeepLearning.AI (Andrew Ng)",
-    couleur: "#515792",
-    chiffre: "+7 millions d'apprenants",
-    lecon: "La fluidité d'une conversation guidée, la personnalisation selon le profil, et la clarté de la progression sont des qualités essentielles.",
-    diff: "La Boussole n'est pas un outil de formation. Elle ne cherche pas à enseigner, mais à rendre visible. Elle s'adresse à des non-spécialistes.",
+    nom: "Baromètre numérique FWB",
+    url: "https://www.culture.be",
+    porteur: "UCLouvain · Wallonie-Bruxelles",
+    couleur: "#c0392b",
+    chiffre: "401 opérateurs enquêtés · 5 personas",
+    lecon: "La segmentation en personas rend les recommandations bien plus pertinentes qu'un score global.",
   },
   {
     id: 5,
-    nom: "Observatoire du numérique genevois",
-    url: "https://www.ge.ch/numerique",
-    porteur: "État de Genève / DSIN",
-    couleur: "#E58441",
-    chiffre: "Données de référence cantonales",
-    lecon: "L'importance des données locales et contextualisées. Un observatoire ancré dans le territoire crée de la confiance et de la légitimité.",
-    diff: "L'Observatoire couvre tous les secteurs économiques sans focus culturel. La Boussole pourrait contribuer à combler ce manque en générant des données sectorielles.",
+    nom: "TMNlab État des lieux",
+    url: "https://www.tmnlab.com",
+    porteur: "TMNlab · Ministère de la Culture · France",
+    couleur: "#8e44ad",
+    chiffre: "2 enquêtes nationales (2016 & 2021)",
+    lecon: "L'approche longitudinale (avant/après) permet de mesurer l'évolution et de créer un baromètre sectoriel.",
+  },
+  {
+    id: 6,
+    nom: "Culture Compass for Europe",
+    url: "https://culture.ec.europa.eu/policies/culture-compass",
+    porteur: "Commission européenne · UE",
+    couleur: "#003399",
+    chiffre: "20 actions phares · Cadre 2025–2030",
+    lecon: "La Boussole s'inscrit dans les priorités européennes de transformation numérique culturelle — un argument fort pour les financeurs.",
   },
 ];
 
@@ -523,22 +527,21 @@ export default function Projet() {
             <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#3aab8a' }}>Exemples comparables</Badge>
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">Ce qui nous a inspirés</h2>
             <p className="text-gray-600 leading-relaxed mb-6">
-              Cinq outils existants ont été analysés en profondeur. Aucun ne répond aux besoins spécifiques des acteurs culturels genevois — mais chacun apporte une leçon précieuse.
-              Le tableau comparatif complet est disponible sur la{' '}
-              <Link href="/references" className="underline" style={{ color: '#515792' }}>page Références</Link>{' '}et la{' '}
-              <Link href="/recherche" className="underline" style={{ color: '#515792' }}>page Recherche</Link>.
+              Six initiatives internationales ont été analysées en profondeur — du Royaume-Uni à la Belgique, de la France à l'Union européenne. Aucune ne répond aux besoins spécifiques des acteurs culturels genevois, mais chacune apporte une leçon précieuse. La Boussole en tire le meilleur pour proposer quelque chose d'original et d'ancré localement.
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+
+            {/* Grille des références */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
               {INSPIRATIONS.map((ref) => (
                 <div
                   key={ref.id}
-                  className="rounded-xl border p-5 hover:shadow-md hover:-translate-y-0.5 transition-all group"
+                  className="rounded-xl border p-4 hover:shadow-md hover:-translate-y-0.5 transition-all"
                   style={{ borderColor: ref.couleur + '30', borderLeftWidth: '4px', borderLeftColor: ref.couleur }}
                 >
-                  <div className="flex items-start justify-between gap-2 mb-2">
+                  <div className="flex items-start justify-between gap-2 mb-1.5">
                     <div>
-                      <h3 className="font-bold text-gray-900 text-sm">{ref.nom}</h3>
-                      <p className="text-xs text-gray-400">{ref.porteur}</p>
+                      <h3 className="font-bold text-gray-900 text-sm leading-snug">{ref.nom}</h3>
+                      <p className="text-xs text-gray-400 mt-0.5">{ref.porteur}</p>
                     </div>
                     <a
                       href={ref.url}
@@ -550,26 +553,21 @@ export default function Projet() {
                       <ExternalLink className="h-3.5 w-3.5" />
                     </a>
                   </div>
-                  <p className="text-xs font-semibold mb-3" style={{ color: ref.couleur }}>{ref.chiffre}</p>
-                  <div className="space-y-2">
-                    <div>
-                      <span className="text-xs font-bold text-gray-500 uppercase tracking-wide block mb-0.5">💡 Ce qu'on en apprend</span>
-                      <p className="text-xs text-gray-600 leading-relaxed">{ref.lecon}</p>
-                    </div>
-                    <div>
-                      <span className="text-xs font-bold text-gray-500 uppercase tracking-wide block mb-0.5">🧭 Ce que la Boussole fait différemment</span>
-                      <p className="text-xs text-gray-600 leading-relaxed">{ref.diff}</p>
-                    </div>
-                  </div>
+                  <p className="text-xs font-semibold mb-2" style={{ color: ref.couleur }}>{ref.chiffre}</p>
+                  <p className="text-xs text-gray-500 leading-relaxed">{ref.lecon}</p>
                 </div>
               ))}
             </div>
+
+            <div className="rounded-xl p-4 border border-gray-100 bg-slate-50 mb-5">
+              <p className="text-sm text-gray-600 leading-relaxed">
+                Pour chaque référence : analyse complète, chiffres clés, ce que la Boussole en apprend, ce qu'elle fait différemment, et liens vers les sources originales.
+              </p>
+            </div>
+
             <div className="flex flex-wrap gap-3">
-              <Button variant="outline" size="sm" style={{ borderColor: '#3aab8a', color: '#3aab8a' }} asChild>
-                <Link href="/references">Tableau comparatif détaillé (10 critères) <ArrowRight className="ml-1 h-3 w-3" /></Link>
-              </Button>
-              <Button variant="outline" size="sm" style={{ borderColor: '#515792', color: '#515792' }} asChild>
-                <Link href="/recherche">Analyse complète sur la page Recherche <ArrowRight className="ml-1 h-3 w-3" /></Link>
+              <Button style={{ backgroundColor: '#3aab8a' }} size="sm" asChild>
+                <Link href="/references">Fiches détaillées & tableau comparatif <ArrowRight className="ml-1 h-3 w-3" /></Link>
               </Button>
             </div>
           </section>

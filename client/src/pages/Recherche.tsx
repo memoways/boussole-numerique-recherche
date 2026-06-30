@@ -118,12 +118,12 @@ const LEARNINGS: {
     id: 8,
     titre: "Les outils existants ne parlent pas aux artistes et petites structures",
     resume: "Trop techniques, trop génériques, trop coûteux : les outils de diagnostic numérique actuels excluent de fait les acteurs culturels indépendants.",
-    detail: "L'analyse comparative de 5 outils (Observatoire du numérique Genève, Diag-numerique.fr, Visiativ, CMA France, AICred) montre que tous présentent des limites rédhibitoires pour le secteur culturel : orientation commerciale, questions génériques, absence de dimension IA, interface peu accessible pour les non-spécialistes.",
+    detail: "L'analyse comparative de sept initiatives internationales — du Digital Culture Compass (Royaume-Uni) au Baromètre FWB (Belgique), en passant par l'Observatoire du numérique genevois — montre qu'aucune ne répond aux besoins spécifiques des acteurs culturels genevois : ancrage local absent, dimension IA manquante, langue française peu présente, petites structures mal couvertes.",
     tags: ['Problématique', 'Solution'] as LearningTag[],
     source: 'Analyse comparative Boussole · Juin 2026',
     sources: [
-      { label: 'Diag-numerique.fr — BPI France', url: 'https://www.diag-numerique.fr' },
-      { label: 'AICred — Certification IA organisations', url: 'https://aicred.ai' },
+      { label: 'Digital Culture Compass — Arts Council England', url: 'https://digitalculturecompass.org.uk' },
+      { label: 'Zelfevaluatietool meemoo — Flandre', url: 'https://meemoo.be/en/tools/digital-maturity-self-assessment-tool' },
       { label: 'Observatoire numérique genevois', url: 'https://www.ge.ch/numerique' },
     ],
   },
@@ -227,61 +227,6 @@ const ALL_TAGS: LearningTag[] = ['Enjeu', 'Problématique', 'Solution', 'Perspec
 export default function Recherche() {
   const [activeTag, setActiveTag] = useState<LearningTag | null>(null);
   const [insightOuvert, setInsightOuvert] = useState<number | null>(null);
-
-  // ── État tableau comparatif ───────────────────────────────────────────
-  const [filtresCriteres, setFiltresCriteres] = useState<Set<number>>(new Set());
-  const [sortColComp, setSortColComp] = useState<number | null>(null);
-  const [sortDirComp, setSortDirComp] = useState<'desc' | 'asc'>('desc');
-
-  const COLS_COMP = [
-    { nom: "Boussole", short: "Boussole", couleur: "#515792", estBoussole: true },
-    { nom: "Nos Gestes Climat", short: "NGC", couleur: "#3aab8a", estBoussole: false },
-    { nom: "Diag-numérique.fr", short: "Diag-num.", couleur: "#E27227", estBoussole: false },
-    { nom: "AICred", short: "AICred", couleur: "#9b59b6", estBoussole: false },
-    { nom: "DL.AI Skill Builder", short: "DL.AI", couleur: "#515792", estBoussole: false },
-    { nom: "Obs. GE", short: "Obs. GE", couleur: "#E58441", estBoussole: false },
-  ];
-
-  const ROWS_COMP = [
-    { label: "Gratuit", vals: [true, true, true, false, "partiel" as const, true] },
-    { label: "Open source", vals: [true, true, false, false, false, false] },
-    { label: "Secteur culturel", vals: [true, false, false, false, false, false] },
-    { label: "Dimension IA", vals: [true, false, false, true, true, false] },
-    { label: "Petites structures", vals: [true, true, "partiel" as const, false, "partiel" as const, false] },
-    { label: "Ancrage local (GE)", vals: [true, false, "partiel" as const, false, false, true] },
-    { label: "Multimodal", vals: [true, false, false, false, false, false] },
-    { label: "Restitution visuelle", vals: [true, true, true, true, "partiel" as const, "partiel" as const] },
-    { label: "Comparaison pairs", vals: [true, false, true, "partiel" as const, false, false] },
-    { label: "Souveraineté données", vals: [true, true, "partiel" as const, false, false, true] },
-  ];
-
-  const score = (v: boolean | 'partiel') => v === true ? 2 : v === 'partiel' ? 1 : 0;
-
-  // Lignes filtrées selon les critères actifs
-  const rowsAffiches = filtresCriteres.size === 0
-    ? ROWS_COMP
-    : ROWS_COMP.filter((_, ri) => filtresCriteres.has(ri));
-
-  // Colonnes triées (Boussole toujours en 1ère position)
-  const colsOrdre = (() => {
-    const indices = COLS_COMP.map((_, i) => i);
-    if (sortColComp === null) return indices;
-    const [boussole, ...rest] = indices;
-    rest.sort((a, b) => {
-      const scoreA = rowsAffiches.reduce((acc, row) => acc + score(row.vals[a] as boolean | 'partiel'), 0);
-      const scoreB = rowsAffiches.reduce((acc, row) => acc + score(row.vals[b] as boolean | 'partiel'), 0);
-      return sortDirComp === 'desc' ? scoreB - scoreA : scoreA - scoreB;
-    });
-    return [boussole, ...rest];
-  })();
-
-  function toggleFiltreComp(ri: number) {
-    setFiltresCriteres(prev => {
-      const next = new Set(prev);
-      if (next.has(ri)) next.delete(ri); else next.add(ri);
-      return next;
-    });
-  }
 
   const filtered = activeTag
     ? LEARNINGS.filter(l => l.tags.includes(activeTag))
@@ -447,73 +392,32 @@ export default function Recherche() {
       <section id="comparatif" className="py-14 px-4" style={{ scrollMarginTop: '80px', backgroundColor: '#f8f9fc' }}>
         <div className="max-w-5xl mx-auto">
           <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#515792' }}>Analyse comparative</Badge>
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">Outils comparables & inspirations</h2>
-          <p className="text-gray-600 leading-relaxed mb-2">
-            Cinq outils ont été analysés en profondeur avant de concevoir la Boussole. Aucun ne répond aux besoins spécifiques des acteurs culturels genevois — mais chacun apporte une leçon précieuse.
-          </p>
-          <p className="text-sm text-gray-400 mb-8">
-            Tableau interactif sur 10 critères. La colonne Boussole est toujours affichée en premier.
-            Voir aussi la <a href="/references" className="underline" style={{ color: '#515792' }}>page Références</a> pour les fiches détaillées.
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Outils comparables & inspirations</h2>
+
+          <p className="text-gray-600 leading-relaxed mb-8 max-w-3xl">
+            Sept initiatives internationales ont été analysées en profondeur avant de concevoir la Boussole — du Royaume-Uni à la Belgique, de la France à l'Union européenne. Cette analyse comparative est au cœur de la démarche : apprendre de l'existant pour proposer un outil utile, original et bien pensé.
           </p>
 
-          {/* Fiches résumées */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+          {/* Grille synthétique */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
             {[
-              {
-                nom: "Nos Gestes Climat",
-                porteur: "ADEME / beta.gouv.fr (France)",
-                url: "https://nosgestesclimat.fr",
-                couleur: "#3aab8a",
-                chiffre: "> 3 millions de tests (mai 2026)",
-                lecon: "La gratuité et l'open source sont des leviers d'adoption massive. Un outil pédagogue, sans jargon, peut toucher des millions de personnes.",
-                diff: "La Boussole s'adresse à un secteur spécifique et explore des pratiques numériques plutôt que l'empreinte carbone.",
-              },
-              {
-                nom: "Diag-numérique.fr",
-                porteur: "BPI France / DGE (France)",
-                url: "https://www.diag-numerique.fr",
-                couleur: "#E27227",
-                chiffre: "Outil de référence PME françaises",
-                lecon: "La structuration en dimensions mesurables et la comparaison avec des pairs sectoriels sont des qualités essentielles.",
-                diff: "Conçu pour les PME généralistes. Pas de dimension IA ni d'ancrage culturel.",
-              },
-              {
-                nom: "AICred",
-                porteur: "AICred (startup internationale)",
-                url: "https://aicred.ai",
-                couleur: "#9b59b6",
-                chiffre: "Certification IA pour organisations",
-                lecon: "La rigueur d'un modèle d'évaluation structuré avec des niveaux de maturité progressifs.",
-                diff: "La Boussole ne certifie pas. Elle s'adresse aux structures culturelles, sans enjeu de performance.",
-              },
-              {
-                nom: "DeepLearning.AI Skill Builder",
-                porteur: "DeepLearning.AI (Andrew Ng)",
-                url: "https://learn.deeplearning.ai",
-                couleur: "#515792",
-                chiffre: "+7 millions d'apprenants",
-                lecon: "La fluidité d'une conversation guidée et la personnalisation selon le profil sont des qualités essentielles.",
-                diff: "La Boussole n'est pas un outil de formation. Elle rend visible, pas enseigne.",
-              },
-              {
-                nom: "Observatoire numérique genevois",
-                porteur: "État de Genève / DSIN",
-                url: "https://www.ge.ch/numerique",
-                couleur: "#E58441",
-                chiffre: "Données de référence cantonales",
-                lecon: "L'importance des données locales et contextualisées. Un ancrage territorial crée de la confiance.",
-                diff: "L'Observatoire couvre tous les secteurs sans focus culturel. La Boussole comble ce manque.",
-              },
+              { nom: "Nos Gestes Climat", porteur: "ADEME / beta.gouv.fr · France", url: "https://nosgestesclimat.fr", couleur: "#3aab8a", lecon: "Gratuité + open source = adoption massive. La restitution visuelle immédiate est la clé." },
+              { nom: "Digital Culture Compass", porteur: "Arts Council England · Royaume-Uni", url: "https://digitalculturecompass.org.uk", couleur: "#1a6fb5", lecon: "Niveaux d'engagement progressifs : chaque organisation entre à son rythme." },
+              { nom: "Zelfevaluatietool meemoo", porteur: "meemoo · Flandre (Belgique)", url: "https://www.digitalematuriteit.be", couleur: "#2d6a4f", lecon: "La comparaison avec des pairs du même type rend les résultats vraiment actionnables." },
+              { nom: "Baromètre numérique FWB", porteur: "UCLouvain · Wallonie-Bruxelles", url: "https://www.culture.be", couleur: "#c0392b", lecon: "La segmentation en personas rend les recommandations bien plus pertinentes qu'un score global." },
+              { nom: "TMNlab État des lieux", porteur: "TMNlab · Ministère de la Culture · France", url: "https://www.tmnlab.com", couleur: "#8e44ad", lecon: "L'approche longitudinale (avant/après) permet de mesurer l'évolution et de créer un baromètre sectoriel." },
+              { nom: "Culture Compass for Europe", porteur: "Commission européenne · UE", url: "https://culture.ec.europa.eu/policies/culture-compass", couleur: "#003399", lecon: "La Boussole s'inscrit dans les priorités européennes — un argument fort pour les financeurs." },
+              { nom: "Observatoire numérique genevois", porteur: "État de Genève / DSIN", url: "https://www.ge.ch/numerique", couleur: "#E58441", lecon: "Les données locales et contextualisées créent de la confiance et de la légitimité." },
             ].map((ref, i) => (
               <div
                 key={i}
-                className="bg-white rounded-xl border p-5 hover:shadow-md hover:-translate-y-0.5 transition-all"
-                style={{ borderColor: ref.couleur + '30', borderLeftWidth: '4px', borderLeftColor: ref.couleur }}
+                className="bg-white rounded-xl border p-4 hover:shadow-sm transition-all"
+                style={{ borderColor: ref.couleur + '30', borderLeftWidth: '3px', borderLeftColor: ref.couleur }}
               >
-                <div className="flex items-start justify-between gap-2 mb-2">
+                <div className="flex items-start justify-between gap-2 mb-1.5">
                   <div>
-                    <h3 className="font-bold text-gray-900 text-sm">{ref.nom}</h3>
-                    <p className="text-xs text-gray-400">{ref.porteur}</p>
+                    <h3 className="font-bold text-gray-900 text-sm leading-snug">{ref.nom}</h3>
+                    <p className="text-xs text-gray-400 mt-0.5">{ref.porteur}</p>
                   </div>
                   <a href={ref.url} target="_blank" rel="noopener noreferrer"
                     className="flex-shrink-0 p-1.5 rounded-lg hover:opacity-70 transition-colors"
@@ -521,181 +425,25 @@ export default function Recherche() {
                     <ExternalLink className="h-3.5 w-3.5" />
                   </a>
                 </div>
-                <p className="text-xs font-semibold mb-3" style={{ color: ref.couleur }}>{ref.chiffre}</p>
-                <div className="space-y-2">
-                  <div>
-                    <span className="text-xs font-bold text-gray-500 uppercase tracking-wide block mb-0.5">💡 Leçon retenue</span>
-                    <p className="text-xs text-gray-600 leading-relaxed">{ref.lecon}</p>
-                  </div>
-                  <div>
-                    <span className="text-xs font-bold text-gray-500 uppercase tracking-wide block mb-0.5">🧭 Ce que la Boussole fait différemment</span>
-                    <p className="text-xs text-gray-600 leading-relaxed">{ref.diff}</p>
-                  </div>
-                </div>
+                <p className="text-xs text-gray-500 leading-relaxed">{ref.lecon}</p>
               </div>
             ))}
           </div>
 
-          {/* Tableau comparatif interactif */}
-          <div className="mb-4 flex items-center gap-2 flex-wrap">
-            <span className="text-xs font-bold text-gray-500 uppercase tracking-wide flex items-center gap-1">
-              <Filter className="h-3 w-3" /> Filtrer par critère
-            </span>
-            <button
-              onClick={() => setFiltresCriteres(new Set())}
-              className={`text-xs px-3 py-1 rounded-full border transition-all ${
-                filtresCriteres.size === 0
-                  ? 'text-white border-transparent'
-                  : 'text-gray-500 border-gray-200 hover:border-gray-400'
-              }`}
-              style={filtresCriteres.size === 0 ? { backgroundColor: '#515792' } : {}}
-            >
-              Tous ({ROWS_COMP.length})
-            </button>
-            {ROWS_COMP.map((row, ri) => {
-              const actif = filtresCriteres.has(ri);
-              return (
-                <button
-                  key={ri}
-                  onClick={() => toggleFiltreComp(ri)}
-                  className={`text-xs px-3 py-1 rounded-full border transition-all ${
-                    actif ? 'text-white border-transparent' : 'text-gray-500 border-gray-200 hover:border-gray-400'
-                  }`}
-                  style={actif ? { backgroundColor: '#515792' } : {}}
-                >
-                  {row.label}
-                </button>
-              );
-            })}
-          </div>
-
-          {filtresCriteres.size > 0 && (
-            <p className="text-xs text-gray-400 mb-3 italic">
-              {filtresCriteres.size} critère{filtresCriteres.size > 1 ? 's' : ''} sélectionné{filtresCriteres.size > 1 ? 's' : ''} — seuls les outils qui les satisfont pleinement sont mis en avant.
+          {/* Encart renvoi vers page Références */}
+          <div className="rounded-2xl p-6 border-l-4 mb-6" style={{ backgroundColor: '#f0f1f8', borderColor: '#515792' }}>
+            <h3 className="font-bold text-gray-900 mb-2">Analyse complète sur la page Références</h3>
+            <p className="text-sm text-gray-600 leading-relaxed mb-4">
+              Pour chaque outil : fiche détaillée, chiffres clés, ce que la Boussole en apprend, ce qu'elle fait différemment, limites de la référence, et liens vers les sources originales. Plus un tableau comparatif interactif sur 10 critères, et une section "Idées et concepts intéressants pour la Boussole".
             </p>
-          )}
-
-          <h3 className="text-lg font-bold text-gray-900 mb-2">Tableau comparatif — {rowsAffiches.length} critère{rowsAffiches.length > 1 ? 's' : ''}</h3>
-          <p className="text-xs text-gray-400 mb-4">Cliquez sur un en-tête de colonne pour trier les outils par score sur les critères affichés.</p>
-          <div className="rounded-2xl border border-gray-200 overflow-hidden shadow-sm bg-white">
-            <div className="overflow-x-auto">
-              <table className="w-full text-xs">
-                <thead>
-                  <tr style={{ backgroundColor: '#f8f9fc' }}>
-                    <th className="text-left px-4 py-3 font-bold text-gray-500 uppercase tracking-wider min-w-[160px] sticky left-0 bg-slate-50 z-10">Critère</th>
-                    {colsOrdre.map((ci) => {
-                      const col = COLS_COMP[ci];
-                      const colScore = rowsAffiches.reduce((acc, row) => acc + score(row.vals[ci] as boolean | 'partiel'), 0);
-                      const maxScore = rowsAffiches.length * 2;
-                      const pct = maxScore > 0 ? Math.round((colScore / maxScore) * 100) : 0;
-                      return (
-                        <th
-                          key={ci}
-                          className="px-3 py-2 text-center font-semibold min-w-[90px] cursor-pointer select-none group"
-                          style={{
-                            color: col.couleur,
-                            backgroundColor: col.estBoussole ? col.couleur + '12' : undefined,
-                          }}
-                          onClick={() => {
-                            if (!col.estBoussole) {
-                              if (sortColComp === ci) setSortDirComp(d => d === 'desc' ? 'asc' : 'desc');
-                              else { setSortColComp(ci); setSortDirComp('desc'); }
-                            }
-                          }}
-                        >
-                          <div className="flex flex-col items-center gap-0.5">
-                            <span className="flex items-center gap-0.5">
-                              {col.short}
-                              {!col.estBoussole && (
-                                <span className="text-gray-300 text-xs ml-0.5">
-                                  {sortColComp === ci ? (sortDirComp === 'desc' ? '↓' : '↑') : '↕'}
-                                </span>
-                              )}
-                              {col.estBoussole && <span className="ml-0.5">✓</span>}
-                            </span>
-                            <span className="text-xs font-normal" style={{ color: col.couleur + 'aa' }}>{pct}%</span>
-                          </div>
-                        </th>
-                      );
-                    })}
-                  </tr>
-                </thead>
-                <tbody>
-                  {rowsAffiches.map((row, ri) => {
-                    const origRi = ROWS_COMP.indexOf(row);
-                    const actif = filtresCriteres.has(origRi);
-                    return (
-                      <tr
-                        key={ri}
-                        className="border-t border-gray-100 transition-colors cursor-pointer"
-                        style={{ backgroundColor: actif ? '#51579208' : undefined }}
-                        onClick={() => toggleFiltreComp(origRi)}
-                        title={actif ? 'Retirer ce filtre' : 'Filtrer sur ce critère'}
-                      >
-                        <td className="px-4 py-2.5 font-medium sticky left-0 bg-white z-10" style={{ color: actif ? '#515792' : '#374151' }}>
-                          <span className="flex items-center gap-1.5">
-                            {actif && <span className="w-1.5 h-1.5 rounded-full inline-block flex-shrink-0" style={{ backgroundColor: '#515792' }} />}
-                            {row.label}
-                          </span>
-                        </td>
-                        {colsOrdre.map((ci) => {
-                          const v = row.vals[ci];
-                          const col = COLS_COMP[ci];
-                          return (
-                            <td key={ci} className="px-3 py-2.5 text-center" style={{ backgroundColor: col.estBoussole ? '#51579208' : undefined }}>
-                              {v === true
-                                ? <span className="inline-flex items-center justify-center w-5 h-5 rounded-full" style={{ backgroundColor: '#3aab8a20' }}>
-                                    <span style={{ color: '#3aab8a', fontSize: '11px', fontWeight: 'bold' }}>✓</span>
-                                  </span>
-                                : v === 'partiel'
-                                ? <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-amber-50">
-                                    <span className="text-amber-400 text-xs font-bold">~</span>
-                                  </span>
-                                : <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-gray-50">
-                                    <span className="text-gray-300 text-xs">✕</span>
-                                  </span>
-                              }
-                            </td>
-                          );
-                        })}
-                      </tr>
-                    );
-                  })}
-                </tbody>
-                <tfoot>
-                  <tr className="border-t-2 border-gray-200" style={{ backgroundColor: '#f8f9fc' }}>
-                    <td className="px-4 py-2.5 text-xs font-bold text-gray-500 uppercase tracking-wide sticky left-0" style={{ backgroundColor: '#f8f9fc' }}>Score total</td>
-                    {colsOrdre.map((ci) => {
-                      const col = COLS_COMP[ci];
-                      const colScore = rowsAffiches.reduce((acc, row) => acc + score(row.vals[ci] as boolean | 'partiel'), 0);
-                      const maxScore = rowsAffiches.length * 2;
-                      return (
-                        <td key={ci} className="px-3 py-2.5 text-center" style={{ backgroundColor: col.estBoussole ? col.couleur + '12' : undefined }}>
-                          <span className="text-xs font-bold" style={{ color: col.couleur }}>
-                            {colScore}/{maxScore}
-                          </span>
-                        </td>
-                      );
-                    })}
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
-            <div className="px-4 py-2 text-xs text-gray-400 italic border-t border-gray-100 flex items-center justify-between flex-wrap gap-2" style={{ backgroundColor: '#f8f9fc' }}>
-              <span>Analyse comparative réalisée en juin 2026 · ✓ = oui · ~ = partiel · ✕ = non</span>
-              <a href="/references" className="underline" style={{ color: '#515792' }}>Fiches détaillées →</a>
-            </div>
-          </div>
-
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Button variant="outline" size="sm" style={{ borderColor: '#515792', color: '#515792' }} asChild>
-              <Link href="/references">Fiches détaillées par outil <ArrowRight className="ml-1 h-3 w-3" /></Link>
+            <Button style={{ backgroundColor: '#515792' }} asChild>
+              <Link href="/references">Voir les fiches détaillées & tableau comparatif <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Documents */}
+            {/* Documents */}
       <section className="py-14 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold text-gray-900 mb-3">Accès aux documents complets</h2>
