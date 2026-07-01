@@ -5,91 +5,79 @@ import { ArrowRight, ChevronDown, ChevronUp, Calendar, Users, Wrench, TestTube, 
 import { Link } from "wouter";
 
 /**
- * Page /timeline — Calendrier du projet (18 mois, 5 phases)
- * Pas de détails financiers selon le PRD
- * Couleurs Memoways : bleu #515792, orange #E27227
+ * Page /timeline — Calendrier du projet (24 mois, 4 phases)
+ * Pas de détails financiers
+ * Couleurs Memoways : bleu #515792, orange #E27227, vert #3aab8a
  */
 
 const PHASES = [
   {
     num: "01",
-    titre: "Cadrage et co-conception",
-    duree: "Mois 1–4",
+    titre: "Conception participative",
+    duree: "Mois 1–3",
     icon: Users,
     couleur: "#515792",
     statut: "En cours",
     items: [
-      "Ateliers avec les partenaires culturels",
-      "Entretiens individuels avec des professionnels",
-      "Validation des cinq dimensions",
+      "Ateliers de cadrage avec les partenaires culturels confirmés",
+      "Entretiens individuels avec des professionnels du secteur",
+      "Validation des cinq dimensions d'évaluation",
       "Scénarios d'usage (individuel et structure)",
-      "Premières maquettes du questionnaire",
+      "Premières maquettes du questionnaire adaptatif",
+      "Validation des formulations et des références locales",
     ],
-    detail: "Cette phase est la plus importante. Elle détermine la pertinence de tout ce qui suit. L'objectif est de comprendre les pratiques réelles des structures culturelles genevoises — pas de projeter des hypothèses sur elles.",
+    detail: "Cette phase est la plus déterminante. Elle ancre l'outil dans les pratiques réelles des structures culturelles genevoises. L'objectif n'est pas de projeter des hypothèses, mais d'écouter, de reformuler et de valider avec celles et ceux qui utiliseront la Boussole.",
   },
   {
     num: "02",
-    titre: "Prototype fonctionnel",
-    duree: "Mois 5–9",
-    icon: Wrench,
+    titre: "Tests et ajustements",
+    duree: "Mois 4–5",
+    icon: TestTube,
     couleur: "#E27227",
     statut: "À venir",
     items: [
-      "Questionnaire conversationnel complet",
-      "Modes individuel et structure",
+      "Prototype fonctionnel du questionnaire conversationnel",
       "Restitution visuelle (radar cinq dimensions)",
-      "Synthèse personnalisée",
-      "Premières recommandations",
-      "Base de ressources adaptées",
+      "Synthèse personnalisée et pistes d'action",
+      "Sessions de tests avec les partenaires pilotes",
+      "Ajustements UX, formulations et recommandations",
+      "Vérification des principes de données et de consentement",
     ],
-    detail: "Le prototype fonctionnel est une version testable de la Boussole. Elle n'est pas encore parfaite, mais elle est suffisamment complète pour être utilisée dans des conditions proches du réel.",
+    detail: "Le prototype est confronté à la réalité du terrain. Chaque session de test est documentée. Les retours sont intégrés de manière transparente, avec une traçabilité des décisions prises. La phase se conclut par un prototype stabilisé, prêt pour la mise en ligne.",
   },
   {
     num: "03",
-    titre: "Tests et affinages",
-    duree: "Mois 10–13",
-    icon: TestTube,
+    titre: "Version publique",
+    duree: "Mois 6–8",
+    icon: Globe,
     couleur: "#3aab8a",
     statut: "À venir",
     items: [
-      "Tests avec les partenaires culturels",
-      "Ajustements UX et formulations",
-      "Correction des formulations ambiguës",
-      "Amélioration des recommandations",
-      "Vérification des principes de données",
+      "Mise à disposition publique de la Boussole",
+      "Communication vers les structures culturelles genevoises",
+      "Activation du mécanisme de retour continu (questionnaire de satisfaction)",
+      "Suivi des premiers usages et des retours",
+      "Rapport d'évaluation intermédiaire (fin de phase pilote)",
+      "Ajustements prioritaires basés sur les retours",
     ],
-    detail: "Les tests permettent de confronter le prototype à la réalité. Chaque session est documentée. Les retours sont intégrés de manière transparente, avec une traçabilité des décisions prises.",
+    detail: "La mise à disposition publique est une étape, pas une fin. La Boussole est lancée, observée et ajustée. Un rapport d'évaluation intermédiaire documente les premiers usages et oriente les améliorations à venir.",
   },
   {
     num: "04",
-    titre: "Fonctionnement public",
-    duree: "Mois 14–16",
-    icon: Globe,
+    titre: "Exploitation et amélioration continue",
+    duree: "Mois 9–24",
+    icon: BookOpen,
     couleur: "#9b59b6",
     statut: "À venir",
     items: [
-      "Mise à disposition publique de la Boussole",
-      "Retours d'usage des premiers utilisateurs",
-      "Documentation continue",
-      "Suivi des besoins émergents",
-      "Amélioration continue légère",
-    ],
-    detail: "La mise à disposition publique est une étape, pas une fin. La Boussole continue d'évoluer avec les retours des utilisateurs. Le portail compagnon joue ici un rôle central : suivre l'avancement, partager les apprentissages.",
-  },
-  {
-    num: "05",
-    titre: "Bilan et transmission",
-    duree: "Mois 17–18",
-    icon: BookOpen,
-    couleur: "#E58441",
-    statut: "À venir",
-    items: [
-      "Rapport de retour d'expérience",
-      "Synthèse anonymisée des usages",
+      "Hébergement et maintenance de l'outil",
+      "Enrichissement continu de la base de ressources",
+      "Diffusion élargie vers de nouvelles structures",
+      "Améliorations itératives basées sur les usages",
       "Documentation ouverte de la méthode",
-      "Pistes d'évolution identifiées",
+      "Rapport final et pistes d'évolution (fin de mois 24)",
     ],
-    detail: "Le bilan est une ressource pour l'ensemble du secteur. Il documente ce qui a fonctionné, ce qui a été difficile, et ce qui pourrait être amélioré. Il est publié en accès libre.",
+    detail: "La phase la plus longue est celle de la vie réelle de l'outil. La Boussole est utilisée, enrichie et documentée. L'objectif est d'atteindre 1 500 tests réalisés et 600 utilisateurs inscrits, dont 30 % de manière régulière. Un rapport final documente les apprentissages et les pistes d'évolution pour la suite.",
   },
 ];
 
@@ -107,11 +95,11 @@ export default function Timeline() {
             Calendrier du projet
           </h1>
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl leading-relaxed mb-6">
-            Un projet de 18 mois, organisé en cinq phases progressives — de la co-conception au bilan ouvert.
+            Un projet de 24 mois, organisé en quatre phases progressives — de la conception participative à l'exploitation et l'amélioration continue.
           </p>
           <div className="flex items-center gap-2 text-sm text-gray-500 bg-gray-100 rounded-full px-4 py-2 w-fit">
             <Calendar className="h-4 w-4" />
-            <span>18 mois · 5 phases</span>
+            <span>24 mois · 4 phases</span>
           </div>
         </div>
       </section>
