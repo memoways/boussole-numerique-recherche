@@ -24,11 +24,11 @@ const PROBLEMATIQUES = [
 ];
 
 const DIMENSIONS = [
-  { icon: "🛠️", titre: "Outils & méthodes de travail", desc: "Les logiciels et méthodes utilisés au quotidien : la collaboration se fait-elle dans les fichiers ? Comment circulent les fichiers, comment sont suivis les projets ?" },
-  { icon: "🎓", titre: "Compétences & culture numérique", desc: "Quel est le niveau de confiance avec les outils du numérique ? Comment les compétences internes ? L'IA a-t-elle été expérimentée ?" },
-  { icon: "🗄️", titre: "Données, archivage & documentation", desc: "Est-il possible de retrouver les fichiers d'un projet d'il y a 3 ans ? Y a-t-il une politique de sauvegarde ? L'accès est-il contrôlé ?" },
-  { icon: "📡", titre: "Médiation, publics & communication", desc: "Comment le numérique est-il utilisé pour rejoindre les publics ? Y a-t-il un site, une lettre d'info, une newsletter ? Les outils numériques ?" },
-  { icon: "🔗", titre: "Partage & cohérence des pratiques", desc: "Les informations circulent-elles facilement au sein de la structure ? Y a-t-il un démarrage similaire ou chacun fait ce qui lui convient ?" },
+  { icon: "🛠️", titre: "Outils et manières de travailler", desc: "Les logiciels et méthodes utilisés au quotidien : la collaboration se fait-elle dans les fichiers ? Comment circulent les fichiers, comment sont suivis les projets ?" },
+  { icon: "🎓", titre: "Compétences et culture numérique", desc: "Quel est le niveau de confiance avec les outils du numérique ? Comment les compétences internes ? L'IA a-t-elle été expérimentée ?" },
+  { icon: "🗄️", titre: "Données, archivage et documentation", desc: "Est-il possible de retrouver les fichiers d'un projet d'il y a 3 ans ? Y a-t-il une politique de sauvegarde ? L'accès est-il contrôlé ?" },
+  { icon: "📡", titre: "Médiation, publics et communication numérique", desc: "Comment le numérique est-il utilisé pour rejoindre les publics ? Y a-t-il un site, une lettre d'info, une newsletter ? Les outils numériques ?" },
+  { icon: "🔗", titre: "Partage, circulation et cohérence des pratiques", desc: "Les informations circulent-elles facilement au sein de la structure ? Y a-t-il un démarrage similaire ou chacun fait ce qui lui convient ?" },
 ];
 
 const ETAPES_EXPERIENCE = [
@@ -36,22 +36,22 @@ const ETAPES_EXPERIENCE = [
     num: 1,
     couleur: "#515792",
     titre: "La Photo",
-    duree: "10–15 min · Quiz d'exploration",
-    desc: "Un questionnaire adaptatif qui explore vos pratiques numériques en 5 dimensions. Pas de jargon, pas de piège. Juste des situations concrètes du quotidien.",
+    duree: "10–15 min · Questionnaire adaptatif",
+    desc: "Un questionnaire adaptatif qui explore vos pratiques numériques en 5 dimensions. Les questions s'ajustent selon vos réponses précédentes. Pas de jargon, pas de piège — juste des situations concrètes du quotidien.",
   },
   {
     num: 2,
     couleur: "#3aab8a",
     titre: "Le Panorama",
     duree: "Restitution visuelle immersive",
-    desc: "Une carte radar de vos pratiques, lisible en un coup d'œil. Vous voyez immédiatement où vous êtes à l'aise, où se trouvent les frictions, et ce qui mérite attention.",
+    desc: "Une carte radar de vos pratiques, lisible en un coup d'œil. Vous voyez immédiatement où vous êtes à l'aise, où se trouvent les frictions, et ce qui mérite attention. Les pistes d'action sont organisées en trois horizons : gestes rapides à mettre en place en quelques jours, chantiers de fond à ouvrir sur quelques mois, et ambitions à plus long terme.",
   },
   {
     num: 3,
     couleur: "#E27227",
     titre: "L'Approfondissement",
-    duree: "Avec compte détaillé · Suivi dans le temps",
-    desc: "Un dialogue guidé par IA pour explorer les priorités identifiées. Des ressources concrètes, calibrées à votre contexte. Un suivi dans le temps pour mesurer les progrès.",
+    duree: "Avec inscription · Suivi dans le temps",
+    desc: "Un dialogue guidé par IA pour explorer les priorités identifiées. Des ressources concrètes, calibrées à votre contexte et à l'écosystème genevois. Un suivi dans le temps pour mesurer les progrès.",
   },
 ];
 
@@ -77,10 +77,12 @@ const PRINCIPES = [
 
 
 const OBJECTIFS = [
-  "Des centaines d'utilisateurs actifs, avec un taux de retour significatif (objectif indicatif, à affiner avec les partenaires)",
+  "1 500 tests réalisés",
+  "600 utilisateurs inscrits, dont 30 % utilisant l'outil de manière régulière",
   "Un relai actif par les partenaires institutionnels genevois",
   "Une base de connaissances enrichie par la communauté et les retours d'usage",
-  "Des données anonymisées permettant un diagnostic collectif des pratiques numériques du secteur",
+  "Des données anonymisées permettant de mesurer l'état réel des pratiques numériques du secteur culturel genevois",
+  "Un diagnostic d'écosystème qui n'existe nulle part aujourd'hui",
 ];
 
 const INSPIRATIONS = [
@@ -378,7 +380,7 @@ export default function Projet() {
             <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#3aab8a' }}>La proposition</Badge>
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-5">Ce que fait la Boussole, concrètement</h2>
             <p className="text-gray-600 leading-relaxed mb-8">
-              La Boussole Numérique Culture est une application web gratuite qui propose une <strong className="text-gray-900">expérience conversationnelle guidée</strong> — un dialogue structuré avec un agent intelligent conçu pour le secteur culturel. L'application finale évoluera au fil des discussions avec les partenaires, des expérimentations techniques et des retours des premières structures pilotes. C'est dans la nature même du projet — un outil vivant, qui se construit en dialogue avec ses futurs utilisateurs.
+              La Boussole Numérique Culture est une application web gratuite qui propose une <strong className="text-gray-900">expérience conversationnelle guidée</strong> — un dialogue structuré avec un agent intelligent conçu pour le secteur culturel. Pensée comme un <em>Nos Gestes Climat pour les pratiques numériques</em>, elle est conçue pour et avec les personnes qu'elle entend servir : dès le départ, le concept, les questions et les promesses sont soumis à des utilisatrices et utilisateurs potentiels pour recueillir réactions, attentes et doutes. L'application finale évoluera au fil des discussions avec les partenaires, des expérimentations techniques et des retours des premières structures pilotes.
             </p>
 
             {/* Les 5 dimensions */}
@@ -673,17 +675,16 @@ export default function Projet() {
           {/* ── 8. CALENDRIER ───────────────────────────────────────────────── */}
           <section id="calendrier" style={{ scrollMarginTop: '80px' }}>
             <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#9b59b6' }}>Calendrier</Badge>
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Un projet de 18 mois en 5 phases</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Un projet de 24 mois en 4 phases</h2>
             <p className="text-gray-600 leading-relaxed mb-6">
-              Le développement de la Boussole est organisé en cinq phases progressives — de la co-conception avec les partenaires culturels genevois jusqu'au bilan ouvert et à la transmission de la méthode. La phase 1 (cadrage et co-conception) est actuellement en cours.
+              Le développement de la Boussole est organisé en quatre phases progressives — de la conception participative avec les partenaires culturels genevois jusqu'à l'exploitation et l'amélioration continue. La phase 1 (conception participative) est actuellement en cours.
             </p>
             <div className="grid grid-cols-5 gap-2 mb-6">
               {[
-                { num: '01', titre: 'Cadrage et co-conception', mois: 'Mois 1–4', couleur: '#515792', statut: 'En cours' },
-                { num: '02', titre: 'Prototype fonctionnel', mois: 'Mois 5–9', couleur: '#E27227', statut: 'À venir' },
-                { num: '03', titre: 'Tests et affinages', mois: 'Mois 10–13', couleur: '#3aab8a', statut: 'À venir' },
-                { num: '04', titre: 'Fonctionnement public', mois: 'Mois 14–16', couleur: '#9b59b6', statut: 'À venir' },
-                { num: '05', titre: 'Bilan et transmission', mois: 'Mois 17–18', couleur: '#E58441', statut: 'À venir' },
+                { num: '01', titre: 'Conception participative', mois: 'Mois 1–3', couleur: '#515792', statut: 'En cours' },
+                { num: '02', titre: 'Tests et ajustements', mois: 'Mois 4–5', couleur: '#E27227', statut: 'À venir' },
+                { num: '03', titre: 'Version publique', mois: 'Mois 6–8', couleur: '#3aab8a', statut: 'À venir' },
+                { num: '04', titre: 'Exploitation et amélioration continue', mois: 'Mois 9–24', couleur: '#9b59b6', statut: 'À venir' },
               ].map((p) => (
                 <div key={p.num} className="rounded-xl p-3 text-center border" style={{ borderColor: p.couleur + '30', backgroundColor: p.couleur + '08' }}>
                   <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-xs mx-auto mb-2" style={{ backgroundColor: p.couleur }}>{p.num}</div>
@@ -696,7 +697,7 @@ export default function Projet() {
               ))}
             </div>
             <div className="rounded-xl p-4 flex items-center justify-between gap-4" style={{ backgroundColor: '#f0f1f8' }}>
-              <p className="text-sm text-gray-600">Le calendrier détaillé présente les livrables, activités et jalons de chaque phase.</p>
+                  <p className="text-sm text-gray-600">Le calendrier détaillé présente les livrables, activités et jalons de chaque phase. La phase 4 (Mois 9–24) couvre l'hébergement, le support, la diffusion et l'appropriation progressive par le secteur.</p>
               <Button style={{ backgroundColor: '#515792', flexShrink: 0 }} size="sm" asChild>
                 <Link href="/timeline">Voir le calendrier <ArrowRight className="ml-1 h-3 w-3" /></Link>
               </Button>

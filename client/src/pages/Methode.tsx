@@ -1,3 +1,4 @@
+import React from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -40,17 +41,18 @@ const PRINCIPES_GOUVERNANCE = [
   },
   {
     icon: Globe,
-    titre: "Non-commercialité",
+    titre: "Service public",
     couleur: "#515792",
-    texte: "La Boussole ne repose pas sur la captation des données ni sur la conversion des utilisateurs en clients. Sa valeur tient à l'utilité du diagnostic et à la qualité des ressources partagées.",
+    texte: "La Boussole ne repose pas sur la captation des données ni sur la conversion des utilisateurs en clients. Sa valeur tient à l'utilité du diagnostic et à la qualité des ressources partagées. C'est un projet de service public, pas un produit commercial.",
     engagements: ["Aucune revente de données", "Aucun partenariat commercial", "Aucune logique de lead generation"],
   },
   {
     icon: Shield,
-    titre: "Neutralité des recommandations",
+    titre: "Neutralité",
     couleur: "#3aab8a",
     texte: "Les recommandations ne favorisent aucun prestataire, aucun produit commercial, aucune solution propriétaire. Elles sont fondées sur des critères de pertinence, d'accessibilité et d'adéquation au contexte culturel.",
     engagements: ["Indépendantes de tout partenariat commercial", "Priorité aux outils libres et open source", "Transparence sur les critères de sélection"],
+    annexe: "L'annuaire de prestataires intégré à la Boussole est pensé pour rester strictement neutre et non discriminant, de sa conception à son usage. Il recense par défaut les structures et consultant·e·s actif·ve·s dans l'accompagnement numérique du secteur culturel genevois connus au moment du lancement, sans hiérarchisation ni mise en avant payante — Memoways y figure au même titre que les autres prestataires répertoriés. Un formulaire public permet à toute structure ou consultant·e non mentionné·e de demander son ajout, garantissant que la liste reste ouverte, actualisable et représentative de l'ensemble de l'écosystème plutôt que figée au moment de la publication.",
   },
   {
     icon: Code2,
@@ -68,7 +70,7 @@ const PRINCIPES_GOUVERNANCE = [
   },
   {
     icon: Lock,
-    titre: "Données et consentement",
+    titre: "Consentement",
     couleur: "#515792",
     texte: "Les réponses au questionnaire sont anonymisées. Aucune donnée personnelle n'est collectée sans consentement explicite. Les résultats individuels ne sont jamais partagés sans accord.",
     engagements: ["Anonymisation des réponses", "Consentement explicite", "Pas de partage sans accord"],
@@ -170,7 +172,7 @@ export default function Methode() {
             La Boussole repose sur six principes inscrits dans sa conception depuis le premier jour — indépendamment des financements ou des partenariats.
           </p>
           <div className="space-y-4">
-            {PRINCIPES_GOUVERNANCE.map(({ icon: Icon, titre, couleur, texte, engagements }) => (
+            {PRINCIPES_GOUVERNANCE.map(({ icon: Icon, titre, couleur, texte, engagements, annexe }: { icon: React.ElementType; titre: string; couleur: string; texte: string; engagements: string[]; annexe?: string }) => (
               <div key={titre} className="rounded-2xl p-6 border border-gray-100">
                 <div className="flex items-start gap-5">
                   <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: couleur + '15' }}>
@@ -187,10 +189,28 @@ export default function Methode() {
                         </span>
                       ))}
                     </div>
+                    {annexe && (
+                      <div className="mt-4 p-4 rounded-xl text-sm text-gray-600 leading-relaxed" style={{ backgroundColor: couleur + '08', borderLeft: `3px solid ${couleur}` }}>
+                        {annexe}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Évaluation continue */}
+          <div className="mt-8 rounded-2xl p-6 border border-gray-100" style={{ backgroundColor: '#f8f9fc' }}>
+            <div className="flex items-start gap-5">
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: '#515792' + '15' }}>
+                <RefreshCw className="h-6 w-6" style={{ color: '#515792' }} />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-bold text-gray-900 text-lg mb-2">Évaluation continue</h3>
+                <p className="text-gray-600 leading-relaxed">Un mécanisme de retour continu est intégré directement dans l'outil : un court questionnaire de satisfaction, accessible à tout moment depuis la Boussole, permet aux utilisatrices et utilisateurs de partager leurs retours, formuler des demandes d'amélioration ou signaler un problème technique. Ces retours sont examinés régulièrement pour prioriser les ajustements et nourrissent le rapport d'évaluation intermédiaire prévu en fin de phase pilote.</p>
+              </div>
+            </div>
           </div>
 
           {/* Anonymisation & limites */}
