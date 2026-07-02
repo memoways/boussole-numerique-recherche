@@ -140,20 +140,16 @@ export default function Partenaires() {
           <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#3aab8a' }}>Partenaires confirmés</Badge>
           <h2 className="text-2xl font-bold text-gray-900 mb-3">Structures et personnes engagées</h2>
           <p className="text-gray-500 mb-8 max-w-xl">
-            Ces structures et personnes ont confirmé leur intérêt pour le projet et participeront à la phase de co-conception.
+            Ces structures ont confirmé leur participation à la co-conception de la Boussole.
           </p>
 
-          {/* Structures */}
-          <h3 className="text-base font-bold text-gray-700 mb-4 uppercase tracking-widest text-xs">Structures culturelles et institutionnelles</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
             {[
-              { nom: "Bord Cadre", desc: "Espace d'art contemporain, Genève", url: "https://www.bordcadre.ch" },
-              { nom: "Utopiana", desc: "Association de production et diffusion artistique, Genève", url: "https://www.utopiana.ch" },
-              { nom: "Cinéma Dynamo", desc: "Cinéma associatif et culturel, Genève", url: "https://www.dynamogeneve.ch" },
-              { nom: "Terra & Casa", desc: "Association culturelle, Genève", url: "https://www.terraetcasa.ch" },
-              { nom: "Fonction : Cinéma", desc: "Association de soutien au cinéma, Genève", url: "https://www.fonctioncinema.ch" },
-              { nom: "PCN — Plate-forme culturelle du Nant", desc: "Espace culturel pluridisciplinaire, Genève", url: "https://www.pcn.ch" },
-            ].map(({ nom, desc, url }) => (
+              { nom: "Fonction:Cinéma", contact: "Aude Vermeil", url: "https://www.fonction-cinema.ch/" },
+              { nom: "Pôle de création numérique", contact: "Alexandre Iordachescu", url: "https://polnum.ch/" },
+              { nom: "XN Swiss", contact: null, url: "https://www.xnswiss.ch/" },
+              { nom: "Observatoire Romand de la Culture", contact: "Olivier Glassey", url: "https://www.observatoire-culture.ch/" },
+            ].map(({ nom, contact, url }) => (
               <a
                 key={nom}
                 href={url}
@@ -166,51 +162,14 @@ export default function Partenaires() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="font-semibold text-gray-900 group-hover:text-[#515792] transition-colors">{nom}</p>
-                  <p className="text-xs text-gray-500 leading-relaxed">{desc}</p>
+                  {contact && <p className="text-xs text-gray-500">{contact}</p>}
                 </div>
                 <ArrowRight className="h-4 w-4 text-gray-300 group-hover:text-[#515792] flex-shrink-0 mt-1 transition-colors" />
               </a>
             ))}
           </div>
 
-          {/* Experts et chercheurs */}
-          <h3 className="text-base font-bold text-gray-700 mb-4 uppercase tracking-widest text-xs">Experts, chercheurs et professionnels</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {[
-              { nom: "Olivier Glassey", desc: "Sociologue du numérique, Université de Lausanne", url: "https://applicationspub.unil.ch/interpub/noauth/php/Un/UnPers.php?PerNum=1060626&LanCode=37" },
-              { nom: "Aude Vermeil", desc: "Consultante en transformation numérique, secteur culturel", url: null },
-              { nom: "Memoways", desc: "Porteur du projet — agence no-code et transformation numérique, Genève", url: "https://www.memoways.com" },
-            ].map(({ nom, desc, url }) => (
-              url ? (
-                <a
-                  key={nom}
-                  href={url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-start gap-4 p-4 rounded-xl border border-gray-100 hover:border-gray-300 hover:shadow-sm transition-all group"
-                >
-                  <div className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-white text-sm" style={{ backgroundColor: '#E27227' }}>
-                    {nom[0]}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-gray-900 group-hover:text-[#E27227] transition-colors">{nom}</p>
-                    <p className="text-xs text-gray-500 leading-relaxed">{desc}</p>
-                  </div>
-                  <ArrowRight className="h-4 w-4 text-gray-300 group-hover:text-[#E27227] flex-shrink-0 mt-1 transition-colors" />
-                </a>
-              ) : (
-                <div key={nom} className="flex items-start gap-4 p-4 rounded-xl border border-gray-100">
-                  <div className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-white text-sm" style={{ backgroundColor: '#E27227' }}>
-                    {nom[0]}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-gray-900">{nom}</p>
-                    <p className="text-xs text-gray-500 leading-relaxed">{desc}</p>
-                  </div>
-                </div>
-              )
-            ))}
-          </div>
+          <p className="text-sm text-gray-400 italic">D'autres partenaires rejoindront le projet au fil de la phase de co-conception.</p>
         </div>
       </section>
 
