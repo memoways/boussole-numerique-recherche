@@ -533,10 +533,15 @@ export default function Home() {
     <div className="min-h-screen bg-white">
 
       {/* ── HERO ─────────────────────────────────────────────────────────────── */}
-      <section className="pt-20 sm:pt-24 pb-20 sm:pb-28 px-4" style={{ background: 'linear-gradient(160deg, #f4f5fb 0%, #fdf6f0 50%, #f4f5fb 100%)' }}>
+      <section className="pt-32 sm:pt-40 pb-28 sm:pb-36 px-4" style={{ background: 'linear-gradient(160deg, #f4f5fb 0%, #fdf6f0 50%, #f4f5fb 100%)' }}>
         <div className="max-w-4xl mx-auto text-center">
 
-          {/* Titre gradient fluide — inspiré du screenshot */}
+          {/* Labels sobres — ligne de texte, séparateurs · */}
+          <p className="text-xs tracking-[0.18em] uppercase mb-10 select-none" style={{ color: '#b0b5c8' }}>
+            Gratuit · Open source · Hébergé en Suisse · Co-construit avec le terrain
+          </p>
+
+          {/* Titre gradient fluide */}
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.15] mb-8 tracking-tight">
             <span style={{
               background: 'linear-gradient(90deg, #515792 0%, #3a7fc1 18%, #3aab8a 36%, #7ab648 54%, #E27227 72%, #E58441 88%, #d94f1e 100%)',
@@ -550,51 +555,21 @@ export default function Home() {
           </h1>
 
           {/* Sous-titre */}
-          <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto mb-10 leading-relaxed">
+          <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto mb-12 leading-relaxed">
             Un outil gratuit conçu pour les actrices et acteurs culturels de Genève
             — pour comprendre leurs pratiques numériques, identifier ce qui freine leur travail et choisir des pistes d'amélioration adaptées à leur situation.
           </p>
 
-          {/* Badges */}
-          <div className="flex flex-wrap justify-center gap-2 mb-10">
-            {[
-              { label: 'Gratuit', color: '#515792' },
-              { label: 'Open source', color: '#3aab8a' },
-              { label: 'Hébergé en Suisse', color: '#7ab648' },
-              { label: 'Co-construit avec le terrain', color: '#E27227' },
-              { label: 'Secteur culturel', color: '#E58441' },
-            ].map(({ label, color }) => (
-              <Badge key={label} variant="outline" className="text-xs sm:text-sm px-3 py-1 bg-white font-medium" style={{ borderColor: color + '60', color }}>
-                {label}
-              </Badge>
-            ))}
-          </div>
-
-          {/* CTAs principaux */}
-          <div className="flex flex-col sm:flex-row gap-3 justify-center mb-5">
+          {/* 2 CTAs */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className="font-semibold text-sm sm:text-base shadow-md hover:shadow-lg transition-shadow" style={{ backgroundColor: '#515792' }} asChild>
               <Link href="/projet">
                 Découvrir le projet <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
-            <Button size="lg" variant="outline" className="font-semibold text-sm sm:text-base border-2" style={{ borderColor: '#3aab8a', color: '#3aab8a' }} asChild>
+            <Button size="lg" variant="outline" className="font-semibold text-sm sm:text-base border-2" style={{ borderColor: '#E27227', color: '#E27227' }} asChild>
               <Link href="/experience">Voir l'expérience</Link>
             </Button>
-            <Button size="lg" variant="outline" className="font-semibold text-sm sm:text-base border-2" style={{ borderColor: '#E27227', color: '#E27227' }} asChild>
-              <Link href="/recherche">Explorer la recherche</Link>
-            </Button>
-          </div>
-
-          {/* CTA secondaire */}
-          <Button variant="ghost" size="sm" className="text-gray-400 hover:text-gray-600 text-sm" asChild>
-            <Link href="/partenaires">Suivre l'avancement →</Link>
-          </Button>
-
-          {/* Ligne décorative */}
-          <div className="mt-14 flex items-center justify-center gap-3">
-            <div className="h-px w-16" style={{ backgroundImage: 'linear-gradient(to right, transparent, #51579260)' }}></div>
-            <Compass className="h-4 w-4 opacity-30" style={{ color: '#515792' }} />
-            <div className="h-px w-16" style={{ backgroundImage: 'linear-gradient(to left, transparent, #51579260)' }}></div>
           </div>
         </div>
       </section>
