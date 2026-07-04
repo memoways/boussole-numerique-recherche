@@ -348,7 +348,8 @@ export default function Projet() {
             </div>
 
             {/* Schéma interactif : problématiques */}
-            <div className="rounded-2xl border border-gray-100 overflow-hidden shadow-sm">
+            <div className="rounded-2xl border border-gray-100 shadow-sm overflow-x-auto">
+              <div className="min-w-[480px]">
               <div className="px-5 py-3 flex items-center gap-3" style={{ backgroundColor: '#f8f9fc' }}>
                 <Compass className="h-4 w-4" style={{ color: '#515792' }} />
                 <span className="text-sm font-semibold text-gray-700">Schéma : Problématiques fréquentes et leur résolution</span>
@@ -371,6 +372,7 @@ export default function Projet() {
               ))}
               <div className="px-5 py-3 text-xs text-gray-400 italic border-t border-gray-100" style={{ backgroundColor: '#f8f9fc' }}>
                 Les problématiques ont été identifiées lors d'entretiens menés avec des structures culturelles genevoises. La Boussole aide à les diagnostiquer et à prioriser les améliorations.
+              </div>
               </div>
             </div>
           </section>
@@ -618,7 +620,7 @@ export default function Projet() {
               <div className="mt-4 rounded-2xl border border-gray-100 overflow-hidden">
                 <div className="p-4 border-b border-gray-100" style={{ backgroundColor: '#f0f1f8' }}>
                   <p className="text-xs font-bold uppercase tracking-widest text-center mb-3" style={{ color: '#515792' }}>Interface utilisateur (ce que vous voyez)</p>
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                     {[
                       { titre: "Interface web", sub: "React + Tailwind" },
                       { titre: "Saisie vocale", sub: "Futur · 1 minute" },
@@ -633,7 +635,7 @@ export default function Projet() {
                 </div>
                 <div className="p-4 border-b border-gray-100" style={{ backgroundColor: '#fdf3ec' }}>
                   <p className="text-xs font-bold uppercase tracking-widest text-center mb-3" style={{ color: '#E27227' }}>Intelligence artificielle (le cerveau)</p>
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                     {[
                       { titre: "Agent IA", sub: "Conversation guidée" },
                       { titre: "Base de ressources", sub: "FAQ · recommandations" },
@@ -679,7 +681,7 @@ export default function Projet() {
             <p className="text-gray-600 leading-relaxed mb-6">
               Le développement de la Boussole est organisé en quatre phases progressives — de la conception participative avec les partenaires culturels genevois jusqu'à l'exploitation et l'amélioration continue. La phase 1 (conception participative) est actuellement en cours.
             </p>
-            <div className="grid grid-cols-5 gap-2 mb-6">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-6">
               {[
                 { num: '01', titre: 'Conception participative', mois: 'Mois 1–3', couleur: '#515792', statut: 'En cours' },
                 { num: '02', titre: 'Tests et ajustements', mois: 'Mois 4–5', couleur: '#E27227', statut: 'À venir' },

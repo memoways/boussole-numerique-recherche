@@ -14,7 +14,7 @@ const NAV_COLUMNS = [
       { href: "/projet", label: "Description du projet" },
       { href: "/experience", label: "L'expérience Boussole" },
       { href: "/methode", label: "Méthode & co-conception" },
-      { href: "/timeline", label: "Calendrier 18 mois" },
+      { href: "/timeline", label: "Calendrier 24 mois" },
     ],
   },
   {
@@ -105,7 +105,7 @@ export default function Footer() {
           <p className="text-xs text-gray-400">
             © {year} Memoways — Genève, Suisse. Projet de recherche en cours.
           </p>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-3 justify-center sm:justify-end">
             <a
               href="https://memoways.com"
               target="_blank"
