@@ -12,9 +12,9 @@ const NAV_COLUMNS = [
     title: "Le projet",
     links: [
       { href: "/projet", label: "Description du projet" },
+      { href: "/timeline", label: "Calendrier" },
       { href: "/experience", label: "L'expérience Boussole" },
       { href: "/methode", label: "Méthode & co-conception" },
-      { href: "/timeline", label: "Calendrier 24 mois" },
     ],
   },
   {

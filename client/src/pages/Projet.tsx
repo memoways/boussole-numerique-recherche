@@ -746,7 +746,12 @@ export default function Projet() {
             <Button style={{ backgroundColor: '#E27227' }} asChild>
               <Link href="/partenaires">Nous contacter <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
-
+            <Button variant="outline" style={{ borderColor: '#515792', color: '#515792' }} asChild>
+              <Link href="/recherche">Recherche & état de l'art</Link>
+            </Button>
+            <Button variant="outline" style={{ borderColor: '#3aab8a', color: '#3aab8a' }} asChild>
+              <Link href="/ressources">Ressources documentaires</Link>
+            </Button>
           </div>
         </div>
       </section>

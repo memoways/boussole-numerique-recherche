@@ -5,18 +5,17 @@ import { Link, useLocation } from "wouter";
 
 /**
  * Navigation — Boussole Numérique Culture
- * 6 entrées : Projet | Expérience | Méthode | Recherche | Partenaires | Ressources
- * (Gouvernance fusionnée dans Méthode)
+ * 5 entrées : Projet | Calendrier | Expérience | Méthode | Partenaires
+ * (Recherche et Ressources accessibles depuis les pages internes)
  * Couleurs Memoways : bleu #515792, orange #E27227
- */
+*/
 
 const NAV_ITEMS = [
   { href: "/projet", label: "Projet" },
+  { href: "/timeline", label: "Calendrier" },
   { href: "/experience", label: "Expérience" },
   { href: "/methode", label: "Méthode" },
-  { href: "/recherche", label: "Recherche" },
   { href: "/partenaires", label: "Partenaires" },
-  { href: "/ressources", label: "Ressources" },
 ];
 
 export default function Navigation() {

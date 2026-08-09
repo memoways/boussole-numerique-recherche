@@ -302,6 +302,12 @@ export default function Methode() {
             <Button variant="outline" style={{ borderColor: '#515792', color: '#515792' }} asChild>
               <Link href="/timeline">Voir le calendrier</Link>
             </Button>
+            <Button variant="outline" style={{ borderColor: '#3aab8a', color: '#3aab8a' }} asChild>
+              <Link href="/recherche">Recherche & état de l'art</Link>
+            </Button>
+            <Button variant="outline" style={{ borderColor: '#9b59b6', color: '#9b59b6' }} asChild>
+              <Link href="/ressources">Ressources documentaires</Link>
+            </Button>
           </div>
         </div>
       </section>
