@@ -107,6 +107,7 @@ export default function Timeline() {
       {/* Timeline desktop */}
       <section className="py-14 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
+          <h2 className="sr-only">Les quatre phases du projet</h2>
 
           {/* Barre de progression desktop — cercles alignés + titres complets */}
           <div className="hidden md:block mb-12">
@@ -122,6 +123,9 @@ export default function Timeline() {
                     key={i}
                     className="relative z-10 flex flex-col items-center gap-0 group flex-1"
                     onClick={() => setPhaseOuverte(isActive ? null : i)}
+                    aria-label={`${isActive ? 'Refermer' : 'Ouvrir'} le détail : phase ${phase.num}, ${phase.titre}`}
+                    aria-expanded={isActive}
+                    aria-controls={`phase-detail-${i}`}
                   >
                     <div
                       className="w-14 h-14 rounded-full flex items-center justify-center transition-all duration-200 group-hover:scale-110 shadow-sm"
@@ -142,6 +146,9 @@ export default function Timeline() {
                     key={i}
                     className="flex-1 flex flex-col items-center text-center px-1 group"
                     onClick={() => setPhaseOuverte(isActive ? null : i)}
+                    aria-label={`${isActive ? 'Refermer' : 'Ouvrir'} le détail : phase ${phase.num}, ${phase.titre}`}
+                    aria-expanded={isActive}
+                    aria-controls={`phase-detail-${i}`}
                   >
                     <p className="text-xs font-bold mb-0.5" style={{ color: isActive ? phase.couleur : '#9ca3af' }}>{phase.num}</p>
                     <p className="text-xs leading-tight" style={{ color: isActive ? phase.couleur : '#6b7280' }}>{phase.titre}</p>
@@ -166,7 +173,7 @@ export default function Timeline() {
                   <p className="text-gray-600 leading-relaxed">{PHASES[phaseOuverte].detail}</p>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-3">Livrables et activités</h4>
+                  <h3 className="font-semibold text-gray-900 mb-3">Livrables et activités</h3>
                   <ul className="space-y-2">
                     {PHASES[phaseOuverte].items.map((item) => (
                       <li key={item} className="flex items-start gap-2 text-sm text-gray-600">
@@ -187,9 +194,20 @@ export default function Timeline() {
               return (
                 <div
                   key={i}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`${phaseOuverte === i ? 'Refermer' : 'Ouvrir'} le détail : phase ${phase.num}, ${phase.titre}`}
+                  aria-expanded={phaseOuverte === i}
+                  aria-controls={`phase-detail-${i}`}
                   className="rounded-xl border-2 bg-white cursor-pointer transition-all"
                   style={{ borderColor: phaseOuverte === i ? phase.couleur : '#e5e7eb' }}
                   onClick={() => setPhaseOuverte(phaseOuverte === i ? null : i)}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault();
+                      setPhaseOuverte(phaseOuverte === i ? null : i);
+                    }
+                  }}
                 >
                   <div className="p-4 flex items-center gap-4">
                     <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: phase.couleur }}>
@@ -207,7 +225,7 @@ export default function Timeline() {
                     {phaseOuverte === i ? <ChevronUp className="h-4 w-4 text-gray-400 flex-shrink-0" /> : <ChevronDown className="h-4 w-4 text-gray-400 flex-shrink-0" />}
                   </div>
                   {phaseOuverte === i && (
-                    <div className="px-4 pb-4 border-t border-gray-50">
+                    <div id={`phase-detail-${i}`} role="region" aria-label={`Détail : phase ${phase.num}, ${phase.titre}`} className="px-4 pb-4 border-t border-gray-50">
                       <p className="text-sm text-gray-600 leading-relaxed mt-3 mb-3">{phase.detail}</p>
                       <ul className="space-y-1.5">
                         {phase.items.map((item) => (
@@ -230,7 +248,7 @@ export default function Timeline() {
       <section className="py-10 px-4" style={{ backgroundColor: '#f8f9fc' }}>
         <div className="max-w-4xl mx-auto">
           <div className="rounded-2xl p-6 bg-white border border-gray-100">
-            <h3 className="font-bold text-gray-900 mb-2">Un calendrier indicatif</h3>
+            <h2 className="font-bold text-gray-900 mb-2">Un calendrier indicatif</h2>
             <p className="text-sm text-gray-600 leading-relaxed">Ce calendrier est une projection. Il sera ajusté en fonction des retours des partenaires, des apprentissages de chaque phase et des réalités du terrain. La flexibilité est une valeur, pas un défaut.</p>
           </div>
         </div>

@@ -352,7 +352,7 @@ export default function References() {
             <div className="flex items-start gap-4">
               <Lightbulb className="h-6 w-6 flex-shrink-0 mt-0.5" style={{ color: '#515792' }} />
               <div>
-                <h3 className="font-bold text-gray-900 mb-2">Une approche par assemblage raisonné</h3>
+                <h2 className="font-bold text-gray-900 mb-2">Une approche par assemblage raisonné</h2>
                 <p className="text-gray-600 leading-relaxed">
                   Chaque référence apporte quelque chose de précis. La Boussole emprunte la gratuité et l'open source à <strong>Nos Gestes Climat</strong>, la structuration en niveaux d'engagement au <strong>Digital Culture Compass</strong>, la comparaison sectorielle à <strong>meemoo</strong>, la segmentation en personas au <strong>Baromètre FWB</strong>, l'approche longitudinale au <strong>TMNlab</strong> — et y ajoute l'ancrage genevois, la dimension IA et la multimodalité qui manquent à tous.
                 </p>
@@ -444,9 +444,19 @@ export default function References() {
             {REFERENCES.map((ref) => (
               <div
                 key={ref.id}
+                role="button"
+                tabIndex={0}
+                aria-expanded={refOuverte === ref.id}
+                aria-controls={`reference-detail-${ref.id}`}
                 className="rounded-2xl border-2 cursor-pointer transition-all hover:shadow-md bg-white"
                 style={{ borderColor: refOuverte === ref.id ? ref.couleur : '#e5e7eb' }}
                 onClick={() => setRefOuverte(refOuverte === ref.id ? null : ref.id)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    setRefOuverte(refOuverte === ref.id ? null : ref.id);
+                  }
+                }}
               >
                 {/* En-tête */}
                 <div className="p-6 flex items-start justify-between gap-4">
@@ -464,6 +474,7 @@ export default function References() {
                           onClick={(e) => e.stopPropagation()}
                           className="text-gray-400 hover:text-gray-600 transition-colors"
                           title={`Visiter ${ref.nom}`}
+                          aria-label={`Visiter ${ref.nom} dans un nouvel onglet`}
                         >
                           <ExternalLink className="h-4 w-4" />
                         </a>
@@ -498,7 +509,7 @@ export default function References() {
 
                 {/* Contenu développé */}
                 {refOuverte === ref.id && (
-                  <div className="px-6 pb-6 border-t border-gray-50">
+                  <div id={`reference-detail-${ref.id}`} role="region" aria-label={`Détail de la référence : ${ref.nom}`} className="px-6 pb-6 border-t border-gray-50">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-5">
                       <div className="rounded-xl p-4" style={{ backgroundColor: ref.couleur + '10' }}>
                         <h4 className="font-semibold text-gray-900 mb-2 text-sm uppercase tracking-wide">Ce que l'outil fait</h4>

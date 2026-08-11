@@ -121,6 +121,9 @@ export default function Navigation() {
               size="icon"
               className="ml-1"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label={isMobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="menu-navigation-mobile"
             >
               {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
@@ -132,6 +135,9 @@ export default function Navigation() {
             size="icon"
             className="md:hidden"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="menu-navigation-mobile"
           >
             {isMobileMenuOpen ? (
               <X className="h-6 w-6" />
@@ -143,7 +149,7 @@ export default function Navigation() {
 
         {/* Mobile / Tablet Menu déroulant */}
         {isMobileMenuOpen && (
-          <div className="py-3 border-t border-gray-100 bg-white/98 backdrop-blur-md">
+          <div id="menu-navigation-mobile" className="py-3 border-t border-gray-100 bg-white/98 backdrop-blur-md">
             <div className="flex flex-col gap-1">
               {NAV_ITEMS.map((item) => (
                 <Button

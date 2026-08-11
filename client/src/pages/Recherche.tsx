@@ -335,8 +335,18 @@ export default function Recherche() {
             {filtered.map((insight) => (
               <div
                 key={insight.id}
+                role="button"
+                tabIndex={0}
+                aria-expanded={insightOuvert === insight.id}
+                aria-controls={`insight-detail-${insight.id}`}
                 className="bg-white rounded-xl border border-gray-100 cursor-pointer hover:shadow-sm transition-all"
                 onClick={() => setInsightOuvert(insightOuvert === insight.id ? null : insight.id)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    setInsightOuvert(insightOuvert === insight.id ? null : insight.id);
+                  }
+                }}
               >
                 <div className="p-5 flex items-start gap-4">
                   <span className="text-xs font-bold text-gray-300 mt-0.5 flex-shrink-0 w-6">{String(insight.id).padStart(2, '0')}</span>
@@ -357,7 +367,7 @@ export default function Recherche() {
                   }
                 </div>
                 {insightOuvert === insight.id && (
-                  <div className="px-5 pb-5 border-t border-gray-50">
+                  <div id={`insight-detail-${insight.id}`} role="region" aria-label={`Détail de l'insight : ${insight.titre}`} className="px-5 pb-5 border-t border-gray-50">
                     <p className="text-sm text-gray-600 leading-relaxed mt-3 mb-3">{insight.detail}</p>
                     <div className="mt-3 pt-3 border-t border-gray-50">
                       <p className="text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wide">Sources</p>

@@ -1,0 +1,24 @@
+{
+  "initial": {
+    "width": 500,
+    "menuButtonCount": 2,
+    "menuOpen": false,
+    "desktopLinksVisible": true
+  },
+  "afterOpen": {
+    "menuOpen": true,
+    "labels": [
+      "Projet",
+      "Calendrier",
+      "Expérience",
+      "Méthode",
+      "Partenaires",
+      "Suivre le projet"
+    ],
+    "calendar": true
+  },
+  "afterNavigation": {
+    "path": "/timeline",
+    "menuOpen": false
+  }
+}

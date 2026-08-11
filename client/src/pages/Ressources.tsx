@@ -163,6 +163,7 @@ export default function Ressources() {
       {/* Filtres + liste */}
       <section className="py-14 px-4" style={{ backgroundColor: '#f8f9fc' }}>
         <div className="max-w-4xl mx-auto">
+          <h2 className="sr-only">Documents et sources</h2>
           {/* Filtres */}
           <div className="flex flex-wrap gap-2 items-center mb-8">
             <Filter className="h-4 w-4 text-gray-400" />

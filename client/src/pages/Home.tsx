@@ -309,7 +309,7 @@ function BoussoleDemoInteractive() {
 
         {/* SVG Boussole */}
         <div className="flex-shrink-0 flex justify-center">
-          <svg viewBox="0 0 320 320" className="w-64 h-64 sm:w-72 sm:h-72">
+          <svg viewBox="0 0 320 320" className="w-64 h-64 sm:w-72 sm:h-72" role="group" aria-label="Boussole interactive des cinq dimensions">
             {/* Cercle de fond */}
             <circle cx={CX} cy={CY} r="130" fill="#f8f9fc" stroke="#e5e7eb" strokeWidth="1" />
             <circle cx={CX} cy={CY} r="90" fill="none" stroke="#e5e7eb" strokeWidth="0.5" strokeDasharray="4 4" />
@@ -328,12 +328,26 @@ function BoussoleDemoInteractive() {
               const pos = iconPositions[i];
               const isActive = i === q.dimIndex;
               return (
-                <g key={i} style={{ cursor: 'pointer' }} onClick={() => {
-                  if (!animating) {
-                    const newIdx = QUESTIONS_DEMO.findIndex(qq => qq.dimIndex === i);
-                    if (newIdx >= 0) goTo(newIdx);
-                  }
-                }}>
+                <g
+                  key={i}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`Afficher la question liée à ${d.label}`}
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    if (!animating) {
+                      const newIdx = QUESTIONS_DEMO.findIndex(qq => qq.dimIndex === i);
+                      if (newIdx >= 0) goTo(newIdx);
+                    }
+                  }}
+                  onKeyDown={(event) => {
+                    if ((event.key === 'Enter' || event.key === ' ') && !animating) {
+                      event.preventDefault();
+                      const newIdx = QUESTIONS_DEMO.findIndex(qq => qq.dimIndex === i);
+                      if (newIdx >= 0) goTo(newIdx);
+                    }
+                  }}
+                >
                   <circle
                     cx={pos.x.toFixed(1)} cy={pos.y.toFixed(1)} r={isActive ? 22 : 18}
                     fill={isActive ? d.couleur : 'white'}
@@ -439,7 +453,7 @@ function RadarAccordion() {
     <div className="flex flex-col lg:flex-row items-center gap-8 w-full">
       {/* SVG Radar animé */}
       <div className="flex-shrink-0">
-        <svg viewBox="0 0 300 300" className="w-64 h-64 sm:w-72 sm:h-72" style={{ overflow: 'visible' }}>
+        <svg viewBox="0 0 300 300" className="w-64 h-64 sm:w-72 sm:h-72" style={{ overflow: 'visible' }} role="group" aria-label="Radar interactif des cinq dimensions">
           {[1, 0.75, 0.5, 0.25].map((scale, si) => {
             const pts = [0,1,2,3,4].map((i: number) => { const a = (i*72-90)*Math.PI/180; return `${(CX+R_GRID*scale*Math.cos(a)).toFixed(1)},${(CY+R_GRID*scale*Math.sin(a)).toFixed(1)}`; }).join(' ');
             return <polygon key={si} points={pts} fill="none" stroke="#e5e7eb" strokeWidth="1" />;
@@ -447,7 +461,21 @@ function RadarAccordion() {
           {[0,1,2,3,4].map((i: number) => { const a=(i*72-90)*Math.PI/180; return <line key={i} x1={CX} y1={CY} x2={(CX+R_GRID*Math.cos(a)).toFixed(1)} y2={(CY+R_GRID*Math.sin(a)).toFixed(1)} stroke="#e5e7eb" strokeWidth="1" />; })}
           <path d={radarPath} fill="#515792" fillOpacity="0.18" stroke="#515792" strokeWidth="2" strokeLinejoin="round" />
           {radarPoints.map((p: {x:number,y:number}, i: number) => (
-            <g key={i} style={{ cursor: 'pointer' }} onClick={() => setActiveDim(activeDim === i ? null : i)}>
+            <g
+              key={i}
+              role="button"
+              tabIndex={0}
+              aria-label={`Afficher ${DIMS_RADAR[i].label}`}
+              aria-pressed={activeDim === i}
+              style={{ cursor: 'pointer' }}
+              onClick={() => setActiveDim(activeDim === i ? null : i)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  setActiveDim(activeDim === i ? null : i);
+                }
+              }}
+            >
               <circle cx={p.x.toFixed(2)} cy={p.y.toFixed(2)} r="14" fill="transparent" />
               {activeDim === i && <circle cx={p.x.toFixed(2)} cy={p.y.toFixed(2)} r="9" fill={DIMS_RADAR[i].couleur} fillOpacity="0.2" stroke={DIMS_RADAR[i].couleur} strokeWidth="1" />}
               <circle cx={p.x.toFixed(2)} cy={p.y.toFixed(2)} r={activeDim === i ? 6 : 4.5} fill={DIMS_RADAR[i].couleur} stroke="white" strokeWidth="1.5" />
@@ -459,8 +487,26 @@ function RadarAccordion() {
             const lx = CX + (R_GRID + 22) * Math.cos(a);
             const ly = CY + (R_GRID + 22) * Math.sin(a);
             return (
-              <text key={i} x={lx.toFixed(1)} y={ly.toFixed(1)} textAnchor="middle" dominantBaseline="middle" fontSize="18" style={{ cursor: 'pointer' }}
-                onClick={() => setActiveDim(activeDim === i ? null : i)}>
+              <text
+                key={i}
+                x={lx.toFixed(1)}
+                y={ly.toFixed(1)}
+                textAnchor="middle"
+                dominantBaseline="middle"
+                fontSize="18"
+                role="button"
+                tabIndex={0}
+                aria-label={`Afficher ${dim.label}`}
+                aria-pressed={activeDim === i}
+                style={{ cursor: 'pointer' }}
+                onClick={() => setActiveDim(activeDim === i ? null : i)}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    setActiveDim(activeDim === i ? null : i);
+                  }
+                }}
+              >
                 {dim.emoji}
               </text>
             );
@@ -479,6 +525,8 @@ function RadarAccordion() {
             >
               <button
                 onClick={() => setActiveDim(activeDim === i ? null : i)}
+                aria-expanded={activeDim === i}
+                aria-controls={`dimension-detail-${i}`}
                 className="w-full flex items-start gap-3 px-4 py-3 text-left transition-colors duration-200"
                 style={{ backgroundColor: activeDim === i ? dim.couleur + '10' : '#f8f9fc' }}
               >
@@ -493,6 +541,10 @@ function RadarAccordion() {
                 />
               </button>
               <div
+                id={`dimension-detail-${i}`}
+                role="region"
+                aria-label={`Détail : ${dim.label}`}
+                aria-live="polite"
                 className="overflow-hidden transition-all duration-300"
                 style={{ maxHeight: activeDim === i ? '220px' : '0px', opacity: activeDim === i ? 1 : 0 }}
               >
@@ -537,7 +589,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto text-center">
 
           {/* Labels sobres — ligne de texte, séparateurs · */}
-          <p className="text-xs tracking-[0.18em] uppercase mb-10 select-none" style={{ color: '#b0b5c8' }}>
+          <p className="text-xs tracking-[0.18em] uppercase mb-10 select-none" style={{ color: '#6b7280' }}>
             Gratuit · Open source · Hébergé en Suisse · Co-construit avec le terrain
           </p>
 

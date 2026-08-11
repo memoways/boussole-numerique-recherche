@@ -166,7 +166,7 @@ function AnimatedRadar() {
 
   return (
     <div className="flex flex-col items-center gap-4 w-full">
-    <svg viewBox="0 0 300 300" className="w-64 h-64 sm:w-80 sm:h-80" style={{ overflow: 'visible' }}>
+    <svg viewBox="0 0 300 300" className="w-64 h-64 sm:w-80 sm:h-80" style={{ overflow: 'visible' }} role="group" aria-label="Radar interactif des cinq dimensions de l'expérience">
       {/* Grille pentagone */}
       {[1, 0.75, 0.5, 0.25].map((scale, si) => {
         const pts = [0,1,2,3,4].map(i => {
@@ -184,7 +184,21 @@ function AnimatedRadar() {
       <path d={radarPath} fill="#515792" fillOpacity="0.18" stroke="#515792" strokeWidth="2" strokeLinejoin="round" />
       {/* Points sur les pointes — cliquables */}
       {radarPoints.map((p, i) => (
-        <g key={i} style={{ cursor: 'pointer' }} onClick={() => setActiveDim(activeDim === i ? null : i)}>
+        <g
+          key={i}
+          role="button"
+          tabIndex={0}
+          aria-label={`Afficher ${DIMS[i].label}`}
+          aria-pressed={activeDim === i}
+          style={{ cursor: 'pointer' }}
+          onClick={() => setActiveDim(activeDim === i ? null : i)}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault();
+              setActiveDim(activeDim === i ? null : i);
+            }
+          }}
+        >
           {/* Halo de clic élargi */}
           <circle cx={p.x.toFixed(2)} cy={p.y.toFixed(2)} r="14" fill="transparent" />
           {/* Anneau de sélection */}
@@ -212,6 +226,7 @@ function AnimatedRadar() {
     {/* Panneau description dimension active */}
     <div
       className="w-full max-w-xs rounded-xl px-4 py-3 text-sm leading-relaxed transition-all duration-300"
+      aria-live="polite"
       style={{
         minHeight: '72px',
         backgroundColor: activeDim !== null ? DIMS[activeDim].couleur + '12' : '#f8f9fc',

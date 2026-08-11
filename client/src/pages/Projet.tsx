@@ -392,7 +392,7 @@ export default function Projet() {
                 <div key={i} className="rounded-xl border border-gray-100 p-4 hover:border-gray-200 hover:shadow-sm transition-all group">
                   <div className="flex items-center gap-3 mb-2">
                     <span className="text-xl">{d.icon}</span>
-                    <h4 className="font-semibold text-sm text-gray-900 group-hover:text-[#515792] transition-colors">{d.titre}</h4>
+                    <h3 className="font-semibold text-sm text-gray-900 group-hover:text-[#515792] transition-colors">{d.titre}</h3>
                   </div>
                   <p className="text-xs text-gray-500 leading-relaxed">{d.desc}</p>
                 </div>

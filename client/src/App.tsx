@@ -30,9 +30,10 @@ import Ressources from "./pages/Ressources";
 function Router() {
   return (
     <>
+      <a href="#contenu-principal" className="skip-link">Aller au contenu principal</a>
       <ScrollToTop />
       <Navigation />
-      <main className="min-h-screen">
+      <main id="contenu-principal" className="min-h-screen" tabIndex={-1}>
       <Switch>
         {/* Home */}
         <Route path={"/"} component={Home} />

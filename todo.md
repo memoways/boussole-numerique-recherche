@@ -1,0 +1,8 @@
+- [x] Vérifier le rendu du menu mobile à 320 px et 390 px de large — aucun débordement horizontal constaté.
+- [x] Vérifier l'ouverture et la fermeture du menu burger — fonctionnement confirmé.
+- [x] Vérifier que l'entrée Calendrier est visible, cliquable et mène à /timeline — comportement confirmé.
+- [x] Vérifier la fermeture automatique du menu après navigation — fermeture confirmée après navigation vers /timeline.
+- [x] Auditer le contraste texte, boutons et éléments d'interface sur les pages publiques.
+- [x] Contrôler la hiérarchie de titres, les zones sémantiques et les libellés accessibles.
+- [x] Vérifier les parcours clavier sur mobile : focus visible, ordre de tabulation et activation.
+- [x] Corriger les défauts d'accessibilité prioritaires et vérifier à nouveau les parcours.
