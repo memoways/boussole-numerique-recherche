@@ -152,16 +152,15 @@
   :where(p, span, a, li, time).text-gray-300 {
     color: #6b7280;
   }
-  /* Variantes accessibles des accents lorsque la couleur porte une information. */
-  [style*="color: rgb(226, 114, 39)"] { color: #A8440D !important; }
-  [style*="color: rgb(58, 171, 138)"] { color: #167A5E !important; }
-  [style*="color: rgb(122, 182, 72)"] { color: #4C741B !important; }
-  [style*="color: rgb(229, 132, 65)"] { color: #A8440D !important; }
+  /* Les accents conservent leur identité, avec une variante plus sombre lorsqu'ils portent du texte. */
+  [style*="color: rgb(226, 114, 39)"]:not([style*="background-color"]) { color: #A8440D !important; }
+  [style*="color: rgb(58, 171, 138)"]:not([style*="background-color"]) { color: #167A5E !important; }
+  [style*="color: rgb(122, 182, 72)"]:not([style*="background-color"]) { color: #4C741B !important; }
+  [style*="color: rgb(229, 132, 65)"]:not([style*="background-color"]) { color: #A8440D !important; }
   [style*="background-color: rgb(226, 114, 39)"] { background-color: #A8440D !important; }
   [style*="background-color: rgb(58, 171, 138)"] { background-color: #167A5E !important; }
   [style*="background-color: rgb(122, 182, 72)"] { background-color: #4C741B !important; }
   [style*="background-color: rgb(229, 132, 65)"] { background-color: #A8440D !important; }
-  [style*="border-color: rgb(58, 171, 138)"] { border-color: #167A5E !important; }
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Poppins', sans-serif;
   }

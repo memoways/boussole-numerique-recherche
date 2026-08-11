@@ -13,3 +13,5 @@ La déclaration de langue est maintenant `fr` et le titre de document a été al
 Les couleurs d'accent qui portent du texte ou une fonction interactive sont rendues dans des variantes conformes : orange `#A8440D` (6,00:1), vert `#167A5E` (5,28:1) et vert olive `#4C741B` (5,50:1) sur blanc. Le contrôle automatisé a confirmé le rendu calculé de l'orange accessible pour les libellés et boutons concernés.
 
 L'audit mobile final, mené à 390 px sur les neuf pages publiques, confirme pour chaque page : un seul `h1` dans le contenu principal, une hiérarchie de titres sans saut, les repères `nav`, `main` et `footer`, aucune image sans alternative, aucun bouton sans nom accessible et aucun débordement horizontal du document. Le parcours clavier confirme le focus initial sur le lien d'évitement, l'ouverture du menu burger avec un état annoncé, et la bascule au clavier du radar, des phases du calendrier et des insights de recherche.
+
+Un contrôle visuel complémentaire a confirmé que le CTA « Suivre le projet » de la navigation conserve un texte blanc lisible sur son fond orange foncé après les ajustements de contraste.
