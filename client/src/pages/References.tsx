@@ -7,7 +7,7 @@ import { Link } from "wouter";
 /**
  * Page /references — Références inspirantes
  * Tableau comparatif détaillé + fiches approfondies + idées et concepts
- * Couleurs Memoways : bleu #515792, orange #E27227
+ * Couleurs Memoways : bleu #515792, orange #E07428
  *
  * Outils analysés (Niveau 1 — directement comparables) :
  * 1. Nos Gestes Climat (ADEME / beta.gouv.fr)
@@ -17,6 +17,7 @@ import { Link } from "wouter";
  * 5. TMNlab État des lieux (France)
  * 6. Culture Compass for Europe (Commission européenne)
  * 7. Observatoire du numérique genevois (État de Genève)
+ * 8. Digitale Transformatie Scan (DEN, Pays-Bas)
  */
 
 // ─── Données ───────────────────────────────────────────────────────────────────
@@ -165,6 +166,27 @@ const REFERENCES = [
       { label: "Politique numérique cantonale", url: "https://www.ge.ch/document/nouvelle-dynamique-culture-genevoise" },
     ],
   },
+  {
+    id: 8,
+    nom: "Digitale Transformatie Scan",
+    url: "https://www.den.nl/kennis-en-inspiratie/digitale-transformatie-scan-hoe-toekomstklaar-is-jouw-organisatie",
+    badge: "Auto-évaluation · DEN · Pays-Bas",
+    couleur: "#b64a18",
+    annee: "2023– · résultats 2025",
+    porteur: "DEN — centre néerlandais de connaissance pour la culture numérique",
+    chiffre_cle: "+200 professionnels · +100 organisations culturelles en 2025",
+    source_chiffre: "DEN, janvier 2026",
+    url_source_chiffre: "https://www.den.nl/kennis-en-inspiratie/de-stand-van-digitale-transformatie-van-de-cultuursector-in-2025",
+    ce_que_fait: "Auto-évaluation gratuite destinée aux organisations culturelles. Elle examine cinq volets : public et valeur, stratégie et budget, données et technologie, processus et structure, culture et compétences. Chaque volet est situé sur cinq phases de maturité et mène vers une page de résultats avec des conseils, des articles et des pistes concrètes. La scan peut être remplie individuellement ou servir de support à une discussion d'équipe.",
+    ce_que_boussole_apprend: "Un résultat par dimension, associé à une phase de progression lisible, aide une structure à passer d'un constat à une prochaine étape. Le tableau de bord sectoriel de DEN, qui permet de se comparer par secteur ou région, est une inspiration particulièrement solide pour une future fonction de comparaison entre pairs dans la Boussole.",
+    ce_que_boussole_fait_differemment: "La Boussole est conçue pour l'espace francophone suisse et les réalités des petites structures culturelles locales. Elle intègre l'IA, le no-code, la multimodalité et un annuaire neutre de l'écosystème. Son objectif est d'orienter chaque usage dans un contexte territorial précis, sans transposer un référentiel national néerlandais.",
+    limites: "Outil en néerlandais, conçu pour le contexte culturel des Pays-Bas. La scan ne traite pas explicitement des usages de l'IA, de la souveraineté suisse des données ou des pratiques no-code. L'outil existe depuis 2023 ; l'actualité récente concerne surtout la consolidation de ses résultats sectoriels et leur mise en avant en 2026.",
+    liens: [
+      { label: "Faire la scan", url: "https://www.den.nl/kennis-en-inspiratie/digitale-transformatie-scan-hoe-toekomstklaar-is-jouw-organisatie" },
+      { label: "Résultats sectoriels 2025", url: "https://www.den.nl/kennis-en-inspiratie/de-stand-van-digitale-transformatie-van-de-cultuursector-in-2025" },
+      { label: "Culture Monitor — mise à jour 2026", url: "https://www.cultuurmonitor.nl/en/thema/digitale-transformatie/" },
+    ],
+  },
 ];
 
 // ─── Tableau comparatif ────────────────────────────────────────────────────────
@@ -222,6 +244,11 @@ const TABLEAU_COMPARATIF: Record<string, Record<CritereKey, ValeurCritere>> = {
     petites_structures: false, ancrage_local: true, multimodal: false,
     restitution_visuelle: 'partiel', comparaison_pairs: false, souverainete: true,
   },
+  "Digitale Transformatie Scan": {
+    gratuit: true, open_source: false, secteur_culturel: true, dimension_ia: false,
+    petites_structures: true, ancrage_local: 'partiel', multimodal: false,
+    restitution_visuelle: true, comparaison_pairs: true, souverainete: 'partiel',
+  },
   "Boussole Numérique Culture": {
     gratuit: true, open_source: true, secteur_culturel: true, dimension_ia: true,
     petites_structures: true, ancrage_local: true, multimodal: true,
@@ -237,6 +264,7 @@ const OUTILS_ORDRE = [
   "TMNlab État des lieux",
   "Culture Compass EU",
   "Observatoire genevois",
+  "Digitale Transformatie Scan",
   "Boussole Numérique Culture",
 ];
 
@@ -340,7 +368,7 @@ export default function References() {
             Références & exemples inspirants
           </h1>
           <p className="text-lg sm:text-xl text-gray-600 max-w-3xl leading-relaxed">
-            La Boussole ne copie aucun modèle existant. Elle s'appuie sur une analyse approfondie de sept initiatives internationales — des outils de diagnostic numérique culturel aux cadres politiques européens — pour assembler une approche originale, ancrée dans la réalité genevoise.
+            La Boussole ne copie aucun modèle existant. Elle s'appuie sur une analyse approfondie de huit initiatives internationales — des outils de diagnostic numérique culturel aux cadres politiques européens — pour assembler une approche originale, ancrée dans la réalité genevoise.
           </p>
         </div>
       </section>
@@ -354,7 +382,7 @@ export default function References() {
               <div>
                 <h2 className="font-bold text-gray-900 mb-2">Une approche par assemblage raisonné</h2>
                 <p className="text-gray-600 leading-relaxed">
-                  Chaque référence apporte quelque chose de précis. La Boussole emprunte la gratuité et l'open source à <strong>Nos Gestes Climat</strong>, la structuration en niveaux d'engagement au <strong>Digital Culture Compass</strong>, la comparaison sectorielle à <strong>meemoo</strong>, la segmentation en personas au <strong>Baromètre FWB</strong>, l'approche longitudinale au <strong>TMNlab</strong> — et y ajoute l'ancrage genevois, la dimension IA et la multimodalité qui manquent à tous.
+                  Chaque référence apporte quelque chose de précis. La Boussole emprunte la gratuité et l'open source à <strong>Nos Gestes Climat</strong>, la structuration en niveaux d'engagement au <strong>Digital Culture Compass</strong>, la comparaison sectorielle à <strong>meemoo</strong>, la segmentation en personas au <strong>Baromètre FWB</strong>, l'approche longitudinale au <strong>TMNlab</strong> et la lecture par dimensions au <strong>DEN</strong> — puis y ajoute l'ancrage genevois, la dimension IA et la multimodalité.
                 </p>
               </div>
             </div>
@@ -429,7 +457,7 @@ export default function References() {
           </div>
 
           <p className="text-xs text-gray-400 mt-3 text-right">
-            Sources : analyses directes des outils, documentation officielle, juin 2026.
+            Sources : analyses directes des outils, documentation officielle, mises à jour jusqu'en juillet 2026.
           </p>
         </div>
       </section>

@@ -12,3 +12,8 @@
 - [x] Vérifier le rendu des libellés blancs sur Accueil et Partenaires.
 - [x] Retirer les traits de construction à l'intérieur du cercle de la boussole interactive.
 - [x] Vérifier que l'aiguille, les repères et les interactions de la boussole sont conservés.
+- [x] Examiner les références comparables déjà présentes et définir les critères de sélection post-juin 2026.
+- [x] Rechercher et vérifier des exemples fortement comparables publiés ou mis à jour depuis juin 2026.
+- [x] Présenter uniquement les candidats les plus pertinents, avec arguments pour et contre, sans ajout au site.
+- [x] Ajouter la Digitale Transformatie Scan de DEN au tableau comparatif et aux fiches de Références.
+- [x] Vérifier le rendu de la nouvelle référence sans modifier les pages Projet et Recherche.
