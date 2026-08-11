@@ -8,3 +8,5 @@
 - [x] Corriger les défauts d'accessibilité prioritaires et vérifier à nouveau les parcours.
 - [x] Harmoniser les CTA et les accents de la page Partenaires avec la teinte #E07428.
 - [x] Vérifier la lisibilité des CTA et la cohérence visuelle de la page Partenaires.
+- [x] Passer en blanc les textes des CTA et pastilles #E07428.
+- [x] Vérifier le rendu des libellés blancs sur Accueil et Partenaires.

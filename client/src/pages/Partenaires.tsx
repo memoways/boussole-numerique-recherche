@@ -6,7 +6,7 @@ import { Link } from "wouter";
 /**
  * Page /partenaires — Partenaires & premiers utilisateurs
  * CTA doux : mailto, pas de formulaire complexe
- * Direction visuelle : orange #E07428, texte foncé #1f2937 pour les CTA accessibles.
+ * Direction visuelle : orange #E07428, texte blanc pour les CTA et pastilles.
  */
 
 const POURQUOI_PARTICIPER = [
@@ -36,7 +36,7 @@ export default function Partenaires() {
       {/* Hero */}
       <section className="pt-20 sm:pt-24 pb-12 px-4 bg-gradient-to-b from-slate-50 to-white">
         <div className="max-w-4xl mx-auto">
-          <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#E07428', color: '#1f2937' }}>Partenaires</Badge>
+          <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#E07428', color: '#fff' }}>Partenaires</Badge>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4 leading-tight">
             Partenaires & premiers utilisateurs
           </h1>
@@ -44,7 +44,7 @@ export default function Partenaires() {
             La Boussole se construit avec les professionnels et les structures du secteur culturel. Votre participation contribue directement à la pertinence de l'outil.
           </p>
           <div className="flex flex-wrap gap-3">
-            <Button style={{ backgroundColor: '#E07428', color: '#1f2937' }} asChild>
+            <Button style={{ backgroundColor: '#E07428', color: '#fff' }} asChild>
               <a href="mailto:ulrich.fischer@memoways.com?subject=Boussole Numérique Culture — Je souhaite participer">
                 <MessageSquare className="mr-2 h-4 w-4" />
                 Signaler mon intérêt
@@ -81,7 +81,7 @@ export default function Partenaires() {
             {QUI_PEUT_CONTRIBUER.map(({ titre, desc, icon: Icon }) => (
               <div key={titre} className="bg-white rounded-xl p-5 border border-gray-100 flex items-start gap-4">
                 <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: '#E07428' }}>
-                  <Icon className="h-5 w-5 text-slate-800" />
+                  <Icon className="h-5 w-5 text-white" />
                 </div>
                 <div>
                   <h3 className="font-bold text-gray-900 mb-1">{titre}</h3>
@@ -104,7 +104,7 @@ export default function Partenaires() {
             {PARCOURS_PARTENAIRE.map(({ num, titre, desc, couleur }, i) => (
               <div key={num} className="flex items-start flex-1">
                 <div className="flex flex-col items-center flex-1">
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-slate-800 text-sm mb-3" style={{ backgroundColor: couleur }}>
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white text-sm mb-3" style={{ backgroundColor: couleur }}>
                     {num}
                   </div>
                   <h3 className="font-bold text-gray-900 text-center text-sm mb-1">{titre}</h3>
@@ -121,7 +121,7 @@ export default function Partenaires() {
           <div className="md:hidden space-y-3">
             {PARCOURS_PARTENAIRE.map(({ num, titre, desc, couleur }) => (
               <div key={num} className="flex gap-4 items-start p-4 rounded-xl" style={{ backgroundColor: couleur + '10' }}>
-                  <div className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-slate-800 text-sm flex-shrink-0" style={{ backgroundColor: couleur }}>
+                  <div className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-white text-sm flex-shrink-0" style={{ backgroundColor: couleur }}>
                   {num}
                 </div>
                 <div>
@@ -137,7 +137,7 @@ export default function Partenaires() {
       {/* Partenaires confirmés */}
       <section className="py-14 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
-          <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#E07428', color: '#1f2937' }}>Partenaires confirmés</Badge>
+          <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#E07428', color: '#fff' }}>Partenaires confirmés</Badge>
           <h2 className="text-2xl font-bold text-gray-900 mb-3">Structures et personnes engagées</h2>
           <p className="text-gray-500 mb-8 max-w-xl">
             Ces structures ont confirmé leur participation à la co-conception de la Boussole.
@@ -157,7 +157,7 @@ export default function Partenaires() {
                 rel="noopener noreferrer"
                 className="flex items-start gap-4 p-4 rounded-xl border border-gray-100 hover:border-gray-300 hover:shadow-sm transition-all group"
               >
-                <div className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-slate-800 text-sm" style={{ backgroundColor: '#E07428' }}>
+                <div className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-white text-sm" style={{ backgroundColor: '#E07428' }}>
                   {nom[0]}
                 </div>
                 <div className="flex-1 min-w-0">
@@ -232,7 +232,7 @@ export default function Partenaires() {
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Prêt·e à faire un premier pas ?</h2>
           <p className="text-gray-500 mb-8 max-w-xl mx-auto">Un message suffit pour commencer. L'équipe de projet prendra contact pour présenter les prochaines étapes et les modalités de participation.</p>
           <div className="flex flex-wrap gap-3 justify-center">
-            <Button size="lg" style={{ backgroundColor: '#E07428', color: '#1f2937' }} asChild>
+            <Button size="lg" style={{ backgroundColor: '#E07428', color: '#fff' }} asChild>
               <a href="mailto:ulrich.fischer@memoways.com?subject=Boussole Numérique Culture — Je souhaite participer">
                 <MessageSquare className="mr-2 h-4 w-4" />
                 Nous écrire

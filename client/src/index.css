@@ -156,7 +156,10 @@
   a[style*="background-color: rgb(81, 87, 146)"] {
     background-color: #E07428 !important;
     border-color: #E07428 !important;
-    color: #1f2937 !important;
+    color: #fff !important;
+  }
+  [style*="background-color: rgb(224, 116, 40)"] {
+    color: #fff !important;
   }
   a[style*="border-color: rgb(226, 114, 39)"] {
     border-color: #E07428 !important;
