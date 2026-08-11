@@ -152,12 +152,22 @@
   :where(p, span, a, li, time).text-gray-300 {
     color: #6b7280;
   }
+  /* CTA : orange demandé, avec texte sombre pour préserver le contraste AA. */
+  a[style*="background-color: rgb(81, 87, 146)"] {
+    background-color: #E07428 !important;
+    border-color: #E07428 !important;
+    color: #1f2937 !important;
+  }
+  a[style*="border-color: rgb(226, 114, 39)"] {
+    border-color: #E07428 !important;
+    color: #1f2937 !important;
+  }
   /* Les accents conservent leur identité, avec une variante plus sombre lorsqu'ils portent du texte. */
   [style*="color: rgb(226, 114, 39)"]:not([style*="background-color"]) { color: #A8440D !important; }
   [style*="color: rgb(58, 171, 138)"]:not([style*="background-color"]) { color: #167A5E !important; }
   [style*="color: rgb(122, 182, 72)"]:not([style*="background-color"]) { color: #4C741B !important; }
   [style*="color: rgb(229, 132, 65)"]:not([style*="background-color"]) { color: #A8440D !important; }
-  [style*="background-color: rgb(226, 114, 39)"] { background-color: #A8440D !important; }
+  [style*="background-color: rgb(226, 114, 39)"] { background-color: #E07428 !important; }
   [style*="background-color: rgb(58, 171, 138)"] { background-color: #167A5E !important; }
   [style*="background-color: rgb(122, 182, 72)"] { background-color: #4C741B !important; }
   [style*="background-color: rgb(229, 132, 65)"] { background-color: #A8440D !important; }

@@ -6,3 +6,5 @@
 - [x] Contrôler la hiérarchie de titres, les zones sémantiques et les libellés accessibles.
 - [x] Vérifier les parcours clavier sur mobile : focus visible, ordre de tabulation et activation.
 - [x] Corriger les défauts d'accessibilité prioritaires et vérifier à nouveau les parcours.
+- [x] Harmoniser les CTA et les accents de la page Partenaires avec la teinte #E07428.
+- [x] Vérifier la lisibilité des CTA et la cohérence visuelle de la page Partenaires.

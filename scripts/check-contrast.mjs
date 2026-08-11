@@ -1,7 +1,9 @@
 const colors = {
   bleu_memoways: '#515792',
   orange_marque: '#E27227',
+  orange_cta: '#E07428',
   orange_accessible: '#A8440D',
+  texte_cta: '#1F2937',
   vert_marque: '#3AAB8A',
   vert_accessible: '#167A5E',
   vert_olive: '#7AB648',
@@ -34,6 +36,7 @@ function contrast(a, b) {
 const pairs = [
   ['bleu_memoways', 'blanc'],
   ['orange_marque', 'blanc'],
+  ['orange_cta', 'texte_cta'],
   ['orange_accessible', 'blanc'],
   ['vert_marque', 'blanc'],
   ['vert_accessible', 'blanc'],

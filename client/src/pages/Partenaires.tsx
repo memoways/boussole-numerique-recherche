@@ -6,13 +6,13 @@ import { Link } from "wouter";
 /**
  * Page /partenaires — Partenaires & premiers utilisateurs
  * CTA doux : mailto, pas de formulaire complexe
- * Couleurs Memoways : bleu #515792, orange #E27227
+ * Direction visuelle : orange #E07428, texte foncé #1f2937 pour les CTA accessibles.
  */
 
 const POURQUOI_PARTICIPER = [
-  { titre: "Façonner un outil utile", desc: "Votre expérience du terrain oriente directement la conception de la Boussole — les questions posées, les recommandations proposées.", icon: Heart, couleur: "#E27227" },
-  { titre: "Accès en avant-première", desc: "Les partenaires de co-conception auront accès à la Boussole avant sa mise à disposition publique.", icon: TestTube, couleur: "#515792" },
-  { titre: "Contribuer à un bien commun", desc: "La Boussole sera gratuite et open source. Participer, c'est contribuer à un outil collectif pour le secteur.", icon: Users, couleur: "#3aab8a" },
+  { titre: "Façonner un outil utile", desc: "Votre expérience du terrain oriente directement la conception de la Boussole — les questions posées, les recommandations proposées.", icon: Heart, couleur: "#E07428" },
+  { titre: "Accès en avant-première", desc: "Les partenaires de co-conception auront accès à la Boussole avant sa mise à disposition publique.", icon: TestTube, couleur: "#E07428" },
+  { titre: "Contribuer à un bien commun", desc: "La Boussole sera gratuite et open source. Participer, c'est contribuer à un outil collectif pour le secteur.", icon: Users, couleur: "#E07428" },
 ];
 
 const QUI_PEUT_CONTRIBUER = [
@@ -22,11 +22,11 @@ const QUI_PEUT_CONTRIBUER = [
 ];
 
 const PARCOURS_PARTENAIRE = [
-  { num: "01", titre: "Je découvre", desc: "Je lis le site, je comprends le projet, je m'informe sur la démarche.", couleur: "#515792" },
-  { num: "02", titre: "Je signale mon intérêt", desc: "J'envoie un message pour indiquer que je souhaite suivre ou participer.", couleur: "#E27227" },
-  { num: "03", titre: "Je contribue", desc: "Je participe à un entretien, un atelier ou un test utilisateur selon ma disponibilité.", couleur: "#3aab8a" },
-  { num: "04", titre: "Je teste", desc: "J'utilise une version du prototype et je partage mes retours.", couleur: "#9b59b6" },
-  { num: "05", titre: "Je bénéficie", desc: "J'accède à la Boussole en avant-première et je reçois les apprentissages documentés.", couleur: "#E58441" },
+  { num: "01", titre: "Je découvre", desc: "Je lis le site, je comprends le projet, je m'informe sur la démarche.", couleur: "#E07428" },
+  { num: "02", titre: "Je signale mon intérêt", desc: "J'envoie un message pour indiquer que je souhaite suivre ou participer.", couleur: "#E07428" },
+  { num: "03", titre: "Je contribue", desc: "Je participe à un entretien, un atelier ou un test utilisateur selon ma disponibilité.", couleur: "#E07428" },
+  { num: "04", titre: "Je teste", desc: "J'utilise une version du prototype et je partage mes retours.", couleur: "#E07428" },
+  { num: "05", titre: "Je bénéficie", desc: "J'accède à la Boussole en avant-première et je reçois les apprentissages documentés.", couleur: "#E07428" },
 ];
 
 export default function Partenaires() {
@@ -36,7 +36,7 @@ export default function Partenaires() {
       {/* Hero */}
       <section className="pt-20 sm:pt-24 pb-12 px-4 bg-gradient-to-b from-slate-50 to-white">
         <div className="max-w-4xl mx-auto">
-          <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#E27227' }}>Partenaires</Badge>
+          <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#E07428', color: '#1f2937' }}>Partenaires</Badge>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4 leading-tight">
             Partenaires & premiers utilisateurs
           </h1>
@@ -44,13 +44,13 @@ export default function Partenaires() {
             La Boussole se construit avec les professionnels et les structures du secteur culturel. Votre participation contribue directement à la pertinence de l'outil.
           </p>
           <div className="flex flex-wrap gap-3">
-            <Button style={{ backgroundColor: '#515792' }} asChild>
+            <Button style={{ backgroundColor: '#E07428', color: '#1f2937' }} asChild>
               <a href="mailto:ulrich.fischer@memoways.com?subject=Boussole Numérique Culture — Je souhaite participer">
                 <MessageSquare className="mr-2 h-4 w-4" />
                 Signaler mon intérêt
               </a>
             </Button>
-            <Button variant="outline" style={{ borderColor: '#E27227', color: '#E27227' }} asChild>
+            <Button variant="outline" style={{ borderColor: '#E07428', color: '#1f2937' }} asChild>
               <Link href="/methode">Voir la méthode</Link>
             </Button>
           </div>
@@ -80,8 +80,8 @@ export default function Partenaires() {
           <div className="space-y-4">
             {QUI_PEUT_CONTRIBUER.map(({ titre, desc, icon: Icon }) => (
               <div key={titre} className="bg-white rounded-xl p-5 border border-gray-100 flex items-start gap-4">
-                <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: '#515792' }}>
-                  <Icon className="h-5 w-5 text-white" />
+                <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: '#E07428' }}>
+                  <Icon className="h-5 w-5 text-slate-800" />
                 </div>
                 <div>
                   <h3 className="font-bold text-gray-900 mb-1">{titre}</h3>
@@ -104,7 +104,7 @@ export default function Partenaires() {
             {PARCOURS_PARTENAIRE.map(({ num, titre, desc, couleur }, i) => (
               <div key={num} className="flex items-start flex-1">
                 <div className="flex flex-col items-center flex-1">
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white text-sm mb-3" style={{ backgroundColor: couleur }}>
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-slate-800 text-sm mb-3" style={{ backgroundColor: couleur }}>
                     {num}
                   </div>
                   <h3 className="font-bold text-gray-900 text-center text-sm mb-1">{titre}</h3>
@@ -121,7 +121,7 @@ export default function Partenaires() {
           <div className="md:hidden space-y-3">
             {PARCOURS_PARTENAIRE.map(({ num, titre, desc, couleur }) => (
               <div key={num} className="flex gap-4 items-start p-4 rounded-xl" style={{ backgroundColor: couleur + '10' }}>
-                <div className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-white text-sm flex-shrink-0" style={{ backgroundColor: couleur }}>
+                  <div className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-slate-800 text-sm flex-shrink-0" style={{ backgroundColor: couleur }}>
                   {num}
                 </div>
                 <div>
@@ -137,7 +137,7 @@ export default function Partenaires() {
       {/* Partenaires confirmés */}
       <section className="py-14 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
-          <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#3aab8a' }}>Partenaires confirmés</Badge>
+          <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#E07428', color: '#1f2937' }}>Partenaires confirmés</Badge>
           <h2 className="text-2xl font-bold text-gray-900 mb-3">Structures et personnes engagées</h2>
           <p className="text-gray-500 mb-8 max-w-xl">
             Ces structures ont confirmé leur participation à la co-conception de la Boussole.
@@ -157,14 +157,14 @@ export default function Partenaires() {
                 rel="noopener noreferrer"
                 className="flex items-start gap-4 p-4 rounded-xl border border-gray-100 hover:border-gray-300 hover:shadow-sm transition-all group"
               >
-                <div className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-white text-sm" style={{ backgroundColor: '#515792' }}>
+                <div className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-slate-800 text-sm" style={{ backgroundColor: '#E07428' }}>
                   {nom[0]}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="font-semibold text-gray-900 group-hover:text-[#515792] transition-colors">{nom}</p>
+                  <p className="font-semibold text-gray-900 group-hover:text-[#E07428] transition-colors">{nom}</p>
                   {contact && <p className="text-xs text-gray-500">{contact}</p>}
                 </div>
-                <ArrowRight className="h-4 w-4 text-gray-300 group-hover:text-[#515792] flex-shrink-0 mt-1 transition-colors" />
+                <ArrowRight className="h-4 w-4 text-gray-300 group-hover:text-[#E07428] flex-shrink-0 mt-1 transition-colors" />
               </a>
             ))}
           </div>
@@ -188,7 +188,7 @@ export default function Partenaires() {
                   "Leur connaissance du terrain et des réalités du secteur",
                 ].map(item => (
                   <li key={item} className="flex items-start gap-3 text-gray-600 text-sm">
-                    <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: '#515792' }}></div>
+                    <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: '#E07428' }}></div>
                     {item}
                   </li>
                 ))}
@@ -205,7 +205,7 @@ export default function Partenaires() {
                   "Reconnaissance dans la documentation du projet",
                 ].map(item => (
                   <li key={item} className="flex items-start gap-3 text-gray-600 text-sm">
-                    <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: '#E27227' }}></div>
+                    <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: '#E07428' }}></div>
                     {item}
                   </li>
                 ))}
@@ -218,7 +218,7 @@ export default function Partenaires() {
       {/* Comment le portail pourra évoluer */}
       <section className="py-14 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
-          <div className="rounded-2xl p-8" style={{ background: 'linear-gradient(135deg, #515792 0%, #3a4580 100%)' }}>
+          <div className="rounded-2xl p-8" style={{ background: 'linear-gradient(135deg, #E07428 0%, #C45C19 100%)' }}>
             <h2 className="text-2xl font-bold text-white mb-4">Comment le portail pourra évoluer</h2>
             <p className="text-white/80 leading-relaxed mb-6">Ce site compagnon est conçu pour évoluer avec le projet. Il pourra devenir, avec les partenaires et premiers utilisateurs, un espace de suivi de l'avancement, de partage des apprentissages, de documentation des retours et de préparation des premiers usages.</p>
             <p className="text-white/70 text-sm leading-relaxed">Ce site compagnon est conçu pour évoluer avec le projet, au rythme des partenaires et des premiers utilisateurs.</p>
@@ -232,13 +232,13 @@ export default function Partenaires() {
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Prêt·e à faire un premier pas ?</h2>
           <p className="text-gray-500 mb-8 max-w-xl mx-auto">Un message suffit pour commencer. L'équipe de projet prendra contact pour présenter les prochaines étapes et les modalités de participation.</p>
           <div className="flex flex-wrap gap-3 justify-center">
-            <Button size="lg" style={{ backgroundColor: '#515792' }} asChild>
+            <Button size="lg" style={{ backgroundColor: '#E07428', color: '#1f2937' }} asChild>
               <a href="mailto:ulrich.fischer@memoways.com?subject=Boussole Numérique Culture — Je souhaite participer">
                 <MessageSquare className="mr-2 h-4 w-4" />
                 Nous écrire
               </a>
             </Button>
-            <Button size="lg" variant="outline" style={{ borderColor: '#E27227', color: '#E27227' }} asChild>
+            <Button size="lg" variant="outline" style={{ borderColor: '#E07428', color: '#1f2937' }} asChild>
               <Link href="/timeline">Voir le calendrier <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
           </div>

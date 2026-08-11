@@ -15,3 +15,5 @@ Les couleurs d'accent qui portent du texte ou une fonction interactive sont rend
 L'audit mobile final, mené à 390 px sur les neuf pages publiques, confirme pour chaque page : un seul `h1` dans le contenu principal, une hiérarchie de titres sans saut, les repères `nav`, `main` et `footer`, aucune image sans alternative, aucun bouton sans nom accessible et aucun débordement horizontal du document. Le parcours clavier confirme le focus initial sur le lien d'évitement, l'ouverture du menu burger avec un état annoncé, et la bascule au clavier du radar, des phases du calendrier et des insights de recherche.
 
 Un contrôle visuel complémentaire a confirmé que le CTA « Suivre le projet » de la navigation conserve un texte blanc lisible sur son fond orange foncé après les ajustements de contraste.
+
+La teinte des CTA a ensuite été harmonisée avec la demande visuelle `#E07428`. Le texte est rendu en `#1F2937`, ce qui atteint un contraste de 4,68:1 et conserve donc la conformité AA pour le texte normal. Les CTA de la page d'accueil, de navigation et de la page Partenaires ont été contrôlés visuellement après cette évolution.
