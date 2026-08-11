@@ -312,16 +312,6 @@ function BoussoleDemoInteractive() {
           <svg viewBox="0 0 320 320" className="w-64 h-64 sm:w-72 sm:h-72" role="group" aria-label="Boussole interactive des cinq dimensions">
             {/* Cercle de fond */}
             <circle cx={CX} cy={CY} r="130" fill="#f8f9fc" stroke="#e5e7eb" strokeWidth="1" />
-            <circle cx={CX} cy={CY} r="90" fill="none" stroke="#e5e7eb" strokeWidth="0.5" strokeDasharray="4 4" />
-            <circle cx={CX} cy={CY} r="50" fill="none" stroke="#e5e7eb" strokeWidth="0.5" strokeDasharray="4 4" />
-
-            {/* Lignes cardinales */}
-            {[0, 45, 90, 135].map(a => {
-              const r = a * Math.PI / 180;
-              return <line key={a} x1={(CX + 130*Math.cos(r)).toFixed(1)} y1={(CY + 130*Math.sin(r)).toFixed(1)}
-                x2={(CX - 130*Math.cos(r)).toFixed(1)} y2={(CY - 130*Math.sin(r)).toFixed(1)}
-                stroke="#e5e7eb" strokeWidth="0.5" />;
-            })}
 
             {/* Icônes des 5 dimensions */}
             {DIMS_RADAR.map((d, i) => {

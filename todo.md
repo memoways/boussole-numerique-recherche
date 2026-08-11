@@ -10,3 +10,5 @@
 - [x] Vérifier la lisibilité des CTA et la cohérence visuelle de la page Partenaires.
 - [x] Passer en blanc les textes des CTA et pastilles #E07428.
 - [x] Vérifier le rendu des libellés blancs sur Accueil et Partenaires.
+- [x] Retirer les traits de construction à l'intérieur du cercle de la boussole interactive.
+- [x] Vérifier que l'aiguille, les repères et les interactions de la boussole sont conservés.

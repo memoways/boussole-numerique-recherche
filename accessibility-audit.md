@@ -17,3 +17,5 @@ L'audit mobile final, mené à 390 px sur les neuf pages publiques, confirme pou
 Un contrôle visuel complémentaire a confirmé que le CTA « Suivre le projet » de la navigation conserve un texte blanc lisible sur son fond orange foncé après les ajustements de contraste.
 
 La teinte des CTA a ensuite été harmonisée avec la demande visuelle `#E07428`. Le texte est rendu en `#1F2937`, ce qui atteint un contraste de 4,68:1 et conserve donc la conformité AA pour le texte normal. Les CTA de la page d'accueil, de navigation et de la page Partenaires ont été contrôlés visuellement après cette évolution.
+
+La boussole interactive de la page d'accueil a été simplifiée : les cercles pointillés et les lignes cardinales internes sont retirés. Le contour, l'aiguille, les cinq repères et leurs interactions restent présents.
