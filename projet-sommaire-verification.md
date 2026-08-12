@@ -7,3 +7,7 @@ La vérification DOM a ensuite établi que le conteneur `aside` ne mesurait que 
 Le contrôle des ancêtres a également mis en évidence que `overflow-x: hidden` sur `html` et `body` créait un conteneur de défilement vertical implicite, incompatible avec le comportement sticky attendu. Cette règle est remplacée par `overflow-x: clip`, qui conserve le blocage des débordements horizontaux sans interférer avec le sticky.
 
 Contrôle final après défilement à 962 px : le conteneur latéral mesure 7 376 px, le sommaire est en `position: sticky` et reste exactement à 96 px du haut de viewport. Le sommaire peut donc rester disponible à gauche jusqu'à la fin du contenu principal.
+
+La barre de lecture atteint 25 % après un défilement desktop de 1 900 px, tout en maintenant le sommaire à 96 px du haut. Après stabilisation de l'observer, l'entrée active bascule bien vers « Le contexte ».
+
+En émulation smartphone de 390 px, le sélecteur affiche les 10 sections, se fixe à 73 px sous la navigation et ne crée aucun débordement horizontal. La sélection de « Le contexte » active bien cette section et la positionne à 185 px du haut, sous la navigation et le menu fixe.

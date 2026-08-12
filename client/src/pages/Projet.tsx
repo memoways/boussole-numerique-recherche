@@ -167,6 +167,7 @@ export default function Projet() {
   const [etapeOuverte, setEtapeOuverte] = useState<number | null>(0);
   const [archOpen, setArchOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("intention");
+  const [readingProgress, setReadingProgress] = useState(0);
   // Ref pour bloquer temporairement l'observer après un clic (évite le flash)
   const scrollingRef = useRef(false);
   const scrollTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -215,13 +216,38 @@ export default function Projet() {
     };
   }, []);
 
+  // Progression de lecture basée sur le début et la fin du contenu du projet.
+  useEffect(() => {
+    const updateProgress = () => {
+      const first = document.getElementById(SECTIONS[0].id);
+      const last = document.getElementById(SECTIONS[SECTIONS.length - 1].id);
+      if (!first || !last) return;
+
+      const start = first.getBoundingClientRect().top + window.scrollY - 160;
+      const end = last.getBoundingClientRect().bottom + window.scrollY - window.innerHeight + 160;
+      const ratio = end > start ? ((window.scrollY - start) / (end - start)) * 100 : 0;
+      setReadingProgress(Math.max(0, Math.min(100, Math.round(ratio))));
+    };
+
+    updateProgress();
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    window.addEventListener("resize", updateProgress);
+    return () => {
+      window.removeEventListener("scroll", updateProgress);
+      window.removeEventListener("resize", updateProgress);
+    };
+  }, []);
+
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
       // Bloquer l'observer pendant le scroll animé pour éviter les sauts
       scrollingRef.current = true;
       setActiveSection(id);
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      const isMobile = window.matchMedia("(max-width: 1023px)").matches;
+      const offset = isMobile ? 136 : 96;
+      const targetY = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top: targetY, behavior: "smooth" });
       if (scrollTimerRef.current) clearTimeout(scrollTimerRef.current);
       scrollTimerRef.current = setTimeout(() => {
         scrollingRef.current = false;
@@ -259,6 +285,26 @@ export default function Projet() {
         </div>
       </section>
 
+      {/* Sommaire mobile : reste sous la navigation lorsque l'on parcourt le contenu. */}
+      <div className="lg:hidden sticky top-16 z-30 border-y border-slate-200 bg-white/95 backdrop-blur-sm shadow-sm">
+        <div className="max-w-5xl mx-auto px-4 py-2">
+          <div className="relative">
+            <label htmlFor="projet-sections" className="sr-only">Aller à une section du projet</label>
+            <select
+              id="projet-sections"
+              value={activeSection}
+              onChange={(event) => scrollTo(event.target.value)}
+              className="w-full appearance-none rounded-lg border border-slate-200 bg-white px-3 py-2 pr-9 text-sm font-semibold text-[#515792] shadow-sm focus:outline-none focus:ring-2 focus:ring-[#515792]"
+            >
+              {SECTIONS.map((section) => (
+                <option key={section.id} value={section.id}>{section.label}</option>
+              ))}
+            </select>
+            <ChevronDown aria-hidden="true" className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#515792]" />
+          </div>
+        </div>
+      </div>
+
       {/* ── LAYOUT PRINCIPAL : sidebar + contenu ─────────────────────────────── */}
       <div className="max-w-5xl mx-auto px-4 py-10 flex gap-10">
 
@@ -284,6 +330,22 @@ export default function Projet() {
                 </button>
               ))}
             </nav>
+            <div className="mt-5 border-t border-slate-200 pt-4">
+              <div className="mb-2 flex items-center justify-between text-[11px] font-semibold uppercase tracking-widest text-slate-400">
+                <span>Lecture</span>
+                <span aria-live="polite">{readingProgress}%</span>
+              </div>
+              <div
+                className="h-1.5 overflow-hidden rounded-full bg-slate-100"
+                role="progressbar"
+                aria-label="Progression de lecture du projet"
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-valuenow={readingProgress}
+              >
+                <div className="h-full rounded-full bg-[#515792] transition-[width] duration-200" style={{ width: `${readingProgress}%` }} />
+              </div>
+            </div>
           </div>
         </aside>
 

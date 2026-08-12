@@ -26,3 +26,5 @@
 - [x] Uniformiser en blanc les textes et icônes des pastilles colorées de la page Partenaires.
 - [x] Augmenter légèrement la taille et la lisibilité des icônes blanches des pastilles Partenaires sur mobile.
 - [x] Rendre le sommaire latéral de la page Projet sticky à gauche sur desktop et vérifier le suivi de section.
+- [x] Ajouter une barre de progression de lecture au sommaire sticky de la page Projet.
+- [x] Ajouter un menu déroulant de sections fixé sur mobile et vérifier sa synchronisation.
