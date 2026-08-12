@@ -11,3 +11,9 @@ Les pages internes affichent également un fil d’Ariane accessible (`Accueil �
 Le fil d’Ariane est positionné sous la navigation fixe, avec une barre discrète et un état de page courante. La vérification visuelle de `/partenaires` confirme son affichage sans recouvrement du hero.
 
 La page `/projet` utilise le même fil d’Ariane global et son ancien repère statique du hero a été retiré afin d’éviter un doublon. Le sommaire desktop et sa progression de lecture restent intacts.
+
+## Ajouter une sous-page détaillée
+
+Le type `SeoPage` accepte désormais un tableau `breadcrumbs`. Pour une future route détaillée, fournissez les trois niveaux, par exemple `Accueil → Projet → Nom de la sous-page`. Le composant affiche ces trois niveaux sur desktop et, sur mobile étroit, conserve `Accueil`, une ellipse et la page courante afin d’éviter tout retour à la ligne. Le générateur SEO statique accepte la même propriété `breadcrumbs` et crée automatiquement le `BreadcrumbList` correspondant.
+
+Le contrôle visuel à 320 px confirme que le fil d’Ariane actuel reste sur une seule ligne, avec un libellé courant tronqué si nécessaire plutôt qu’un retour à la ligne.

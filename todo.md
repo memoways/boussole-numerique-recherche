@@ -38,3 +38,6 @@
 - [x] Auditer les routes et le layout afin de définir le fil d’Ariane des pages internes.
 - [x] Ajouter un fil d’Ariane accessible et responsive aux pages internes du projet.
 - [x] Ajouter et vérifier les données structurées BreadcrumbList par route.
+- [x] Préparer la logique de fil d’Ariane pour une profondeur de trois niveaux.
+- [x] Ajouter une présentation compacte pour les écrans mobiles très étroits.
+- [x] Vérifier la lisibilité mobile et la compatibilité desktop du fil d’Ariane étendu.

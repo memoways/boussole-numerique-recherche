@@ -30,7 +30,7 @@ const pages = {
 
 const escapeHtml = (value) => value.replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[character]);
 
-function renderTags({ title, description, canonicalPath = "/", index = true }) {
+function renderTags({ title, description, canonicalPath = "/", index = true, breadcrumbs }) {
   const canonicalUrl = `${siteUrl}${canonicalPath === "/" ? "/" : canonicalPath}`;
   const imageUrl = `${siteUrl}/logo-memoways.png`;
   const schema = JSON.stringify({
@@ -42,15 +42,22 @@ function renderTags({ title, description, canonicalPath = "/", index = true }) {
     inLanguage: "fr-CH",
     ...(canonicalPath !== "/" ? { isPartOf: { "@type": "WebSite", name: siteName, url: `${siteUrl}/` } } : {}),
   }).replace(/</g, "\\u003c");
-  const breadcrumbLabel = breadcrumbLabels[canonicalPath];
-  const breadcrumbSchema = breadcrumbLabel
+  const resolvedBreadcrumbs = breadcrumbs ?? (breadcrumbLabels[canonicalPath]
+    ? [
+      { label: "Accueil", path: "/" },
+      { label: breadcrumbLabels[canonicalPath], path: canonicalPath },
+    ]
+    : []);
+  const breadcrumbSchema = resolvedBreadcrumbs.length > 1
     ? JSON.stringify({
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Accueil", item: `${siteUrl}/` },
-        { "@type": "ListItem", position: 2, name: breadcrumbLabel, item: canonicalUrl },
-      ],
+      itemListElement: resolvedBreadcrumbs.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.label,
+        item: `${siteUrl}${item.path === "/" ? "/" : item.path}`,
+      })),
     }).replace(/</g, "\\u003c")
     : null;
 

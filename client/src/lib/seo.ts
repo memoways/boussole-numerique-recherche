@@ -3,6 +3,7 @@ export type SeoPage = {
   description: string;
   canonicalPath?: string;
   index?: boolean;
+  breadcrumbs?: BreadcrumbItem[];
 };
 
 export type BreadcrumbItem = {
@@ -124,6 +125,8 @@ const BREADCRUMB_LABELS: Record<string, string> = {
   "/synthese-documents": "Synthèse documentaire",
 };
 
+const HOME_BREADCRUMB: BreadcrumbItem = { label: "Accueil", path: "/" };
+
 export function normalizePathname(pathname: string) {
   const normalized = pathname.replace(/\/+$/, "");
   return normalized || "/";
@@ -143,10 +146,12 @@ export function getBreadcrumbs(pathname: string): BreadcrumbItem[] {
   const canonicalPath = page.canonicalPath ?? normalizedPath;
   const currentLabel = BREADCRUMB_LABELS[canonicalPath];
 
+  if (page.breadcrumbs?.length) return page.breadcrumbs;
+
   if (!currentLabel) return [];
 
   return [
-    { label: "Accueil", path: "/" },
+    HOME_BREADCRUMB,
     { label: currentLabel, path: canonicalPath },
   ];
 }
