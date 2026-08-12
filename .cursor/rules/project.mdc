@@ -1,0 +1,12 @@
+---
+description: Règles communes du projet Boussole Numérique Culture
+alwaysApply: true
+---
+
+Lire et respecter `AGENTS.md` avant toute modification. Le projet est un site React/Vite statique servi par Nginx dans Docker.
+
+- Utiliser Node 22 et pnpm ; valider par `pnpm verify`.
+- Préserver le français, l'accessibilité, le responsive et les routes Wouter.
+- Ne jamais ajouter de secret, clé API ou mot de passe dans le client ni dans une variable `VITE_*`.
+- Ne pas modifier la configuration Coolify ou DNS depuis le code ; consulter `docs/COOLIFY_MIGRATION.md` pour le déploiement.
+- Vérifier sur mobile les modifications qui affectent navigation, tableaux, composants sticky ou CTA.

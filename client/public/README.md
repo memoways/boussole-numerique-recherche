@@ -130,4 +130,4 @@ Ce dossier contient le résultat d'une recherche approfondie sur la transformati
 
 ---
 
-*Recherche réalisée par Manus AI - Février 2026*
+*Recherche consolidée pour Memoways — Février 2026*

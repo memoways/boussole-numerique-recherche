@@ -2,7 +2,7 @@
 ## Étude Complète - Version 2 - Février 2026
 
 **Recherche réalisée pour le projet Boussole Numérique Culture**  
-**Par Manus AI pour Memoways**
+**Pour Memoways**
 
 ---
 
@@ -1144,6 +1144,6 @@ La **Boussole Numérique Culture** se positionne comme un **outil hybride** comb
 
 ---
 
-**Document réalisé par Manus AI pour Memoways**  
+**Document réalisé pour Memoways**
 **Février 2026**  
 **Contact** : [Memoways](https://memoways.com/)

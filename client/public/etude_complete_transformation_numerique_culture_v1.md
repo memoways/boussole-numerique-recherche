@@ -2,7 +2,7 @@
 ## Étude Complète - Février 2026
 
 **Recherche réalisée pour le projet Boussole Numérique Culture**  
-**Par Manus AI pour Memoways**
+**Pour Memoways**
 
 ---
 
@@ -597,8 +597,7 @@ Inspirée du modèle québécois, cette grille peut servir de base pour la Bouss
 
 ## À Propos
 
-**Recherche réalisée par** : Manus AI  
-**Pour le compte de** : Memoways  
+**Recherche réalisée pour** : Memoways
 **Contact** : Ulrich Fischer  
 **Site web** : [memoways.com](https://memoways.com/)
 

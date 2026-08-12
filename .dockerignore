@@ -1,0 +1,24 @@
+# Dépendances et résultats de build locaux
+node_modules
+dist
+.pnpm-store
+
+# Métadonnées et logs locaux
+.git
+.gitignore
+.manus-logs
+.webdev
+coverage
+screenshots
+tmp
+temp
+
+# Secrets et fichiers d'éditeur
+.env
+.env.*
+!.env.example
+.vscode
+.idea
+
+# Les fichiers publics (images, PDF, documents) restent inclus : ils sont servis
+# par le site et ne doivent pas disparaître de l'image de production.

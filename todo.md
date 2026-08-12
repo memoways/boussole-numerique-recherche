@@ -28,3 +28,7 @@
 - [x] Rendre le sommaire latéral de la page Projet sticky à gauche sur desktop et vérifier le suivi de section.
 - [x] Ajouter une barre de progression de lecture au sommaire sticky de la page Projet.
 - [x] Ajouter un menu déroulant de sections fixé sur mobile et vérifier sa synchronisation.
+- [x] Auditer les dépendances et intégrations spécifiques à Manus à retirer ou remplacer.
+- [x] Ajouter les fichiers de déploiement Coolify, de conteneur et d'environnement portable.
+- [x] Ajouter les instructions de travail pour Cursor, Codex et Claude Code.
+- [x] Tester le build autonome et rédiger le guide détaillé de migration Coolify.
