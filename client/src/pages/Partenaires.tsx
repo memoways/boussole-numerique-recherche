@@ -12,8 +12,8 @@ import { Link } from "wouter";
 const SPECTRE_PARTENAIRES = [
   { couleur: "#515792", texte: "#ffffff" },
   { couleur: "#3a7fc1", texte: "#ffffff" },
-  { couleur: "#3aab8a", texte: "#102b37" },
-  { couleur: "#7ab648", texte: "#172414" },
+  { couleur: "#3aab8a", texte: "#ffffff" },
+  { couleur: "#7ab648", texte: "#ffffff" },
   { couleur: "#E07428", texte: "#ffffff" },
 ] as const;
 
@@ -26,7 +26,7 @@ const POURQUOI_PARTICIPER = [
 const QUI_PEUT_CONTRIBUER = [
   { titre: "Structures culturelles genevoises", desc: "Musées, galeries, compagnies, associations, bibliothèques, écoles de musique, centres culturels — toute structure active dans le secteur culturel.", icon: Building2, couleur: "#515792", couleurTexte: "#ffffff" },
   { titre: "Artistes et professionnels indépendants", desc: "Artistes, créateurs, médiateurs, gestionnaires culturels qui souhaitent tester l'outil et partager leur expérience.", icon: Users, couleur: "#3a7fc1", couleurTexte: "#ffffff" },
-  { titre: "Institutions partenaires", desc: "Organisations qui soutiennent le secteur culturel et souhaitent contribuer à un outil d'intérêt public.", icon: Heart, couleur: "#3aab8a", couleurTexte: "#102b37" },
+  { titre: "Institutions partenaires", desc: "Organisations qui soutiennent le secteur culturel et souhaitent contribuer à un outil d'intérêt public.", icon: Heart, couleur: "#3aab8a", couleurTexte: "#ffffff" },
 ];
 
 const PARCOURS_PARTENAIRE = [
