@@ -7,6 +7,9 @@ const publicDir = resolve("client/public");
 const siteName = "Boussole Numérique Culture";
 const defaultDescription = "Un outil de diagnostic numérique pour aider les actrices, acteurs et structures culturelles à situer leurs pratiques et choisir des pistes d'action utiles.";
 const mode = process.argv[2] ?? "pages";
+const breadcrumbLabels = {
+  "/projet": "Projet", "/timeline": "Calendrier", "/experience": "Expérience", "/methode": "Méthode", "/partenaires": "Partenaires", "/recherche": "Recherche", "/references": "Références", "/ressources": "Ressources", "/etude-complete": "Étude complète", "/etat-des-lieux": "État des lieux", "/analyse-outils": "Analyse d’outils", "/sources": "Sources", "/synthese-documents": "Synthèse documentaire",
+};
 
 const pages = {
   "/": { title: "Boussole Numérique Culture | Diagnostic numérique", description: defaultDescription },
@@ -39,6 +42,17 @@ function renderTags({ title, description, canonicalPath = "/", index = true }) {
     inLanguage: "fr-CH",
     ...(canonicalPath !== "/" ? { isPartOf: { "@type": "WebSite", name: siteName, url: `${siteUrl}/` } } : {}),
   }).replace(/</g, "\\u003c");
+  const breadcrumbLabel = breadcrumbLabels[canonicalPath];
+  const breadcrumbSchema = breadcrumbLabel
+    ? JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Accueil", item: `${siteUrl}/` },
+        { "@type": "ListItem", position: 2, name: breadcrumbLabel, item: canonicalUrl },
+      ],
+    }).replace(/</g, "\\u003c")
+    : null;
 
   return `
     <title>${escapeHtml(title)}</title>
@@ -56,7 +70,8 @@ function renderTags({ title, description, canonicalPath = "/", index = true }) {
     <meta name="twitter:title" content="${escapeHtml(title)}" />
     <meta name="twitter:description" content="${escapeHtml(description)}" />
     <meta name="twitter:image" content="${escapeHtml(imageUrl)}" />
-    <script id="seo-page-schema" type="application/ld+json">${schema}</script>`;
+    <script id="seo-page-schema" type="application/ld+json">${schema}</script>${breadcrumbSchema ? `
+    <script id="seo-breadcrumb-schema" type="application/ld+json">${breadcrumbSchema}</script>` : ""}`;
 }
 
 function withMetadata(template, page) {

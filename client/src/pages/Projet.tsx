@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import {
   ArrowRight, ChevronDown, CheckCircle, XCircle,
   Shield, Lock, GitBranch, Users,
-  Heart, Database, Compass, ExternalLink, ArrowLeft
+  Heart, Database, Compass, ExternalLink
 } from "lucide-react";
 import { Link } from "wouter";
 
@@ -261,13 +261,6 @@ export default function Projet() {
       {/* ── HERO ──────────────────────────────────────────────────────────────── */}
       <section className="pt-20 sm:pt-24 pb-10 px-4" style={{ background: 'linear-gradient(160deg, #f4f5fb 0%, #fdf6f0 60%, #f4f5fb 100%)' }}>
         <div className="max-w-5xl mx-auto">
-          <div className="flex items-center gap-2 text-sm text-gray-400 mb-4">
-            <Link href="/" className="hover:text-gray-600 flex items-center gap-1">
-              <ArrowLeft className="h-3 w-3" />Retour à l'accueil
-            </Link>
-            <span>/</span>
-            <Badge className="text-xs" style={{ backgroundColor: '#515792' }}>Dossier de projet</Badge>
-          </div>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight mb-4">
             <span className="text-gray-500 font-normal text-xl sm:text-2xl block mb-1">Description du projet</span>
             <span style={{

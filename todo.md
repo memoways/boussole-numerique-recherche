@@ -35,3 +35,6 @@
 - [x] Auditer les métadonnées actuelles et les routes publiques du site.
 - [x] Mettre en place des titres, descriptions et métadonnées Open Graph par page.
 - [x] Vérifier les métadonnées rendues sur chaque route avant livraison.
+- [x] Auditer les routes et le layout afin de définir le fil d’Ariane des pages internes.
+- [x] Ajouter un fil d’Ariane accessible et responsive aux pages internes du projet.
+- [x] Ajouter et vérifier les données structurées BreadcrumbList par route.

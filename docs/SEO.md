@@ -5,3 +5,9 @@ Le site génère des titres, descriptions, URL canoniques, balises Open Graph, c
 La validation de production a confirmé la présence des métadonnées dans toutes les pages générées. Lors de la vérification de l'aperçu de développement, le nouveau sous-domaine de prévisualisation Vite a été bloqué par sa liste d'hôtes ; ce comportement de développement sera ajusté sans introduire de dépendance à une plateforme spécifique.
 
 La prévisualisation autorise désormais les hôtes de développement sans lier le projet à un domaine précis. Le contrôle de la route `/partenaires` confirme que le titre, la description, l'URL canonique, `og:title`, `og:url` et les données structurées `WebPage` sont mis à jour par l'application au changement de route.
+
+Les pages internes affichent également un fil d’Ariane accessible (`Accueil › Page`) et publient le schéma `BreadcrumbList` correspondant, généré à la fois dans les pages HTML statiques et au changement de route dans le navigateur.
+
+Le fil d’Ariane est positionné sous la navigation fixe, avec une barre discrète et un état de page courante. La vérification visuelle de `/partenaires` confirme son affichage sans recouvrement du hero.
+
+La page `/projet` utilise le même fil d’Ariane global et son ancien repère statique du hero a été retiré afin d’éviter un doublon. Le sommaire desktop et sa progression de lecture restent intacts.

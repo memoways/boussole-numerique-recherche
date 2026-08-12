@@ -5,6 +5,11 @@ export type SeoPage = {
   index?: boolean;
 };
 
+export type BreadcrumbItem = {
+  label: string;
+  path: string;
+};
+
 export const SITE_NAME = "Boussole Numérique Culture";
 export const DEFAULT_DESCRIPTION =
   "Un outil de diagnostic numérique pour aider les actrices, acteurs et structures culturelles à situer leurs pratiques et choisir des pistes d'action utiles.";
@@ -103,6 +108,22 @@ export const SEO_PAGES: Record<string, SeoPage> = {
   },
 };
 
+const BREADCRUMB_LABELS: Record<string, string> = {
+  "/projet": "Projet",
+  "/timeline": "Calendrier",
+  "/experience": "Expérience",
+  "/methode": "Méthode",
+  "/partenaires": "Partenaires",
+  "/recherche": "Recherche",
+  "/references": "Références",
+  "/ressources": "Ressources",
+  "/etude-complete": "Étude complète",
+  "/etat-des-lieux": "État des lieux",
+  "/analyse-outils": "Analyse d’outils",
+  "/sources": "Sources",
+  "/synthese-documents": "Synthèse documentaire",
+};
+
 export function normalizePathname(pathname: string) {
   const normalized = pathname.replace(/\/+$/, "");
   return normalized || "/";
@@ -114,4 +135,18 @@ export function getSeoPage(pathname: string): SeoPage {
     description: DEFAULT_DESCRIPTION,
     index: false,
   };
+}
+
+export function getBreadcrumbs(pathname: string): BreadcrumbItem[] {
+  const normalizedPath = normalizePathname(pathname);
+  const page = getSeoPage(normalizedPath);
+  const canonicalPath = page.canonicalPath ?? normalizedPath;
+  const currentLabel = BREADCRUMB_LABELS[canonicalPath];
+
+  if (!currentLabel) return [];
+
+  return [
+    { label: "Accueil", path: "/" },
+    { label: currentLabel, path: canonicalPath },
+  ];
 }

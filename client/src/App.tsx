@@ -9,6 +9,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import SeoMeta from "./components/SeoMeta";
+import PageBreadcrumbs from "./components/PageBreadcrumbs";
 
 // Pages existantes (conservées)
 import ReferencesInspirantes from "./pages/ReferencesInspirantes";
@@ -37,6 +38,7 @@ function Router() {
       <a href="#contenu-principal" className="skip-link">Aller au contenu principal</a>
       <ScrollToTop />
       <Navigation />
+      <PageBreadcrumbs pathname={location} />
       <main id="contenu-principal" className="min-h-screen" tabIndex={-1}>
       <Switch>
         {/* Home */}

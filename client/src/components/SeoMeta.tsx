@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { getSeoPage, normalizePathname, SITE_NAME } from "@/lib/seo";
+import { getBreadcrumbs, getSeoPage, normalizePathname, SITE_NAME } from "@/lib/seo";
 
 function upsertMeta(selector: string, attributes: Record<string, string>, content: string) {
   let element = document.head.querySelector<HTMLMetaElement>(selector);
@@ -66,6 +66,31 @@ export default function SeoMeta({ pathname }: { pathname: string }) {
       document.head.appendChild(schemaElement);
     }
     schemaElement.textContent = JSON.stringify(schema);
+
+    const breadcrumbs = getBreadcrumbs(normalizedPath);
+    const breadcrumbSchemaId = "seo-breadcrumb-schema";
+    const existingBreadcrumbSchema = document.getElementById(breadcrumbSchemaId) as HTMLScriptElement | null;
+
+    if (breadcrumbs.length < 2) {
+      existingBreadcrumbSchema?.remove();
+      return;
+    }
+
+    const breadcrumbSchema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: breadcrumbs.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.label,
+        item: new URL(item.path, origin).toString(),
+      })),
+    };
+    const breadcrumbSchemaElement = existingBreadcrumbSchema ?? document.createElement("script");
+    breadcrumbSchemaElement.id = breadcrumbSchemaId;
+    breadcrumbSchemaElement.type = "application/ld+json";
+    breadcrumbSchemaElement.textContent = JSON.stringify(breadcrumbSchema);
+    if (!existingBreadcrumbSchema) document.head.appendChild(breadcrumbSchemaElement);
   }, [pathname]);
 
   return null;
