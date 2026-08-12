@@ -22,3 +22,4 @@
 - [x] Figer et vérifier la première colonne des références pendant le défilement horizontal mobile.
 - [x] Compacter les en-têtes de critères du tableau comparatif sur mobile et vérifier le gain d'espace.
 - [x] Ajouter des pictogrammes discrets aux critères courts du tableau mobile et vérifier leur lisibilité.
+- [x] Remplacer l'orange uniforme de la page Partenaires par une progression bleu-cyan-vert-orange et vérifier les contrastes.

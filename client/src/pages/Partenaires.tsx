@@ -6,27 +6,35 @@ import { Link } from "wouter";
 /**
  * Page /partenaires — Partenaires & premiers utilisateurs
  * CTA doux : mailto, pas de formulaire complexe
- * Direction visuelle : orange #E07428, texte blanc pour les CTA et pastilles.
+ * Direction visuelle : progression bleu → cyan → vert → orange, CTA orange #E07428.
  */
 
+const SPECTRE_PARTENAIRES = [
+  { couleur: "#515792", texte: "#ffffff" },
+  { couleur: "#3a7fc1", texte: "#ffffff" },
+  { couleur: "#3aab8a", texte: "#102b37" },
+  { couleur: "#7ab648", texte: "#172414" },
+  { couleur: "#E07428", texte: "#ffffff" },
+] as const;
+
 const POURQUOI_PARTICIPER = [
-  { titre: "Façonner un outil utile", desc: "Votre expérience du terrain oriente directement la conception de la Boussole — les questions posées, les recommandations proposées.", icon: Heart, couleur: "#E07428" },
-  { titre: "Accès en avant-première", desc: "Les partenaires de co-conception auront accès à la Boussole avant sa mise à disposition publique.", icon: TestTube, couleur: "#E07428" },
-  { titre: "Contribuer à un bien commun", desc: "La Boussole sera gratuite et open source. Participer, c'est contribuer à un outil collectif pour le secteur.", icon: Users, couleur: "#E07428" },
+  { titre: "Façonner un outil utile", desc: "Votre expérience du terrain oriente directement la conception de la Boussole — les questions posées, les recommandations proposées.", icon: Heart, couleur: "#515792" },
+  { titre: "Accès en avant-première", desc: "Les partenaires de co-conception auront accès à la Boussole avant sa mise à disposition publique.", icon: TestTube, couleur: "#3a7fc1" },
+  { titre: "Contribuer à un bien commun", desc: "La Boussole sera gratuite et open source. Participer, c'est contribuer à un outil collectif pour le secteur.", icon: Users, couleur: "#3aab8a" },
 ];
 
 const QUI_PEUT_CONTRIBUER = [
-  { titre: "Structures culturelles genevoises", desc: "Musées, galeries, compagnies, associations, bibliothèques, écoles de musique, centres culturels — toute structure active dans le secteur culturel.", icon: Building2 },
-  { titre: "Artistes et professionnels indépendants", desc: "Artistes, créateurs, médiateurs, gestionnaires culturels qui souhaitent tester l'outil et partager leur expérience.", icon: Users },
-  { titre: "Institutions partenaires", desc: "Organisations qui soutiennent le secteur culturel et souhaitent contribuer à un outil d'intérêt public.", icon: Heart },
+  { titre: "Structures culturelles genevoises", desc: "Musées, galeries, compagnies, associations, bibliothèques, écoles de musique, centres culturels — toute structure active dans le secteur culturel.", icon: Building2, couleur: "#515792", couleurTexte: "#ffffff" },
+  { titre: "Artistes et professionnels indépendants", desc: "Artistes, créateurs, médiateurs, gestionnaires culturels qui souhaitent tester l'outil et partager leur expérience.", icon: Users, couleur: "#3a7fc1", couleurTexte: "#ffffff" },
+  { titre: "Institutions partenaires", desc: "Organisations qui soutiennent le secteur culturel et souhaitent contribuer à un outil d'intérêt public.", icon: Heart, couleur: "#3aab8a", couleurTexte: "#102b37" },
 ];
 
 const PARCOURS_PARTENAIRE = [
-  { num: "01", titre: "Je découvre", desc: "Je lis le site, je comprends le projet, je m'informe sur la démarche.", couleur: "#E07428" },
-  { num: "02", titre: "Je signale mon intérêt", desc: "J'envoie un message pour indiquer que je souhaite suivre ou participer.", couleur: "#E07428" },
-  { num: "03", titre: "Je contribue", desc: "Je participe à un entretien, un atelier ou un test utilisateur selon ma disponibilité.", couleur: "#E07428" },
-  { num: "04", titre: "Je teste", desc: "J'utilise une version du prototype et je partage mes retours.", couleur: "#E07428" },
-  { num: "05", titre: "Je bénéficie", desc: "J'accède à la Boussole en avant-première et je reçois les apprentissages documentés.", couleur: "#E07428" },
+  { num: "01", titre: "Je découvre", desc: "Je lis le site, je comprends le projet, je m'informe sur la démarche.", ...SPECTRE_PARTENAIRES[0] },
+  { num: "02", titre: "Je signale mon intérêt", desc: "J'envoie un message pour indiquer que je souhaite suivre ou participer.", ...SPECTRE_PARTENAIRES[1] },
+  { num: "03", titre: "Je contribue", desc: "Je participe à un entretien, un atelier ou un test utilisateur selon ma disponibilité.", ...SPECTRE_PARTENAIRES[2] },
+  { num: "04", titre: "Je teste", desc: "J'utilise une version du prototype et je partage mes retours.", ...SPECTRE_PARTENAIRES[3] },
+  { num: "05", titre: "Je bénéficie", desc: "J'accède à la Boussole en avant-première et je reçois les apprentissages documentés.", ...SPECTRE_PARTENAIRES[4] },
 ];
 
 export default function Partenaires() {
@@ -36,7 +44,7 @@ export default function Partenaires() {
       {/* Hero */}
       <section className="pt-20 sm:pt-24 pb-12 px-4 bg-gradient-to-b from-slate-50 to-white">
         <div className="max-w-4xl mx-auto">
-          <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#E07428', color: '#fff' }}>Partenaires</Badge>
+          <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#515792', color: '#fff' }}>Partenaires</Badge>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4 leading-tight">
             Partenaires & premiers utilisateurs
           </h1>
@@ -78,10 +86,10 @@ export default function Partenaires() {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold text-gray-900 mb-8">Qui peut contribuer</h2>
           <div className="space-y-4">
-            {QUI_PEUT_CONTRIBUER.map(({ titre, desc, icon: Icon }) => (
+            {QUI_PEUT_CONTRIBUER.map(({ titre, desc, icon: Icon, couleur, couleurTexte }) => (
               <div key={titre} className="bg-white rounded-xl p-5 border border-gray-100 flex items-start gap-4">
-                <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: '#E07428' }}>
-                  <Icon className="h-5 w-5 text-white" />
+                <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: couleur }}>
+                  <Icon className="h-5 w-5" style={{ color: couleurTexte }} />
                 </div>
                 <div>
                   <h3 className="font-bold text-gray-900 mb-1">{titre}</h3>
@@ -101,10 +109,10 @@ export default function Partenaires() {
 
           {/* Desktop */}
           <div className="hidden md:flex items-start gap-2">
-            {PARCOURS_PARTENAIRE.map(({ num, titre, desc, couleur }, i) => (
+            {PARCOURS_PARTENAIRE.map(({ num, titre, desc, couleur, texte }, i) => (
               <div key={num} className="flex items-start flex-1">
                 <div className="flex flex-col items-center flex-1">
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white text-sm mb-3" style={{ backgroundColor: couleur }}>
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm mb-3" style={{ backgroundColor: couleur, color: texte }}>
                     {num}
                   </div>
                   <h3 className="font-bold text-gray-900 text-center text-sm mb-1">{titre}</h3>
@@ -119,9 +127,9 @@ export default function Partenaires() {
 
           {/* Mobile */}
           <div className="md:hidden space-y-3">
-            {PARCOURS_PARTENAIRE.map(({ num, titre, desc, couleur }) => (
+            {PARCOURS_PARTENAIRE.map(({ num, titre, desc, couleur, texte }) => (
               <div key={num} className="flex gap-4 items-start p-4 rounded-xl" style={{ backgroundColor: couleur + '10' }}>
-                  <div className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-white text-sm flex-shrink-0" style={{ backgroundColor: couleur }}>
+                  <div className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0" style={{ backgroundColor: couleur, color: texte }}>
                   {num}
                 </div>
                 <div>
@@ -137,7 +145,7 @@ export default function Partenaires() {
       {/* Partenaires confirmés */}
       <section className="py-14 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
-          <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#E07428', color: '#fff' }}>Partenaires confirmés</Badge>
+          <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#3a7fc1', color: '#fff' }}>Partenaires confirmés</Badge>
           <h2 className="text-2xl font-bold text-gray-900 mb-3">Structures et personnes engagées</h2>
           <p className="text-gray-500 mb-8 max-w-xl">
             Ces structures ont confirmé leur participation à la co-conception de la Boussole.
@@ -145,11 +153,11 @@ export default function Partenaires() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
             {[
-              { nom: "Fonction:Cinéma", contact: "Aude Vermeil", url: "https://www.fonction-cinema.ch/" },
-              { nom: "Pôle de création numérique", contact: "Alexandre Iordachescu", url: "https://polnum.ch/" },
-              { nom: "XN Swiss", contact: null, url: "https://www.xnswiss.ch/" },
-              { nom: "Observatoire Romand de la Culture", contact: "Olivier Glassey", url: "https://www.observatoire-culture.ch/" },
-            ].map(({ nom, contact, url }) => (
+              { nom: "Fonction:Cinéma", contact: "Aude Vermeil", url: "https://www.fonction-cinema.ch/", ...SPECTRE_PARTENAIRES[0] },
+              { nom: "Pôle de création numérique", contact: "Alexandre Iordachescu", url: "https://polnum.ch/", ...SPECTRE_PARTENAIRES[1] },
+              { nom: "XN Swiss", contact: null, url: "https://www.xnswiss.ch/", ...SPECTRE_PARTENAIRES[2] },
+              { nom: "Observatoire Romand de la Culture", contact: "Olivier Glassey", url: "https://www.observatoire-culture.ch/", ...SPECTRE_PARTENAIRES[4] },
+            ].map(({ nom, contact, url, couleur, texte }) => (
               <a
                 key={nom}
                 href={url}
@@ -157,14 +165,14 @@ export default function Partenaires() {
                 rel="noopener noreferrer"
                 className="flex items-start gap-4 p-4 rounded-xl border border-gray-100 hover:border-gray-300 hover:shadow-sm transition-all group"
               >
-                <div className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-white text-sm" style={{ backgroundColor: '#E07428' }}>
+                <div className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-sm" style={{ backgroundColor: couleur, color: texte }}>
                   {nom[0]}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="font-semibold text-gray-900 group-hover:text-[#E07428] transition-colors">{nom}</p>
+                  <p className="font-semibold transition-colors" style={{ color: couleur }}>{nom}</p>
                   {contact && <p className="text-xs text-gray-500">{contact}</p>}
                 </div>
-                <ArrowRight className="h-4 w-4 text-gray-300 group-hover:text-[#E07428] flex-shrink-0 mt-1 transition-colors" />
+                <ArrowRight className="h-4 w-4 flex-shrink-0 mt-1 transition-colors" style={{ color: couleur }} />
               </a>
             ))}
           </div>
@@ -186,9 +194,9 @@ export default function Partenaires() {
                   "Leurs retours sur l'expérience utilisateur",
                   "Leurs besoins non formulés et leurs angles morts",
                   "Leur connaissance du terrain et des réalités du secteur",
-                ].map(item => (
+                ].map((item, i) => (
                   <li key={item} className="flex items-start gap-3 text-gray-600 text-sm">
-                    <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: '#E07428' }}></div>
+                    <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: SPECTRE_PARTENAIRES[i].couleur }}></div>
                     {item}
                   </li>
                 ))}
@@ -203,9 +211,9 @@ export default function Partenaires() {
                   "Documentation ouverte de la méthode",
                   "Invitation aux ateliers et sessions de retour",
                   "Reconnaissance dans la documentation du projet",
-                ].map(item => (
+                ].map((item, i) => (
                   <li key={item} className="flex items-start gap-3 text-gray-600 text-sm">
-                    <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: '#E07428' }}></div>
+                    <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: SPECTRE_PARTENAIRES[i].couleur }}></div>
                     {item}
                   </li>
                 ))}
@@ -218,7 +226,7 @@ export default function Partenaires() {
       {/* Comment le portail pourra évoluer */}
       <section className="py-14 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
-          <div className="rounded-2xl p-8" style={{ background: 'linear-gradient(135deg, #E07428 0%, #C45C19 100%)' }}>
+          <div className="rounded-2xl p-8" style={{ background: 'linear-gradient(135deg, #515792 0%, #3a7fc1 32%, #3aab8a 62%, #E07428 100%)' }}>
             <h2 className="text-2xl font-bold text-white mb-4">Comment le portail pourra évoluer</h2>
             <p className="text-white/80 leading-relaxed mb-6">Ce site compagnon est conçu pour évoluer avec le projet. Il pourra devenir, avec les partenaires et premiers utilisateurs, un espace de suivi de l'avancement, de partage des apprentissages, de documentation des retours et de préparation des premiers usages.</p>
             <p className="text-white/70 text-sm leading-relaxed">Ce site compagnon est conçu pour évoluer avec le projet, au rythme des partenaires et des premiers utilisateurs.</p>
