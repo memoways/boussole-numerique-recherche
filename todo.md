@@ -20,3 +20,4 @@
 - [x] Vérifier le tableau comparatif à 320 px et 390 px avec huit références — neuf lignes affichées avec la Boussole.
 - [x] Ajouter ou confirmer un défilement horizontal utilisable pour le tableau mobile — défilement, indication et accès clavier confirmés.
 - [x] Figer et vérifier la première colonne des références pendant le défilement horizontal mobile.
+- [x] Compacter les en-têtes de critères du tableau comparatif sur mobile et vérifier le gain d'espace.

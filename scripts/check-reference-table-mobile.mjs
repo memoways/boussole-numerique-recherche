@@ -10,7 +10,8 @@ const getJson = (url) => new Promise((resolve, reject) => {
   }).on('error', reject);
 });
 
-const target = (await getJson('http://127.0.0.1:9225/json/list')).find((page) => page.type === 'page');
+const debugPort = process.env.DEBUG_PORT || '9225';
+const target = (await getJson(`http://127.0.0.1:${debugPort}/json/list`)).find((page) => page.type === 'page');
 if (!target) throw new Error('Aucun onglet Chromium disponible pour le contrôle mobile.');
 
 const ws = new WebSocket(target.webSocketDebuggerUrl);
@@ -54,6 +55,7 @@ const check = async (width) => {
     const rowCount = table?.querySelectorAll('tbody tr').length ?? 0;
     const hint = document.getElementById('tableau-mobile-hint');
     const firstRowHeader = table?.querySelector('tbody th[scope="row"]');
+    const criterionHeaders = Array.from(table?.querySelectorAll('thead th') ?? []).slice(1);
     const firstHeaderLeftBefore = firstRowHeader?.getBoundingClientRect().left ?? null;
     const before = region?.scrollLeft ?? 0;
     if (region) {
@@ -71,6 +73,8 @@ const check = async (width) => {
       horizontalScrollWorks: after > before,
       firstColumnStaysVisible: firstHeaderLeftBefore !== null && firstHeaderLeftAfter !== null && Math.abs(firstHeaderLeftBefore - firstHeaderLeftAfter) < 1,
       firstColumnZIndex: firstRowHeader ? getComputedStyle(firstRowHeader).zIndex : null,
+      criterionLabels: criterionHeaders.map((header) => header.textContent?.trim()),
+      criterionFontSize: criterionHeaders[0] ? getComputedStyle(criterionHeaders[0].querySelector('span')).fontSize : null,
       documentOverflows: document.documentElement.scrollWidth > window.innerWidth,
       mobileHintVisible: hint ? getComputedStyle(hint).display !== 'none' : false,
       focusableRegion: region?.getAttribute('tabindex') === '0',

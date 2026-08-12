@@ -193,17 +193,17 @@ const REFERENCES = [
 
 type CritereKey = 'gratuit' | 'open_source' | 'secteur_culturel' | 'dimension_ia' | 'petites_structures' | 'ancrage_local' | 'multimodal' | 'restitution_visuelle' | 'comparaison_pairs' | 'souverainete';
 
-const CRITERES: { key: CritereKey; label: string; description: string }[] = [
-  { key: 'gratuit', label: 'Gratuit', description: 'Accès sans frais pour les utilisateurs finaux' },
-  { key: 'open_source', label: 'Open source', description: 'Code source ouvert et consultable' },
-  { key: 'secteur_culturel', label: 'Secteur culturel', description: 'Conçu spécifiquement pour les acteurs culturels' },
-  { key: 'dimension_ia', label: 'Dimension IA', description: 'Intègre l\'évaluation des pratiques IA' },
-  { key: 'petites_structures', label: 'Petites structures', description: 'Adapté aux structures de 1 à 10 personnes' },
-  { key: 'ancrage_local', label: 'Ancrage local', description: 'Données et recommandations contextualisées localement' },
-  { key: 'multimodal', label: 'Multimodal', description: 'Voix, texte, questionnaire selon le profil' },
-  { key: 'restitution_visuelle', label: 'Restitution visuelle', description: 'Résultats sous forme de carte ou graphique clair' },
-  { key: 'comparaison_pairs', label: 'Comparaison pairs', description: 'Permet de se situer par rapport à des structures similaires' },
-  { key: 'souverainete', label: 'Souveraineté données', description: 'Hébergement en Europe, données protégées' },
+const CRITERES: { key: CritereKey; label: string; labelMobile: string; description: string }[] = [
+  { key: 'gratuit', label: 'Gratuit', labelMobile: 'Gratuit', description: 'Accès sans frais pour les utilisateurs finaux' },
+  { key: 'open_source', label: 'Open source', labelMobile: 'Open', description: 'Code source ouvert et consultable' },
+  { key: 'secteur_culturel', label: 'Secteur culturel', labelMobile: 'Culture', description: 'Conçu spécifiquement pour les acteurs culturels' },
+  { key: 'dimension_ia', label: 'Dimension IA', labelMobile: 'IA', description: 'Intègre l\'évaluation des pratiques IA' },
+  { key: 'petites_structures', label: 'Petites structures', labelMobile: 'Petites', description: 'Adapté aux structures de 1 à 10 personnes' },
+  { key: 'ancrage_local', label: 'Ancrage local', labelMobile: 'Local', description: 'Données et recommandations contextualisées localement' },
+  { key: 'multimodal', label: 'Multimodal', labelMobile: 'Multi', description: 'Voix, texte, questionnaire selon le profil' },
+  { key: 'restitution_visuelle', label: 'Restitution visuelle', labelMobile: 'Visuel', description: 'Résultats sous forme de carte ou graphique clair' },
+  { key: 'comparaison_pairs', label: 'Comparaison pairs', labelMobile: 'Pairs', description: 'Permet de se situer par rapport à des structures similaires' },
+  { key: 'souverainete', label: 'Souveraineté données', labelMobile: 'Données', description: 'Hébergement en Europe, données protégées' },
 ];
 
 type ValeurCritere = true | false | 'partiel';
@@ -411,24 +411,26 @@ export default function References() {
             aria-label="Tableau comparatif des huit références et de la Boussole"
             aria-describedby="tableau-mobile-hint"
           >
-            <table className="w-full text-sm min-w-[860px] border-separate border-spacing-0">
+            <table className="w-full text-sm min-w-[720px] border-separate border-spacing-0 sm:min-w-[860px]">
               <thead>
                 <tr className="border-b border-gray-100">
                   <th className="sticky left-0 z-30 min-w-52 border-r border-gray-100 bg-white p-4 text-left font-semibold text-gray-700 shadow-[5px_0_8px_-7px_rgba(15,23,42,0.45)]">
                     Outil
                   </th>
-                  {CRITERES.map(({ key, label, description }) => (
+                  {CRITERES.map(({ key, label, labelMobile, description }) => (
                     <th
                       key={key}
-                      className="p-3 text-center cursor-pointer select-none group"
+                      className="w-13 px-1.5 py-2 text-center cursor-pointer select-none group sm:w-auto sm:p-3"
                       title={description}
+                      aria-label={`${label} — ${description}`}
                       onClick={() => handleSort(key)}
                     >
                       <span
-                        className="text-xs font-semibold transition-colors"
+                        className="text-[10px] leading-tight font-semibold transition-colors sm:text-xs"
                         style={{ color: sortCol === key ? '#515792' : '#6b7280' }}
                       >
-                        {label}
+                        <span className="sm:hidden">{labelMobile}</span>
+                        <span className="hidden sm:inline">{label}</span>
                         {sortCol === key && (
                           <span className="ml-1">{sortDir === 'desc' ? '↓' : '↑'}</span>
                         )}
