@@ -118,7 +118,9 @@
     @apply border-border outline-ring/50;
   }
   html, body {
-    overflow-x: hidden;
+    /* clip évite les débordements horizontaux sans créer un conteneur de défilement
+       qui empêcherait les éléments position: sticky de suivre la page. */
+    overflow-x: clip;
   }
   body {
     @apply bg-background text-foreground;

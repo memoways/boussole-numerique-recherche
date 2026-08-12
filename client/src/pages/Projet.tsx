@@ -263,15 +263,16 @@ export default function Projet() {
       <div className="max-w-5xl mx-auto px-4 py-10 flex gap-10">
 
         {/* Sidebar sommaire (desktop) */}
-        <aside className="hidden lg:block w-48 flex-shrink-0">
-          <div className="sticky top-24">
+        <aside className="hidden lg:block w-52 flex-shrink-0 self-stretch">
+          <div className="sticky top-24 max-h-[calc(100vh-7rem)] overflow-y-auto pr-1">
             <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">Sommaire</p>
-            <nav className="space-y-1">
+            <nav className="space-y-1" aria-label="Sommaire du projet">
               {SECTIONS.map((s) => (
                 <button
                   key={s.id}
                   onClick={() => scrollTo(s.id)}
-                  className="block w-full text-left text-xs px-3 py-1.5 rounded-lg transition-all duration-150"
+                  aria-current={activeSection === s.id ? "location" : undefined}
+                  className="block w-full text-left text-sm px-3 py-2 rounded-lg transition-all duration-150"
                   style={{
                     backgroundColor: activeSection === s.id ? '#51579215' : 'transparent',
                     color: activeSection === s.id ? '#515792' : '#6b7280',
