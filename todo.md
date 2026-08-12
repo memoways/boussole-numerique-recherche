@@ -17,3 +17,5 @@
 - [x] Présenter uniquement les candidats les plus pertinents, avec arguments pour et contre, sans ajout au site.
 - [x] Ajouter la Digitale Transformatie Scan de DEN au tableau comparatif et aux fiches de Références.
 - [x] Vérifier le rendu de la nouvelle référence sans modifier les pages Projet et Recherche.
+- [x] Vérifier le tableau comparatif à 320 px et 390 px avec huit références — neuf lignes affichées avec la Boussole.
+- [x] Ajouter ou confirmer un défilement horizontal utilisable pour le tableau mobile — défilement, indication et accès clavier confirmés.

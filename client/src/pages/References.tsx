@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ExternalLink, ChevronDown, ChevronUp, Lightbulb, Check, X, Minus } from "lucide-react";
+import { ArrowRight, ExternalLink, ChevronDown, ChevronUp, ChevronRight, Lightbulb, Check, X, Minus } from "lucide-react";
 import { Link } from "wouter";
 
 /**
@@ -403,9 +403,15 @@ export default function References() {
             </p>
           </div>
 
-          {/* Tableau scrollable horizontalement sur mobile */}
-          <div className="overflow-x-auto rounded-2xl border border-gray-200 bg-white shadow-sm">
-            <table className="w-full text-sm min-w-[800px]">
+          {/* Tableau défilable horizontalement sur mobile */}
+          <div
+            className="overflow-x-auto touch-pan-x overscroll-x-contain scroll-smooth rounded-2xl border border-gray-200 bg-white shadow-sm [-webkit-overflow-scrolling:touch]"
+            role="region"
+            tabIndex={0}
+            aria-label="Tableau comparatif des huit références et de la Boussole"
+            aria-describedby="tableau-mobile-hint"
+          >
+            <table className="w-full text-sm min-w-[860px]">
               <thead>
                 <tr className="border-b border-gray-100">
                   <th className="text-left p-4 font-semibold text-gray-700 w-52 sticky left-0 bg-white z-10">Outil</th>
@@ -455,6 +461,11 @@ export default function References() {
               </tbody>
             </table>
           </div>
+
+          <p id="tableau-mobile-hint" className="mt-3 flex items-center gap-1.5 text-xs text-gray-500 sm:hidden">
+            <ChevronRight className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
+            Faites glisser le tableau horizontalement pour voir tous les critères.
+          </p>
 
           <p className="text-xs text-gray-400 mt-3 text-right">
             Sources : analyses directes des outils, documentation officielle, mises à jour jusqu'en juillet 2026.
