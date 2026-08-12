@@ -5,7 +5,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "vite build",
+    "generate:seo": "node scripts/generate-seo.mjs pages",
+    "generate:seo:root": "node scripts/generate-seo.mjs root",
+    "build": "pnpm generate:seo && vite build && pnpm generate:seo:root",
     "preview": "vite preview --host 0.0.0.0",
     "check": "tsc --noEmit",
     "verify": "pnpm check && pnpm build",

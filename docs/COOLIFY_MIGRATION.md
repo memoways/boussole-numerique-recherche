@@ -4,7 +4,7 @@
 
 Ce dépôt est maintenant **autonome** : il compile une application React/Vite statique puis la sert avec Nginx dans une image Docker. Il ne requiert plus de runtime, d'analytics, de proxy ou de secret liés à Manus. Le `Dockerfile` est retenu plutôt qu'un build pack statique générique afin de maîtriser explicitement le cache HTTP et le fallback SPA nécessaire aux routes `/projet`, `/timeline` et `/references`.[1] [2]
 
-> Le site actuel n'appelle aucune API privée et ne demande aucune variable d'environnement. La section des variables de la ressource Coolify peut rester vide.
+> Le site actuel n'appelle aucune API privée et ne demande aucun secret. Ajoutez uniquement `SITE_URL` comme variable de build afin de générer des URL canoniques, Open Graph, `sitemap.xml` et `robots.txt` cohérents avec le domaine final.
 
 ## Pré-requis
 
@@ -16,7 +16,7 @@ Vous devez disposer d'une instance Coolify self-hosted opérationnelle, d'un ser
 | Build pack Coolify | **Dockerfile** | Reproductibilité exacte de l'image définie dans le dépôt. |
 | Base directory | `/` | Le `Dockerfile` et `package.json` sont à la racine. |
 | Port exposé | `8080` | Port Nginx défini dans le `Dockerfile`. |
-| Variables d'environnement | Aucune actuellement | Le site est statique et sans secret. |
+| Variable de build | `SITE_URL=https://votre-domaine.example` | Génère les URL SEO finales ; ce n'est pas un secret. |
 | Stockage persistant | Aucun | L'application n'écrit aucune donnée. |
 
 ## Première mise en ligne
@@ -33,7 +33,7 @@ Dans **Network**, définissez le port exposé sur `8080`. Ajoutez le ou les noms
 
 ### 3. Variables et secrets
 
-N'ajoutez aucune ancienne variable de Manus. Le site ne requiert pas de variable au build ni au runtime. Si vous activez ultérieurement un backend, stockez les secrets uniquement dans la ressource backend ; les variables runtime ne sont nécessaires qu'au conteneur qui les consomme.[3]
+N'ajoutez aucune ancienne variable de Manus. Ajoutez `SITE_URL=https://votre-domaine.example` comme variable de build pour les métadonnées SEO ; elle est publique et ne constitue pas un secret. Le site ne requiert aucune variable runtime. Si vous activez ultérieurement un backend, stockez les secrets uniquement dans la ressource backend ; les variables runtime ne sont nécessaires qu'au conteneur qui les consomme.[3]
 
 Les variables de build sont injectées comme `ARG` pour les applications Dockerfile et peuvent être retrouvées dans les métadonnées de l'image. Pour une future clé réellement requise au build, activez les Docker Build Secrets dans Coolify ; cette option évite de l'inscrire dans les couches de l'image.[3]
 
@@ -60,6 +60,7 @@ La version actuelle est volontairement sans backend. Une future fonctionnalité 
 - [ ] Le dépôt Git contient le kit Docker et la documentation actuelle.
 - [ ] `pnpm verify` est vert localement et dans GitHub Actions.
 - [ ] La ressource Coolify utilise le build pack Dockerfile, la base `/` et le port `8080`.
+- [ ] La variable de build publique `SITE_URL` correspond exactement au domaine final en HTTPS, sans slash final.
 - [ ] Le DNS du domaine cible pointe sur le serveur Coolify.
 - [ ] La racine et les routes profondes sont validées après déploiement.
 - [ ] Les anciennes URL Manus sont retirées des documents et liens de production après validation du nouveau domaine.

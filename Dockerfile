@@ -7,6 +7,9 @@ WORKDIR /app
 ENV CI=true
 RUN corepack enable
 
+ARG SITE_URL
+ENV SITE_URL=${SITE_URL}
+
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY patches ./patches
 RUN pnpm install --frozen-lockfile

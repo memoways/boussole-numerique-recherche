@@ -32,3 +32,6 @@
 - [x] Ajouter les fichiers de déploiement Coolify, de conteneur et d'environnement portable.
 - [x] Ajouter les instructions de travail pour Cursor, Codex et Claude Code.
 - [x] Tester le build autonome et rédiger le guide détaillé de migration Coolify.
+- [x] Auditer les métadonnées actuelles et les routes publiques du site.
+- [x] Mettre en place des titres, descriptions et métadonnées Open Graph par page.
+- [x] Vérifier les métadonnées rendues sur chaque route avant livraison.

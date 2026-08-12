@@ -2,7 +2,7 @@
 
 ## État actuel
 
-La version actuelle de **Boussole Numérique Culture** est un site statique. Son build et son exécution ne nécessitent **aucune variable d'environnement**, aucun token et aucune clé API.
+La version actuelle de **Boussole Numérique Culture** est un site statique. Son exécution ne nécessite aucun token, aucune clé API et aucun secret. Le seul réglage de build recommandé est `SITE_URL`, l'URL publique finale utilisée pour les URL canoniques, Open Graph, `sitemap.xml` et `robots.txt`.
 
 > Ne créez pas de variable `VITE_*` pour un secret : Vite l'intègre au JavaScript distribué au navigateur.
 
@@ -12,8 +12,9 @@ Si une fonctionnalité a besoin d'un secret — clé IA, API externe, envoi d'e-
 
 | Type de valeur | Où la stocker | Exposition au navigateur |
 |---|---|---|
-| Réglage purement public, par exemple une URL de contenu public | Variable `VITE_*` au build, si nécessaire | Oui |
+| URL publique du site (`SITE_URL`) | Variable de build Coolify | Oui, dans les métadonnées générées |
+| Réglage purement public côté interface | Variable `VITE_*` au build, si nécessaire | Oui |
 | Clé API, token, mot de passe, clé privée | Variable runtime du backend dans Coolify | Non |
 | Certificat ou secret multiligne | Variable multiligne verrouillée dans Coolify | Non |
 
-Pour ce dépôt, l'écran des variables de Coolify peut donc rester vide. Les anciennes variables propres à Manus ne doivent pas être copiées vers Coolify.
+Dans Coolify, ajoutez `SITE_URL=https://votre-domaine.example` comme variable de **build**, sans slash final. Ce n'est pas un secret. Les anciennes variables propres à Manus ne doivent pas être copiées vers Coolify.

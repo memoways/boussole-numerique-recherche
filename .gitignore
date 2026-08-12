@@ -6,6 +6,9 @@
 dist/
 build/
 *.dist
+client/public/sitemap.xml
+client/public/robots.txt
+client/public/*/index.html
 
 # Environment variables
 .env

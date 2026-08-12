@@ -1,13 +1,14 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
-import { Route, Switch } from "wouter";
+import { Route, Switch, useLocation } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import ScrollToTop from "./components/ScrollToTop";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
+import SeoMeta from "./components/SeoMeta";
 
 // Pages existantes (conservées)
 import ReferencesInspirantes from "./pages/ReferencesInspirantes";
@@ -28,8 +29,11 @@ import Partenaires from "./pages/Partenaires";
 import Ressources from "./pages/Ressources";
 
 function Router() {
+  const [location] = useLocation();
+
   return (
     <>
+      <SeoMeta pathname={location} />
       <a href="#contenu-principal" className="skip-link">Aller au contenu principal</a>
       <ScrollToTop />
       <Navigation />
