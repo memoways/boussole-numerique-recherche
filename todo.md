@@ -41,3 +41,5 @@
 - [x] Préparer la logique de fil d’Ariane pour une profondeur de trois niveaux.
 - [x] Ajouter une présentation compacte pour les écrans mobiles très étroits.
 - [x] Vérifier la lisibilité mobile et la compatibilité desktop du fil d’Ariane étendu.
+- [x] Consolider les développements récents dans CHANGELOG.md et STORY.md.
+- [x] Vérifier les documents de continuité pour la reprise par des développeurs ou agents IA.
