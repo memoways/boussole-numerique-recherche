@@ -9,3 +9,5 @@ Le tableau est focalisable au clavier, possède un libellé accessible et affich
 La première colonne est maintenant une colonne d'en-tête de ligne figée : elle reste visible au défilement à 390 px et 320 px, avec un fond opaque, une bordure et une ombre de séparation. Le contrôle a confirmé le maintien de sa position et son empilement au-dessus des cellules défilantes.
 
 Les critères utilisent maintenant des libellés courts sur mobile (par exemple « Open », « Culture », « Visuel ») en 10 px, tout en conservant les libellés complets à partir de 640 px et dans leur nom accessible. La largeur du tableau mobile passe de 1 015 px à 720 px : le défilement reste disponible, mais la portion visible est significativement plus large.
+
+Chaque critère court dispose désormais d'un pictogramme discret : gratuité, code ouvert, culture, IA, petites structures, ancrage local, multimodalité, restitution visuelle, comparaison entre pairs et souveraineté des données. Le contrôle mobile confirme l'affichage des dix pictogrammes aux largeurs 390 px et 320 px.

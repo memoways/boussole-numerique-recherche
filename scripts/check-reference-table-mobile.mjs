@@ -75,6 +75,10 @@ const check = async (width) => {
       firstColumnZIndex: firstRowHeader ? getComputedStyle(firstRowHeader).zIndex : null,
       criterionLabels: criterionHeaders.map((header) => header.textContent?.trim()),
       criterionFontSize: criterionHeaders[0] ? getComputedStyle(criterionHeaders[0].querySelector('span')).fontSize : null,
+      visibleCriterionIcons: criterionHeaders.filter((header) => {
+        const icon = header.querySelector('svg');
+        return icon && getComputedStyle(icon).display !== 'none';
+      }).length,
       documentOverflows: document.documentElement.scrollWidth > window.innerWidth,
       mobileHintVisible: hint ? getComputedStyle(hint).display !== 'none' : false,
       focusableRegion: region?.getAttribute('tabindex') === '0',

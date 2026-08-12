@@ -21,3 +21,4 @@
 - [x] Ajouter ou confirmer un défilement horizontal utilisable pour le tableau mobile — défilement, indication et accès clavier confirmés.
 - [x] Figer et vérifier la première colonne des références pendant le défilement horizontal mobile.
 - [x] Compacter les en-têtes de critères du tableau comparatif sur mobile et vérifier le gain d'espace.
+- [x] Ajouter des pictogrammes discrets aux critères courts du tableau mobile et vérifier leur lisibilité.

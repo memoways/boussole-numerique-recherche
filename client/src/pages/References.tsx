@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ExternalLink, ChevronDown, ChevronUp, ChevronRight, Lightbulb, Check, X, Minus } from "lucide-react";
+import { ArrowRight, ExternalLink, ChevronDown, ChevronUp, ChevronRight, Lightbulb, Check, X, Minus, Banknote, Code2, Landmark, Sparkles, UsersRound, MapPin, MessageSquareText, ChartNoAxesCombined, GitCompareArrows, ShieldCheck, type LucideIcon } from "lucide-react";
 import { Link } from "wouter";
 
 /**
@@ -193,17 +193,17 @@ const REFERENCES = [
 
 type CritereKey = 'gratuit' | 'open_source' | 'secteur_culturel' | 'dimension_ia' | 'petites_structures' | 'ancrage_local' | 'multimodal' | 'restitution_visuelle' | 'comparaison_pairs' | 'souverainete';
 
-const CRITERES: { key: CritereKey; label: string; labelMobile: string; description: string }[] = [
-  { key: 'gratuit', label: 'Gratuit', labelMobile: 'Gratuit', description: 'Accès sans frais pour les utilisateurs finaux' },
-  { key: 'open_source', label: 'Open source', labelMobile: 'Open', description: 'Code source ouvert et consultable' },
-  { key: 'secteur_culturel', label: 'Secteur culturel', labelMobile: 'Culture', description: 'Conçu spécifiquement pour les acteurs culturels' },
-  { key: 'dimension_ia', label: 'Dimension IA', labelMobile: 'IA', description: 'Intègre l\'évaluation des pratiques IA' },
-  { key: 'petites_structures', label: 'Petites structures', labelMobile: 'Petites', description: 'Adapté aux structures de 1 à 10 personnes' },
-  { key: 'ancrage_local', label: 'Ancrage local', labelMobile: 'Local', description: 'Données et recommandations contextualisées localement' },
-  { key: 'multimodal', label: 'Multimodal', labelMobile: 'Multi', description: 'Voix, texte, questionnaire selon le profil' },
-  { key: 'restitution_visuelle', label: 'Restitution visuelle', labelMobile: 'Visuel', description: 'Résultats sous forme de carte ou graphique clair' },
-  { key: 'comparaison_pairs', label: 'Comparaison pairs', labelMobile: 'Pairs', description: 'Permet de se situer par rapport à des structures similaires' },
-  { key: 'souverainete', label: 'Souveraineté données', labelMobile: 'Données', description: 'Hébergement en Europe, données protégées' },
+const CRITERES: { key: CritereKey; label: string; labelMobile: string; description: string; icon: LucideIcon }[] = [
+  { key: 'gratuit', label: 'Gratuit', labelMobile: 'Gratuit', description: 'Accès sans frais pour les utilisateurs finaux', icon: Banknote },
+  { key: 'open_source', label: 'Open source', labelMobile: 'Open', description: 'Code source ouvert et consultable', icon: Code2 },
+  { key: 'secteur_culturel', label: 'Secteur culturel', labelMobile: 'Culture', description: 'Conçu spécifiquement pour les acteurs culturels', icon: Landmark },
+  { key: 'dimension_ia', label: 'Dimension IA', labelMobile: 'IA', description: 'Intègre l\'évaluation des pratiques IA', icon: Sparkles },
+  { key: 'petites_structures', label: 'Petites structures', labelMobile: 'Petites', description: 'Adapté aux structures de 1 à 10 personnes', icon: UsersRound },
+  { key: 'ancrage_local', label: 'Ancrage local', labelMobile: 'Local', description: 'Données et recommandations contextualisées localement', icon: MapPin },
+  { key: 'multimodal', label: 'Multimodal', labelMobile: 'Multi', description: 'Voix, texte, questionnaire selon le profil', icon: MessageSquareText },
+  { key: 'restitution_visuelle', label: 'Restitution visuelle', labelMobile: 'Visuel', description: 'Résultats sous forme de carte ou graphique clair', icon: ChartNoAxesCombined },
+  { key: 'comparaison_pairs', label: 'Comparaison pairs', labelMobile: 'Pairs', description: 'Permet de se situer par rapport à des structures similaires', icon: GitCompareArrows },
+  { key: 'souverainete', label: 'Souveraineté données', labelMobile: 'Données', description: 'Hébergement en Europe, données protégées', icon: ShieldCheck },
 ];
 
 type ValeurCritere = true | false | 'partiel';
@@ -417,7 +417,7 @@ export default function References() {
                   <th className="sticky left-0 z-30 min-w-52 border-r border-gray-100 bg-white p-4 text-left font-semibold text-gray-700 shadow-[5px_0_8px_-7px_rgba(15,23,42,0.45)]">
                     Outil
                   </th>
-                  {CRITERES.map(({ key, label, labelMobile, description }) => (
+                  {CRITERES.map(({ key, label, labelMobile, description, icon: Icon }) => (
                     <th
                       key={key}
                       className="w-13 px-1.5 py-2 text-center cursor-pointer select-none group sm:w-auto sm:p-3"
@@ -429,7 +429,8 @@ export default function References() {
                         className="text-[10px] leading-tight font-semibold transition-colors sm:text-xs"
                         style={{ color: sortCol === key ? '#515792' : '#6b7280' }}
                       >
-                        <span className="sm:hidden">{labelMobile}</span>
+                        <Icon className="mx-auto mb-0.5 h-3 w-3 sm:hidden" aria-hidden="true" />
+                        <span className="block sm:hidden">{labelMobile}</span>
                         <span className="hidden sm:inline">{label}</span>
                         {sortCol === key && (
                           <span className="ml-1">{sortDir === 'desc' ? '↓' : '↑'}</span>
