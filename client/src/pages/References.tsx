@@ -411,10 +411,12 @@ export default function References() {
             aria-label="Tableau comparatif des huit références et de la Boussole"
             aria-describedby="tableau-mobile-hint"
           >
-            <table className="w-full text-sm min-w-[860px]">
+            <table className="w-full text-sm min-w-[860px] border-separate border-spacing-0">
               <thead>
                 <tr className="border-b border-gray-100">
-                  <th className="text-left p-4 font-semibold text-gray-700 w-52 sticky left-0 bg-white z-10">Outil</th>
+                  <th className="sticky left-0 z-30 min-w-52 border-r border-gray-100 bg-white p-4 text-left font-semibold text-gray-700 shadow-[5px_0_8px_-7px_rgba(15,23,42,0.45)]">
+                    Outil
+                  </th>
                   {CRITERES.map(({ key, label, description }) => (
                     <th
                       key={key}
@@ -444,12 +446,16 @@ export default function References() {
                       className={`border-b border-gray-50 last:border-0 ${isBoussole ? 'font-semibold' : ''}`}
                       style={{ backgroundColor: isBoussole ? '#f0f1f8' : i % 2 === 0 ? 'white' : '#fafafa' }}
                     >
-                      <td className="p-4 sticky left-0 z-10" style={{ backgroundColor: isBoussole ? '#f0f1f8' : i % 2 === 0 ? 'white' : '#fafafa' }}>
+                      <th
+                        scope="row"
+                        className="sticky left-0 z-20 min-w-52 border-r border-gray-100 p-4 text-left shadow-[5px_0_8px_-7px_rgba(15,23,42,0.45)]"
+                        style={{ backgroundColor: isBoussole ? '#f0f1f8' : i % 2 === 0 ? 'white' : '#fafafa' }}
+                      >
                         <span className={`text-sm ${isBoussole ? 'font-bold' : 'font-medium text-gray-700'}`} style={isBoussole ? { color: '#515792' } : {}}>
                           {outil}
                           {isBoussole && <span className="ml-2 text-xs px-1.5 py-0.5 rounded-full text-white" style={{ backgroundColor: '#515792' }}>En cours</span>}
                         </span>
-                      </td>
+                      </th>
                       {CRITERES.map(({ key }) => (
                         <td key={key} className="p-3 text-center">
                           <CritereIcon valeur={TABLEAU_COMPARATIF[outil]?.[key] ?? false} />

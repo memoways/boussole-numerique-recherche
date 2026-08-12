@@ -53,12 +53,15 @@ const check = async (width) => {
     const table = region?.querySelector('table');
     const rowCount = table?.querySelectorAll('tbody tr').length ?? 0;
     const hint = document.getElementById('tableau-mobile-hint');
+    const firstRowHeader = table?.querySelector('tbody th[scope="row"]');
+    const firstHeaderLeftBefore = firstRowHeader?.getBoundingClientRect().left ?? null;
     const before = region?.scrollLeft ?? 0;
     if (region) {
       region.style.scrollBehavior = 'auto';
       region.scrollLeft = region.scrollWidth;
     }
     const after = region?.scrollLeft ?? 0;
+    const firstHeaderLeftAfter = firstRowHeader?.getBoundingClientRect().left ?? null;
     return {
       width: window.innerWidth,
       rowCount,
@@ -66,6 +69,8 @@ const check = async (width) => {
       containerWidth: Math.round(region?.clientWidth ?? 0),
       horizontalScrollAvailable: Boolean(region && region.scrollWidth > region.clientWidth),
       horizontalScrollWorks: after > before,
+      firstColumnStaysVisible: firstHeaderLeftBefore !== null && firstHeaderLeftAfter !== null && Math.abs(firstHeaderLeftBefore - firstHeaderLeftAfter) < 1,
+      firstColumnZIndex: firstRowHeader ? getComputedStyle(firstRowHeader).zIndex : null,
       documentOverflows: document.documentElement.scrollWidth > window.innerWidth,
       mobileHintVisible: hint ? getComputedStyle(hint).display !== 'none' : false,
       focusableRegion: region?.getAttribute('tabindex') === '0',

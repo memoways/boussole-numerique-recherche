@@ -6,3 +6,4 @@ Le tableau de la page Références a été contrôlé aux largeurs de viewport d
 
 Le tableau est focalisable au clavier, possède un libellé accessible et affiche, uniquement sur mobile, l'indication « Faites glisser le tableau horizontalement pour voir tous les critères. »
 
+La première colonne est maintenant une colonne d'en-tête de ligne figée : elle reste visible au défilement à 390 px et 320 px, avec un fond opaque, une bordure et une ombre de séparation. Le contrôle a confirmé le maintien de sa position et son empilement au-dessus des cellules défilantes.

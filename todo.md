@@ -19,3 +19,4 @@
 - [x] Vérifier le rendu de la nouvelle référence sans modifier les pages Projet et Recherche.
 - [x] Vérifier le tableau comparatif à 320 px et 390 px avec huit références — neuf lignes affichées avec la Boussole.
 - [x] Ajouter ou confirmer un défilement horizontal utilisable pour le tableau mobile — défilement, indication et accès clavier confirmés.
+- [x] Figer et vérifier la première colonne des références pendant le défilement horizontal mobile.
