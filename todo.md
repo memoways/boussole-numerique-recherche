@@ -24,3 +24,4 @@
 - [x] Ajouter des pictogrammes discrets aux critères courts du tableau mobile et vérifier leur lisibilité.
 - [x] Remplacer l'orange uniforme de la page Partenaires par une progression bleu-cyan-vert-orange et vérifier les contrastes.
 - [x] Uniformiser en blanc les textes et icônes des pastilles colorées de la page Partenaires.
+- [x] Augmenter légèrement la taille et la lisibilité des icônes blanches des pastilles Partenaires sur mobile.

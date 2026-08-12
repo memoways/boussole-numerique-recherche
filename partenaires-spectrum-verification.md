@@ -5,3 +5,5 @@ Le contrôle visuel confirme l'application d'une progression **bleu → cyan →
 Les cartes « Pourquoi participer » utilisent les trois premières teintes du spectre. Les partenaires confirmés et les listes d'apports reprennent la même grammaire colorée. Les CTA restent orange afin de préserver leur rôle d'action principal.
 
 Les contenus des pastilles sont uniformisés en blanc : icônes des profils contributeurs, numéros des cinq étapes et initiales des partenaires confirmés. La vérification visuelle confirme notamment les numéros blancs sur les pastilles vertes du parcours.
+
+Les icônes blanches des profils contributeurs utilisent désormais une zone de 44 px, une icône de 22 px, un tracé renforcé et une ombre discrète. Cette amélioration vise spécifiquement la lecture sur smartphone sans modifier la structure des cartes.

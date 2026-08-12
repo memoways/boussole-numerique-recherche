@@ -88,8 +88,8 @@ export default function Partenaires() {
           <div className="space-y-4">
             {QUI_PEUT_CONTRIBUER.map(({ titre, desc, icon: Icon, couleur, couleurTexte }) => (
               <div key={titre} className="bg-white rounded-xl p-5 border border-gray-100 flex items-start gap-4">
-                <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: couleur }}>
-                  <Icon className="h-5 w-5" style={{ color: couleurTexte }} />
+                <div className="w-11 h-11 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm" style={{ backgroundColor: couleur }}>
+                  <Icon className="h-5.5 w-5.5 drop-shadow-[0_1px_1px_rgba(0,0,0,0.22)]" strokeWidth={2.5} style={{ color: couleurTexte }} />
                 </div>
                 <div>
                   <h3 className="font-bold text-gray-900 mb-1">{titre}</h3>
