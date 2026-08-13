@@ -48,3 +48,5 @@
 - [x] Ajouter l’encart de soutien de la Ville de Genève avant le CTA de la page Partenaires.
 - [x] Déplacer la capsule de soutien de la Ville de Genève en haut de la page Partenaires, juste avant le CTA principal.
 - [x] Réduire l’espacement vertical du hero Partenaires et optimiser la capsule sur mobile.
+- [x] Diagnostiquer la résolution DNS, le HTTPS et le routage Coolify du sous-domaine boussole-culture-recherche.memoways.com.
+- [x] Documenter les corrections externes à appliquer sans modifier la configuration du serveur ou du DNS.
