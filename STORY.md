@@ -69,6 +69,7 @@ Qualité         : TypeScript, build Vite, GitHub Actions, scripts de contrôle 
 - ✅ **Fait** : à la soumission, l’API génère une ligne de boîte d’envoi dédiée à Dreamlit avec un récapitulatif déterministe ; l’activation du workflow Dreamlit reste à effectuer dans son interface.
 - ✅ **Fait** : `/admin` permet de consulter chaque récapitulatif prêt pour Dreamlit et de le régénérer, avec un compteur visible et une trace d’événement côté API.
 - ✅ **Fait** : la présentation partenaire garde ses détails dépliables et sa navigation fonctionnels, avec un radar-boussole commun aux neuf slides et une composition plus compacte.
+- ✅ **Fait** : les contrôles du deck sont stables avant les toggles ; le radar n’est présent qu’à l’ouverture et les slides suivantes utilisent une illustration liée à leur propos lorsqu’elle est utile.
 - 📋 **Reste à faire** : créer les ressources Coolify, renseigner le domaine final dans `SITE_URL`, configurer le SMTP et les secrets, puis lancer le pilote partenaire.
 
 ## Questions ouvertes

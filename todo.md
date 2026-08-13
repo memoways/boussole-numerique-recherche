@@ -60,3 +60,4 @@
 - [x] Implémenter l’option B Dreamlit : boîte d’envoi restreinte et récapitulatif déterministe à la soumission.
 - [x] Ajouter la liste admin des e-mails Dreamlit en attente et la régénération manuelle d’un récapitulatif.
 - [x] Réparer et recompacter les slides partenaire avec des visuels cohérents de boussole et de radar.
+- [x] Fixer la navigation du deck partenaire et différencier les illustrations selon chaque slide.

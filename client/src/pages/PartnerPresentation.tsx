@@ -28,7 +28,7 @@ type Detail = {
   links: Array<{ href: string; label: string }>;
 };
 
-type VisualKind = "compass" | "signals" | "journey" | "community" | "cycle" | "principles" | "bridge" | "workshop" | "next";
+type VisualKind = "compass" | "signals" | "journey" | "community" | "cycle" | "principles" | "bridge" | "workshop" | "next" | "none";
 
 type Slide = {
   eyebrow: string;
@@ -71,7 +71,7 @@ const SLIDES: Slide[] = [
     text: "Les usages, les ressources et les enjeux numériques varient fortement. Une réponse utile commence par écouter les situations réelles plutôt que par prescrire un modèle unique.",
     accent: "#3a7fc1",
     icon: Users,
-    visual: "signals",
+    visual: "none",
     details: [
       {
         id: "realites",
@@ -239,7 +239,7 @@ const SLIDES: Slide[] = [
     text: "Si vous avez reçu une invitation, le questionnaire est accessible directement. Sinon, vous pouvez demander un lien personnel pour contribuer au moment qui vous convient.",
     accent: "#E07428",
     icon: CheckCircle2,
-    visual: "next",
+    visual: "none",
     details: [
       {
         id: "invitation",
@@ -285,6 +285,7 @@ const RADAR_PROFILES: Record<VisualKind, number[]> = {
   bridge: [0.58, 0.66, 0.62, 0.82, 0.8],
   workshop: [0.64, 0.76, 0.58, 0.54, 0.86],
   next: [0.72, 0.64, 0.7, 0.62, 0.78],
+  none: [0.6, 0.6, 0.6, 0.6, 0.6],
 };
 
 function SlideVisual({ kind, accent, icon: Icon }: { kind: VisualKind; accent: string; icon: typeof CircleHelp }) {
@@ -331,6 +332,39 @@ function SlideVisual({ kind, accent, icon: Icon }: { kind: VisualKind; accent: s
     <div className="grid grid-cols-5 gap-1 text-center text-[9px] font-bold uppercase tracking-[0.05em] text-slate-500 sm:text-[10px]">
       {RADAR_DIMENSIONS.map((label) => <span key={label} className="leading-tight">{label}</span>)}
     </div>
+  </div>;
+}
+
+function StoryIllustration({ kind, accent }: { kind: Exclude<VisualKind, "compass" | "none">; accent: string }) {
+  const pale = `${accent}14`;
+  const soft = `${accent}2b`;
+
+  if (kind === "journey") return <div aria-hidden="true" className="grid w-full grid-cols-3 items-center gap-2">
+    {["Décrire", "Situer", "Agir"].map((label, index) => <div key={label} className="relative"><div className="grid h-16 place-items-center rounded-2xl px-2 text-center text-xs font-bold" style={{ backgroundColor: index === 1 ? accent : pale, color: index === 1 ? "#fff" : accent }}>{label}</div>{index < 2 && <ArrowRight className="absolute -right-2 top-1/2 z-10 h-4 w-4 -translate-y-1/2 rounded-full bg-white p-0.5" style={{ color: accent }} />}</div>)}
+  </div>;
+
+  if (kind === "community") return <div aria-hidden="true" className="relative mx-auto h-36 w-full max-w-[280px]">
+    {[["Artistes", "6%", "12%"], ["Lieux", "65%", "6%"], ["Réseaux", "5%", "71%"], ["Équipes", "67%", "74%"]].map(([label, left, top]) => <span key={label} className="absolute rounded-full px-3 py-1.5 text-xs font-bold" style={{ left, top, backgroundColor: pale, color: accent }}>{label}</span>)}
+    <span className="absolute left-1/2 top-1/2 grid h-20 w-20 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border-4 border-white text-center text-xs font-bold text-white shadow-lg" style={{ backgroundColor: accent }}>Boussole</span>
+    <span className="absolute left-[21%] top-[45%] h-px w-[56%] -rotate-[20deg]" style={{ backgroundColor: soft }} /><span className="absolute left-[20%] top-[47%] h-px w-[58%] rotate-[22deg]" style={{ backgroundColor: soft }} />
+  </div>;
+
+  if (kind === "cycle") return <div aria-hidden="true" className="relative mx-auto h-36 w-full max-w-[280px]">
+    <div className="absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full border-[10px] border-transparent" style={{ borderTopColor: accent, borderRightColor: soft, borderBottomColor: accent, borderLeftColor: soft }} />
+    {["Comprendre", "Situer", "Prioriser", "Agir"].map((label, index) => <span key={label} className="absolute grid h-11 w-20 place-items-center rounded-full px-1 text-center text-[10px] font-bold" style={{ backgroundColor: index % 2 ? pale : accent, color: index % 2 ? accent : "#fff", left: index === 1 || index === 2 ? "calc(100% - 5rem)" : "0", top: index > 1 ? "calc(100% - 2.75rem)" : "0" }}>{label}</span>)}
+  </div>;
+
+  if (kind === "principles") return <div aria-hidden="true" className="grid w-full grid-cols-3 gap-2">
+    {["Utile", "Neutre", "Souveraine"].map((label, index) => <div key={label} className="flex h-20 items-end rounded-2xl p-3 text-xs font-bold" style={{ backgroundColor: index === 1 ? accent : pale, color: index === 1 ? "#fff" : accent }}>{label}</div>)}
+  </div>;
+
+  if (kind === "bridge") return <div aria-hidden="true" className="flex w-full items-center gap-3">
+    <span className="grid h-20 w-20 shrink-0 place-items-center rounded-2xl p-2 text-center text-xs font-bold" style={{ backgroundColor: pale, color: accent }}>Membres<br />& publics</span><span className="h-1 flex-1 rounded-full" style={{ background: `linear-gradient(90deg, ${soft}, ${accent})` }} /><span className="grid h-20 w-20 shrink-0 place-items-center rounded-2xl p-2 text-center text-xs font-bold text-white" style={{ backgroundColor: accent }}>Projet<br />partagé</span>
+  </div>;
+
+  return <div aria-hidden="true" className="relative mx-auto h-36 w-full max-w-[280px]">
+    {[{ label: "Retours", left: "2%", top: "48%" }, { label: "Atelier", left: "36%", top: "3%" }, { label: "Prototype", left: "66%", top: "53%" }].map((item, index) => <span key={item.label} className="absolute grid h-16 w-16 place-items-center rounded-full p-2 text-center text-[10px] font-bold" style={{ left: item.left, top: item.top, backgroundColor: index === 1 ? accent : pale, color: index === 1 ? "#fff" : accent }}>{item.label}</span>)}
+    <span className="absolute left-[25%] top-[49%] h-px w-[47%] -rotate-[26deg]" style={{ backgroundColor: soft }} /><span className="absolute left-[28%] top-[42%] h-px w-[33%] rotate-[28deg]" style={{ backgroundColor: soft }} />
   </div>;
 }
 
@@ -396,7 +430,7 @@ export default function PartnerPresentation() {
         </div>
 
         <article className="mt-5 overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-50 via-white to-white shadow-[0_20px_70px_rgba(42,54,90,0.08)] lg:max-h-[800px] lg:overflow-y-auto">
-          <div className="grid gap-5 p-5 sm:p-7 lg:grid-cols-[minmax(0,1.2fr)_minmax(320px,0.8fr)] lg:items-center lg:gap-8 lg:p-9 xl:p-10">
+          <div className={`grid gap-5 p-5 sm:p-7 lg:items-center lg:gap-8 lg:p-9 xl:p-10 ${slide.visual === "none" ? "" : "lg:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)]"}`}>
             <div>
               <div className="flex items-start justify-between gap-6">
                 <p className="text-xs font-bold uppercase tracking-[0.16em]" style={{ color: slide.accent }}>{slide.eyebrow}</p>
@@ -410,8 +444,27 @@ export default function PartnerPresentation() {
                 <p className="mt-4 text-sm font-medium text-slate-500">Ouvrez les repères ci-dessous pour approfondir sans quitter cette présentation.</p>
               </div>
             </div>
-            <div className="rounded-3xl border border-white bg-white/70 p-3 shadow-inner sm:p-4"><SlideVisual kind={slide.visual} accent={slide.accent} icon={Icon} /></div>
+            {slide.visual === "compass" && <div className="rounded-3xl border border-white bg-white/70 p-3 shadow-inner sm:p-4"><SlideVisual kind={slide.visual} accent={slide.accent} icon={Icon} /></div>}
+            {slide.visual !== "none" && slide.visual !== "compass" && <div className="rounded-3xl border border-white bg-white/70 p-5 shadow-inner sm:p-6"><StoryIllustration kind={slide.visual} accent={slide.accent} /></div>}
           </div>
+
+          <nav className="border-t border-slate-200 bg-white px-5 py-4 sm:px-7 lg:px-9 xl:px-10" aria-label="Navigation de la présentation">
+            <div className="flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <Button variant="outline" disabled={currentIndex === 0} onClick={() => goToSlide(currentIndex - 1)}>
+                <ArrowLeft className="mr-2 h-4 w-4" /> Précédent
+              </Button>
+              <p className="text-center text-xs text-slate-400 sm:order-none">Flèches gauche et droite disponibles hors des contrôles interactifs.</p>
+              {isLast ? (
+                <Button asChild style={{ backgroundColor: "#E07428", color: "#fff" }}>
+                  <Link href="/partenaires/questionnaire">Partager mes idées et feedbacks <ArrowRight className="ml-2 h-4 w-4" /></Link>
+                </Button>
+              ) : (
+                <Button onClick={() => goToSlide(currentIndex + 1)} style={{ backgroundColor: slide.accent, color: "#fff" }}>
+                  Suivant <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              )}
+            </div>
+          </nav>
 
           <div className="border-t border-slate-200 bg-white px-5 py-5 sm:px-7 lg:px-9 xl:px-10">
             <Accordion type="single" collapsible value={openDetail} onValueChange={(value) => setPresentationState(currentIndex, value)} className="grid gap-3 lg:grid-cols-2">
@@ -438,21 +491,6 @@ export default function PartnerPresentation() {
           </div>
         </article>
 
-        <nav className="mt-5 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between" aria-label="Navigation de la présentation">
-          <Button variant="outline" disabled={currentIndex === 0} onClick={() => goToSlide(currentIndex - 1)}>
-            <ArrowLeft className="mr-2 h-4 w-4" /> Précédent
-          </Button>
-          <p className="text-center text-xs text-slate-400 sm:order-none">Flèches gauche et droite disponibles hors des contrôles interactifs.</p>
-          {isLast ? (
-            <Button asChild style={{ backgroundColor: "#E07428", color: "#fff" }}>
-              <Link href="/partenaires/questionnaire">Partager mes idées et feedbacks <ArrowRight className="ml-2 h-4 w-4" /></Link>
-            </Button>
-          ) : (
-            <Button onClick={() => goToSlide(currentIndex + 1)} style={{ backgroundColor: slide.accent, color: "#fff" }}>
-              Suivant <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          )}
-        </nav>
       </section>
     </div>
   );

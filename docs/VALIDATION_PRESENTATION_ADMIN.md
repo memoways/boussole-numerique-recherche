@@ -10,6 +10,8 @@ Le contrôle TypeScript et les builds frontend/API passent avec `pnpm verify`. L
 
 Le 13 août 2026, la présentation partenaire a été recontrôlée sur desktop après sa recomposition en deux colonnes : le premier panneau de détail s’ouvre, son état est inscrit dans l’URL et le radar-boussole reste visible dans le format compact. Le bouton Suivant passe à la slide 2 et met à jour l’URL. À 1 280 px de large, la carte mesure 612 px de haut sans débordement horizontal ; elle reste donc sous le seuil de 800 px avant ouverture d’un détail.
 
+Le même contrôle a confirmé que les boutons Précédent et Suivant sont placés avant les panneaux de détail : leur position ne dépend plus de l’ouverture d’un toggle. Le radar-boussole est réservé à la première slide ; la seconde slide n’affiche pas d’illustration superflue et conserve une mise en page compacte.
+
 | Contrôle restant après Coolify | Résultat attendu |
 |---|---|
 | `GET /health` de l’API | `{"status":"ok"}` avec PostgreSQL connecté. |
