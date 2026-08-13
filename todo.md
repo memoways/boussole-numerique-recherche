@@ -55,3 +55,4 @@
 - [x] Créer l’API, les migrations, l’administration et les invitations personnelles.
 - [x] Créer le questionnaire avec brouillons, réponses vocales transcrites et consentement.
 - [x] Tester les parcours et documenter l’exploitation Coolify du questionnaire.
+- [x] Synchroniser CHANGELOG, STORY, README et archive `docs/` avec les modifications effectivement livrées.

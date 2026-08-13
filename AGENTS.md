@@ -47,6 +47,10 @@ Les parcours `/partenaires/presentation`, `/partenaires/questionnaire` et `/admi
 
 La présentation conserve son contexte avec `?slide=<n>&detail=<id>`. Préservez ces paramètres lors de toute évolution des liens contextuels, afin que le bouton précédent du navigateur ramène à la même slide et au même panneau ouvert. Consultez `docs/README.md` avant de modifier l’exploitation Coolify ou les variables d’environnement.
 
+## Documentation à chaque itération
+
+Après chaque tour de changements effectivement livré, mettez à jour `CHANGELOG.md`, `STORY.md` et `README.md` à partir des modifications réelles, sans recopier un plan non implémenté. Ajoutez ou actualisez une archive factuelle dans `docs/` lorsque le périmètre est significatif, puis référencez-la depuis `docs/README.md`.
+
 ## Livraison
 
 Travaillez sur une branche dédiée. Avant de proposer une fusion, exécutez `pnpm verify`, vérifiez au minimum la page modifiée sur desktop et mobile, puis décrivez les fichiers modifiés et les impacts dans la pull request. Ne modifiez ni les secrets de Coolify ni la configuration DNS à partir du code.

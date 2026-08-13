@@ -22,6 +22,7 @@ Le portail est volontairement distinct de la future application de diagnostic. A
 3. **Documenter la recherche.** Les pages Recherche, Références et Ressources relient la proposition aux pratiques et outils comparables étudiés.
 4. **Faciliter la navigation.** La navigation globale, le fil d’Ariane, le sommaire Projet et les adaptations mobile permettent de parcourir un contenu dense.
 5. **Préserver l’autonomie technique.** Le dépôt se construit sans service applicatif propriétaire et se déploie dans Coolify avec un conteneur Nginx et une API partenaire dédiée.
+6. **Organiser la contribution partenaire.** La présentation dépliable, les liens contextuels, les invitations et la console `/admin` structurent les échanges avant le pilote.
 
 ## Stack
 
@@ -46,6 +47,8 @@ Qualité         : TypeScript, build Vite, GitHub Actions, scripts de contrôle 
 | Sommaire Projet indépendant | La page Projet est longue ; son sommaire sticky desktop et son sélecteur mobile suivent la section active. |
 | Références détaillées sur une page unique | Projet et Recherche orientent vers Références afin d’éviter la répétition de l’analyse comparative. |
 | Design bleu → cyan → vert → orange | Le spectre visuel identifie le projet tout en hiérarchisant les étapes et les contributions. |
+| État de présentation dans l’URL | La slide et le panneau de détail restent accessibles après un retour navigateur. |
+| API partenaire séparée | Les secrets, l’administration et les données de réponse restent hors du portail statique. |
 
 ## État courant
 
@@ -60,6 +63,7 @@ Qualité         : TypeScript, build Vite, GitHub Actions, scripts de contrôle 
 - ✅ **Fait** : le module partenaire inclut les invitations liées aux organisations, l’administration, les brouillons, les réponses vocales transcrites et les exports.
 - ✅ **Fait** : la présentation partenaire contient des détails dépliables, des schémas visuels et des liens qui conservent la slide ouverte dans l’historique du navigateur.
 - ✅ **Fait** : l’administration est disponible à `/admin` après configuration de l’API, de PostgreSQL et des secrets dans Coolify.
+- ✅ **Fait** : documentation de continuité synchronisée dans `CHANGELOG.md`, `STORY.md`, `README.md` et `docs/`, avec une archive des fonctionnalités réellement livrées.
 - 📋 **Reste à faire** : créer les ressources Coolify, renseigner le domaine final dans `SITE_URL`, configurer le SMTP et les secrets, puis lancer le pilote partenaire.
 
 ## Questions ouvertes
@@ -89,4 +93,5 @@ Qualité         : TypeScript, build Vite, GitHub Actions, scripts de contrôle 
 - **Documentation indexée** : [`docs/README.md`](docs/README.md)
 - **Opérations partenaire** : [`docs/PARTNER_FEEDBACK_OPERATIONS.md`](docs/PARTNER_FEEDBACK_OPERATIONS.md)
 - **Plan partenaire** : [`docs/PLAN_PARTENAIRES_PRESENTATION_QUESTIONNAIRE.md`](docs/PLAN_PARTENAIRES_PRESENTATION_QUESTIONNAIRE.md)
+- **Archive d’implémentation partenaire** : [`docs/IMPLEMENTATION_ARCHIVE_PARTNER_MODULE_2026-08-13.md`](docs/IMPLEMENTATION_ARCHIVE_PARTNER_MODULE_2026-08-13.md)
 - **SEO** : [`docs/SEO.md`](docs/SEO.md)
