@@ -15,6 +15,7 @@ Ce fichier suit le format [Keep a Changelog](https://keepachangelog.com/fr/1.1.0
 - Intégration Dreamlit option B : boîte d’envoi PostgreSQL `notifications.partner_response_recap_outbox`, récapitulatif déterministe créé dans la transaction de soumission et test automatisé du formatage.
 - Documentation opérationnelle complétée pour la connexion Dreamlit restreinte, le workflow transactionnel et l’exposition PostgreSQL chiffrée dans Coolify.
 - Console partenaire : liste des e-mails prêts pour Dreamlit, aperçu du récapitulatif et régénération manuelle sécurisée par réponse soumise.
+- Présentation partenaire corrigée : toggles et navigation Suivant opérationnels, gabarit desktop compact et radar-boussole cohérent avec l’expérience Boussole.
 - Encarts de soutien de la Ville de Genève, avec logo, lien vers la démarche de subvention et formulation institutionnelle sur les pages Projet et Partenaires.
 
 ---

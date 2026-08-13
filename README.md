@@ -19,6 +19,8 @@ Utilisez Node.js 22 et pnpm 10. Le portail public ne requiert pas de secret. `SI
 
 La page Partenaires propose deux accès autonomes : la présentation à `/partenaires/presentation` et le questionnaire à `/partenaires/questionnaire`. La présentation comporte neuf slides défilables avec compositions visuelles, panneaux de détail accessibles et liens contextuels. L’état de lecture est conservé par `?slide=<n>&detail=<id>`, ce qui permet au bouton précédent du navigateur de retrouver la slide et le détail ouverts.
 
+Les slides utilisent désormais un radar-boussole inspiré de la page Expérience : grille à cinq dimensions, repères cardinaux et palette du portail. Sur desktop, la carte s’organise sur deux colonnes et reste sous 800 px avant déploiement d’un détail ; les panneaux passent aussi en deux colonnes et se replient naturellement sur smartphone.
+
 La console d’administration est accessible directement à `/admin`; `/partenaires/admin` est conservé comme alias. Son accès fonctionnera après déploiement de l’API et de PostgreSQL, avec l’identifiant initial `ulrich.fischer@memoways.com` et un mot de passe stocké uniquement dans `ADMIN_PASSWORD` côté Coolify.
 
 Lors d’une soumission, l’API prépare un récapitulatif déterministe dans `notifications.partner_response_recap_outbox`. Dreamlit doit ensuite surveiller uniquement cette boîte d’envoi et délivrer l’e-mail récapitulatif. La connexion Dreamlit, le domaine expéditeur et la publication du workflow restent à activer dans leurs interfaces respectives ; ils ne sont pas stockés dans le portail ni dans l’API.

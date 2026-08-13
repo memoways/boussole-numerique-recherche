@@ -6,6 +6,8 @@
 
 La route `/partenaires/presentation` propose neuf slides, chacune avec une composition visuelle liée à son sujet et deux panneaux de détail. Les panneaux sont accessibles au clavier, se développent dans le flux de la page et permettent de lire des informations complémentaires avant de suivre un lien vers une autre page.
 
+La composition a été resserrée pour travailler en largeur : texte et visualisation sont disposés en deux colonnes sur desktop, les deux panneaux de détail peuvent être présentés côte à côte et la carte utilise une hauteur maximale de 800 px avant l’ouverture d’un détail. Sur mobile, la grille revient à une colonne. Les visualisations distinctes des premières versions ont été remplacées par un radar-boussole commun, reprenant la grille à cinq dimensions, les repères cardinaux et les couleurs de la page Expérience.
+
 L’URL encode la slide et le détail ouverts avec `?slide=<n>&detail=<id>`. Lorsqu’une personne suit un lien contextuel puis utilise le bouton précédent du navigateur, l’historique retrouve l’URL de présentation et l’interface restaure la même slide avec le même panneau déplié. Les touches gauche et droite naviguent entre les slides en dehors des contrôles interactifs.
 
 | Fichier | Élément livré |

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -274,78 +274,63 @@ function createPresentationUrl(currentIndex: number, detail = "") {
   return `/partenaires/presentation?${params.toString()}`;
 }
 
-function SlideVisual({ kind, accent }: { kind: VisualKind; accent: string }) {
-  const pale = `${accent}14`;
-  const paleStrong = `${accent}24`;
+const RADAR_DIMENSIONS = ["Outils", "Compétences", "Données", "Diffusion", "Collaboration"];
+const RADAR_PROFILES: Record<VisualKind, number[]> = {
+  compass: [0.76, 0.52, 0.7, 0.58, 0.68],
+  signals: [0.48, 0.72, 0.54, 0.82, 0.42],
+  journey: [0.66, 0.62, 0.8, 0.48, 0.7],
+  community: [0.58, 0.52, 0.64, 0.78, 0.84],
+  cycle: [0.7, 0.58, 0.76, 0.6, 0.68],
+  principles: [0.62, 0.7, 0.86, 0.48, 0.7],
+  bridge: [0.58, 0.66, 0.62, 0.82, 0.8],
+  workshop: [0.64, 0.76, 0.58, 0.54, 0.86],
+  next: [0.72, 0.64, 0.7, 0.62, 0.78],
+};
 
-  if (kind === "compass") {
-    return <div aria-hidden="true" className="relative mx-auto h-52 w-52 sm:h-64 sm:w-64">
-      <div className="absolute inset-0 rounded-full border-2" style={{ borderColor: paleStrong }} />
-      <div className="absolute inset-6 rounded-full border" style={{ borderColor: paleStrong }} />
-      <div className="absolute inset-14 rounded-full" style={{ backgroundColor: pale }} />
-      <div className="absolute left-1/2 top-5 h-28 w-1 -translate-x-1/2 rounded-full" style={{ backgroundColor: accent }} />
-      <div className="absolute left-1/2 top-8 h-20 w-20 -translate-x-1/2 rotate-45 rounded-tl-[100%] rounded-tr-[12%] rounded-br-[100%] rounded-bl-[12%]" style={{ backgroundColor: accent }} />
-      <div className="absolute inset-0 grid place-items-center"><Compass className="h-10 w-10 text-white" style={{ color: "#fff", filter: `drop-shadow(0 4px 8px ${accent}55)` }} /></div>
-    </div>;
-  }
+function SlideVisual({ kind, accent, icon: Icon }: { kind: VisualKind; accent: string; icon: typeof CircleHelp }) {
+  const cx = 150;
+  const cy = 132;
+  const radius = 88;
+  const values = RADAR_PROFILES[kind];
+  const point = (index: number, factor: number) => {
+    const angle = (index * 72 - 90) * Math.PI / 180;
+    return { x: cx + radius * factor * Math.cos(angle), y: cy + radius * factor * Math.sin(angle) };
+  };
+  const polygon = (factor: number) => RADAR_DIMENSIONS.map((_, index) => {
+    const value = point(index, factor);
+    return `${value.x.toFixed(1)},${value.y.toFixed(1)}`;
+  }).join(" ");
+  const shape = values.map((value, index) => {
+    const coordinate = point(index, value);
+    return `${index ? "L" : "M"}${coordinate.x.toFixed(1)},${coordinate.y.toFixed(1)}`;
+  }).join(" ") + " Z";
 
-  if (kind === "signals") {
-    return <div aria-hidden="true" className="mx-auto grid max-w-xs grid-cols-4 items-end gap-3 px-3 py-8">
-      {[42, 76, 58, 92].map((height, index) => <div key={height} className="rounded-t-2xl" style={{ height: `${height}px`, backgroundColor: index === 3 ? accent : paleStrong }} />)}
-      <div className="col-span-4 mt-3 flex justify-between text-[10px] font-bold uppercase tracking-[0.14em] text-slate-400"><span>usages</span><span>ressources</span><span>priorités</span></div>
-    </div>;
-  }
-
-  if (kind === "journey") {
-    return <div aria-hidden="true" className="mx-auto flex max-w-sm items-center gap-2 py-10">
-      {["Décrire", "Situer", "Agir"].map((label, index) => <div key={label} className="flex min-w-0 flex-1 items-center gap-2">
-        <div className="grid h-20 w-full place-items-center rounded-2xl px-2 text-center text-xs font-bold" style={{ backgroundColor: index === 1 ? accent : pale, color: index === 1 ? "#fff" : accent }}>{label}</div>
-        {index < 2 && <ArrowRight className="h-4 w-4 shrink-0" style={{ color: accent }} />}
-      </div>)}
-    </div>;
-  }
-
-  if (kind === "community") {
-    return <div aria-hidden="true" className="mx-auto grid w-60 grid-cols-3 gap-3 py-8 sm:w-72">
-      {[0, 1, 2, 3, 4, 5].map((index) => <div key={index} className={`grid h-16 place-items-center rounded-2xl text-xs font-bold ${index === 1 || index === 4 ? "translate-y-4" : ""}`} style={{ backgroundColor: index === 2 ? accent : pale, color: index === 2 ? "#fff" : accent }}>
-        {index === 2 ? "outil" : ["artistes", "lieux", "réseaux", "équipes", "publics"][index > 2 ? index - 1 : index]}
-      </div>)}
-    </div>;
-  }
-
-  if (kind === "cycle") {
-    return <div aria-hidden="true" className="relative mx-auto h-60 w-60 sm:h-64 sm:w-64">
-      <div className="absolute inset-6 rounded-full border-[18px] border-transparent" style={{ borderTopColor: accent, borderRightColor: paleStrong, borderBottomColor: accent, borderLeftColor: paleStrong }} />
-      {["Comprendre", "Situer", "Prioriser", "Agir"].map((label, index) => <span key={label} className="absolute grid h-16 w-16 place-items-center rounded-full px-1 text-center text-[10px] font-bold leading-tight" style={{ backgroundColor: index % 2 === 0 ? accent : pale, color: index % 2 === 0 ? "#fff" : accent, left: index === 1 || index === 2 ? "calc(100% - 4rem)" : "0", top: index > 1 ? "calc(100% - 4rem)" : "0" }}>{label}</span>)}
-      <div className="absolute inset-0 grid place-items-center"><Route className="h-9 w-9" style={{ color: accent }} /></div>
-    </div>;
-  }
-
-  if (kind === "principles") {
-    return <div aria-hidden="true" className="mx-auto grid max-w-sm grid-cols-3 gap-3 py-10">
-      {["utile", "neutre", "souveraine"].map((label, index) => <div key={label} className="flex h-24 items-end rounded-2xl p-3 text-xs font-bold" style={{ backgroundColor: index === 1 ? accent : pale, color: index === 1 ? "#fff" : accent }}>{label}</div>)}
-    </div>;
-  }
-
-  if (kind === "bridge") {
-    return <div aria-hidden="true" className="mx-auto flex max-w-sm items-center justify-center gap-4 py-12">
-      <div className="grid h-24 w-24 place-items-center rounded-3xl p-3 text-center text-xs font-bold" style={{ backgroundColor: pale, color: accent }}>membres<br />& publics</div>
-      <div className="h-1 flex-1 rounded-full" style={{ background: `linear-gradient(90deg, ${accent}55, ${accent})` }} />
-      <div className="grid h-24 w-24 place-items-center rounded-3xl p-3 text-center text-xs font-bold text-white" style={{ backgroundColor: accent }}>projet<br />partagé</div>
-    </div>;
-  }
-
-  if (kind === "workshop") {
-    return <div aria-hidden="true" className="relative mx-auto h-56 max-w-sm py-8">
-      {[{ label: "retours", left: "6%", top: "18%" }, { label: "atelier", left: "37%", top: "2%" }, { label: "prototype", left: "66%", top: "38%" }].map((item, index) => <div key={item.label} className="absolute grid h-24 w-24 place-items-center rounded-full p-3 text-center text-xs font-bold" style={{ left: item.left, top: item.top, backgroundColor: index === 1 ? accent : pale, color: index === 1 ? "#fff" : accent }}>{item.label}</div>)}
-      <div className="absolute left-[25%] top-[48%] h-px w-[46%] rotate-[21deg]" style={{ backgroundColor: paleStrong }} />
-      <div className="absolute left-[32%] top-[37%] h-px w-[33%] -rotate-[30deg]" style={{ backgroundColor: paleStrong }} />
-    </div>;
-  }
-
-  return <div aria-hidden="true" className="mx-auto flex max-w-sm items-center gap-4 py-12">
-    <div className="grid h-24 w-24 place-items-center rounded-3xl text-white" style={{ backgroundColor: accent }}><CheckCircle2 className="h-10 w-10" /></div>
-    <div className="min-w-0 flex-1 space-y-3"><div className="h-3 rounded-full" style={{ backgroundColor: paleStrong }} /><div className="h-3 w-3/4 rounded-full" style={{ backgroundColor: pale }} /><div className="h-3 w-2/5 rounded-full" style={{ backgroundColor: paleStrong }} /></div>
+  return <div aria-hidden="true" className="mx-auto w-full max-w-[330px]">
+    <div className="relative h-[220px] sm:h-[250px]">
+      <svg viewBox="0 0 300 260" className="h-full w-full overflow-visible">
+        <circle cx={cx} cy={cy} r="112" fill="none" stroke={`${accent}22`} strokeWidth="1" />
+        {[1, 0.75, 0.5, 0.25].map((scale) => <polygon key={scale} points={polygon(scale)} fill="none" stroke="#d8dee9" strokeWidth="1" />)}
+        {RADAR_DIMENSIONS.map((_, index) => {
+          const outer = point(index, 1);
+          return <line key={index} x1={cx} y1={cy} x2={outer.x} y2={outer.y} stroke="#d8dee9" strokeWidth="1" />;
+        })}
+        <path d={shape} fill={accent} fillOpacity="0.17" stroke={accent} strokeWidth="2.4" strokeLinejoin="round" />
+        {values.map((value, index) => {
+          const node = point(index, value);
+          return <circle key={index} cx={node.x} cy={node.y} r="4.5" fill={accent} stroke="#fff" strokeWidth="1.5" />;
+        })}
+        <text x={cx} y="13" textAnchor="middle" fontSize="10" fontWeight="700" fill={accent}>N</text>
+        <text x="290" y={cy + 3} textAnchor="middle" fontSize="10" fontWeight="700" fill={accent}>E</text>
+        <text x={cx} y="252" textAnchor="middle" fontSize="10" fontWeight="700" fill={accent}>S</text>
+        <text x="10" y={cy + 3} textAnchor="middle" fontSize="10" fontWeight="700" fill={accent}>O</text>
+      </svg>
+      <div className="pointer-events-none absolute inset-0 grid place-items-center">
+        <div className="grid h-14 w-14 place-items-center rounded-full border-4 border-white shadow-lg" style={{ backgroundColor: accent }}><Icon className="h-6 w-6 text-white" /></div>
+      </div>
+    </div>
+    <div className="grid grid-cols-5 gap-1 text-center text-[9px] font-bold uppercase tracking-[0.05em] text-slate-500 sm:text-[10px]">
+      {RADAR_DIMENSIONS.map((label) => <span key={label} className="leading-tight">{label}</span>)}
+    </div>
   </div>;
 }
 
@@ -354,26 +339,29 @@ export default function PartnerPresentation() {
   const initialState = useMemo(() => getPresentationState(), []);
   const [currentIndex, setCurrentIndex] = useState(initialState.currentIndex);
   const [openDetail, setOpenDetail] = useState(initialState.detail);
-  const previousIndexRef = useRef(initialState.currentIndex);
   const slide = SLIDES[currentIndex];
   const Icon = slide.icon;
   const isLast = currentIndex === SLIDES.length - 1;
 
   useEffect(() => {
     const nextState = getPresentationState();
-    const indexChanged = nextState.currentIndex !== previousIndexRef.current;
-    previousIndexRef.current = nextState.currentIndex;
     setCurrentIndex(nextState.currentIndex);
     setOpenDetail(nextState.detail);
-    if (indexChanged) window.setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 0);
   }, [location]);
 
   const setPresentationState = (nextIndex: number, detail = "") => {
     const safeIndex = Math.min(Math.max(nextIndex, 0), SLIDES.length - 1);
+    setCurrentIndex(safeIndex);
+    setOpenDetail(detail);
     setLocation(createPresentationUrl(safeIndex, detail));
     if (detail) {
       window.requestAnimationFrame(() => document.getElementById(`presentation-detail-${detail}`)?.scrollIntoView({ behavior: "smooth", block: "nearest" }));
     }
+  };
+
+  const goToSlide = (nextIndex: number) => {
+    setPresentationState(nextIndex);
+    window.requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "smooth" }));
   };
 
   useEffect(() => {
@@ -382,11 +370,11 @@ export default function PartnerPresentation() {
       if (event.altKey || event.ctrlKey || event.metaKey || target?.matches("input, textarea, select, button, a, [role=button]")) return;
       if (event.key === "ArrowLeft" && currentIndex > 0) {
         event.preventDefault();
-        setPresentationState(currentIndex - 1);
+        goToSlide(currentIndex - 1);
       }
       if (event.key === "ArrowRight" && currentIndex < SLIDES.length - 1) {
         event.preventDefault();
-        setPresentationState(currentIndex + 1);
+        goToSlide(currentIndex + 1);
       }
     };
     window.addEventListener("keydown", onKeyDown);
@@ -395,7 +383,7 @@ export default function PartnerPresentation() {
 
   return (
     <div className="bg-white px-4 py-8 sm:py-12">
-      <section className="mx-auto max-w-6xl">
+      <section className="mx-auto max-w-7xl">
         <div className="mb-6 flex items-center justify-between gap-4 text-sm text-slate-500">
           <Link href="/partenaires" className="inline-flex items-center gap-2 font-medium transition-colors hover:text-[#515792]">
             <ArrowLeft className="h-4 w-4" /> Partenaires
@@ -407,8 +395,8 @@ export default function PartnerPresentation() {
           <div className="h-full rounded-full transition-[width] duration-300 motion-reduce:transition-none" style={{ width: `${((currentIndex + 1) / SLIDES.length) * 100}%`, backgroundColor: slide.accent }} />
         </div>
 
-        <article className="mt-6 overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-50 via-white to-white shadow-[0_20px_70px_rgba(42,54,90,0.08)]">
-          <div className="grid gap-8 p-7 sm:p-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(300px,0.75fr)] lg:items-center lg:gap-14 lg:p-14">
+        <article className="mt-5 overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-50 via-white to-white shadow-[0_20px_70px_rgba(42,54,90,0.08)] lg:max-h-[800px] lg:overflow-y-auto">
+          <div className="grid gap-5 p-5 sm:p-7 lg:grid-cols-[minmax(0,1.2fr)_minmax(320px,0.8fr)] lg:items-center lg:gap-8 lg:p-9 xl:p-10">
             <div>
               <div className="flex items-start justify-between gap-6">
                 <p className="text-xs font-bold uppercase tracking-[0.16em]" style={{ color: slide.accent }}>{slide.eyebrow}</p>
@@ -416,17 +404,17 @@ export default function PartnerPresentation() {
                   <Icon className="h-6 w-6" aria-hidden="true" />
                 </div>
               </div>
-              <div className="mt-12">
-                <h1 className="text-3xl font-extrabold leading-tight text-slate-950 sm:text-5xl">{slide.title}</h1>
-                <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-600 sm:text-xl">{slide.text}</p>
-                <p className="mt-6 text-sm font-medium text-slate-500">Ouvrez les repères ci-dessous pour approfondir sans quitter cette présentation.</p>
+              <div className="mt-6">
+                <h1 className="text-3xl font-extrabold leading-tight text-slate-950 sm:text-4xl xl:text-[2.7rem]">{slide.title}</h1>
+                <p className="mt-4 max-w-3xl text-base leading-relaxed text-slate-600 sm:text-lg">{slide.text}</p>
+                <p className="mt-4 text-sm font-medium text-slate-500">Ouvrez les repères ci-dessous pour approfondir sans quitter cette présentation.</p>
               </div>
             </div>
-            <div className="rounded-3xl border border-white bg-white/70 p-3 shadow-inner sm:p-5"><SlideVisual kind={slide.visual} accent={slide.accent} /></div>
+            <div className="rounded-3xl border border-white bg-white/70 p-3 shadow-inner sm:p-4"><SlideVisual kind={slide.visual} accent={slide.accent} icon={Icon} /></div>
           </div>
 
-          <div className="border-t border-slate-200 bg-white px-7 py-6 sm:px-10 lg:px-14">
-            <Accordion type="single" collapsible value={openDetail} onValueChange={(value) => setPresentationState(currentIndex, value)} className="space-y-3">
+          <div className="border-t border-slate-200 bg-white px-5 py-5 sm:px-7 lg:px-9 xl:px-10">
+            <Accordion type="single" collapsible value={openDetail} onValueChange={(value) => setPresentationState(currentIndex, value)} className="grid gap-3 lg:grid-cols-2">
               {slide.details.map((detail) => <AccordionItem id={`presentation-detail-${detail.id}`} key={detail.id} value={detail.id} className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50/70 px-4 last:border-b sm:px-5" style={{ borderColor: openDetail === detail.id ? `${slide.accent}55` : undefined }}>
                 <AccordionTrigger className="py-4 no-underline hover:no-underline">
                   <span className="min-w-0 pr-2">
@@ -450,8 +438,8 @@ export default function PartnerPresentation() {
           </div>
         </article>
 
-        <nav className="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between" aria-label="Navigation de la présentation">
-          <Button variant="outline" disabled={currentIndex === 0} onClick={() => setPresentationState(currentIndex - 1)}>
+        <nav className="mt-5 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between" aria-label="Navigation de la présentation">
+          <Button variant="outline" disabled={currentIndex === 0} onClick={() => goToSlide(currentIndex - 1)}>
             <ArrowLeft className="mr-2 h-4 w-4" /> Précédent
           </Button>
           <p className="text-center text-xs text-slate-400 sm:order-none">Flèches gauche et droite disponibles hors des contrôles interactifs.</p>
@@ -460,7 +448,7 @@ export default function PartnerPresentation() {
               <Link href="/partenaires/questionnaire">Partager mes idées et feedbacks <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
           ) : (
-            <Button onClick={() => setPresentationState(currentIndex + 1)} style={{ backgroundColor: slide.accent, color: "#fff" }}>
+            <Button onClick={() => goToSlide(currentIndex + 1)} style={{ backgroundColor: slide.accent, color: "#fff" }}>
               Suivant <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           )}
