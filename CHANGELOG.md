@@ -19,6 +19,7 @@ Ce fichier suit le format [Keep a Changelog](https://keepachangelog.com/fr/1.1.0
 - Présentation partenaire affinée : navigation fixée avant les détails, radar réservé à la slide d’ouverture et illustrations spécifiques ou volontairement absentes sur les slides suivantes.
 - Présentation partenaire alignée sur la référence annotée : titre pleine largeur, icône haute supprimée, gabarit interne desktop de 900 px et contrôles strictement immobiles.
 - Première slide partenaire simplifiée : retour redondant supprimé, radar animé partagé avec l’accueil remonté sous le titre et libellés de dimensions retirés.
+- Questionnaire partenaire : retour « Partenaires » redondant supprimé de l’écran public d’attente.
 - Encarts de soutien de la Ville de Genève, avec logo, lien vers la démarche de subvention et formulation institutionnelle sur les pages Projet et Partenaires.
 
 ---

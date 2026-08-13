@@ -25,6 +25,8 @@ La première slide réutilise l’animation radar de l’accueil sans afficher d
 
 La console d’administration est accessible directement à `/admin`; `/partenaires/admin` est conservé comme alias. Son accès fonctionnera après déploiement de l’API et de PostgreSQL, avec l’identifiant initial `ulrich.fischer@memoways.com` et un mot de passe stocké uniquement dans `ADMIN_PASSWORD` côté Coolify.
 
+La page publique du questionnaire s’appuie sur le fil d’Ariane global et ne répète pas de retour « Partenaires » dans son contenu.
+
 Lors d’une soumission, l’API prépare un récapitulatif déterministe dans `notifications.partner_response_recap_outbox`. Dreamlit doit ensuite surveiller uniquement cette boîte d’envoi et délivrer l’e-mail récapitulatif. La connexion Dreamlit, le domaine expéditeur et la publication du workflow restent à activer dans leurs interfaces respectives ; ils ne sont pas stockés dans le portail ni dans l’API.
 
 La console `/admin` présente la liste des e-mails prêts, leur récapitulatif, leur date de création et le nombre de régénérations. Une action protégée permet de mettre à jour le récapitulatif d’une réponse soumise ; Dreamlit doit être configuré pour réagir à la colonne `updated_at` afin que cette action relance l’envoi.

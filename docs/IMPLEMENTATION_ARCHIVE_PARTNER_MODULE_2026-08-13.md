@@ -14,6 +14,8 @@ La dernière composition desktop utilise un gabarit interne de 900 px. Le label 
 
 La première slide emploie maintenant `client/src/components/AnimatedRadarGraphic.tsx`, un composant reprenant l’animation de morphing du radar de l’accueil. Les libellés textuels qui figuraient sous le radar et le retour « Partenaires » déjà couvert par le fil d’Ariane ont été retirés. Le radar est aligné plus haut sous le titre et demeure une illustration, sans action de saisie.
 
+Le même principe de navigation a été appliqué au questionnaire public : son contenu ne rend plus de retour « Partenaires », puisque le fil d’Ariane global indique déjà le chemin Accueil → Partenaires → Questionnaire.
+
 L’URL encode la slide et le détail ouverts avec `?slide=<n>&detail=<id>`. Lorsqu’une personne suit un lien contextuel puis utilise le bouton précédent du navigateur, l’historique retrouve l’URL de présentation et l’interface restaure la même slide avec le même panneau déplié. Les touches gauche et droite naviguent entre les slides en dehors des contrôles interactifs.
 
 | Fichier | Élément livré |

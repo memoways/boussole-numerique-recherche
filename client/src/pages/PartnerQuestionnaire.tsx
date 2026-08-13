@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Check, ChevronLeft, ChevronRight, CircleAlert, Loader2, Mic, Pause, Send, Sparkles } from "lucide-react";
-import { Link, useRoute } from "wouter";
+import { useRoute } from "wouter";
 import { Button } from "@/components/ui/button";
 import { hasPartnerApi, partnerApi, PARTNER_API_URL } from "@/lib/partnerApi";
 
@@ -187,5 +187,5 @@ function TokenQuestionnaire({ token }: { token: string }) {
 
 export default function PartnerQuestionnaire() {
   const [matches, params] = useRoute("/partenaires/questionnaire/:token");
-  return <div className="bg-gradient-to-b from-slate-50 to-white px-4 py-10 sm:py-14"><div className="mx-auto mb-8 max-w-3xl"><Link href="/partenaires" className="inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-[#515792]"><ChevronLeft className="h-4 w-4" /> Partenaires</Link></div>{matches && params?.token ? <TokenQuestionnaire token={params.token} /> : <InvitationRequest />}</div>;
+  return <div className="bg-gradient-to-b from-slate-50 to-white px-4 py-10 sm:py-14">{matches && params?.token ? <TokenQuestionnaire token={params.token} /> : <InvitationRequest />}</div>;
 }
