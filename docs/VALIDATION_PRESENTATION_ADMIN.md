@@ -14,6 +14,8 @@ Le même contrôle a confirmé que les boutons Précédent et Suivant sont plac�
 
 Après l’alignement sur la référence annotée, la slide 7 a été contrôlée dans le gabarit interne de 900 px. La carte mesure 900 px, les contrôles de navigation commencent à 481 px depuis son sommet, occupent 72 px et les panneaux de détail commencent à 573 px. Les contrôles restent donc au même emplacement entre les slides et hors du contenu dépliable. Aucun débordement horizontal n’a été détecté.
 
+La première slide a ensuite été simplifiée : le retour « Partenaires » dupliqué a été supprimé sous le fil d’Ariane, les libellés de dimensions ont été retirés sous le radar et l’icône décorative n’est plus présente. Le radar animé reprend le comportement graphique du radar de l’accueil et est positionné plus haut sous le titre.
+
 | Contrôle restant après Coolify | Résultat attendu |
 |---|---|
 | `GET /health` de l’API | `{"status":"ok"}` avec PostgreSQL connecté. |

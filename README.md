@@ -21,6 +21,8 @@ La page Partenaires propose deux accès autonomes : la présentation à `/parten
 
 La première slide utilise un radar-boussole inspiré de la page Expérience : grille à cinq dimensions, repères cardinaux et palette du portail. Les autres slides n’emploient une illustration que lorsqu’elle explicite leur sujet — parcours, communauté, cycle, principes, lien collectif ou atelier — et certaines restent volontairement sans illustration. Sur desktop, le deck utilise un gabarit interne de 900 px : le titre occupe toute la largeur, la zone de navigation reste fixe à 481 px du sommet et les détails se déploient sous les contrôles sans les déplacer. Les panneaux passent aussi en deux colonnes et se replient naturellement sur smartphone.
 
+La première slide réutilise l’animation radar de l’accueil sans afficher de libellés sous le visuel. Le retour « Partenaires » situé sous le fil d’Ariane et l’icône décorative haute ont été supprimés afin de conserver un en-tête plus direct.
+
 La console d’administration est accessible directement à `/admin`; `/partenaires/admin` est conservé comme alias. Son accès fonctionnera après déploiement de l’API et de PostgreSQL, avec l’identifiant initial `ulrich.fischer@memoways.com` et un mot de passe stocké uniquement dans `ADMIN_PASSWORD` côté Coolify.
 
 Lors d’une soumission, l’API prépare un récapitulatif déterministe dans `notifications.partner_response_recap_outbox`. Dreamlit doit ensuite surveiller uniquement cette boîte d’envoi et délivrer l’e-mail récapitulatif. La connexion Dreamlit, le domaine expéditeur et la publication du workflow restent à activer dans leurs interfaces respectives ; ils ne sont pas stockés dans le portail ni dans l’API.

@@ -62,3 +62,4 @@
 - [x] Réparer et recompacter les slides partenaire avec des visuels cohérents de boussole et de radar.
 - [x] Fixer la navigation du deck partenaire et différencier les illustrations selon chaque slide.
 - [x] Aligner le deck sur la référence annotée avec un gabarit interne de 900 px et une navigation immobile.
+- [x] Réemployer l’animation radar de l’accueil dans la première slide et retirer les éléments redondants.

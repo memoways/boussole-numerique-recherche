@@ -12,6 +12,8 @@ Les contrôles Précédent et Suivant sont placés dans une zone dédiée entre 
 
 La dernière composition desktop utilise un gabarit interne de 900 px. Le label et le titre sont remontés au sommet sur toute la largeur, l’icône décorative haute a été retirée et la navigation occupe une bande fixe de 72 px. Les panneaux détaillés disposent du volume restant dans une zone défilable, ce qui conserve la position des contrôles quelle que soit la hauteur des contenus ouverts.
 
+La première slide emploie maintenant `client/src/components/AnimatedRadarGraphic.tsx`, un composant reprenant l’animation de morphing du radar de l’accueil. Les libellés textuels qui figuraient sous le radar et le retour « Partenaires » déjà couvert par le fil d’Ariane ont été retirés. Le radar est aligné plus haut sous le titre et demeure une illustration, sans action de saisie.
+
 L’URL encode la slide et le détail ouverts avec `?slide=<n>&detail=<id>`. Lorsqu’une personne suit un lien contextuel puis utilise le bouton précédent du navigateur, l’historique retrouve l’URL de présentation et l’interface restaure la même slide avec le même panneau déplié. Les touches gauche et droite naviguent entre les slides en dehors des contrôles interactifs.
 
 | Fichier | Élément livré |

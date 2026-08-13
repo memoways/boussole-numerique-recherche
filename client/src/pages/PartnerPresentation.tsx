@@ -14,6 +14,7 @@ import {
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { AnimatedRadarGraphic } from "@/components/AnimatedRadarGraphic";
 
 /**
  * Présentation partenaire — direction visuelle : progression bleu → cyan → vert → orange.
@@ -259,6 +260,14 @@ const SLIDES: Slide[] = [
   },
 ];
 
+const PARTNER_RADAR_DIMENSIONS = [
+  { label: "Outils", couleur: "#515792" },
+  { label: "Compétences", couleur: "#E27227" },
+  { label: "Données", couleur: "#3aab8a" },
+  { label: "Diffusion", couleur: "#9b59b6" },
+  { label: "Collaboration", couleur: "#E58441" },
+];
+
 function getPresentationState() {
   const params = new URLSearchParams(window.location.search);
   const parsedIndex = Number.parseInt(params.get("slide") ?? "1", 10);
@@ -272,67 +281,6 @@ function createPresentationUrl(currentIndex: number, detail = "") {
   const params = new URLSearchParams({ slide: String(currentIndex + 1) });
   if (detail) params.set("detail", detail);
   return `/partenaires/presentation?${params.toString()}`;
-}
-
-const RADAR_DIMENSIONS = ["Outils", "Compétences", "Données", "Diffusion", "Collaboration"];
-const RADAR_PROFILES: Record<VisualKind, number[]> = {
-  compass: [0.76, 0.52, 0.7, 0.58, 0.68],
-  signals: [0.48, 0.72, 0.54, 0.82, 0.42],
-  journey: [0.66, 0.62, 0.8, 0.48, 0.7],
-  community: [0.58, 0.52, 0.64, 0.78, 0.84],
-  cycle: [0.7, 0.58, 0.76, 0.6, 0.68],
-  principles: [0.62, 0.7, 0.86, 0.48, 0.7],
-  bridge: [0.58, 0.66, 0.62, 0.82, 0.8],
-  workshop: [0.64, 0.76, 0.58, 0.54, 0.86],
-  next: [0.72, 0.64, 0.7, 0.62, 0.78],
-  none: [0.6, 0.6, 0.6, 0.6, 0.6],
-};
-
-function SlideVisual({ kind, accent, icon: Icon }: { kind: VisualKind; accent: string; icon: typeof CircleHelp }) {
-  const cx = 150;
-  const cy = 132;
-  const radius = 88;
-  const values = RADAR_PROFILES[kind];
-  const point = (index: number, factor: number) => {
-    const angle = (index * 72 - 90) * Math.PI / 180;
-    return { x: cx + radius * factor * Math.cos(angle), y: cy + radius * factor * Math.sin(angle) };
-  };
-  const polygon = (factor: number) => RADAR_DIMENSIONS.map((_, index) => {
-    const value = point(index, factor);
-    return `${value.x.toFixed(1)},${value.y.toFixed(1)}`;
-  }).join(" ");
-  const shape = values.map((value, index) => {
-    const coordinate = point(index, value);
-    return `${index ? "L" : "M"}${coordinate.x.toFixed(1)},${coordinate.y.toFixed(1)}`;
-  }).join(" ") + " Z";
-
-  return <div aria-hidden="true" className="mx-auto w-full max-w-[330px]">
-    <div className="relative h-[220px] sm:h-[250px]">
-      <svg viewBox="0 0 300 260" className="h-full w-full overflow-visible">
-        <circle cx={cx} cy={cy} r="112" fill="none" stroke={`${accent}22`} strokeWidth="1" />
-        {[1, 0.75, 0.5, 0.25].map((scale) => <polygon key={scale} points={polygon(scale)} fill="none" stroke="#d8dee9" strokeWidth="1" />)}
-        {RADAR_DIMENSIONS.map((_, index) => {
-          const outer = point(index, 1);
-          return <line key={index} x1={cx} y1={cy} x2={outer.x} y2={outer.y} stroke="#d8dee9" strokeWidth="1" />;
-        })}
-        <path d={shape} fill={accent} fillOpacity="0.17" stroke={accent} strokeWidth="2.4" strokeLinejoin="round" />
-        {values.map((value, index) => {
-          const node = point(index, value);
-          return <circle key={index} cx={node.x} cy={node.y} r="4.5" fill={accent} stroke="#fff" strokeWidth="1.5" />;
-        })}
-        <text x={cx} y="13" textAnchor="middle" fontSize="10" fontWeight="700" fill={accent}>N</text>
-        <text x="290" y={cy + 3} textAnchor="middle" fontSize="10" fontWeight="700" fill={accent}>E</text>
-        <text x={cx} y="252" textAnchor="middle" fontSize="10" fontWeight="700" fill={accent}>S</text>
-        <text x="10" y={cy + 3} textAnchor="middle" fontSize="10" fontWeight="700" fill={accent}>O</text>
-      </svg>
-      <div className="pointer-events-none absolute inset-0 grid place-items-center">
-        <div className="grid h-14 w-14 place-items-center rounded-full border-4 border-white shadow-lg" style={{ backgroundColor: accent }}><Icon className="h-6 w-6 text-white" /></div>
-      </div>
-    </div>
-    <div className="grid grid-cols-5 gap-1 text-center text-[9px] font-bold uppercase tracking-[0.05em] text-slate-500 sm:text-[10px]">
-      {RADAR_DIMENSIONS.map((label) => <span key={label} className="leading-tight">{label}</span>)}
-    </div>
-  </div>;
 }
 
 function StoryIllustration({ kind, accent }: { kind: Exclude<VisualKind, "compass" | "none">; accent: string }) {
@@ -374,7 +322,6 @@ export default function PartnerPresentation() {
   const [currentIndex, setCurrentIndex] = useState(initialState.currentIndex);
   const [openDetail, setOpenDetail] = useState(initialState.detail);
   const slide = SLIDES[currentIndex];
-  const Icon = slide.icon;
   const isLast = currentIndex === SLIDES.length - 1;
 
   useEffect(() => {
@@ -418,10 +365,7 @@ export default function PartnerPresentation() {
   return (
     <div className="bg-white px-4 py-8 sm:py-12">
       <section className="mx-auto max-w-7xl">
-        <div className="mb-6 flex items-center justify-between gap-4 text-sm text-slate-500">
-          <Link href="/partenaires" className="inline-flex items-center gap-2 font-medium transition-colors hover:text-[#515792]">
-            <ArrowLeft className="h-4 w-4" /> Partenaires
-          </Link>
+        <div className="mb-6 flex items-center justify-end text-sm text-slate-500">
           <span aria-live="polite">{currentIndex + 1} / {SLIDES.length}</span>
         </div>
 
@@ -433,12 +377,12 @@ export default function PartnerPresentation() {
           <div className="p-5 sm:p-7 lg:h-[480px] lg:shrink-0 lg:overflow-y-auto lg:p-9 xl:p-10">
             <p className="text-xs font-extrabold uppercase tracking-[0.16em]" style={{ color: slide.accent }}>{slide.eyebrow}</p>
             <h1 className="mt-5 max-w-none text-3xl font-extrabold leading-tight text-slate-950 sm:text-4xl xl:text-[2.7rem]">{slide.title}</h1>
-            <div className={`mt-5 grid gap-5 lg:items-center lg:gap-8 ${slide.visual === "none" ? "" : "lg:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)]"}`}>
+            <div className={`mt-3 grid gap-5 lg:items-start lg:gap-8 ${slide.visual === "none" ? "" : "lg:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)]"}`}>
               <div>
                 <p className="max-w-3xl text-base leading-relaxed text-slate-600 sm:text-lg">{slide.text}</p>
                 <p className="mt-4 text-sm font-medium text-slate-500">Ouvrez les repères ci-dessous pour approfondir sans quitter cette présentation.</p>
               </div>
-              {slide.visual === "compass" && <div className="rounded-3xl border border-white bg-white/70 p-3 shadow-inner sm:p-4"><SlideVisual kind={slide.visual} accent={slide.accent} icon={Icon} /></div>}
+              {slide.visual === "compass" && <div className="flex justify-center rounded-3xl border border-white bg-white/70 p-3 shadow-inner sm:p-4 lg:-mt-16"><AnimatedRadarGraphic dimensions={PARTNER_RADAR_DIMENSIONS} ariaLabel="Radar animé des cinq dimensions de la Boussole" className="h-[220px] w-[220px] sm:h-[250px] sm:w-[250px]" /></div>}
               {slide.visual !== "none" && slide.visual !== "compass" && <div className="rounded-3xl border border-white bg-white/70 p-5 shadow-inner sm:p-6"><StoryIllustration kind={slide.visual} accent={slide.accent} /></div>}
             </div>
           </div>
