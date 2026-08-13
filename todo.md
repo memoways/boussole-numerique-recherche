@@ -58,3 +58,4 @@
 - [x] Synchroniser CHANGELOG, STORY, README et archive `docs/` avec les modifications effectivement livrées.
 - [x] Étudier Dreamlit, puis intégrer l’envoi d’une synthèse de réponses PostgreSQL depuis l’API partenaire.
 - [x] Implémenter l’option B Dreamlit : boîte d’envoi restreinte et récapitulatif déterministe à la soumission.
+- [x] Ajouter la liste admin des e-mails Dreamlit en attente et la régénération manuelle d’un récapitulatif.

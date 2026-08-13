@@ -69,6 +69,8 @@ Le texte est construit de façon déterministe à partir des libellés du questi
 | `services/partner-feedback-api/scripts/verify-response-recap.ts` | Test du formatage et du cas sans réponse. |
 | `docs/PARTNER_FEEDBACK_OPERATIONS.md` | Procédure Dreamlit/Coolify, privilèges limités et réglages du workflow. |
 
+La console `/admin` affiche les lignes de la boîte, dont le destinataire, l’organisation, la date, le récapitulatif et le nombre de régénérations. L’action de régénération reste réservée à une réponse soumise. Elle reconstruit le texte depuis les réponses conservées, met à jour la même ligne et incrémente `regeneration_count`; elle ne crée pas de doublon de boîte d’envoi. Dreamlit doit surveiller les insertions et les mises à jour de `updated_at` pour que cette action déclenche un nouvel e-mail.
+
 ## Contrôles effectués
 
 | Contrôle | Résultat |
@@ -79,6 +81,7 @@ Le texte est construit de façon déterministe à partir des libellés du questi
 | Alias administration | `/admin` rend l’état d’activation attendu avant configuration de l’API. |
 | Docker local | Non exécuté : Docker n’est pas installé dans l’environnement de validation. Le premier build Coolify doit confirmer l’image. |
 | Récapitulatif Dreamlit | Test automatisé du formatage réussi. L’envoi réel attend la connexion PostgreSQL et la publication du workflow Dreamlit. |
+| Régénération Dreamlit | Contrôles TypeScript et build réussis. Le test d’envoi reste à effectuer avec un workflow Dreamlit publié. |
 
 ## Éléments dépendant encore de Coolify
 

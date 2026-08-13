@@ -67,6 +67,7 @@ Qualité         : TypeScript, build Vite, GitHub Actions, scripts de contrôle 
 - ✅ **Fait** : l’administration est disponible à `/admin` après configuration de l’API, de PostgreSQL et des secrets dans Coolify.
 - ✅ **Fait** : documentation de continuité synchronisée dans `CHANGELOG.md`, `STORY.md`, `README.md` et `docs/`, avec une archive des fonctionnalités réellement livrées.
 - ✅ **Fait** : à la soumission, l’API génère une ligne de boîte d’envoi dédiée à Dreamlit avec un récapitulatif déterministe ; l’activation du workflow Dreamlit reste à effectuer dans son interface.
+- ✅ **Fait** : `/admin` permet de consulter chaque récapitulatif prêt pour Dreamlit et de le régénérer, avec un compteur visible et une trace d’événement côté API.
 - 📋 **Reste à faire** : créer les ressources Coolify, renseigner le domaine final dans `SITE_URL`, configurer le SMTP et les secrets, puis lancer le pilote partenaire.
 
 ## Questions ouvertes

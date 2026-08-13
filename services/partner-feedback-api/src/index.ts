@@ -184,6 +184,14 @@ async function notifyInvitation(email: string, firstName: string, invitationUrl:
   }
 }
 
+async function buildResponseRecap(responseId: string) {
+  const answers = await getPool().query<{ question_key: string; value_json: unknown }>(
+    "SELECT question_key, value_json FROM partner_response_answers WHERE response_id = $1 ORDER BY updated_at",
+    [responseId],
+  );
+  return createResponseRecap(answers.rows.map((answer) => ({ questionKey: answer.question_key, value: answer.value_json })));
+}
+
 app.disable("x-powered-by");
 app.set("trust proxy", 1);
 app.use(helmet({ crossOriginResourcePolicy: { policy: "cross-origin" } }));
@@ -337,13 +345,65 @@ app.post("/api/admin/logout", requireAdmin, (_req, res) => {
 });
 
 app.get("/api/admin/overview", requireAdmin, async (_req, res) => {
-  const [organizations, contacts, requests, responses] = await Promise.all([
+  const [organizations, contacts, requests, responses, recapOutbox] = await Promise.all([
     getPool().query("SELECT id, name, status, created_at FROM partner_organizations ORDER BY name"),
     getPool().query("SELECT c.id, c.first_name, c.last_name, c.email, c.organization_id, o.name AS organization_name FROM partner_contacts c JOIN partner_organizations o ON o.id = c.organization_id ORDER BY o.name, c.last_name"),
     getPool().query("SELECT id, organization_name, first_name, last_name, email, status, created_at FROM partner_invitation_requests ORDER BY created_at DESC"),
     getPool().query("SELECT r.id, r.status, r.submitted_at, o.name AS organization_name, c.email FROM partner_responses r JOIN partner_invitations i ON i.id = r.invitation_id JOIN partner_contacts c ON c.id = i.contact_id JOIN partner_organizations o ON o.id = c.organization_id ORDER BY r.updated_at DESC"),
+    getPool().query(
+      `SELECT o.id, o.response_id, o.recipient_email, o.recipient_name, o.organization_name, o.subject,
+              o.summary_text, o.created_at, o.updated_at, o.regenerated_at, o.regeneration_count
+       FROM notifications.partner_response_recap_outbox o
+       ORDER BY o.updated_at DESC`,
+    ),
   ]);
-  res.json({ organizations: organizations.rows, contacts: contacts.rows, invitationRequests: requests.rows, responses: responses.rows });
+  res.json({ organizations: organizations.rows, contacts: contacts.rows, invitationRequests: requests.rows, responses: responses.rows, recapOutbox: recapOutbox.rows });
+});
+
+app.post("/api/admin/responses/:responseId/regenerate-recap", requireAdmin, async (req, res) => {
+  const responseId = Array.isArray(req.params.responseId) ? req.params.responseId[0] : req.params.responseId;
+  if (!responseId) return res.status(400).json({ error: "Identifiant de réponse manquant." });
+  const response = await getPool().query<InvitationContext>(
+    `SELECT i.id AS "invitationId", i.status AS "invitationStatus", i.expires_at AS "expiresAt",
+            c.id AS "contactId", c.first_name AS "firstName", c.last_name AS "lastName", c.email,
+            o.id AS "organizationId", o.name AS "organizationName"
+     FROM partner_responses r
+     JOIN partner_invitations i ON i.id = r.invitation_id
+     JOIN partner_contacts c ON c.id = i.contact_id
+     JOIN partner_organizations o ON o.id = c.organization_id
+     WHERE r.id = $1 AND r.status = 'submitted'
+     LIMIT 1`,
+    [responseId],
+  );
+  const invitation = response.rows[0];
+  if (!invitation) return res.status(404).json({ error: "Réponse soumise introuvable." });
+  const summary = await buildResponseRecap(responseId);
+  const result = await getPool().query(
+    `INSERT INTO notifications.partner_response_recap_outbox
+     (id, response_id, recipient_email, recipient_name, organization_name, subject, summary_text)
+     VALUES ($1, $2, $3, $4, $5, $6, $7)
+     ON CONFLICT (response_id) DO UPDATE SET
+       recipient_email = EXCLUDED.recipient_email,
+       recipient_name = EXCLUDED.recipient_name,
+       organization_name = EXCLUDED.organization_name,
+       subject = EXCLUDED.subject,
+       summary_text = EXCLUDED.summary_text,
+       updated_at = NOW(),
+       regenerated_at = NOW(),
+       regeneration_count = notifications.partner_response_recap_outbox.regeneration_count + 1
+     RETURNING id, response_id, updated_at, regenerated_at, regeneration_count`,
+    [
+      randomUUID(),
+      responseId,
+      invitation.email,
+      invitation.firstName,
+      invitation.organizationName,
+      "Copie de vos réponses — Boussole Numérique Culture",
+      summary,
+    ],
+  );
+  await getPool().query("INSERT INTO response_events (id, response_id, event_type) VALUES ($1, $2, 'recap_regenerated')", [randomUUID(), responseId]);
+  res.json({ message: "Le récapitulatif a été régénéré et remis dans la boîte Dreamlit.", recap: result.rows[0] });
 });
 
 app.post("/api/admin/organizations", requireAdmin, async (req, res) => {

@@ -136,7 +136,7 @@ Dans Dreamlit, connectez cette base puis créez le workflow suivant :
 
 | Étape | Réglage |
 |---|---|
-| Déclencheur | Insertion dans `notifications.partner_response_recap_outbox`. |
+| Déclencheur | Insertion ou mise à jour de `notifications.partner_response_recap_outbox`, en surveillant la colonne `updated_at`. |
 | Données | Utiliser directement les champs de la ligne déclenchante ; aucune requête sur les réponses brutes n’est nécessaire. |
 | Destinataire | `{{ recipient_email }}`. |
 | Objet | `{{ subject }}`. |
@@ -144,7 +144,7 @@ Dans Dreamlit, connectez cette base puis créez le workflow suivant :
 | Désabonnement | Désactivé : il s’agit d’un accusé de réception transactionnel lié à une soumission. |
 | Expéditeur | Domaine d’envoi vérifié dans Dreamlit, idéalement un sous-domaine dédié tel que `mail.memoways.com`. |
 
-Prévisualisez le workflow avec une ligne réelle de test, envoyez l’e-mail à l’adresse de test, puis publiez seulement après validation du rendu et du destinataire. Dreamlit déclenche ses workflows sur les lignes ajoutées ou mises à jour et peut personnaliser l’envoi au moyen de variables Liquid.[7] [8]
+Prévisualisez le workflow avec une ligne réelle de test, envoyez l’e-mail à l’adresse de test, puis publiez seulement après validation du rendu et du destinataire. Dreamlit déclenche ses workflows sur les lignes ajoutées ou mises à jour et peut personnaliser l’envoi au moyen de variables Liquid.[7] [8] La console `/admin` affiche cette boîte d’envoi. Son action **Régénérer** actualise la ligne et `updated_at`, ce qui déclenche un nouvel envoi uniquement lorsque le workflow est publié.
 
 ## 10. Activer Deepgram et SMTP après le contrôle de base
 
@@ -154,7 +154,7 @@ Sans SMTP, l’administration génère toujours les liens personnels et les copi
 
 ## 11. Contrôle pilote et exploitation régulière
 
-Avant toute invitation réelle, créez une organisation de test et un contact de test. Générez un lien, enregistrez un brouillon, testez une transcription si elle est active, soumettez une réponse, vérifiez dans PostgreSQL qu’une seule ligne est créée dans `notifications.partner_response_recap_outbox`, prévisualisez puis recevez l’e-mail Dreamlit, exportez le CSV et révoquez l’invitation. Supprimez ensuite les données de test selon la procédure de l’équipe.
+Avant toute invitation réelle, créez une organisation de test et un contact de test. Générez un lien, enregistrez un brouillon, testez une transcription si elle est active, soumettez une réponse, vérifiez dans PostgreSQL qu’une seule ligne est créée dans `notifications.partner_response_recap_outbox`, puis contrôlez-la dans `/admin`. Régénérez le récapitulatif depuis la console, vérifiez que `regeneration_count` augmente et que Dreamlit expédie un nouvel e-mail, exportez le CSV et révoquez l’invitation. Supprimez ensuite les données de test selon la procédure de l’équipe.
 
 L’export CSV contient des données nominatives. Téléchargez-le seulement depuis un poste de confiance, conservez-le dans un espace de travail protégé et produisez tout partage collectif à partir de données anonymisées. Réalisez une sauvegarde PostgreSQL avant toute modification de structure et vérifiez périodiquement qu’une restauration est possible.
 

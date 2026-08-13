@@ -90,8 +90,18 @@ CREATE TABLE IF NOT EXISTS notifications.partner_response_recap_outbox (
   subject TEXT NOT NULL,
   summary_text TEXT NOT NULL,
   summary_version TEXT NOT NULL DEFAULT 'v1',
-  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  regenerated_at TIMESTAMPTZ,
+  regeneration_count INTEGER NOT NULL DEFAULT 0 CHECK (regeneration_count >= 0)
 );
+
+ALTER TABLE notifications.partner_response_recap_outbox
+  ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW();
+ALTER TABLE notifications.partner_response_recap_outbox
+  ADD COLUMN IF NOT EXISTS regenerated_at TIMESTAMPTZ;
+ALTER TABLE notifications.partner_response_recap_outbox
+  ADD COLUMN IF NOT EXISTS regeneration_count INTEGER NOT NULL DEFAULT 0 CHECK (regeneration_count >= 0);
 
 CREATE INDEX IF NOT EXISTS partner_invitations_contact_idx ON partner_invitations(contact_id);
 CREATE INDEX IF NOT EXISTS partner_responses_invitation_idx ON partner_responses(invitation_id);

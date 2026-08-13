@@ -13,4 +13,5 @@ Le contrôle TypeScript et les builds frontend/API passent avec `pnpm verify`. L
 | `GET /health` de l’API | `{"status":"ok"}` avec PostgreSQL connecté. |
 | Connexion `/admin` | Connexion avec `ulrich.fischer@memoways.com` et le mot de passe défini dans `ADMIN_PASSWORD`. |
 | Session | Cookie httpOnly présent sur les routes `/api/admin`, puis suppression à la déconnexion. |
-| Pilotage | Invitation, brouillon, soumission, export CSV et révocation testés avec des données de test supprimées ensuite. |
+| Pilotage | Invitation, brouillon, soumission, export CSV, révocation, liste de boîte Dreamlit et régénération testés avec des données de test supprimées ensuite. |
+| Boîte Dreamlit | Une soumission crée une seule ligne ; la régénération depuis `/admin` met à jour le récapitulatif, incrémente le compteur et déclenche le workflow sur `updated_at`. |
