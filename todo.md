@@ -43,3 +43,5 @@
 - [x] Vérifier la lisibilité mobile et la compatibilité desktop du fil d’Ariane étendu.
 - [x] Consolider les développements récents dans CHANGELOG.md et STORY.md.
 - [x] Vérifier les documents de continuité pour la reprise par des développeurs ou agents IA.
+- [x] Préparer le logo et la formulation de soutien institutionnel de la Ville de Genève.
+- [x] Ajouter et vérifier l’encart de soutien sur la page Projet, en desktop et mobile.

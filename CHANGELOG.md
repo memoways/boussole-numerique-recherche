@@ -5,7 +5,7 @@ Ce fichier suit le format [Keep a Changelog](https://keepachangelog.com/fr/1.1.0
 ## [Unreleased]
 
 ### Added
-- Aucun changement non publié à ce stade.
+- Encart de soutien de la Ville de Genève, avec logo, lien vers la démarche de subvention et formulation institutionnelle sur la page Projet.
 
 ---
 

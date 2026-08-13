@@ -388,6 +388,29 @@ export default function Projet() {
                 </a>
               </div>
             </div>
+
+            <div className="mt-4 rounded-xl border border-slate-200 bg-white px-4 py-3.5 sm:flex sm:items-center sm:gap-4">
+              <a
+                href="https://www.geneve.ch/demarches/subvention-projets-ponctuels-culturels-scientifiques"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mb-3 inline-flex shrink-0 rounded-lg bg-slate-50 p-1.5 transition-colors hover:bg-slate-100 sm:mb-0"
+                aria-label="Consulter la démarche de subvention de la Ville de Genève"
+              >
+                <img
+                  src="/ville-geneve-soutien.8334b29d.png"
+                  alt="Ville de Genève"
+                  className="h-14 w-14 object-contain"
+                />
+              </a>
+              <div className="min-w-0">
+                <p className="text-xs font-bold uppercase tracking-widest" style={{ color: '#515792' }}>Avec le soutien de</p>
+                <p className="mt-0.5 text-sm font-semibold text-slate-900">Ville de Genève</p>
+                <p className="mt-1 text-sm leading-relaxed text-slate-600">
+                  Ce projet bénéficie du soutien de la Ville de Genève dans le cadre de sa démarche de subvention pour projets ponctuels, culturels ou scientifiques.
+                </p>
+              </div>
+            </div>
           </section>
 
           {/* ── 2. CONTEXTE ─────────────────────────────────────────────────── */}
