@@ -51,6 +51,28 @@ export default function Partenaires() {
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl leading-relaxed mb-8">
             La Boussole se construit avec les professionnels et les structures du secteur culturel. Votre participation contribue directement à la pertinence de l'outil.
           </p>
+          <div className="mb-6 max-w-2xl rounded-xl border border-slate-200 bg-white px-4 py-3.5 sm:flex sm:items-center sm:gap-4">
+            <a
+              href="https://www.geneve.ch/demarches/subvention-projets-ponctuels-culturels-scientifiques"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mb-3 inline-flex shrink-0 rounded-lg bg-slate-50 p-1.5 transition-colors hover:bg-slate-100 sm:mb-0"
+              aria-label="Consulter la démarche de subvention de la Ville de Genève"
+            >
+              <img
+                src="/ville-geneve-soutien.8334b29d.png"
+                alt="Ville de Genève"
+                className="h-14 w-14 object-contain"
+              />
+            </a>
+            <div className="min-w-0">
+              <p className="text-xs font-bold uppercase tracking-widest" style={{ color: '#515792' }}>Avec le soutien de</p>
+              <p className="mt-0.5 text-sm font-semibold text-slate-900">Ville de Genève</p>
+              <p className="mt-1 text-sm leading-relaxed text-slate-600">
+                Ce projet bénéficie du soutien de la Ville de Genève dans le cadre de sa démarche de subvention pour projets ponctuels, culturels ou scientifiques.
+              </p>
+            </div>
+          </div>
           <div className="flex flex-wrap gap-3">
             <Button style={{ backgroundColor: '#E07428', color: '#fff' }} asChild>
               <a href="mailto:ulrich.fischer@memoways.com?subject=Boussole Numérique Culture — Je souhaite participer">
@@ -239,28 +261,6 @@ export default function Partenaires() {
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Prêt·e à faire un premier pas ?</h2>
           <p className="text-gray-500 mb-8 max-w-xl mx-auto">Un message suffit pour commencer. L'équipe de projet prendra contact pour présenter les prochaines étapes et les modalités de participation.</p>
-          <div className="mx-auto mb-6 max-w-2xl rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-left sm:flex sm:items-center sm:gap-4">
-            <a
-              href="https://www.geneve.ch/demarches/subvention-projets-ponctuels-culturels-scientifiques"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mb-3 inline-flex shrink-0 rounded-lg bg-slate-50 p-1.5 transition-colors hover:bg-slate-100 sm:mb-0"
-              aria-label="Consulter la démarche de subvention de la Ville de Genève"
-            >
-              <img
-                src="/ville-geneve-soutien.8334b29d.png"
-                alt="Ville de Genève"
-                className="h-14 w-14 object-contain"
-              />
-            </a>
-            <div className="min-w-0">
-              <p className="text-xs font-bold uppercase tracking-widest" style={{ color: '#515792' }}>Avec le soutien de</p>
-              <p className="mt-0.5 text-sm font-semibold text-slate-900">Ville de Genève</p>
-              <p className="mt-1 text-sm leading-relaxed text-slate-600">
-                Ce projet bénéficie du soutien de la Ville de Genève dans le cadre de sa démarche de subvention pour projets ponctuels, culturels ou scientifiques.
-              </p>
-            </div>
-          </div>
           <div className="flex flex-wrap gap-3 justify-center">
             <Button size="lg" style={{ backgroundColor: '#E07428', color: '#fff' }} asChild>
               <a href="mailto:ulrich.fischer@memoways.com?subject=Boussole Numérique Culture — Je souhaite participer">
