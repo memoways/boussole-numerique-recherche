@@ -2,7 +2,7 @@
 
 ## État actuel
 
-La version actuelle de **Boussole Numérique Culture** est un site statique. Son exécution ne nécessite aucun token, aucune clé API et aucun secret. Le seul réglage de build recommandé est `SITE_URL`, l'URL publique finale utilisée pour les URL canoniques, Open Graph, `sitemap.xml` et `robots.txt`.
+La version actuelle de **Boussole Numérique Culture** est un portail statique accompagné d’une API partenaire optionnelle. Les réglages de build publics sont `SITE_URL`, l’URL publique finale utilisée pour les URL canoniques, Open Graph, `sitemap.xml` et `robots.txt`, ainsi que `VITE_PARTNER_API_URL`, l’URL publique de l’API partenaire.
 
 > Ne créez pas de variable `VITE_*` pour un secret : Vite l'intègre au JavaScript distribué au navigateur.
 
@@ -17,7 +17,7 @@ Si une fonctionnalité a besoin d'un secret — clé IA, API externe, envoi d'e-
 | Clé API, token, mot de passe, clé privée | Variable runtime du backend dans Coolify | Non |
 | Certificat ou secret multiligne | Variable multiligne verrouillée dans Coolify | Non |
 
-Dans Coolify, ajoutez `SITE_URL=https://votre-domaine.example` comme variable de **build**, sans slash final. Ce n'est pas un secret. Les anciennes variables propres à Manus ne doivent pas être copiées vers Coolify.
+Dans Coolify, ajoutez `SITE_URL=https://votre-domaine.example` et `VITE_PARTNER_API_URL=https://api.votre-domaine.example` comme variables de **build**, sans slash final. Ces valeurs sont publiques. Les anciennes variables propres à Manus ne doivent pas être copiées vers Coolify.
 
 ## Questionnaire partenaire
 
@@ -36,4 +36,4 @@ Le questionnaire partenaire ajoute un backend distinct déployé comme une secon
 | `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `MAIL_FROM` | Secrets et configuration optionnels | Activent l’envoi de l’invitation personnelle et du récapitulatif individuel après soumission. |
 | `RUN_MIGRATIONS` | Configuration | `true` au premier déploiement ou après une migration contrôlée. |
 
-Ne créez jamais ces secrets dans le frontend ni dans un fichier d’environnement commité. La liste complète figure également dans `docs/PLAN_PARTENAIRES_PRESENTATION_QUESTIONNAIRE.md`.
+Ne créez jamais ces secrets dans le frontend ni dans un fichier d’environnement commité. La liste complète et la procédure d’activation figurent dans [le tutoriel partenaire](../docs/PARTNER_FEEDBACK_OPERATIONS.md).

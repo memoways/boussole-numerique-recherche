@@ -59,6 +59,7 @@ function Router() {
         <Route path={"/partenaires/questionnaire/:token"} component={PartnerQuestionnaire} />
         <Route path={"/partenaires/questionnaire"} component={PartnerQuestionnaire} />
         <Route path={"/partenaires/admin"} component={PartnerAdmin} />
+        <Route path={"/admin"} component={PartnerAdmin} />
         <Route path={"/gouvernance"}>{() => { window.location.replace("/methode"); return null; }}</Route>
         <Route path={"/ressources"} component={Ressources} />
 

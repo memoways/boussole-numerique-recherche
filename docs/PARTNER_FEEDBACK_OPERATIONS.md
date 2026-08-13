@@ -1,61 +1,133 @@
-# Exploitation — Présentation & questionnaire partenaire
+# Tutoriel Coolify — présentation, questionnaire et administration partenaire
 
-## Objet et frontières
+## 1. Ce qui est déployé
 
-L’expérience partenaire comprend deux parcours autonomes. La présentation est publique à `/partenaires/presentation` et ne collecte aucune donnée. Le questionnaire est accessible à `/partenaires/questionnaire` par demande d’invitation, puis à `/partenaires/questionnaire/:token` avec un lien personnel. L’administration est disponible à `/partenaires/admin` et ne doit jamais être exposée dans la navigation publique.
+Le portail Boussole Numérique Culture reste une application statique React servie par Nginx. Le questionnaire partenaire et son administration reposent sur un second service Node.js/Express, relié à une base PostgreSQL privée. La présentation à `/partenaires/presentation` reste publique ; le questionnaire utilise des invitations individuelles ; l’administration est accessible directement à l’adresse publique du portail suivie de `/admin`.
 
-Le portail React reste statique. La collecte utilise un second service, `@boussole/partner-feedback-api`, relié à PostgreSQL privé dans Coolify. Aucun secret n’est transmis au navigateur.
+| Ressource Coolify | Nom suggéré | Domaine | Exposition |
+|---|---|---|---|
+| Portail React/Nginx | `boussole-portal` | `https://boussole-culture-recherche.memoways.com` | Public HTTPS |
+| API questionnaire | `boussole-partner-api` | `https://api.boussole-culture-recherche.memoways.com` | Public HTTPS, CORS limité au portail |
+| PostgreSQL | `boussole-postgres` | Aucun | Réseau privé Coolify uniquement |
 
-## Déploiement Coolify
+Le sous-domaine API est recommandé car il partage le même site `memoways.com` que le portail. Les cookies de session administrateur restent alors envoyés à l’API lors des requêtes `credentials: include`, sans être lisibles par le JavaScript du portail. L’API ne doit pas être listée dans la navigation publique.
 
-Créez trois ressources sur le même serveur Coolify : le portail, une base PostgreSQL privée et l’API partenaire. L’API utilise `services/partner-feedback-api/Dockerfile`. PostgreSQL ne reçoit aucun domaine public ; seul le service API a un sous-domaine HTTPS, de préférence sous le même domaine parent que le portail afin de préserver les sessions d’administration.
+> Les applications Coolify sont déployées dans des conteneurs Docker et peuvent être configurées à partir d’un Dockerfile du dépôt.[4]
 
-| Ressource | Rôle | Exposition |
-|---|---|---|
-| `boussole-portal` | Portail React/Nginx | HTTPS public |
-| `boussole-postgres` | Invitations, réponses et audits | Réseau privé Coolify uniquement |
-| `boussole-partner-api` | API, transcription et administration | HTTPS public, CORS limité au portail |
+## 2. Préparer le DNS et les domaines
 
-Le portail doit être rebâti avec `VITE_PARTNER_API_URL=https://api.votre-domaine.example`. L’API doit recevoir `PUBLIC_APP_URL=https://votre-domaine.example` et `ALLOWED_ORIGIN=https://votre-domaine.example`.
+Dans le fournisseur DNS, vérifiez que le domaine du portail pointe vers l’adresse IPv4 du serveur Coolify et qu’il n’existe pas d’enregistrement AAAA non fonctionnel. Ajoutez ensuite un enregistrement pour `api.boussole-culture-recherche.memoways.com` vers le même serveur. Utilisez le mode DNS direct si un proxy externe empêche l’émission du certificat.
 
-> Utilisez les mécanismes de base de données et de variables d’environnement de Coolify plutôt qu’un PostgreSQL exposé sur Internet. La documentation Coolify précise que les services peuvent communiquer via le réseau interne de la plateforme.[1]
+Dans Coolify, saisissez les domaines avec le préfixe `https://`. Coolify configure alors son proxy et demande le certificat TLS ; il renouvelle ensuite ce certificat automatiquement.[3] Ne configurez aucun domaine sur la ressource PostgreSQL : la documentation Coolify indique que les bases de données ne prennent pas en charge la configuration de domaine.[3]
 
-## Variables API
+## 3. Créer PostgreSQL privé
 
-| Variable | Obligatoire | Usage |
-|---|---:|---|
-| `DATABASE_URL` | Oui | URL PostgreSQL privée Coolify. |
-| `PUBLIC_APP_URL` | Oui | URL du portail, utilisée dans les liens d’invitation. |
-| `ALLOWED_ORIGIN` | Oui | Unique origine frontend autorisée par CORS. |
-| `INVITATION_TOKEN_PEPPER` | Oui | Secret aléatoire d’au moins 32 caractères, utilisé pour hacher les jetons. |
-| `ADMIN_SESSION_SECRET` | Oui | Secret aléatoire d’au moins 32 caractères, utilisé pour les sessions admin. |
-| `ADMIN_EMAIL` et `ADMIN_PASSWORD` | Oui | Premier accès d’administration. |
-| `RUN_MIGRATIONS=true` | Premier démarrage | Initialise les tables et la version de questionnaire. |
-| `DEEPGRAM_API_KEY` | Optionnel | Active les réponses vocales transcrites. |
-| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `MAIL_FROM` | Optionnels | Envoi des invitations et récapitulatifs individuels. |
+Créez une nouvelle ressource **PostgreSQL** dans le même projet et le même environnement Coolify que l’API. Choisissez une version PostgreSQL maintenue et donnez un nom explicite à la base, à l’utilisateur et au volume persistant. Ne renseignez ni domaine ni port mappé vers l’hôte.
 
-Après la première initialisation, retirez `RUN_MIGRATIONS=true` ou conservez-le seulement si les migrations restent idempotentes et contrôlées. Les tables actuelles le sont ; toute migration destructive future doit être effectuée avec une sauvegarde vérifiée.
+Une fois la base démarrée, copiez la chaîne de connexion **interne** fournie par Coolify. Elle servira uniquement à `DATABASE_URL` dans la ressource API. Ne copiez jamais cette valeur dans le portail, un dépôt Git, un document partagé ou une variable commençant par `VITE_`.
 
-## Parcours d’administration
+| Contrôle PostgreSQL | Résultat attendu |
+|---|---|
+| Volume persistant | Les données survivent à un redéploiement de l’API et à un redémarrage de la base. |
+| Réseau | L’API peut joindre la base ; aucun port PostgreSQL n’est exposé publiquement. |
+| Sauvegarde | Une sauvegarde est planifiée avant l’ouverture du pilote. |
+| Restauration | Une restauration est testée dans un environnement non public avant la première collecte. |
 
-L’administrateur ajoute une organisation, puis un ou plusieurs contacts. L’action « Générer un lien » crée un jeton individuel, dont seule l’empreinte est conservée en base. Si SMTP est configuré, le lien est envoyé automatiquement ; sinon, il est copié dans le presse-papiers pour transmission manuelle. Une demande d’invitation issue du formulaire public peut être approuvée pour créer l’organisation, le contact et le lien en une seule action.
+Coolify permet d’importer une sauvegarde dans PostgreSQL depuis la configuration de l’instance ; sa documentation décrit notamment l’usage de `pg_dump` en format personnalisé pour ce flux.[1]
 
-L’export CSV contient les réponses nominatives. Il doit être téléchargé uniquement depuis un poste de confiance et stocké dans un espace de travail protégé. Le rapport collectif destiné aux partenaires doit être produit à partir de données anonymisées, sans adresse e-mail ni verbatim attribuable à une petite structure.
+## 4. Créer l’API partenaire
 
-## Réponses vocales et Deepgram
+Dans Coolify, créez une nouvelle **Application** depuis le dépôt GitHub connecté. Sélectionnez un déploiement basé sur Dockerfile, conservez la racine du dépôt comme contexte de build et définissez le chemin Dockerfile suivant :
 
-Pour une question ouverte autorisant la voix, le navigateur enregistre temporairement un flux audio, l’envoie à l’API, puis reçoit une transcription modifiable. Le fichier audio n’est ni écrit dans PostgreSQL ni sauvegardé par l’API ; seule la transcription corrigée est enregistrée au prochain brouillon. La clé Deepgram reste exclusivement côté serveur.
+```text
+services/partner-feedback-api/Dockerfile
+```
 
-La route utilise l’API de transcription asynchrone de Deepgram pour des fichiers audio préenregistrés et précise `language=fr` pour les réponses francophones.[2] Si `DEEPGRAM_API_KEY` est absente ou si la transcription échoue, le champ écrit reste disponible.
+Exposez le port `3001` et attribuez le domaine `https://api.boussole-culture-recherche.memoways.com`. Activez le HTTPS forcé. Le conteneur reçoit une sonde simple ; après déploiement, l’URL suivante doit répondre avec `{"status":"ok"}` :
 
-## Contrôle avant pilote
+```text
+https://api.boussole-culture-recherche.memoways.com/health
+```
 
-Avant de transmettre une première invitation, vérifiez la santé de l’API via `GET /health`, puis créez une organisation test, un contact test et un lien test. Vérifiez dans cet ordre l’enregistrement d’un brouillon, l’édition de la transcription, la soumission, le récapitulatif e-mail et l’export CSV. Enfin, effectuez une sauvegarde PostgreSQL et vérifiez sa restauration dans un environnement non public.
+La réponse de santé vérifie également la disponibilité de PostgreSQL. Si elle échoue, contrôlez d’abord `DATABASE_URL`, le réseau privé de la base et les journaux de l’application.
 
-La durée de conservation est exprimée dans le consentement : jusqu’à la fin du développement de la version publique de la Boussole. Le jalon exact de suppression ou d’anonymisation doit être consigné avant le démarrage du pilote.
+## 5. Définir les variables de l’API
+
+Dans la ressource `boussole-partner-api`, ouvrez **Environment Variables**. Utilisez la vue normale pour ajouter les secrets un par un et verrouillez les valeurs sensibles. Les variables d’exécution sont disponibles dans le conteneur au démarrage ; les valeurs utilisées seulement à l’exécution ne doivent pas être définies comme variables de build.[2]
+
+| Variable | Valeur ou format | Secret | Moment | Rôle |
+|---|---|---:|---|---|
+| `DATABASE_URL` | Chaîne interne fournie par PostgreSQL Coolify | Oui | Runtime | Connexion privée à la base. |
+| `PUBLIC_APP_URL` | `https://boussole-culture-recherche.memoways.com` | Non | Runtime | Génère les liens personnels du questionnaire. |
+| `ALLOWED_ORIGIN` | `https://boussole-culture-recherche.memoways.com` | Non | Runtime | Origine unique autorisée par CORS. |
+| `INVITATION_TOKEN_PEPPER` | Secret aléatoire de 32 caractères minimum | Oui | Runtime | Hache les jetons d’invitation avant stockage. |
+| `ADMIN_SESSION_SECRET` | Secret aléatoire de 32 caractères minimum | Oui | Runtime | Signe les sessions d’administration. |
+| `ADMIN_EMAIL` | `ulrich.fischer@memoways.com` | Non | Runtime | Identifiant du premier administrateur. |
+| `ADMIN_PASSWORD` | Mot de passe unique de 16 caractères ou plus | Oui | Runtime | Mot de passe de connexion à `/admin`. |
+| `RUN_MIGRATIONS` | `true` uniquement à la première initialisation | Non | Runtime | Crée le schéma et la version initiale du questionnaire. |
+| `DEEPGRAM_API_KEY` | Clé Deepgram | Oui | Runtime | Active les transcriptions vocales. |
+| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `MAIL_FROM` | Selon le prestataire choisi | Partiellement | Runtime | Active l’envoi des invitations et récapitulatifs. |
+
+Coolify permet de marquer distinctement une variable comme disponible au build ou au runtime ; les deux options sont activées par défaut.[2] Pour toutes les variables de l’API, désactivez **Build Variable** et laissez **Runtime Variable** activé. Si un mot de passe contient le caractère `$`, activez l’option **Literal** afin que Coolify ne tente pas d’interpoler la valeur.[2]
+
+Pour obtenir les deux secrets aléatoires, utilisez directement le générateur de secrets de Coolify ou un gestionnaire de mots de passe. Ne les transmettez pas dans un message, un ticket ou un fichier de projet.
+
+## 6. Première initialisation, puis verrouillage
+
+Déployez l’API avec `RUN_MIGRATIONS=true`. L’API exécute une initialisation idempotente : elle crée les tables si nécessaire et inscrit la version publiée du questionnaire sans dupliquer les données existantes. Attendez la réponse positive de `/health` avant de continuer.
+
+Ensuite, retirez `RUN_MIGRATIONS` ou définissez-le à `false`, puis redéployez l’API. Toute évolution future du schéma doit être préparée, sauvegardée, testée et documentée avant que cette variable ne soit de nouveau utilisée.
+
+## 7. Déployer le portail avec l’URL de l’API
+
+Dans la ressource Coolify du portail, conservez le Dockerfile de la racine du dépôt. Le Dockerfile accepte deux variables publiques au build :
+
+| Variable | Valeur | Type Coolify | Pourquoi |
+|---|---|---|---|
+| `SITE_URL` | `https://boussole-culture-recherche.memoways.com` | Build | Génère les métadonnées, URL canoniques et sitemap. |
+| `VITE_PARTNER_API_URL` | `https://api.boussole-culture-recherche.memoways.com` | Build | Intègre l’URL publique de l’API dans le JavaScript du portail. |
+
+`VITE_PARTNER_API_URL` est volontairement publique. Elle ne doit contenir ni clé, ni mot de passe, ni jeton. Après modification d’une variable Vite, rebâtissez le portail : elle est intégrée à la compilation et ne peut pas être modifiée par un simple redémarrage du conteneur.
+
+## 8. Première connexion à `/admin`
+
+Ouvrez l’URL suivante depuis un navigateur de confiance :
+
+```text
+https://boussole-culture-recherche.memoways.com/admin
+```
+
+Saisissez l’adresse `ulrich.fischer@memoways.com` et le mot de passe configuré dans `ADMIN_PASSWORD`. Une connexion réussie crée un cookie `httpOnly`, `Secure`, limité au chemin `/api/admin` et valable huit heures. Le navigateur envoie ce cookie à l’API, mais le JavaScript du portail ne peut pas le lire.
+
+| Test de contrôle | Résultat attendu |
+|---|---|
+| URL `/admin` sans session | Formulaire de connexion. |
+| Mauvais mot de passe | Message générique, sans précision sur l’identifiant. |
+| Huit tentatives sur quinze minutes | Réponse temporairement limitée. |
+| Connexion correcte | Tableau de gestion des organisations, contacts, invitations, réponses et export CSV. |
+| Déconnexion | Cookie supprimé et retour au formulaire. |
+| Redémarrage de l’API | Les sessions signées existantes restent valides tant que `ADMIN_SESSION_SECRET` ne change pas et que leur durée n’est pas écoulée. |
+
+Pour changer le mot de passe, modifiez uniquement `ADMIN_PASSWORD` dans Coolify, redéployez l’API et reconnectez-vous. Pour invalider immédiatement toutes les sessions administrateur, remplacez aussi `ADMIN_SESSION_SECRET`, puis redéployez l’API.
+
+## 9. Activer Deepgram et SMTP après le contrôle de base
+
+Sans `DEEPGRAM_API_KEY`, les questions ouvertes restent disponibles à l’écrit. Lorsqu’elle est configurée, l’audio est transmis temporairement à l’API puis à Deepgram ; le fichier audio n’est pas écrit dans PostgreSQL et seule la transcription corrigée est enregistrée. Testez la lecture, la correction et la soumission avant d’inviter un partenaire.
+
+Sans SMTP, l’administration génère toujours les liens personnels et les copie dans le presse-papiers. Configurez SMTP seulement après avoir choisi un prestataire compatible avec la politique d’envoi de l’équipe de projet. Réalisez un envoi sur une adresse de test, vérifiez l’expéditeur `MAIL_FROM`, le lien et le récapitulatif de réponse avant tout envoi externe.
+
+## 10. Contrôle pilote et exploitation régulière
+
+Avant toute invitation réelle, créez une organisation de test et un contact de test. Générez un lien, enregistrez un brouillon, testez une transcription si elle est active, soumettez une réponse, vérifiez le mail si SMTP est activé, exportez le CSV et révoquez l’invitation. Supprimez ensuite les données de test selon la procédure de l’équipe.
+
+L’export CSV contient des données nominatives. Téléchargez-le seulement depuis un poste de confiance, conservez-le dans un espace de travail protégé et produisez tout partage collectif à partir de données anonymisées. Réalisez une sauvegarde PostgreSQL avant toute modification de structure et vérifiez périodiquement qu’une restauration est possible.
 
 ## Références
 
-[1] [Coolify — Docker Compose et réseau interne](https://coolify.io/docs/knowledge-base/docker/compose/)
+[1] [Coolify — PostgreSQL](https://coolify.io/docs/databases/postgresql)
 
-[2] [Deepgram — Transcription d’audio préenregistré](https://developers.deepgram.com/docs/pre-recorded-audio)
+[2] [Coolify — Variables d’environnement](https://coolify.io/docs/knowledge-base/environment-variables)
+
+[3] [Coolify — Domaines](https://coolify.io/docs/knowledge-base/domains)
+
+[4] [Coolify — Applications](https://coolify.io/docs/applications)

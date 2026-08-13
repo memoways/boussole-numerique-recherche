@@ -9,6 +9,8 @@ Ce fichier suit le format [Keep a Changelog](https://keepachangelog.com/fr/1.1.0
 - Présentation partenaire slide par slide à la route `/partenaires/presentation`, avec neuf écrans et un passage facultatif vers le questionnaire.
 - Module partenaire portable : API Express/TypeScript, schéma PostgreSQL, invitations personnelles hashées, demande d’invitation, administration, export CSV, brouillons et transcription Deepgram optionnelle.
 - Questionnaire multi-étapes à la route `/partenaires/questionnaire`, réservé aux liens personnels et prêt pour l’activation Coolify.
+- Présentation partenaire enrichie : neuf slides défilables, compositions visuelles par sujet, panneaux de détail intégrés et conservation du contexte de lecture dans l’URL.
+- Alias privé `/admin`, limitation des tentatives de connexion et tutoriel Coolify complet indexé dans `docs/README.md`.
 - Encarts de soutien de la Ville de Genève, avec logo, lien vers la démarche de subvention et formulation institutionnelle sur les pages Projet et Partenaires.
 
 ---

@@ -179,6 +179,12 @@ Après soumission, chaque partenaire reçoit par e-mail un récapitulatif de ses
 | API | Choisir entre reverse proxy sous le domaine principal ou sous-domaine API dédié. |
 | Droits administrateurs | Définir les personnes supplémentaires pouvant gérer les invitations et voir les réponses nominatives. |
 
+## 11. Évolution de la présentation et accès administration
+
+La présentation partenaire est devenue une expérience défilable : chaque slide comporte des repères visuels et des panneaux de détail accessibles. Les liens de contexte sont placés dans ces panneaux ; l’index de la slide et le détail ouvert restent dans l’URL afin que le bouton précédent du navigateur ramène à la même lecture.
+
+L’administration est disponible à `/admin`, sans entrée dans la navigation publique, ainsi qu’à l’ancienne adresse `/partenaires/admin` pour compatibilité. Le compte initial est `ulrich.fischer@memoways.com`. Son mot de passe est exclusivement configuré par la variable runtime `ADMIN_PASSWORD` dans Coolify. Le tutoriel de déploiement et d’exploitation est enregistré dans `docs/PARTNER_FEEDBACK_OPERATIONS.md` et indexé par `docs/README.md`.
+
 ## Références
 
 [1] [Deepgram — Getting Started with Speech-to-Text](https://developers.deepgram.com/docs/stt/getting-started)

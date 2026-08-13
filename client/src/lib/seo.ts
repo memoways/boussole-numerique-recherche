@@ -77,6 +77,16 @@ export const SEO_PAGES: Record<string, SeoPage> = {
       { label: "Administration", path: "/partenaires/admin" },
     ],
   },
+  "/admin": {
+    title: "Administration partenaire | Boussole Numérique Culture",
+    description: "Espace privé de gestion des invitations et des réponses partenaires.",
+    canonicalPath: "/admin",
+    index: false,
+    breadcrumbs: [
+      { label: "Accueil", path: "/" },
+      { label: "Administration", path: "/admin" },
+    ],
+  },
   "/recherche": {
     title: "Recherche et enseignements | Boussole Numérique Culture",
     description:
@@ -149,6 +159,7 @@ const BREADCRUMB_LABELS: Record<string, string> = {
   "/partenaires/presentation": "Découvrir la Boussole",
   "/partenaires/questionnaire": "Questionnaire",
   "/partenaires/admin": "Administration",
+  "/admin": "Administration",
   "/recherche": "Recherche",
   "/references": "Références",
   "/ressources": "Ressources",

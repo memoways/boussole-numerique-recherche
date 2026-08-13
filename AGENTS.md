@@ -43,7 +43,9 @@ Le portail n'a besoin d’aucun secret côté client. Le module partenaire utili
 
 ## Expérience partenaire
 
-Les parcours `/partenaires/presentation`, `/partenaires/questionnaire` et `/partenaires/admin` forment un module séparé. Le frontend n’accède à l’API que via `VITE_PARTNER_API_URL`. Les secrets et la base de données restent dans `services/partner-feedback-api`. Les jetons d’invitation sont stockés uniquement sous forme d’empreinte ; ne journalisez jamais les URL personnelles ni les réponses qualitatives.
+Les parcours `/partenaires/presentation`, `/partenaires/questionnaire` et `/admin` forment un module séparé. `/partenaires/admin` demeure un alias de compatibilité. Le frontend n’accède à l’API que via `VITE_PARTNER_API_URL`. Les secrets et la base de données restent dans `services/partner-feedback-api`. Les jetons d’invitation sont stockés uniquement sous forme d’empreinte ; ne journalisez jamais les URL personnelles ni les réponses qualitatives.
+
+La présentation conserve son contexte avec `?slide=<n>&detail=<id>`. Préservez ces paramètres lors de toute évolution des liens contextuels, afin que le bouton précédent du navigateur ramène à la même slide et au même panneau ouvert. Consultez `docs/README.md` avant de modifier l’exploitation Coolify ou les variables d’environnement.
 
 ## Livraison
 

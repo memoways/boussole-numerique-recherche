@@ -9,6 +9,8 @@ RUN corepack enable
 
 ARG SITE_URL
 ENV SITE_URL=${SITE_URL}
+ARG VITE_PARTNER_API_URL
+ENV VITE_PARTNER_API_URL=${VITE_PARTNER_API_URL}
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY patches ./patches

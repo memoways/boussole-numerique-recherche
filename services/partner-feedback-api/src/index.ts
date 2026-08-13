@@ -16,6 +16,7 @@ const app = express();
 const tokenPepper = new TextEncoder().encode(config.INVITATION_TOKEN_PEPPER);
 const adminSecret = new TextEncoder().encode(config.ADMIN_SESSION_SECRET);
 const schemaPath = fileURLToPath(new URL("./schema.sql", import.meta.url));
+const rateLimits = new Map<string, { count: number; resetAt: number }>();
 
 type InvitationContext = {
   invitationId: string;
@@ -69,6 +70,19 @@ function compareSecret(left: string, right: string) {
   const leftBuffer = Buffer.from(left);
   const rightBuffer = Buffer.from(right);
   return leftBuffer.length === rightBuffer.length && timingSafeEqual(leftBuffer, rightBuffer);
+}
+
+function consumeRateLimit(req: Request, res: Response, scope: string, limit: number, windowMs: number) {
+  const now = Date.now();
+  const key = `${scope}:${req.ip ?? "unknown"}`;
+  const active = rateLimits.get(key);
+  const bucket = !active || active.resetAt <= now ? { count: 0, resetAt: now + windowMs } : active;
+  bucket.count += 1;
+  rateLimits.set(key, bucket);
+  if (bucket.count <= limit) return true;
+  res.setHeader("Retry-After", String(Math.ceil((bucket.resetAt - now) / 1000)));
+  res.status(429).json({ error: "Trop de tentatives. Réessayez dans quelques minutes." });
+  return false;
 }
 
 async function signAdminSession() {
@@ -199,6 +213,7 @@ app.get("/health", async (_req, res) => {
 });
 
 app.post("/api/public/invitation-requests", async (req, res) => {
+  if (!consumeRateLimit(req, res, "invitation-request", 10, 60 * 60 * 1000)) return;
   const parsed = requestSchema.safeParse(req.body);
   if (!parsed.success) return res.status(400).json({ error: "Les informations de demande sont incomplètes." });
   const value = parsed.data;
@@ -292,6 +307,7 @@ app.post("/api/public/invitations/:token/transcribe", express.raw({ type: ["audi
 });
 
 app.post("/api/admin/login", async (req, res) => {
+  if (!consumeRateLimit(req, res, "admin-login", 8, 15 * 60 * 1000)) return;
   const parsed = adminLoginSchema.safeParse(req.body);
   if (!parsed.success || parsed.data.email !== config.ADMIN_EMAIL || !compareSecret(parsed.data.password, config.ADMIN_PASSWORD)) {
     return res.status(401).json({ error: "Identifiants administrateur invalides." });

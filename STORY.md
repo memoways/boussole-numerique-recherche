@@ -27,8 +27,8 @@ Le portail est volontairement distinct de la future application de diagnostic. A
 
 ```text
 Frontend        : React 19, TypeScript, Vite, Wouter, Tailwind CSS 4, shadcn/ui
-Backend         : API partenaire Express/TypeScript, en cours d’intégration
-Base de données : PostgreSQL privé dans Coolify, prévu pour invitations et réponses
+Backend         : API partenaire Express/TypeScript, prête à être déployée dans Coolify
+Base de données : PostgreSQL privé dans Coolify, prévu pour invitations et réponses lors de l’activation
 Hébergement     : Docker + Nginx, prêt pour Coolify self-hosted
 Services tiers  : Google Fonts ; aucune API applicative, aucun secret requis
 Qualité         : TypeScript, build Vite, GitHub Actions, scripts de contrôle mobile
@@ -58,8 +58,9 @@ Qualité         : TypeScript, build Vite, GitHub Actions, scripts de contrôle 
 - ✅ **Fait** : préparation au déploiement autonome vers Coolify et documentation multi-agents.
 - ✅ **Fait** : deux parcours partenaires autonomes sont en place ; la présentation est accessible librement et le questionnaire reste un accès indépendant.
 - ✅ **Fait** : le module partenaire inclut les invitations liées aux organisations, l’administration, les brouillons, les réponses vocales transcrites et les exports.
-- 🔄 **En cours** : API partenaire, invitations personnelles, questionnaire qualitatif, réponse vocale transcrite et administration des réponses.
-- 📋 **Reste à faire** : renseigner le domaine final dans `SITE_URL`, connecter les services Coolify, configurer le SMTP et les secrets, puis lancer le pilote partenaire.
+- ✅ **Fait** : la présentation partenaire contient des détails dépliables, des schémas visuels et des liens qui conservent la slide ouverte dans l’historique du navigateur.
+- ✅ **Fait** : l’administration est disponible à `/admin` après configuration de l’API, de PostgreSQL et des secrets dans Coolify.
+- 📋 **Reste à faire** : créer les ressources Coolify, renseigner le domaine final dans `SITE_URL`, configurer le SMTP et les secrets, puis lancer le pilote partenaire.
 
 ## Questions ouvertes
 
@@ -85,6 +86,7 @@ Qualité         : TypeScript, build Vite, GitHub Actions, scripts de contrôle 
 - **Production actuelle** : [boussole-culture-recherche.memoways.com](https://boussole-culture-recherche.memoways.com/)
 - **Prévisualisation actuelle** : [boussole-numerique.manus.space](https://boussole-numerique.manus.space/)
 - **Migration Coolify** : [`docs/COOLIFY_MIGRATION.md`](docs/COOLIFY_MIGRATION.md)
-- **Opérations** : [`docs/OPERATIONS.md`](docs/OPERATIONS.md)
+- **Documentation indexée** : [`docs/README.md`](docs/README.md)
+- **Opérations partenaire** : [`docs/PARTNER_FEEDBACK_OPERATIONS.md`](docs/PARTNER_FEEDBACK_OPERATIONS.md)
 - **Plan partenaire** : [`docs/PLAN_PARTENAIRES_PRESENTATION_QUESTIONNAIRE.md`](docs/PLAN_PARTENAIRES_PRESENTATION_QUESTIONNAIRE.md)
 - **SEO** : [`docs/SEO.md`](docs/SEO.md)
