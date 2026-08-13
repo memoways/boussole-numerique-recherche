@@ -21,6 +21,8 @@ La page Partenaires propose deux accès autonomes : la présentation à `/parten
 
 La console d’administration est accessible directement à `/admin`; `/partenaires/admin` est conservé comme alias. Son accès fonctionnera après déploiement de l’API et de PostgreSQL, avec l’identifiant initial `ulrich.fischer@memoways.com` et un mot de passe stocké uniquement dans `ADMIN_PASSWORD` côté Coolify.
 
+Lors d’une soumission, l’API prépare un récapitulatif déterministe dans `notifications.partner_response_recap_outbox`. Dreamlit doit ensuite surveiller uniquement cette boîte d’envoi et délivrer l’e-mail récapitulatif. La connexion Dreamlit, le domaine expéditeur et la publication du workflow restent à activer dans leurs interfaces respectives ; ils ne sont pas stockés dans le portail ni dans l’API.
+
 ## Déploiement et maintenance
 
 Le déploiement self-hosted s’appuie sur le `Dockerfile` racine et `infra/nginx/default.conf`. L’API partenaire utilise `services/partner-feedback-api/Dockerfile`. Le point d’entrée de toute la documentation est [`docs/README.md`](./docs/README.md), qui relie le guide général de migration et le tutoriel d’activation de PostgreSQL, de l’API, des secrets et de `/admin`.

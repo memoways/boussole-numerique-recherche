@@ -56,3 +56,5 @@
 - [x] Créer le questionnaire avec brouillons, réponses vocales transcrites et consentement.
 - [x] Tester les parcours et documenter l’exploitation Coolify du questionnaire.
 - [x] Synchroniser CHANGELOG, STORY, README et archive `docs/` avec les modifications effectivement livrées.
+- [x] Étudier Dreamlit, puis intégrer l’envoi d’une synthèse de réponses PostgreSQL depuis l’API partenaire.
+- [x] Implémenter l’option B Dreamlit : boîte d’envoi restreinte et récapitulatif déterministe à la soumission.

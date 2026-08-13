@@ -8,7 +8,7 @@ Le portail Boussole Numérique Culture reste une application statique React serv
 |---|---|---|---|
 | Portail React/Nginx | `boussole-portal` | `https://boussole-culture-recherche.memoways.com` | Public HTTPS |
 | API questionnaire | `boussole-partner-api` | `https://api.boussole-culture-recherche.memoways.com` | Public HTTPS, CORS limité au portail |
-| PostgreSQL | `boussole-postgres` | Aucun | Réseau privé Coolify uniquement |
+| PostgreSQL | `boussole-postgres` | Aucun | Privé pour l’API ; port TCP public chiffré requis uniquement par Dreamlit |
 
 Le sous-domaine API est recommandé car il partage le même site `memoways.com` que le portail. Les cookies de session administrateur restent alors envoyés à l’API lors des requêtes `credentials: include`, sans être lisibles par le JavaScript du portail. L’API ne doit pas être listée dans la navigation publique.
 
@@ -22,14 +22,14 @@ Dans Coolify, saisissez les domaines avec le préfixe `https://`. Coolify config
 
 ## 3. Créer PostgreSQL privé
 
-Créez une nouvelle ressource **PostgreSQL** dans le même projet et le même environnement Coolify que l’API. Choisissez une version PostgreSQL maintenue et donnez un nom explicite à la base, à l’utilisateur et au volume persistant. Ne renseignez ni domaine ni port mappé vers l’hôte.
+Créez une nouvelle ressource **PostgreSQL** dans le même projet et le même environnement Coolify que l’API. Choisissez une version PostgreSQL maintenue et donnez un nom explicite à la base, à l’utilisateur et au volume persistant. L’API utilise la chaîne interne ; ne configurez aucun domaine sur cette ressource.
 
 Une fois la base démarrée, copiez la chaîne de connexion **interne** fournie par Coolify. Elle servira uniquement à `DATABASE_URL` dans la ressource API. Ne copiez jamais cette valeur dans le portail, un dépôt Git, un document partagé ou une variable commençant par `VITE_`.
 
 | Contrôle PostgreSQL | Résultat attendu |
 |---|---|
 | Volume persistant | Les données survivent à un redéploiement de l’API et à un redémarrage de la base. |
-| Réseau | L’API peut joindre la base ; aucun port PostgreSQL n’est exposé publiquement. |
+| Réseau | L’API joint la base par réseau privé. Le port public nécessaire à Dreamlit est chiffré, limité par pare-feu lorsque le serveur le permet et n’est pas utilisé par le portail. |
 | Sauvegarde | Une sauvegarde est planifiée avant l’ouverture du pilote. |
 | Restauration | Une restauration est testée dans un environnement non public avant la première collecte. |
 
@@ -66,7 +66,7 @@ Dans la ressource `boussole-partner-api`, ouvrez **Environment Variables**. Util
 | `ADMIN_PASSWORD` | Mot de passe unique de 16 caractères ou plus | Oui | Runtime | Mot de passe de connexion à `/admin`. |
 | `RUN_MIGRATIONS` | `true` uniquement à la première initialisation | Non | Runtime | Crée le schéma et la version initiale du questionnaire. |
 | `DEEPGRAM_API_KEY` | Clé Deepgram | Oui | Runtime | Active les transcriptions vocales. |
-| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `MAIL_FROM` | Selon le prestataire choisi | Partiellement | Runtime | Active l’envoi des invitations et récapitulatifs. |
+| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `MAIL_FROM` | Selon le prestataire choisi | Partiellement | Runtime | Reste facultatif pour les invitations personnelles pendant la transition. Les récapitulatifs de réponses sont préparés pour Dreamlit. |
 
 Coolify permet de marquer distinctement une variable comme disponible au build ou au runtime ; les deux options sont activées par défaut.[2] Pour toutes les variables de l’API, désactivez **Build Variable** et laissez **Runtime Variable** activé. Si un mot de passe contient le caractère `$`, activez l’option **Literal** afin que Coolify ne tente pas d’interpoler la valeur.[2]
 
@@ -110,15 +110,51 @@ Saisissez l’adresse `ulrich.fischer@memoways.com` et le mot de passe configur�
 
 Pour changer le mot de passe, modifiez uniquement `ADMIN_PASSWORD` dans Coolify, redéployez l’API et reconnectez-vous. Pour invalider immédiatement toutes les sessions administrateur, remplacez aussi `ADMIN_SESSION_SECRET`, puis redéployez l’API.
 
-## 9. Activer Deepgram et SMTP après le contrôle de base
+## 9. Activer Dreamlit pour les récapitulatifs
+
+L’API crée, dans la même transaction que la soumission, une ligne dans `notifications.partner_response_recap_outbox`. Cette ligne ne contient que le destinataire, son prénom, le nom de l’organisation, l’objet et un récapitulatif déterministe déjà préparé. Dreamlit ne reçoit ni les tables `partner_response_answers` ni les jetons d’invitation.
+
+Dans Coolify, activez SSL sur PostgreSQL. Un client externe tel que Dreamlit ne peut pas monter le certificat d’autorité interne de Coolify ; utilisez donc le niveau `require` afin de chiffrer le transport, puis vérifiez avec Dreamlit sa compatibilité avec un certificat interne avant de renforcer le contrôle de certificat. Coolify distingue les ports mappés et les ports publics : le second crée un proxy TCP pour une connexion externe.[5] [6]
+
+Créez un **port public** pour PostgreSQL et protégez-le au niveau du pare-feu du serveur avec les plages publiées par Dreamlit si cette option est disponible dans votre infrastructure. Ne le publiez pas par un domaine web. Copiez dans Dreamlit l’hôte public, le port, le nom de base, le nom d’utilisateur dédié et son mot de passe ; ne placez aucun de ces éléments dans les variables de l’API ou dans le dépôt.
+
+Créez ensuite l’utilisateur Dreamlit avec les privilèges minimaux suivants, en exécutant le SQL avec l’utilisateur propriétaire de la base. Remplacez les valeurs entre chevrons par celles de votre environnement, sans conserver le mot de passe dans un fichier :
+
+```sql
+CREATE ROLE dreamlit_app LOGIN PASSWORD '<mot-de-passe-unique>' INHERIT;
+GRANT CONNECT, CREATE, TEMP ON DATABASE <nom_base> TO dreamlit_app;
+GRANT USAGE ON SCHEMA notifications TO dreamlit_app;
+GRANT SELECT, TRIGGER ON ALL TABLES IN SCHEMA notifications TO dreamlit_app;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA notifications TO dreamlit_app;
+ALTER DEFAULT PRIVILEGES IN SCHEMA notifications
+  GRANT SELECT, TRIGGER ON TABLES TO dreamlit_app;
+ALTER DEFAULT PRIVILEGES IN SCHEMA notifications
+  GRANT USAGE, SELECT ON SEQUENCES TO dreamlit_app;
+```
+
+Dans Dreamlit, connectez cette base puis créez le workflow suivant :
+
+| Étape | Réglage |
+|---|---|
+| Déclencheur | Insertion dans `notifications.partner_response_recap_outbox`. |
+| Données | Utiliser directement les champs de la ligne déclenchante ; aucune requête sur les réponses brutes n’est nécessaire. |
+| Destinataire | `{{ recipient_email }}`. |
+| Objet | `{{ subject }}`. |
+| Contenu | Salutation avec `{{ recipient_name }}`, nom de l’organisation et `{{ summary_text }}` ; ajouter l’adresse de contact de l’équipe de projet. |
+| Désabonnement | Désactivé : il s’agit d’un accusé de réception transactionnel lié à une soumission. |
+| Expéditeur | Domaine d’envoi vérifié dans Dreamlit, idéalement un sous-domaine dédié tel que `mail.memoways.com`. |
+
+Prévisualisez le workflow avec une ligne réelle de test, envoyez l’e-mail à l’adresse de test, puis publiez seulement après validation du rendu et du destinataire. Dreamlit déclenche ses workflows sur les lignes ajoutées ou mises à jour et peut personnaliser l’envoi au moyen de variables Liquid.[7] [8]
+
+## 10. Activer Deepgram et SMTP après le contrôle de base
 
 Sans `DEEPGRAM_API_KEY`, les questions ouvertes restent disponibles à l’écrit. Lorsqu’elle est configurée, l’audio est transmis temporairement à l’API puis à Deepgram ; le fichier audio n’est pas écrit dans PostgreSQL et seule la transcription corrigée est enregistrée. Testez la lecture, la correction et la soumission avant d’inviter un partenaire.
 
-Sans SMTP, l’administration génère toujours les liens personnels et les copie dans le presse-papiers. Configurez SMTP seulement après avoir choisi un prestataire compatible avec la politique d’envoi de l’équipe de projet. Réalisez un envoi sur une adresse de test, vérifiez l’expéditeur `MAIL_FROM`, le lien et le récapitulatif de réponse avant tout envoi externe.
+Sans SMTP, l’administration génère toujours les liens personnels et les copie dans le presse-papiers. Configurez SMTP seulement après avoir choisi un prestataire compatible avec la politique d’envoi de l’équipe de projet. Dreamlit prend en charge les récapitulatifs de réponses ; l’envoi des invitations peut rester temporairement sur SMTP ou être transféré ultérieurement dans une seconde boîte d’envoi dédiée.
 
-## 10. Contrôle pilote et exploitation régulière
+## 11. Contrôle pilote et exploitation régulière
 
-Avant toute invitation réelle, créez une organisation de test et un contact de test. Générez un lien, enregistrez un brouillon, testez une transcription si elle est active, soumettez une réponse, vérifiez le mail si SMTP est activé, exportez le CSV et révoquez l’invitation. Supprimez ensuite les données de test selon la procédure de l’équipe.
+Avant toute invitation réelle, créez une organisation de test et un contact de test. Générez un lien, enregistrez un brouillon, testez une transcription si elle est active, soumettez une réponse, vérifiez dans PostgreSQL qu’une seule ligne est créée dans `notifications.partner_response_recap_outbox`, prévisualisez puis recevez l’e-mail Dreamlit, exportez le CSV et révoquez l’invitation. Supprimez ensuite les données de test selon la procédure de l’équipe.
 
 L’export CSV contient des données nominatives. Téléchargez-le seulement depuis un poste de confiance, conservez-le dans un espace de travail protégé et produisez tout partage collectif à partir de données anonymisées. Réalisez une sauvegarde PostgreSQL avant toute modification de structure et vérifiez périodiquement qu’une restauration est possible.
 
@@ -131,3 +167,11 @@ L’export CSV contient des données nominatives. Téléchargez-le seulement dep
 [3] [Coolify — Domaines](https://coolify.io/docs/knowledge-base/domains)
 
 [4] [Coolify — Applications](https://coolify.io/docs/applications)
+
+[5] [Coolify — Bases de données](https://coolify.io/docs/databases)
+
+[6] [Coolify — SSL de base de données](https://coolify.io/docs/databases/ssl)
+
+[7] [Dreamlit — Déclencheur PostgreSQL](https://notikaai.mintlify.app/docs/steps/database-trigger.md)
+
+[8] [Dreamlit — Étape d’envoi d’e-mail](https://notikaai.mintlify.app/docs/steps/send-email.md)

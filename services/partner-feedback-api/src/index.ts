@@ -10,6 +10,7 @@ import { getConfig } from "./config.js";
 import { closePool, getPool } from "./db.js";
 import { sendOptionalMail } from "./mail.js";
 import { PARTNER_QUESTIONNAIRE_V1 } from "./questionnaire.js";
+import { createResponseRecap } from "./response-recap.js";
 
 const config = getConfig();
 const app = express();
@@ -183,24 +184,6 @@ async function notifyInvitation(email: string, firstName: string, invitationUrl:
   }
 }
 
-async function notifyResponseSummary(invitation: InvitationContext, responseId: string) {
-  try {
-    const answers = await fetchResponseAnswers(responseId);
-    const labels = new Map(PARTNER_QUESTIONNAIRE_V1.questions.map((question) => [question.key, question.label]));
-    const summary = answers.map((answer) => {
-      const value = Array.isArray(answer.value) ? answer.value.join(", ") : typeof answer.value === "string" ? answer.value : JSON.stringify(answer.value);
-      return `• ${labels.get(answer.questionKey) ?? answer.questionKey}\n${value}`;
-    }).join("\n\n");
-    await sendOptionalMail(config, {
-      to: invitation.email,
-      subject: "Copie de vos réponses — Boussole Numérique Culture",
-      text: `Bonjour ${invitation.firstName},\n\nMerci pour votre contribution. Voici la copie de vos réponses enregistrées :\n\n${summary || "Aucune réponse textuelle n’a été enregistrée."}\n\nVos réponses seront conservées jusqu’à la fin du développement de la version publique de la Boussole. Pour toute demande, écrivez à ulrich.fischer@memoways.com.`,
-    });
-  } catch (error) {
-    console.error("Response summary e-mail failed", error);
-  }
-}
-
 app.disable("x-powered-by");
 app.set("trust proxy", 1);
 app.use(helmet({ crossOriginResourcePolicy: { policy: "cross-origin" } }));
@@ -278,11 +261,42 @@ app.post("/api/public/invitations/:token/submit", async (req, res) => {
   if (!invitation || invitation.invitationStatus !== "active") return res.status(410).json({ error: "Cette invitation n’est plus active." });
   const response = await getOrCreateResponse(invitation.invitationId);
   if (!response.consented_at) return res.status(400).json({ error: "Votre consentement est nécessaire avant l’envoi." });
-  const submitted = await getPool().query("UPDATE partner_responses SET status = 'submitted', submitted_at = NOW(), updated_at = NOW() WHERE id = $1 AND status = 'draft' RETURNING id", [response.id]);
-  if (!submitted.rowCount) return res.status(409).json({ error: "Ce questionnaire a déjà été soumis." });
-  await getPool().query("UPDATE partner_invitations SET status = 'completed' WHERE id = $1", [invitation.invitationId]);
-  await getPool().query("INSERT INTO response_events (id, response_id, event_type) VALUES ($1, $2, 'submitted')", [randomUUID(), response.id]);
-  await notifyResponseSummary(invitation, response.id);
+  const client = await getPool().connect();
+  try {
+    await client.query("BEGIN");
+    const submitted = await client.query("UPDATE partner_responses SET status = 'submitted', submitted_at = NOW(), updated_at = NOW() WHERE id = $1 AND status = 'draft' RETURNING id", [response.id]);
+    if (!submitted.rowCount) {
+      await client.query("ROLLBACK");
+      return res.status(409).json({ error: "Ce questionnaire a déjà été soumis." });
+    }
+    const answers = await client.query<{ question_key: string; value_json: unknown }>(
+      "SELECT question_key, value_json FROM partner_response_answers WHERE response_id = $1 ORDER BY updated_at",
+      [response.id],
+    );
+    const summary = createResponseRecap(answers.rows.map((answer) => ({ questionKey: answer.question_key, value: answer.value_json })));
+    await client.query("UPDATE partner_invitations SET status = 'completed' WHERE id = $1", [invitation.invitationId]);
+    await client.query("INSERT INTO response_events (id, response_id, event_type) VALUES ($1, $2, 'submitted')", [randomUUID(), response.id]);
+    await client.query(
+      `INSERT INTO notifications.partner_response_recap_outbox
+       (id, response_id, recipient_email, recipient_name, organization_name, subject, summary_text)
+       VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+      [
+        randomUUID(),
+        response.id,
+        invitation.email,
+        invitation.firstName,
+        invitation.organizationName,
+        "Copie de vos réponses — Boussole Numérique Culture",
+        summary,
+      ],
+    );
+    await client.query("COMMIT");
+  } catch (error) {
+    await client.query("ROLLBACK");
+    throw error;
+  } finally {
+    client.release();
+  }
   res.json({ message: "Merci, vos idées et feedbacks ont bien été enregistrés." });
 });
 

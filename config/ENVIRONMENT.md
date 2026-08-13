@@ -33,7 +33,7 @@ Le questionnaire partenaire ajoute un backend distinct déployé comme une secon
 | `ADMIN_EMAIL` | Configuration | E-mail administrateur initial : `ulrich.fischer@memoways.com`. |
 | `ADMIN_PASSWORD` | Secret | Mot de passe long, unique et stocké uniquement dans Coolify. |
 | `DEEPGRAM_API_KEY` | Secret optionnel | Active la transcription des réponses vocales ; absente, la réponse écrite reste disponible. |
-| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `MAIL_FROM` | Secrets et configuration optionnels | Activent l’envoi de l’invitation personnelle et du récapitulatif individuel après soumission. |
+| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `MAIL_FROM` | Secrets et configuration optionnels | Activent l’envoi facultatif des invitations personnelles ; les récapitulatifs sont placés dans une boîte d’envoi PostgreSQL pour Dreamlit. |
 | `RUN_MIGRATIONS` | Configuration | `true` au premier déploiement ou après une migration contrôlée. |
 
-Ne créez jamais ces secrets dans le frontend ni dans un fichier d’environnement commité. La liste complète et la procédure d’activation figurent dans [le tutoriel partenaire](../docs/PARTNER_FEEDBACK_OPERATIONS.md).
+Dreamlit ne requiert aucune clé dans l’API : sa connexion PostgreSQL et son mot de passe dédié sont configurés dans Dreamlit. La base expose à Dreamlit uniquement `notifications.partner_response_recap_outbox`, avec un utilisateur distinct et des droits minimaux. Ne créez jamais ces secrets dans le frontend ni dans un fichier d’environnement commité. La liste complète et la procédure d’activation figurent dans [le tutoriel partenaire](../docs/PARTNER_FEEDBACK_OPERATIONS.md).

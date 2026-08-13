@@ -23,6 +23,7 @@ Le portail est volontairement distinct de la future application de diagnostic. A
 4. **Faciliter la navigation.** La navigation globale, le fil d’Ariane, le sommaire Projet et les adaptations mobile permettent de parcourir un contenu dense.
 5. **Préserver l’autonomie technique.** Le dépôt se construit sans service applicatif propriétaire et se déploie dans Coolify avec un conteneur Nginx et une API partenaire dédiée.
 6. **Organiser la contribution partenaire.** La présentation dépliable, les liens contextuels, les invitations et la console `/admin` structurent les échanges avant le pilote.
+7. **Distinguer données de réponse et e-mail.** L’API prépare une boîte d’envoi limitée pour Dreamlit, afin que le fournisseur d’e-mail ne lise pas les tables de réponses brutes.
 
 ## Stack
 
@@ -49,6 +50,7 @@ Qualité         : TypeScript, build Vite, GitHub Actions, scripts de contrôle 
 | Design bleu → cyan → vert → orange | Le spectre visuel identifie le projet tout en hiérarchisant les étapes et les contributions. |
 | État de présentation dans l’URL | La slide et le panneau de détail restent accessibles après un retour navigateur. |
 | API partenaire séparée | Les secrets, l’administration et les données de réponse restent hors du portail statique. |
+| Boîte d’envoi Dreamlit limitée | Seul le récapitulatif préparé et le destinataire sont transmis au workflow d’e-mail. |
 
 ## État courant
 
@@ -64,6 +66,7 @@ Qualité         : TypeScript, build Vite, GitHub Actions, scripts de contrôle 
 - ✅ **Fait** : la présentation partenaire contient des détails dépliables, des schémas visuels et des liens qui conservent la slide ouverte dans l’historique du navigateur.
 - ✅ **Fait** : l’administration est disponible à `/admin` après configuration de l’API, de PostgreSQL et des secrets dans Coolify.
 - ✅ **Fait** : documentation de continuité synchronisée dans `CHANGELOG.md`, `STORY.md`, `README.md` et `docs/`, avec une archive des fonctionnalités réellement livrées.
+- ✅ **Fait** : à la soumission, l’API génère une ligne de boîte d’envoi dédiée à Dreamlit avec un récapitulatif déterministe ; l’activation du workflow Dreamlit reste à effectuer dans son interface.
 - 📋 **Reste à faire** : créer les ressources Coolify, renseigner le domaine final dans `SITE_URL`, configurer le SMTP et les secrets, puis lancer le pilote partenaire.
 
 ## Questions ouvertes
@@ -94,4 +97,5 @@ Qualité         : TypeScript, build Vite, GitHub Actions, scripts de contrôle 
 - **Opérations partenaire** : [`docs/PARTNER_FEEDBACK_OPERATIONS.md`](docs/PARTNER_FEEDBACK_OPERATIONS.md)
 - **Plan partenaire** : [`docs/PLAN_PARTENAIRES_PRESENTATION_QUESTIONNAIRE.md`](docs/PLAN_PARTENAIRES_PRESENTATION_QUESTIONNAIRE.md)
 - **Archive d’implémentation partenaire** : [`docs/IMPLEMENTATION_ARCHIVE_PARTNER_MODULE_2026-08-13.md`](docs/IMPLEMENTATION_ARCHIVE_PARTNER_MODULE_2026-08-13.md)
+- **Dreamlit — décision et activation** : [`docs/DREAMLIT_EMAIL_INTEGRATION_OPTIONS.md`](docs/DREAMLIT_EMAIL_INTEGRATION_OPTIONS.md)
 - **SEO** : [`docs/SEO.md`](docs/SEO.md)

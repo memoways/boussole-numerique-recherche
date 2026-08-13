@@ -79,6 +79,21 @@ CREATE TABLE IF NOT EXISTS response_events (
   occurred_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+CREATE SCHEMA IF NOT EXISTS notifications;
+
+CREATE TABLE IF NOT EXISTS notifications.partner_response_recap_outbox (
+  id UUID PRIMARY KEY,
+  response_id UUID NOT NULL UNIQUE REFERENCES partner_responses(id) ON DELETE CASCADE,
+  recipient_email TEXT NOT NULL,
+  recipient_name TEXT NOT NULL,
+  organization_name TEXT NOT NULL,
+  subject TEXT NOT NULL,
+  summary_text TEXT NOT NULL,
+  summary_version TEXT NOT NULL DEFAULT 'v1',
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
 CREATE INDEX IF NOT EXISTS partner_invitations_contact_idx ON partner_invitations(contact_id);
 CREATE INDEX IF NOT EXISTS partner_responses_invitation_idx ON partner_responses(invitation_id);
 CREATE INDEX IF NOT EXISTS partner_response_answers_response_idx ON partner_response_answers(response_id);
+CREATE INDEX IF NOT EXISTS partner_response_recap_outbox_created_idx ON notifications.partner_response_recap_outbox(created_at);

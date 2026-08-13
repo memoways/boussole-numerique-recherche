@@ -12,6 +12,8 @@ Ce fichier suit le format [Keep a Changelog](https://keepachangelog.com/fr/1.1.0
 - Présentation partenaire enrichie : neuf slides défilables, compositions visuelles par sujet, panneaux de détail intégrés et conservation du contexte de lecture dans l’URL.
 - Alias privé `/admin`, limitation des tentatives de connexion et tutoriel Coolify complet indexé dans `docs/README.md`.
 - Archive d’implémentation du module partenaire dans `docs/`, fondée sur les fichiers et contrôles réellement livrés.
+- Intégration Dreamlit option B : boîte d’envoi PostgreSQL `notifications.partner_response_recap_outbox`, récapitulatif déterministe créé dans la transaction de soumission et test automatisé du formatage.
+- Documentation opérationnelle complétée pour la connexion Dreamlit restreinte, le workflow transactionnel et l’exposition PostgreSQL chiffrée dans Coolify.
 - Encarts de soutien de la Ville de Genève, avec logo, lien vers la démarche de subvention et formulation institutionnelle sur les pages Projet et Partenaires.
 
 ---

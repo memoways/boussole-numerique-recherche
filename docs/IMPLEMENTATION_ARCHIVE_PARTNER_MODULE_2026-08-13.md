@@ -55,6 +55,20 @@ Le dépôt contient les éléments nécessaires à un déploiement séparé du p
 | `docs/README.md` | Index permanent de la documentation. |
 | `config/ENVIRONMENT.md` | Distingue les variables de build publiques et les secrets runtime. |
 
+## Boîte d’envoi Dreamlit pour les récapitulatifs
+
+L’option retenue pour les récapitulatifs de réponses est une boîte d’envoi PostgreSQL dédiée. À l’intérieur de la transaction de soumission, l’API crée une ligne unique dans `notifications.partner_response_recap_outbox`. Cette ligne contient uniquement l’adresse de destination, le prénom, l’organisation, l’objet et le texte de récapitulatif. Elle ne contient ni jeton d’invitation ni données d’administration.
+
+Le texte est construit de façon déterministe à partir des libellés du questionnaire et des réponses effectivement enregistrées. Il sert de trace fidèle à la personne répondante ; il ne produit pas de diagnostic ni d’inférence. Dreamlit doit être configuré pour surveiller la boîte d’envoi, et non les tables `partner_responses` ou `partner_response_answers`.
+
+| Fichier | Élément livré |
+|---|---|
+| `services/partner-feedback-api/src/schema.sql` | Schéma `notifications` et table de boîte d’envoi avec une ligne unique par réponse. |
+| `services/partner-feedback-api/src/response-recap.ts` | Formatage déterministe et réutilisable du récapitulatif. |
+| `services/partner-feedback-api/src/index.ts` | Création atomique de la boîte d’envoi durant la soumission. |
+| `services/partner-feedback-api/scripts/verify-response-recap.ts` | Test du formatage et du cas sans réponse. |
+| `docs/PARTNER_FEEDBACK_OPERATIONS.md` | Procédure Dreamlit/Coolify, privilèges limités et réglages du workflow. |
+
 ## Contrôles effectués
 
 | Contrôle | Résultat |
@@ -64,6 +78,7 @@ Le dépôt contient les éléments nécessaires à un déploiement séparé du p
 | Présentation enrichie | Affichage contrôlé sur la slide 5 avec panneau ouvert, schéma visuel et lien contextuel. |
 | Alias administration | `/admin` rend l’état d’activation attendu avant configuration de l’API. |
 | Docker local | Non exécuté : Docker n’est pas installé dans l’environnement de validation. Le premier build Coolify doit confirmer l’image. |
+| Récapitulatif Dreamlit | Test automatisé du formatage réussi. L’envoi réel attend la connexion PostgreSQL et la publication du workflow Dreamlit. |
 
 ## Éléments dépendant encore de Coolify
 
