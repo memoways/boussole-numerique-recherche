@@ -27,6 +27,9 @@ import Timeline from "./pages/Timeline";
 import Recherche from "./pages/Recherche";
 import References from "./pages/References";
 import Partenaires from "./pages/Partenaires";
+import PartnerPresentation from "./pages/PartnerPresentation";
+import PartnerQuestionnaire from "./pages/PartnerQuestionnaire";
+import PartnerAdmin from "./pages/PartnerAdmin";
 import Ressources from "./pages/Ressources";
 
 function Router() {
@@ -52,6 +55,10 @@ function Router() {
         <Route path={"/recherche"} component={Recherche} />
         <Route path={"/references"} component={References} />
         <Route path={"/partenaires"} component={Partenaires} />
+        <Route path={"/partenaires/presentation"} component={PartnerPresentation} />
+        <Route path={"/partenaires/questionnaire/:token"} component={PartnerQuestionnaire} />
+        <Route path={"/partenaires/questionnaire"} component={PartnerQuestionnaire} />
+        <Route path={"/partenaires/admin"} component={PartnerAdmin} />
         <Route path={"/gouvernance"}>{() => { window.location.replace("/methode"); return null; }}</Route>
         <Route path={"/ressources"} component={Ressources} />
 

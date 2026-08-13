@@ -50,3 +50,8 @@
 - [x] Réduire l’espacement vertical du hero Partenaires et optimiser la capsule sur mobile.
 - [x] Diagnostiquer la résolution DNS, le HTTPS et le routage Coolify du sous-domaine boussole-culture-recherche.memoways.com.
 - [x] Documenter les corrections externes à appliquer sans modifier la configuration du serveur ou du DNS.
+- [x] Préparer le socle full-stack portable, Docker et PostgreSQL pour l’expérience partenaire.
+- [x] Ajouter la présentation partenaire et les deux CTA autonomes sur la page Partenaires.
+- [x] Créer l’API, les migrations, l’administration et les invitations personnelles.
+- [x] Créer le questionnaire avec brouillons, réponses vocales transcrites et consentement.
+- [x] Tester les parcours et documenter l’exploitation Coolify du questionnaire.

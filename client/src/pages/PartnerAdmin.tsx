@@ -1,0 +1,54 @@
+import { useState } from "react";
+import { Copy, Download, Loader2, LogIn, LogOut, Plus, Send, ShieldCheck } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { hasPartnerApi, partnerApi, PARTNER_API_URL } from "@/lib/partnerApi";
+
+type Overview = {
+  organizations: Array<{ id: string; name: string; status: string }>;
+  contacts: Array<{ id: string; first_name: string; last_name: string; email: string; organization_id: string; organization_name: string }>;
+  invitationRequests: Array<{ id: string; organization_name: string; first_name: string; last_name: string; email: string; status: string; created_at: string }>;
+  responses: Array<{ id: string; status: string; submitted_at: string | null; organization_name: string; email: string }>;
+};
+
+function toClipboard(value: string) {
+  return navigator.clipboard.writeText(value).catch(() => undefined);
+}
+
+export default function PartnerAdmin() {
+  const [credentials, setCredentials] = useState({ email: "ulrich.fischer@memoways.com", password: "" });
+  const [overview, setOverview] = useState<Overview | null>(null);
+  const [status, setStatus] = useState("");
+  const [error, setError] = useState("");
+  const [organizationName, setOrganizationName] = useState("");
+  const [contact, setContact] = useState({ organizationId: "", firstName: "", lastName: "", email: "" });
+
+  const refresh = async () => {
+    const data = await partnerApi<Overview>("/api/admin/overview");
+    setOverview(data);
+  };
+  const login = async (event: React.FormEvent) => {
+    event.preventDefault(); setError(""); setStatus("Connexion…");
+    try { await partnerApi("/api/admin/login", { method: "POST", body: JSON.stringify(credentials) }); await refresh(); setStatus(""); } catch (loginError) { setError(loginError instanceof Error ? loginError.message : "Connexion impossible."); setStatus(""); }
+  };
+  const createOrganization = async (event: React.FormEvent) => {
+    event.preventDefault(); if (!organizationName) return; setError("");
+    try { await partnerApi("/api/admin/organizations", { method: "POST", body: JSON.stringify({ name: organizationName, status: "candidate" }) }); setOrganizationName(""); await refresh(); } catch (requestError) { setError(requestError instanceof Error ? requestError.message : "Organisation impossible à créer."); }
+  };
+  const createContact = async (event: React.FormEvent) => {
+    event.preventDefault(); if (!contact.organizationId) return; setError("");
+    try { await partnerApi("/api/admin/contacts", { method: "POST", body: JSON.stringify(contact) }); setContact({ organizationId: "", firstName: "", lastName: "", email: "" }); await refresh(); } catch (requestError) { setError(requestError instanceof Error ? requestError.message : "Contact impossible à créer."); }
+  };
+  const issueInvitation = async (contactId: string) => {
+    setError("");
+    try { const result = await partnerApi<{ invitationUrl: string }>("/api/admin/invitations", { method: "POST", body: JSON.stringify({ contactId, expiresInDays: 45 }) }); await toClipboard(result.invitationUrl); setStatus("Lien personnel copié dans le presse-papiers. Il pourra être transmis lorsque l’e-mail transactionnel sera configuré."); await refresh(); } catch (requestError) { setError(requestError instanceof Error ? requestError.message : "Invitation impossible à générer."); }
+  };
+  const approveRequest = async (id: string) => {
+    setError("");
+    try { const result = await partnerApi<{ invitationUrl: string }>(`/api/admin/invitation-requests/${id}/approve`, { method: "POST", body: JSON.stringify({ expiresInDays: 45 }) }); await toClipboard(result.invitationUrl); setStatus("Demande approuvée : le lien personnel est copié dans le presse-papiers."); await refresh(); } catch (requestError) { setError(requestError instanceof Error ? requestError.message : "Approbation impossible."); }
+  };
+  const logout = async () => { await partnerApi("/api/admin/logout", { method: "POST" }).catch(() => undefined); setOverview(null); };
+
+  if (!hasPartnerApi()) return <div className="mx-auto max-w-3xl px-4 py-12"><section className="rounded-3xl border border-[#515792]/20 bg-[#515792]/5 p-8"><ShieldCheck className="h-9 w-9 text-[#515792]" /><h1 className="mt-4 text-2xl font-bold text-slate-950">Administration partenaire</h1><p className="mt-3 leading-relaxed text-slate-600">L’interface sera activée dès que l’API partenaire et PostgreSQL seront déployés dans Coolify.</p></section></div>;
+  if (!overview) return <div className="mx-auto max-w-md px-4 py-12"><form onSubmit={login} className="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm"><ShieldCheck className="h-9 w-9 text-[#515792]" /><h1 className="mt-4 text-2xl font-bold text-slate-950">Administration partenaire</h1><p className="mt-2 text-sm leading-relaxed text-slate-600">Gérez les organisations, invitations, réponses et exports.</p><label className="mt-6 block text-sm font-semibold text-slate-800">E-mail<input type="email" value={credentials.email} onChange={(event) => setCredentials({ ...credentials, email: event.target.value })} className="mt-2 w-full rounded-xl border border-slate-200 p-3 font-normal" /></label><label className="mt-4 block text-sm font-semibold text-slate-800">Mot de passe<input type="password" required value={credentials.password} onChange={(event) => setCredentials({ ...credentials, password: event.target.value })} className="mt-2 w-full rounded-xl border border-slate-200 p-3 font-normal" /></label>{error && <p className="mt-4 text-sm text-red-700">{error}</p>}<Button className="mt-6" type="submit" style={{ backgroundColor: "#515792", color: "#fff" }} disabled={Boolean(status)}>{status ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <LogIn className="mr-2 h-4 w-4" />}Se connecter</Button></form></div>;
+  return <div className="bg-slate-50 px-4 py-10"><section className="mx-auto max-w-6xl"><div className="flex flex-wrap items-start justify-between gap-4"><div><p className="text-xs font-bold uppercase tracking-[0.16em] text-[#515792]">Espace réservé</p><h1 className="mt-2 text-3xl font-extrabold text-slate-950">Administration partenaire</h1></div><div className="flex gap-2"><Button variant="outline" onClick={() => { window.open(`${PARTNER_API_URL}/api/admin/export.csv`, "_blank"); }}><Download className="mr-2 h-4 w-4" /> Export CSV</Button><Button variant="outline" onClick={logout}><LogOut className="mr-2 h-4 w-4" /> Déconnexion</Button></div></div>{error && <p className="mt-5 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700">{error}</p>}{status && <p className="mt-5 rounded-xl border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-700">{status}</p>}<div className="mt-8 grid gap-4 sm:grid-cols-3"><div className="rounded-2xl bg-white p-5 shadow-sm"><p className="text-sm text-slate-500">Organisations</p><p className="mt-1 text-3xl font-bold text-slate-950">{overview.organizations.length}</p></div><div className="rounded-2xl bg-white p-5 shadow-sm"><p className="text-sm text-slate-500">Demandes en attente</p><p className="mt-1 text-3xl font-bold text-slate-950">{overview.invitationRequests.filter((request) => request.status === "pending").length}</p></div><div className="rounded-2xl bg-white p-5 shadow-sm"><p className="text-sm text-slate-500">Questionnaires soumis</p><p className="mt-1 text-3xl font-bold text-slate-950">{overview.responses.filter((response) => response.status === "submitted").length}</p></div></div><div className="mt-8 grid gap-6 lg:grid-cols-2"><form onSubmit={createOrganization} className="rounded-2xl bg-white p-6 shadow-sm"><h2 className="font-bold text-slate-950">Ajouter une organisation</h2><input required value={organizationName} onChange={(event) => setOrganizationName(event.target.value)} placeholder="Nom de l’organisation" className="mt-4 w-full rounded-xl border border-slate-200 p-3" /><Button type="submit" className="mt-3" style={{ backgroundColor: "#515792", color: "#fff" }}><Plus className="mr-2 h-4 w-4" /> Ajouter</Button></form><form onSubmit={createContact} className="rounded-2xl bg-white p-6 shadow-sm"><h2 className="font-bold text-slate-950">Ajouter un contact</h2><select required value={contact.organizationId} onChange={(event) => setContact({ ...contact, organizationId: event.target.value })} className="mt-4 w-full rounded-xl border border-slate-200 p-3"><option value="">Choisir une organisation</option>{overview.organizations.map((organization) => <option key={organization.id} value={organization.id}>{organization.name}</option>)}</select><div className="mt-3 grid gap-3 sm:grid-cols-2"><input required value={contact.firstName} onChange={(event) => setContact({ ...contact, firstName: event.target.value })} placeholder="Prénom" className="rounded-xl border border-slate-200 p-3" /><input required value={contact.lastName} onChange={(event) => setContact({ ...contact, lastName: event.target.value })} placeholder="Nom" className="rounded-xl border border-slate-200 p-3" /></div><input required type="email" value={contact.email} onChange={(event) => setContact({ ...contact, email: event.target.value })} placeholder="E-mail" className="mt-3 w-full rounded-xl border border-slate-200 p-3" /><Button type="submit" className="mt-3" style={{ backgroundColor: "#515792", color: "#fff" }}><Plus className="mr-2 h-4 w-4" /> Ajouter</Button></form></div><div className="mt-8 rounded-2xl bg-white p-6 shadow-sm"><h2 className="font-bold text-slate-950">Demandes d’invitation</h2><div className="mt-4 space-y-3">{overview.invitationRequests.filter((request) => request.status === "pending").map((request) => <div key={request.id} className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-100 p-4"><p className="text-sm text-slate-700"><strong>{request.organization_name}</strong> — {request.first_name} {request.last_name}, {request.email}</p><Button size="sm" onClick={() => approveRequest(request.id)} style={{ backgroundColor: "#E07428", color: "#fff" }}><Send className="mr-2 h-3.5 w-3.5" /> Approuver</Button></div>)}{!overview.invitationRequests.some((request) => request.status === "pending") && <p className="text-sm text-slate-500">Aucune demande en attente.</p>}</div></div><div className="mt-8 rounded-2xl bg-white p-6 shadow-sm"><h2 className="font-bold text-slate-950">Contacts et invitations</h2><div className="mt-4 divide-y divide-slate-100">{overview.contacts.map((person) => <div key={person.id} className="flex flex-wrap items-center justify-between gap-3 py-4"><p className="text-sm text-slate-700"><strong>{person.first_name} {person.last_name}</strong><span className="block text-slate-500">{person.organization_name} — {person.email}</span></p><Button size="sm" variant="outline" onClick={() => issueInvitation(person.id)}><Copy className="mr-2 h-3.5 w-3.5" /> Générer un lien</Button></div>)}</div></div></section></div>;
+}

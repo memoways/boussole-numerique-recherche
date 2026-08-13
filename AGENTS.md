@@ -28,6 +28,8 @@ docker run --rm -p 8080:8080 boussole-numerique-culture
 | `Dockerfile` | Build multi-étapes et image Nginx de production. |
 | `infra/nginx/default.conf` | Cache des actifs et fallback SPA pour les routes Wouter. |
 | `docs/` | Exploitation, migration Coolify et décisions de déploiement. |
+| `services/partner-feedback-api/` | API Express/TypeScript, invitations, réponses et administration partenaire. |
+| `docker-compose.partner-feedback.yml` | Référence locale de l’API et PostgreSQL ; en production, créer ces services dans Coolify. |
 
 ## Règles de modification
 
@@ -37,7 +39,11 @@ Les évolutions de contenu suivent le cadre institutionnel : français uniquemen
 
 ## Sécurité et variables
 
-Le site actuel n'a besoin d'aucun secret. Ne créez jamais de clé privée, mot de passe ou token avec un préfixe `VITE_`, car ces valeurs sont publiées dans le JavaScript côté navigateur. Toute future intégration sensible doit être isolée dans un backend et configurée comme variable runtime dans Coolify. Consultez `config/ENVIRONMENT.md` avant d'ajouter une intégration.
+Le portail n'a besoin d’aucun secret côté client. Le module partenaire utilise des secrets serveur : PostgreSQL, jeton d’invitation, session admin, Deepgram et SMTP. Ne créez jamais de clé privée, mot de passe ou token avec un préfixe `VITE_`, car ces valeurs sont publiées dans le JavaScript côté navigateur. Consultez `config/ENVIRONMENT.md` et `docs/PARTNER_FEEDBACK_OPERATIONS.md` avant d’ajouter une intégration.
+
+## Expérience partenaire
+
+Les parcours `/partenaires/presentation`, `/partenaires/questionnaire` et `/partenaires/admin` forment un module séparé. Le frontend n’accède à l’API que via `VITE_PARTNER_API_URL`. Les secrets et la base de données restent dans `services/partner-feedback-api`. Les jetons d’invitation sont stockés uniquement sous forme d’empreinte ; ne journalisez jamais les URL personnelles ni les réponses qualitatives.
 
 ## Livraison
 

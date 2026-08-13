@@ -46,6 +46,37 @@ export const SEO_PAGES: Record<string, SeoPage> = {
     description:
       "Découvrez comment les structures, les professionnelles et professionnels, et les partenaires contribuent à la Boussole Numérique Culture.",
   },
+  "/partenaires/presentation": {
+    title: "Découvrir la Boussole | Partenaires",
+    description:
+      "Une présentation courte de la Boussole Numérique Culture pour les partenaires et premiers utilisateurs.",
+    breadcrumbs: [
+      { label: "Accueil", path: "/" },
+      { label: "Partenaires", path: "/partenaires" },
+      { label: "Découvrir la Boussole", path: "/partenaires/presentation" },
+    ],
+  },
+  "/partenaires/questionnaire": {
+    title: "Partager mes idées et feedbacks | Partenaires",
+    description:
+      "Demandez une invitation personnelle pour contribuer au questionnaire de co-construction de la Boussole Numérique Culture.",
+    index: false,
+    breadcrumbs: [
+      { label: "Accueil", path: "/" },
+      { label: "Partenaires", path: "/partenaires" },
+      { label: "Questionnaire", path: "/partenaires/questionnaire" },
+    ],
+  },
+  "/partenaires/admin": {
+    title: "Administration partenaire | Boussole Numérique Culture",
+    description: "Espace privé de gestion des invitations et des réponses partenaires.",
+    index: false,
+    breadcrumbs: [
+      { label: "Accueil", path: "/" },
+      { label: "Partenaires", path: "/partenaires" },
+      { label: "Administration", path: "/partenaires/admin" },
+    ],
+  },
   "/recherche": {
     title: "Recherche et enseignements | Boussole Numérique Culture",
     description:
@@ -115,6 +146,9 @@ const BREADCRUMB_LABELS: Record<string, string> = {
   "/experience": "Expérience",
   "/methode": "Méthode",
   "/partenaires": "Partenaires",
+  "/partenaires/presentation": "Découvrir la Boussole",
+  "/partenaires/questionnaire": "Questionnaire",
+  "/partenaires/admin": "Administration",
   "/recherche": "Recherche",
   "/references": "Références",
   "/ressources": "Ressources",

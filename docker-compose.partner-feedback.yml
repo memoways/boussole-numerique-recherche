@@ -1,0 +1,43 @@
+services:
+  partner-feedback-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-partner_feedback}
+      POSTGRES_USER: ${POSTGRES_USER:-partner_feedback}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - partner-feedback-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  partner-feedback-api:
+    build:
+      context: .
+      dockerfile: services/partner-feedback-api/Dockerfile
+    environment:
+      PORT: 3001
+      DATABASE_URL: postgresql://${POSTGRES_USER:-partner_feedback}:${POSTGRES_PASSWORD}@partner-feedback-db:5432/${POSTGRES_DB:-partner_feedback}
+      PUBLIC_APP_URL: ${PUBLIC_APP_URL}
+      ALLOWED_ORIGIN: ${ALLOWED_ORIGIN:-${PUBLIC_APP_URL}}
+      INVITATION_TOKEN_PEPPER: ${INVITATION_TOKEN_PEPPER}
+      ADMIN_SESSION_SECRET: ${ADMIN_SESSION_SECRET}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-ulrich.fischer@memoways.com}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      DEEPGRAM_API_KEY: ${DEEPGRAM_API_KEY:-}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+      MAIL_FROM: ${MAIL_FROM:-}
+      RUN_MIGRATIONS: "true"
+    depends_on:
+      partner-feedback-db:
+        condition: service_healthy
+    ports:
+      - "3001:3001"
+
+volumes:
+  partner-feedback-data:

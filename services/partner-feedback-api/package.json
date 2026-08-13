@@ -1,0 +1,32 @@
+{
+  "name": "@boussole/partner-feedback-api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "esbuild src/index.ts --platform=node --bundle --format=esm --outfile=dist/index.js",
+    "start": "node dist/index.js",
+    "check": "tsc --noEmit",
+    "migrate": "tsx src/migrate.ts"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "jose": "^6.1.0",
+    "nodemailer": "^9.0.5",
+    "pg": "^8.16.3",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.7.0",
+    "@types/nodemailer": "^8.0.1",
+    "@types/pg": "^8.15.5",
+    "esbuild": "^0.25.9",
+    "tsx": "^4.19.1",
+    "typescript": "5.6.3"
+  }
+}

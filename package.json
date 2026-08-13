@@ -5,12 +5,15 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
+    "dev:partner-api": "pnpm --filter @boussole/partner-feedback-api dev",
     "generate:seo": "node scripts/generate-seo.mjs pages",
     "generate:seo:root": "node scripts/generate-seo.mjs root",
     "build": "pnpm generate:seo && vite build && pnpm generate:seo:root",
+    "build:partner-api": "pnpm --filter @boussole/partner-feedback-api build",
     "preview": "vite preview --host 0.0.0.0",
     "check": "tsc --noEmit",
-    "verify": "pnpm check && pnpm build",
+    "check:partner-api": "pnpm --filter @boussole/partner-feedback-api check",
+    "verify": "pnpm check && pnpm check:partner-api && pnpm build && pnpm build:partner-api",
     "format": "prettier --write ."
   },
   "dependencies": {

@@ -21,14 +21,14 @@ Le portail est volontairement distinct de la future application de diagnostic. A
 2. **Faire comprendre l’expérience.** Les radars, la boussole interactive et les cinq dimensions rendent le diagnostic concret sans exiger de compétence technique.
 3. **Documenter la recherche.** Les pages Recherche, Références et Ressources relient la proposition aux pratiques et outils comparables étudiés.
 4. **Faciliter la navigation.** La navigation globale, le fil d’Ariane, le sommaire Projet et les adaptations mobile permettent de parcourir un contenu dense.
-5. **Préserver l’autonomie technique.** Le dépôt se construit sans service applicatif propriétaire et se déploie dans Coolify avec un conteneur Nginx.
+5. **Préserver l’autonomie technique.** Le dépôt se construit sans service applicatif propriétaire et se déploie dans Coolify avec un conteneur Nginx et une API partenaire dédiée.
 
 ## Stack
 
 ```text
 Frontend        : React 19, TypeScript, Vite, Wouter, Tailwind CSS 4, shadcn/ui
-Backend         : Aucun ; application statique monopage
-Base de données : Aucune
+Backend         : API partenaire Express/TypeScript, en cours d’intégration
+Base de données : PostgreSQL privé dans Coolify, prévu pour invitations et réponses
 Hébergement     : Docker + Nginx, prêt pour Coolify self-hosted
 Services tiers  : Google Fonts ; aucune API applicative, aucun secret requis
 Qualité         : TypeScript, build Vite, GitHub Actions, scripts de contrôle mobile
@@ -49,26 +49,29 @@ Qualité         : TypeScript, build Vite, GitHub Actions, scripts de contrôle 
 
 ## État courant
 
-**Dernière mise à jour** : 2026-08-12
+**Dernière mise à jour** : 2026-08-13
 
 - ✅ **Fait** : contenu institutionnel aligné sur le dossier de subvention, avec calendrier sur 24 mois et quatre phases.
 - ✅ **Fait** : partenaires confirmés présentés avec leurs liens ; la liste peut évoluer au fil de la co-conception.
 - ✅ **Fait** : encarts de soutien de la Ville de Genève ajoutés sous la présentation de Memoways sur Projet et avant le CTA final de Partenaires.
 - ✅ **Fait** : parcours mobile, contraste, navigation clavier, SEO, Open Graph et fil d’Ariane vérifiés.
 - ✅ **Fait** : préparation au déploiement autonome vers Coolify et documentation multi-agents.
-- 🔄 **En cours** : aucune fonctionnalité applicative n’est en développement dans ce dépôt ; la prochaine bascule opérationnelle est le déploiement Coolify.
-- 📋 **Reste à faire** : renseigner le domaine final dans `SITE_URL`, connecter le dépôt à Coolify, vérifier les aperçus sociaux et tester le site sur des appareils réels.
+- ✅ **Fait** : deux parcours partenaires autonomes sont en place ; la présentation est accessible librement et le questionnaire reste un accès indépendant.
+- ✅ **Fait** : le module partenaire inclut les invitations liées aux organisations, l’administration, les brouillons, les réponses vocales transcrites et les exports.
+- 🔄 **En cours** : API partenaire, invitations personnelles, questionnaire qualitatif, réponse vocale transcrite et administration des réponses.
+- 📋 **Reste à faire** : renseigner le domaine final dans `SITE_URL`, connecter les services Coolify, configurer le SMTP et les secrets, puis lancer le pilote partenaire.
 
 ## Questions ouvertes
 
 - [ ] Quel domaine HTTPS final sera utilisé pour le déploiement Coolify, et qui gère sa zone DNS ?
 - [ ] Quelle image Open Graph dédiée, au format 1200 × 630 px, doit remplacer le logo utilisé actuellement pour les aperçus sociaux ?
-- [ ] Quelle solution backend ou formulaire de retour sera retenue si le portail doit recueillir des inscriptions, retours d’usage ou demandes d’ajout à l’annuaire ?
-- [ ] Quelle première sous-page détaillée justifiera l’usage concret du fil d’Ariane à trois niveaux ?
+- [ ] Quel service SMTP ou transactionnel sera utilisé pour les invitations et les récapitulatifs individuels ?
+- [ ] Quelle date ou quel jalon précis marque la fin de conservation des réponses du questionnaire ?
+- [ ] Quelles personnes supplémentaires pourront accéder aux réponses nominatives dans l’administration ?
 
 ## Limitations connues
 
-- Le site est statique : les appels à l’action ouvrent un e-mail et ne créent aucune inscription ou donnée en base.
+- Le questionnaire partenaire n’est pas encore relié à une instance PostgreSQL/Coolify de production ; les CTA n’ouvrent pas encore de collecte réelle.
 - Les contenus éditoriaux sont encore principalement codés dans les composants React ; toute évolution fréquente devrait envisager une source de contenu structurée.
 - L’aperçu Open Graph réutilise le logo actuel ; une image de partage dédiée reste à produire.
 - Le bundle initial inclut des modules de visualisation et dépasse le seuil d’avertissement Vite ; une optimisation par chargement différé pourra être envisagée si les performances mesurées l’exigent.
@@ -83,4 +86,5 @@ Qualité         : TypeScript, build Vite, GitHub Actions, scripts de contrôle 
 - **Prévisualisation actuelle** : [boussole-numerique.manus.space](https://boussole-numerique.manus.space/)
 - **Migration Coolify** : [`docs/COOLIFY_MIGRATION.md`](docs/COOLIFY_MIGRATION.md)
 - **Opérations** : [`docs/OPERATIONS.md`](docs/OPERATIONS.md)
+- **Plan partenaire** : [`docs/PLAN_PARTENAIRES_PRESENTATION_QUESTIONNAIRE.md`](docs/PLAN_PARTENAIRES_PRESENTATION_QUESTIONNAIRE.md)
 - **SEO** : [`docs/SEO.md`](docs/SEO.md)

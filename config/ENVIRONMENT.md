@@ -18,3 +18,22 @@ Si une fonctionnalité a besoin d'un secret — clé IA, API externe, envoi d'e-
 | Certificat ou secret multiligne | Variable multiligne verrouillée dans Coolify | Non |
 
 Dans Coolify, ajoutez `SITE_URL=https://votre-domaine.example` comme variable de **build**, sans slash final. Ce n'est pas un secret. Les anciennes variables propres à Manus ne doivent pas être copiées vers Coolify.
+
+## Questionnaire partenaire
+
+Le questionnaire partenaire ajoute un backend distinct déployé comme une seconde application Coolify. La page statique reçoit uniquement l’URL publique de cette API via `VITE_PARTNER_API_URL` au **build**. Cette URL est publique et ne contient aucun secret.
+
+| Variable backend | Type | Règle |
+|---|---|---|
+| `DATABASE_URL` | Secret | Connexion PostgreSQL privée fournie par Coolify. |
+| `PUBLIC_APP_URL` | Configuration | URL HTTPS du portail partenaire. |
+| `ALLOWED_ORIGIN` | Configuration | Origine HTTPS exacte du portail. |
+| `INVITATION_TOKEN_PEPPER` | Secret | Chaîne aléatoire de 32 caractères minimum. |
+| `ADMIN_SESSION_SECRET` | Secret | Chaîne aléatoire de 32 caractères minimum. |
+| `ADMIN_EMAIL` | Configuration | E-mail administrateur initial : `ulrich.fischer@memoways.com`. |
+| `ADMIN_PASSWORD` | Secret | Mot de passe long, unique et stocké uniquement dans Coolify. |
+| `DEEPGRAM_API_KEY` | Secret optionnel | Active la transcription des réponses vocales ; absente, la réponse écrite reste disponible. |
+| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `MAIL_FROM` | Secrets et configuration optionnels | Activent l’envoi de l’invitation personnelle et du récapitulatif individuel après soumission. |
+| `RUN_MIGRATIONS` | Configuration | `true` au premier déploiement ou après une migration contrôlée. |
+
+Ne créez jamais ces secrets dans le frontend ni dans un fichier d’environnement commité. La liste complète figure également dans `docs/PLAN_PARTENAIRES_PRESENTATION_QUESTIONNAIRE.md`.

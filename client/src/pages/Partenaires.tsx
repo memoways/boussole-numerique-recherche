@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Users, Building2, TestTube, Heart, MessageSquare, ChevronRight } from "lucide-react";
+import { ArrowRight, Users, Building2, TestTube, Heart, MessageSquare, ChevronRight, Compass, MessagesSquare } from "lucide-react";
 import { Link } from "wouter";
 
 /**
@@ -73,16 +73,15 @@ export default function Partenaires() {
               </p>
             </div>
           </div>
-          <div className="flex flex-wrap gap-3">
-            <Button style={{ backgroundColor: '#E07428', color: '#fff' }} asChild>
-              <a href="mailto:ulrich.fischer@memoways.com?subject=Boussole Numérique Culture — Je souhaite participer">
-                <MessageSquare className="mr-2 h-4 w-4" />
-                Signaler mon intérêt
-              </a>
-            </Button>
-            <Button variant="outline" style={{ borderColor: '#E07428', color: '#1f2937' }} asChild>
-              <Link href="/methode">Voir la méthode</Link>
-            </Button>
+          <div className="grid max-w-2xl gap-3 sm:grid-cols-2">
+            <Link href="/partenaires/presentation" className="group rounded-xl border border-[#515792]/25 bg-white p-4 transition-all hover:-translate-y-0.5 hover:border-[#515792] hover:shadow-sm">
+              <span className="flex items-center gap-2 font-semibold text-slate-950"><Compass className="h-4 w-4 text-[#515792]" /> Découvrir la Boussole <ArrowRight className="ml-auto h-4 w-4 text-[#515792] transition-transform group-hover:translate-x-0.5" /></span>
+              <span className="mt-2 block text-sm leading-relaxed text-slate-600">Une présentation courte pour comprendre le projet et son utilité.</span>
+            </Link>
+            <Link href="/partenaires/questionnaire" className="group rounded-xl bg-[#E07428] p-4 text-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
+              <span className="flex items-center gap-2 font-semibold"><MessagesSquare className="h-4 w-4" /> Partager mes idées et feedbacks <ArrowRight className="ml-auto h-4 w-4 transition-transform group-hover:translate-x-0.5" /></span>
+              <span className="mt-2 block text-sm leading-relaxed text-white/90">Pour co-construire la Boussole en phase avec nos besoins, objectifs et enjeux.</span>
+            </Link>
           </div>
         </div>
       </section>
