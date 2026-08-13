@@ -429,26 +429,21 @@ export default function PartnerPresentation() {
           <div className="h-full rounded-full transition-[width] duration-300 motion-reduce:transition-none" style={{ width: `${((currentIndex + 1) / SLIDES.length) * 100}%`, backgroundColor: slide.accent }} />
         </div>
 
-        <article className="mt-5 overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-50 via-white to-white shadow-[0_20px_70px_rgba(42,54,90,0.08)] lg:max-h-[800px] lg:overflow-y-auto">
-          <div className={`grid gap-5 p-5 sm:p-7 lg:items-center lg:gap-8 lg:p-9 xl:p-10 ${slide.visual === "none" ? "" : "lg:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)]"}`}>
-            <div>
-              <div className="flex items-start justify-between gap-6">
-                <p className="text-xs font-bold uppercase tracking-[0.16em]" style={{ color: slide.accent }}>{slide.eyebrow}</p>
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-white shadow-sm sm:h-14 sm:w-14" style={{ backgroundColor: slide.accent }}>
-                  <Icon className="h-6 w-6" aria-hidden="true" />
-                </div>
-              </div>
-              <div className="mt-6">
-                <h1 className="text-3xl font-extrabold leading-tight text-slate-950 sm:text-4xl xl:text-[2.7rem]">{slide.title}</h1>
-                <p className="mt-4 max-w-3xl text-base leading-relaxed text-slate-600 sm:text-lg">{slide.text}</p>
+        <article className="mt-5 overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-50 via-white to-white shadow-[0_20px_70px_rgba(42,54,90,0.08)] lg:flex lg:h-[900px] lg:max-h-[900px] lg:flex-col">
+          <div className="p-5 sm:p-7 lg:h-[480px] lg:shrink-0 lg:overflow-y-auto lg:p-9 xl:p-10">
+            <p className="text-xs font-extrabold uppercase tracking-[0.16em]" style={{ color: slide.accent }}>{slide.eyebrow}</p>
+            <h1 className="mt-5 max-w-none text-3xl font-extrabold leading-tight text-slate-950 sm:text-4xl xl:text-[2.7rem]">{slide.title}</h1>
+            <div className={`mt-5 grid gap-5 lg:items-center lg:gap-8 ${slide.visual === "none" ? "" : "lg:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)]"}`}>
+              <div>
+                <p className="max-w-3xl text-base leading-relaxed text-slate-600 sm:text-lg">{slide.text}</p>
                 <p className="mt-4 text-sm font-medium text-slate-500">Ouvrez les repères ci-dessous pour approfondir sans quitter cette présentation.</p>
               </div>
+              {slide.visual === "compass" && <div className="rounded-3xl border border-white bg-white/70 p-3 shadow-inner sm:p-4"><SlideVisual kind={slide.visual} accent={slide.accent} icon={Icon} /></div>}
+              {slide.visual !== "none" && slide.visual !== "compass" && <div className="rounded-3xl border border-white bg-white/70 p-5 shadow-inner sm:p-6"><StoryIllustration kind={slide.visual} accent={slide.accent} /></div>}
             </div>
-            {slide.visual === "compass" && <div className="rounded-3xl border border-white bg-white/70 p-3 shadow-inner sm:p-4"><SlideVisual kind={slide.visual} accent={slide.accent} icon={Icon} /></div>}
-            {slide.visual !== "none" && slide.visual !== "compass" && <div className="rounded-3xl border border-white bg-white/70 p-5 shadow-inner sm:p-6"><StoryIllustration kind={slide.visual} accent={slide.accent} /></div>}
           </div>
 
-          <nav className="border-t border-slate-200 bg-white px-5 py-4 sm:px-7 lg:px-9 xl:px-10" aria-label="Navigation de la présentation">
+          <nav className="shrink-0 border-y border-slate-200 bg-white px-5 py-4 sm:px-7 lg:h-[72px] lg:px-9 xl:px-10" aria-label="Navigation de la présentation">
             <div className="flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
               <Button variant="outline" disabled={currentIndex === 0} onClick={() => goToSlide(currentIndex - 1)}>
                 <ArrowLeft className="mr-2 h-4 w-4" /> Précédent
@@ -466,7 +461,7 @@ export default function PartnerPresentation() {
             </div>
           </nav>
 
-          <div className="border-t border-slate-200 bg-white px-5 py-5 sm:px-7 lg:px-9 xl:px-10">
+          <div className="bg-white px-5 py-5 sm:px-7 lg:min-h-0 lg:flex-1 lg:overflow-y-auto lg:px-9 xl:px-10">
             <Accordion type="single" collapsible value={openDetail} onValueChange={(value) => setPresentationState(currentIndex, value)} className="grid gap-3 lg:grid-cols-2">
               {slide.details.map((detail) => <AccordionItem id={`presentation-detail-${detail.id}`} key={detail.id} value={detail.id} className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50/70 px-4 last:border-b sm:px-5" style={{ borderColor: openDetail === detail.id ? `${slide.accent}55` : undefined }}>
                 <AccordionTrigger className="py-4 no-underline hover:no-underline">

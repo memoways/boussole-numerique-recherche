@@ -61,3 +61,4 @@
 - [x] Ajouter la liste admin des e-mails Dreamlit en attente et la régénération manuelle d’un récapitulatif.
 - [x] Réparer et recompacter les slides partenaire avec des visuels cohérents de boussole et de radar.
 - [x] Fixer la navigation du deck partenaire et différencier les illustrations selon chaque slide.
+- [x] Aligner le deck sur la référence annotée avec un gabarit interne de 900 px et une navigation immobile.

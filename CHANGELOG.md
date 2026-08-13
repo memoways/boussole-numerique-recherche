@@ -17,6 +17,7 @@ Ce fichier suit le format [Keep a Changelog](https://keepachangelog.com/fr/1.1.0
 - Console partenaire : liste des e-mails prêts pour Dreamlit, aperçu du récapitulatif et régénération manuelle sécurisée par réponse soumise.
 - Présentation partenaire corrigée : toggles et navigation Suivant opérationnels, gabarit desktop compact et radar-boussole cohérent avec l’expérience Boussole.
 - Présentation partenaire affinée : navigation fixée avant les détails, radar réservé à la slide d’ouverture et illustrations spécifiques ou volontairement absentes sur les slides suivantes.
+- Présentation partenaire alignée sur la référence annotée : titre pleine largeur, icône haute supprimée, gabarit interne desktop de 900 px et contrôles strictement immobiles.
 - Encarts de soutien de la Ville de Genève, avec logo, lien vers la démarche de subvention et formulation institutionnelle sur les pages Projet et Partenaires.
 
 ---

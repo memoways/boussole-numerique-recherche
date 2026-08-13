@@ -12,6 +12,8 @@ Le 13 août 2026, la présentation partenaire a été recontrôlée sur desktop 
 
 Le même contrôle a confirmé que les boutons Précédent et Suivant sont placés avant les panneaux de détail : leur position ne dépend plus de l’ouverture d’un toggle. Le radar-boussole est réservé à la première slide ; la seconde slide n’affiche pas d’illustration superflue et conserve une mise en page compacte.
 
+Après l’alignement sur la référence annotée, la slide 7 a été contrôlée dans le gabarit interne de 900 px. La carte mesure 900 px, les contrôles de navigation commencent à 481 px depuis son sommet, occupent 72 px et les panneaux de détail commencent à 573 px. Les contrôles restent donc au même emplacement entre les slides et hors du contenu dépliable. Aucun débordement horizontal n’a été détecté.
+
 | Contrôle restant après Coolify | Résultat attendu |
 |---|---|
 | `GET /health` de l’API | `{"status":"ok"}` avec PostgreSQL connecté. |

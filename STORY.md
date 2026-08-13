@@ -70,6 +70,7 @@ Qualité         : TypeScript, build Vite, GitHub Actions, scripts de contrôle 
 - ✅ **Fait** : `/admin` permet de consulter chaque récapitulatif prêt pour Dreamlit et de le régénérer, avec un compteur visible et une trace d’événement côté API.
 - ✅ **Fait** : la présentation partenaire garde ses détails dépliables et sa navigation fonctionnels, avec un radar-boussole commun aux neuf slides et une composition plus compacte.
 - ✅ **Fait** : les contrôles du deck sont stables avant les toggles ; le radar n’est présent qu’à l’ouverture et les slides suivantes utilisent une illustration liée à leur propos lorsqu’elle est utile.
+- ✅ **Fait** : le deck desktop adopte un gabarit interne de 900 px, avec titre pleine largeur, icône décorative retirée et contrôles situés à une coordonnée stable avant les détails.
 - 📋 **Reste à faire** : créer les ressources Coolify, renseigner le domaine final dans `SITE_URL`, configurer le SMTP et les secrets, puis lancer le pilote partenaire.
 
 ## Questions ouvertes
