@@ -23,6 +23,7 @@ Ce fichier suit le format [Keep a Changelog](https://keepachangelog.com/fr/1.1.0
 - Audit d’accessibilité mobile : lien d’évitement, focus clavier, repères sémantiques, préférences de mouvement réduit et interactions clavier.
 
 ### Changed
+- Hero de la page Partenaires resserré ; capsule de soutien optimisée pour l’affichage mobile.
 - Calendrier aligné sur le dossier de subvention : 24 mois et quatre phases.
 - Page Méthode enrichie des principes de gouvernance ; ancienne page Gouvernance redirigée vers Méthode.
 - Navigation principale simplifiée : Projet, Calendrier, Expérience, Méthode et Partenaires ; Recherche et Ressources restent accessibles depuis les pages et le footer.

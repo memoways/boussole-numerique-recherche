@@ -47,3 +47,4 @@
 - [x] Ajouter et vérifier l’encart de soutien sur la page Projet, en desktop et mobile.
 - [x] Ajouter l’encart de soutien de la Ville de Genève avant le CTA de la page Partenaires.
 - [x] Déplacer la capsule de soutien de la Ville de Genève en haut de la page Partenaires, juste avant le CTA principal.
+- [x] Réduire l’espacement vertical du hero Partenaires et optimiser la capsule sur mobile.

@@ -42,33 +42,33 @@ export default function Partenaires() {
     <div className="bg-white">
 
       {/* Hero */}
-      <section className="pt-20 sm:pt-24 pb-12 px-4 bg-gradient-to-b from-slate-50 to-white">
+      <section className="pt-10 sm:pt-16 pb-8 sm:pb-10 px-4 bg-gradient-to-b from-slate-50 to-white">
         <div className="max-w-4xl mx-auto">
           <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#515792', color: '#fff' }}>Partenaires</Badge>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4 leading-tight">
             Partenaires & premiers utilisateurs
           </h1>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-2xl leading-relaxed mb-8">
+          <p className="text-lg sm:text-xl text-gray-600 max-w-2xl leading-relaxed mb-5">
             La Boussole se construit avec les professionnels et les structures du secteur culturel. Votre participation contribue directement à la pertinence de l'outil.
           </p>
-          <div className="mb-6 max-w-2xl rounded-xl border border-slate-200 bg-white px-4 py-3.5 sm:flex sm:items-center sm:gap-4">
+          <div className="mb-5 flex max-w-2xl items-center gap-3 rounded-xl border border-slate-200 bg-white px-3 py-3 sm:gap-4 sm:px-4 sm:py-3.5">
             <a
               href="https://www.geneve.ch/demarches/subvention-projets-ponctuels-culturels-scientifiques"
               target="_blank"
               rel="noopener noreferrer"
-              className="mb-3 inline-flex shrink-0 rounded-lg bg-slate-50 p-1.5 transition-colors hover:bg-slate-100 sm:mb-0"
+              className="inline-flex shrink-0 rounded-lg bg-slate-50 p-1.5 transition-colors hover:bg-slate-100"
               aria-label="Consulter la démarche de subvention de la Ville de Genève"
             >
               <img
                 src="/ville-geneve-soutien.8334b29d.png"
                 alt="Ville de Genève"
-                className="h-14 w-14 object-contain"
+                className="h-11 w-11 object-contain sm:h-14 sm:w-14"
               />
             </a>
             <div className="min-w-0">
-              <p className="text-xs font-bold uppercase tracking-widest" style={{ color: '#515792' }}>Avec le soutien de</p>
+              <p className="text-[10px] font-bold uppercase tracking-[0.14em] sm:text-xs sm:tracking-widest" style={{ color: '#515792' }}>Avec le soutien de</p>
               <p className="mt-0.5 text-sm font-semibold text-slate-900">Ville de Genève</p>
-              <p className="mt-1 text-sm leading-relaxed text-slate-600">
+              <p className="mt-0.5 text-xs leading-relaxed text-slate-600 sm:mt-1 sm:text-sm">
                 Ce projet bénéficie du soutien de la Ville de Genève dans le cadre de sa démarche de subvention pour projets ponctuels, culturels ou scientifiques.
               </p>
             </div>
