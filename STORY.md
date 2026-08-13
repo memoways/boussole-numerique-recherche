@@ -53,7 +53,7 @@ Qualité         : TypeScript, build Vite, GitHub Actions, scripts de contrôle 
 
 - ✅ **Fait** : contenu institutionnel aligné sur le dossier de subvention, avec calendrier sur 24 mois et quatre phases.
 - ✅ **Fait** : partenaires confirmés présentés avec leurs liens ; la liste peut évoluer au fil de la co-conception.
-- ✅ **Fait** : encart de soutien de la Ville de Genève ajouté sous la présentation de Memoways sur la page Projet.
+- ✅ **Fait** : encarts de soutien de la Ville de Genève ajoutés sous la présentation de Memoways sur Projet et avant le CTA final de Partenaires.
 - ✅ **Fait** : parcours mobile, contraste, navigation clavier, SEO, Open Graph et fil d’Ariane vérifiés.
 - ✅ **Fait** : préparation au déploiement autonome vers Coolify et documentation multi-agents.
 - 🔄 **En cours** : aucune fonctionnalité applicative n’est en développement dans ce dépôt ; la prochaine bascule opérationnelle est le déploiement Coolify.

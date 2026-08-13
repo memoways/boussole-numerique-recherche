@@ -45,3 +45,4 @@
 - [x] Vérifier les documents de continuité pour la reprise par des développeurs ou agents IA.
 - [x] Préparer le logo et la formulation de soutien institutionnel de la Ville de Genève.
 - [x] Ajouter et vérifier l’encart de soutien sur la page Projet, en desktop et mobile.
+- [x] Ajouter l’encart de soutien de la Ville de Genève avant le CTA de la page Partenaires.
