@@ -18,7 +18,7 @@ const SPECTRE_PARTENAIRES = [
 ] as const;
 
 const POURQUOI_PARTICIPER = [
-  { titre: "Façonner un outil utile", desc: "Votre expérience du terrain oriente directement la conception de la Boussole — les questions posées, les recommandations proposées.", icon: Heart, couleur: "#515792" },
+  { titre: "Façonner un outil utile", desc: "Votre expérience oriente directement la conception de la Boussole : les questions posées et les formes de restitution envisagées.", icon: Heart, couleur: "#515792" },
   { titre: "Accès en avant-première", desc: "Les partenaires de co-conception auront accès à la Boussole avant sa mise à disposition publique.", icon: TestTube, couleur: "#3a7fc1" },
   { titre: "Contribuer à un bien commun", desc: "La Boussole sera gratuite et open source. Participer, c'est contribuer à un outil collectif pour le secteur.", icon: Users, couleur: "#3aab8a" },
 ];
@@ -249,8 +249,7 @@ export default function Partenaires() {
         <div className="max-w-4xl mx-auto">
           <div className="rounded-2xl p-8" style={{ background: 'linear-gradient(135deg, #515792 0%, #3a7fc1 32%, #3aab8a 62%, #E07428 100%)' }}>
             <h2 className="text-2xl font-bold text-white mb-4">Comment le portail pourra évoluer</h2>
-            <p className="text-white/80 leading-relaxed mb-6">Ce site compagnon est conçu pour évoluer avec le projet. Il pourra devenir, avec les partenaires et premiers utilisateurs, un espace de suivi de l'avancement, de partage des apprentissages, de documentation des retours et de préparation des premiers usages.</p>
-            <p className="text-white/70 text-sm leading-relaxed">Ce site compagnon est conçu pour évoluer avec le projet, au rythme des partenaires et des premiers utilisateurs.</p>
+            <p className="text-white/80 leading-relaxed">Ce site compagnon pourra devenir, avec les partenaires et premiers utilisateurs, un espace de suivi de l’avancement, de partage des apprentissages, de documentation des retours et de préparation des premiers usages.</p>
           </div>
         </div>
       </section>
@@ -264,7 +263,7 @@ export default function Partenaires() {
             <Button size="lg" style={{ backgroundColor: '#E07428', color: '#fff' }} asChild>
               <a href="mailto:ulrich.fischer@memoways.com?subject=Boussole Numérique Culture — Je souhaite participer">
                 <MessageSquare className="mr-2 h-4 w-4" />
-                Nous écrire
+                Poser une question sur la participation
               </a>
             </Button>
             <Button size="lg" variant="outline" style={{ borderColor: '#E07428', color: '#1f2937' }} asChild>

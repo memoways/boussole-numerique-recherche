@@ -29,6 +29,7 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - `SITE_URL` fixé par défaut dans le Dockerfile et la documentation sur `https://boussole-culture-recherche.memoways.com`, avec vérification des URL canoniques et Open Graph générées.
 - Sitemap généré au build avec domaine final, date de génération, fréquence et priorité par route indexable ; `robots.txt` référence ce sitemap et exclut les parcours administratifs et de questionnaire.
 - Plan d’optimisation rédactionnelle ajouté dans `docs/`, avec diagnostic des promesses au présent, répétitions, CTA et affirmations documentaires à vérifier avant réécriture.
+- Première passe éditoriale appliquée : Accueil, Projet, Expérience et Calendrier distinguent la co-conception du futur outil ; Références renonce aux revendications d’exclusivité non étayées ; Méthode et Partenaires resserrent leurs répétitions et CTA.
 
 ### Vérifié
 

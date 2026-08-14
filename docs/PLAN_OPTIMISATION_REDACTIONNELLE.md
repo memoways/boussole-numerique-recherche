@@ -105,6 +105,25 @@ Cette version garde la promesse d’usage, sans présenter comme active une exp�
 | 3 | Références et Recherche | Moyen : affirmations documentaires | Vérification de chaque source avant toute réécriture d’une donnée ou d’une affirmation comparative. |
 | 4 | Passes de style transversales | Faible : resserrage | Compter les tirets et les antithèses, sans lisser les exemples ni l’écriture inclusive. |
 
+## Révisions appliquées — première passe
+
+Les arbitrages de l’équipe de projet ont validé les quatre axes prioritaires. Les textes publics ont été corrigés le 14 août 2026 ; les faits, chiffres, noms propres et références n’ont pas été modifiés.
+
+| Pages | Diagnostic traité | Révision appliquée |
+|---|---|---|
+| Accueil | Le hero et les démonstrations décrivaient le futur outil au présent. | Le premier écran annonce désormais un projet en co-conception. Les actions de la future Boussole sont formulées au futur. |
+| Projet | La note d’intention présentait une application et un diagnostic comme déjà opérationnels. | La page distingue le projet, le travail actuel avec les partenaires et la version publique future. |
+| Expérience | Les étapes, le radar et les CTA pouvaient être lus comme un parcours disponible. | L’introduction, les étapes et le radar sont explicitement décrits comme démonstration du futur parcours. Les CTA indiquent ce que la personne trouvera. |
+| Calendrier | Les phases futures 2 à 4 utilisaient le présent. | Les descriptions sont passées au futur et les objectifs de phase 4 sont présentés comme indicatifs. |
+| Références | Les cartes revendiquaient une exclusivité et une première non sourcées. | La section devient « Ce que la veille oriente dans la Boussole » et présente des choix de conception sans revendication d’unicité. |
+| Méthode et Partenaires | Citations auto-attribuées, répétitions et CTA peu informatifs. | Les six principes de gouvernance sont nommés de façon stable, le bloc auto-attribué est remplacé par un contenu factuel, et les CTA précisent l’action attendue. |
+
+## Questions pour la prochaine passe
+
+1. La section « Ce que la veille oriente dans la Boussole » doit-elle conserver six cartes, ou être réduite aux trois choix les plus déterminants pour raccourcir la page Références ?
+2. Souhaitez-vous conserver l’expression « agent intelligent » sur la page Projet, ou préférer une formulation plus directe telle que « dialogue guidé par IA », expliquée à la première occurrence ?
+3. La prochaine passe doit-elle traiter d’abord la page Recherche, plus documentaire, ou la page Partenaires, plus orientée vers la contribution ?
+
 ## À compléter
 
 - [FAIT À FOURNIR : source établissant que la Boussole est « le seul outil 100% culturel francophone » et « la première initiative de ce type »] — nécessaire avant de conserver ces deux revendications sur la page Références.

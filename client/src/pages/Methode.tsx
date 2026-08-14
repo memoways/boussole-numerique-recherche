@@ -89,14 +89,14 @@ export default function Methode() {
             Méthode, co-conception & gouvernance
           </h1>
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl leading-relaxed mb-8">
-            La Boussole sera construite avec les structures culturelles — pas pour elles. Et ses engagements fondateurs sont inscrits dans sa conception depuis le premier jour.
+            La Boussole sera construite avec les structures culturelles — pas pour elles. Ses six principes de gouvernance guident déjà la conception du projet.
           </p>
           <div className="flex flex-wrap gap-3">
             <Button style={{ backgroundColor: '#515792' }} asChild>
-              <Link href="/timeline">Voir le calendrier <ArrowRight className="ml-2 h-4 w-4" /></Link>
+              <Link href="/timeline">Consulter les quatre phases <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
             <Button variant="outline" style={{ borderColor: '#E27227', color: '#E27227' }} asChild>
-              <Link href="/partenaires">Devenir partenaire</Link>
+              <Link href="/partenaires">Découvrir comment contribuer</Link>
             </Button>
           </div>
         </div>
@@ -115,10 +115,10 @@ export default function Methode() {
               </div>
             </div>
             <div className="rounded-2xl p-8" style={{ backgroundColor: '#f0f1f8' }}>
-              <blockquote className="text-gray-700 italic leading-relaxed text-lg">
-                "La co-conception n'est pas un supplément de communication. C'est une manière de réduire le risque de produire un outil trop technique, trop général ou trop éloigné des pratiques réelles."
-              </blockquote>
-              <p className="mt-4 text-sm text-gray-500 font-medium">— Principe fondateur du projet Boussole</p>
+              <h3 className="font-bold text-gray-900 text-lg mb-3">Ce que les premières rencontres doivent préciser</h3>
+              <p className="text-gray-700 leading-relaxed">
+                Les formulations des questions, les exemples qui parlent aux structures et les conditions dans lesquelles le futur outil sera utile. Ces éléments seront testés avant toute mise à disposition publique.
+              </p>
             </div>
           </div>
         </div>
@@ -167,9 +167,9 @@ export default function Methode() {
       <section className="py-14 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
           <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#515792' }}>Gouvernance</Badge>
-          <h2 className="text-2xl font-bold text-gray-900 mb-3">Engagements fondateurs</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-3">Les six principes de gouvernance</h2>
           <p className="text-gray-500 mb-10 max-w-xl">
-            La Boussole repose sur six principes inscrits dans sa conception depuis le premier jour — indépendamment des financements ou des partenariats.
+            Ces six principes guident la conception du projet, indépendamment des financements ou des partenariats.
           </p>
           <div className="space-y-4">
             {PRINCIPES_GOUVERNANCE.map(({ icon: Icon, titre, couleur, texte, engagements, annexe }: { icon: React.ElementType; titre: string; couleur: string; texte: string; engagements: string[]; annexe?: string }) => (
@@ -208,7 +208,7 @@ export default function Methode() {
               </div>
               <div className="flex-1">
                 <h3 className="font-bold text-gray-900 text-lg mb-2">Évaluation continue</h3>
-                <p className="text-gray-600 leading-relaxed">Un mécanisme de retour continu est intégré directement dans l'outil : un court questionnaire de satisfaction, accessible à tout moment depuis la Boussole, permet aux utilisatrices et utilisateurs de partager leurs retours, formuler des demandes d'amélioration ou signaler un problème technique. Ces retours sont examinés régulièrement pour prioriser les ajustements et nourrissent le rapport d'évaluation intermédiaire prévu en fin de phase pilote.</p>
+                <p className="text-gray-600 leading-relaxed">La version publique intégrera un mécanisme de retour continu : un court questionnaire de satisfaction permettra aux utilisatrices et utilisateurs de partager leurs retours, de formuler une demande d’amélioration ou de signaler un problème technique. Ces retours seront examinés régulièrement afin de prioriser les ajustements et d’alimenter le rapport d’évaluation intermédiaire prévu en fin de phase pilote.</p>
               </div>
             </div>
           </div>
@@ -218,8 +218,8 @@ export default function Methode() {
             <div>
               <h3 className="text-xl font-bold text-gray-900 mb-4">Anonymisation des données</h3>
               <div className="space-y-4 text-gray-600 leading-relaxed">
-                <p>Les réponses individuelles ne sont jamais publiées ni partagées sans consentement explicite. Seules des synthèses agrégées et anonymisées pourront être utilisées pour améliorer l'outil ou documenter les tendances du secteur.</p>
-                <p>L'objectif de la collecte de données n'est pas de constituer une base de données sur les structures culturelles, mais d'améliorer la pertinence des recommandations de manière anonyme.</p>
+                <p>La future version ne publiera ni ne partagera de réponse individuelle sans consentement explicite. Seules des synthèses agrégées et anonymisées pourront servir à améliorer l’outil ou à documenter les tendances du secteur.</p>
+                <p>La collecte de données visera à améliorer la pertinence des recommandations de manière anonyme. Elle ne servira pas à constituer une base de données sur les structures culturelles.</p>
               </div>
             </div>
             <div>

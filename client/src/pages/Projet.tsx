@@ -273,7 +273,7 @@ export default function Projet() {
             </span>
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl leading-relaxed">
-            Un outil web gratuit pour évaluer les pratiques numériques des actrices et acteurs culturels, identifier les priorités et cheminer vers de meilleures façons de travailler — sans expertise technique préalable.
+            Un projet en co-conception pour concevoir un outil web gratuit qui aidera les actrices et acteurs culturels à situer leurs pratiques numériques et à choisir leurs priorités.
           </p>
         </div>
       </section>
@@ -351,10 +351,10 @@ export default function Projet() {
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-5">Un outil pour voir où l'on en est</h2>
             <div className="space-y-4 text-gray-600 leading-relaxed">
               <p>
-                La <strong className="text-gray-900">Boussole Numérique Culture</strong> est une application web interactive et gratuite qui permet aux actrices et acteurs culturels de faire un état des lieux de leurs usages numériques — ce qui fonctionne, ce qui coince, les envies, les besoins, les questionnements — puis de recevoir un accompagnement conversationnel personnalisé pour cheminer vers de meilleures pratiques numériques.
+                La <strong className="text-gray-900">Boussole Numérique Culture</strong> est un projet d’application web gratuite. Sa version publique proposera un état des lieux des usages numériques, suivi d’une restitution visuelle et d’un dialogue guidé.
               </p>
               <p>
-                L'outil repose sur un questionnaire adaptatif d'une dizaine de minutes, suivi d'une restitution visuelle et d'un dialogue guidé par une intelligence artificielle spécialement conçue pour la réalité du secteur culturel. L'outil propose un <strong className="text-gray-900">diagnostic structuré et personnalisé</strong>, conçu pour aider chacun et chacune à identifier les endroits précis où un changement ciblé peut avoir un impact réel sur leur quotidien de travail.
+                Les partenaires précisent aujourd’hui les questions, les dimensions et les formes de restitution. La version publique s’appuiera sur un questionnaire adaptatif d’une dizaine de minutes, puis proposera une restitution visuelle et un dialogue guidé. Elle visera un <strong className="text-gray-900">diagnostic structuré et personnalisé</strong>, pour aider chacun et chacune à repérer les changements utiles dans leur quotidien de travail.
               </p>
               <p>
                 Le projet est porté par une équipe spécialisée dans la transformation numérique des organisations culturelles et créatives, avec une pratique professionnelle ancrée dans le secteur culturel suisse.
@@ -450,7 +450,7 @@ export default function Projet() {
                 </div>
               ))}
               <div className="px-5 py-3 text-xs text-gray-400 italic border-t border-gray-100" style={{ backgroundColor: '#f8f9fc' }}>
-                Les problématiques ont été identifiées lors d'entretiens menés avec des structures culturelles genevoises. La Boussole aide à les diagnostiquer et à prioriser les améliorations.
+                Les problématiques ont été identifiées lors d'entretiens menés avec des structures culturelles genevoises. La future Boussole aidera à les diagnostiquer et à prioriser les améliorations.
               </div>
               </div>
             </div>
@@ -461,7 +461,7 @@ export default function Projet() {
             <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#3aab8a' }}>La proposition</Badge>
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-5">Ce que fait la Boussole, concrètement</h2>
             <p className="text-gray-600 leading-relaxed mb-8">
-              La Boussole Numérique Culture est une application web gratuite qui propose une <strong className="text-gray-900">expérience conversationnelle guidée</strong> — un dialogue structuré avec un agent intelligent conçu pour le secteur culturel. Pensée comme un <em>Nos Gestes Climat pour les pratiques numériques</em>, elle est conçue pour et avec les personnes qu'elle entend servir : dès le départ, le concept, les questions et les promesses sont soumis à des utilisatrices et utilisateurs potentiels pour recueillir réactions, attentes et doutes. L'application finale évoluera au fil des discussions avec les partenaires, des expérimentations techniques et des retours des premières structures pilotes.
+              La version publique de la Boussole proposera une <strong className="text-gray-900">expérience conversationnelle guidée</strong> : un dialogue structuré avec un agent intelligent conçu pour le secteur culturel. Le concept, les questions et les promesses sont soumis à des utilisatrices et utilisateurs potentiels afin de recueillir réactions, attentes et doutes. L’application évoluera au fil des discussions avec les partenaires, des expérimentations techniques et des retours des premières structures pilotes.
             </p>
 
             {/* Les 5 dimensions */}
@@ -477,7 +477,7 @@ export default function Projet() {
                 </div>
               ))}
               <div className="rounded-xl border border-dashed border-gray-200 p-4 flex items-center justify-center text-center">
-                <p className="text-xs text-gray-400 italic leading-relaxed">Les questions s'appuient sur des micro-scénarios réalistes du "quotidien culturel" — pas de jargon technique.</p>
+                <p className="text-xs text-gray-400 italic leading-relaxed">La future version s’appuiera sur des micro-scénarios issus du quotidien culturel.</p>
               </div>
             </div>
 

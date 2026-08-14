@@ -66,10 +66,10 @@ const GARANTIES = [
 ];
 
 const ETAPES_OUTIL = [
-  { num: "01", titre: "Choisir son profil", desc: "Individuel ou structure. L'expérience s'adapte à votre situation.", icon: Users },
-  { num: "02", titre: "Répondre au questionnaire", desc: "Un dialogue guidé, bienveillant, sans jargon technique.", icon: Compass },
-  { num: "03", titre: "Recevoir un panorama visuel", desc: "Une carte claire de vos pratiques numériques, en cinq dimensions.", icon: Eye },
-  { num: "04", titre: "Explorer des pistes d'action", desc: "Des ressources et suggestions adaptées à votre contexte réel.", icon: ArrowRight },
+  { num: "01", titre: "Choisir son profil", desc: "Individuel ou structure. Le futur parcours tiendra compte de cette première indication.", icon: Users },
+  { num: "02", titre: "Répondre au questionnaire", desc: "Un dialogue guidé, en langage ordinaire, est en cours de conception.", icon: Compass },
+  { num: "03", titre: "Recevoir un panorama visuel", desc: "Une carte en cinq dimensions aidera à situer ses pratiques numériques.", icon: Eye },
+  { num: "04", titre: "Explorer des pistes d'action", desc: "Des ressources et suggestions proposeront un premier pas utile.", icon: ArrowRight },
 ];
 
 // ─── Radar interactif (partagé avec /experience) ────────────────────────────
@@ -598,8 +598,7 @@ export default function Home() {
 
           {/* Sous-titre */}
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto mb-12 leading-relaxed">
-            Un outil gratuit conçu pour les actrices et acteurs culturels de Genève
-            — pour comprendre leurs pratiques numériques, identifier ce qui freine leur travail et choisir des pistes d'amélioration adaptées à leur situation.
+            Un projet en co-conception avec les actrices et acteurs culturels de Genève. La future Boussole aidera les structures à faire le point sur leurs pratiques numériques et à choisir des pistes d'action utiles.
           </p>
 
           {/* 2 CTAs */}
@@ -625,9 +624,9 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { icon: Eye, titre: "Observer", texte: "Faire une photo claire de ses pratiques numériques à travers un questionnaire structuré en 5 dimensions, sans jargon technique.", couleur: "#515792", bg: "#f0f1f8" },
-              { icon: Lightbulb, titre: "Comprendre", texte: "Identifier ce qui fonctionne, ce qui coince et les priorités d'amélioration — visualisées sur une carte lisible en un coup d'œil.", couleur: "#E27227", bg: "#fdf3ec" },
-              { icon: Zap, titre: "Agir", texte: "Choisir quelques pistes réalistes, adaptées à sa situation, avec des ressources et suggestions concrètes.", couleur: "#3aab8a", bg: "#f0faf6" },
+              { icon: Eye, titre: "Observer", texte: "Le futur questionnaire proposera de faire le point sur ses pratiques numériques à travers cinq dimensions.", couleur: "#515792", bg: "#f0f1f8" },
+              { icon: Lightbulb, titre: "Comprendre", texte: "Une carte visuelle aidera à repérer ce qui fonctionne, ce qui coince et les priorités à discuter.", couleur: "#E27227", bg: "#fdf3ec" },
+              { icon: Zap, titre: "Agir", texte: "Des ressources et suggestions proposeront quelques pistes de premier pas.", couleur: "#3aab8a", bg: "#f0faf6" },
             ].map(({ icon: Icon, titre, texte, couleur, bg }) => (
               <div
                 key={titre}
@@ -651,7 +650,7 @@ export default function Home() {
           <div className="mb-10">
             <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#515792' }}>Pourquoi une Boussole ?</p>
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">De la confusion vers une carte lisible</h2>
-            <p className="text-gray-600 leading-relaxed max-w-2xl">Le numérique est présent dans toutes les pratiques culturelles. Les difficultés sont souvent ordinaires : fichiers éparpillés, outils inadaptés, coordination qui prend trop de place. La Boussole aide à les nommer, à les situer, et à identifier où agir en premier.</p>
+            <p className="text-gray-600 leading-relaxed max-w-2xl">Le numérique est présent dans toutes les pratiques culturelles. Les difficultés sont souvent ordinaires : fichiers éparpillés, outils inadaptés, coordination qui prend trop de place. Le futur parcours aidera à les nommer, à les situer et à identifier où agir en premier.</p>
           </div>
           <BoussoleDemoInteractive />
         </div>
@@ -721,7 +720,7 @@ export default function Home() {
           <div className="text-center mb-12">
             <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#515792' }}>Structure de l'évaluation</p>
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Les cinq dimensions</h2>
-            <p className="text-gray-500 mt-3 max-w-xl mx-auto">La Boussole explore cinq grandes dimensions des pratiques numériques. Cliquez sur chacune pour voir un exemple concret.</p>
+            <p className="text-gray-500 mt-3 max-w-xl mx-auto">Cette démonstration montre les cinq dimensions que la future Boussole explorera. Cliquez sur chacune pour voir un exemple concret.</p>
           </div>
 
           <RadarAccordion />

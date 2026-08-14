@@ -68,6 +68,7 @@ Après chaque soumission, l’API prépare un e-mail de récapitulatif détermin
 | Direction bleu → cyan → vert → orange | Conserver un langage visuel commun | Les contributions, étapes et CTA restent immédiatement identifiables |
 | Open Graph statique et dynamique | Les robots sociaux ne dépendent pas de JavaScript | Les balises de partage sont injectées au build et mises à jour à chaque route SPA |
 | Sitemap et robots générés au build | Le domaine final doit se propager sans édition manuelle | Les seules routes indexables entrent dans le sitemap ; les parcours privés sont exclus |
+| Outil en co-conception | Le site public ne doit pas annoncer un diagnostic déjà disponible | Les pages d’entrée, le calendrier et les démonstrations décrivent la future version au futur |
 
 ## 6. Stack et structure du dépôt
 

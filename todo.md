@@ -69,3 +69,4 @@
 - [x] Définir le domaine final dans SITE_URL et régénérer les métadonnées canoniques publiées.
 - [x] Régénérer sitemap.xml et robots.txt avec le domaine final dans le pipeline SEO.
 - [x] Analyser les contenus publiés avec le cadre Boussole et proposer un plan d’optimisation rédactionnelle sans modifier le site.
+- [x] Appliquer les corrections rédactionnelles validées sur les pages d’entrée, le calendrier, les références et les pages de méthode.

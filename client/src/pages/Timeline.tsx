@@ -43,7 +43,7 @@ const PHASES = [
       "Ajustements UX, formulations et recommandations",
       "Vérification des principes de données et de consentement",
     ],
-    detail: "Le prototype est confronté à la réalité du terrain. Chaque session de test est documentée. Les retours sont intégrés de manière transparente, avec une traçabilité des décisions prises. La phase se conclut par un prototype stabilisé, prêt pour la mise en ligne.",
+    detail: "Le prototype sera confronté aux situations rencontrées par les partenaires. Chaque session de test sera documentée. Les retours guideront les ajustements et la phase se conclura par un prototype stabilisé, prêt pour la mise en ligne.",
   },
   {
     num: "03",
@@ -60,7 +60,7 @@ const PHASES = [
       "Rapport d'évaluation intermédiaire (fin de phase pilote)",
       "Ajustements prioritaires basés sur les retours",
     ],
-    detail: "La mise à disposition publique est une étape, pas une fin. La Boussole est lancée, observée et ajustée. Un rapport d'évaluation intermédiaire documente les premiers usages et oriente les améliorations à venir.",
+    detail: "La mise à disposition publique constituera une étape du projet. La Boussole sera proposée, observée et ajustée. Un rapport d’évaluation intermédiaire documentera les premiers usages et guidera les améliorations suivantes.",
   },
   {
     num: "04",
@@ -77,7 +77,7 @@ const PHASES = [
       "Documentation ouverte de la méthode",
       "Rapport final et pistes d'évolution (fin de mois 24)",
     ],
-    detail: "La phase la plus longue est celle de la vie réelle de l'outil. La Boussole est utilisée, enrichie et documentée. L'objectif est d'atteindre 1 500 tests réalisés et 600 utilisateurs inscrits, dont 30 % de manière régulière. Un rapport final documente les apprentissages et les pistes d'évolution pour la suite.",
+    detail: "La phase la plus longue suivra les usages de l’outil. La Boussole sera enrichie et documentée au fil des retours. L’objectif indicatif est d’atteindre 1 500 tests réalisés et 600 utilisateurs inscrits, dont 30 % de manière régulière. Un rapport final documentera les apprentissages et les pistes d’évolution pour la suite.",
   },
 ];
 

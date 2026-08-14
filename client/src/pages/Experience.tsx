@@ -18,37 +18,37 @@ const PARCOURS = [
     num: "01",
     temps: "Avant de commencer",
     titre: "Choisir son profil",
-    desc: "Individuel ou structure ? L'expérience s'adapte à votre situation. Quelques secondes suffisent pour orienter le questionnaire vers ce qui vous correspond.",
+    desc: "Individuel ou structure ? La future expérience tiendra compte de cette première indication pour orienter le questionnaire.",
     icon: User,
     couleur: "#515792",
-    detail: "Le choix du profil détermine le type de questions posées, la profondeur de l'analyse et le format de la restitution. Un artiste indépendant n'a pas les mêmes enjeux qu'une équipe de 15 personnes dans un musée.",
+    detail: "Le choix du profil déterminera le type de questions, la profondeur de l’analyse et le format de la restitution. Un artiste indépendant n’a pas les mêmes enjeux qu’une équipe de 15 personnes dans un musée.",
   },
   {
     num: "02",
     temps: "Premier temps",
     titre: "La photo",
-    desc: "Un questionnaire conversationnel, bienveillant, sans jargon technique. Vous décrivez vos pratiques telles qu'elles sont — pas telles qu'elles devraient être.",
+    desc: "Un questionnaire conversationnel, formulé en langage ordinaire. Vous pourrez décrire vos pratiques telles qu’elles sont.",
     icon: Eye,
     couleur: "#E27227",
-    detail: "Le questionnaire explore les cinq dimensions des pratiques numériques. Les questions sont formulées en langage ordinaire. Il n'y a pas de bonne ou mauvaise réponse. L'objectif est de prendre une photo fidèle, pas de passer un examen.",
+    detail: "Le questionnaire explorera les cinq dimensions des pratiques numériques. Les questions seront formulées en langage ordinaire. Il n’y aura pas de bonne ou de mauvaise réponse. L’objectif sera de prendre une photo fidèle de la situation.",
   },
   {
     num: "03",
     temps: "Deuxième temps",
     titre: "Le panorama",
-    desc: "Une carte visuelle de vos pratiques numériques. Un radar en cinq dimensions, lisible en un coup d'œil, qui montre où vous êtes et où se situent les points de tension.",
+    desc: "Une carte visuelle de vos pratiques numériques. Un radar en cinq dimensions montrera les points d’attention à discuter.",
     icon: BarChart3,
     couleur: "#3aab8a",
-    detail: "Le panorama est une restitution visuelle personnalisée. Il ne note pas, il montre. Il ne classe pas, il cartographie. Chaque dimension est représentée avec un niveau et des observations concrètes issues de vos réponses.",
+    detail: "Le panorama sera une restitution visuelle personnalisée. Chaque dimension sera représentée avec un niveau et des observations issues de vos réponses.",
   },
   {
     num: "04",
     temps: "Troisième temps",
     titre: "L'approfondissement",
-    desc: "Des pistes d'action réalistes, adaptées à votre contexte. Des ressources sélectionnées. Des suggestions concrètes pour un premier pas.",
+    desc: "Des pistes d’action et des ressources proposeront un premier pas en fonction des réponses partagées.",
     icon: Lightbulb,
     couleur: "#9b59b6",
-    detail: "L'approfondissement propose des ressources adaptées à votre profil et à vos résultats. Il ne prescrit pas de solution universelle. Il ouvre des portes, suggère des lectures, identifie des outils ou des démarches qui correspondent à votre situation réelle.",
+    detail: "L’approfondissement proposera des ressources liées au profil et aux résultats. Il suggérera des lectures, des outils ou des démarches à discuter selon la situation décrite.",
   },
 ];
 
@@ -263,7 +263,7 @@ export default function Experience() {
             L'expérience Boussole
           </h1>
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl leading-relaxed mb-8">
-            Un parcours en quatre étapes, conçu pour être rapide, accessible et utile — quel que soit votre niveau numérique.
+            Une démonstration du futur parcours, actuellement en co-conception avec des structures culturelles. Elle présente les étapes envisagées, sans collecter de données réelles.
           </p>
           <div className="flex flex-wrap gap-3 items-center">
             <div className="flex items-center gap-2 text-sm text-gray-500 bg-gray-100 rounded-full px-4 py-2">
@@ -372,8 +372,8 @@ export default function Experience() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
             <div>
               <h2 className="text-2xl font-bold text-gray-900 mb-4">Un panorama visuel en cinq dimensions</h2>
-              <p className="text-gray-600 leading-relaxed mb-4">À la fin du questionnaire, vous recevez une carte visuelle de vos pratiques numériques. Un radar en cinq dimensions, lisible en un coup d'œil.</p>
-              <p className="text-gray-500 text-sm leading-relaxed">Ce n'est pas une note. C'est une carte. Elle montre où vous êtes aujourd'hui — pour mieux choisir où aller demain.</p>
+              <p className="text-gray-600 leading-relaxed mb-4">La future restitution proposera une carte visuelle des pratiques numériques. Ce radar en cinq dimensions est une représentation explicative.</p>
+              <p className="text-gray-500 text-sm leading-relaxed">Il aidera à situer les points d’attention et à choisir les prochaines questions à explorer.</p>
             </div>
             {/* Radar animé */}
             <div className="flex justify-center">
@@ -421,10 +421,10 @@ export default function Experience() {
           <p className="text-gray-500 mb-8">La Boussole est construite avec les structures culturelles genevoises. Votre retour compte.</p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Button style={{ backgroundColor: '#515792' }} asChild>
-              <Link href="/partenaires">Devenir partenaire <ArrowRight className="ml-2 h-4 w-4" /></Link>
+              <Link href="/partenaires">Découvrir comment contribuer <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
             <Button variant="outline" style={{ borderColor: '#E27227', color: '#E27227' }} asChild>
-              <Link href="/methode">La méthode</Link>
+              <Link href="/methode">Comprendre la co-conception</Link>
             </Button>
           </div>
         </div>

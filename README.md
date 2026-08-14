@@ -2,11 +2,15 @@
 
 ## Aperçu
 
-**Boussole Numérique Culture** est le dépôt du portail institutionnel et du module partenaire qui préparent un outil de diagnostic numérique destiné aux actrices, acteurs et structures culturelles. Le portail explique le projet, le calendrier, l’expérience Boussole, la méthode, la recherche et les modalités de co-construction. Le module partenaire ajoute une présentation dédiée, des invitations personnelles, un questionnaire qualitatif, une console d’administration et l’envoi de récapitulatifs contrôlés.
+**Boussole Numérique Culture** est le dépôt du portail institutionnel et du module partenaire qui préparent un futur outil de diagnostic numérique destiné aux actrices, acteurs et structures culturelles. Le portail explique le projet, le calendrier, l’expérience Boussole, la méthode, la recherche et les modalités de co-construction. Le module partenaire ajoute une présentation dédiée, des invitations personnelles, un questionnaire qualitatif, une console d’administration et l’envoi de récapitulatifs contrôlés.
 
 Le projet est conçu pour être déployé et maintenu hors plateforme : le portail est une application statique servie par Nginx ; l’API partenaire est une application Express distincte ; PostgreSQL, l’API et Dreamlit sont activés dans Coolify lorsque le pilote démarre.
 
-> **Principe produit.** La Boussole aide à situer des pratiques et à choisir une prochaine étape adaptée. Elle ne produit pas une note unique et ne recommande pas automatiquement un outil commercial.
+> **Principe produit.** La future Boussole aidera à situer des pratiques et à choisir une prochaine étape. Elle ne produira pas une note unique et ne recommandera pas automatiquement un outil commercial.
+
+Le portail présente un **projet** de Boussole Numérique Culture, et non le diagnostic public déjà disponible. La co-conception est en cours ; le questionnaire visible concerne uniquement les partenaires invités. Les pages éditoriales distinguent donc les engagements actuels du projet, comme la gratuité, la neutralité, le code ouvert et l’hébergement, des fonctionnalités prévues pour la future version publique.
+
+Une première passe de révision rédactionnelle a clarifié cet état d’avancement sur l’Accueil, le Projet, l’Expérience et le Calendrier. Elle a aussi retiré les revendications d’exclusivité non étayées de la page Références et resserré les répétitions sur Méthode et Partenaires. Le diagnostic, les réécritures appliquées et les questions de la prochaine passe sont conservés dans [`docs/PLAN_OPTIMISATION_REDACTIONNELLE.md`](./docs/PLAN_OPTIMISATION_REDACTIONNELLE.md).
 
 ## Ce que contient le portail
 

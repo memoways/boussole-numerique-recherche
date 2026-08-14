@@ -637,18 +637,18 @@ export default function References() {
         </div>
       </section>
 
-      {/* ── CE QUI REND LA BOUSSOLE UNIQUE ───────────────────────────────────── */}
+      {/* ── CHOIX DE CONCEPTION ──────────────────────────────────────────────── */}
       <section className="py-14 px-4 bg-white">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Ce qui rend la Boussole unique</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Ce que la veille oriente dans la Boussole</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
-              { titre: "Seul outil 100% culturel francophone", texte: "Aucune des références analysées ne couvre l'espace francophone suisse avec une approche spécifique au secteur culturel. La Boussole est la première initiative de ce type pour Genève et la Suisse romande.", couleur: "#515792" },
-              { titre: "Dimension IA intégrée", texte: "Contrairement aux baromètres de maturité numérique existants — y compris le Digital Culture Compass et meemoo — la Boussole intègre dès le départ une évaluation des pratiques IA.", couleur: "#E27227" },
-              { titre: "Ancrage local fort", texte: "Données contextualisées pour Genève, recommandations adaptées au tissu culturel local, partenariats avec les institutions genevoises. Pas un outil générique transposé.", couleur: "#3aab8a" },
-              { titre: "Multimodalité", texte: "Voix, texte, questionnaire : l'expérience s'adapte au profil et au niveau numérique de l'utilisateur. Une première dans ce type d'outil sectoriel.", couleur: "#9b59b6" },
-              { titre: "Gratuité & open source", texte: "Comme Nos Gestes Climat et le Digital Culture Compass, la Boussole sera gratuite, open source et hébergée en Suisse. Aucune logique commerciale, aucune captation de données.", couleur: "#E58441" },
-              { titre: "Co-construite avec le terrain", texte: "La Boussole est développée avec les structures culturelles genevoises, pas pour elles. Chaque phase intègre les retours des premiers utilisateurs.", couleur: "#2d6a4f" },
+              { titre: "Un projet culturel francophone", texte: "La Boussole vise les pratiques numériques des structures culturelles francophones et s’appuie sur une veille d’outils, d’études et de démarches proches.", couleur: "#515792" },
+              { titre: "Une place explicite pour les pratiques IA", texte: "La future Boussole inclura des questions sur les usages de l’intelligence artificielle, afin de les situer parmi les autres pratiques numériques.", couleur: "#E27227" },
+              { titre: "Un ancrage genevois", texte: "Les questions, les ressources et les partenariats seront précisés avec des structures du territoire, au fil de la co-conception.", couleur: "#3aab8a" },
+              { titre: "Des modalités de réponse à tester", texte: "Voix, texte et questionnaire font partie des pistes techniques examinées avec les partenaires pour faciliter la contribution.", couleur: "#9b59b6" },
+              { titre: "Gratuité et code ouvert", texte: "Le projet porte ces engagements pour la future Boussole. Les modalités techniques et la publication du code seront documentées au fil du projet.", couleur: "#E58441" },
+              { titre: "Une co-conception avec les structures", texte: "Les partenaires contribuent aux questions, aux tests et aux critères d’utilité. Leurs retours orientent les ajustements de chaque phase.", couleur: "#2d6a4f" },
             ].map(({ titre, texte, couleur }) => (
               <div key={titre} className="rounded-xl bg-white p-5 border border-gray-100 hover:shadow-md transition-shadow">
                 <div className="w-2 h-2 rounded-full mb-3" style={{ backgroundColor: couleur }}></div>
@@ -666,7 +666,7 @@ export default function References() {
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Explorer la recherche complète</h2>
           <div className="flex flex-wrap gap-3 justify-center">
             <Button style={{ backgroundColor: '#515792' }} asChild>
-              <Link href="/recherche">État de l'art & insights <ArrowRight className="ml-2 h-4 w-4" /></Link>
+              <Link href="/recherche">Consulter l’état de l’art et les constats <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
             <Button variant="outline" style={{ borderColor: '#E27227', color: '#E27227' }} asChild>
               <Link href="/ressources">Toutes les ressources</Link>
