@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, FileText, BookOpen, ExternalLink, Download, Filter, CalendarDays, BadgeCheck } from "lucide-react";
+import { ArrowRight, FileText, BookOpen, ExternalLink, Download, Filter, CalendarDays, BadgeCheck, Search, X } from "lucide-react";
 import { Link } from "wouter";
 
 /**
@@ -150,6 +150,25 @@ const RESSOURCES = [
 const ALL_TYPES: ResourceType[] = ['Étude', 'État des lieux', 'Analyse', 'Synthèse', 'Sources', 'PDF'];
 const ALL_DATE_GROUPS: ResourceDateGroup[] = ['2026', '2025', '2024 et avant', 'Date non indiquée'];
 
+const SEARCH_SUGGESTIONS = [
+  "Intelligence artificielle",
+  "Transformation numérique",
+  "Diagnostic numérique",
+  "Culture",
+  "Gouvernance",
+  "UNESCO",
+  "Sources",
+  "2026",
+];
+
+function normalizeSearchValue(value: string) {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+}
+
 const TYPE_COLORS: Record<ResourceType, string> = {
   'Étude': '#515792',
   'État des lieux': '#E27227',
@@ -162,6 +181,7 @@ const TYPE_COLORS: Record<ResourceType, string> = {
 export default function Ressources() {
   const [activeType, setActiveType] = useState<ResourceType | null>(null);
   const [activeDateGroup, setActiveDateGroup] = useState<ResourceDateGroup | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const filtered = activeType
     ? RESSOURCES.filter(r => r.type === activeType)
@@ -169,6 +189,23 @@ export default function Ressources() {
   const dateFiltered = activeDateGroup
     ? filtered.filter(r => r.dateGroup === activeDateGroup)
     : filtered;
+  const normalizedQuery = normalizeSearchValue(searchQuery);
+  const searchFiltered = normalizedQuery
+    ? dateFiltered.filter(resource => {
+        const searchableText = normalizeSearchValue([
+          resource.titre,
+          resource.desc,
+          resource.type,
+          resource.dateGroup,
+          resource.dateLabel,
+          resource.temps,
+        ].join(" "));
+        return normalizedQuery.split(/\s+/).every(term => searchableText.includes(term));
+      })
+    : dateFiltered;
+  const visibleSuggestions = SEARCH_SUGGESTIONS.filter(suggestion =>
+    !normalizedQuery || normalizeSearchValue(suggestion).includes(normalizedQuery),
+  );
 
   return (
     <div className="bg-white">
@@ -207,6 +244,49 @@ export default function Ressources() {
           <h2 className="sr-only">Documents et sources</h2>
           {/* Filtres */}
           <div className="space-y-4 mb-8" aria-label="Filtres des ressources">
+            <div>
+              <label htmlFor="resource-search" className="mb-2 block text-xs font-semibold uppercase tracking-wider text-gray-500">
+                Rechercher dans les ressources
+              </label>
+              <div className="relative max-w-xl">
+                <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" aria-hidden="true" />
+                <input
+                  id="resource-search"
+                  type="search"
+                  value={searchQuery}
+                  onChange={(event) => setSearchQuery(event.target.value)}
+                  list="resource-search-suggestions"
+                  placeholder="Ex. intelligence artificielle, UNESCO, 2026"
+                  className="w-full rounded-xl border border-gray-200 bg-white py-2.5 pl-10 pr-10 text-sm text-gray-800 shadow-sm outline-none transition focus:border-[#515792] focus:ring-2 focus:ring-[#515792]/20"
+                />
+                {searchQuery && (
+                  <button
+                    type="button"
+                    onClick={() => setSearchQuery("")}
+                    className="absolute right-2 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-md text-gray-500 transition hover:bg-gray-100 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#515792]/30"
+                    aria-label="Effacer la recherche"
+                  >
+                    <X className="h-4 w-4" aria-hidden="true" />
+                  </button>
+                )}
+                <datalist id="resource-search-suggestions">
+                  {SEARCH_SUGGESTIONS.map(suggestion => <option key={suggestion} value={suggestion} />)}
+                </datalist>
+              </div>
+              <div className="mt-2 flex flex-wrap items-center gap-1.5" aria-label="Suggestions de recherche">
+                <span className="text-xs text-gray-500">Suggestions :</span>
+                {visibleSuggestions.map(suggestion => (
+                  <button
+                    key={suggestion}
+                    type="button"
+                    onClick={() => setSearchQuery(suggestion)}
+                    className="rounded-full bg-white px-2.5 py-1 text-xs font-medium text-[#515792] ring-1 ring-inset ring-[#515792]/20 transition hover:bg-[#515792] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#515792]/40"
+                  >
+                    {suggestion}
+                  </button>
+                ))}
+              </div>
+            </div>
             <div className="flex flex-wrap gap-2 items-center">
               <Filter className="h-4 w-4 text-gray-400" aria-hidden="true" />
               <span className="text-xs font-semibold uppercase tracking-wider text-gray-500 mr-1">Catégorie</span>
@@ -262,7 +342,7 @@ export default function Ressources() {
 
           {/* Grille de ressources */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {dateFiltered.map(({ titre, desc, type, href, interne, couleur, temps, dateLabel, archiveStatus, lastChecked }) => (
+            {searchFiltered.map(({ titre, desc, type, href, interne, couleur, temps, dateLabel, archiveStatus, lastChecked }) => (
               <div key={href} className="bg-white rounded-xl border border-gray-100 p-5 hover:shadow-md transition-all hover:-translate-y-0.5 group">
                 <div className="flex items-start justify-between gap-2 mb-3">
                   <Badge className="text-xs" style={{ backgroundColor: TYPE_COLORS[type] }}>{type}</Badge>
@@ -291,14 +371,14 @@ export default function Ressources() {
                 )}
               </div>
             ))}
-            {dateFiltered.length === 0 && (
+            {searchFiltered.length === 0 && (
               <div className="sm:col-span-2 rounded-xl border border-dashed border-gray-300 bg-white p-8 text-center">
-                <p className="font-semibold text-gray-800 mb-2">Aucune ressource ne correspond à ces filtres.</p>
+                <p className="font-semibold text-gray-800 mb-2">Aucune ressource ne correspond à cette recherche et à ces filtres.</p>
                 <button
-                  onClick={() => { setActiveType(null); setActiveDateGroup(null); }}
+                  onClick={() => { setActiveType(null); setActiveDateGroup(null); setSearchQuery(""); }}
                   className="text-sm font-semibold text-[#515792] underline underline-offset-4"
                 >
-                  Réinitialiser les filtres
+                  Réinitialiser la recherche et les filtres
                 </button>
               </div>
             )}

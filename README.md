@@ -26,6 +26,8 @@ Les liens externes des archives sont signalés par une icône et un texte access
 
 Les liens 404 qualifiés ont été remplacés par des destinations officielles lorsque cela était possible. Les sources sans équivalent fiable restent mentionnées comme archives, sans lien sortant actif. Les fiches des documents historiques affichent la date de leur dernier contrôle de liens.
 
+La page Ressources complète ses filtres de catégorie et de période par une recherche locale guidée. Elle propose des suggestions thématiques, recherche sans tenir compte de la casse ou des accents, et permet d’effacer la requête sans réinitialiser les autres filtres.
+
 ## Ce que contient le portail
 
 | Ensemble | Rôle | Routes ou emplacement |

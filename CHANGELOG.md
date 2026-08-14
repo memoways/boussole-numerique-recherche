@@ -39,6 +39,7 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Sixième passe éditoriale appliquée : Ressources filtre désormais par catégorie et période ; les archives Markdown affichent leur statut, leur date connue et le contexte de leurs affirmations datées.
 - Contrôle des liens d’archives : 152 URL externes uniques vérifiées, rapport de qualification des 404 et accès protégés, et icône accessible ajoutée aux liens sortants.
 - Liens d’archives actualisés : les destinations officielles identifiées remplacent les 404 ; Diag-numerique et une référence ScienceDirect sont archivés sans lien actif ; les fiches d’archive affichent le dernier contrôle.
+- Ressources : recherche par mot-clé ajoutée avec suggestions accessibles, prise en charge des accents et combinaison avec les filtres existants de catégorie et de période.
 
 ### Vérifié
 

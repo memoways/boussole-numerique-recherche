@@ -220,3 +220,9 @@ Le 14 août 2026, la page Ressources a été contrôlée avec les filtres de cat
 Le 14 août 2026, 152 URL externes uniques ont été contrôlées de façon passive dans les archives Markdown. Le rapport sépare les 404 à traiter des protections d’accès, réponses 405, parcours d’authentification et erreurs réseau qui exigent un contrôle humain avant correction. Les archives affichent maintenant l’icône et le texte accessible des liens sortants. Voir [`CONTROLE_LIENS_ARCHIVES_2026-08-14.md`](./CONTROLE_LIENS_ARCHIVES_2026-08-14.md).
 
 Les 404 prioritaires ont été remplacés par des destinations officielles lorsque celles-ci ont été identifiées. Diag-numerique et la référence ScienceDirect indisponible sont archivés sans lien sortant actif. Le contrôle de suivi ne signale plus aucun 404 dans les six archives Markdown ; les accès protégés restent dans le rapport pour vérification humaine. Les fiches d’archive affichent la date de ce contrôle.
+
+## Recherche guidée des Ressources
+
+La page Ressources propose désormais une recherche par mot-clé en complément des filtres de catégorie et de période. Les suggestions s’appuient sur les thèmes et documents effectivement présents : intelligence artificielle, transformation numérique, diagnostic numérique, culture, gouvernance, UNESCO, sources et 2026. La recherche ignore les accents et la casse, puis croise les mots saisis avec le titre, la description, le type, la période et la date de chaque ressource.
+
+Le champ reste utilisable au clavier grâce à un libellé explicite et à une liste native de suggestions. Les boutons de suggestion sont également atteignables au clavier ; ils renseignent directement la recherche. Le contrôle du 14 août 2026 a confirmé que la suggestion « UNESCO » réduit la liste à la source correspondante, sans désactiver les filtres de catégorie et de date.
