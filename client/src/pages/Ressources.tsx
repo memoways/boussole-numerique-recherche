@@ -258,7 +258,7 @@ export default function Ressources() {
                   <Badge className="text-xs" style={{ backgroundColor: TYPE_COLORS[type] }}>{type}</Badge>
                   <div className="flex items-center gap-2">
                     <span className="text-xs text-gray-400">{temps}</span>
-                    {!interne && <Download className="h-3.5 w-3.5 text-gray-300" />}
+                    {!interne && <ExternalLink className="h-3.5 w-3.5 text-gray-400" aria-hidden="true" />}
                   </div>
                 </div>
                 <h3 className="font-bold text-gray-900 mb-2 leading-snug">{titre}</h3>

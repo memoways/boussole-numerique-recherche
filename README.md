@@ -22,6 +22,8 @@ Une cinquième passe a consolidé les pages historiques. Les anciennes URLs de p
 
 Une sixième passe a amélioré l’exploration des Ressources par catégorie et période. Les documents d’archive affichent désormais une date de version lorsque celle-ci est connue, ou signalent son absence. Ils indiquent aussi que les services, priorités et constats cités doivent être lus dans le contexte de leur date de recherche. Le relevé des affirmations datées est disponible dans [`docs/CONTEXTE_ARCHIVES_MARKDOWN.md`](./docs/CONTEXTE_ARCHIVES_MARKDOWN.md).
 
+Les liens externes des archives sont signalés par une icône et un texte accessible ; ils s’ouvrent dans un nouvel onglet protégé. Le contrôle HTTP du 14 août 2026 couvre 152 URL uniques et distingue les liens en 404 des accès protégés ou des réponses qui demandent une vérification humaine. Les résultats sont consignés dans [`docs/CONTROLE_LIENS_ARCHIVES_2026-08-14.md`](./docs/CONTROLE_LIENS_ARCHIVES_2026-08-14.md).
+
 ## Ce que contient le portail
 
 | Ensemble | Rôle | Routes ou emplacement |

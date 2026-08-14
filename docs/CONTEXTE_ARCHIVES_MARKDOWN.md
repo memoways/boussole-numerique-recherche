@@ -25,3 +25,5 @@ Avant de remettre un document d’archive au premier plan, vérifier sa date de 
 Le 14 août 2026, la page Ressources a été contrôlée avec ses deux groupes de filtres. Les catégories, les périodes `2026`, `2025`, `2024 et avant` et `Date non indiquée`, ainsi que la date affichée sur chaque fiche, sont visibles et fonctionnels dans la page rendue.
 
 La page `/ressources/analyse-outils` a été contrôlée avec son bandeau : statut d’archive, version février 2026 et portée limitée de l’analyse sont affichés avant le document source.
+
+Le contrôle technique du 14 août 2026 est conservé dans [`CONTROLE_LIENS_ARCHIVES_2026-08-14.md`](./CONTROLE_LIENS_ARCHIVES_2026-08-14.md). Les liens externes affichent désormais un repère visuel et un texte accessible annonçant l’ouverture d’un nouvel onglet.

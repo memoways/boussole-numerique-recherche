@@ -214,3 +214,7 @@ Le 14 août 2026, la page Ressources a été contrôlée avec les filtres de cat
 
 - [FAIT À FOURNIR : source établissant que la Boussole est « le seul outil 100% culturel francophone » et « la première initiative de ce type »] — nécessaire avant de conserver ces deux revendications sur la page Références.
 - [DONNÉE À TRANCHER : lieu et statut exact de l’hébergement de la future version publique] — les pages historiques encore présentes dans le dépôt évoquent Infomaniak, tandis que la documentation de déploiement décrit Coolify self-hosted. Les routes actives doivent conserver une formulation exacte et cohérente.
+
+## Vérification des liens d’archives
+
+Le 14 août 2026, 152 URL externes uniques ont été contrôlées de façon passive dans les archives Markdown. Le rapport sépare les 404 à traiter des protections d’accès, réponses 405, parcours d’authentification et erreurs réseau qui exigent un contrôle humain avant correction. Les archives affichent maintenant l’icône et le texte accessible des liens sortants. Voir [`CONTROLE_LIENS_ARCHIVES_2026-08-14.md`](./CONTROLE_LIENS_ARCHIVES_2026-08-14.md).
