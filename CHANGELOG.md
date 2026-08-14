@@ -28,6 +28,8 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Open Graph renforcé dans le layout de secours, le composant de métadonnées et le générateur statique : titre, description, URL, image sécurisée, texte alternatif et carte Twitter enrichie.
 - `SITE_URL` fixé par défaut dans le Dockerfile et la documentation sur `https://boussole-culture-recherche.memoways.com`, avec vérification des URL canoniques et Open Graph générées.
 - Sitemap généré au build avec domaine final, date de génération, fréquence et priorité par route indexable ; `robots.txt` référence ce sitemap et exclut les parcours administratifs et de questionnaire.
+- Radar de l’accueil extrait dans `AnimatedRadarGraphic`, puis réemployé dans la première slide partenaire ; les autres slides utilisent des illustrations limitées à leur rôle narratif.
+- Gabarit de la présentation partenaire fixé à 900 px sur desktop, navigation placée dans une bande immobile et fil d’Ariane conservé comme seul repère de retour.
 - Plan d’optimisation rédactionnelle ajouté dans `docs/`, avec diagnostic des promesses au présent, répétitions, CTA et affirmations documentaires à vérifier avant réécriture.
 - Première passe éditoriale appliquée : Accueil, Projet, Expérience et Calendrier distinguent la co-conception du futur outil ; Références renonce aux revendications d’exclusivité non étayées ; Méthode et Partenaires resserrent leurs répétitions et CTA.
 - Seconde passe éditoriale appliquée : Recherche distingue les constats sourcés des pistes de conception ; Partenaires clarifie les étapes et contreparties de contribution ; le footer décrit le projet au stade de co-conception.
@@ -37,6 +39,7 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Vérifications TypeScript, build du portail et build de l’API partenaire via `pnpm verify`.
 - Routes profondes de présentation, questionnaire et administration contrôlées dans le build statique.
 - Navigation du deck, ouverture des détails, retour navigateur, gabarit desktop et absence de débordement horizontal contrôlés visuellement.
+- Pages Recherche et Partenaires contrôlées visuellement après la seconde passe ; premier écran, deux parcours d’entrée, CTA de contribution et hiérarchie documentaire validés.
 
 ## [1.1.0] — 2026-08-09 au 2026-08-12 — Alignement institutionnel, accessibilité et diffusion
 

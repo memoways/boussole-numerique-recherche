@@ -2,7 +2,7 @@
 
 ## 1. Raison d’être du projet
 
-**Boussole Numérique Culture** est un portail institutionnel et un futur outil de diagnostic qui aident les actrices, acteurs et structures culturelles à situer leurs pratiques numériques, à reconnaître leurs priorités et à choisir des pistes d’action compréhensibles. Le portail présente le projet, son contexte, ses références, ses principes de gouvernance et les manières de participer à sa co-construction.
+**Boussole Numérique Culture** est un portail institutionnel et un projet de futur outil de diagnostic. La version publique aidera les actrices, acteurs et structures culturelles à situer leurs pratiques numériques, à reconnaître leurs priorités et à choisir des pistes d’action compréhensibles. Le portail présente le projet, son contexte, ses références, ses principes de gouvernance et les manières de participer à sa co-construction.
 
 Le site n’est pas le diagnostic public lui-même. Il rend l’intention du projet lisible, matérialise une première expérience de Boussole et prépare le pilote partenaire. Il doit pouvoir être maintenu et déployé indépendamment de Manus, par l’équipe de projet ou par des agents de code compatibles.
 
@@ -21,6 +21,8 @@ La version actuelle distingue quatre couches complémentaires : le récit instit
 | Module partenaire | Présentation, invitations, questionnaire, administration et synthèses | Code livré ; activation Coolify à réaliser |
 | Recherche et ressources | Montrer l’apprentissage à partir de l’existant | Livré et relié au portail |
 
+La recherche ne sert pas à prouver par avance l’utilité de la future Boussole. Elle rassemble des constats sourcés et des références qui éclairent les questions à tester avec les partenaires. Les pages éditoriales ont été relues selon cette même distinction : les engagements actuels du projet restent au présent ; les fonctions de l’outil public sont formulées au futur.
+
 ## 3. Publics et parcours
 
 | Public | Question à laquelle le portail répond | Parcours principal |
@@ -36,7 +38,7 @@ Le menu public reste volontairement court : **Projet, Calendrier, Expérience, M
 
 ### Portail et expérience
 
-Le portail comporte un hero éditorial, la présentation détaillée du projet, le calendrier en quatre phases sur vingt-quatre mois, l’expérience interactive, la méthode enrichie des principes de gouvernance, les partenaires et les références. La page Projet propose un sommaire sticky sur desktop, un sélecteur mobile et une progression de lecture. La page Références fournit un comparatif adapté aux petits écrans : défilement horizontal, colonne de noms fixée et intitulés compacts.
+Le portail comporte un hero éditorial, la présentation détaillée du projet, le calendrier en quatre phases sur vingt-quatre mois, l’expérience interactive, la méthode enrichie des principes de gouvernance, les partenaires et les références. La page Projet propose un sommaire sticky sur desktop, un sélecteur mobile et une progression de lecture. La page Références fournit un comparatif adapté aux petits écrans : défilement horizontal, colonne de noms fixée et intitulés compacts. La page Recherche présente quinze constats documentés et distingue les données sources des pistes de conception qui restent à tester.
 
 L’expérience Boussole utilise cinq dimensions pour rendre le diagnostic tangible. Le radar animé de l’accueil est maintenant fourni par le composant partagé `AnimatedRadarGraphic`. Il est repris dans la première slide de la présentation partenaire, sans surcharger les autres slides.
 
@@ -70,6 +72,7 @@ Après chaque soumission, l’API prépare un e-mail de récapitulatif détermin
 | Sitemap et robots générés au build | Le domaine final doit se propager sans édition manuelle | Les seules routes indexables entrent dans le sitemap ; les parcours privés sont exclus |
 | Outil en co-conception | Le site public ne doit pas annoncer un diagnostic déjà disponible | Les pages d’entrée, le calendrier et les démonstrations décrivent la future version au futur |
 | Recherche documentaire distincte des promesses produit | Les sources servent à éclairer les choix, sans faire preuve de l’utilité future | La page Recherche parle de constats documentés et de questions à tester ; les pistes de conception sont nommées comme telles |
+| Parcours partenaire explicite | La contribution ne doit pas être confondue avec l’accès déjà actif au diagnostic | Les entrées Présentation et Questionnaire sont séparées ; les étapes de test et les contreparties sont formulées au futur |
 
 ## 6. Stack et structure du dépôt
 
@@ -88,7 +91,7 @@ Qualité            pnpm verify · TypeScript · builds · scripts mobile/contra
 | `client/src/pages/` | Pages éditoriales, expérience et interfaces partenaires |
 | `client/src/components/` | Navigation, fil d’Ariane, composants UI et `AnimatedRadarGraphic` |
 | `client/src/lib/` | SEO, client API partenaire et utilitaires |
-| `services/partner-feedback-api/` | API, schéma SQL, migrations, e-mail et tests de récapitulatif |
+| `services/partner-feedback-api/` | API, schéma SQL idempotent, e-mail et tests de récapitulatif |
 | `docs/` | Migration, opérations, activation Dreamlit, validation et archives |
 | `config/ENVIRONMENT.md` | Registre des variables publiques et des secrets runtime |
 | `AGENTS.md` | Règles de contribution et de synchronisation documentaire |
@@ -102,6 +105,7 @@ Qualité            pnpm verify · TypeScript · builds · scripts mobile/contra
 | Avril 2026 | Mises à jour de dépendances et durcissement minimal de la chaîne de développement |
 | Été 2026 | Alignement institutionnel, calendrier, partenaires, références, accessibilité, SEO, mobile et déploiement autonome |
 | 13 août 2026 | Module partenaire, console `/admin`, boîte Dreamlit, présentation interactive et documentation complète |
+| 14 août 2026 | Domaine final, Open Graph, sitemap et robots générés ; deux passes de révision éditoriale ; simplification et validation des parcours Recherche et Partenaires |
 
 ## 8. État d’activation et limites connues
 
