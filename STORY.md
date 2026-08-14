@@ -114,6 +114,8 @@ Le portail statique peut être déployé immédiatement. Le module partenaire es
 | Transcription Deepgram | Intégration livrée | Fournir `DEEPGRAM_API_KEY` |
 | E-mails Dreamlit | Boîte d’envoi livrée | Créer l’utilisateur DB restreint, connecter Dreamlit et publier le workflow |
 
+Le domaine public de référence est **https://boussole-culture-recherche.memoways.com**. Cette valeur est le défaut du Dockerfile et doit aussi être renseignée comme variable de build `SITE_URL` dans Coolify afin que les URL canoniques, Open Graph, le sitemap et `robots.txt` restent cohérents lors du déploiement.
+
 Les contenus éditoriaux restent principalement dans les composants React. Cette approche est adaptée au rythme actuel, mais une source de contenu structurée pourra être envisagée si les mises à jour deviennent fréquentes. Le bundle principal dépasse l’avertissement de taille Vite ; une optimisation par import dynamique est envisageable après mesure sur le domaine de production.
 
 ## 9. Documentation de référence

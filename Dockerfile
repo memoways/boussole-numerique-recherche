@@ -7,7 +7,7 @@ WORKDIR /app
 ENV CI=true
 RUN corepack enable
 
-ARG SITE_URL
+ARG SITE_URL=https://boussole-culture-recherche.memoways.com
 ENV SITE_URL=${SITE_URL}
 ARG VITE_PARTNER_API_URL
 ENV VITE_PARTNER_API_URL=${VITE_PARTNER_API_URL}

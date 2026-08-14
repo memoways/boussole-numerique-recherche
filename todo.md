@@ -66,3 +66,4 @@
 - [x] Supprimer le retour Partenaires redondant de l’écran public du questionnaire.
 - [x] Consolider CHANGELOG, STORY et README avec toutes les modifications réellement livrées depuis le début du projet.
 - [x] Vérifier et fiabiliser les balises Open Graph dans le layout principal et les pages publiées.
+- [x] Définir le domaine final dans SITE_URL et régénérer les métadonnées canoniques publiées.

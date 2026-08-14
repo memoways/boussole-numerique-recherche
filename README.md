@@ -85,6 +85,8 @@ Le fonctionnement complet, les droits SQL minimaux et le workflow Dreamlit sont 
 
 Le déploiement final utilise trois ressources : le portail Nginx, une base PostgreSQL privée et l’API partenaire. Un quatrième élément, le workflow Dreamlit, délivre les e-mails après connexion à la boîte d’envoi. La procédure pas à pas est documentée ; elle comprend les domaines, les variables, les droits PostgreSQL, les tests de pilote et les sauvegardes.
 
+Le domaine public de référence est `https://boussole-culture-recherche.memoways.com`. Il est défini comme valeur par défaut de `SITE_URL` dans le Dockerfile et doit être repris comme variable de build dans Coolify. La valeur peut être surchargée explicitement au build si l’environnement de préproduction utilise un domaine distinct.
+
 | Composant | Déploiement | Documentation |
 |---|---|---|
 | Portail | Image du `Dockerfile` racine | [`docs/COOLIFY_MIGRATION.md`](./docs/COOLIFY_MIGRATION.md) |
@@ -96,8 +98,8 @@ Exemple de construction du portail :
 
 ```bash
 docker build \
-  --build-arg SITE_URL=https://votre-domaine.example \
-  --build-arg VITE_PARTNER_API_URL=https://api.votre-domaine.example \
+  --build-arg SITE_URL=https://boussole-culture-recherche.memoways.com \
+  --build-arg VITE_PARTNER_API_URL=https://api.boussole-culture-recherche.memoways.com \
   -t boussole-numerique-culture .
 
 docker run --rm -p 8080:8080 boussole-numerique-culture

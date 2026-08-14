@@ -17,7 +17,7 @@ Si une fonctionnalité a besoin d'un secret — clé IA, API externe, envoi d'e-
 | Clé API, token, mot de passe, clé privée | Variable runtime du backend dans Coolify | Non |
 | Certificat ou secret multiligne | Variable multiligne verrouillée dans Coolify | Non |
 
-Dans Coolify, ajoutez `SITE_URL=https://votre-domaine.example` et `VITE_PARTNER_API_URL=https://api.votre-domaine.example` comme variables de **build**, sans slash final. Ces valeurs sont publiques. Les anciennes variables propres à Manus ne doivent pas être copiées vers Coolify.
+Dans Coolify, ajoutez `SITE_URL=https://boussole-culture-recherche.memoways.com` et `VITE_PARTNER_API_URL=https://api.boussole-culture-recherche.memoways.com` comme variables de **build**, sans slash final. Ces valeurs sont publiques. Les anciennes variables propres à Manus ne doivent pas être copiées vers Coolify.
 
 ## Questionnaire partenaire
 
