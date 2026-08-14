@@ -382,7 +382,7 @@
 - **À consulter**: OUI
 
 ### 59. Bundesamt für Kultur BAK - Medieninformation
-- **URL**: https://www.bak.admin.ch/bak/de/home/aktuelles/medieninformation.html
+- **URL**: https://www.bak.admin.ch/de/medienmitteilungen
 - **Date**: Nov 2025
 - **Pertinence**: Nouvel instrument de soutien 2026-2028 pour transformation numérique et IA
 - **À consulter**: OUI - PRIORITÉ HAUTE (nouveau financement)

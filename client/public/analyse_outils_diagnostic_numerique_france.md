@@ -8,7 +8,7 @@
 ## 1. Diag-numerique.fr (OPCALIA / MEDEF)
 
 ### Description
-- **URL** : http://www.diag-numerique.fr / http://tmc.diag-numerique.fr
+- **Anciennes adresses** : Diag-numerique.fr et tmc.diag-numerique.fr — archives indisponibles au contrôle du 14 août 2026 ; aucun remplacement officiel direct identifié.
 - **Porteur** : MEDEF (lancé en octobre 2016), décliné par OPCALIA (organisme de formation)
 - **Cible** : Dirigeants de PME et TPE
 - **Durée** : 10 minutes
@@ -36,7 +36,7 @@
 
 ### Sources
 - Les Échos (2017) : "Numérique : la boîte à outils du Medef" - https://www.lesechos.fr/2017/10/numerique-la-boite-a-outils-du-medef-184275
-- Site officiel : http://www.diag-numerique.fr
+- Ancien site officiel : Diag-numerique.fr — archive indisponible au contrôle du 14 août 2026.
 
 ---
 

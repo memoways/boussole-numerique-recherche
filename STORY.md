@@ -79,6 +79,10 @@ Après chaque soumission, l’API prépare un e-mail de récapitulatif détermin
 | Engagements distincts des fonctions futures | Le projet doit présenter ses principes sans annoncer un service déjà actif | Gratuité, neutralité, code ouvert, hébergement et consentement sont formulés comme exigences de la future version ou choix à confirmer |
 | Une URL historique, une destination canonique | Les anciennes pages ne doivent pas concurrencer les contenus actifs ni perdre les documents de recherche | Les documents restent sous Ressources ; Nginx et l’application redirigent les anciennes URLs |
 | IPv4 avant IPv6 non configuré | Un AAAA publié doit répondre réellement, sinon le navigateur peut expirer | Le domaine final doit utiliser l’A record fonctionnel et ne publier aucun AAAA avant configuration IPv6 du serveur |
+| Une archive porte sa date | Un document de recherche ne décrit pas forcément le présent | Les pages d’archive signalent leur version et le contexte des affirmations datées, sans modifier les sources originales |
+| Les liens sortants sont explicitement signalés | Les archives renvoient vers des sites tiers dont le statut peut évoluer | Une icône et un texte accessible annoncent l’ouverture externe ; le rapport distingue 404 et accès protégés |
+| Le contrôle d’une archive est daté | Une URL fonctionnelle un jour peut disparaître ensuite | Chaque fiche d’archive indique le dernier contrôle et les références sans remplacement restent archivées sans lien actif |
+| La recherche reste guidée et locale | Les ressources sont peu nombreuses, mais leurs thèmes se recoupent | Les suggestions, le filtrage sans accent et les filtres de catégorie et date facilitent l’exploration sans service externe |
 
 ## 6. Stack et structure du dépôt
 
@@ -116,6 +120,10 @@ Qualité            pnpm verify · TypeScript · builds · scripts mobile/contra
 | 14 août 2026 | Quatrième passe éditoriale : Projet et Méthode resserrés, parcours et comparaisons formulés comme pistes à tester, engagements et architecture clarifiés |
 | 14 août 2026 | Cinquième passe éditoriale : anciennes pages consolidées, documents préservés sous Ressources, redirections canoniques documentées |
 | 14 août 2026 | Diagnostic IPv6 du domaine : IPv4 et TLS valides, CNAME remplacé à prévoir par un A record sans AAAA |
+| 14 août 2026 | Sixième passe éditoriale : filtres de période Ressources, métadonnées de date et bandeaux de contexte sur les archives Markdown |
+| 14 août 2026 | Contrôle passif des liens des archives : rapport de 152 URL uniques et repère visuel accessible des liens sortants |
+| 14 août 2026 | Traitement des 404 : destinations officielles actualisées, références sans équivalent archivées et badge de dernier contrôle ajouté aux fiches d’archive |
+| 14 août 2026 | Recherche guidée ajoutée sur Ressources : suggestions thématiques, combinaison des filtres et recherche tolérante aux accents |
 
 ## 8. État d’activation et limites connues
 

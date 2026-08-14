@@ -1,16 +1,18 @@
 import { useEffect, useState, useRef } from 'react';
 import { Streamdown } from 'streamdown';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Download } from 'lucide-react';
+import { ArrowLeft, Download, ExternalLink } from 'lucide-react';
 import { Link } from 'wouter';
 
 interface MarkdownDocumentProps {
   title: string;
   filename: string;
   description?: string;
+  archiveContext?: string;
+  archiveVersion?: string;
 }
 
-export default function MarkdownDocument({ title, filename, description }: MarkdownDocumentProps) {
+export default function MarkdownDocument({ title, filename, description, archiveContext, archiveVersion }: MarkdownDocumentProps) {
   const [content, setContent] = useState<string>('');
   const [loading, setLoading] = useState(true);
   const [headings, setHeadings] = useState<Array<{ id: string; text: string; level: number }>>([]);
@@ -119,6 +121,18 @@ export default function MarkdownDocument({ title, filename, description }: Markd
             {description && (
               <p className="text-lg text-muted-foreground">{description}</p>
             )}
+            {archiveContext && (
+              <aside className="mt-6 rounded-xl border border-[#515792]/20 bg-[#515792]/5 p-4 text-left max-w-3xl mx-auto" aria-label="Contexte du document d’archive">
+                <p className="text-sm font-semibold text-[#515792] mb-1">Document d’archive{archiveVersion ? ` · ${archiveVersion}` : ""}</p>
+                <p className="text-sm leading-relaxed text-slate-600">
+                  {archiveContext} Les affirmations datées doivent être lues dans ce contexte et ne décrivent pas nécessairement l’état actuel du projet ou des services cités.
+                </p>
+                <p className="mt-3 flex items-center gap-1.5 text-xs font-medium text-[#515792]">
+                  <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+                  Les liens externes s’ouvrent dans un nouvel onglet.
+                </p>
+              </aside>
+            )}
           </div>
 
           <div className="flex gap-8">
@@ -160,6 +174,7 @@ export default function MarkdownDocument({ title, filename, description }: Markd
                 prose-h4:text-xl prose-h4:mb-2 prose-h4:mt-6
                 prose-p:mb-4 prose-p:leading-7
                 prose-a:text-[#515792] prose-a:no-underline hover:prose-a:underline
+                prose-a:inline-flex prose-a:items-baseline prose-a:gap-1
                 prose-strong:text-foreground prose-strong:font-semibold
                 prose-ul:my-4 prose-ul:list-disc prose-ul:pl-6
                 prose-ol:my-4 prose-ol:list-decimal prose-ol:pl-6
@@ -172,7 +187,31 @@ export default function MarkdownDocument({ title, filename, description }: Markd
                 prose-td:p-3 prose-td:border-t
                 prose-hr:my-8 prose-hr:border-border
               ">
-                <Streamdown>{content}</Streamdown>
+                <Streamdown
+                  components={{
+                    a: ({ href, children, ...props }) => {
+                      const isExternal = typeof href === "string" && /^https?:\/\//i.test(href);
+
+                      return (
+                        <a
+                          href={href}
+                          {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                          {...props}
+                        >
+                          {children}
+                          {isExternal && (
+                            <>
+                              <ExternalLink className="inline-block h-[0.85em] w-[0.85em] shrink-0 align-[-0.08em]" aria-hidden="true" />
+                              <span className="sr-only"> (ouvre un site externe dans un nouvel onglet)</span>
+                            </>
+                          )}
+                        </a>
+                      );
+                    },
+                  }}
+                >
+                  {content}
+                </Streamdown>
               </div>
 
               {/* Pied de page */}

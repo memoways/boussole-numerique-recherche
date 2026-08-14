@@ -20,6 +20,14 @@ Une quatrième passe a resserré les pages Projet et Méthode. Les parcours indi
 
 Une cinquième passe a consolidé les pages historiques. Les anciennes URLs de projet et de gouvernance redirigent vers les pages actives ; les études, sources et synthèses historiques restent accessibles dans l’arborescence `/ressources/*`. Les redirections sont prévues à la fois dans l’application et dans Nginx pour le déploiement Coolify. Voir [`docs/ARCHIVE_PAGES_HISTORIQUES.md`](./docs/ARCHIVE_PAGES_HISTORIQUES.md).
 
+Une sixième passe a amélioré l’exploration des Ressources par catégorie et période. Les documents d’archive affichent désormais une date de version lorsque celle-ci est connue, ou signalent son absence. Ils indiquent aussi que les services, priorités et constats cités doivent être lus dans le contexte de leur date de recherche. Le relevé des affirmations datées est disponible dans [`docs/CONTEXTE_ARCHIVES_MARKDOWN.md`](./docs/CONTEXTE_ARCHIVES_MARKDOWN.md).
+
+Les liens externes des archives sont signalés par une icône et un texte accessible ; ils s’ouvrent dans un nouvel onglet protégé. Le contrôle HTTP du 14 août 2026 couvre 152 URL uniques et distingue les liens en 404 des accès protégés ou des réponses qui demandent une vérification humaine. Les résultats sont consignés dans [`docs/CONTROLE_LIENS_ARCHIVES_2026-08-14.md`](./docs/CONTROLE_LIENS_ARCHIVES_2026-08-14.md).
+
+Les liens 404 qualifiés ont été remplacés par des destinations officielles lorsque cela était possible. Les sources sans équivalent fiable restent mentionnées comme archives, sans lien sortant actif. Les fiches des documents historiques affichent la date de leur dernier contrôle de liens.
+
+La page Ressources complète ses filtres de catégorie et de période par une recherche locale guidée. Elle propose des suggestions thématiques, recherche sans tenir compte de la casse ou des accents, et permet d’effacer la requête sans réinitialiser les autres filtres.
+
 ## Ce que contient le portail
 
 | Ensemble | Rôle | Routes ou emplacement |

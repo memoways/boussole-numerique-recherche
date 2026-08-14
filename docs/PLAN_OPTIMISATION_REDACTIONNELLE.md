@@ -191,6 +191,19 @@ Les pages Projet et Méthode ont été contrôlées dans l’aperçu le 14 août
 
 La prochaine passe peut traiter les contenus documentaires eux-mêmes : vérifier les affirmations datées qui restent dans les archives Markdown, indiquer leur date de version au premier écran et ajouter, si nécessaire, un avertissement sur leur statut d’archive. Cette révision devra préserver les données, sources et dates telles qu’elles figurent dans les documents originaux.
 
+## Révisions appliquées — sixième passe
+
+| Zone | Diagnostic traité | Révision appliquée |
+|---|---|---|
+| Ressources — exploration | Les filtres par catégorie existaient, mais la date et le statut de version restaient difficiles à lire dans une liste longue. | Un second groupe de filtres permet de limiter les ressources à `2026`, `2025`, `2024 et avant` ou `Date non indiquée`. Chaque fiche affiche sa date de version ou l’absence d’information. |
+| Archives Markdown | Les documents pouvaient présenter des services, priorités ou constats de 2026 comme actuels. | Chaque page d’archive affiche un bandeau avec son statut, la version connue et une explication de la portée temporelle du document. |
+| Sources sans date | Certains documents ne donnent pas de date de version, et une source emploie une date relative. | Les fiches et bandeaux indiquent explicitement l’absence de date. La documentation recense les formulations relatives sans modifier la source originale. |
+| Analyse d’outils et références initiales | Les noms de services et comparaisons de recherche initiale peuvent être confondus avec les Références actives. | Les pages sont désignées comme archives documentaires et précisent qu’elles ne valident pas les services cités ni le tableau comparatif actif. |
+
+## Contrôle visuel — sixième passe
+
+Le 14 août 2026, la page Ressources a été contrôlée avec les filtres de catégorie et de date. Le filtre `2026` réduit la liste aux deux documents correspondants. La page d’archive Analyse d’outils affiche son statut, sa version de février 2026 et son contexte avant le document original.
+
 ## Prochaine boucle à valider
 
 1. La page Ressources doit-elle être traitée avant la page Projet, pour harmoniser les titres, les renvois et le vocabulaire documentaire ?
@@ -201,3 +214,15 @@ La prochaine passe peut traiter les contenus documentaires eux-mêmes : vérifie
 
 - [FAIT À FOURNIR : source établissant que la Boussole est « le seul outil 100% culturel francophone » et « la première initiative de ce type »] — nécessaire avant de conserver ces deux revendications sur la page Références.
 - [DONNÉE À TRANCHER : lieu et statut exact de l’hébergement de la future version publique] — les pages historiques encore présentes dans le dépôt évoquent Infomaniak, tandis que la documentation de déploiement décrit Coolify self-hosted. Les routes actives doivent conserver une formulation exacte et cohérente.
+
+## Vérification des liens d’archives
+
+Le 14 août 2026, 152 URL externes uniques ont été contrôlées de façon passive dans les archives Markdown. Le rapport sépare les 404 à traiter des protections d’accès, réponses 405, parcours d’authentification et erreurs réseau qui exigent un contrôle humain avant correction. Les archives affichent maintenant l’icône et le texte accessible des liens sortants. Voir [`CONTROLE_LIENS_ARCHIVES_2026-08-14.md`](./CONTROLE_LIENS_ARCHIVES_2026-08-14.md).
+
+Les 404 prioritaires ont été remplacés par des destinations officielles lorsque celles-ci ont été identifiées. Diag-numerique et la référence ScienceDirect indisponible sont archivés sans lien sortant actif. Le contrôle de suivi ne signale plus aucun 404 dans les six archives Markdown ; les accès protégés restent dans le rapport pour vérification humaine. Les fiches d’archive affichent la date de ce contrôle.
+
+## Recherche guidée des Ressources
+
+La page Ressources propose désormais une recherche par mot-clé en complément des filtres de catégorie et de période. Les suggestions s’appuient sur les thèmes et documents effectivement présents : intelligence artificielle, transformation numérique, diagnostic numérique, culture, gouvernance, UNESCO, sources et 2026. La recherche ignore les accents et la casse, puis croise les mots saisis avec le titre, la description, le type, la période et la date de chaque ressource.
+
+Le champ reste utilisable au clavier grâce à un libellé explicite et à une liste native de suggestions. Les boutons de suggestion sont également atteignables au clavier ; ils renseignent directement la recherche. Le contrôle du 14 août 2026 a confirmé que la suggestion « UNESCO » réduit la liste à la source correspondante, sans désactiver les filtres de catégorie et de date.

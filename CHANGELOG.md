@@ -37,6 +37,10 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Quatrième passe éditoriale appliquée : Projet et Méthode distinguent les engagements actuels, les choix à confirmer et les fonctions futures ; le parcours, les comparaisons, l’architecture et les CTA sont resserrés.
 - Cinquième passe éditoriale appliquée : les pages historiques sont archivées sous Ressources ou redirigées vers leur page canonique, avec redirections applicatives et HTTP 301 prévues dans Nginx.
 - Diagnostic du domaine public : chemin IPv4, TLS et certificat validés ; CNAME/IPv6 défaillant identifié et procédure de remplacement par A record documentée.
+- Sixième passe éditoriale appliquée : Ressources filtre désormais par catégorie et période ; les archives Markdown affichent leur statut, leur date connue et le contexte de leurs affirmations datées.
+- Contrôle des liens d’archives : 152 URL externes uniques vérifiées, rapport de qualification des 404 et accès protégés, et icône accessible ajoutée aux liens sortants.
+- Liens d’archives actualisés : les destinations officielles identifiées remplacent les 404 ; Diag-numerique et une référence ScienceDirect sont archivés sans lien actif ; les fiches d’archive affichent le dernier contrôle.
+- Ressources : recherche par mot-clé ajoutée avec suggestions accessibles, prise en charge des accents et combinaison avec les filtres existants de catégorie et de période.
 
 ### Vérifié
 
