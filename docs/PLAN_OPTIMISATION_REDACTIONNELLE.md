@@ -179,6 +179,18 @@ Les pages Projet et Méthode ont été contrôlées dans l’aperçu le 14 août
 - [DONNÉE À TRANCHER : hébergement Infomaniak ou infrastructure Coolify self-hosted] — les anciennes formulations publiques citaient Infomaniak, alors que la configuration technique du dépôt prépare Coolify. La page parle désormais d’un choix à confirmer ; une décision doit être reportée dans les pages publiques et la documentation lors du déploiement.
 - [FAIT À FOURNIR : statut public du dépôt de code] — les pages présentent désormais la publication du code comme un engagement du projet. Une URL de dépôt public est nécessaire avant de la remplacer par un fait établi.
 
+## Révisions appliquées — cinquième passe
+
+| Zone | Diagnostic traité | Révision appliquée |
+|---|---|---|
+| Pages historiques | Les anciennes pages de projet, gouvernance, étude, état des lieux, analyse d’outils, sources et synthèse restaient accessibles hors de l’arborescence actuelle. | Les anciennes URLs redirigent vers la page active correspondante ou vers un document conservé sous `/ressources/*`. |
+| Documents de recherche | Les documents Markdown historiques contiennent des sources et analyses utiles, mais leurs pages autonomes brouillaient le parcours actuel. | Les documents restent consultables sous Ressources avec une description archivistique claire ; ils ne sont pas indexés comme pages publiques principales. |
+| Références actives et archives | Le document « Références inspirantes » initial risquait d’être confondu avec la page Références active. | Il est conservé sous `/ressources/references-inspirantes` comme archive ; la page active `/references` reste la seule comparaison éditoriale de référence. |
+
+## Piste pour la sixième passe
+
+La prochaine passe peut traiter les contenus documentaires eux-mêmes : vérifier les affirmations datées qui restent dans les archives Markdown, indiquer leur date de version au premier écran et ajouter, si nécessaire, un avertissement sur leur statut d’archive. Cette révision devra préserver les données, sources et dates telles qu’elles figurent dans les documents originaux.
+
 ## Prochaine boucle à valider
 
 1. La page Ressources doit-elle être traitée avant la page Projet, pour harmoniser les titres, les renvois et le vocabulaire documentaire ?

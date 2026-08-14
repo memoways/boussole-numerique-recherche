@@ -102,36 +102,82 @@ export const SEO_PAGES: Record<string, SeoPage> = {
     description:
       "Accédez aux études, sources et ressources qui accompagnent le projet Boussole Numérique Culture.",
   },
+  "/ressources/etude-complete": {
+    title: "Étude complète | Ressources Boussole",
+    description: "Document consolidé de recherche sur la transformation numérique dans la culture.",
+    index: false,
+    breadcrumbs: [{ label: "Accueil", path: "/" }, { label: "Ressources", path: "/ressources" }, { label: "Étude complète", path: "/ressources/etude-complete" }],
+  },
+  "/ressources/etat-des-lieux": {
+    title: "État des lieux | Ressources Boussole",
+    description: "Rapport de synthèse sur la transformation numérique dans le secteur culturel.",
+    index: false,
+    breadcrumbs: [{ label: "Accueil", path: "/" }, { label: "Ressources", path: "/ressources" }, { label: "État des lieux", path: "/ressources/etat-des-lieux" }],
+  },
+  "/ressources/analyse-outils": {
+    title: "Analyse d’outils | Ressources Boussole",
+    description: "Document d’archive sur les outils de diagnostic étudiés pour la recherche.",
+    index: false,
+    breadcrumbs: [{ label: "Accueil", path: "/" }, { label: "Ressources", path: "/ressources" }, { label: "Analyse d’outils", path: "/ressources/analyse-outils" }],
+  },
+  "/ressources/synthese-documents": {
+    title: "Synthèse documentaire | Ressources Boussole",
+    description: "Synthèse des documents clés qui ont éclairé la recherche du projet.",
+    index: false,
+    breadcrumbs: [{ label: "Accueil", path: "/" }, { label: "Ressources", path: "/ressources" }, { label: "Synthèse documentaire", path: "/ressources/synthese-documents" }],
+  },
+  "/ressources/sources": {
+    title: "Sources documentaires | Ressources Boussole",
+    description: "Liste des sources documentées mobilisées pour la recherche du projet.",
+    index: false,
+    breadcrumbs: [{ label: "Accueil", path: "/" }, { label: "Ressources", path: "/ressources" }, { label: "Sources", path: "/ressources/sources" }],
+  },
+  "/ressources/references-inspirantes": {
+    title: "Références inspirantes | Ressources Boussole",
+    description: "Document d’archive sur les références inspirantes de la recherche initiale.",
+    index: false,
+    breadcrumbs: [{ label: "Accueil", path: "/" }, { label: "Ressources", path: "/ressources" }, { label: "Références inspirantes", path: "/ressources/references-inspirantes" }],
+  },
   "/etude-complete": {
     title: "Étude complète | Boussole Numérique Culture",
     description:
       "Consultez l'étude complète sur la transformation numérique dans les secteurs culturels et créatifs.",
+    canonicalPath: "/ressources/etude-complete",
+    index: false,
   },
   "/etat-des-lieux": {
     title: "État des lieux | Boussole Numérique Culture",
     description:
       "Un état des lieux des pratiques, besoins et conditions de transformation numérique dans le secteur culturel.",
+    canonicalPath: "/ressources/etat-des-lieux",
+    index: false,
   },
   "/analyse-outils": {
     title: "Analyse d'outils | Boussole Numérique Culture",
     description:
       "Une analyse des outils de diagnostic et d'accompagnement numérique utiles au secteur culturel.",
+    canonicalPath: "/ressources/analyse-outils",
+    index: false,
   },
   "/sources": {
     title: "Sources | Boussole Numérique Culture",
     description:
       "Retrouvez les sources et publications qui étayent la recherche Boussole Numérique Culture.",
+    canonicalPath: "/ressources/sources",
+    index: false,
   },
   "/synthese-documents": {
     title: "Synthèse documentaire | Boussole Numérique Culture",
     description:
       "Une synthèse des documents clés mobilisés pour concevoir la Boussole Numérique Culture.",
+    canonicalPath: "/ressources/synthese-documents",
+    index: false,
   },
   "/references-inspirantes": {
     title: "Références comparables | Boussole Numérique Culture",
     description:
       "Une sélection documentée d'outils comparables et de démarches inspirantes pour le diagnostic numérique culturel.",
-    canonicalPath: "/references",
+    canonicalPath: "/ressources/references-inspirantes",
     index: false,
   },
   "/description-projet": {
@@ -163,6 +209,12 @@ const BREADCRUMB_LABELS: Record<string, string> = {
   "/recherche": "Recherche",
   "/references": "Références",
   "/ressources": "Ressources",
+  "/ressources/etude-complete": "Étude complète",
+  "/ressources/etat-des-lieux": "État des lieux",
+  "/ressources/analyse-outils": "Analyse d’outils",
+  "/ressources/synthese-documents": "Synthèse documentaire",
+  "/ressources/sources": "Sources",
+  "/ressources/references-inspirantes": "Références inspirantes",
   "/etude-complete": "Étude complète",
   "/etat-des-lieux": "État des lieux",
   "/analyse-outils": "Analyse d’outils",

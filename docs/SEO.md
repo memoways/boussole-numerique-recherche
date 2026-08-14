@@ -4,6 +4,8 @@ Le site génère des titres, descriptions, URL canoniques, balises Open Graph, c
 
 Le sitemap est régénéré à chaque build avec `SITE_URL`, une date de génération, `changefreq` et une priorité adaptée à chaque route indexable. Il inclut notamment la présentation partenaire, mais pas le questionnaire ni l’administration. Le fichier `robots.txt` publie le lien vers ce sitemap et bloque explicitement `/admin`, `/partenaires/admin` et `/partenaires/questionnaire`. Les pages privées générées reçoivent également `noindex,follow`.
 
+Les documents historiques sont accessibles sous `/ressources/*` avec `noindex`. Leurs anciennes URLs reçoivent une redirection permanente vers la destination canonique et ne doivent pas être ajoutées au sitemap. La liste de ces mappings est conservée dans [`ARCHIVE_PAGES_HISTORIQUES.md`](./ARCHIVE_PAGES_HISTORIQUES.md).
+
 La validation de production a confirmé la présence des métadonnées dans toutes les pages générées. Lors de la vérification de l'aperçu de développement, le nouveau sous-domaine de prévisualisation Vite a été bloqué par sa liste d'hôtes ; ce comportement de développement sera ajusté sans introduire de dépendance à une plateforme spécifique.
 
 La prévisualisation autorise désormais les hôtes de développement sans lier le projet à un domaine précis. Le contrôle de la route `/partenaires` confirme que le titre, la description, l'URL canonique, `og:title`, `og:url` et les données structurées `WebPage` sont mis à jour par l'application au changement de route.

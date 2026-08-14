@@ -1,7 +1,8 @@
+import { useEffect } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
-import { Route, Switch, useLocation } from "wouter";
+import { Link, Route, Switch, useLocation } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
@@ -10,16 +11,8 @@ import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import SeoMeta from "./components/SeoMeta";
 import PageBreadcrumbs from "./components/PageBreadcrumbs";
+import MarkdownDocument from "./components/MarkdownDocument";
 
-// Pages existantes (conservées)
-import ReferencesInspirantes from "./pages/ReferencesInspirantes";
-import EtudeComplete from "./pages/EtudeComplete";
-import EtatDesLieux from "./pages/EtatDesLieux";
-import AnalyseOutils from "./pages/AnalyseOutils";
-import Sources from "./pages/Sources";
-import SyntheseDocuments from "./pages/SyntheseDocuments";
-
-// Nouvelles pages selon le PRD
 import Projet from "./pages/Projet";
 import Experience from "./pages/Experience";
 import Methode from "./pages/Methode";
@@ -31,6 +24,38 @@ import PartnerPresentation from "./pages/PartnerPresentation";
 import PartnerQuestionnaire from "./pages/PartnerQuestionnaire";
 import PartnerAdmin from "./pages/PartnerAdmin";
 import Ressources from "./pages/Ressources";
+
+type HistoricalDocumentProps = {
+  title: string;
+  filename: string;
+  description: string;
+};
+
+function HistoricalDocument({ title, filename, description }: HistoricalDocumentProps) {
+  return <MarkdownDocument title={title} filename={filename} description={description} />;
+}
+
+function LegacyRedirect({ to, label }: { to: string; label: string }) {
+  const [, navigate] = useLocation();
+
+  useEffect(() => {
+    navigate(to, { replace: true });
+  }, [navigate, to]);
+
+  return (
+    <section className="px-4 py-20 bg-slate-50">
+      <div className="max-w-xl mx-auto rounded-2xl border border-slate-200 bg-white p-8 text-center">
+        <h1 className="text-2xl font-bold text-gray-900 mb-3">Page déplacée</h1>
+        <p className="text-gray-600 leading-relaxed mb-5">
+          Cette page a été regroupée dans {label}. Redirection en cours.
+        </p>
+        <Link href={to} className="font-semibold text-[#515792] underline underline-offset-4">
+          Ouvrir la page correspondante
+        </Link>
+      </div>
+    </section>
+  );
+}
 
 function Router() {
   const [location] = useLocation();
@@ -60,17 +85,61 @@ function Router() {
         <Route path={"/partenaires/questionnaire"} component={PartnerQuestionnaire} />
         <Route path={"/partenaires/admin"} component={PartnerAdmin} />
         <Route path={"/admin"} component={PartnerAdmin} />
-        <Route path={"/gouvernance"}>{() => { window.location.replace("/methode"); return null; }}</Route>
         <Route path={"/ressources"} component={Ressources} />
 
-        {/* Anciennes pages (conservées pour les liens existants) */}
-        <Route path={"/references-inspirantes"} component={References} />
-        <Route path={"/description-projet"} component={Projet} />
-        <Route path={"/etude-complete"} component={EtudeComplete} />
-        <Route path={"/etat-des-lieux"} component={EtatDesLieux} />
-        <Route path={"/analyse-outils"} component={AnalyseOutils} />
-        <Route path={"/sources"} component={Sources} />
-        <Route path={"/synthese-documents"} component={SyntheseDocuments} />
+        {/* Documents historiques préservés sous une arborescence Ressources explicite. */}
+        <Route path={"/ressources/etude-complete"}>{() => (
+          <HistoricalDocument
+            title="Étude complète"
+            filename="etude_complete_transformation_numerique_culture.md"
+            description="Document consolidé : résumé exécutif, état des lieux, synthèse des quatre PDF, 104 sources, grille d’évaluation de maturité IA et recommandations stratégiques."
+          />
+        )}</Route>
+        <Route path={"/ressources/etat-des-lieux"}>{() => (
+          <HistoricalDocument
+            title="État des lieux"
+            filename="etat_des_lieux_transformation_numerique_culture.md"
+            description="Rapport de synthèse sur la transformation numérique, l’adoption de l’IA, les politiques publiques et les enjeux du secteur culturel."
+          />
+        )}</Route>
+        <Route path={"/ressources/analyse-outils"}>{() => (
+          <HistoricalDocument
+            title="Analyse des outils existants"
+            filename="analyse_outils_diagnostic_numerique_france.md"
+            description="Document d’archive : comparaison d’outils de diagnostic et enseignements retenus pour la recherche du projet."
+          />
+        )}</Route>
+        <Route path={"/ressources/synthese-documents"}>{() => (
+          <HistoricalDocument
+            title="Synthèse des documents clés"
+            filename="synthese_documents_cles.md"
+            description="Synthèse détaillée des quatre documents PDF majeurs analysés pour cette recherche."
+          />
+        )}</Route>
+        <Route path={"/ressources/sources"}>{() => (
+          <HistoricalDocument
+            title="Liste des sources"
+            filename="sources_trouvees.md"
+            description="104 sources documentées, classées par thème, géographie et type de publication."
+          />
+        )}</Route>
+        <Route path={"/ressources/references-inspirantes"}>{() => (
+          <HistoricalDocument
+            title="Références inspirantes"
+            filename="references_inspirantes.md"
+            description="Document d’archive : analyse de références inspirantes mobilisées pendant la recherche initiale."
+          />
+        )}</Route>
+
+        {/* Anciennes URLs : leurs contenus sont disponibles aux destinations canoniques. */}
+        <Route path={"/description-projet"}>{() => <LegacyRedirect to="/projet" label="la page Projet" />}</Route>
+        <Route path={"/gouvernance"}>{() => <LegacyRedirect to="/methode" label="la page Méthode" />}</Route>
+        <Route path={"/references-inspirantes"}>{() => <LegacyRedirect to="/ressources/references-inspirantes" label="les documents historiques" />}</Route>
+        <Route path={"/etude-complete"}>{() => <LegacyRedirect to="/ressources/etude-complete" label="les documents et sources" />}</Route>
+        <Route path={"/etat-des-lieux"}>{() => <LegacyRedirect to="/ressources/etat-des-lieux" label="les documents et sources" />}</Route>
+        <Route path={"/analyse-outils"}>{() => <LegacyRedirect to="/ressources/analyse-outils" label="les documents et sources" />}</Route>
+        <Route path={"/sources"}>{() => <LegacyRedirect to="/ressources/sources" label="les documents et sources" />}</Route>
+        <Route path={"/synthese-documents"}>{() => <LegacyRedirect to="/ressources/synthese-documents" label="les documents et sources" />}</Route>
 
         <Route path={"/404"} component={NotFound} />
         <Route component={NotFound} />

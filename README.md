@@ -18,6 +18,8 @@ Une troisième passe a clarifié la page Ressources, désormais centrée sur les
 
 Une quatrième passe a resserré les pages Projet et Méthode. Les parcours individuels et collectifs, la restitution, les comparaisons et l’architecture y sont présentés comme des choix à tester avec les partenaires. Les engagements du projet restent visibles, mais les éléments techniques à confirmer avant le déploiement public sont désormais signalés comme tels.
 
+Une cinquième passe a consolidé les pages historiques. Les anciennes URLs de projet et de gouvernance redirigent vers les pages actives ; les études, sources et synthèses historiques restent accessibles dans l’arborescence `/ressources/*`. Les redirections sont prévues à la fois dans l’application et dans Nginx pour le déploiement Coolify. Voir [`docs/ARCHIVE_PAGES_HISTORIQUES.md`](./docs/ARCHIVE_PAGES_HISTORIQUES.md).
+
 ## Ce que contient le portail
 
 | Ensemble | Rôle | Routes ou emplacement |
