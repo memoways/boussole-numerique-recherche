@@ -34,7 +34,7 @@ const LEARNINGS: {
     id: 1,
     titre: "70% des transformations numériques échouent",
     resume: "Sans accompagnement adapté ni vision partagée, la majorité des projets de transformation numérique n'atteignent pas leurs objectifs.",
-    detail: "BCG et McKinsey convergent indépendamment sur ce chiffre : 70% des transformations numériques échouent, principalement par manque d'appropriation humaine, de stratégie claire et d'accompagnement sur la durée. McKinsey précise que seuls 30% des projets atteignent leurs objectifs et génèrent un changement durable. Le secteur culturel, avec ses structures souvent petites et sous-dotées, est particulièrement exposé. La Boussole propose un point de départ diagnostique pour éviter ces écueils.",
+    detail: "BCG et McKinsey convergent indépendamment sur ce chiffre : 70% des transformations numériques échouent, principalement par manque d'appropriation humaine, de stratégie claire et d'accompagnement sur la durée. McKinsey précise que seuls 30% des projets atteignent leurs objectifs et génèrent un changement durable. Le secteur culturel, avec ses structures souvent petites et sous-dotées, demande une attention particulière. Ce constat guidera les questions que la future Boussole mettra à l’essai.",
     tags: ['Problématique', 'Enjeu'] as LearningTag[],
     source: 'BCG 2020 · McKinsey 2022',
     sources: [
@@ -46,7 +46,7 @@ const LEARNINGS: {
     id: 2,
     titre: "55% des professionnels culturels peinent à identifier leurs besoins IA",
     resume: "Plus de la moitié des acteurs culturels ne savent pas par où commencer face à l'IA.",
-    detail: "L'étude Compétence Culture (Québec, novembre 2025) révèle que 55% des professionnels culturels ont du mal à identifier leurs besoins en compétences IA. Par ailleurs, 62% des organisations culturelles prévoient une adoption croissante de l'IA. Ce décalage entre l'intention et la capacité est précisément ce que la Boussole cherche à combler. À l'échelle mondiale, le WEF 2025 estime que 59% des travailleurs auront besoin de reskilling d'ici 2030.",
+    detail: "L'étude Compétence Culture (Québec, novembre 2025) révèle que 55% des professionnels culturels ont du mal à identifier leurs besoins en compétences IA. Par ailleurs, 62% des organisations culturelles prévoient une adoption croissante de l'IA. Ce décalage entre l’intention et la capacité éclaire les questions que le projet doit tester. À l'échelle mondiale, le WEF 2025 estime que 59% des travailleurs auront besoin de nouvelles compétences d'ici 2030.",
     tags: ['Problématique', 'Enjeu'] as LearningTag[],
     source: 'Compétence Culture Québec, nov. 2025 · WEF Future of Jobs 2025',
     sources: [
@@ -56,9 +56,9 @@ const LEARNINGS: {
   },
   {
     id: 3,
-    titre: "~2 800 structures ICC en Ville de Genève, aucun outil d’auto-évaluation adapté",
-    resume: "Les outils existants sont généralistes, coûteux ou conçus pour les PME — pas pour les artistes et petites structures culturelles.",
-    detail: "La Ville de Genève compte environ 2 800 établissements dans les industries culturelles et créatives (ICC) — soit plus de la moitié des 5 000 structures ICC du canton. Ces structures emploient 12 150 personnes, soit 6,6% des emplois en Ville de Genève. Les outils de diagnostic numérique existants sont conçus pour les PME généralistes, sans dimension IA et sans ancrage culturel.",
+    titre: "~2 800 structures ICC en Ville de Genève : un besoin à documenter",
+    resume: "Les outils examinés visent souvent les PME généralistes ou un autre contexte culturel. Le projet doit vérifier leur pertinence pour les artistes et petites structures.",
+    detail: "La Ville de Genève compte environ 2 800 établissements dans les industries culturelles et créatives (ICC) — soit plus de la moitié des 5 000 structures ICC du canton. Ces structures emploient 12 150 personnes, soit 6,6% des emplois en Ville de Genève. L’analyse comparative invite à tester si les outils de diagnostic existants répondent aux pratiques des petites structures culturelles, aux usages de l’IA et au contexte local.",
     tags: ['Problématique', 'Enjeu', 'Opportunité'] as LearningTag[],
     source: 'DCTN Empreintes Créatives Genève 2023 · Analyse comparative',
     sources: [
@@ -70,7 +70,7 @@ const LEARNINGS: {
     id: 4,
     titre: "62% des acteurs culturels prévoient une adoption croissante de l’IA",
     resume: "L'élan est là : la majorité des professionnels culturels anticipent d'utiliser davantage l'IA — mais sans accompagnement structuré.",
-    detail: "Selon l'étude Compétence Culture (Québec, 2025), 62% des organisations culturelles prévoient une adoption croissante de l'IA dans leurs activités. Cet élan est réel mais non accompagné : il manque des repères, des ressources accessibles et des outils adaptés au contexte culturel local. Par ailleurs, 59% des professionnels se dotent d'une expertise IA via des formations, mais 55% peinent à identifier leurs besoins.",
+    detail: "Selon l'étude Compétence Culture (Québec, 2025), 62% des organisations culturelles prévoient une adoption croissante de l'IA dans leurs activités. Cette évolution soulève des questions de repères, de ressources accessibles et de formation. Par ailleurs, 59% des professionnels se dotent d'une expertise IA via des formations, mais 55% peinent à identifier leurs besoins.",
     tags: ['Opportunité', 'Perspective'] as LearningTag[],
     source: 'Compétence Culture Québec 2025',
     sources: [
@@ -79,9 +79,9 @@ const LEARNINGS: {
   },
   {
     id: 5,
-    titre: "Les données culturelles sont vulnérables",
-    resume: "Hébergement hors Europe, absence de politique de souveraineté : les structures culturelles exposent leurs données sans le savoir.",
-    detail: "La majorité des outils utilisés par les structures culturelles genevoises hébergent les données aux États-Unis, hors du cadre légal européen (RGPD / LPD suisse). Peu de structures ont une politique de souveraineté numérique consciente. La Boussole intègre cette dimension comme l'un de ses cinq axes d'évaluation, et sera elle-même hébergée en Suisse chez Infomaniak.",
+    titre: "Les données culturelles demandent des repères de gouvernance",
+    resume: "L’hébergement, les accès et les règles de partage des données font partie des questions à examiner avec les structures.",
+    detail: "Le cadre suisse et européen de protection des données rend nécessaires des choix explicites sur l’hébergement, les accès et les usages. La future Boussole intégrera cette dimension parmi les questions à tester. Son hébergement et ses modalités de gouvernance seront documentés au fil du projet.",
     tags: ['Enjeu', 'Problématique'] as LearningTag[],
     source: 'Analyse comparative · Dossier Boussole Numérique Culture',
     sources: [
@@ -91,9 +91,9 @@ const LEARNINGS: {
   },
   {
     id: 6,
-    titre: "Nos Gestes Climat : +3 millions de tests — la preuve qu’un outil contributif change les pratiques",
-    resume: "Un outil gratuit, pédagogue, open source et contributif peut toucher des millions de personnes.",
-    detail: "Nos Gestes Climat (ADEME / beta.gouv.fr) a dépassé les 3 millions de tests réalisés en mai 2026 (contre 2 millions fin 2024). Son succès repose sur trois piliers : gratuité totale, pédagogie accessible sans jargon, et modèle contributif open source. La Boussole s'inspire directement de cette approche pour le secteur culturel genevois.",
+    titre: "Nos Gestes Climat : +3 millions de tests, un repère contributif",
+    resume: "Un outil gratuit et ouvert peut toucher un large public. Son modèle apporte des éléments à examiner pour le secteur culturel.",
+    detail: "Nos Gestes Climat (ADEME / beta.gouv.fr) a dépassé les 3 millions de tests réalisés en mai 2026 (contre 2 millions fin 2024). Sa gratuité, sa pédagogie accessible et son modèle contributif offrent des éléments de comparaison pour la future Boussole.",
     tags: ['Solution', 'Perspective'] as LearningTag[],
     source: 'beta.gouv.fr · ADEME, mai 2026',
     sources: [
@@ -116,9 +116,9 @@ const LEARNINGS: {
   },
   {
     id: 8,
-    titre: "Les outils existants ne parlent pas aux artistes et petites structures",
-    resume: "Trop techniques, trop génériques, trop coûteux : les outils de diagnostic numérique actuels excluent de fait les acteurs culturels indépendants.",
-    detail: "L'analyse comparative de sept initiatives internationales — du Digital Culture Compass (Royaume-Uni) au Baromètre FWB (Belgique), en passant par l'Observatoire du numérique genevois — montre qu'aucune ne répond aux besoins spécifiques des acteurs culturels genevois : ancrage local absent, dimension IA manquante, langue française peu présente, petites structures mal couvertes.",
+    titre: "Les outils existants : des écarts à examiner",
+    resume: "Les initiatives comparées proposent des angles utiles, tout en laissant ouvertes des questions sur le contexte local, l’IA, la langue et les petites structures.",
+    detail: "L'analyse comparative de sept initiatives internationales, du Digital Culture Compass au Baromètre FWB en passant par l'Observatoire du numérique genevois, met en évidence des écarts à examiner : ancrage local, place de l’IA, langue et couverture des petites structures. La co-conception permettra de vérifier lesquels comptent le plus pour les partenaires.",
     tags: ['Problématique', 'Solution'] as LearningTag[],
     source: 'Analyse comparative Boussole · Juin 2026',
     sources: [
@@ -142,9 +142,9 @@ const LEARNINGS: {
   },
   {
     id: 10,
-    titre: "L’approche contributive et multimodale est la clé de l’adoption",
-    resume: "Co-construire avec les usagers, proposer voix, texte et questionnaire selon le profil : c'est ce qui rend un outil vraiment accessible.",
-    detail: "Les modèles les plus adoptés (Nos Gestes Climat avec +3M de tests, Wikipedia, OpenStreetMap) partagent un point commun : ils sont construits avec leurs utilisateurs, pas pour eux. La Boussole intègre cette logique dès le départ, avec 7 temps de co-conception prévus sur 18 mois.",
+    titre: "Une approche contributive et multimodale à tester",
+    resume: "Co-conception, voix, texte et questionnaire sont des modalités que le projet testera avec ses partenaires.",
+    detail: "Nos Gestes Climat, Wikipedia et OpenStreetMap montrent des manières différentes d’associer les personnes qui utilisent un service à son évolution. Le projet Boussole testera cette logique avec ses partenaires, à travers des temps de co-conception et des modalités de contribution à préciser.",
     tags: ['Solution', 'Perspective', 'Opportunité'] as LearningTag[],
     source: 'Dossier Boussole Numérique Culture · Analyse comparative',
     sources: [
@@ -156,7 +156,7 @@ const LEARNINGS: {
     id: 11,
     titre: "L’UNESCO appelle à un cadre éthique pour l’IA dans la culture",
     resume: "Le rapport UNESCO 2025 pose les bases d'une gouvernance responsable de l'IA dans les secteurs culturels et créatifs.",
-    detail: "Le rapport du Groupe d'Experts Indépendants de l'UNESCO (2025) formule des recommandations claires pour l'usage éthique de l'IA dans les secteurs culturels : transparence algorithmique, protection des droits d'auteur, accessibilité des outils, et souveraineté des données culturelles. Ce cadre éthique inspire directement les principes de gouvernance de la Boussole.",
+    detail: "Le rapport du Groupe d'Experts Indépendants de l'UNESCO (2025) formule des recommandations pour l'usage éthique de l'IA dans les secteurs culturels : transparence algorithmique, protection des droits d'auteur, accessibilité des outils et souveraineté des données culturelles. Ce cadre sert de référence pour les principes de gouvernance du projet.",
     tags: ['Enjeu', 'Perspective'] as LearningTag[],
     source: 'UNESCO — IA et culture 2025',
     sources: [
@@ -168,7 +168,7 @@ const LEARNINGS: {
     id: 12,
     titre: "Le Québec a développé une grille de maturité IA validée pour la culture",
     resume: "L'étude québécoise 2025 propose une méthodologie éprouvée d'évaluation de la maturité numérique et IA des organisations culturelles.",
-    detail: "L'étude \"L'IA en culture : Mieux comprendre pour agir ensemble\" (Compétence Culture, Québec, novembre 2025) est la référence la plus proche de ce que la Boussole veut accomplir pour Genève. Elle propose une grille d'évaluation validée sur le terrain, une méthodologie de sondage éprouvée et des données comparatives précieuses sur 55% / 62% / 59% des professionnels culturels.",
+    detail: "L'étude \"L'IA en culture : Mieux comprendre pour agir ensemble\" (Compétence Culture, Québec, novembre 2025) offre une référence proche des questions que le projet souhaite explorer. Elle propose une grille d'évaluation, une méthodologie de sondage et des données comparatives sur 55% / 62% / 59% des professionnels culturels.",
     tags: ['Solution', 'Perspective'] as LearningTag[],
     source: 'Compétence Culture Québec, nov. 2025',
     sources: [
@@ -204,7 +204,7 @@ const LEARNINGS: {
     id: 15,
     titre: "Genève dispose d’un observatoire du numérique mais sans ancrage culturel spécifique",
     resume: "L'Observatoire genevois du numérique fournit des données précieuses, mais ne couvre pas les spécificités du secteur culturel.",
-    detail: "L'analyse de l'Observatoire du numérique genevois révèle un manque de données spécifiques au secteur culturel. Les indicateurs existants sont orientés vers les PME et les secteurs économiques traditionnels. La Boussole pourrait contribuer à combler ce manque en générant des données sectorielles anonymisées et partagées.",
+    detail: "L'analyse de l'Observatoire du numérique genevois met en évidence le besoin de données plus fines sur le secteur culturel. Les indicateurs existants sont orientés vers les PME et les secteurs économiques traditionnels. À terme, le projet pourrait documenter des tendances sectorielles à partir de données agrégées et anonymisées, sous réserve des choix de gouvernance et de consentement.",
     tags: ['Enjeu', 'Opportunité'] as LearningTag[],
     source: 'Analyse Observatoire numérique Genève',
     sources: [
@@ -243,13 +243,13 @@ export default function Recherche() {
             Recherche & état de l'art
           </h1>
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl leading-relaxed mb-6">
-            La Boussole repose sur une base documentaire solide : 104 sources, 4 études majeures, 15 insights clés sur la transformation numérique culturelle.
+            La recherche rassemble 104 sources, 4 études majeures et 15 constats documentés sur la transformation numérique culturelle.
           </p>
           <div className="flex flex-wrap gap-3">
             {[
               { val: "104", label: "sources" },
               { val: "4", label: "études majeures" },
-              { val: "15", label: "insights clés" },
+              { val: "15", label: "constats documentés" },
             ].map(({ val, label }) => (
               <div key={label} className="flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2">
                 <span className="font-extrabold text-lg" style={{ color: '#515792' }}>{val}</span>
@@ -267,8 +267,8 @@ export default function Recherche() {
             <div className="lg:col-span-2">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">Pourquoi cette recherche</h2>
               <div className="space-y-3 text-gray-600 leading-relaxed">
-                <p>La Boussole n'est pas née d'une intuition. Elle est le résultat d'une recherche documentaire approfondie sur la transformation numérique dans le secteur culturel — à Genève, en Suisse, en Europe et au Québec.</p>
-                <p>Cette recherche a permis d'identifier les besoins réels des structures culturelles, les lacunes des outils existants, et les approches qui ont fait leurs preuves ailleurs.</p>
+                <p>Le projet s’appuie sur une recherche documentaire consacrée à la transformation numérique dans le secteur culturel, à Genève, en Suisse, en Europe et au Québec.</p>
+                <p>Cette recherche met en regard des données, des outils existants et des méthodes de contribution. Elle aide l’équipe de projet à formuler les questions qui seront mises à l’essai avec les partenaires.</p>
               </div>
             </div>
             <div className="rounded-xl p-5" style={{ backgroundColor: '#f0f1f8' }}>
@@ -302,7 +302,7 @@ export default function Recherche() {
         <div className="max-w-4xl mx-auto">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">15 insights clés</h2>
+              <h2 className="text-2xl font-bold text-gray-900">15 constats documentés</h2>
               <p className="text-gray-500 text-sm mt-1">{filtered.length} résultat{filtered.length > 1 ? 's' : ''}</p>
             </div>
             {/* Filtres */}
@@ -405,7 +405,7 @@ export default function Recherche() {
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Outils comparables & inspirations</h2>
 
           <p className="text-gray-600 leading-relaxed mb-8 max-w-3xl">
-            Sept initiatives internationales ont été analysées en profondeur avant de concevoir la Boussole — du Royaume-Uni à la Belgique, de la France à l'Union européenne. Cette analyse comparative est au cœur de la démarche : apprendre de l'existant pour proposer un outil utile, original et bien pensé.
+            Sept initiatives internationales ont été examinées, du Royaume-Uni à la Belgique, de la France à l’Union européenne. Cette comparaison aide l’équipe de projet à étayer les choix de conception de la future Boussole.
           </p>
 
           {/* Grille synthétique */}
@@ -444,10 +444,10 @@ export default function Recherche() {
           <div className="rounded-2xl p-6 border-l-4 mb-6" style={{ backgroundColor: '#f0f1f8', borderColor: '#515792' }}>
             <h3 className="font-bold text-gray-900 mb-2">Analyse complète sur la page Références</h3>
             <p className="text-sm text-gray-600 leading-relaxed mb-4">
-              Pour chaque outil : fiche détaillée, chiffres clés, ce que la Boussole en apprend, ce qu'elle fait différemment, limites de la référence, et liens vers les sources originales. Plus un tableau comparatif interactif sur 10 critères, et une section "Idées et concepts intéressants pour la Boussole".
+              Chaque fiche présente la référence, ses chiffres clés, ses limites et les éléments que l’équipe de projet souhaite examiner. La page comprend aussi un tableau comparatif sur 10 critères et une section consacrée aux idées à tester pour la Boussole.
             </p>
             <Button style={{ backgroundColor: '#515792' }} asChild>
-              <Link href="/references">Voir les fiches détaillées & tableau comparatif <ArrowRight className="ml-2 h-4 w-4" /></Link>
+              <Link href="/references">Consulter les fiches et le tableau comparatif <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
           </div>
         </div>

@@ -124,6 +124,27 @@ Les arbitrages de l’équipe de projet ont validé les quatre axes prioritaires
 2. Souhaitez-vous conserver l’expression « agent intelligent » sur la page Projet, ou préférer une formulation plus directe telle que « dialogue guidé par IA », expliquée à la première occurrence ?
 3. La prochaine passe doit-elle traiter d’abord la page Recherche, plus documentaire, ou la page Partenaires, plus orientée vers la contribution ?
 
+## Contrôle visuel — seconde passe
+
+Les pages Recherche et Partenaires ont été contrôlées dans l’aperçu le 14 août 2026. Le cadrage documentaire de Recherche, les constats renommés, les deux accès partenaires et le CTA de participation restent lisibles dans leur composition actuelle. Le contrôle a aussi relevé une phrase globale du footer, « Un outil gratuit pour aider… », formulée comme si l’outil public existait déjà. Cette phrase doit être corrigée avec les autres textes de co-conception avant la sauvegarde de la seconde passe.
+
+## Révisions appliquées — seconde passe
+
+| Zone | Diagnostic traité | Révision appliquée |
+|---|---|---|
+| Recherche — cadrage | Les « insights » mélangeaient faits sourcés, interprétations et promesses de produit. | Le hero et la liste désignent désormais 15 « constats documentés ». L’introduction explique que la recherche sert à formuler les questions à tester avec les partenaires. |
+| Recherche — constats | Plusieurs entrées présentaient des outils, une adoption ou des écarts comme des preuves définitives pour la Boussole. | Les formulations sont devenues prudentes : « à examiner », « à tester », « offre des éléments de comparaison ». Les sources et les chiffres restent inchangés. |
+| Recherche — comparaison | La comparaison annonçait un outil « original et bien pensé » et un différentiel déjà acquis. | Elle décrit maintenant une aide aux choix de conception, avec les limites et éléments à examiner de chaque référence. |
+| Partenaires — contribution | Les étapes et contreparties pouvaient laisser penser que le prototype et l’accès anticipé étaient déjà disponibles. | Le parcours est formulé au futur et distingue la demande d’invitation, les ateliers possibles, les tests à venir et les éléments que le projet prévoit de partager. |
+| Partenaires — CTA | Le CTA final restait général. | Il demande explicitement une participation et indique l’information utile à partager dans le premier message. |
+| Footer | Une phrase globale décrivait l’outil public au présent ; le lien Recherche utilisait encore « insights ». | Le footer présente un projet en co-conception et renvoie vers « État de l’art & constats ». |
+
+## Prochaine boucle à valider
+
+1. La page Ressources doit-elle être traitée avant la page Projet, pour harmoniser les titres, les renvois et le vocabulaire documentaire ?
+2. Sur la page Recherche, faut-il conserver les quinze constats dans une seule liste ou proposer une sélection initiale de cinq constats, avec les dix autres sous un filtre « Voir toute la veille » ?
+3. Souhaitez-vous une troisième passe centrée sur les microtextes transversaux — footer, libellés de navigation, CTA et pages d’erreur — avant de revisiter les pages institutionnelles ?
+
 ## À compléter
 
 - [FAIT À FOURNIR : source établissant que la Boussole est « le seul outil 100% culturel francophone » et « la première initiative de ce type »] — nécessaire avant de conserver ces deux revendications sur la page Références.

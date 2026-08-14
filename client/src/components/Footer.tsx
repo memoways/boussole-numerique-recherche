@@ -20,7 +20,7 @@ const NAV_COLUMNS = [
   {
     title: "Recherche",
     links: [
-      { href: "/recherche", label: "État de l'art & insights" },
+      { href: "/recherche", label: "État de l’art & constats" },
       { href: "/references", label: "Exemples inspirants" },
       { href: "/ressources", label: "Ressources documentaires" },
     ],
@@ -58,7 +58,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-sm text-gray-500 leading-relaxed mb-5">
-              Un outil gratuit pour aider les actrices et acteurs culturels à comprendre leurs pratiques numériques.
+              Un projet en co-conception pour préparer une Boussole numérique utile aux actrices et acteurs culturels.
             </p>
             {/* Bouton contact */}
             <a

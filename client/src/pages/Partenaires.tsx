@@ -18,9 +18,9 @@ const SPECTRE_PARTENAIRES = [
 ] as const;
 
 const POURQUOI_PARTICIPER = [
-  { titre: "Façonner un outil utile", desc: "Votre expérience oriente directement la conception de la Boussole : les questions posées et les formes de restitution envisagées.", icon: Heart, couleur: "#515792" },
-  { titre: "Accès en avant-première", desc: "Les partenaires de co-conception auront accès à la Boussole avant sa mise à disposition publique.", icon: TestTube, couleur: "#3a7fc1" },
-  { titre: "Contribuer à un bien commun", desc: "La Boussole sera gratuite et open source. Participer, c'est contribuer à un outil collectif pour le secteur.", icon: Users, couleur: "#3aab8a" },
+  { titre: "Mettre les questions à l’épreuve", desc: "Votre expérience aide l’équipe de projet à préciser les questions et les formes de restitution à tester.", icon: Heart, couleur: "#515792" },
+  { titre: "Tester avant la version publique", desc: "Les partenaires de co-conception pourront essayer les premières versions et signaler ce qui demande un ajustement.", icon: TestTube, couleur: "#3a7fc1" },
+  { titre: "Contribuer à un bien commun", desc: "Le projet prévoit une Boussole gratuite et à code ouvert. Votre participation nourrit un outil collectif pour le secteur.", icon: Users, couleur: "#3aab8a" },
 ];
 
 const QUI_PEUT_CONTRIBUER = [
@@ -30,11 +30,11 @@ const QUI_PEUT_CONTRIBUER = [
 ];
 
 const PARCOURS_PARTENAIRE = [
-  { num: "01", titre: "Je découvre", desc: "Je lis le site, je comprends le projet, je m'informe sur la démarche.", ...SPECTRE_PARTENAIRES[0] },
-  { num: "02", titre: "Je signale mon intérêt", desc: "J'envoie un message pour indiquer que je souhaite suivre ou participer.", ...SPECTRE_PARTENAIRES[1] },
-  { num: "03", titre: "Je contribue", desc: "Je participe à un entretien, un atelier ou un test utilisateur selon ma disponibilité.", ...SPECTRE_PARTENAIRES[2] },
-  { num: "04", titre: "Je teste", desc: "J'utilise une version du prototype et je partage mes retours.", ...SPECTRE_PARTENAIRES[3] },
-  { num: "05", titre: "Je bénéficie", desc: "J'accède à la Boussole en avant-première et je reçois les apprentissages documentés.", ...SPECTRE_PARTENAIRES[4] },
+  { num: "01", titre: "Je découvre", desc: "Je consulte la présentation pour comprendre le projet et son état d’avancement.", ...SPECTRE_PARTENAIRES[0] },
+  { num: "02", titre: "Je signale mon intérêt", desc: "J’envoie un message ou je demande une invitation personnelle au questionnaire partenaire.", ...SPECTRE_PARTENAIRES[1] },
+  { num: "03", titre: "Je contribue", desc: "Je pourrai participer à un entretien, un atelier ou un test selon ma disponibilité.", ...SPECTRE_PARTENAIRES[2] },
+  { num: "04", titre: "Je teste", desc: "Je testerai une version du prototype et je partagerai ce qui mérite d’être ajusté.", ...SPECTRE_PARTENAIRES[3] },
+  { num: "05", titre: "Je suis les apprentissages", desc: "Je recevrai les éléments documentés issus de la co-conception et des premiers tests.", ...SPECTRE_PARTENAIRES[4] },
 ];
 
 export default function Partenaires() {
@@ -49,7 +49,7 @@ export default function Partenaires() {
             Partenaires & premiers utilisateurs
           </h1>
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl leading-relaxed mb-5">
-            La Boussole se construit avec les professionnels et les structures du secteur culturel. Votre participation contribue directement à la pertinence de l'outil.
+            La Boussole se construit avec les professionnels et les structures du secteur culturel. Votre participation aidera l’équipe de projet à tester les questions, les exemples et les usages à privilégier.
           </p>
           <div className="mb-5 flex max-w-2xl items-center gap-3 rounded-xl border border-slate-200 bg-white px-3 py-3 sm:gap-4 sm:px-4 sm:py-3.5">
             <a
@@ -126,7 +126,7 @@ export default function Partenaires() {
       <section className="py-14 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold text-gray-900 mb-3">De la découverte à la contribution</h2>
-          <p className="text-gray-500 mb-10">Un parcours progressif, sans engagement lourd.</p>
+          <p className="text-gray-500 mb-10">Un parcours progressif : chacun·e choisit sa forme de contribution et son niveau d’implication.</p>
 
           {/* Desktop */}
           <div className="hidden md:flex items-start gap-2">
@@ -210,11 +210,11 @@ export default function Partenaires() {
               <h2 className="text-2xl font-bold text-gray-900 mb-5">Ce que les partenaires apporteront</h2>
               <ul className="space-y-3">
                 {[
-                  "Leur expérience des pratiques numériques réelles",
+                  "Leur expérience des pratiques numériques du quotidien",
                   "Leur regard critique sur les formulations et les questions",
                   "Leurs retours sur l'expérience utilisateur",
                   "Leurs besoins non formulés et leurs angles morts",
-                  "Leur connaissance du terrain et des réalités du secteur",
+                  "Leur connaissance des conditions de travail du secteur",
                 ].map((item, i) => (
                   <li key={item} className="flex items-start gap-3 text-gray-600 text-sm">
                     <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: SPECTRE_PARTENAIRES[i].couleur }}></div>
@@ -224,14 +224,14 @@ export default function Partenaires() {
               </ul>
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-5">Ce que les partenaires recevront</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-5">Ce que le projet prévoit de partager</h2>
               <ul className="space-y-3">
                 {[
-                  "Accès en avant-première à la Boussole",
+                  "Accès en avant-première aux versions ouvertes aux partenaires",
                   "Synthèse des apprentissages de la co-conception",
                   "Documentation ouverte de la méthode",
-                  "Invitation aux ateliers et sessions de retour",
-                  "Reconnaissance dans la documentation du projet",
+                  "Invitations aux ateliers et sessions de retour selon les besoins du projet",
+                  "Mention dans la documentation du projet, avec accord préalable",
                 ].map((item, i) => (
                   <li key={item} className="flex items-start gap-3 text-gray-600 text-sm">
                     <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: SPECTRE_PARTENAIRES[i].couleur }}></div>
@@ -257,17 +257,17 @@ export default function Partenaires() {
       {/* CTA */}
       <section className="py-14 px-4" style={{ backgroundColor: '#f8f9fc' }}>
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Prêt·e à faire un premier pas ?</h2>
-          <p className="text-gray-500 mb-8 max-w-xl mx-auto">Un message suffit pour commencer. L'équipe de projet prendra contact pour présenter les prochaines étapes et les modalités de participation.</p>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Participer à la co-conception</h2>
+          <p className="text-gray-500 mb-8 max-w-xl mx-auto">Expliquez en quelques mots le lien de votre structure avec le projet. L’équipe de projet vous répondra avec les prochaines étapes et les modalités de participation.</p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Button size="lg" style={{ backgroundColor: '#E07428', color: '#fff' }} asChild>
               <a href="mailto:ulrich.fischer@memoways.com?subject=Boussole Numérique Culture — Je souhaite participer">
                 <MessageSquare className="mr-2 h-4 w-4" />
-                Poser une question sur la participation
+                Demander à participer
               </a>
             </Button>
             <Button size="lg" variant="outline" style={{ borderColor: '#E07428', color: '#1f2937' }} asChild>
-              <Link href="/timeline">Voir le calendrier <ArrowRight className="ml-2 h-4 w-4" /></Link>
+              <Link href="/timeline">Consulter les quatre phases <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
           </div>
           <p className="mt-4 text-xs text-gray-400">

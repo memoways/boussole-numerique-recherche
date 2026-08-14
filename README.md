@@ -12,6 +12,8 @@ Le portail présente un **projet** de Boussole Numérique Culture, et non le dia
 
 Une première passe de révision rédactionnelle a clarifié cet état d’avancement sur l’Accueil, le Projet, l’Expérience et le Calendrier. Elle a aussi retiré les revendications d’exclusivité non étayées de la page Références et resserré les répétitions sur Méthode et Partenaires. Le diagnostic, les réécritures appliquées et les questions de la prochaine passe sont conservés dans [`docs/PLAN_OPTIMISATION_REDACTIONNELLE.md`](./docs/PLAN_OPTIMISATION_REDACTIONNELLE.md).
 
+Une seconde passe a distingué, sur la page Recherche, les constats sourcés des pistes de conception du projet. Elle a précisé, sur la page Partenaires, les étapes possibles de contribution et ce que le projet prévoit de partager. Le footer reprend ce même état de co-conception.
+
 ## Ce que contient le portail
 
 | Ensemble | Rôle | Routes ou emplacement |
