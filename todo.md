@@ -78,3 +78,4 @@
 - [x] Ajouter des filtres de catégorie et date sur Ressources, puis contextualiser les affirmations datées des archives Markdown.
 - [x] Vérifier les liens externes des archives, documenter les résultats et signaler visuellement les liens sortants.
 - [x] Remplacer ou archiver les 404 prioritaires des archives et afficher leur statut de vérification sur chaque fiche.
+- [ ] Ajouter une recherche par mot-clé combinée aux filtres de la page Ressources.
