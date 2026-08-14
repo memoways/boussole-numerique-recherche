@@ -107,6 +107,8 @@ docker run --rm -p 8080:8080 boussole-numerique-culture
 
 Avant un checkpoint, exécutez `pnpm verify`. Toute évolution visuelle doit rester responsive, conserver le focus clavier, éviter les débordements horizontaux et respecter les contrastes. Les modifications de routes doivent mettre à jour le registre SEO, le fil d’Ariane si nécessaire et les tests de navigation concernés.
 
+Les aperçus de partage disposent d’un socle Open Graph dans `client/index.html`, enrichi dynamiquement par `SeoMeta` et injecté de façon statique pour chaque page indexable par `scripts/generate-seo.mjs`. Chaque page publiée reçoit le titre, la description, l’URL canonique, l’image, l’URL sécurisée de l’image, le texte alternatif et les métadonnées Twitter correspondantes.
+
 Toute modification effectivement livrée doit mettre à jour `CHANGELOG.md`, `STORY.md`, `README.md` lorsqu’elle modifie le fonctionnement ou le contexte, et l’archive appropriée dans `docs/`. Les règles détaillées, notamment pour les secrets, l’administration et les migrations, sont dans [`AGENTS.md`](./AGENTS.md).
 
 ## Documentation de référence

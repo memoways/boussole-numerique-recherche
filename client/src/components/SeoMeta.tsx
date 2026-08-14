@@ -43,7 +43,9 @@ export default function SeoMeta({ pathname }: { pathname: string }) {
     upsertMeta('meta[property="og:description"]', { property: "og:description" }, page.description);
     upsertMeta('meta[property="og:url"]', { property: "og:url" }, canonicalUrl);
     upsertMeta('meta[property="og:image"]', { property: "og:image" }, imageUrl);
-    upsertMeta('meta[name="twitter:card"]', { name: "twitter:card" }, "summary");
+    upsertMeta('meta[property="og:image:secure_url"]', { property: "og:image:secure_url" }, imageUrl);
+    upsertMeta('meta[property="og:image:alt"]', { property: "og:image:alt" }, `Logo ${SITE_NAME}`);
+    upsertMeta('meta[name="twitter:card"]', { name: "twitter:card" }, "summary_large_image");
     upsertMeta('meta[name="twitter:title"]', { name: "twitter:title" }, page.title);
     upsertMeta('meta[name="twitter:description"]', { name: "twitter:description" }, page.description);
     upsertMeta('meta[name="twitter:image"]', { name: "twitter:image" }, imageUrl);

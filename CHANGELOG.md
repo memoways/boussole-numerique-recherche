@@ -25,6 +25,7 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Radar-boussole réservé à la première slide ; le radar animé de l’accueil est désormais fourni par le composant partagé `AnimatedRadarGraphic`.
 - Éléments de navigation redondants retirés de la présentation et du questionnaire : le fil d’Ariane global porte seul le chemin Accueil → Partenaires → sous-page.
 - README, STORY, archive d’implémentation, opérations et index documentaire restructurés pour refléter la réalité livrée.
+- Open Graph renforcé dans le layout de secours, le composant de métadonnées et le générateur statique : titre, description, URL, image sécurisée, texte alternatif et carte Twitter enrichie.
 
 ### Vérifié
 

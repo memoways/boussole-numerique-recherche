@@ -65,3 +65,4 @@
 - [x] Réemployer l’animation radar de l’accueil dans la première slide et retirer les éléments redondants.
 - [x] Supprimer le retour Partenaires redondant de l’écran public du questionnaire.
 - [x] Consolider CHANGELOG, STORY et README avec toutes les modifications réellement livrées depuis le début du projet.
+- [x] Vérifier et fiabiliser les balises Open Graph dans le layout principal et les pages publiées.

@@ -1,6 +1,6 @@
 # SEO et partage social
 
-Le site génère des titres, descriptions, URL canoniques, balises Open Graph, cartes de partage et données structurées pour chaque route publique. Le script de build produit également un `sitemap.xml`, un `robots.txt` et des pages HTML statiques par route afin que les robots et les aperçus sociaux reçoivent les métadonnées avant l'exécution de JavaScript.
+Le site génère des titres, descriptions, URL canoniques, balises Open Graph, cartes de partage et données structurées pour chaque route publique. Le script de build produit également un `sitemap.xml`, un `robots.txt` et des pages HTML statiques par route afin que les robots et les aperçus sociaux reçoivent les métadonnées avant l'exécution de JavaScript. Les métadonnées Open Graph comprennent le type, la locale, le nom du site, le titre, la description, l’URL, l’image, l’URL sécurisée de l’image et son texte alternatif ; les cartes Twitter reprennent ces éléments avec `summary_large_image`.
 
 La validation de production a confirmé la présence des métadonnées dans toutes les pages générées. Lors de la vérification de l'aperçu de développement, le nouveau sous-domaine de prévisualisation Vite a été bloqué par sa liste d'hôtes ; ce comportement de développement sera ajusté sans introduire de dépendance à une plateforme spécifique.
 
