@@ -13,7 +13,7 @@ import { Link } from "wouter";
 type ResourceType = 'Étude' | 'État des lieux' | 'Analyse' | 'Synthèse' | 'Sources' | 'PDF';
 type ResourceDateGroup = '2026' | '2025' | '2024 et avant' | 'Date non indiquée';
 
-const RESSOURCES = [
+export const RESSOURCES = [
   {
     titre: "Étude complète — Transformation numérique dans la culture",
     desc: "Analyse de la transformation numérique dans le secteur culturel et créatif genevois : méthodologie, constats et questions à examiner.",
@@ -150,7 +150,7 @@ const RESSOURCES = [
 const ALL_TYPES: ResourceType[] = ['Étude', 'État des lieux', 'Analyse', 'Synthèse', 'Sources', 'PDF'];
 const ALL_DATE_GROUPS: ResourceDateGroup[] = ['2026', '2025', '2024 et avant', 'Date non indiquée'];
 
-const SEARCH_SUGGESTIONS = [
+export const SEARCH_SUGGESTIONS = [
   "Intelligence artificielle",
   "Transformation numérique",
   "Diagnostic numérique",
@@ -161,7 +161,7 @@ const SEARCH_SUGGESTIONS = [
   "2026",
 ];
 
-function normalizeSearchValue(value: string) {
+export function normalizeSearchValue(value: string) {
   return value
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")

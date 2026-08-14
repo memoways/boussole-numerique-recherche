@@ -21,6 +21,12 @@ export const SEO_PAGES: Record<string, SeoPage> = {
     description:
       "Un outil de diagnostic numérique pour aider les actrices, acteurs et structures culturelles à situer leurs pratiques et choisir des pistes d'action utiles.",
   },
+  "/404": {
+    title: "Page introuvable | Boussole Numérique Culture",
+    description:
+      "Cette adresse ne mène pas à une page active. Recherchez un document ou revenez aux principaux parcours de la Boussole Numérique Culture.",
+    index: false,
+  },
   "/projet": {
     title: "Le projet | Boussole Numérique Culture",
     description:

@@ -76,6 +76,7 @@
 - [x] Optimiser la structure et le contenu des pages Projet et Méthode dans une quatrième passe éditoriale.
 - [x] Examiner les pages historiques non routées, conserver leurs contenus utiles et configurer les redirections associées.
 - [x] Diagnostiquer l’inaccessibilité de boussole-culture-recherche.memoways.com et documenter les réglages DNS/Coolify correctifs.
+- [x] Créer une page 404 personnalisée avec recherche Ressources et raccourcis de réorientation.
 - [x] Ajouter des filtres de catégorie et date sur Ressources, puis contextualiser les affirmations datées des archives Markdown.
 - [x] Vérifier les liens externes des archives, documenter les résultats et signaler visuellement les liens sortants.
 - [x] Remplacer ou archiver les 404 prioritaires des archives et afficher leur statut de vérification sur chaque fiche.

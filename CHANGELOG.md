@@ -17,6 +17,7 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Intégration Dreamlit de type « boîte d’envoi restreinte » : Dreamlit ne lit que le destinataire et le récapitulatif préparé, sans accès aux tables de réponses brutes.
 - Vue d’administration des e-mails prêts, aperçu du récapitulatif et régénération manuelle sans doublon, avec compteur et trace d’événement.
 - Documentation d’exploitation de l’API, de PostgreSQL, de Dreamlit, de Coolify, de l’environnement et du contrôle pilote.
+- Page **404** française, intégrée au layout du portail, avec recherche locale tolérante aux accents dans les documents et sources, suggestions, résultats immédiats et cinq raccourcis de réorientation.
 
 ### Modifié
 
@@ -41,6 +42,8 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Contrôle des liens d’archives : 152 URL externes uniques vérifiées, rapport de qualification des 404 et accès protégés, et icône accessible ajoutée aux liens sortants.
 - Liens d’archives actualisés : les destinations officielles identifiées remplacent les 404 ; Diag-numerique et une référence ScienceDirect sont archivés sans lien actif ; les fiches d’archive affichent le dernier contrôle.
 - Ressources : recherche par mot-clé ajoutée avec suggestions accessibles, prise en charge des accents et combinaison avec les filtres existants de catégorie et de période.
+- Les données et fonctions de recherche Ressources sont rendues réutilisables par la page 404 afin que les deux parcours proposent les mêmes résultats et suggestions.
+- Registre SEO complété par l’itinéraire `/404`, explicitement non indexable.
 
 ### Vérifié
 
@@ -48,6 +51,8 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Routes profondes de présentation, questionnaire et administration contrôlées dans le build statique.
 - Navigation du deck, ouverture des détails, retour navigateur, gabarit desktop et absence de débordement horizontal contrôlés visuellement.
 - Pages Recherche et Partenaires contrôlées visuellement après la seconde passe ; premier écran, deux parcours d’entrée, CTA de contribution et hiérarchie documentaire validés.
+- Fallback `/liaison-introuvable` contrôlé visuellement : hiérarchie, contraste, raccourcis et CTA de retour lisibles ; la requête « UNESCO » fait apparaître la source correspondante.
+- Route `/404` contrôlée : titre « Page introuvable », canonique dédiée et directive `noindex,follow` rendus dans le navigateur.
 
 ## [1.1.0] — 2026-08-09 au 2026-08-12 — Alignement institutionnel, accessibilité et diffusion
 

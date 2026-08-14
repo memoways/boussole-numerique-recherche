@@ -42,6 +42,8 @@ Le portail comporte un hero éditorial, la présentation détaillée du projet, 
 
 La page Ressources rassemble les documents internes, les études externes et les sources qui accompagnent la co-conception. Ses fiches distinguent le document interne à lire, le PDF externe à ouvrir et la source web à consulter. Les CTA transversaux emploient le même principe : ils annoncent l’action et le contenu de la destination, sans supposer qu’un diagnostic public est déjà actif.
 
+Toute URL inconnue ouvre une page 404 en français, sans impasse : elle reprend la recherche locale des documents et sources, ses suggestions et son filtrage tolérant aux accents. Les premiers résultats apparaissent directement dans la page, tandis que les accès vers Projet, Expérience, Méthode, Partenaires, Ressources et Accueil offrent des chemins de reprise explicites. La route `/404` est non indexable ; les URL inconnues héritent également du comportement SEO de secours non indexable.
+
 L’expérience Boussole utilise cinq dimensions pour rendre le diagnostic tangible. Le radar animé de l’accueil est maintenant fourni par le composant partagé `AnimatedRadarGraphic`. Il est repris dans la première slide de la présentation partenaire, sans surcharger les autres slides.
 
 ### Présentation partenaire
@@ -83,6 +85,7 @@ Après chaque soumission, l’API prépare un e-mail de récapitulatif détermin
 | Les liens sortants sont explicitement signalés | Les archives renvoient vers des sites tiers dont le statut peut évoluer | Une icône et un texte accessible annoncent l’ouverture externe ; le rapport distingue 404 et accès protégés |
 | Le contrôle d’une archive est daté | Une URL fonctionnelle un jour peut disparaître ensuite | Chaque fiche d’archive indique le dernier contrôle et les références sans remplacement restent archivées sans lien actif |
 | La recherche reste guidée et locale | Les ressources sont peu nombreuses, mais leurs thèmes se recoupent | Les suggestions, le filtrage sans accent et les filtres de catégorie et date facilitent l’exploration sans service externe |
+| Une page 404 réoriente plutôt qu’elle ne bloque | Une ancienne URL ou un lien externe peut rester en circulation | La page de secours propose la recherche documentaire et des accès vers les parcours publics, sans ajouter de dépendance externe |
 
 ## 6. Stack et structure du dépôt
 
@@ -124,6 +127,7 @@ Qualité            pnpm verify · TypeScript · builds · scripts mobile/contra
 | 14 août 2026 | Contrôle passif des liens des archives : rapport de 152 URL uniques et repère visuel accessible des liens sortants |
 | 14 août 2026 | Traitement des 404 : destinations officielles actualisées, références sans équivalent archivées et badge de dernier contrôle ajouté aux fiches d’archive |
 | 14 août 2026 | Recherche guidée ajoutée sur Ressources : suggestions thématiques, combinaison des filtres et recherche tolérante aux accents |
+| 14 août 2026 | Page 404 de réorientation ajoutée : recherche locale Ressources, résultats immédiats, raccourcis publics et métadonnées non indexables |
 
 ## 8. État d’activation et limites connues
 
