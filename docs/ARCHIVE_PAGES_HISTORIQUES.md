@@ -19,6 +19,8 @@ Les composants historiques `DescriptionProjet.tsx`, `Gouvernance.tsx`, `EtudeCom
 
 Avant de supprimer l’un de ces fichiers, vérifier que la destination canonique conserve soit le document, soit les faits et sources nécessaires. Toute nouvelle ancienne URL doit recevoir une destination canonique, une redirection Nginx et une règle `noindex` dans `client/src/lib/seo.ts`.
 
+Les affirmations datées relevées dans les documents Markdown et leur contexte d’affichage sont consignés dans [`CONTEXTE_ARCHIVES_MARKDOWN.md`](./CONTEXTE_ARCHIVES_MARKDOWN.md).
+
 ## Contrôles effectués
 
 Le 14 août 2026, l’ancienne URL `/description-projet` a été testée dans l’application et a abouti à `/projet`. L’URL canonique `/ressources/etude-complete` a aussi été contrôlée : le document Markdown, sa table des matières, son fil d’Ariane, ses actions de téléchargement et le retour vers les documents restent disponibles.

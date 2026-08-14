@@ -78,6 +78,7 @@ Après chaque soumission, l’API prépare un e-mail de récapitulatif détermin
 | CTA explicites | Une destination seule ne dit pas ce que la personne y trouvera | Les libellés indiquent l’action et l’objet : comprendre le projet, explorer une démonstration, consulter des constats ou demander une invitation |
 | Engagements distincts des fonctions futures | Le projet doit présenter ses principes sans annoncer un service déjà actif | Gratuité, neutralité, code ouvert, hébergement et consentement sont formulés comme exigences de la future version ou choix à confirmer |
 | Une URL historique, une destination canonique | Les anciennes pages ne doivent pas concurrencer les contenus actifs ni perdre les documents de recherche | Les documents restent sous Ressources ; Nginx et l’application redirigent les anciennes URLs |
+| Une archive porte sa date | Un document de recherche ne décrit pas forcément le présent | Les pages d’archive signalent leur version et le contexte des affirmations datées, sans modifier les sources originales |
 
 ## 6. Stack et structure du dépôt
 
@@ -114,6 +115,7 @@ Qualité            pnpm verify · TypeScript · builds · scripts mobile/contra
 | 14 août 2026 | Troisième passe éditoriale : Ressources et microtextes de navigation, footer, accueil, méthode et questionnaire alignés sur la co-conception |
 | 14 août 2026 | Quatrième passe éditoriale : Projet et Méthode resserrés, parcours et comparaisons formulés comme pistes à tester, engagements et architecture clarifiés |
 | 14 août 2026 | Cinquième passe éditoriale : anciennes pages consolidées, documents préservés sous Ressources, redirections canoniques documentées |
+| 14 août 2026 | Sixième passe éditoriale : filtres de période Ressources, métadonnées de date et bandeaux de contexte sur les archives Markdown |
 
 ## 8. État d’activation et limites connues
 

@@ -20,6 +20,8 @@ Une quatrième passe a resserré les pages Projet et Méthode. Les parcours indi
 
 Une cinquième passe a consolidé les pages historiques. Les anciennes URLs de projet et de gouvernance redirigent vers les pages actives ; les études, sources et synthèses historiques restent accessibles dans l’arborescence `/ressources/*`. Les redirections sont prévues à la fois dans l’application et dans Nginx pour le déploiement Coolify. Voir [`docs/ARCHIVE_PAGES_HISTORIQUES.md`](./docs/ARCHIVE_PAGES_HISTORIQUES.md).
 
+Une sixième passe a amélioré l’exploration des Ressources par catégorie et période. Les documents d’archive affichent désormais une date de version lorsque celle-ci est connue, ou signalent son absence. Ils indiquent aussi que les services, priorités et constats cités doivent être lus dans le contexte de leur date de recherche. Le relevé des affirmations datées est disponible dans [`docs/CONTEXTE_ARCHIVES_MARKDOWN.md`](./docs/CONTEXTE_ARCHIVES_MARKDOWN.md).
+
 ## Ce que contient le portail
 
 | Ensemble | Rôle | Routes ou emplacement |

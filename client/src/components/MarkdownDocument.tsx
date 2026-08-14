@@ -8,9 +8,11 @@ interface MarkdownDocumentProps {
   title: string;
   filename: string;
   description?: string;
+  archiveContext?: string;
+  archiveVersion?: string;
 }
 
-export default function MarkdownDocument({ title, filename, description }: MarkdownDocumentProps) {
+export default function MarkdownDocument({ title, filename, description, archiveContext, archiveVersion }: MarkdownDocumentProps) {
   const [content, setContent] = useState<string>('');
   const [loading, setLoading] = useState(true);
   const [headings, setHeadings] = useState<Array<{ id: string; text: string; level: number }>>([]);
@@ -118,6 +120,14 @@ export default function MarkdownDocument({ title, filename, description }: Markd
             <h1 className="text-4xl font-bold mb-4">{title}</h1>
             {description && (
               <p className="text-lg text-muted-foreground">{description}</p>
+            )}
+            {archiveContext && (
+              <aside className="mt-6 rounded-xl border border-[#515792]/20 bg-[#515792]/5 p-4 text-left max-w-3xl mx-auto" aria-label="Contexte du document d’archive">
+                <p className="text-sm font-semibold text-[#515792] mb-1">Document d’archive{archiveVersion ? ` · ${archiveVersion}` : ""}</p>
+                <p className="text-sm leading-relaxed text-slate-600">
+                  {archiveContext} Les affirmations datées doivent être lues dans ce contexte et ne décrivent pas nécessairement l’état actuel du projet ou des services cités.
+                </p>
+              </aside>
             )}
           </div>
 

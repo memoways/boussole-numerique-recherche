@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, FileText, BookOpen, ExternalLink, Download, Filter } from "lucide-react";
+import { ArrowRight, FileText, BookOpen, ExternalLink, Download, Filter, CalendarDays } from "lucide-react";
 import { Link } from "wouter";
 
 /**
@@ -11,6 +11,7 @@ import { Link } from "wouter";
  */
 
 type ResourceType = 'Étude' | 'État des lieux' | 'Analyse' | 'Synthèse' | 'Sources' | 'PDF';
+type ResourceDateGroup = '2026' | '2025' | '2024 et avant' | 'Date non indiquée';
 
 const RESSOURCES = [
   {
@@ -21,6 +22,8 @@ const RESSOURCES = [
     interne: true,
     couleur: "#515792",
     temps: "15 min",
+    dateGroup: "2026" as ResourceDateGroup,
+    dateLabel: "Version février 2026",
   },
   {
     titre: "État des lieux — Transformation numérique dans la culture",
@@ -30,6 +33,8 @@ const RESSOURCES = [
     interne: true,
     couleur: "#E27227",
     temps: "10 min",
+    dateGroup: "Date non indiquée" as ResourceDateGroup,
+    dateLabel: "Date de version non indiquée",
   },
   {
     titre: "Analyse des outils de diagnostic numérique",
@@ -39,6 +44,8 @@ const RESSOURCES = [
     interne: true,
     couleur: "#3aab8a",
     temps: "8 min",
+    dateGroup: "2026" as ResourceDateGroup,
+    dateLabel: "Version février 2026",
   },
   {
     titre: "Synthèse des documents clés",
@@ -48,6 +55,8 @@ const RESSOURCES = [
     interne: true,
     couleur: "#9b59b6",
     temps: "12 min",
+    dateGroup: "Date non indiquée" as ResourceDateGroup,
+    dateLabel: "Date de version non indiquée",
   },
   {
     titre: "Sources & références bibliographiques",
@@ -57,6 +66,8 @@ const RESSOURCES = [
     interne: true,
     couleur: "#E58441",
     temps: "5 min",
+    dateGroup: "Date non indiquée" as ResourceDateGroup,
+    dateLabel: "Date de version non indiquée",
   },
   {
     titre: "UNESCO — Recommandation sur l'éthique de l'IA",
@@ -66,6 +77,8 @@ const RESSOURCES = [
     interne: false,
     couleur: "#515792",
     temps: "Source web",
+    dateGroup: "Date non indiquée" as ResourceDateGroup,
+    dateLabel: "Date non indiquée",
   },
   {
     titre: "Compétence Culture Québec — L'IA en culture 2025 (PDF officiel)",
@@ -75,6 +88,8 @@ const RESSOURCES = [
     interne: false,
     couleur: "#E27227",
     temps: "PDF",
+    dateGroup: "2025" as ResourceDateGroup,
+    dateLabel: "2025",
   },
   {
     titre: "DCTN Genève — Empreintes Créatives 2023 (PDF officiel)",
@@ -84,6 +99,8 @@ const RESSOURCES = [
     interne: false,
     couleur: "#3aab8a",
     temps: "PDF",
+    dateGroup: "2024 et avant" as ResourceDateGroup,
+    dateLabel: "2023",
   },
   {
     titre: "WEF — Future of Jobs Report 2025",
@@ -93,6 +110,8 @@ const RESSOURCES = [
     interne: false,
     couleur: "#9b59b6",
     temps: "Source web",
+    dateGroup: "2025" as ResourceDateGroup,
+    dateLabel: "2025",
   },
   {
     titre: "BCG — Flipping the Odds of Digital Transformation (2020)",
@@ -102,6 +121,8 @@ const RESSOURCES = [
     interne: false,
     couleur: "#E58441",
     temps: "Source web",
+    dateGroup: "2024 et avant" as ResourceDateGroup,
+    dateLabel: "2020",
   },
   {
     titre: "DCTN Genève — Statistiques de fréquentation 2024",
@@ -111,10 +132,13 @@ const RESSOURCES = [
     interne: false,
     couleur: "#515792",
     temps: "PDF",
+    dateGroup: "2024 et avant" as ResourceDateGroup,
+    dateLabel: "2024",
   },
 ];
 
 const ALL_TYPES: ResourceType[] = ['Étude', 'État des lieux', 'Analyse', 'Synthèse', 'Sources', 'PDF'];
+const ALL_DATE_GROUPS: ResourceDateGroup[] = ['2026', '2025', '2024 et avant', 'Date non indiquée'];
 
 const TYPE_COLORS: Record<ResourceType, string> = {
   'Étude': '#515792',
@@ -127,10 +151,14 @@ const TYPE_COLORS: Record<ResourceType, string> = {
 
 export default function Ressources() {
   const [activeType, setActiveType] = useState<ResourceType | null>(null);
+  const [activeDateGroup, setActiveDateGroup] = useState<ResourceDateGroup | null>(null);
 
   const filtered = activeType
     ? RESSOURCES.filter(r => r.type === activeType)
     : RESSOURCES;
+  const dateFiltered = activeDateGroup
+    ? filtered.filter(r => r.dateGroup === activeDateGroup)
+    : filtered;
 
   return (
     <div className="bg-white">
@@ -144,6 +172,9 @@ export default function Ressources() {
           </h1>
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl leading-relaxed mb-6">
             Une sélection de documents, d’études, d’analyses et de sources qui éclairent la co-conception de la Boussole.
+          </p>
+          <p className="text-sm text-gray-500 max-w-2xl leading-relaxed mb-6">
+            Les dates correspondent à la version ou à la publication indiquée par chaque document. Lorsqu’aucune date n’est donnée dans la source, la fiche le signale.
           </p>
           <div className="flex flex-wrap gap-3">
             {[
@@ -165,36 +196,63 @@ export default function Ressources() {
         <div className="max-w-4xl mx-auto">
           <h2 className="sr-only">Documents et sources</h2>
           {/* Filtres */}
-          <div className="flex flex-wrap gap-2 items-center mb-8">
-            <Filter className="h-4 w-4 text-gray-400" />
-            <button
-              onClick={() => setActiveType(null)}
-              className={`text-xs px-3 py-1.5 rounded-full font-medium transition-colors ${!activeType ? 'text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
-              style={!activeType ? { backgroundColor: '#515792' } : {}}
-            >
-              Toutes les ressources ({RESSOURCES.length})
-            </button>
-            {ALL_TYPES.map(type => {
-              const count = RESSOURCES.filter(r => r.type === type).length;
-              return (
-                <button
-                  key={type}
-                  onClick={() => setActiveType(activeType === type ? null : type)}
-                  className="text-xs px-3 py-1.5 rounded-full font-medium transition-colors"
-                  style={{
-                    backgroundColor: activeType === type ? TYPE_COLORS[type] : TYPE_COLORS[type] + '20',
-                    color: activeType === type ? 'white' : TYPE_COLORS[type],
-                  }}
-                >
-                  {type} ({count})
-                </button>
-              );
-            })}
+          <div className="space-y-4 mb-8" aria-label="Filtres des ressources">
+            <div className="flex flex-wrap gap-2 items-center">
+              <Filter className="h-4 w-4 text-gray-400" aria-hidden="true" />
+              <span className="text-xs font-semibold uppercase tracking-wider text-gray-500 mr-1">Catégorie</span>
+              <button
+                onClick={() => setActiveType(null)}
+                className={`text-xs px-3 py-1.5 rounded-full font-medium transition-colors ${!activeType ? 'text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+                style={!activeType ? { backgroundColor: '#515792' } : {}}
+              >
+                Toutes ({RESSOURCES.length})
+              </button>
+              {ALL_TYPES.map(type => {
+                const count = RESSOURCES.filter(r => r.type === type).length;
+                return (
+                  <button
+                    key={type}
+                    onClick={() => setActiveType(activeType === type ? null : type)}
+                    className="text-xs px-3 py-1.5 rounded-full font-medium transition-colors"
+                    style={{
+                      backgroundColor: activeType === type ? TYPE_COLORS[type] : TYPE_COLORS[type] + '20',
+                      color: activeType === type ? 'white' : TYPE_COLORS[type],
+                    }}
+                  >
+                    {type} ({count})
+                  </button>
+                );
+              })}
+            </div>
+            <div className="flex flex-wrap gap-2 items-center">
+              <CalendarDays className="h-4 w-4 text-gray-400" aria-hidden="true" />
+              <span className="text-xs font-semibold uppercase tracking-wider text-gray-500 mr-1">Date</span>
+              <button
+                onClick={() => setActiveDateGroup(null)}
+                className={`text-xs px-3 py-1.5 rounded-full font-medium transition-colors ${!activeDateGroup ? 'text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+                style={!activeDateGroup ? { backgroundColor: '#515792' } : {}}
+              >
+                Toutes les dates
+              </button>
+              {ALL_DATE_GROUPS.map(group => {
+                const count = RESSOURCES.filter(r => r.dateGroup === group).length;
+                return (
+                  <button
+                    key={group}
+                    onClick={() => setActiveDateGroup(activeDateGroup === group ? null : group)}
+                    className={`text-xs px-3 py-1.5 rounded-full font-medium transition-colors ${activeDateGroup === group ? 'text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+                    style={activeDateGroup === group ? { backgroundColor: '#515792' } : {}}
+                  >
+                    {group} ({count})
+                  </button>
+                );
+              })}
+            </div>
           </div>
 
           {/* Grille de ressources */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {filtered.map(({ titre, desc, type, href, interne, couleur, temps }) => (
+            {dateFiltered.map(({ titre, desc, type, href, interne, couleur, temps, dateLabel }) => (
               <div key={href} className="bg-white rounded-xl border border-gray-100 p-5 hover:shadow-md transition-all hover:-translate-y-0.5 group">
                 <div className="flex items-start justify-between gap-2 mb-3">
                   <Badge className="text-xs" style={{ backgroundColor: TYPE_COLORS[type] }}>{type}</Badge>
@@ -205,6 +263,7 @@ export default function Ressources() {
                 </div>
                 <h3 className="font-bold text-gray-900 mb-2 leading-snug">{titre}</h3>
                 <p className="text-sm text-gray-500 leading-relaxed mb-4">{desc}</p>
+                <p className="text-xs text-gray-400 mb-4">{dateLabel}</p>
                 {interne ? (
                   <Link href={href} className="text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all" style={{ color: couleur }}>
                     Lire le document <ArrowRight className="h-4 w-4" />
@@ -216,6 +275,17 @@ export default function Ressources() {
                 )}
               </div>
             ))}
+            {dateFiltered.length === 0 && (
+              <div className="sm:col-span-2 rounded-xl border border-dashed border-gray-300 bg-white p-8 text-center">
+                <p className="font-semibold text-gray-800 mb-2">Aucune ressource ne correspond à ces filtres.</p>
+                <button
+                  onClick={() => { setActiveType(null); setActiveDateGroup(null); }}
+                  className="text-sm font-semibold text-[#515792] underline underline-offset-4"
+                >
+                  Réinitialiser les filtres
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </section>

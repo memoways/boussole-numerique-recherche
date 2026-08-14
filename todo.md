@@ -75,3 +75,4 @@
 - [x] Optimiser la page Ressources et les microtextes transversaux dans une troisième passe éditoriale.
 - [x] Optimiser la structure et le contenu des pages Projet et Méthode dans une quatrième passe éditoriale.
 - [x] Examiner les pages historiques non routées, conserver leurs contenus utiles et configurer les redirections associées.
+- [x] Ajouter des filtres de catégorie et date sur Ressources, puis contextualiser les affirmations datées des archives Markdown.

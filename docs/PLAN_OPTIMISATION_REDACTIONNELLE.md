@@ -191,6 +191,19 @@ Les pages Projet et Méthode ont été contrôlées dans l’aperçu le 14 août
 
 La prochaine passe peut traiter les contenus documentaires eux-mêmes : vérifier les affirmations datées qui restent dans les archives Markdown, indiquer leur date de version au premier écran et ajouter, si nécessaire, un avertissement sur leur statut d’archive. Cette révision devra préserver les données, sources et dates telles qu’elles figurent dans les documents originaux.
 
+## Révisions appliquées — sixième passe
+
+| Zone | Diagnostic traité | Révision appliquée |
+|---|---|---|
+| Ressources — exploration | Les filtres par catégorie existaient, mais la date et le statut de version restaient difficiles à lire dans une liste longue. | Un second groupe de filtres permet de limiter les ressources à `2026`, `2025`, `2024 et avant` ou `Date non indiquée`. Chaque fiche affiche sa date de version ou l’absence d’information. |
+| Archives Markdown | Les documents pouvaient présenter des services, priorités ou constats de 2026 comme actuels. | Chaque page d’archive affiche un bandeau avec son statut, la version connue et une explication de la portée temporelle du document. |
+| Sources sans date | Certains documents ne donnent pas de date de version, et une source emploie une date relative. | Les fiches et bandeaux indiquent explicitement l’absence de date. La documentation recense les formulations relatives sans modifier la source originale. |
+| Analyse d’outils et références initiales | Les noms de services et comparaisons de recherche initiale peuvent être confondus avec les Références actives. | Les pages sont désignées comme archives documentaires et précisent qu’elles ne valident pas les services cités ni le tableau comparatif actif. |
+
+## Contrôle visuel — sixième passe
+
+Le 14 août 2026, la page Ressources a été contrôlée avec les filtres de catégorie et de date. Le filtre `2026` réduit la liste aux deux documents correspondants. La page d’archive Analyse d’outils affiche son statut, sa version de février 2026 et son contexte avant le document original.
+
 ## Prochaine boucle à valider
 
 1. La page Ressources doit-elle être traitée avant la page Projet, pour harmoniser les titres, les renvois et le vocabulaire documentaire ?
