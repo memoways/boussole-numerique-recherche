@@ -72,3 +72,4 @@
 - [x] Appliquer les corrections rédactionnelles validées sur les pages d’entrée, le calendrier, les références et les pages de méthode.
 - [x] Optimiser les contenus des pages Recherche et Partenaires dans une seconde passe éditoriale.
 - [x] Synchroniser CHANGELOG et STORY avec les derniers développements effectivement livrés.
+- [x] Optimiser la page Ressources et les microtextes transversaux dans une troisième passe éditoriale.

@@ -134,7 +134,7 @@ function InvitationRequest() {
 }
 
 function ServicePending() {
-  return <section className="mx-auto max-w-2xl rounded-3xl border border-[#515792]/20 bg-[#515792]/5 p-8"><Sparkles className="h-9 w-9 text-[#515792]" /><h1 className="mt-4 text-2xl font-bold text-slate-950">Le questionnaire partenaire se prépare</h1><p className="mt-3 leading-relaxed text-slate-600">Cette expérience sera activée avec les invitations personnelles dès que le service de collecte sécurisé sera déployé. En attendant, vous pouvez signaler votre intérêt.</p><Button className="mt-6" style={{ backgroundColor: "#E07428", color: "#fff" }} asChild><a href="mailto:ulrich.fischer@memoways.com?subject=Boussole Numérique Culture — Demande d’invitation questionnaire">Nous écrire</a></Button></section>;
+  return <section className="mx-auto max-w-2xl rounded-3xl border border-[#515792]/20 bg-[#515792]/5 p-8"><Sparkles className="h-9 w-9 text-[#515792]" /><h1 className="mt-4 text-2xl font-bold text-slate-950">Le questionnaire partenaire se prépare</h1><p className="mt-3 leading-relaxed text-slate-600">Cette expérience sera activée avec les invitations personnelles dès que le service de collecte sécurisé sera déployé. En attendant, vous pouvez signaler votre intérêt.</p><Button className="mt-6" style={{ backgroundColor: "#E07428", color: "#fff" }} asChild><a href="mailto:ulrich.fischer@memoways.com?subject=Boussole Numérique Culture — Demande d’invitation questionnaire">Demander une invitation</a></Button></section>;
 }
 
 function TokenQuestionnaire({ token }: { token: string }) {

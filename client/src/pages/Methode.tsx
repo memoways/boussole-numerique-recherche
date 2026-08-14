@@ -288,7 +288,7 @@ export default function Methode() {
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Participer à la co-conception</h2>
           <p className="text-gray-500 mb-8 max-w-xl mx-auto">
-            Vous êtes une structure culturelle ? Votre participation peut prendre la forme d'un entretien, d'un atelier ou d'un test utilisateur. Pour toute question sur les données ou la gouvernance, n'hésitez pas à nous écrire.
+            Vous êtes une structure culturelle ? Votre participation peut prendre la forme d’un entretien, d’un atelier ou d’un test utilisateur. Vous pouvez aussi poser une question sur les données ou la gouvernance du projet.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Button style={{ backgroundColor: '#515792' }} asChild>
@@ -296,14 +296,14 @@ export default function Methode() {
             </Button>
             <Button variant="outline" style={{ borderColor: '#E27227', color: '#E27227' }} asChild>
               <a href="mailto:ulrich.fischer@memoways.com?subject=Question méthode ou gouvernance Boussole">
-                Nous écrire
+                Poser une question sur les données
               </a>
             </Button>
             <Button variant="outline" style={{ borderColor: '#515792', color: '#515792' }} asChild>
-              <Link href="/timeline">Voir le calendrier</Link>
+              <Link href="/timeline">Consulter les quatre phases</Link>
             </Button>
             <Button variant="outline" style={{ borderColor: '#3aab8a', color: '#3aab8a' }} asChild>
-              <Link href="/recherche">Recherche & état de l'art</Link>
+              <Link href="/recherche">Consulter les constats documentés</Link>
             </Button>
             <Button variant="outline" style={{ borderColor: '#9b59b6', color: '#9b59b6' }} asChild>
               <Link href="/ressources">Ressources documentaires</Link>

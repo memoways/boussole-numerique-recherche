@@ -86,7 +86,7 @@ export default function Navigation() {
               style={{ backgroundColor: '#E07428', borderColor: '#E07428', color: '#fff' }}
               asChild
             >
-              <Link href="/partenaires">Suivre le projet</Link>
+              <Link href="/partenaires">Participer au projet</Link>
             </Button>
           </div>
 
@@ -114,7 +114,7 @@ export default function Navigation() {
               style={{ backgroundColor: '#E07428', borderColor: '#E07428', color: '#fff' }}
               asChild
             >
-              <Link href="/partenaires">Suivre</Link>
+              <Link href="/partenaires">Participer</Link>
             </Button>
             <Button
               variant="ghost"
@@ -174,7 +174,7 @@ export default function Navigation() {
                 >
                   <Link href="/partenaires">
                     <Compass className="h-4 w-4 mr-2" />
-                    Suivre le projet
+                    Participer au projet
                   </Link>
                 </Button>
               </div>

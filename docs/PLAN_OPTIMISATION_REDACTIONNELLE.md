@@ -139,6 +139,25 @@ Les pages Recherche et Partenaires ont été contrôlées dans l’aperçu le 14
 | Partenaires — CTA | Le CTA final restait général. | Il demande explicitement une participation et indique l’information utile à partager dans le premier message. |
 | Footer | Une phrase globale décrivait l’outil public au présent ; le lien Recherche utilisait encore « insights ». | Le footer présente un projet en co-conception et renvoie vers « État de l’art & constats ». |
 
+## Contrôle visuel — troisième passe
+
+La page Ressources et l’accueil ont été contrôlés dans l’aperçu le 14 août 2026. Le titre « Documents et sources », les filtres, la distinction entre « Lire le document », « Ouvrir le PDF » et « Ouvrir la source », ainsi que les CTA principaux de l’accueil, sont lisibles et cohérents. Le contrôle a encore relevé un lien secondaire « Voir la méthode » sur l’accueil ; il doit être aligné sur le vocabulaire « Comprendre la méthode » avant la sauvegarde de cette passe.
+
+## Révisions appliquées — troisième passe
+
+| Zone | Diagnostic traité | Révision appliquée |
+|---|---|---|
+| Ressources — hero et filtres | Le titre et les libellés annonçaient un accès générique, sans signaler le rôle documentaire de la page. | Le hero devient « Documents et sources » et précise que la sélection éclaire la co-conception. Le filtre principal indique « Toutes les ressources ». |
+| Ressources — fiches | Les descriptions mélangeaient des recommandations, des noms d’outils devenus obsolètes et des verbes d’action inadaptés aux sources web. | Les fiches présentent les documents comme des éléments qui éclairent la réflexion. Les liens distinguent « Lire le document », « Ouvrir le PDF » et « Ouvrir la source ». |
+| Ressources — renvois | Les cartes de thème utilisaient « insights », une ancienne route Gouvernance et des libellés génériques. | Les cartes renvoient vers « État de l’art », Références et Méthode avec des descriptions de contenu explicites. |
+| Navigation et footer | Les CTA globaux disaient « Suivre le projet » ou « Nous écrire » sans préciser l’action attendue. | La navigation invite à « Participer au projet » ; le footer propose de « Contacter l’équipe ». |
+| Accueil et Méthode | Plusieurs CTA décrivaient seulement une destination. | Les libellés annoncent maintenant ce qui sera trouvé : comprendre le projet, explorer la démonstration, consulter les constats, comprendre les principes ou la méthode. |
+| Questionnaire partenaire | Le CTA de l’écran d’attente disait « Nous écrire ». | Il devient « Demander une invitation », en cohérence avec le parcours partenaire. |
+
+## Piste pour la quatrième passe
+
+La prochaine passe peut se concentrer sur les pages longues du projet : hiérarchie des intertitres, formulations répétées entre Projet et Méthode, et explication de l’accompagnement conversationnel sans jargon. Les contenus historiques non routés peuvent être examinés séparément avant toute suppression ou redirection.
+
 ## Prochaine boucle à valider
 
 1. La page Ressources doit-elle être traitée avant la page Projet, pour harmoniser les titres, les renvois et le vocabulaire documentaire ?

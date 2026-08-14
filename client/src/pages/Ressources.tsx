@@ -15,7 +15,7 @@ type ResourceType = 'Étude' | 'État des lieux' | 'Analyse' | 'Synthèse' | 'So
 const RESSOURCES = [
   {
     titre: "Étude complète — Transformation numérique dans la culture",
-    desc: "Analyse approfondie de la transformation numérique dans le secteur culturel et créatif genevois. Méthodologie, constats, recommandations.",
+    desc: "Analyse de la transformation numérique dans le secteur culturel et créatif genevois : méthodologie, constats et questions à examiner.",
     type: "Étude" as ResourceType,
     href: "/etude-complete",
     interne: true,
@@ -24,7 +24,7 @@ const RESSOURCES = [
   },
   {
     titre: "État des lieux — Transformation numérique dans la culture",
-    desc: "Panorama de la transformation numérique dans le secteur culturel genevois. Données, tendances, enjeux.",
+    desc: "Panorama de la transformation numérique dans le secteur culturel genevois : données, tendances et enjeux.",
     type: "État des lieux" as ResourceType,
     href: "/etat-des-lieux",
     interne: true,
@@ -33,7 +33,7 @@ const RESSOURCES = [
   },
   {
     titre: "Analyse des outils de diagnostic numérique",
-    desc: "Comparaison des outils de diagnostic numérique existants : Observatoire genevois, Diag-numerique.fr, Visiativ, CMA France.",
+    desc: "Comparaison d’outils de diagnostic numérique et des éléments qu’ils apportent à la réflexion du projet.",
     type: "Analyse" as ResourceType,
     href: "/analyse-outils",
     interne: true,
@@ -42,7 +42,7 @@ const RESSOURCES = [
   },
   {
     titre: "Synthèse des documents clés",
-    desc: "Synthèse des principaux documents de recherche utilisés dans le cadre du projet Boussole Numérique Culture.",
+    desc: "Synthèse des principaux documents qui éclairent les choix de conception du projet Boussole Numérique Culture.",
     type: "Synthèse" as ResourceType,
     href: "/synthese-documents",
     interne: true,
@@ -51,7 +51,7 @@ const RESSOURCES = [
   },
   {
     titre: "Sources & références bibliographiques",
-    desc: "104 sources documentées, classées par thème : transformation numérique, IA dans la culture, politiques culturelles, outils de diagnostic.",
+    desc: "104 sources classées par thème : transformation numérique, IA dans la culture, politiques culturelles et outils de diagnostic.",
     type: "Sources" as ResourceType,
     href: "/sources",
     interne: true,
@@ -60,7 +60,7 @@ const RESSOURCES = [
   },
   {
     titre: "UNESCO — Recommandation sur l'éthique de l'IA",
-    desc: "Recommandation de l'UNESCO sur l'éthique de l'IA, incluant les secteurs culturels et créatifs. Source officielle UNESCO.",
+    desc: "Recommandation de l’UNESCO sur l’éthique de l’IA, incluant les secteurs culturels et créatifs.",
     type: "PDF" as ResourceType,
     href: "https://www.unesco.org/fr/artificial-intelligence/recommendation-ethics",
     interne: false,
@@ -69,7 +69,7 @@ const RESSOURCES = [
   },
   {
     titre: "Compétence Culture Québec — L'IA en culture 2025 (PDF officiel)",
-    desc: "Mieux comprendre pour agir ensemble. Grille de maturité IA pour les organisations culturelles. Source : competenceculture.ca",
+    desc: "Étude sur l’IA en culture et grille de maturité destinée aux organisations culturelles.",
     type: "PDF" as ResourceType,
     href: "https://competenceculture.ca/wp-content/uploads/sites/2/2025/11/ia-etude-21-novembre-2025_competence_culture.pdf",
     interne: false,
@@ -78,7 +78,7 @@ const RESSOURCES = [
   },
   {
     titre: "DCTN Genève — Empreintes Créatives 2023 (PDF officiel)",
-    desc: "Analyse des industries culturelles et créatives en Ville de Genève. 2 800 structures, 12 150 emplois, 6,6% des emplois. Source : geneve.ch",
+    desc: "Analyse des industries culturelles et créatives en Ville de Genève : 2 800 structures, 12 150 emplois et 6,6 % des emplois.",
     type: "PDF" as ResourceType,
     href: "https://www.geneve.ch/sites/default/files/2023-06/DCTN-etude-les-empreintes-creatives-2023-geneve.pdf",
     interne: false,
@@ -87,7 +87,7 @@ const RESSOURCES = [
   },
   {
     titre: "WEF — Future of Jobs Report 2025",
-    desc: "Rapport du Forum économique mondial sur l'avenir du travail. 59% des travailleurs auront besoin de reskilling d'ici 2030.",
+    desc: "Rapport du Forum économique mondial sur l’avenir du travail et les besoins de nouvelles compétences d’ici 2030.",
     type: "PDF" as ResourceType,
     href: "https://www.weforum.org/publications/the-future-of-jobs-report-2025/",
     interne: false,
@@ -96,7 +96,7 @@ const RESSOURCES = [
   },
   {
     titre: "BCG — Flipping the Odds of Digital Transformation (2020)",
-    desc: "Source du chiffre 70% d'échec des transformations numériques. Analyse BCG sur les facteurs de succès.",
+    desc: "Analyse BCG sur les facteurs qui influencent les résultats des transformations numériques.",
     type: "PDF" as ResourceType,
     href: "https://www.bcg.com/publications/2020/increasing-odds-of-success-in-digital-transformation",
     interne: false,
@@ -105,7 +105,7 @@ const RESSOURCES = [
   },
   {
     titre: "DCTN Genève — Statistiques de fréquentation 2024",
-    desc: "Bilan de fréquentation des musées et bibliothèques de la Ville de Genève en 2024. 1 118 340 visites dans les musées municipaux.",
+    desc: "Bilan de fréquentation 2024 des musées et bibliothèques de la Ville de Genève, dont 1 118 340 visites dans les musées municipaux.",
     type: "PDF" as ResourceType,
     href: "https://www.geneve.ch/document/dctn-connaissance-publics-2024-statistiques-frequentation-bref",
     interne: false,
@@ -140,16 +140,16 @@ export default function Ressources() {
         <div className="max-w-4xl mx-auto">
           <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#6c757d' }}>Ressources</Badge>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4 leading-tight">
-            Ressources
+            Documents et sources
           </h1>
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl leading-relaxed mb-6">
-            Accès à l'ensemble des documents, études, analyses et sources qui nourrissent le projet Boussole Numérique Culture.
+            Une sélection de documents, d’études, d’analyses et de sources qui éclairent la co-conception de la Boussole.
           </p>
           <div className="flex flex-wrap gap-3">
             {[
               { val: "11", label: "documents" },
               { val: "104", label: "sources" },
-              { val: "6", label: "sources externes vérifiées" },
+              { val: "6", label: "sources externes" },
             ].map(({ val, label }) => (
               <div key={label} className="flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2">
                 <span className="font-extrabold text-lg" style={{ color: '#515792' }}>{val}</span>
@@ -172,7 +172,7 @@ export default function Ressources() {
               className={`text-xs px-3 py-1.5 rounded-full font-medium transition-colors ${!activeType ? 'text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
               style={!activeType ? { backgroundColor: '#515792' } : {}}
             >
-              Tous ({RESSOURCES.length})
+              Toutes les ressources ({RESSOURCES.length})
             </button>
             {ALL_TYPES.map(type => {
               const count = RESSOURCES.filter(r => r.type === type).length;
@@ -207,11 +207,11 @@ export default function Ressources() {
                 <p className="text-sm text-gray-500 leading-relaxed mb-4">{desc}</p>
                 {interne ? (
                   <Link href={href} className="text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all" style={{ color: couleur }}>
-                    Lire <ArrowRight className="h-4 w-4" />
+                    Lire le document <ArrowRight className="h-4 w-4" />
                   </Link>
                 ) : (
                   <a href={href} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all" style={{ color: couleur }}>
-                    Télécharger <ExternalLink className="h-4 w-4" />
+                    {temps === "PDF" ? "Ouvrir le PDF" : "Ouvrir la source"} <ExternalLink className="h-4 w-4" />
                   </a>
                 )}
               </div>
@@ -226,9 +226,9 @@ export default function Ressources() {
           <h2 className="text-2xl font-bold text-gray-900 mb-8">Explorer par thème</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
-              { href: "/recherche", icon: BookOpen, titre: "État de l'art", desc: "15 insights clés sur la transformation numérique culturelle.", couleur: "#515792" },
-              { href: "/references", icon: FileText, titre: "Références inspirantes", desc: "Nos Gestes Climat, Skill Builder, AICred et baromètres.", couleur: "#E27227" },
-              { href: "/gouvernance", icon: FileText, titre: "Gouvernance & données", desc: "Principes de neutralité, open source et hébergement souverain.", couleur: "#3aab8a" },
+              { href: "/recherche", icon: BookOpen, titre: "État de l’art", desc: "15 constats documentés sur la transformation numérique culturelle.", couleur: "#515792" },
+              { href: "/references", icon: FileText, titre: "Références inspirantes", desc: "Outils et démarches comparés, avec leurs apports et leurs limites.", couleur: "#E27227" },
+              { href: "/methode", icon: FileText, titre: "Gouvernance et données", desc: "Principes de neutralité, code ouvert et conditions de gestion des données.", couleur: "#3aab8a" },
             ].map(({ href, icon: Icon, titre, desc, couleur }) => (
               <Link key={href} href={href} className="block group">
                 <div className="rounded-xl p-5 border border-gray-100 hover:shadow-md transition-all hover:-translate-y-0.5">
@@ -238,7 +238,7 @@ export default function Ressources() {
                   <h3 className="font-bold text-gray-900 mb-1">{titre}</h3>
                   <p className="text-sm text-gray-500 leading-relaxed mb-3">{desc}</p>
                   <span className="text-sm font-semibold flex items-center gap-1" style={{ color: couleur }}>
-                    Explorer <ArrowRight className="h-4 w-4" />
+                    Consulter <ArrowRight className="h-4 w-4" />
                   </span>
                 </div>
               </Link>

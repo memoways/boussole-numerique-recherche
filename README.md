@@ -14,6 +14,8 @@ Une première passe de révision rédactionnelle a clarifié cet état d’avanc
 
 Une seconde passe a distingué, sur la page Recherche, les constats sourcés des pistes de conception du projet. Elle a précisé, sur la page Partenaires, les étapes possibles de contribution et ce que le projet prévoit de partager. Le footer reprend ce même état de co-conception.
 
+Une troisième passe a clarifié la page Ressources, désormais centrée sur les documents et sources qui éclairent la co-conception. Elle a également harmonisé les microtextes transversaux : les CTA indiquent l’action et le contenu de la destination, les liens externes distinguent PDF et source web, et la demande d’invitation partenaire est formulée explicitement.
+
 ## Ce que contient le portail
 
 | Ensemble | Rôle | Routes ou emplacement |

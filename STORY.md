@@ -40,6 +40,8 @@ Le menu public reste volontairement court : **Projet, Calendrier, Expérience, M
 
 Le portail comporte un hero éditorial, la présentation détaillée du projet, le calendrier en quatre phases sur vingt-quatre mois, l’expérience interactive, la méthode enrichie des principes de gouvernance, les partenaires et les références. La page Projet propose un sommaire sticky sur desktop, un sélecteur mobile et une progression de lecture. La page Références fournit un comparatif adapté aux petits écrans : défilement horizontal, colonne de noms fixée et intitulés compacts. La page Recherche présente quinze constats documentés et distingue les données sources des pistes de conception qui restent à tester.
 
+La page Ressources rassemble les documents internes, les études externes et les sources qui accompagnent la co-conception. Ses fiches distinguent le document interne à lire, le PDF externe à ouvrir et la source web à consulter. Les CTA transversaux emploient le même principe : ils annoncent l’action et le contenu de la destination, sans supposer qu’un diagnostic public est déjà actif.
+
 L’expérience Boussole utilise cinq dimensions pour rendre le diagnostic tangible. Le radar animé de l’accueil est maintenant fourni par le composant partagé `AnimatedRadarGraphic`. Il est repris dans la première slide de la présentation partenaire, sans surcharger les autres slides.
 
 ### Présentation partenaire
@@ -73,6 +75,7 @@ Après chaque soumission, l’API prépare un e-mail de récapitulatif détermin
 | Outil en co-conception | Le site public ne doit pas annoncer un diagnostic déjà disponible | Les pages d’entrée, le calendrier et les démonstrations décrivent la future version au futur |
 | Recherche documentaire distincte des promesses produit | Les sources servent à éclairer les choix, sans faire preuve de l’utilité future | La page Recherche parle de constats documentés et de questions à tester ; les pistes de conception sont nommées comme telles |
 | Parcours partenaire explicite | La contribution ne doit pas être confondue avec l’accès déjà actif au diagnostic | Les entrées Présentation et Questionnaire sont séparées ; les étapes de test et les contreparties sont formulées au futur |
+| CTA explicites | Une destination seule ne dit pas ce que la personne y trouvera | Les libellés indiquent l’action et l’objet : comprendre le projet, explorer une démonstration, consulter des constats ou demander une invitation |
 
 ## 6. Stack et structure du dépôt
 
@@ -106,6 +109,7 @@ Qualité            pnpm verify · TypeScript · builds · scripts mobile/contra
 | Été 2026 | Alignement institutionnel, calendrier, partenaires, références, accessibilité, SEO, mobile et déploiement autonome |
 | 13 août 2026 | Module partenaire, console `/admin`, boîte Dreamlit, présentation interactive et documentation complète |
 | 14 août 2026 | Domaine final, Open Graph, sitemap et robots générés ; deux passes de révision éditoriale ; simplification et validation des parcours Recherche et Partenaires |
+| 14 août 2026 | Troisième passe éditoriale : Ressources et microtextes de navigation, footer, accueil, méthode et questionnaire alignés sur la co-conception |
 
 ## 8. État d’activation et limites connues
 

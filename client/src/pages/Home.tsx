@@ -392,7 +392,7 @@ function BoussoleDemoInteractive() {
             {q.note}
           </p>
           <Button variant="outline" size="sm" className="text-xs font-semibold" style={{ borderColor: dim.couleur, color: dim.couleur }} asChild>
-            <Link href="/experience">Voir l'expérience complète <ArrowRight className="ml-1 h-3 w-3" /></Link>
+            <Link href="/experience">Explorer la démonstration complète <ArrowRight className="ml-1 h-3 w-3" /></Link>
           </Button>
         </div>
       </div>
@@ -561,7 +561,7 @@ function RadarAccordion() {
           ))}
         </div>
         <Button variant="outline" size="sm" className="text-xs" style={{ borderColor: '#515792', color: '#515792' }} asChild>
-          <Link href="/experience">Voir l'expérience complète <ArrowRight className="ml-1 h-3 w-3" /></Link>
+          <Link href="/experience">Explorer la démonstration complète <ArrowRight className="ml-1 h-3 w-3" /></Link>
         </Button>
       </div>
     </div>
@@ -605,11 +605,11 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className="font-semibold text-sm sm:text-base shadow-md hover:shadow-lg transition-shadow" style={{ backgroundColor: '#515792' }} asChild>
               <Link href="/projet">
-                Découvrir le projet <ArrowRight className="ml-2 h-4 w-4" />
+                Comprendre le projet <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
             <Button size="lg" variant="outline" className="font-semibold text-sm sm:text-base border-2" style={{ borderColor: '#E27227', color: '#E27227' }} asChild>
-              <Link href="/experience">Voir l'expérience</Link>
+              <Link href="/experience">Explorer la démonstration</Link>
             </Button>
           </div>
         </div>
@@ -708,7 +708,7 @@ export default function Home() {
 
           <div className="text-center mt-10">
             <Button className="font-semibold" style={{ backgroundColor: '#515792' }} asChild>
-              <Link href="/experience">Voir l'expérience complète <ArrowRight className="ml-2 h-4 w-4" /></Link>
+              <Link href="/experience">Explorer la démonstration complète <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
           </div>
         </div>
@@ -754,7 +754,7 @@ export default function Home() {
                 ))}
               </div>
               <Button variant="outline" className="font-semibold" style={{ borderColor: '#515792', color: '#515792' }} asChild>
-                <Link href="/methode">Voir la méthode <ArrowRight className="ml-2 h-4 w-4" /></Link>
+                <Link href="/methode">Comprendre la méthode <ArrowRight className="ml-2 h-4 w-4" /></Link>
               </Button>
             </div>
             <div className="rounded-2xl p-8" style={{ backgroundColor: '#f0f1f8' }}>
@@ -809,16 +809,18 @@ export default function Home() {
               {
                 href: "/recherche",
                 icon: BookOpen,
-                titre: "État de l'art",
-                texte: "104 sources, 6 études majeures (UNESCO, Québec, DCTN Genève, WEF, BCG, Europe), 15 insights clés sur la transformation numérique culturelle.",
+                titre: "État de l’art",
+                texte: "104 sources et 15 constats documentés sur la transformation numérique culturelle.",
+                action: "Consulter les constats",
                 couleur: "#515792",
                 bg: "#f0f1f8",
               },
               {
                 href: "/references",
                 icon: Lightbulb,
-                titre: "5 références analysées",
-                texte: "Nos Gestes Climat, DeepLearning.AI Skill Builder, AICred, Diag-numerique.fr, Observatoire genevois — avec tableau comparatif détaillé.",
+                titre: "Références comparées",
+                texte: "Outils et démarches documentés avec leurs apports, leurs limites et un tableau comparatif.",
+                action: "Consulter les références",
                 couleur: "#E27227",
                 bg: "#fdf3ec",
               },
@@ -827,10 +829,11 @@ export default function Home() {
                 icon: ExternalLink,
                 titre: "Sources & documents",
                 texte: "Accès direct aux sources originales : PDFs officiels, rapports institutionnels, études citées dans la recherche.",
+                action: "Ouvrir les documents",
                 couleur: "#3aab8a",
                 bg: "#f0faf6",
               },
-            ].map(({ href, icon: Icon, titre, texte, couleur, bg }) => (
+            ].map(({ href, icon: Icon, titre, texte, action, couleur, bg }) => (
               <Link key={href} href={href} className="block group">
                 <div className="rounded-2xl p-6 h-full transition-all duration-200 hover:shadow-md hover:-translate-y-0.5" style={{ backgroundColor: bg }}>
                   <div className="w-10 h-10 rounded-lg flex items-center justify-center mb-4" style={{ backgroundColor: couleur }}>
@@ -839,7 +842,7 @@ export default function Home() {
                   <h3 className="font-bold text-gray-900 mb-2">{titre}</h3>
                   <p className="text-sm text-gray-600 leading-relaxed mb-4">{texte}</p>
                   <span className="text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all" style={{ color: couleur }}>
-                    Explorer <ArrowRight className="h-4 w-4" />
+                    {action} <ArrowRight className="h-4 w-4" />
                   </span>
                 </div>
               </Link>
@@ -853,8 +856,8 @@ export default function Home() {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#515792' }}>Engagements</p>
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Six garanties fondamentales</h2>
-            <p className="text-gray-500 mt-3 max-w-xl mx-auto">La Boussole repose sur des principes non négociables, inscrits dans sa conception depuis le premier jour.</p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Les six principes de gouvernance</h2>
+            <p className="text-gray-500 mt-3 max-w-xl mx-auto">Ces principes guident la conception du projet et la préparation de la future version publique.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {GARANTIES.map(({ icon: Icon, titre, texte, couleur }) => (
@@ -871,7 +874,7 @@ export default function Home() {
           </div>
           <div className="text-center mt-10">
             <Button variant="outline" className="font-semibold" style={{ borderColor: '#515792', color: '#515792' }} asChild>
-              <Link href="/gouvernance">Lire les engagements complets <ArrowRight className="ml-2 h-4 w-4" /></Link>
+              <Link href="/methode">Comprendre les six principes <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
           </div>
         </div>
@@ -889,14 +892,11 @@ export default function Home() {
             <Button size="lg" className="font-semibold bg-white hover:bg-gray-50" style={{ color: '#515792' }} asChild>
               <Link href="/partenaires">
                 <Users className="mr-2 h-4 w-4" />
-                Devenir partenaire
+                Découvrir comment contribuer
               </Link>
             </Button>
             <Button size="lg" variant="outline" className="font-semibold border-white/50 text-white hover:bg-white/10" asChild>
-              <Link href="/methode">Lire la méthode</Link>
-            </Button>
-            <Button size="lg" variant="outline" className="font-semibold border-white/50 text-white hover:bg-white/10" asChild>
-              <Link href="/partenaires">Suivre le projet</Link>
+              <Link href="/methode">Comprendre la co-conception</Link>
             </Button>
           </div>
         </div>

@@ -69,7 +69,7 @@ export default function Footer() {
               onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#515792'; }}
             >
               <MessageCircle className="h-4 w-4" />
-              Nous écrire
+              Contacter l’équipe
             </a>
           </div>
 
@@ -134,7 +134,7 @@ export default function Footer() {
               onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
             >
               <Compass className="h-3 w-3" />
-              Suivre le projet
+              Participer au projet
             </Link>
           </div>
         </div>
