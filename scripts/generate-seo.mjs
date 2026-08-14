@@ -7,6 +7,7 @@ const publicDir = resolve("client/public");
 const siteName = "Boussole Numérique Culture";
 const defaultDescription = "Un outil de diagnostic numérique pour aider les actrices, acteurs et structures culturelles à situer leurs pratiques et choisir des pistes d'action utiles.";
 const mode = process.argv[2] ?? "pages";
+const buildDate = new Date().toISOString().slice(0, 10);
 const breadcrumbLabels = {
   "/projet": "Projet", "/timeline": "Calendrier", "/experience": "Expérience", "/methode": "Méthode", "/partenaires": "Partenaires", "/recherche": "Recherche", "/references": "Références", "/ressources": "Ressources", "/etude-complete": "Étude complète", "/etat-des-lieux": "État des lieux", "/analyse-outils": "Analyse d’outils", "/sources": "Sources", "/synthese-documents": "Synthèse documentaire",
 };
@@ -18,6 +19,7 @@ const pages = {
   "/experience": { title: "L'expérience Boussole | Boussole Numérique Culture", description: "Explorez les cinq dimensions d'un diagnostic numérique pensé pour les pratiques et les réalités du secteur culturel." },
   "/methode": { title: "Méthode et principes | Boussole Numérique Culture", description: "Découvrez la méthode de co-conception, les principes de service public et les engagements de gouvernance de la Boussole." },
   "/partenaires": { title: "Partenaires | Boussole Numérique Culture", description: "Découvrez comment les structures, les professionnelles et professionnels, et les partenaires contribuent à la Boussole Numérique Culture." },
+  "/partenaires/presentation": { title: "Découvrir la Boussole | Partenaires", description: "Une présentation courte de la Boussole Numérique Culture pour les partenaires et premiers utilisateurs.", breadcrumbs: [{ label: "Accueil", path: "/" }, { label: "Partenaires", path: "/partenaires" }, { label: "Découvrir la Boussole", path: "/partenaires/presentation" }] },
   "/recherche": { title: "Recherche et enseignements | Boussole Numérique Culture", description: "Les enseignements de la recherche sur les pratiques numériques culturelles qui orientent la conception de la Boussole." },
   "/references": { title: "Références comparables | Boussole Numérique Culture", description: "Une sélection documentée d'outils comparables et de démarches inspirantes pour le diagnostic numérique culturel." },
   "/ressources": { title: "Ressources | Boussole Numérique Culture", description: "Accédez aux études, sources et ressources qui accompagnent le projet Boussole Numérique Culture." },
@@ -26,6 +28,12 @@ const pages = {
   "/analyse-outils": { title: "Analyse d'outils | Boussole Numérique Culture", description: "Une analyse des outils de diagnostic et d'accompagnement numérique utiles au secteur culturel." },
   "/sources": { title: "Sources | Boussole Numérique Culture", description: "Retrouvez les sources et publications qui étayent la recherche Boussole Numérique Culture." },
   "/synthese-documents": { title: "Synthèse documentaire | Boussole Numérique Culture", description: "Une synthèse des documents clés mobilisés pour concevoir la Boussole Numérique Culture." },
+};
+
+const nonIndexablePages = {
+  "/partenaires/questionnaire": { title: "Partager mes idées et feedbacks | Partenaires", description: "Demandez une invitation personnelle pour contribuer au questionnaire de co-construction de la Boussole Numérique Culture.", index: false, breadcrumbs: [{ label: "Accueil", path: "/" }, { label: "Partenaires", path: "/partenaires" }, { label: "Questionnaire", path: "/partenaires/questionnaire" }] },
+  "/partenaires/admin": { title: "Administration partenaire | Boussole Numérique Culture", description: "Espace privé de gestion des invitations et des réponses partenaires.", index: false },
+  "/admin": { title: "Administration partenaire | Boussole Numérique Culture", description: "Espace privé de gestion des invitations et des réponses partenaires.", index: false },
 };
 
 const escapeHtml = (value) => value.replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[character]);
@@ -98,7 +106,7 @@ const aliases = {
 
 if (mode === "pages") {
   const template = await readFile(sourcePath, "utf8");
-  for (const [path, page] of Object.entries({ ...pages, ...aliases })) {
+  for (const [path, page] of Object.entries({ ...pages, ...nonIndexablePages, ...aliases })) {
     if (path === "/") continue;
     const outputPath = resolve(publicDir, path.slice(1), "index.html");
     await mkdir(dirname(outputPath), { recursive: true });
@@ -107,11 +115,14 @@ if (mode === "pages") {
 
   const indexablePaths = Object.keys(pages);
   const sitemapUrls = indexablePaths
-    .map((path) => `  <url><loc>${escapeHtml(`${siteUrl}${path === "/" ? "/" : path}`)}</loc>`)
-    .map((url) => `${url}</url>`)
+    .map((path) => {
+      const url = escapeHtml(`${siteUrl}${path === "/" ? "/" : path}`);
+      const priority = path === "/" ? "1.0" : path === "/projet" || path === "/partenaires" ? "0.9" : "0.7";
+      return `  <url>\n    <loc>${url}</loc>\n    <lastmod>${buildDate}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
+    })
     .join("\n");
   await writeFile(resolve(publicDir, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapUrls}\n</urlset>\n`);
-  await writeFile(resolve(publicDir, "robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`);
+  await writeFile(resolve(publicDir, "robots.txt"), `User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /partenaires/admin\nDisallow: /partenaires/questionnaire\n\nSitemap: ${siteUrl}/sitemap.xml\n`);
   console.log(`Pages SEO générées pour ${indexablePaths.length} routes indexables (${siteUrl}).`);
 } else if (mode === "root") {
   const outputPath = resolve("dist/public/index.html");

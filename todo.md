@@ -67,3 +67,4 @@
 - [x] Consolider CHANGELOG, STORY et README avec toutes les modifications réellement livrées depuis le début du projet.
 - [x] Vérifier et fiabiliser les balises Open Graph dans le layout principal et les pages publiées.
 - [x] Définir le domaine final dans SITE_URL et régénérer les métadonnées canoniques publiées.
+- [x] Régénérer sitemap.xml et robots.txt avec le domaine final dans le pipeline SEO.
