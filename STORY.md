@@ -131,3 +131,4 @@ Les contenus éditoriaux restent principalement dans les composants React. Cette
 | [`docs/PARTNER_FEEDBACK_OPERATIONS.md`](docs/PARTNER_FEEDBACK_OPERATIONS.md) | Activation API, PostgreSQL, administration, Deepgram et Dreamlit |
 | [`docs/PLAN_PARTENAIRES_PRESENTATION_QUESTIONNAIRE.md`](docs/PLAN_PARTENAIRES_PRESENTATION_QUESTIONNAIRE.md) | Cadrage et décisions du module partenaire |
 | [`docs/IMPLEMENTATION_ARCHIVE_PARTNER_MODULE_2026-08-13.md`](docs/IMPLEMENTATION_ARCHIVE_PARTNER_MODULE_2026-08-13.md) | Trace factuelle des fonctionnalités partenaire effectivement livrées |
+| [`docs/PLAN_OPTIMISATION_REDACTIONNELLE.md`](docs/PLAN_OPTIMISATION_REDACTIONNELLE.md) | Diagnostic éditorial et séquence de réécriture à valider avant toute modification de contenu |

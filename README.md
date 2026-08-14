@@ -124,6 +124,7 @@ Toute modification effectivement livrée doit mettre à jour `CHANGELOG.md`, `ST
 | [`docs/PARTNER_FEEDBACK_OPERATIONS.md`](./docs/PARTNER_FEEDBACK_OPERATIONS.md) | Activation du module partenaire et du pilote |
 | [`docs/PLAN_PARTENAIRES_PRESENTATION_QUESTIONNAIRE.md`](./docs/PLAN_PARTENAIRES_PRESENTATION_QUESTIONNAIRE.md) | Décisions de conception du module partenaire |
 | [`docs/IMPLEMENTATION_ARCHIVE_PARTNER_MODULE_2026-08-13.md`](./docs/IMPLEMENTATION_ARCHIVE_PARTNER_MODULE_2026-08-13.md) | Archive factuelle des fonctionnalités partenaire livrées |
+| [`docs/PLAN_OPTIMISATION_REDACTIONNELLE.md`](./docs/PLAN_OPTIMISATION_REDACTIONNELLE.md) | Diagnostic rédactionnel et plan d’amélioration à valider avant réécriture |
 
 ## Licence
 
