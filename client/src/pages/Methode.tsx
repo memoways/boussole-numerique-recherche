@@ -14,10 +14,10 @@ import { Link } from "wouter";
  */
 
 const ETAPES_METHODE = [
-  { icon: MessageSquare, titre: "Écouter", desc: "Rencontrer les structures culturelles, comprendre leurs pratiques réelles, leurs frictions, leurs besoins non formulés.", couleur: "#515792" },
+  { icon: MessageSquare, titre: "Écouter", desc: "Rencontrer les structures culturelles et comprendre leurs pratiques, leurs frictions et leurs besoins non formulés.", couleur: "#515792" },
   { icon: FileText, titre: "Formuler", desc: "Traduire les observations en questions, en dimensions, en scénarios d'usage. Valider avec les partenaires.", couleur: "#E27227" },
   { icon: Wrench, titre: "Prototyper", desc: "Construire une première version du questionnaire et de la restitution. Rapide, imparfaite, testable.", couleur: "#3aab8a" },
-  { icon: TestTube, titre: "Tester", desc: "Faire essayer la Boussole à de vraies structures culturelles. Observer, noter, questionner.", couleur: "#9b59b6" },
+  { icon: TestTube, titre: "Tester", desc: "Faire essayer les prototypes à des structures culturelles. Observer, noter, questionner.", couleur: "#9b59b6" },
   { icon: RefreshCw, titre: "Ajuster", desc: "Intégrer les retours. Reformuler les questions floues. Corriger les biais. Améliorer la restitution.", couleur: "#E58441" },
   { icon: FileText, titre: "Documenter", desc: "Garder une trace de chaque décision, de chaque apprentissage. Rendre la méthode reproductible.", couleur: "#515792" },
   { icon: Share2, titre: "Partager", desc: "Rendre les résultats accessibles. Publier les apprentissages. Inviter d'autres à s'en inspirer.", couleur: "#E27227" },
@@ -36,21 +36,21 @@ const PRINCIPES_GOUVERNANCE = [
     icon: Heart,
     titre: "Gratuité",
     couleur: "#E27227",
-    texte: "La Boussole est et restera gratuite pour toutes les structures culturelles. Un outil payant exclut les structures les plus petites — celles qui en ont souvent le plus besoin.",
+    texte: "La Boussole sera gratuite pour les structures culturelles. Cet engagement doit permettre aux structures les plus petites d’y accéder sans barrière financière.",
     engagements: ["Aucun abonnement", "Aucun freemium", "Aucune fonctionnalité payante"],
   },
   {
     icon: Globe,
     titre: "Service public",
     couleur: "#515792",
-    texte: "La Boussole ne repose pas sur la captation des données ni sur la conversion des utilisateurs en clients. Sa valeur tient à l'utilité du diagnostic et à la qualité des ressources partagées. C'est un projet de service public, pas un produit commercial.",
+    texte: "Le projet ne reposera ni sur la captation des données ni sur la conversion des utilisatrices et utilisateurs en clients. Sa valeur tiendra à l’utilité du futur diagnostic et à la qualité des ressources partagées.",
     engagements: ["Aucune revente de données", "Aucun partenariat commercial", "Aucune logique de lead generation"],
   },
   {
     icon: Shield,
     titre: "Neutralité",
     couleur: "#3aab8a",
-    texte: "Les recommandations ne favorisent aucun prestataire, aucun produit commercial, aucune solution propriétaire. Elles sont fondées sur des critères de pertinence, d'accessibilité et d'adéquation au contexte culturel.",
+    texte: "Les futures recommandations ne devront favoriser aucun prestataire, produit commercial ou solution propriétaire. Elles s’appuieront sur des critères de pertinence, d’accessibilité et d’adéquation au contexte culturel.",
     engagements: ["Indépendantes de tout partenariat commercial", "Priorité aux outils libres et open source", "Transparence sur les critères de sélection"],
     annexe: "L'annuaire de prestataires intégré à la Boussole est pensé pour rester strictement neutre et non discriminant, de sa conception à son usage. Il recense par défaut les structures et consultant·e·s actif·ve·s dans l'accompagnement numérique du secteur culturel genevois connus au moment du lancement, sans hiérarchisation ni mise en avant payante — Memoways y figure au même titre que les autres prestataires répertoriés. Un formulaire public permet à toute structure ou consultant·e non mentionné·e de demander son ajout, garantissant que la liste reste ouverte, actualisable et représentative de l'ensemble de l'écosystème plutôt que figée au moment de la publication.",
   },
@@ -58,21 +58,21 @@ const PRINCIPES_GOUVERNANCE = [
     icon: Code2,
     titre: "Open source",
     couleur: "#9b59b6",
-    texte: "Le code source est ouvert et consultable. La méthode est documentée. Toute structure peut s'en inspirer, l'adapter ou contribuer à son amélioration.",
+    texte: "Le projet prévoit de publier le code source et de documenter la méthode. D’autres structures pourront alors s’en inspirer, l’adapter ou contribuer à son amélioration.",
     engagements: ["Code source public", "Licence ouverte", "Documentation de la méthode accessible"],
   },
   {
     icon: Server,
     titre: "Hébergement souverain",
     couleur: "#E58441",
-    texte: "La Boussole est hébergée en Suisse, chez Infomaniak. Les données restent en Europe, sous le cadre légal suisse et européen.",
-    engagements: ["Hébergement Infomaniak (Suisse)", "Données en Europe", "Conformité RGPD et LPD suisse"],
+    texte: "L’hébergement et le traitement des données devront rester dans un cadre suisse ou européen. Le choix définitif sera confirmé avant la mise à disposition publique.",
+    engagements: ["Hébergement à confirmer", "Données en Europe", "Cadre RGPD et LPD suisse à respecter"],
   },
   {
     icon: Lock,
     titre: "Consentement",
     couleur: "#515792",
-    texte: "Les réponses au questionnaire sont anonymisées. Aucune donnée personnelle n'est collectée sans consentement explicite. Les résultats individuels ne sont jamais partagés sans accord.",
+    texte: "La future version devra recueillir un consentement explicite avant toute collecte de données personnelles. Les résultats individuels ne devront pas être partagés sans accord.",
     engagements: ["Anonymisation des réponses", "Consentement explicite", "Pas de partage sans accord"],
   },
 ];
@@ -89,7 +89,7 @@ export default function Methode() {
             Méthode, co-conception & gouvernance
           </h1>
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl leading-relaxed mb-8">
-            La Boussole sera construite avec les structures culturelles — pas pour elles. Ses six principes de gouvernance guident déjà la conception du projet.
+            La Boussole sera construite avec les structures culturelles. Ses six principes de gouvernance guident déjà la conception du projet.
           </p>
           <div className="flex flex-wrap gap-3">
             <Button style={{ backgroundColor: '#515792' }} asChild>
@@ -109,9 +109,9 @@ export default function Methode() {
             <div>
               <h2 className="text-2xl font-bold text-gray-900 mb-5">Pourquoi co-construire ?</h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
-                <p>Un outil conçu sans ses utilisateurs risque d'être trop technique, trop général ou trop éloigné des pratiques réelles. La co-conception réduit ce risque en intégrant les retours du terrain à chaque étape.</p>
-                <p>Les structures culturelles ont des pratiques très diverses — artistes indépendants, grandes institutions, associations de médiation, compagnies de spectacle vivant. Un outil utile doit tenir compte de cette diversité dès sa conception.</p>
-                <p>La co-conception, c'est aussi une manière de construire la confiance. Un outil que les structures ont contribué à façonner est un outil qu'elles s'approprieront plus facilement.</p>
+                <p>Les premières rencontres servent à vérifier que les questions, les exemples et les restitutions correspondent aux pratiques des structures. Les retours alimentent chaque étape de la conception.</p>
+                <p>Les structures culturelles ont des réalités diverses : artistes indépendants, institutions, associations de médiation et compagnies de spectacle vivant. Les prototypes devront tenir compte de cette diversité.</p>
+                <p>La co-conception rend les choix de conception discutables et traçables. Les partenaires pourront voir ce qui est retenu, ajusté ou laissé de côté.</p>
               </div>
             </div>
             <div className="rounded-2xl p-8" style={{ backgroundColor: '#f0f1f8' }}>
@@ -128,7 +128,7 @@ export default function Methode() {
       <section className="py-14 px-4" style={{ backgroundColor: '#f8f9fc' }}>
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold text-gray-900 mb-3">Les sept temps de la méthode</h2>
-          <p className="text-gray-500 mb-10 max-w-xl">Un processus itératif, documenté à chaque étape.</p>
+              <p className="text-gray-500 mb-10 max-w-xl">Un cycle de travail documenté, des premières rencontres aux retours de test.</p>
 
           {/* Desktop: grille */}
           <div className="hidden sm:grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -169,7 +169,7 @@ export default function Methode() {
           <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#515792' }}>Gouvernance</Badge>
           <h2 className="text-2xl font-bold text-gray-900 mb-3">Les six principes de gouvernance</h2>
           <p className="text-gray-500 mb-10 max-w-xl">
-            Ces six principes guident la conception du projet, indépendamment des financements ou des partenariats.
+            Ces six principes servent de cadre aux choix du projet, quels que soient les financements ou les partenariats.
           </p>
           <div className="space-y-4">
             {PRINCIPES_GOUVERNANCE.map(({ icon: Icon, titre, couleur, texte, engagements, annexe }: { icon: React.ElementType; titre: string; couleur: string; texte: string; engagements: string[]; annexe?: string }) => (
@@ -275,8 +275,8 @@ export default function Methode() {
             <div>
               <h2 className="text-2xl font-bold text-gray-900 mb-5">Comment le portail pourra évoluer</h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
-                <p>Ce site compagnon est lui-même un objet évolutif. Il pourra devenir, avec les partenaires et premiers utilisateurs, un espace de suivi de l'avancement, de partage des apprentissages et de documentation ouverte.</p>
-                <p>L'objectif n'est pas de construire une plateforme permanente, mais de garder une trace vivante du projet et de ses apprentissages.</p>
+                <p>Ce site compagnon gardera une trace de l’avancement, des apprentissages et des décisions prises avec les partenaires.</p>
+                <p>Son rôle pourra évoluer avec le projet, en fonction des besoins de suivi et de partage identifiés pendant les tests.</p>
               </div>
             </div>
           </div>
@@ -306,7 +306,7 @@ export default function Methode() {
               <Link href="/recherche">Consulter les constats documentés</Link>
             </Button>
             <Button variant="outline" style={{ borderColor: '#9b59b6', color: '#9b59b6' }} asChild>
-              <Link href="/ressources">Ressources documentaires</Link>
+              <Link href="/ressources">Consulter les documents et sources</Link>
             </Button>
           </div>
         </div>

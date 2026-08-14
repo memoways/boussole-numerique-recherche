@@ -34,6 +34,7 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Première passe éditoriale appliquée : Accueil, Projet, Expérience et Calendrier distinguent la co-conception du futur outil ; Références renonce aux revendications d’exclusivité non étayées ; Méthode et Partenaires resserrent leurs répétitions et CTA.
 - Seconde passe éditoriale appliquée : Recherche distingue les constats sourcés des pistes de conception ; Partenaires clarifie les étapes et contreparties de contribution ; le footer décrit le projet au stade de co-conception.
 - Troisième passe éditoriale appliquée : Ressources devient « Documents et sources », les fiches et liens précisent le type d’accès, et les microtextes de navigation, footer, accueil, méthode et questionnaire annoncent l’action attendue.
+- Quatrième passe éditoriale appliquée : Projet et Méthode distinguent les engagements actuels, les choix à confirmer et les fonctions futures ; le parcours, les comparaisons, l’architecture et les CTA sont resserrés.
 
 ### Vérifié
 

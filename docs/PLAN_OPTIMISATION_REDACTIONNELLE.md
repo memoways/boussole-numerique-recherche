@@ -158,6 +158,27 @@ La page Ressources et l’accueil ont été contrôlés dans l’aperçu le 14 a
 
 La prochaine passe peut se concentrer sur les pages longues du projet : hiérarchie des intertitres, formulations répétées entre Projet et Méthode, et explication de l’accompagnement conversationnel sans jargon. Les contenus historiques non routés peuvent être examinés séparément avant toute suppression ou redirection.
 
+## Révisions appliquées — quatrième passe
+
+| Zone | Diagnostic traité | Révision appliquée |
+|---|---|---|
+| Projet — note d’intention et proposition | Plusieurs titres et paragraphes présentaient l’outil, le diagnostic et le dialogue comme déjà disponibles. | Les titres et verbes décrivent un projet en co-conception. Le « dialogue guidé par IA » est expliqué dès sa première occurrence comme une conversation structurée pour explorer des priorités. |
+| Projet — parcours et mode collectif | Le questionnaire, la restitution, l’agrégation et le suivi apparaissaient comme des fonctions actives. | Les trois temps du parcours, la synthèse collective et les règles d’agrégation sont formulés comme des éléments à tester ou à co-concevoir. |
+| Projet — comparaisons et références | Le tableau et les exemples comparables revendiquaient une différence acquise face aux autres outils. | Ils deviennent des choix de conception à comparer. Chaque fiche décrit les enseignements et les limites plutôt qu’un avantage déjà démontré. |
+| Projet — principes et architecture | Des mentions d’Infomaniak, d’hébergement et de code ouvert étaient présentées comme des faits de la version publique. | Les textes deviennent des engagements ou des choix à confirmer au déploiement, sans modifier les données, noms ou liens documentaires. |
+| Méthode — co-conception | La page répétait la formule « trop technique, trop général ou trop éloigné » et mélangeait pratique présente et futur outil. | Les premiers essais sont décrits comme des vérifications concrètes. Les prototypes, rencontres et retours rendent les choix discutables et traçables. |
+| Méthode — six principes | Gratuité, neutralité, code ouvert, hébergement et consentement n’employaient pas le même temps verbal. | Les engagements sont formulés comme cadre du projet et exigences de la future version, en préservant les limites reconnues. |
+| CTA et calendrier | Plusieurs liens indiquaient seulement une destination. | Les CTA annoncent le contenu attendu : consulter les quatre phases, les constats documentés ou les documents et sources. |
+
+## Contrôle visuel — quatrième passe
+
+Les pages Projet et Méthode ont été contrôlées dans l’aperçu le 14 août 2026. Les nouveaux premiers écrans répondent à l’état d’avancement, les intertitres restent lisibles, le sommaire du projet fonctionne et les CTA explicitent leur destination. Aucun débordement horizontal n’a été relevé au contrôle desktop.
+
+## À compléter avant activation publique
+
+- [DONNÉE À TRANCHER : hébergement Infomaniak ou infrastructure Coolify self-hosted] — les anciennes formulations publiques citaient Infomaniak, alors que la configuration technique du dépôt prépare Coolify. La page parle désormais d’un choix à confirmer ; une décision doit être reportée dans les pages publiques et la documentation lors du déploiement.
+- [FAIT À FOURNIR : statut public du dépôt de code] — les pages présentent désormais la publication du code comme un engagement du projet. Une URL de dépôt public est nécessaire avant de la remplacer par un fait établi.
+
 ## Prochaine boucle à valider
 
 1. La page Ressources doit-elle être traitée avant la page Projet, pour harmoniser les titres, les renvois et le vocabulaire documentaire ?

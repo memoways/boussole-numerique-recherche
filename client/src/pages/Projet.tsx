@@ -25,9 +25,9 @@ const PROBLEMATIQUES = [
 
 const DIMENSIONS = [
   { icon: "🛠️", titre: "Outils et manières de travailler", desc: "Les logiciels et méthodes utilisés au quotidien : la collaboration se fait-elle dans les fichiers ? Comment circulent les fichiers, comment sont suivis les projets ?" },
-  { icon: "🎓", titre: "Compétences et culture numérique", desc: "Quel est le niveau de confiance avec les outils du numérique ? Comment les compétences internes ? L'IA a-t-elle été expérimentée ?" },
+  { icon: "🎓", titre: "Compétences et culture numérique", desc: "Quel est le niveau de confiance avec les outils du numérique ? Comment les compétences circulent-elles ? L’IA a-t-elle déjà été expérimentée ?" },
   { icon: "🗄️", titre: "Données, archivage et documentation", desc: "Est-il possible de retrouver les fichiers d'un projet d'il y a 3 ans ? Y a-t-il une politique de sauvegarde ? L'accès est-il contrôlé ?" },
-  { icon: "📡", titre: "Médiation, publics et communication numérique", desc: "Comment le numérique est-il utilisé pour rejoindre les publics ? Y a-t-il un site, une lettre d'info, une newsletter ? Les outils numériques ?" },
+  { icon: "📡", titre: "Médiation, publics et communication numérique", desc: "Comment le numérique est-il utilisé pour rejoindre les publics ? Quels outils soutiennent le site, la lettre d’information et les échanges ?" },
   { icon: "🔗", titre: "Partage, circulation et cohérence des pratiques", desc: "Les informations circulent-elles facilement au sein de la structure ? Y a-t-il un démarrage similaire ou chacun fait ce qui lui convient ?" },
 ];
 
@@ -35,43 +35,43 @@ const ETAPES_EXPERIENCE = [
   {
     num: 1,
     couleur: "#515792",
-    titre: "La Photo",
-    duree: "10–15 min · Questionnaire adaptatif",
-    desc: "Un questionnaire adaptatif qui explore vos pratiques numériques en 5 dimensions. Les questions s'ajustent selon vos réponses précédentes. Pas de jargon, pas de piège — juste des situations concrètes du quotidien.",
+    titre: "Le point de départ",
+    duree: "10–15 min · Questionnaire adaptatif envisagé",
+    desc: "Le futur questionnaire explorera les pratiques numériques selon cinq dimensions. Les questions pourront s’ajuster aux réponses précédentes et partir de situations concrètes du quotidien.",
   },
   {
     num: 2,
     couleur: "#3aab8a",
-    titre: "Le Panorama",
-    duree: "Restitution visuelle immersive",
-    desc: "Une carte radar de vos pratiques, lisible en un coup d'œil. Vous voyez immédiatement où vous êtes à l'aise, où se trouvent les frictions, et ce qui mérite attention. Les pistes d'action sont organisées en trois horizons : gestes rapides à mettre en place en quelques jours, chantiers de fond à ouvrir sur quelques mois, et ambitions à plus long terme.",
+    titre: "La restitution",
+    duree: "Restitution visuelle envisagée",
+    desc: "La future restitution pourra présenter une carte radar des pratiques, des points d’appui et des sujets à examiner. Les pistes d’action seront organisées entre gestes rapides, chantiers à ouvrir et perspectives de plus long terme.",
   },
   {
     num: 3,
     couleur: "#E27227",
-    titre: "L'Approfondissement",
-    duree: "Avec inscription · Suivi dans le temps",
-    desc: "Un dialogue guidé par IA pour explorer les priorités identifiées. Des ressources concrètes, calibrées à votre contexte et à l'écosystème genevois. Un suivi dans le temps pour mesurer les progrès.",
+    titre: "Le dialogue guidé",
+    duree: "Approfondissement et suivi envisagés",
+    desc: "Un dialogue guidé par IA pourra aider à explorer les priorités identifiées, puis orienter vers des ressources adaptées au contexte culturel. Les formes de suivi restent à préciser avec les partenaires.",
   },
 ];
 
 const COMPARATIF_CRITERES = [
-  { label: "Adapté au secteur culturel", chatgpt: false as const, audit: "partial" as const, formation: false as const, boussole: "Conçu pour la réalité genevoise" },
-  { label: "Accessible sans expertise technique", chatgpt: false as const, audit: "partial" as const, formation: "partial" as const, boussole: "Aucun prérequis numérique" },
-  { label: "Gratuit", chatgpt: false as const, audit: false as const, formation: false as const, boussole: "Gratuit à vie" },
-  { label: "Données hébergées en Suisse", chatgpt: false as const, audit: "partial" as const, formation: "partial" as const, boussole: "Infomaniak, Suisse" },
-  { label: "Restitution visuelle personnalisée", chatgpt: false as const, audit: "partial" as const, formation: false as const, boussole: "Radar + synthèse" },
-  { label: "Mode collaboratif", chatgpt: false as const, audit: false as const, formation: false as const, boussole: "Agrégation collective" },
-  { label: "Recommandations vers l'écosystème local", chatgpt: false as const, audit: false as const, formation: false as const, boussole: "Ressources genevoises" },
+  { label: "Prise en compte du secteur culturel", chatgpt: false as const, audit: "partial" as const, formation: false as const, boussole: "Piste à tester avec les partenaires" },
+  { label: "Accessibilité sans expertise technique", chatgpt: false as const, audit: "partial" as const, formation: "partial" as const, boussole: "Simplicité visée" },
+  { label: "Gratuité", chatgpt: false as const, audit: false as const, formation: false as const, boussole: "Engagement du projet" },
+  { label: "Hébergement suisse", chatgpt: false as const, audit: "partial" as const, formation: "partial" as const, boussole: "Principe à confirmer au déploiement" },
+  { label: "Restitution visuelle", chatgpt: false as const, audit: "partial" as const, formation: false as const, boussole: "Radar et synthèse à tester" },
+  { label: "Lecture collective", chatgpt: false as const, audit: false as const, formation: false as const, boussole: "Fonction à co-concevoir" },
+  { label: "Ressources locales", chatgpt: false as const, audit: false as const, formation: false as const, boussole: "Pistes à documenter" },
 ];
 
 const PRINCIPES = [
-  { icon: Heart, titre: "Gratuit", desc: "L'outil restera gratuit pendant à moins trois premières années d'exploitation.", couleur: "#515792" },
-  { icon: Database, titre: "Données souveraines", desc: "Hébergement en Suisse (Infomaniak), base de données en Europe. Vos données ne quittent pas le cadre légal européen.", couleur: "#3aab8a" },
-  { icon: Lock, titre: "Confidentialité", desc: "Les informations saisies ne peuvent être lues que par la personne qui remplit les cases.", couleur: "#E27227" },
-  { icon: Shield, titre: "Neutralité", desc: "Les recommandations ne pointent jamais vers aucun service lié à une prestation commerciale particulière.", couleur: "#9b59b6" },
-  { icon: GitBranch, titre: "Open source", desc: "Le code est publié sur GitHub. D'autres villes ou cantons peuvent le reprendre et l'adapter à leur contexte.", couleur: "#7ab648" },
-  { icon: Users, titre: "Approche contributive", desc: "Les structures culturelles genevoises participent dès la définition des indicateurs et à l'enrichissement des recommandations.", couleur: "#E58441" },
+  { icon: Heart, titre: "Gratuité", desc: "Le projet prévoit un outil gratuit pendant au moins les trois premières années d’exploitation.", couleur: "#515792" },
+  { icon: Database, titre: "Données souveraines", desc: "L’hébergement et la base de données devront respecter un cadre suisse ou européen, à confirmer avant le déploiement.", couleur: "#3aab8a" },
+  { icon: Lock, titre: "Confidentialité", desc: "La future version devra limiter l’accès aux informations saisies et recueillir le consentement nécessaire.", couleur: "#E27227" },
+  { icon: Shield, titre: "Neutralité", desc: "Les recommandations seront séparées de toute prestation commerciale et rendront leurs critères de sélection compréhensibles.", couleur: "#9b59b6" },
+  { icon: GitBranch, titre: "Code ouvert", desc: "Le projet prévoit de publier le code afin que d’autres villes ou cantons puissent l’adapter à leur contexte.", couleur: "#7ab648" },
+  { icon: Users, titre: "Approche contributive", desc: "Les structures culturelles genevoises participent à la définition des indicateurs et à l’amélioration des recommandations.", couleur: "#E58441" },
 ];
 
 
@@ -348,20 +348,20 @@ export default function Projet() {
           {/* ── 1. NOTE D'INTENTION ─────────────────────────────────────────── */}
           <section id="intention" style={{ scrollMarginTop: '80px' }}>
             <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#515792' }}>Note d'intention</Badge>
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-5">Un outil pour voir où l'on en est</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-5">Un projet pour situer les pratiques numériques</h2>
             <div className="space-y-4 text-gray-600 leading-relaxed">
               <p>
                 La <strong className="text-gray-900">Boussole Numérique Culture</strong> est un projet d’application web gratuite. Sa version publique proposera un état des lieux des usages numériques, suivi d’une restitution visuelle et d’un dialogue guidé.
               </p>
               <p>
-                Les partenaires précisent aujourd’hui les questions, les dimensions et les formes de restitution. La version publique s’appuiera sur un questionnaire adaptatif d’une dizaine de minutes, puis proposera une restitution visuelle et un dialogue guidé. Elle visera un <strong className="text-gray-900">diagnostic structuré et personnalisé</strong>, pour aider chacun et chacune à repérer les changements utiles dans leur quotidien de travail.
+                Les partenaires précisent aujourd’hui les questions, les dimensions et les formes de restitution. La version publique s’appuiera sur un questionnaire adaptatif d’une dizaine de minutes, puis proposera une restitution visuelle et un dialogue guidé. Elle devra aider chacun et chacune à repérer les changements utiles dans leur quotidien de travail.
               </p>
               <p>
                 Le projet est porté par une équipe spécialisée dans la transformation numérique des organisations culturelles et créatives, avec une pratique professionnelle ancrée dans le secteur culturel suisse.
               </p>
             </div>
             <blockquote className="mt-6 pl-4 border-l-4 italic text-gray-500" style={{ borderColor: '#515792' }}>
-              "Ce qu'on peut évaluer, on peut l'améliorer — et l'amélioration se mesure."
+              Ce qui est rendu visible peut être discuté et amélioré.
             </blockquote>
 
             {/* Encadré Memoways */}
@@ -416,13 +416,13 @@ export default function Projet() {
           {/* ── 2. CONTEXTE ─────────────────────────────────────────────────── */}
           <section id="contexte" style={{ scrollMarginTop: '80px' }}>
             <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#E27227' }}>Le contexte</Badge>
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-5">Des pratiques numériques qui coûtent cher en énergie créative</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-5">Des pratiques numériques qui pèsent sur le travail quotidien</h2>
             <div className="space-y-4 text-gray-600 leading-relaxed mb-8">
               <p>
                 Dans de nombreuses structures culturelles, une part du temps de travail est absorbée par des pratiques numériques inadéquates : fichiers qui circulent par email en plusieurs versions, projets suivis sur des tableaux bricolés, équipes qui passent plus de temps à se coordonner qu'à créer. Ces situations sont fréquentes et souvent invisibles.
               </p>
               <p>
-                Ce qui a changé, c'est qu'aujourd'hui, les conditions sont réunies pour agir. L'intelligence artificielle conversationnelle a atteint un niveau de maturité qui permet de créer des outils d'accompagnement véritablement personnalisés, à un coût accessible.
+                Les outils conversationnels ouvrent aujourd’hui des possibilités à examiner. Le projet teste si un dialogue guidé peut aider à formuler des priorités sans ajouter de jargon ni de charge administrative.
               </p>
             </div>
 
@@ -431,11 +431,11 @@ export default function Projet() {
               <div className="min-w-[480px]">
               <div className="px-5 py-3 flex items-center gap-3" style={{ backgroundColor: '#f8f9fc' }}>
                 <Compass className="h-4 w-4" style={{ color: '#515792' }} />
-                <span className="text-sm font-semibold text-gray-700">Schéma : Problématiques fréquentes et leur résolution</span>
+                <span className="text-sm font-semibold text-gray-700">Situations fréquentes et pistes à examiner</span>
               </div>
               <div className="grid grid-cols-2 text-xs font-bold uppercase tracking-widest">
                 <div className="px-5 py-2.5 text-white" style={{ backgroundColor: '#ef4444' }}>Situation actuelle fréquente</div>
-                <div className="px-5 py-2.5 text-white" style={{ backgroundColor: '#3aab8a' }}>✓ Avec les bons outils et pratiques</div>
+                <div className="px-5 py-2.5 text-white" style={{ backgroundColor: '#3aab8a' }}>Piste de travail possible</div>
               </div>
               {PROBLEMATIQUES.map((p, i) => (
                 <div key={i} className="grid grid-cols-2 border-t border-gray-100 hover:bg-gray-50 transition-colors">
@@ -459,9 +459,9 @@ export default function Projet() {
           {/* ── 3. LA PROPOSITION ───────────────────────────────────────────── */}
           <section id="proposition" style={{ scrollMarginTop: '80px' }}>
             <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#3aab8a' }}>La proposition</Badge>
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-5">Ce que fait la Boussole, concrètement</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-5">Ce que la future Boussole pourra proposer</h2>
             <p className="text-gray-600 leading-relaxed mb-8">
-              La version publique de la Boussole proposera une <strong className="text-gray-900">expérience conversationnelle guidée</strong> : un dialogue structuré avec un agent intelligent conçu pour le secteur culturel. Le concept, les questions et les promesses sont soumis à des utilisatrices et utilisateurs potentiels afin de recueillir réactions, attentes et doutes. L’application évoluera au fil des discussions avec les partenaires, des expérimentations techniques et des retours des premières structures pilotes.
+              La version publique pourra proposer un <strong className="text-gray-900">dialogue guidé par IA</strong>, c’est-à-dire une conversation structurée pour explorer des priorités. Le concept, les questions et les formes de restitution sont testés avec des utilisatrices et utilisateurs potentiels afin de recueillir réactions, attentes et doutes.
             </p>
 
             {/* Les 5 dimensions */}
@@ -482,8 +482,8 @@ export default function Projet() {
             </div>
 
             {/* Les 3 temps de l'expérience */}
-            <h3 className="text-lg font-bold text-gray-900 mb-2">Les 3 temps de l'expérience — Parcours utilisateur</h3>
-            <p className="text-xs text-gray-400 mb-5">De la première saisie à l'accompagnement dans la durée</p>
+            <h3 className="text-lg font-bold text-gray-900 mb-2">Un parcours à tester en trois temps</h3>
+            <p className="text-xs text-gray-400 mb-5">Du premier état des lieux au dialogue guidé et au suivi éventuel.</p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5">
               {[
@@ -531,24 +531,24 @@ export default function Projet() {
           {/* ── 4. MODE COLLABORATIF ────────────────────────────────────────── */}
           <section id="collaboratif" style={{ scrollMarginTop: '80px' }}>
             <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#9b59b6' }}>Mode collaboratif</Badge>
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-5">Donner la parole à toute une équipe</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-5">Explorer les perceptions d’une même équipe</h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
-                  Pour les compagnies, associations et collectifs, la Boussole propose un <strong className="text-gray-900">mode collaboratif</strong>. Plusieurs personnes de la même structure répondent individuellement au questionnaire.
+                  Pour les compagnies, associations et collectifs, la future Boussole pourrait proposer un <strong className="text-gray-900">mode collaboratif</strong>. Plusieurs personnes d’une même structure répondraient alors individuellement au questionnaire.
                 </p>
                 <p>
-                  L'IA synthétise l'ensemble de manière structurée et actionnable — une <strong className="text-gray-900">carte des perceptions croisées</strong> qui révèle les consensus au sein de la structure ainsi que les points de friction. Des priorités partagées émergent pour guider les décisions qu'aucun entretien individuel n'aurait fait émerger seul.
+                  Une synthèse pourrait mettre en regard les points d’accord et les écarts de perception. Cette lecture collective aiderait l’équipe à discuter des priorités, sans remplacer les échanges entre ses membres.
                 </p>
               </div>
               <div className="rounded-2xl p-6" style={{ backgroundColor: '#fdf3ec', borderLeft: '4px solid #E27227' }}>
-                <p className="text-sm font-bold mb-4" style={{ color: '#E27227' }}>Comment ça marche en mode structure</p>
+                <p className="text-sm font-bold mb-4" style={{ color: '#E27227' }}>Parcours collectif envisagé</p>
                 <ol className="space-y-3">
                   {[
-                    "Chaque membre de l'équipe répond individuellement (10–15 min)",
-                    "Les réponses sont agrégées et analysées par IA",
-                    "Une synthèse collective est générée : consensus et points de friction",
-                    "Des priorités partagées émergent pour guider les décisions",
+                    "Chaque membre de l’équipe pourrait répondre individuellement (10–15 min)",
+                    "Les réponses pourraient être agrégées selon des règles transparentes",
+                    "Une synthèse collective mettrait en regard les points d’accord et les écarts",
+                    "L’équipe choisirait elle-même les priorités à approfondir",
                   ].map((step, i) => (
                     <li key={i} className="flex items-start gap-3 text-sm text-gray-700">
                       <span className="w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0" style={{ backgroundColor: '#E27227' }}>{i + 1}</span>
@@ -563,9 +563,9 @@ export default function Projet() {
           {/* ── 5. POSITIONNEMENT ───────────────────────────────────────────── */}
           <section id="positionnement" style={{ scrollMarginTop: '80px' }}>
             <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#515792' }}>Positionnement</Badge>
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">La Boussole face aux autres solutions</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">Des choix de conception à comparer</h2>
             <p className="text-gray-600 leading-relaxed mb-6">
-              Pourquoi créer un nouvel outil alors qu'il en existe déjà ? Parce qu'aucun ne répond aux besoins spécifiques des acteurs culturels genevois.
+              Les outils existants apportent chacun des éléments utiles. Cette comparaison aide à identifier ce que le projet doit tester, adapter ou laisser de côté.
             </p>
 
             <div className="rounded-2xl border border-gray-100 overflow-hidden shadow-sm">
@@ -577,7 +577,7 @@ export default function Projet() {
                       <th className="px-4 py-3 text-center text-xs font-semibold text-gray-600">ChatGPT / IA généraliste</th>
                       <th className="px-4 py-3 text-center text-xs font-semibold text-gray-600">Audit externe</th>
                       <th className="px-4 py-3 text-center text-xs font-semibold text-gray-600">Formation en ligne</th>
-                      <th className="px-4 py-3 text-center text-xs font-bold" style={{ color: '#515792', backgroundColor: '#51579210' }}>Boussole ✓</th>
+                      <th className="px-4 py-3 text-center text-xs font-bold" style={{ color: '#515792', backgroundColor: '#51579210' }}>Piste Boussole</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -599,7 +599,7 @@ export default function Projet() {
                 </table>
               </div>
               <div className="px-4 py-2 text-xs text-gray-400 italic border-t border-gray-100" style={{ backgroundColor: '#f8f9fc' }}>
-                — Tableau basé sur une analyse de février 2026.
+                Tableau fondé sur une analyse de février 2026. Il présente des pistes de conception, non un classement des outils.
               </div>
             </div>
           </section>
@@ -610,7 +610,7 @@ export default function Projet() {
             <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#3aab8a' }}>Exemples comparables</Badge>
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">Ce qui nous a inspirés</h2>
             <p className="text-gray-600 leading-relaxed mb-6">
-              Six initiatives internationales ont été analysées en profondeur — du Royaume-Uni à la Belgique, de la France à l'Union européenne. Aucune ne répond aux besoins spécifiques des acteurs culturels genevois, mais chacune apporte une leçon précieuse. La Boussole en tire le meilleur pour proposer quelque chose d'original et d'ancré localement.
+              Six initiatives internationales apportent des éléments de comparaison. Elles éclairent des questions de parcours, de restitution et de suivi que le projet doit adapter avec les partenaires.
             </p>
 
             {/* Grille des références */}
@@ -644,21 +644,21 @@ export default function Projet() {
 
             <div className="rounded-xl p-4 border border-gray-100 bg-slate-50 mb-5">
               <p className="text-sm text-gray-600 leading-relaxed">
-                Pour chaque référence : analyse complète, chiffres clés, ce que la Boussole en apprend, ce qu'elle fait différemment, et liens vers les sources originales.
+                Chaque fiche détaille les chiffres clés, les enseignements retenus, les limites observées et les liens vers les sources originales.
               </p>
             </div>
 
             <div className="flex flex-wrap gap-3">
               <Button style={{ backgroundColor: '#3aab8a' }} size="sm" asChild>
-                <Link href="/references">Fiches détaillées & tableau comparatif <ArrowRight className="ml-1 h-3 w-3" /></Link>
+                <Link href="/references">Consulter les fiches et le tableau comparatif <ArrowRight className="ml-1 h-3 w-3" /></Link>
               </Button>
             </div>
           </section>
 
           {/* ── 6. PRINCIPES FONDATEURS ─────────────────────────────────────── */}
           <section id="principes" style={{ scrollMarginTop: '80px' }}>
-            <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#7ab648' }}>Un projet de service public</Badge>
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Nos principes fondateurs</h2>
+            <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#7ab648' }}>Gouvernance</Badge>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Les six principes de gouvernance</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {PRINCIPES.map(({ icon: Icon, titre, desc, couleur }) => (
                 <div key={titre} className="rounded-xl border border-gray-100 p-5 hover:shadow-md hover:-translate-y-0.5 transition-all group">
@@ -675,9 +675,9 @@ export default function Projet() {
           {/* ── 7. ARCHITECTURE TECHNIQUE ───────────────────────────────────── */}
           <section id="architecture" style={{ scrollMarginTop: '80px' }}>
             <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#E58441' }}>Architecture technique</Badge>
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Comment la Boussole est construite</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Une architecture à valider avec le projet</h2>
             <p className="text-gray-600 leading-relaxed mb-6">
-              La Boussole repose sur une architecture technique moderne, choisie pour garantir la <strong className="text-gray-900">souveraineté des données</strong>, la <strong className="text-gray-900">transparence</strong> du modèle d'évaluation et la <strong className="text-gray-900">pérennité</strong> de l'outil. Chaque composant a été sélectionné pour ses qualités en matière de confidentialité et d'hébergement européen ou suisse.
+              L’architecture envisagée cherche à protéger les données, rendre les règles de restitution compréhensibles et permettre l’évolution du projet. Les choix techniques définitifs seront confirmés avant la mise à disposition publique.
             </p>
 
             <button
@@ -687,8 +687,8 @@ export default function Projet() {
             >
               <div className="flex items-center gap-3 flex-wrap">
                 <Badge className="text-xs" style={{ backgroundColor: '#515792' }}>Technique</Badge>
-                <span className="text-sm font-semibold text-gray-700">Architecture de la Boussole — Vue d'ensemble</span>
-                <span className="text-xs text-gray-400 hidden sm:inline">Appuyez sur chaque composant pour comprendre son rôle en langage simple</span>
+                <span className="text-sm font-semibold text-gray-700">Architecture envisagée de la Boussole</span>
+                <span className="text-xs text-gray-400 hidden sm:inline">Ouvrez le schéma pour voir les éléments à confirmer</span>
               </div>
               <div className="transition-transform duration-200 flex-shrink-0" style={{ transform: archOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
                 <ChevronDown className="h-4 w-4 text-gray-400" />
@@ -731,8 +731,8 @@ export default function Projet() {
                   <p className="text-xs font-bold uppercase tracking-widest text-center mb-3" style={{ color: '#3aab8a' }}>Données & hébergement (Suisse)</p>
                   <div className="grid grid-cols-2 gap-2">
                     {[
-                      { titre: "Serveur Infomaniak", sub: "Hébergé en Suisse 🇨🇭" },
-                      { titre: "Base de données", sub: "Suisse · Europe 🇪🇺" },
+                      { titre: "Serveur", sub: "Hébergement à confirmer 🇨🇭" },
+                      { titre: "Base de données", sub: "Cadre suisse ou européen 🇪🇺" },
                     ].map((c) => (
                       <div key={c.titre} className="bg-white rounded-lg p-3 text-center border border-green-100">
                         <p className="text-xs font-bold text-gray-800">{c.titre}</p>
@@ -747,7 +747,7 @@ export default function Projet() {
                     <p className="text-xs font-bold text-gray-800">Code open source sur GitHub</p>
                     <p className="text-xs text-gray-400 mt-0.5">Vérifiable · Forquable · Améliorable par tous</p>
                   </div>
-                  <p className="text-xs text-gray-400 italic mt-3 text-center">Toutes les données personnelles restent en Suisse ou en Europe. Aucune donnée ne sera vendue ni transmise à des commerciaux.</p>
+                  <p className="text-xs text-gray-400 italic mt-3 text-center">La future version devra limiter les données au cadre suisse ou européen et ne pas les transmettre à des fins commerciales.</p>
                 </div>
               </div>
             )}
@@ -778,9 +778,9 @@ export default function Projet() {
               ))}
             </div>
             <div className="rounded-xl p-4 flex items-center justify-between gap-4" style={{ backgroundColor: '#f0f1f8' }}>
-                  <p className="text-sm text-gray-600">Le calendrier détaillé présente les livrables, activités et jalons de chaque phase. La phase 4 (Mois 9–24) couvre l'hébergement, le support, la diffusion et l'appropriation progressive par le secteur.</p>
+                  <p className="text-sm text-gray-600">Le calendrier détaillé présente les livrables, activités et jalons de chaque phase. La phase 4 (Mois 9–24) couvrira l’hébergement, le support, la diffusion et l’appropriation progressive par le secteur.</p>
               <Button style={{ backgroundColor: '#515792', flexShrink: 0 }} size="sm" asChild>
-                <Link href="/timeline">Voir le calendrier <ArrowRight className="ml-1 h-3 w-3" /></Link>
+                <Link href="/timeline">Consulter les quatre phases <ArrowRight className="ml-1 h-3 w-3" /></Link>
               </Button>
             </div>
           </section>
@@ -805,7 +805,7 @@ export default function Projet() {
                 <div className="space-y-2 text-sm text-gray-600">
                   <p>Si les retours sont positifs, des financements complémentaires permettront d'étendre l'outil en Suisse romande.</p>
                   <p>Le code étant open source, d'autres villes ou cantons pourront le reprendre et l'adapter à leur contexte.</p>
-                  <p className="italic text-gray-500">Servir un portail de service public qui investit sur le long terme dans l'outillage des acteurs culturels sous cette forme.</p>
+                  <p className="italic text-gray-500">Le projet pourrait fournir une base réutilisable pour d’autres contextes culturels.</p>
                 </div>
               </div>
             </div>
@@ -823,13 +823,13 @@ export default function Projet() {
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Button style={{ backgroundColor: '#E27227' }} asChild>
-              <Link href="/partenaires">Nous contacter <ArrowRight className="ml-2 h-4 w-4" /></Link>
+              <Link href="/partenaires">Découvrir comment contribuer <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
             <Button variant="outline" style={{ borderColor: '#515792', color: '#515792' }} asChild>
-              <Link href="/recherche">Recherche & état de l'art</Link>
+              <Link href="/recherche">Consulter les constats documentés</Link>
             </Button>
             <Button variant="outline" style={{ borderColor: '#3aab8a', color: '#3aab8a' }} asChild>
-              <Link href="/ressources">Ressources documentaires</Link>
+              <Link href="/ressources">Consulter les documents et sources</Link>
             </Button>
           </div>
         </div>

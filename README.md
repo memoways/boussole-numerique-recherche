@@ -16,6 +16,8 @@ Une seconde passe a distingué, sur la page Recherche, les constats sourcés des
 
 Une troisième passe a clarifié la page Ressources, désormais centrée sur les documents et sources qui éclairent la co-conception. Elle a également harmonisé les microtextes transversaux : les CTA indiquent l’action et le contenu de la destination, les liens externes distinguent PDF et source web, et la demande d’invitation partenaire est formulée explicitement.
 
+Une quatrième passe a resserré les pages Projet et Méthode. Les parcours individuels et collectifs, la restitution, les comparaisons et l’architecture y sont présentés comme des choix à tester avec les partenaires. Les engagements du projet restent visibles, mais les éléments techniques à confirmer avant le déploiement public sont désormais signalés comme tels.
+
 ## Ce que contient le portail
 
 | Ensemble | Rôle | Routes ou emplacement |

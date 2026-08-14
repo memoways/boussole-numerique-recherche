@@ -73,3 +73,4 @@
 - [x] Optimiser les contenus des pages Recherche et Partenaires dans une seconde passe éditoriale.
 - [x] Synchroniser CHANGELOG et STORY avec les derniers développements effectivement livrés.
 - [x] Optimiser la page Ressources et les microtextes transversaux dans une troisième passe éditoriale.
+- [x] Optimiser la structure et le contenu des pages Projet et Méthode dans une quatrième passe éditoriale.

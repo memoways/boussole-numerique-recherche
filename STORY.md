@@ -76,6 +76,7 @@ Après chaque soumission, l’API prépare un e-mail de récapitulatif détermin
 | Recherche documentaire distincte des promesses produit | Les sources servent à éclairer les choix, sans faire preuve de l’utilité future | La page Recherche parle de constats documentés et de questions à tester ; les pistes de conception sont nommées comme telles |
 | Parcours partenaire explicite | La contribution ne doit pas être confondue avec l’accès déjà actif au diagnostic | Les entrées Présentation et Questionnaire sont séparées ; les étapes de test et les contreparties sont formulées au futur |
 | CTA explicites | Une destination seule ne dit pas ce que la personne y trouvera | Les libellés indiquent l’action et l’objet : comprendre le projet, explorer une démonstration, consulter des constats ou demander une invitation |
+| Engagements distincts des fonctions futures | Le projet doit présenter ses principes sans annoncer un service déjà actif | Gratuité, neutralité, code ouvert, hébergement et consentement sont formulés comme exigences de la future version ou choix à confirmer |
 
 ## 6. Stack et structure du dépôt
 
@@ -110,6 +111,7 @@ Qualité            pnpm verify · TypeScript · builds · scripts mobile/contra
 | 13 août 2026 | Module partenaire, console `/admin`, boîte Dreamlit, présentation interactive et documentation complète |
 | 14 août 2026 | Domaine final, Open Graph, sitemap et robots générés ; deux passes de révision éditoriale ; simplification et validation des parcours Recherche et Partenaires |
 | 14 août 2026 | Troisième passe éditoriale : Ressources et microtextes de navigation, footer, accueil, méthode et questionnaire alignés sur la co-conception |
+| 14 août 2026 | Quatrième passe éditoriale : Projet et Méthode resserrés, parcours et comparaisons formulés comme pistes à tester, engagements et architecture clarifiés |
 
 ## 8. État d’activation et limites connues
 
