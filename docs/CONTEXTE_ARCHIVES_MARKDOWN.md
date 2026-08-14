@@ -27,3 +27,5 @@ Le 14 août 2026, la page Ressources a été contrôlée avec ses deux groupes d
 La page `/ressources/analyse-outils` a été contrôlée avec son bandeau : statut d’archive, version février 2026 et portée limitée de l’analyse sont affichés avant le document source.
 
 Le contrôle technique du 14 août 2026 est conservé dans [`CONTROLE_LIENS_ARCHIVES_2026-08-14.md`](./CONTROLE_LIENS_ARCHIVES_2026-08-14.md). Les liens externes affichent désormais un repère visuel et un texte accessible annonçant l’ouverture d’un nouvel onglet.
+
+Les fiches des cinq documents d’archive affichent aussi le statut « Contrôle effectué » et la date du dernier contrôle. Ce badge décrit le contrôle réalisé le 14 août 2026 ; il n’implique pas que les contenus tiers resteront disponibles sans nouvelle vérification.

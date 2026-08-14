@@ -347,7 +347,7 @@ Analyse approfondie des politiques culturelles numériques en Europe, incluant u
    - https://www.emerald.com/insight/content/doi/10.1108/EJMBE-08-2023-0237/full/html
 
 3. Aboulkacim, A. (2025). *Structural and Cultural Barriers to Digital Transformation in Public Organizations*. ScienceDirect.
-   - https://www.sciencedirect.com/science/article/pii/S2666603024000551
+   - Référence ScienceDirect historique : lien indisponible au contrôle du 14 août 2026, sans remplacement fiable identifié.
 
 #### Transformation Numérique - Rapports Institutionnels
 
@@ -363,47 +363,47 @@ Analyse approfondie des politiques culturelles numériques en Europe, incluant u
    - https://www.geneve.ch/publication/plan-directeur-2030-2
 
 7. Université de Genève. (2025, mars). *CAS - Innovation et changement dans le domaine culturel*.
-   - https://www.unige.ch/formcont/cours/innovation-changement-culturel
+   - https://www.unige.ch/formcont/cours/innovation-culture
 
 8. Pro Helvetia. (2026, janvier). *Innovation & Society*.
    - https://prohelvetia.ch/en/our-funding-areas/innovation-society/
 
 9. Pro Helvetia. (2025, novembre). *2026: changes to Innovation & Society support formats*.
-   - https://prohelvetia.ch/en/news/2026-changes-to-innovation-society-support-formats/
+   - https://prohelvetia.ch/en/whats-on/2026-changes-to-innovation-society-support-formats/
 
 10. Bundesamt für Kultur BAK. (2025, novembre). *Medieninformation*.
-    - https://www.bak.admin.ch/bak/de/home/aktuelles/nsb-news.msg-id-103806.html
+    - https://www.bak.admin.ch/de/nsb?id=103806
 
 #### Intelligence Artificielle - Rapports Majeurs
 
 11. UNESCO. (2025). *Report of the Independent Expert Group on Artificial Intelligence and Culture*. MONDIACULT 25.
-    - https://www.unesco.org/sites/default/files/medias/fichiers/2025/09/CULTAI_Report
+    - https://www.unesco.org/en/articles/new-expert-report-explores-how-ai-transforming-culture
 
 12. Compétence Culture. (2025, novembre). *L'IA en culture : Mieux comprendre pour agir ensemble*.
-    - https://competenceculture.ca/publications/lia-en-culture/
+    - https://competenceculture.ca/_documentation/etudes-et-diagnostics/
 
 13. Conseil des arts du Canada. (2025, décembre). *Lignes directrices sur l'IA dans les demandes*.
-    - https://conseildesarts.ca/financement/lignes-directrices-ia
+    - https://conseildesarts.ca/financement/ressources/lignes-directrices-sur-l-ia-dans-les-demandes
 
 #### Intelligence Artificielle - Cas d'Usage
 
 14. Cuseum. (2025, septembre). *Implementing AI for Cultural Institutions - Part 1*.
-    - https://cuseum.com/blog/2025/9/3/implementing-ai-for-cultural-institutions-part-1
+    - https://cuseum.com/blog/ai-for-culturals-institutions-where-museums-are-using-ai-in-2025
 
 15. CEIMIA. (2025, avril). *L'impact de l'IA sur la découvrabilité dans le secteur culturel*.
     - https://ceimia.ca/impact-ia-decouvrabilite-secteur-culturel/
 
 16. Artcena. (2025, décembre). *Intelligence artificielle et création artistique : révolution ou continuité*.
-    - https://www.artcena.fr/actualites/intelligence-artificielle-et-creation-artistique
+    - https://www.artcena.fr/artcena-replay/intelligence-artificielle-et-creation-artistique-revolution-ou-continuite
 
 17. Digital Marketing for Artists. (2025, avril). *AI Art Case Studies*.
     - https://digitalmarketingforartists.com/ai-art-case-studies/
 
 18. Mary Immaculate College. (2025, avril). *Using Generative AI to Support Creativity in Arts Education*.
-    - https://www.mic.ul.ie/news-events/news/using-generative-artificial-intelligence-support-creativity-arts-education
+    - https://www.mic.ul.ie/lead/projects-initiatives/case-studies/Using-AI-in-Arts-Education
 
 19. Atelier de Sèvres. (2025, mars). *Quel est l'impact de l'intelligence artificielle sur l'art*.
-    - https://www.atelierdesevres.com/blog/impact-intelligence-artificielle-art/
+    - https://www.atelierdesevres.com/ressources/blog-quel-est-impact-de-intelligence-artificielle-sur-art
 
 #### Obstacles et Résistances
 
@@ -422,16 +422,16 @@ Analyse approfondie des politiques culturelles numériques en Europe, incluant u
 #### Stratégies de Succès
 
 24. MeltingSpot. (2025, octobre). *Why 70% of Digital Transformation Projects Still Fail in 2025*.
-    - https://www.meltingspot.io/blog/digital-transformation-failure-rate
+    - https://meltingspot.io/en/blog/why-digital-transformation-projects-fail
 
 25. Prosci. (2025, mai). *7 stratégies d'adoption du numérique qui favorisent la réussite des entreprises*.
-    - https://www.prosci.com/fr/blog/7-strategies-dadoption-du-numerique-qui-favorisent-la-reussite-des-entreprises
+    - https://www.prosci.com/fr/blog/7-strategies-d-adoption-du-numerique-qui-favorisent-la-reussite-des-entreprises
 
 26. RKL CPA. (2025, juin). *Designing Your Digital Transformation Roadmap: A Guide for NFPs*.
     - https://rklcpa.com/designing-your-digital-transformation-roadmap-a-guide-for-nfps/
 
 27. Cooperative Computing. (2026, janvier). *How to Build Digital Culture Before Technology*.
-    - https://www.cooperativecomputing.com/insights/how-to-build-digital-culture-before-technology/
+    - https://cooperativecomputing.com/blog/digital-transformation-culture-before-code-strategy/
 
 28. Digital Culture Network. (2025, septembre). *Digital strategy development: A step-by-step guide*.
     - https://www.artscouncil.org.uk/digital-culture-network/digital-strategy-development
@@ -439,7 +439,7 @@ Analyse approfondie des politiques culturelles numériques en Europe, incluant u
 #### Outils d'Auto-évaluation
 
 29. Gouvernement du Québec. (2026, janvier). *Évaluer la maturité numérique de votre entreprise*.
-    - https://www.quebec.ca/entreprises-et-travailleurs-autonomes/gerer-entreprise/transformation-numerique/evaluer-maturite-numerique
+    - https://www.quebec.ca/entreprises-et-travailleurs-autonomes/transformation-numerique-entreprises/ressources/maturite-numerique
 
 30. Bpifrance. (2026, janvier). *Lancement du "Digitalomètre"*.
     - https://www.bpifrance.fr/nos-actualites/lancement-du-digitalometre
@@ -450,7 +450,7 @@ Analyse approfondie des politiques culturelles numériques en Europe, incluant u
     - https://library.oapen.org/handle/20.500.12657/90607
 
 32. European Commission. (2026, janvier). *The Common European data space for cultural heritage - Strategy 2025-2030*.
-    - https://culture.ec.europa.eu/cultural-heritage/initiatives-and-success-stories/eu-policies-and-funding-for-cultural-heritage/common-european-data-space-for-cultural-heritage
+    - https://digital-strategy.ec.europa.eu/en/policies/cultural-heritage
 
 33. Europeana PRO. (2026, février). *Empowering digital change for the cultural heritage sector*.
     - https://pro.europeana.eu/
@@ -458,10 +458,10 @@ Analyse approfondie des politiques culturelles numériques en Europe, incluant u
 #### Politiques Publiques - France
 
 34. Ministère de la Culture (France). (2025, décembre). *Le numérique au service de la Culture*.
-    - https://www.culture.gouv.fr/Thematiques/Numerique
+    - https://www.culture.gouv.fr/thematiques/innovation-numerique
 
 35. Caisse des Dépôts. (2025, décembre). *France 2030 : l'IA au service de la culture, une synergie prometteuse*.
-    - https://www.caissedesdepots.fr/blog/article/france-2030-lia-au-service-de-la-culture-une-synergie-prometteuse
+    - https://www.caissedesdepots.fr/eclairage/blog/articles/france-2030-lia-au-service-de-la-culture-une-synergie-prometteuse
 
 #### Politiques Publiques - Québec
 
@@ -469,7 +469,7 @@ Analyse approfondie des politiques culturelles numériques en Europe, incluant u
     - https://www.mcc.gouv.qc.ca/index.php?id=7969
 
 37. Réseau ADN. (2025, juillet). *À propos du Réseau ADN*.
-    - https://reseauadn.ca/a-propos/
+    - https://wiki.reseauadn.ca/wiki/%C3%80_propos_du_R%C3%A9seau_ADN
 
 #### Presse et Actualité
 

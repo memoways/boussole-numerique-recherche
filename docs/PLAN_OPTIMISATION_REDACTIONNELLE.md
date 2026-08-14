@@ -218,3 +218,5 @@ Le 14 août 2026, la page Ressources a été contrôlée avec les filtres de cat
 ## Vérification des liens d’archives
 
 Le 14 août 2026, 152 URL externes uniques ont été contrôlées de façon passive dans les archives Markdown. Le rapport sépare les 404 à traiter des protections d’accès, réponses 405, parcours d’authentification et erreurs réseau qui exigent un contrôle humain avant correction. Les archives affichent maintenant l’icône et le texte accessible des liens sortants. Voir [`CONTROLE_LIENS_ARCHIVES_2026-08-14.md`](./CONTROLE_LIENS_ARCHIVES_2026-08-14.md).
+
+Les 404 prioritaires ont été remplacés par des destinations officielles lorsque celles-ci ont été identifiées. Diag-numerique et la référence ScienceDirect indisponible sont archivés sans lien sortant actif. Le contrôle de suivi ne signale plus aucun 404 dans les six archives Markdown ; les accès protégés restent dans le rapport pour vérification humaine. Les fiches d’archive affichent la date de ce contrôle.

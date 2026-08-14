@@ -80,6 +80,7 @@ Après chaque soumission, l’API prépare un e-mail de récapitulatif détermin
 | Une URL historique, une destination canonique | Les anciennes pages ne doivent pas concurrencer les contenus actifs ni perdre les documents de recherche | Les documents restent sous Ressources ; Nginx et l’application redirigent les anciennes URLs |
 | Une archive porte sa date | Un document de recherche ne décrit pas forcément le présent | Les pages d’archive signalent leur version et le contexte des affirmations datées, sans modifier les sources originales |
 | Les liens sortants sont explicitement signalés | Les archives renvoient vers des sites tiers dont le statut peut évoluer | Une icône et un texte accessible annoncent l’ouverture externe ; le rapport distingue 404 et accès protégés |
+| Le contrôle d’une archive est daté | Une URL fonctionnelle un jour peut disparaître ensuite | Chaque fiche d’archive indique le dernier contrôle et les références sans remplacement restent archivées sans lien actif |
 
 ## 6. Stack et structure du dépôt
 
@@ -118,6 +119,7 @@ Qualité            pnpm verify · TypeScript · builds · scripts mobile/contra
 | 14 août 2026 | Cinquième passe éditoriale : anciennes pages consolidées, documents préservés sous Ressources, redirections canoniques documentées |
 | 14 août 2026 | Sixième passe éditoriale : filtres de période Ressources, métadonnées de date et bandeaux de contexte sur les archives Markdown |
 | 14 août 2026 | Contrôle passif des liens des archives : rapport de 152 URL uniques et repère visuel accessible des liens sortants |
+| 14 août 2026 | Traitement des 404 : destinations officielles actualisées, références sans équivalent archivées et badge de dernier contrôle ajouté aux fiches d’archive |
 
 ## 8. État d’activation et limites connues
 

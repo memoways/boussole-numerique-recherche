@@ -16,9 +16,9 @@
 
 > Les 403, 405 et certains 400 peuvent résulter d’une protection anti-robot, d’une page qui refuse `HEAD`, ou d’un accès institutionnel. Ils restent **à vérifier dans un navigateur** avant toute suppression ou substitution de source.
 
-## Liens à traiter en priorité
+## Liens signalés lors du premier contrôle
 
-Les 22 erreurs 404 correspondent à 21 URL distinctes, dont l’ancienne URL Diag-numerique répétée dans l’archive Analyse d’outils. Elles demandent une recherche de destination de remplacement ou un retrait de lien de l’archive, avec conservation de la mention historique si elle est utile.
+Les 22 erreurs 404 correspondaient à 21 URL distinctes, dont l’ancienne URL Diag-numerique répétée dans l’archive Analyse d’outils. Elles ont toutes été qualifiées au 14 août 2026 ; le tableau ci-dessous conserve le relevé initial et les actions décidées.
 
 | URL signalée en 404 | Archive concernée | Action recommandée |
 |---|---|---|
@@ -59,9 +59,18 @@ Les 27 redirections suivies restent accessibles dans le cadre du contrôle. Elle
 
 Les archives Markdown affichent désormais l’icône `↗` à côté de chaque lien HTTP(S). L’icône est accompagnée d’un texte accessible qui annonce « ouvre un site externe dans un nouvel onglet » ; ces liens appliquent `target="_blank"` et `rel="noopener noreferrer"`. Le même pictogramme identifie les sources externes dans les fiches de la page Ressources.
 
-## Procédure de correction
+## Traitement appliqué et second contrôle
 
-La prochaine intervention doit traiter les 404 un par un : retrouver une page officielle, une publication stable ou un DOI ; remplacer ensuite le lien dans l’archive sans réécrire l’analyse d’origine. Les liens protégés nécessitent une vérification humaine avant toute modification. Le rapport ne recommande pas de supprimer automatiquement les références scientifiques ou institutionnelles.
+Les destinations institutionnelles ou éditoriales actuelles confirmées ont remplacé les 404 dans les archives. Les anciens domaines Diag-numerique et la référence ScienceDirect indisponible sont maintenant conservés comme mentions archivées, sans lien sortant actif. Une dernière URL du Gouvernement du Québec a été actualisée après le second contrôle.
+
+| Décision | Résultat |
+|---|---|
+| Remplacement officiel | Les destinations de Compétence Culture, Conseil des arts du Canada, Commission européenne, Pro Helvetia, OFC, UNESCO, UNIGE et autres organismes identifiés ont été actualisées dans les archives. |
+| Archivage sans lien actif | Diag-numerique.fr, tmc.diag-numerique.fr et la référence ScienceDirect indisponible restent mentionnés à titre historique. |
+| Second contrôle Lychee | Aucun statut 404 ne subsiste dans les six archives Markdown contrôlées. |
+| Vérification humaine restante | Les 403, 400 et erreurs de connexion ou de format restent à vérifier dans un navigateur ; ils ne sont pas traités comme des liens cassés. |
+
+Les cinq fiches d’archive de la page Ressources affichent le badge **« Contrôle effectué · 14 août 2026 »**. Il signale la date du dernier contrôle des liens de chaque document historique ; il ne garantit pas l’accessibilité permanente des sites tiers.
 
 ## Référence
 

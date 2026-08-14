@@ -24,6 +24,8 @@ Une sixième passe a amélioré l’exploration des Ressources par catégorie et
 
 Les liens externes des archives sont signalés par une icône et un texte accessible ; ils s’ouvrent dans un nouvel onglet protégé. Le contrôle HTTP du 14 août 2026 couvre 152 URL uniques et distingue les liens en 404 des accès protégés ou des réponses qui demandent une vérification humaine. Les résultats sont consignés dans [`docs/CONTROLE_LIENS_ARCHIVES_2026-08-14.md`](./docs/CONTROLE_LIENS_ARCHIVES_2026-08-14.md).
 
+Les liens 404 qualifiés ont été remplacés par des destinations officielles lorsque cela était possible. Les sources sans équivalent fiable restent mentionnées comme archives, sans lien sortant actif. Les fiches des documents historiques affichent la date de leur dernier contrôle de liens.
+
 ## Ce que contient le portail
 
 | Ensemble | Rôle | Routes ou emplacement |

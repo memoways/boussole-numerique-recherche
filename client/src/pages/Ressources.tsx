@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, FileText, BookOpen, ExternalLink, Download, Filter, CalendarDays } from "lucide-react";
+import { ArrowRight, FileText, BookOpen, ExternalLink, Download, Filter, CalendarDays, BadgeCheck } from "lucide-react";
 import { Link } from "wouter";
 
 /**
@@ -24,6 +24,8 @@ const RESSOURCES = [
     temps: "15 min",
     dateGroup: "2026" as ResourceDateGroup,
     dateLabel: "Version février 2026",
+    archiveStatus: "Contrôle effectué",
+    lastChecked: "14 août 2026",
   },
   {
     titre: "État des lieux — Transformation numérique dans la culture",
@@ -35,6 +37,8 @@ const RESSOURCES = [
     temps: "10 min",
     dateGroup: "Date non indiquée" as ResourceDateGroup,
     dateLabel: "Date de version non indiquée",
+    archiveStatus: "Contrôle effectué",
+    lastChecked: "14 août 2026",
   },
   {
     titre: "Analyse des outils de diagnostic numérique",
@@ -46,6 +50,8 @@ const RESSOURCES = [
     temps: "8 min",
     dateGroup: "2026" as ResourceDateGroup,
     dateLabel: "Version février 2026",
+    archiveStatus: "Contrôle effectué",
+    lastChecked: "14 août 2026",
   },
   {
     titre: "Synthèse des documents clés",
@@ -57,6 +63,8 @@ const RESSOURCES = [
     temps: "12 min",
     dateGroup: "Date non indiquée" as ResourceDateGroup,
     dateLabel: "Date de version non indiquée",
+    archiveStatus: "Contrôle effectué",
+    lastChecked: "14 août 2026",
   },
   {
     titre: "Sources & références bibliographiques",
@@ -68,6 +76,8 @@ const RESSOURCES = [
     temps: "5 min",
     dateGroup: "Date non indiquée" as ResourceDateGroup,
     dateLabel: "Date de version non indiquée",
+    archiveStatus: "Contrôle effectué",
+    lastChecked: "14 août 2026",
   },
   {
     titre: "UNESCO — Recommandation sur l'éthique de l'IA",
@@ -252,7 +262,7 @@ export default function Ressources() {
 
           {/* Grille de ressources */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {dateFiltered.map(({ titre, desc, type, href, interne, couleur, temps, dateLabel }) => (
+            {dateFiltered.map(({ titre, desc, type, href, interne, couleur, temps, dateLabel, archiveStatus, lastChecked }) => (
               <div key={href} className="bg-white rounded-xl border border-gray-100 p-5 hover:shadow-md transition-all hover:-translate-y-0.5 group">
                 <div className="flex items-start justify-between gap-2 mb-3">
                   <Badge className="text-xs" style={{ backgroundColor: TYPE_COLORS[type] }}>{type}</Badge>
@@ -264,6 +274,12 @@ export default function Ressources() {
                 <h3 className="font-bold text-gray-900 mb-2 leading-snug">{titre}</h3>
                 <p className="text-sm text-gray-500 leading-relaxed mb-4">{desc}</p>
                 <p className="text-xs text-gray-400 mb-4">{dateLabel}</p>
+                {archiveStatus && lastChecked && (
+                  <p className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700">
+                    <BadgeCheck className="h-3.5 w-3.5" aria-hidden="true" />
+                    {archiveStatus} · {lastChecked}
+                  </p>
+                )}
                 {interne ? (
                   <Link href={href} className="text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all" style={{ color: couleur }}>
                     Lire le document <ArrowRight className="h-4 w-4" />
