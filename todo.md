@@ -64,3 +64,4 @@
 - [x] Aligner le deck sur la référence annotée avec un gabarit interne de 900 px et une navigation immobile.
 - [x] Réemployer l’animation radar de l’accueil dans la première slide et retirer les éléments redondants.
 - [x] Supprimer le retour Partenaires redondant de l’écran public du questionnaire.
+- [x] Consolider CHANGELOG, STORY et README avec toutes les modifications réellement livrées depuis le début du projet.

@@ -1,54 +1,125 @@
 # Boussole Numérique Culture
 
-Site institutionnel du projet **Boussole Numérique Culture**. Le portail utilise React 19, TypeScript, Vite et Tailwind CSS 4. Il est compilé en site statique puis servi par Nginx, avec un fallback pour les routes côté client. Une API Express/TypeScript distincte prend en charge les invitations, le questionnaire partenaire, l’administration et PostgreSQL lors de l’activation dans Coolify.
+## Aperçu
 
-## Démarrage
+**Boussole Numérique Culture** est le dépôt du portail institutionnel et du module partenaire qui préparent un outil de diagnostic numérique destiné aux actrices, acteurs et structures culturelles. Le portail explique le projet, le calendrier, l’expérience Boussole, la méthode, la recherche et les modalités de co-construction. Le module partenaire ajoute une présentation dédiée, des invitations personnelles, un questionnaire qualitatif, une console d’administration et l’envoi de récapitulatifs contrôlés.
 
-| Besoin | Commande |
-|---|---|
-| Installer | `corepack enable && pnpm install --frozen-lockfile` |
-| Développer | `pnpm dev` |
-| Vérifier | `pnpm verify` |
-| Prévisualiser le build | `pnpm preview` |
-| Construire l'image du portail | `docker build --build-arg SITE_URL=https://votre-domaine.example --build-arg VITE_PARTNER_API_URL=https://api.votre-domaine.example -t boussole-numerique-culture .` |
-| Lancer l'image | `docker run --rm -p 8080:8080 boussole-numerique-culture` |
+Le projet est conçu pour être déployé et maintenu hors plateforme : le portail est une application statique servie par Nginx ; l’API partenaire est une application Express distincte ; PostgreSQL, l’API et Dreamlit sont activés dans Coolify lorsque le pilote démarre.
 
-Utilisez Node.js 22 et pnpm 10. Le portail public ne requiert pas de secret. `SITE_URL` et `VITE_PARTNER_API_URL` sont des variables de build publiques ; toutes les clés, mots de passe et chaînes de connexion du module partenaire restent exclusivement dans l’environnement runtime de l’API. Voir [`config/ENVIRONMENT.md`](./config/ENVIRONMENT.md).
+> **Principe produit.** La Boussole aide à situer des pratiques et à choisir une prochaine étape adaptée. Elle ne produit pas une note unique et ne recommande pas automatiquement un outil commercial.
 
-## Fonctions partenaire livrées
+## Ce que contient le portail
 
-La page Partenaires propose deux accès autonomes : la présentation à `/partenaires/presentation` et le questionnaire à `/partenaires/questionnaire`. La présentation comporte neuf slides défilables avec compositions visuelles, panneaux de détail accessibles et liens contextuels. L’état de lecture est conservé par `?slide=<n>&detail=<id>`, ce qui permet au bouton précédent du navigateur de retrouver la slide et le détail ouverts.
+| Ensemble | Rôle | Routes ou emplacement |
+|---|---|---|
+| Récit institutionnel | Projet, calendrier, méthode, gouvernance, partenaires et soutien institutionnel | `/projet`, `/timeline`, `/methode`, `/partenaires` |
+| Expérience Boussole | Démonstration des cinq dimensions, radars et parcours | `/experience` |
+| Recherche | Méthode de recherche, références comparables et ressources | `/recherche`, `/references`, `/ressources` |
+| Présentation partenaire | Neuf slides avec détails dépliables, contexte conservé dans l’URL et navigation fixe | `/partenaires/presentation` |
+| Questionnaire partenaire | Demande d’invitation publique ou questionnaire privé par lien personnel | `/partenaires/questionnaire`, `/partenaires/questionnaire/:token` |
+| Administration | Organisations, contacts, invitations, réponses, export CSV et boîte Dreamlit | `/admin` et `/partenaires/admin` |
 
-La première slide utilise un radar-boussole inspiré de la page Expérience : grille à cinq dimensions, repères cardinaux et palette du portail. Les autres slides n’emploient une illustration que lorsqu’elle explicite leur sujet — parcours, communauté, cycle, principes, lien collectif ou atelier — et certaines restent volontairement sans illustration. Sur desktop, le deck utilise un gabarit interne de 900 px : le titre occupe toute la largeur, la zone de navigation reste fixe à 481 px du sommet et les détails se déploient sous les contrôles sans les déplacer. Les panneaux passent aussi en deux colonnes et se replient naturellement sur smartphone.
-
-La première slide réutilise l’animation radar de l’accueil sans afficher de libellés sous le visuel. Le retour « Partenaires » situé sous le fil d’Ariane et l’icône décorative haute ont été supprimés afin de conserver un en-tête plus direct.
-
-La console d’administration est accessible directement à `/admin`; `/partenaires/admin` est conservé comme alias. Son accès fonctionnera après déploiement de l’API et de PostgreSQL, avec l’identifiant initial `ulrich.fischer@memoways.com` et un mot de passe stocké uniquement dans `ADMIN_PASSWORD` côté Coolify.
-
-La page publique du questionnaire s’appuie sur le fil d’Ariane global et ne répète pas de retour « Partenaires » dans son contenu.
-
-Lors d’une soumission, l’API prépare un récapitulatif déterministe dans `notifications.partner_response_recap_outbox`. Dreamlit doit ensuite surveiller uniquement cette boîte d’envoi et délivrer l’e-mail récapitulatif. La connexion Dreamlit, le domaine expéditeur et la publication du workflow restent à activer dans leurs interfaces respectives ; ils ne sont pas stockés dans le portail ni dans l’API.
-
-La console `/admin` présente la liste des e-mails prêts, leur récapitulatif, leur date de création et le nombre de régénérations. Une action protégée permet de mettre à jour le récapitulatif d’une réponse soumise ; Dreamlit doit être configuré pour réagir à la colonne `updated_at` afin que cette action relance l’envoi.
-
-## Déploiement et maintenance
-
-Le déploiement self-hosted s’appuie sur le `Dockerfile` racine et `infra/nginx/default.conf`. L’API partenaire utilise `services/partner-feedback-api/Dockerfile`. Le point d’entrée de toute la documentation est [`docs/README.md`](./docs/README.md), qui relie le guide général de migration et le tutoriel d’activation de PostgreSQL, de l’API, des secrets et de `/admin`.
-
-Les agents de code et les développeurs doivent suivre [`AGENTS.md`](./AGENTS.md). Les instructions sont relayées vers Claude Code et Cursor via `CLAUDE.md` et `.cursor/rules/project.mdc`.
+La navigation publique principale reste limitée à **Projet, Calendrier, Expérience, Méthode et Partenaires**. Recherche et Ressources restent accessibles par le footer et des liens contextuels. Les sous-pages utilisent le fil d’Ariane global plutôt que des retours dupliqués dans le contenu.
 
 ## Architecture
 
+```text
+Navigateur
+  └─ Portail React/Vite statique ── Nginx ── domaine public
+       └─ VITE_PARTNER_API_URL ── API partenaire Express
+                                      ├─ PostgreSQL privé
+                                      ├─ Deepgram (transcription optionnelle)
+                                      ├─ SMTP (invitations optionnelles)
+                                      └─ Dreamlit (récapitulatifs depuis boîte d’envoi limitée)
+```
+
 | Dossier ou fichier | Responsabilité |
 |---|---|
-| `client/src/pages/` | Pages éditoriales et interactions spécifiques. |
-| `client/src/components/` | Composants globaux et primitives UI. |
-| `client/src/index.css` | Styles globaux, design tokens et règles d'accessibilité. |
-| `client/public/` | Fichiers publics : documents, favicon, logo. |
-| `Dockerfile` | Image de production autonome. |
-| `infra/nginx/default.conf` | Cache des actifs et réécriture SPA. |
-| `services/partner-feedback-api/` | API Express/TypeScript, schéma PostgreSQL, invitations, transcription et administration. |
-| `docs/` | Guide de déploiement, archive d’implémentation et validation des parcours. |
+| `client/src/pages/` | Pages publiques, présentation, questionnaire et console |
+| `client/src/components/` | Navigation, fil d’Ariane, primitives UI et radar animé partagé |
+| `client/src/lib/seo.ts` | Registre SEO, Open Graph, URLs canoniques et indexabilité |
+| `services/partner-feedback-api/` | API Express, schéma SQL, invitations, réponses, session admin et récapitulatifs |
+| `Dockerfile` | Image Nginx du portail avec fallback SPA |
+| `services/partner-feedback-api/Dockerfile` | Image de l’API partenaire |
+| `infra/nginx/default.conf` | Cache des actifs et réécriture des routes Wouter |
+| `config/ENVIRONMENT.md` | Variables de build publiques et secrets runtime |
+| `docs/` | Guides d’exploitation, migration, activation et archives |
+
+## Démarrage local
+
+Utilisez **Node.js 22** et **pnpm 10**.
+
+| Besoin | Commande |
+|---|---|
+| Installer les dépendances | `corepack enable && pnpm install --frozen-lockfile` |
+| Démarrer le portail | `pnpm dev` |
+| Vérifier TypeScript du portail | `pnpm check` |
+| Vérifier portail + API partenaire | `pnpm verify` |
+| Prévisualiser le build statique | `pnpm preview` |
+| Tester le formateur Dreamlit | `pnpm --filter @boussole/partner-feedback-api test:response-recap` |
+| Lancer API + PostgreSQL localement | `docker compose -f docker-compose.partner-feedback.yml up --build` |
+
+Le portail public ne requiert aucun secret. `SITE_URL` et `VITE_PARTNER_API_URL` sont des variables de build publiques. Les chaînes de connexion, mots de passe et clés de services sont uniquement chargés dans l’environnement runtime de l’API. Le registre complet est disponible dans [`config/ENVIRONMENT.md`](./config/ENVIRONMENT.md).
+
+## Module partenaire
+
+### Présentation et questionnaire
+
+La page Partenaires fournit deux CTA indépendants : **Découvrir la Boussole** et **Partager mes idées et feedbacks**. La présentation contient neuf slides ; les panneaux de détail s’ouvrent dans le flux de lecture et l’URL conserve la slide et le détail ouverts. Sur desktop, le deck occupe un gabarit intérieur de 900 px avec une bande de navigation fixe. La première slide reprend l’animation radar de l’accueil ; les illustrations des suivantes sont choisies selon leur pertinence narrative.
+
+Le questionnaire accepte les liens personnels sécurisés, conserve les brouillons et propose une transcription vocale optionnelle. La personne répondante peut relire et modifier le texte avant sa sauvegarde ; les fichiers audio sont supprimés après transcription. Les réponses restent disponibles jusqu’à la fin du développement de la version publique, selon le texte de consentement affiché.
+
+### API, données et sécurité
+
+Le schéma PostgreSQL crée des organisations, contacts, demandes, invitations, versions de questionnaire, réponses, réponses détaillées, événements et une boîte d’envoi de récapitulatifs. Une invitation est générée de manière aléatoire ; seule son empreinte SHA-256 renforcée par un secret serveur est persistée. L’administration utilise une session JWT signée, stockée dans un cookie `httpOnly` de huit heures.
+
+La console est disponible à `/admin`. L’identifiant initial doit être défini par `ADMIN_EMAIL` — prévu pour `ulrich.fischer@memoways.com` — et son mot de passe par `ADMIN_PASSWORD` dans Coolify. La console ne doit jamais être indexée par les moteurs de recherche.
+
+### Récapitulatifs Dreamlit
+
+Après une soumission, l’API prépare un texte de récapitulatif déterministe dans `notifications.partner_response_recap_outbox`. Dreamlit doit se connecter avec un utilisateur PostgreSQL limité à cette boîte, puis déclencher un e-mail lors d’une insertion ou d’une mise à jour de `updated_at`. La console affiche les messages préparés, leur destinataire, leur contenu et le nombre de régénérations ; l’action de régénération met à jour la même ligne et ne crée pas de doublon.
+
+Le fonctionnement complet, les droits SQL minimaux et le workflow Dreamlit sont documentés dans [`docs/PARTNER_FEEDBACK_OPERATIONS.md`](./docs/PARTNER_FEEDBACK_OPERATIONS.md) et [`docs/DREAMLIT_EMAIL_INTEGRATION_OPTIONS.md`](./docs/DREAMLIT_EMAIL_INTEGRATION_OPTIONS.md).
+
+## Déploiement Coolify
+
+Le déploiement final utilise trois ressources : le portail Nginx, une base PostgreSQL privée et l’API partenaire. Un quatrième élément, le workflow Dreamlit, délivre les e-mails après connexion à la boîte d’envoi. La procédure pas à pas est documentée ; elle comprend les domaines, les variables, les droits PostgreSQL, les tests de pilote et les sauvegardes.
+
+| Composant | Déploiement | Documentation |
+|---|---|---|
+| Portail | Image du `Dockerfile` racine | [`docs/COOLIFY_MIGRATION.md`](./docs/COOLIFY_MIGRATION.md) |
+| PostgreSQL | Service privé Coolify | [`docs/PARTNER_FEEDBACK_OPERATIONS.md`](./docs/PARTNER_FEEDBACK_OPERATIONS.md) |
+| API partenaire | `services/partner-feedback-api/Dockerfile` | [`docs/PARTNER_FEEDBACK_OPERATIONS.md`](./docs/PARTNER_FEEDBACK_OPERATIONS.md) |
+| Dreamlit | Workflow PostgreSQL transactionnel | [`docs/DREAMLIT_EMAIL_INTEGRATION_OPTIONS.md`](./docs/DREAMLIT_EMAIL_INTEGRATION_OPTIONS.md) |
+
+Exemple de construction du portail :
+
+```bash
+docker build \
+  --build-arg SITE_URL=https://votre-domaine.example \
+  --build-arg VITE_PARTNER_API_URL=https://api.votre-domaine.example \
+  -t boussole-numerique-culture .
+
+docker run --rm -p 8080:8080 boussole-numerique-culture
+```
+
+## Qualité et règles de contribution
+
+Avant un checkpoint, exécutez `pnpm verify`. Toute évolution visuelle doit rester responsive, conserver le focus clavier, éviter les débordements horizontaux et respecter les contrastes. Les modifications de routes doivent mettre à jour le registre SEO, le fil d’Ariane si nécessaire et les tests de navigation concernés.
+
+Toute modification effectivement livrée doit mettre à jour `CHANGELOG.md`, `STORY.md`, `README.md` lorsqu’elle modifie le fonctionnement ou le contexte, et l’archive appropriée dans `docs/`. Les règles détaillées, notamment pour les secrets, l’administration et les migrations, sont dans [`AGENTS.md`](./AGENTS.md).
+
+## Documentation de référence
+
+| Document | Finalité |
+|---|---|
+| [`STORY.md`](./STORY.md) | Contexte, périmètre, décisions, état et limites du projet |
+| [`CHANGELOG.md`](./CHANGELOG.md) | Historique consolidé des versions et changements réellement livrés |
+| [`docs/README.md`](./docs/README.md) | Index des documents opérationnels |
+| [`docs/COOLIFY_MIGRATION.md`](./docs/COOLIFY_MIGRATION.md) | Migration et déploiement du portail hors plateforme |
+| [`docs/PARTNER_FEEDBACK_OPERATIONS.md`](./docs/PARTNER_FEEDBACK_OPERATIONS.md) | Activation du module partenaire et du pilote |
+| [`docs/PLAN_PARTENAIRES_PRESENTATION_QUESTIONNAIRE.md`](./docs/PLAN_PARTENAIRES_PRESENTATION_QUESTIONNAIRE.md) | Décisions de conception du module partenaire |
+| [`docs/IMPLEMENTATION_ARCHIVE_PARTNER_MODULE_2026-08-13.md`](./docs/IMPLEMENTATION_ARCHIVE_PARTNER_MODULE_2026-08-13.md) | Archive factuelle des fonctionnalités partenaire livrées |
 
 ## Licence
 

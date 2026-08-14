@@ -1,73 +1,89 @@
 # CHANGELOG — Boussole Numérique Culture
 
-Ce fichier suit le format [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) et les versions suivent [Semantic Versioning](https://semver.org/lang/fr/).
+Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
-## [Unreleased]
+## [1.2.0] — 2026-08-13 — Module partenaire et préparation du pilote
 
-### Added
-- Deux CTA autonomes sur la page Partenaires : une présentation dédiée et un accès distinct au questionnaire partenaire.
-- Présentation partenaire slide par slide à la route `/partenaires/presentation`, avec neuf écrans et un passage facultatif vers le questionnaire.
-- Module partenaire portable : API Express/TypeScript, schéma PostgreSQL, invitations personnelles hashées, demande d’invitation, administration, export CSV, brouillons et transcription Deepgram optionnelle.
-- Questionnaire multi-étapes à la route `/partenaires/questionnaire`, réservé aux liens personnels et prêt pour l’activation Coolify.
-- Présentation partenaire enrichie : neuf slides défilables, compositions visuelles par sujet, panneaux de détail intégrés et conservation du contexte de lecture dans l’URL.
-- Alias privé `/admin`, limitation des tentatives de connexion et tutoriel Coolify complet indexé dans `docs/README.md`.
-- Archive d’implémentation du module partenaire dans `docs/`, fondée sur les fichiers et contrôles réellement livrés.
-- Intégration Dreamlit option B : boîte d’envoi PostgreSQL `notifications.partner_response_recap_outbox`, récapitulatif déterministe créé dans la transaction de soumission et test automatisé du formatage.
-- Documentation opérationnelle complétée pour la connexion Dreamlit restreinte, le workflow transactionnel et l’exposition PostgreSQL chiffrée dans Coolify.
-- Console partenaire : liste des e-mails prêts pour Dreamlit, aperçu du récapitulatif et régénération manuelle sécurisée par réponse soumise.
-- Présentation partenaire corrigée : toggles et navigation Suivant opérationnels, gabarit desktop compact et radar-boussole cohérent avec l’expérience Boussole.
-- Présentation partenaire affinée : navigation fixée avant les détails, radar réservé à la slide d’ouverture et illustrations spécifiques ou volontairement absentes sur les slides suivantes.
-- Présentation partenaire alignée sur la référence annotée : titre pleine largeur, icône haute supprimée, gabarit interne desktop de 900 px et contrôles strictement immobiles.
-- Première slide partenaire simplifiée : retour redondant supprimé, radar animé partagé avec l’accueil remonté sous le titre et libellés de dimensions retirés.
-- Questionnaire partenaire : retour « Partenaires » redondant supprimé de l’écran public d’attente.
-- Encarts de soutien de la Ville de Genève, avec logo, lien vers la démarche de subvention et formulation institutionnelle sur les pages Projet et Partenaires.
+### Ajouté
 
----
+- Deux parcours autonomes depuis la page **Partenaires** : une présentation libre à `/partenaires/presentation` et un accès indépendant au questionnaire à `/partenaires/questionnaire`.
+- Présentation partenaire en neuf slides, avec détails dépliables accessibles, liens contextuels, conservation de la slide et du détail dans l’URL, raccourcis clavier et retour navigateur cohérent.
+- Compositions visuelles spécifiques au propos des slides : radar animé à l’ouverture, parcours, communauté, cycle, principes, réseau de contribution et atelier ; les slides qui n’ont pas besoin d’illustration restent volontairement sobres.
+- API partenaire Express/TypeScript distincte du portail, schéma PostgreSQL, invitations personnelles liées aux organisations et contacts, demandes publiques d’invitation, brouillons et questionnaires versionnés.
+- Questionnaire multi-étapes avec questions Likert, choix simples et multiples, réponses ouvertes, consentement, sauvegarde de brouillon et transcription Deepgram optionnelle avec suppression de l’audio après transcription.
+- Console `/admin`, avec l’alias historique `/partenaires/admin`, pour les organisations, contacts, invitations, demandes, réponses et export CSV.
+- Sessions d’administration par cookie `httpOnly`, jetons d’invitation hashés, limitation locale des tentatives de connexion et des demandes d’invitation.
+- Boîte d’envoi PostgreSQL `notifications.partner_response_recap_outbox`, récapitulatif déterministe créé lors de la soumission et test automatisé du formateur.
+- Intégration Dreamlit de type « boîte d’envoi restreinte » : Dreamlit ne lit que le destinataire et le récapitulatif préparé, sans accès aux tables de réponses brutes.
+- Vue d’administration des e-mails prêts, aperçu du récapitulatif et régénération manuelle sans doublon, avec compteur et trace d’événement.
+- Documentation d’exploitation de l’API, de PostgreSQL, de Dreamlit, de Coolify, de l’environnement et du contrôle pilote.
 
-## [1.0.0] — 2026-08-12
+### Modifié
 
-### Added
-- Portail institutionnel complet : Projet, Calendrier, Expérience, Méthode, Partenaires, Recherche, Références et Ressources.
-- Boussole interactive, radar animé, parcours de diagnostic et restitution des cinq dimensions.
-- Tableau comparatif mobile de neuf lignes : colonne des références figée, défilement horizontal, en-têtes compacts et pictogrammes.
-- Page Références enrichie de huit démarches comparables, dont la *Digitale Transformatie Scan* de DEN.
-- Sommaire actif de la page Projet, barre de progression de lecture et sélecteur de section mobile fixe.
-- Fil d’Ariane accessible, compact sur écran étroit et prêt pour trois niveaux de profondeur.
-- Métadonnées SEO par route : titres, descriptions, URL canoniques, Open Graph, cartes Twitter, données structurées, sitemap et robots.
-- Kit de déploiement autonome : `Dockerfile`, Nginx, `.env.example`, documentation Coolify, CI GitHub et guides Cursor, Codex et Claude Code.
-- Audit d’accessibilité mobile : lien d’évitement, focus clavier, repères sémantiques, préférences de mouvement réduit et interactions clavier.
+- Deck partenaire recomposé en largeur sur desktop : gabarit interne de 900 px, titre pleine largeur, zone de navigation de 72 px fixe et détails défilables dans l’espace restant.
+- Boutons **Précédent** et **Suivant** stabilisés avant les toggles afin qu’ils ne changent plus de position à l’ouverture d’un détail.
+- Radar-boussole réservé à la première slide ; le radar animé de l’accueil est désormais fourni par le composant partagé `AnimatedRadarGraphic`.
+- Éléments de navigation redondants retirés de la présentation et du questionnaire : le fil d’Ariane global porte seul le chemin Accueil → Partenaires → sous-page.
+- README, STORY, archive d’implémentation, opérations et index documentaire restructurés pour refléter la réalité livrée.
 
-### Changed
-- Hero de la page Partenaires resserré ; capsule de soutien optimisée pour l’affichage mobile.
-- Calendrier aligné sur le dossier de subvention : 24 mois et quatre phases.
-- Page Méthode enrichie des principes de gouvernance ; ancienne page Gouvernance redirigée vers Méthode.
-- Navigation principale simplifiée : Projet, Calendrier, Expérience, Méthode et Partenaires ; Recherche et Ressources restent accessibles depuis les pages et le footer.
-- Hero allégé : deux actions principales, libellés sobres et meilleure respiration visuelle.
-- Page Partenaires harmonisée avec le spectre bleu → cyan → vert → orange ; contenus des pastilles en blanc.
-- Documents publics et configuration de build rendus indépendants des services Manus.
+### Vérifié
 
-### Removed
-- Dépendances, scripts d’analyse et ressources publiques liés à Manus.
-- Références AICred et Diag-numerique.fr, remplacées par des comparaisons plus proches du projet.
-- Traits internes de construction de la boussole interactive.
+- Vérifications TypeScript, build du portail et build de l’API partenaire via `pnpm verify`.
+- Routes profondes de présentation, questionnaire et administration contrôlées dans le build statique.
+- Navigation du deck, ouverture des détails, retour navigateur, gabarit desktop et absence de débordement horizontal contrôlés visuellement.
 
-### Fixed
-- Débordements horizontaux et grilles non adaptées sur smartphone.
-- Sommaire de Projet désormais réellement sticky sur desktop, sans conflit avec le défilement global.
-- Double fil d’Ariane retiré du hero Projet.
-- Lisibilité des CTA, pastilles et icônes sur les variations colorées.
-- Cohérence des partenariats confirmés et des liens associés.
+## [1.1.0] — 2026-08-09 au 2026-08-12 — Alignement institutionnel, accessibilité et diffusion
 
-### Security
-- Aucune vulnérabilité critique ou élevée dans les dépendances de production après suppression des dépendances inutilisées.
-- Aucun secret requis par la version statique ; les anciennes variables spécifiques à Manus ne sont pas conservées.
+### Ajouté
 
----
+- Contenu du portail aligné sur le dossier de subvention : principes, évaluation continue, neutralité de l’annuaire, partenaires confirmés et calendrier de 24 mois en quatre phases.
+- Encarts de soutien de la Ville de Genève avec logo fourni et lien vers la démarche publique, sur les pages Projet et Partenaires.
+- Partenaires confirmés : Fonction:Cinéma, Pôle de création numérique, XN Swiss et Observatoire Romand de la Culture, avec leurs liens respectifs.
+- Référence **Digitale Transformatie Scan** de DEN intégrée au tableau comparatif et à sa fiche détaillée.
+- Sommaire actif de la page Projet, barre de progression de lecture et sélecteur mobile fixe.
+- Fil d’Ariane centralisé, compact sur écrans étroits et prêt à accueillir un troisième niveau.
+- SEO complet par route : titres, descriptions, balises Open Graph et Twitter, URL canoniques, JSON-LD, sitemap, robots et pages statiques pour les robots sociaux.
+- Scripts de vérification du menu mobile, de l’accessibilité, du contraste et du tableau comparatif responsive.
+- Kit de déploiement autonome : Dockerfile Nginx, configuration SPA, CI GitHub, guides Coolify et règles pour Cursor, Codex et Claude Code.
+- Documents de continuité `CHANGELOG.md`, `STORY.md`, `AGENTS.md`, `docs/README.md` et diagnostics de domaine.
 
-## [0.1.0] — 2026-02-09
+### Modifié
 
-### Added
-- Initialisation du portail Boussole Numérique Culture avec React, Vite, Tailwind CSS et Wouter.
-- Première structure éditoriale et navigation publique.
+- Navigation principale resserrée à **Projet, Calendrier, Expérience, Méthode, Partenaires**. Recherche et Ressources sont conservées dans le footer et reliées depuis les pages pertinentes.
+- Méthode et Gouvernance réunies afin d’éviter deux récits concurrents de la même démarche.
+- Hero d’accueil et hero Partenaires allégés, avec davantage d’espace, des CTA hiérarchisés et une lecture mobile plus nette.
+- Spectre visuel des partenaires harmonisé de bleu à cyan, vert puis orange ; CTA orange et contenus de pastilles blancs.
+- Tableau de références repensé pour mobile : défilement tactile, colonne de noms figée, en-têtes raccourcis, pictogrammes et largeur optimisée.
+- Boussole interactive simplifiée par suppression de ses traits de construction internes.
 
----
+### Corrigé
+
+- Débordements horizontaux, libellés dépassant sur mobile, menu burger et navigation clavier sur les pages publiques.
+- Contrastes, hiérarchie de titres, lien d’évitement, préférences de mouvement réduit et libellés ARIA.
+- Fil d’Ariane dupliqué sur la page Projet et comportement sticky du sommaire desktop.
+- Cohérence des liens partenaires, des CTA et des libellés blancs sur les fonds colorés.
+
+## [1.0.0] — 2026-03-04 au 2026-08-08 — Portail institutionnel et base documentaire
+
+### Ajouté
+
+- Pages publiques de présentation du projet, calendrier, expérience Boussole, méthode, partenaires, recherche, références et ressources.
+- Page de projet longue avec note d’intention, contexte, cinq dimensions, parcours en trois temps, principes, architecture et calendrier.
+- Expérience Boussole avec radar, parcours de diagnostic, restitution pédagogique et interactions au clavier.
+- Recherche et contexte : insights structurés, sources, documents, liens vers les sections pertinentes et références comparables.
+- Tableau de positionnement puis comparatif interactif avec filtres, tri, réinitialisation et variantes responsives.
+- Composants de navigation et de lecture : retour automatique en haut à chaque route, logo cliquable, menu adapté aux tablettes et schémas convertis en accordéons sur mobile.
+- Table des matières interactive sur la page projet, avec suivi de section par `IntersectionObserver` et commande mobile.
+- Premières intégrations d’analytique et scripts de contrôle du projet.
+
+### Modifié
+
+- Contenus, structure éditoriale, intitulés et CTA affinés au fil de la recherche documentaire et des retours de lecture.
+- Dépendances minimales mises à jour et composants responsive consolidés.
+
+## [0.1.0] — 2026-02-09 — Initialisation
+
+### Ajouté
+
+- Initialisation du dépôt avec React 19, TypeScript, Vite, Tailwind CSS 4, Wouter et shadcn/ui.
+- Première structure de navigation, thèmes, composants et pages éditoriales.
