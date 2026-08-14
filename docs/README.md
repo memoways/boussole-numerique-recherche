@@ -12,5 +12,6 @@ Ce dossier réunit les documents nécessaires au développement, à l’exploita
 | [Étude Dreamlit — e-mails récapitulatifs](./DREAMLIT_EMAIL_INTEGRATION_OPTIONS.md) | Capacités vérifiées, options de flux et contraintes avant mise en œuvre. | Pour choisir l’architecture d’envoi Dreamlit. |
 | [Plan d’optimisation rédactionnelle](./PLAN_OPTIMISATION_REDACTIONNELLE.md) | Diagnostic des contenus publiés, corrections prioritaires et séquence de réécriture sans modification des pages. | Avant toute passe éditoriale du portail. |
 | [Migration Coolify du portail](./COOLIFY_MIGRATION.md) | Déploiement du portail statique et continuité multi-agent. | Pour le déploiement général du site. |
+| [Diagnostic du domaine public — 14 août 2026](./DIAGNOSTIC_DOMAINE_BOUSSOLE_2026-08-14.md) | Cause IPv6 du délai de connexion et procédure DNS/Coolify de correction. | Avant toute modification du domaine public. |
 
 > Le plan partenaire est bien enregistré à l’emplacement `docs/PLAN_PARTENAIRES_PRESENTATION_QUESTIONNAIRE.md`. Le présent index offre un point d’entrée permanent pour le retrouver.

@@ -78,6 +78,7 @@ Après chaque soumission, l’API prépare un e-mail de récapitulatif détermin
 | CTA explicites | Une destination seule ne dit pas ce que la personne y trouvera | Les libellés indiquent l’action et l’objet : comprendre le projet, explorer une démonstration, consulter des constats ou demander une invitation |
 | Engagements distincts des fonctions futures | Le projet doit présenter ses principes sans annoncer un service déjà actif | Gratuité, neutralité, code ouvert, hébergement et consentement sont formulés comme exigences de la future version ou choix à confirmer |
 | Une URL historique, une destination canonique | Les anciennes pages ne doivent pas concurrencer les contenus actifs ni perdre les documents de recherche | Les documents restent sous Ressources ; Nginx et l’application redirigent les anciennes URLs |
+| IPv4 avant IPv6 non configuré | Un AAAA publié doit répondre réellement, sinon le navigateur peut expirer | Le domaine final doit utiliser l’A record fonctionnel et ne publier aucun AAAA avant configuration IPv6 du serveur |
 
 ## 6. Stack et structure du dépôt
 
@@ -114,6 +115,7 @@ Qualité            pnpm verify · TypeScript · builds · scripts mobile/contra
 | 14 août 2026 | Troisième passe éditoriale : Ressources et microtextes de navigation, footer, accueil, méthode et questionnaire alignés sur la co-conception |
 | 14 août 2026 | Quatrième passe éditoriale : Projet et Méthode resserrés, parcours et comparaisons formulés comme pistes à tester, engagements et architecture clarifiés |
 | 14 août 2026 | Cinquième passe éditoriale : anciennes pages consolidées, documents préservés sous Ressources, redirections canoniques documentées |
+| 14 août 2026 | Diagnostic IPv6 du domaine : IPv4 et TLS valides, CNAME remplacé à prévoir par un A record sans AAAA |
 
 ## 8. État d’activation et limites connues
 
@@ -121,7 +123,7 @@ Le portail statique peut être déployé immédiatement. Le module partenaire es
 
 | Élément | État | Action restante |
 |---|---|---|
-| Portail public | Prêt | Déployer l’image Nginx et définir le domaine final |
+| Portail public | IPv4 valide, IPv6 défaillant | Remplacer le CNAME par l’A record `185.131.204.133` et ne pas publier d’AAAA |
 | SEO | Prêt | Fournir une image Open Graph dédiée si souhaité |
 | API partenaire | Prête | Créer l’application Coolify et ses secrets |
 | PostgreSQL | Prêt à initialiser | Créer le service privé et appliquer le schéma idempotent |
@@ -129,7 +131,7 @@ Le portail statique peut être déployé immédiatement. Le module partenaire es
 | Transcription Deepgram | Intégration livrée | Fournir `DEEPGRAM_API_KEY` |
 | E-mails Dreamlit | Boîte d’envoi livrée | Créer l’utilisateur DB restreint, connecter Dreamlit et publier le workflow |
 
-Le domaine public de référence est **https://boussole-culture-recherche.memoways.com**. Cette valeur est le défaut du Dockerfile et doit aussi être renseignée comme variable de build `SITE_URL` dans Coolify afin que les URL canoniques, Open Graph, le sitemap et `robots.txt` restent cohérents lors du déploiement.
+Le domaine public de référence est **https://boussole-culture-recherche.memoways.com**. Cette valeur est le défaut du Dockerfile et doit aussi être renseignée comme variable de build `SITE_URL` dans Coolify afin que les URL canoniques, Open Graph, le sitemap et `robots.txt` restent cohérents lors du déploiement. Le 14 août 2026, le chemin IPv4 et le certificat ont été validés, tandis que l’IPv6 héritée du CNAME ne répondait pas. La correction DNS est documentée dans [`docs/DIAGNOSTIC_DOMAINE_BOUSSOLE_2026-08-14.md`](docs/DIAGNOSTIC_DOMAINE_BOUSSOLE_2026-08-14.md).
 
 Les contenus éditoriaux restent principalement dans les composants React. Cette approche est adaptée au rythme actuel, mais une source de contenu structurée pourra être envisagée si les mises à jour deviennent fréquentes. Le bundle principal dépasse l’avertissement de taille Vite ; une optimisation par import dynamique est envisageable après mesure sur le domaine de production.
 

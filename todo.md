@@ -75,3 +75,5 @@
 - [x] Optimiser la page Ressources et les microtextes transversaux dans une troisième passe éditoriale.
 - [x] Optimiser la structure et le contenu des pages Projet et Méthode dans une quatrième passe éditoriale.
 - [x] Examiner les pages historiques non routées, conserver leurs contenus utiles et configurer les redirections associées.
+- [ ] Diagnostiquer l’inaccessibilité de boussole-culture-recherche.memoways.com et documenter les réglages DNS/Coolify correctifs.
+- [x] Diagnostiquer l’inaccessibilité de boussole-culture-recherche.memoways.com et documenter les réglages DNS/Coolify correctifs.

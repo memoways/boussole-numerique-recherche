@@ -99,6 +99,8 @@ Le déploiement final utilise trois ressources : le portail Nginx, une base Post
 
 Le domaine public de référence est `https://boussole-culture-recherche.memoways.com`. Il est défini comme valeur par défaut de `SITE_URL` dans le Dockerfile et doit être repris comme variable de build dans Coolify. La valeur peut être surchargée explicitement au build si l’environnement de préproduction utilise un domaine distinct.
 
+Le 14 août 2026, le domaine a été validé en IPv4 avec HTTP 200 et un certificat TLS valide. Son CNAME publie toutefois une IPv6 qui ne répond pas. La correction consiste à remplacer ce CNAME par l’A record `185.131.204.133` et à ne pas publier d’AAAA avant une configuration IPv6 complète du serveur. La procédure complète est dans [`docs/DIAGNOSTIC_DOMAINE_BOUSSOLE_2026-08-14.md`](./docs/DIAGNOSTIC_DOMAINE_BOUSSOLE_2026-08-14.md).
+
 | Composant | Déploiement | Documentation |
 |---|---|---|
 | Portail | Image du `Dockerfile` racine | [`docs/COOLIFY_MIGRATION.md`](./docs/COOLIFY_MIGRATION.md) |

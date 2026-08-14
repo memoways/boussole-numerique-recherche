@@ -36,6 +36,7 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Troisième passe éditoriale appliquée : Ressources devient « Documents et sources », les fiches et liens précisent le type d’accès, et les microtextes de navigation, footer, accueil, méthode et questionnaire annoncent l’action attendue.
 - Quatrième passe éditoriale appliquée : Projet et Méthode distinguent les engagements actuels, les choix à confirmer et les fonctions futures ; le parcours, les comparaisons, l’architecture et les CTA sont resserrés.
 - Cinquième passe éditoriale appliquée : les pages historiques sont archivées sous Ressources ou redirigées vers leur page canonique, avec redirections applicatives et HTTP 301 prévues dans Nginx.
+- Diagnostic du domaine public : chemin IPv4, TLS et certificat validés ; CNAME/IPv6 défaillant identifié et procédure de remplacement par A record documentée.
 
 ### Vérifié
 
