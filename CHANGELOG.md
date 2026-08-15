@@ -59,6 +59,12 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Ressources : recherche par mot-clé ajoutée avec suggestions accessibles, prise en charge des accents et combinaison avec les filtres existants de catégorie et de période.
 - Les données et fonctions de recherche Ressources sont rendues réutilisables par la page 404 afin que les deux parcours proposent les mêmes résultats et suggestions.
 - Registre SEO complété par l’itinéraire `/404`, explicitement non indexable.
+- Référentiel SEO unique ajouté dans `shared/seo-pages.json` : l’interface React, les aperçus de partage et la génération statique utilisent désormais les mêmes titres, descriptions, canoniques, directives d’indexation et fils d’Ariane.
+- Génération post-build de pages HTML complètes : les dix routes indexables contiennent désormais leur titre, description, canonique, `h1`, navigation, liens de parcours et graphe JSON-LD avant toute exécution de JavaScript.
+- Graphe JSON-LD consolidé par page avec `WebSite`, `Organization`, `WebPage` et `BreadcrumbList` lorsque pertinent ; les données décrivent uniquement le contenu visible et les relations réellement établies.
+- Fichiers `llms.txt`, `robots.txt`, `sitemap.xml` et `404.html` produits dans la sortie de build ; `llms.txt` explicite le statut de co-conception, les publics prioritaires et les parcours sans prétendre garantir une citation par un assistant tiers.
+- Nginx sert les index HTML compilés et retourne une vraie 404 pour les routes inconnues au lieu d’un fallback SPA assimilable à une soft 404.
+- Commande `pnpm verify:seo` ajoutée puis intégrée à `pnpm verify` : elle contrôle les pages HTML, titres, descriptions, canoniques, graphes JSON-LD, assets, sitemap, robots, llms.txt et parcours non indexables.
 
 ### Vérifié
 
@@ -78,6 +84,9 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Slides 2 et 5 contrôlées visuellement : les barres de signaux et les quatre temps du cycle occupent la zone d’illustration sans libellé flottant, ni superposition avec l’explication narrative.
 - Slides 1 et 9 contrôlées visuellement : le radar reste contenu et lisible dans sa zone élargie ; les étapes Invitation, Brouillon et Contribution sont alignées, contenues et accompagnées de leur lecture narrative.
 - Compilation TypeScript et build final validés après l’application systématique de cette composition aux neuf slides.
+- Audit SEO-GEO contrôlé : les dix pages indexables générées ont chacune une meta description, une URL canonique, un `h1`, un graphe JSON-LD valide et des assets compilés ; les trois parcours privés et la 404 sont non indexables.
+- Contrôle navigateur de la page Partenaires : après hydratation React, une seule meta description, une seule canonique et un seul graphe JSON-LD à quatre entités subsistent.
+- Vérification complète `pnpm verify` validée : TypeScript du portail et de l’API, build statique, `pnpm verify:seo` et build de l’API partenaire passent.
 
 ## [1.1.0] — 2026-08-09 au 2026-08-12 — Alignement institutionnel, accessibilité et diffusion
 

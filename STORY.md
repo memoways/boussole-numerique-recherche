@@ -42,7 +42,9 @@ Le portail comporte un hero éditorial, la présentation détaillée du projet, 
 
 La page Ressources rassemble les documents internes, les études externes et les sources qui accompagnent la co-conception. Ses fiches distinguent le document interne à lire, le PDF externe à ouvrir et la source web à consulter. Les CTA transversaux emploient le même principe : ils annoncent l’action et le contenu de la destination, sans supposer qu’un diagnostic public est déjà actif.
 
-Toute URL inconnue ouvre une page 404 en français, sans impasse : elle reprend la recherche locale des documents et sources, ses suggestions et son filtrage tolérant aux accents. Les premiers résultats apparaissent directement dans la page, tandis que les accès vers Projet, Expérience, Méthode, Partenaires, Ressources et Accueil offrent des chemins de reprise explicites. La route `/404` est non indexable ; les URL inconnues héritent également du comportement SEO de secours non indexable.
+Toute URL inconnue ouvre une page 404 en français, sans impasse : elle reprend la recherche locale des documents et sources, ses suggestions et son filtrage tolérant aux accents. Les premiers résultats apparaissent directement dans la page, tandis que les accès vers Projet, Expérience, Méthode, Partenaires, Ressources et Accueil offrent des chemins de reprise explicites. La route `/404` est non indexable. En production, Nginx sert aussi un document `404.html` avec statut HTTP 404 pour éviter qu’une adresse inconnue ne devienne une soft 404 indexable.
+
+Les routes publiques indexables sont pré-rendues après Vite. Leurs fichiers HTML portent une synthèse sémantique fidèle de la page, avec un `h1`, des sections de contexte et des liens de parcours ; React remplace ensuite cette première couche par l’interface complète. Cette architecture conserve la navigation interactive tout en donnant aux moteurs, robots sociaux et outils qui n’exécutent pas JavaScript un contenu, un titre, une description, une canonique et un graphe JSON-LD déjà présents dans la réponse HTML.
 
 La phase actuelle du site compagnon est la mobilisation et l’écoute. Le questionnaire partenaire recueille besoins, priorités, idées et points de vigilance ; les contributions prépareront un atelier de co-conception, dont le format et la date restent à confirmer. Les phases suivantes sont explicites sans être surpromises : décider le prototype, tester avec les personnes concernées, puis diffuser et accompagner. Les pages Calendrier, Projet, Méthode et Expérience emploient ce même déroulé.
 
@@ -85,6 +87,11 @@ Après chaque soumission, l’API prépare un e-mail de récapitulatif détermin
 | Open Graph statique et dynamique | Les robots sociaux ne dépendent pas de JavaScript | Les balises de partage sont injectées au build et mises à jour à chaque route SPA |
 | URL SEO ancrées au domaine public | Le proxy ne doit jamais faire remonter son port interne dans les métadonnées | `VITE_SITE_URL`, ou le domaine final en repli, construit les canoniques, Open Graph et JSON-LD côté interface |
 | Sitemap et robots générés au build | Le domaine final doit se propager sans édition manuelle | Les seules routes indexables entrent dans le sitemap ; les parcours privés sont exclus |
+| Registre SEO unique | Le rendu HTML, la navigation SPA et les aperçus de partage ne doivent pas se contredire | `shared/seo-pages.json` porte les titres, descriptions, canoniques, directives et fils d’Ariane consommés par React et le générateur |
+| HTML statique après Vite | Certains moteurs, prévisualiseurs et lecteurs ne rendent pas JavaScript | Chaque route indexable reçoit une page HTML avec son contenu de contexte, des liens et les assets compilés avant hydratation |
+| Graphes JSON-LD fidèles | Une donnée structurée imprécise peut nuire à la compréhension plutôt qu’aider | Les graphes limitent les types à `WebSite`, `Organization`, `WebPage` et `BreadcrumbList` selon le contenu réellement visible |
+| llms.txt descriptif | Le GEO ne garantit ni indexation ni citation par une IA | Le fichier présente le statut, le public, les parcours et le contact, tandis que le HTML éditorial reste la source principale |
+| Vérification SEO automatisée | Une modification de route ou de build peut dégrader silencieusement l’indexation | `pnpm verify:seo` contrôle les sorties ; `pnpm verify` l’exécute avant le build de l’API |
 | Outil en co-conception | Le site public ne doit pas annoncer un diagnostic déjà disponible | Les pages d’entrée, le calendrier et les démonstrations décrivent la future version au futur |
 | Recherche documentaire distincte des promesses produit | Les sources servent à éclairer les choix, sans faire preuve de l’utilité future | La page Recherche parle de constats documentés et de questions à tester ; les pistes de conception sont nommées comme telles |
 | Parcours partenaire explicite | La contribution ne doit pas être confondue avec l’accès déjà actif au diagnostic | Les entrées Présentation et Questionnaire sont séparées ; les étapes de test et les contreparties sont formulées au futur |
@@ -116,7 +123,10 @@ Qualité            pnpm verify · TypeScript · builds · scripts mobile/contra
 |---|---|
 | `client/src/pages/` | Pages éditoriales, expérience et interfaces partenaires |
 | `client/src/components/` | Navigation, fil d’Ariane, composants UI, `AnimatedRadarGraphic` et `InteractiveNarrativeIllustration` |
-| `client/src/lib/` | SEO, client API partenaire et utilitaires |
+| `shared/seo-pages.json` | Source unique des métadonnées, canoniques, indexabilité et fils d’Ariane SEO |
+| `client/src/lib/` | Accès au registre SEO, client API partenaire et utilitaires |
+| `scripts/generate-seo.mjs` | Pré-rendu HTML, JSON-LD, sitemap, robots, llms.txt et 404 statique après Vite |
+| `scripts/verify-seo.mjs` | Contrôle déterministe des sorties HTML, données structurées et fichiers de découvrabilité |
 | `services/partner-feedback-api/` | API, schéma SQL idempotent, e-mail et tests de récapitulatif |
 | `docs/` | Migration, opérations, activation Dreamlit, validation et archives |
 | `config/ENVIRONMENT.md` | Registre des variables publiques et des secrets runtime |
@@ -146,6 +156,7 @@ Qualité            pnpm verify · TypeScript · builds · scripts mobile/contra
 | 15 août 2026 | Récit partenaire recomposé : contenu dense en colonne 2/3, schémas narratifs sans cadre dans le tiers droit, phrase d’instruction retirée et valeur de contribution explicitée slide par slide |
 | 15 août 2026 | Illustrations partenaires consolidées : composants exploratoires, transitions directionnelles accessibles, zone graphique élargie, étapes contenues et contrôles visuels des slides 1, 2, 5 et 9 |
 | 15 août 2026 | Adressage du site compagnon clarifié : outil en co-conception, partenaires relais prioritaires, questionnaire comme action de phase 1, parcours de vie en quatre étapes et SEO aligné |
+| 15 août 2026 | SEO-GEO renforcé : registre partagé, pré-rendu HTML de dix routes indexables, graphe JSON-LD consolidé, llms.txt, vraie 404 Nginx et vérification automatisée intégrée à `pnpm verify` |
 
 ## 8. État d’activation et limites connues
 
@@ -154,16 +165,16 @@ Le portail statique peut être déployé immédiatement. Le module partenaire es
 | Élément | État | Action restante |
 |---|---|---|
 | Portail public | IPv4 valide, IPv6 défaillant | Remplacer le CNAME par l’A record `185.131.204.133` et ne pas publier d’AAAA |
-| SEO | Prêt | Fournir une image Open Graph dédiée si souhaité |
+| SEO et GEO | Sorties HTML et contrôles automatisés prêts | Soumettre sitemap et domaine dans Google Search Console et Bing Webmaster Tools après publication ; fournir une image Open Graph dédiée si souhaité |
 | API partenaire | Prête | Créer l’application Coolify et ses secrets |
 | PostgreSQL | Prêt à initialiser | Créer le service privé et appliquer le schéma idempotent |
 | Console `/admin` | Interface livrée | Définir `ADMIN_EMAIL` et `ADMIN_PASSWORD`, puis déployer l’API |
 | Transcription Deepgram | Intégration livrée | Fournir `DEEPGRAM_API_KEY` |
 | E-mails Dreamlit | Boîte d’envoi livrée | Créer l’utilisateur DB restreint, connecter Dreamlit et publier le workflow |
 
-Le domaine public de référence est **https://boussole-culture-recherche.memoways.com**. Cette valeur est le défaut du Dockerfile et doit aussi être renseignée comme variable de build `SITE_URL` dans Coolify afin que les URL canoniques, Open Graph, le sitemap et `robots.txt` restent cohérents lors du déploiement. Le 14 août 2026, le chemin IPv4 et le certificat ont été validés, tandis que l’IPv6 héritée du CNAME ne répondait pas. La correction DNS est documentée dans [`docs/DIAGNOSTIC_DOMAINE_BOUSSOLE_2026-08-14.md`](docs/DIAGNOSTIC_DOMAINE_BOUSSOLE_2026-08-14.md).
+Le domaine public de référence est **https://boussole-culture-recherche.memoways.com**. Cette valeur est le défaut du Dockerfile et doit aussi être renseignée comme variables de build `SITE_URL` et `VITE_SITE_URL` dans Coolify afin que les URL canoniques, Open Graph, le sitemap, `robots.txt`, `llms.txt` et les données structurées restent cohérents lors du déploiement. Le 14 août 2026, le chemin IPv4 et le certificat ont été validés, tandis que l’IPv6 héritée du CNAME ne répondait pas. La correction DNS est documentée dans [`docs/DIAGNOSTIC_DOMAINE_BOUSSOLE_2026-08-14.md`](docs/DIAGNOSTIC_DOMAINE_BOUSSOLE_2026-08-14.md).
 
-Les contenus éditoriaux restent principalement dans les composants React. Cette approche est adaptée au rythme actuel, mais une source de contenu structurée pourra être envisagée si les mises à jour deviennent fréquentes. Le bundle principal dépasse l’avertissement de taille Vite ; une optimisation par import dynamique est envisageable après mesure sur le domaine de production.
+Les contenus éditoriaux restent principalement dans les composants React. Une synthèse statique par route est maintenue dans le générateur SEO ; elle doit être revue lorsqu’un changement de fond modifie le message public d’une page. Une source de contenu structurée pourra être envisagée si les mises à jour deviennent fréquentes. Le bundle principal dépasse l’avertissement de taille Vite ; une optimisation par import dynamique est envisageable après mesure sur le domaine de production.
 
 ## 9. Documentation de référence
 

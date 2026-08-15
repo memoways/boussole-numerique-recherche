@@ -93,3 +93,5 @@
 - [x] Consolider CHANGELOG et STORY avec les derniers changements de la présentation partenaire.
 - [x] Clarifier l’adressage partenaire et la promesse du site compagnon sur l’accueil et la page Partenaires.
 - [x] Aligner les pages de contexte, les CTA, le SEO et la documentation sur les phases de vie de la co-conception.
+- [x] Auditer le rendu HTML, les métadonnées, le sitemap, l’indexation et les données structurées du portail.
+- [x] Implémenter et valider les améliorations SEO-GEO compatibles avec le déploiement statique Coolify.

@@ -53,16 +53,53 @@ export default function SeoMeta({ pathname }: { pathname: string }) {
     upsertMeta('meta[name="twitter:description"]', { name: "twitter:description" }, page.description);
     upsertMeta('meta[name="twitter:image"]', { name: "twitter:image" }, imageUrl);
 
-    const schemaId = "seo-page-schema";
+    const schemaId = "seo-schema";
+    const websiteId = `${origin}/#website`;
+    const organizationId = `${origin}/#organization`;
+    const pageId = `${canonicalUrl}#webpage`;
+    const breadcrumbs = getBreadcrumbs(normalizedPath);
     const schema = {
       "@context": "https://schema.org",
-      "@type": normalizedPath === "/" ? "WebSite" : "WebPage",
-      name: page.title,
-      description: page.description,
-      url: canonicalUrl,
-      inLanguage: "fr-CH",
-      isPartOf: normalizedPath === "/" ? undefined : { "@type": "WebSite", name: SITE_NAME, url: origin },
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": websiteId,
+          name: SITE_NAME,
+          url: `${origin}/`,
+          inLanguage: "fr-CH",
+          publisher: { "@id": organizationId },
+        },
+        {
+          "@type": "Organization",
+          "@id": organizationId,
+          name: "Memoways Research",
+          url: "https://memoways.com",
+          logo: { "@type": "ImageObject", url: imageUrl },
+        },
+        {
+          "@type": "WebPage",
+          "@id": pageId,
+          name: page.title,
+          description: page.description,
+          url: canonicalUrl,
+          inLanguage: "fr-CH",
+          isPartOf: { "@id": websiteId },
+          publisher: { "@id": organizationId },
+          about: { "@type": "Thing", name: "Transformation numérique et pratiques culturelles" },
+        },
+        ...(breadcrumbs.length > 1 ? [{
+          "@type": "BreadcrumbList",
+          itemListElement: breadcrumbs.map((item, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            name: item.label,
+            item: new URL(item.path, origin).toString(),
+          })),
+        }] : []),
+      ],
     };
+    document.getElementById("seo-page-schema")?.remove();
+    document.getElementById("seo-breadcrumb-schema")?.remove();
     let schemaElement = document.getElementById(schemaId) as HTMLScriptElement | null;
     if (!schemaElement) {
       schemaElement = document.createElement("script");
@@ -71,31 +108,6 @@ export default function SeoMeta({ pathname }: { pathname: string }) {
       document.head.appendChild(schemaElement);
     }
     schemaElement.textContent = JSON.stringify(schema);
-
-    const breadcrumbs = getBreadcrumbs(normalizedPath);
-    const breadcrumbSchemaId = "seo-breadcrumb-schema";
-    const existingBreadcrumbSchema = document.getElementById(breadcrumbSchemaId) as HTMLScriptElement | null;
-
-    if (breadcrumbs.length < 2) {
-      existingBreadcrumbSchema?.remove();
-      return;
-    }
-
-    const breadcrumbSchema = {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      itemListElement: breadcrumbs.map((item, index) => ({
-        "@type": "ListItem",
-        position: index + 1,
-        name: item.label,
-        item: new URL(item.path, origin).toString(),
-      })),
-    };
-    const breadcrumbSchemaElement = existingBreadcrumbSchema ?? document.createElement("script");
-    breadcrumbSchemaElement.id = breadcrumbSchemaId;
-    breadcrumbSchemaElement.type = "application/ld+json";
-    breadcrumbSchemaElement.textContent = JSON.stringify(breadcrumbSchema);
-    if (!existingBreadcrumbSchema) document.head.appendChild(breadcrumbSchemaElement);
   }, [pathname]);
 
   return null;

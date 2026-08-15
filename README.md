@@ -2,7 +2,7 @@
 
 ## Aperçu
 
-**Boussole Numérique Culture** est le dépôt du portail institutionnel et du module partenaire qui préparent un futur outil de diagnostic numérique destiné aux actrices, acteurs et structures culturelles. Le portail explique le projet, le calendrier, l’expérience Boussole, la méthode, la recherche et les modalités de co-construction. Le module partenaire ajoute une présentation dédiée, des invitations personnelles, un questionnaire qualitatif, une console d’administration et l’envoi de récapitulatifs contrôlés.
+**Boussole Numérique Culture** est le dépôt du site compagnon et du module partenaire qui accompagnent un outil en co-conception destiné aux actrices, acteurs et structures culturelles. Le portail explique l’outil, ses phases, l’expérience Boussole, la méthode, la recherche et les modalités de co-construction. Le module partenaire ajoute une présentation dédiée, des invitations personnelles, un questionnaire qualitatif, une console d’administration et l’envoi de récapitulatifs contrôlés.
 
 Le projet est conçu pour être déployé et maintenu hors plateforme : le portail est une application statique servie par Nginx ; l’API partenaire est une application Express distincte ; PostgreSQL, l’API et Dreamlit sont activés dans Coolify lorsque le pilote démarre.
 
@@ -57,11 +57,14 @@ Navigateur
 |---|---|
 | `client/src/pages/` | Pages publiques, présentation, questionnaire et console |
 | `client/src/components/` | Navigation, fil d’Ariane, primitives UI et radar animé partagé |
-| `client/src/lib/seo.ts` | Registre SEO, Open Graph, URLs canoniques et indexabilité |
+| `shared/seo-pages.json` | Registre unique des titres, descriptions, canoniques, directives et fils d’Ariane SEO |
+| `client/src/lib/seo.ts` | Accès typé au registre SEO depuis l’interface React |
+| `scripts/generate-seo.mjs` | Génération post-build des pages HTML, du JSON-LD, sitemap, robots et llms.txt |
+| `scripts/verify-seo.mjs` | Contrôle automatisé des pages HTML, métadonnées, schémas, assets et routes non indexables |
 | `services/partner-feedback-api/` | API Express, schéma SQL, invitations, réponses, session admin et récapitulatifs |
 | `Dockerfile` | Image Nginx du portail avec fallback SPA |
 | `services/partner-feedback-api/Dockerfile` | Image de l’API partenaire |
-| `infra/nginx/default.conf` | Cache des actifs et réécriture des routes Wouter |
+| `infra/nginx/default.conf` | Cache des actifs, service des pages HTML générées et vraie 404 pour les routes inconnues |
 | `config/ENVIRONMENT.md` | Variables de build publiques et secrets runtime |
 | `docs/` | Guides d’exploitation, migration, activation et archives |
 
@@ -74,6 +77,8 @@ Utilisez **Node.js 22** et **pnpm 10**.
 | Installer les dépendances | `corepack enable && pnpm install --frozen-lockfile` |
 | Démarrer le portail | `pnpm dev` |
 | Vérifier TypeScript du portail | `pnpm check` |
+| Construire les pages HTML statiques et les fichiers d’indexation | `pnpm build` |
+| Vérifier HTML, JSON-LD, sitemap, robots et llms.txt | `pnpm verify:seo` |
 | Vérifier portail + API partenaire | `pnpm verify` |
 | Prévisualiser le build statique | `pnpm preview` |
 | Tester le formateur Dreamlit | `pnpm --filter @boussole/partner-feedback-api test:response-recap` |
@@ -131,7 +136,7 @@ docker run --rm -p 8080:8080 boussole-numerique-culture
 
 Avant un checkpoint, exécutez `pnpm verify`. Toute évolution visuelle doit rester responsive, conserver le focus clavier, éviter les débordements horizontaux et respecter les contrastes. Les modifications de routes doivent mettre à jour le registre SEO, le fil d’Ariane si nécessaire et les tests de navigation concernés.
 
-Les aperçus de partage disposent d’un socle Open Graph dans `client/index.html`, enrichi dynamiquement par `SeoMeta` et injecté de façon statique pour chaque page indexable par `scripts/generate-seo.mjs`. Chaque page publiée reçoit le titre, la description, l’URL canonique, l’image, l’URL sécurisée de l’image, le texte alternatif et les métadonnées Twitter correspondantes. Le même script produit `sitemap.xml` avec les routes indexables, la date de build, une fréquence et une priorité, ainsi que `robots.txt` qui référence le sitemap et exclut `/admin`, `/partenaires/admin` et `/partenaires/questionnaire`.
+Les aperçus de partage, le rendu React et le pré-rendu statique partagent `shared/seo-pages.json`. Après Vite, `scripts/generate-seo.mjs` injecte dans chaque page publique un titre, une description, une canonique, les métadonnées Open Graph et Twitter, un graphe JSON-LD fidèle au contenu, un `h1` et une synthèse HTML sémantique. Il produit également `sitemap.xml`, `robots.txt`, `llms.txt` et une page `404.html` non indexable. Nginx sert ces pages HTML générées et retourne une vraie 404 pour les routes inconnues. `pnpm verify:seo` contrôle ces sorties avant une livraison.
 
 Toute modification effectivement livrée doit mettre à jour `CHANGELOG.md`, `STORY.md`, `README.md` lorsqu’elle modifie le fonctionnement ou le contexte, et l’archive appropriée dans `docs/`. Les règles détaillées, notamment pour les secrets, l’administration et les migrations, sont dans [`AGENTS.md`](./AGENTS.md).
 
@@ -147,6 +152,7 @@ Toute modification effectivement livrée doit mettre à jour `CHANGELOG.md`, `ST
 | [`docs/PLAN_PARTENAIRES_PRESENTATION_QUESTIONNAIRE.md`](./docs/PLAN_PARTENAIRES_PRESENTATION_QUESTIONNAIRE.md) | Décisions de conception du module partenaire |
 | [`docs/IMPLEMENTATION_ARCHIVE_PARTNER_MODULE_2026-08-13.md`](./docs/IMPLEMENTATION_ARCHIVE_PARTNER_MODULE_2026-08-13.md) | Archive factuelle des fonctionnalités partenaire livrées |
 | [`docs/PLAN_OPTIMISATION_REDACTIONNELLE.md`](./docs/PLAN_OPTIMISATION_REDACTIONNELLE.md) | Diagnostic rédactionnel et plan d’amélioration à valider avant réécriture |
+| [`docs/AUDIT_SEO_GEO_2026-08-15.md`](./docs/AUDIT_SEO_GEO_2026-08-15.md) | Référentiel, constats, corrections et contrôles SEO-GEO des pages HTML statiques |
 
 ## Licence
 
