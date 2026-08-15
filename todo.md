@@ -88,3 +88,5 @@
 - [x] Retirer partout l’instruction redondante sur l’ouverture des repères du deck partenaire.
 - [x] Rendre tous les schémas du deck partenaire interactifs, narratifs et animés au survol ou au focus.
 - [x] Fluidifier les transitions entre les slides de la présentation partenaire.
+- [x] Densifier la zone de schéma et compacter la narration à gauche sur les neuf slides partenaire.
+- [x] Éliminer les chevauchements de libellés dans les schémas narratifs du deck.

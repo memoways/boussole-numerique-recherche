@@ -423,17 +423,17 @@ export default function PartnerPresentation() {
             <div key={currentIndex} className={`partner-slide-enter partner-slide-enter--${transitionDirection} h-full`}>
             <p className="text-xs font-extrabold uppercase tracking-[0.16em]" style={{ color: slide.accent }}>{slide.eyebrow}</p>
             <h1 className="mt-3 max-w-none text-3xl font-extrabold leading-[1.12] tracking-tight text-slate-950 sm:text-4xl lg:text-[2rem] xl:text-[2.25rem] xl:whitespace-nowrap">{slide.title}</h1>
-            <div className="mt-4 grid gap-8 lg:min-h-[455px] lg:grid-cols-[minmax(0,2fr)_minmax(260px,1fr)] lg:items-center lg:gap-10">
+            <div className="mt-4 grid gap-8 lg:min-h-[455px] lg:grid-cols-[minmax(0,3fr)_minmax(350px,2fr)] lg:items-stretch lg:gap-12">
               <div className="flex min-w-0 flex-col lg:min-h-[455px]">
-                <p className="max-w-4xl text-base leading-relaxed text-slate-700 sm:text-lg">{slide.text}</p>
-                <p className="mt-4 max-w-4xl text-sm leading-relaxed text-slate-600 sm:text-base">{slide.narrative}</p>
-                <div className="mt-5 grid gap-2.5 sm:grid-cols-3">
+                <p className="max-w-3xl text-base leading-relaxed text-slate-700 sm:text-lg">{slide.text}</p>
+                <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-600 sm:text-base">{slide.narrative}</p>
+                <div className="mt-4 grid gap-2.5 sm:grid-cols-3">
                   {slide.outcomes.map((outcome, index) => <div key={outcome} className="border-l-2 pl-3 text-sm leading-snug text-slate-600" style={{ borderColor: index === 1 ? "#E07428" : slide.accent }}>{outcome}</div>)}
                 </div>
                 <p className="mt-5 border-l-2 pl-4 text-sm font-semibold leading-relaxed text-slate-700 lg:mt-auto" style={{ borderColor: slide.accent }}>{slide.partnerValue}</p>
               </div>
-              <div className="min-w-0 lg:pl-2">
-                {slide.visual === "compass" ? <AnimatedRadarGraphic interactive dimensions={PARTNER_RADAR_DIMENSIONS} ariaLabel="Radar interactif des cinq dimensions de la Boussole" className="mx-auto h-[250px] w-[250px] sm:h-[285px] sm:w-[285px]" /> : <InteractiveNarrativeIllustration kind={slide.visual as NarrativeVisualKind} accent={slide.accent} />}
+              <div className="flex min-w-0 items-center justify-center lg:pl-0">
+                {slide.visual === "compass" ? <AnimatedRadarGraphic interactive dimensions={PARTNER_RADAR_DIMENSIONS} ariaLabel="Radar interactif des cinq dimensions de la Boussole" className="mx-auto h-[260px] w-[260px] sm:h-[300px] sm:w-[300px]" /> : <InteractiveNarrativeIllustration kind={slide.visual as NarrativeVisualKind} accent={slide.accent} />}
               </div>
             </div>
             </div>

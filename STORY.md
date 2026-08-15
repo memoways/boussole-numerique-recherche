@@ -58,6 +58,8 @@ Le haut de chaque slide conserve une zone narrative de 580 px sur desktop. Cette
 
 Les schémas du tiers droit ne sont plus décoratifs : chacun présente une séquence ou une relation propre au propos de la slide et expose une phrase de lecture lorsque l’un de ses repères est survolé, focalisé ou activé. Les transitions entre slides sont directionnelles et brèves lors des actions de navigation ; les raccourcis clavier restent instantanés et les animations sont coupées lorsque la préférence système de mouvement réduit est active.
 
+Après contrôle des premiers schémas, la composition est resserrée sur l’ensemble du deck : la colonne textuelle garde l’essentiel du récit, tandis que la zone d’illustration reçoit un espace élargi. Les étapes sont désormais contenues dans des repères alignés, sans libellés flottants ni croisement entre le schéma et sa phrase de lecture. Le cycle à quatre temps s’affiche en matrice lisible ; les signaux se lisent comme des barres progressives.
+
 ### Questionnaire, données et administration
 
 Le module partenaire est présent dans `services/partner-feedback-api/`. Il gère les organisations, contacts, invitations, demandes d’invitation, versions du questionnaire, réponses, événements et boîte d’envoi. Les réponses peuvent être enregistrées comme brouillons, soumises après consentement, complétées à l’oral si Deepgram est activé puis relues avant enregistrement.

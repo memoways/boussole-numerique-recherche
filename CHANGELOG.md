@@ -38,6 +38,7 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - La phrase d’instruction « Ouvrez les repères ci-dessous… » est retirée du deck ; les accordéons restent disponibles comme approfondissement facultatif.
 - Schémas narratifs rendus exploratoires : chaque repère répond au survol, au focus ou au clic, modifie l’élément actif et affiche une explication complémentaire ; le radar de la première slide adopte aussi l’activation au survol.
 - Entrées directionnelles de 260 ms ajoutées aux slides lors d’une navigation par commande, sans animation pour les flèches clavier ni pour les préférences de mouvement réduit.
+- Illustrations du deck recomposées dans un système commun : étapes contenues dans leurs tuiles, explication contextuelle séparée, zone de schéma élargie et colonne textuelle resserrée pour éliminer les chevauchements.
 - Plan d’optimisation rédactionnelle ajouté dans `docs/`, avec diagnostic des promesses au présent, répétitions, CTA et affirmations documentaires à vérifier avant réécriture.
 - Première passe éditoriale appliquée : Accueil, Projet, Expérience et Calendrier distinguent la co-conception du futur outil ; Références renonce aux revendications d’exclusivité non étayées ; Méthode et Partenaires resserrent leurs répétitions et CTA.
 - Seconde passe éditoriale appliquée : Recherche distingue les constats sourcés des pistes de conception ; Partenaires clarifie les étapes et contreparties de contribution ; le footer décrit le projet au stade de co-conception.
@@ -67,6 +68,9 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Schéma de la slide 3 contrôlé : l’activation de « Situer » sélectionne le repère central et met à jour l’explication narrative correspondante.
 - Passage commandé de la slide 3 à la slide 4 et schéma « Les réalités à relier » contrôlés : la sélection de « Besoins » modifie l’élément actif et son explication sans perturber les commandes de navigation.
 - Animation de transition contrôlée dans le navigateur : la slide appelée par une commande porte une entrée directionnelle de 0,26 s ; TypeScript et le build final sont validés.
+- Slides 2 et 5 contrôlées visuellement : les barres de signaux et les quatre temps du cycle occupent la zone d’illustration sans libellé flottant, ni superposition avec l’explication narrative.
+- Slides 1 et 9 contrôlées visuellement : le radar reste contenu et lisible dans sa zone élargie ; les étapes Invitation, Brouillon et Contribution sont alignées, contenues et accompagnées de leur lecture narrative.
+- Compilation TypeScript et build final validés après l’application systématique de cette composition aux neuf slides.
 
 ## [1.1.0] — 2026-08-09 au 2026-08-12 — Alignement institutionnel, accessibilité et diffusion
 
