@@ -262,11 +262,11 @@ const SLIDES: Slide[] = [
 ];
 
 const PARTNER_RADAR_DIMENSIONS = [
-  { label: "Outils", couleur: "#515792" },
-  { label: "Compétences", couleur: "#E27227" },
-  { label: "Données", couleur: "#3aab8a" },
-  { label: "Diffusion", couleur: "#9b59b6" },
-  { label: "Collaboration", couleur: "#E58441" },
+  { label: "Outils", couleur: "#515792", emoji: "🛠️", resume: "outils et pratiques de travail." },
+  { label: "Compétences", couleur: "#E27227", emoji: "🎓", resume: "savoir-faire et culture numérique." },
+  { label: "Données", couleur: "#3aab8a", emoji: "🗄️", resume: "collecte, archivage et documentation." },
+  { label: "Diffusion", couleur: "#9b59b6", emoji: "📡", resume: "relation numérique avec les publics." },
+  { label: "Collaboration", couleur: "#E58441", emoji: "🔗", resume: "partage et cohérence d’équipe." },
 ];
 
 function getPresentationState() {
@@ -375,7 +375,7 @@ export default function PartnerPresentation() {
                 <p className="max-w-3xl text-base leading-relaxed text-slate-600 sm:text-lg">{slide.text}</p>
                 <p className="mt-4 text-sm font-medium text-slate-500">Ouvrez les repères ci-dessous pour approfondir sans quitter cette présentation.</p>
               </div>
-              {slide.visual === "compass" && <div className="flex justify-center rounded-3xl border border-white bg-white/70 p-3 shadow-inner sm:p-4 lg:-mt-16"><AnimatedRadarGraphic dimensions={PARTNER_RADAR_DIMENSIONS} ariaLabel="Radar animé des cinq dimensions de la Boussole" className="h-[220px] w-[220px] sm:h-[250px] sm:w-[250px]" /></div>}
+              {slide.visual === "compass" && <div className="flex justify-center lg:-mt-7"><AnimatedRadarGraphic interactive dimensions={PARTNER_RADAR_DIMENSIONS} ariaLabel="Radar interactif des cinq dimensions de la Boussole" className="h-[255px] w-[255px] sm:h-[285px] sm:w-[285px]" /></div>}
               {slide.visual !== "none" && slide.visual !== "compass" && <div className="rounded-3xl border border-white bg-white/70 p-5 shadow-inner sm:p-6"><StoryIllustration kind={slide.visual} accent={slide.accent} /></div>}
             </div>
           </div>

@@ -1,18 +1,21 @@
 /**
- * Radar animé — même langage visuel que le radar de la page d’accueil.
- * Utilisé comme illustration non interactive dans le deck partenaire.
+ * Radar animé — même langage visuel et interactions que le radar de la page d’accueil.
+ * Il peut devenir exploratoire dans le deck partenaire, sans panneau décoratif intermédiaire.
  */
 import { useEffect, useRef, useState } from "react";
 
 export type RadarDimension = {
   label: string;
   couleur: string;
+  emoji?: string;
+  resume?: string;
 };
 
 type AnimatedRadarGraphicProps = {
   dimensions: RadarDimension[];
   className?: string;
   ariaLabel?: string;
+  interactive?: boolean;
 };
 
 const PROFILE_A = [0.72, 0.5, 0.83, 0.45, 0.68];
@@ -22,8 +25,10 @@ export function AnimatedRadarGraphic({
   dimensions,
   className = "h-56 w-56 sm:h-64 sm:w-64",
   ariaLabel = "Radar animé des cinq dimensions",
+  interactive = false,
 }: AnimatedRadarGraphicProps) {
   const [values, setValues] = useState(PROFILE_A);
+  const [activeIndex, setActiveIndex] = useState(0);
   const rafRef = useRef<number | null>(null);
   const phaseRef = useRef(0);
   const progressRef = useRef(0);
@@ -67,13 +72,59 @@ export function AnimatedRadarGraphic({
     return `${(cx + radius * scale * Math.cos(angle)).toFixed(1)},${(cy + radius * scale * Math.sin(angle)).toFixed(1)}`;
   }).join(" ");
 
-  return <svg viewBox="0 0 300 300" className={className} style={{ overflow: "visible" }} role="img" aria-label={ariaLabel}>
-    {[1, 0.75, 0.5, 0.25].map((scale) => <polygon key={scale} points={polygon(scale)} fill="none" stroke="#e5e7eb" strokeWidth="1" />)}
-    {dimensions.map((_, index) => {
-      const angle = (index * 72 - 90) * Math.PI / 180;
-      return <line key={index} x1={cx} y1={cy} x2={(cx + radius * Math.cos(angle)).toFixed(1)} y2={(cy + radius * Math.sin(angle)).toFixed(1)} stroke="#e5e7eb" strokeWidth="1" />;
-    })}
-    <path d={shape} fill="#515792" fillOpacity="0.18" stroke="#515792" strokeWidth="2" strokeLinejoin="round" />
-    {points.map((point, index) => <circle key={dimensions[index].label} cx={point.x.toFixed(2)} cy={point.y.toFixed(2)} r="4.5" fill={dimensions[index].couleur} stroke="white" strokeWidth="1.5" />)}
-  </svg>;
+  const activeDimension = dimensions[activeIndex];
+
+  return (
+    <div className={className}>
+      <svg viewBox="0 0 300 300" className="h-full w-full" style={{ overflow: "visible" }} role={interactive ? "group" : "img"} aria-label={ariaLabel}>
+        {[1, 0.75, 0.5, 0.25].map((scale) => <polygon key={scale} points={polygon(scale)} fill="none" stroke="#e5e7eb" strokeWidth="1" />)}
+        {dimensions.map((_, index) => {
+          const angle = (index * 72 - 90) * Math.PI / 180;
+          return <line key={index} x1={cx} y1={cy} x2={(cx + radius * Math.cos(angle)).toFixed(1)} y2={(cy + radius * Math.sin(angle)).toFixed(1)} stroke="#e5e7eb" strokeWidth="1" />;
+        })}
+        <path d={shape} fill="#515792" fillOpacity="0.18" stroke="#515792" strokeWidth="2" strokeLinejoin="round" />
+        {points.map((point, index) => {
+          const dimension = dimensions[index];
+          const active = interactive && activeIndex === index;
+          const activate = () => setActiveIndex(index);
+
+          return interactive ? (
+            <g
+              key={dimension.label}
+              role="button"
+              tabIndex={0}
+              aria-label={`Afficher la dimension ${dimension.label}`}
+              aria-pressed={active}
+              className="outline-none"
+              style={{ cursor: "pointer" }}
+              onClick={activate}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  activate();
+                }
+              }}
+            >
+              <circle cx={point.x.toFixed(2)} cy={point.y.toFixed(2)} r="14" fill="transparent" />
+              {active && <circle cx={point.x.toFixed(2)} cy={point.y.toFixed(2)} r="9" fill={dimension.couleur} fillOpacity="0.16" stroke={dimension.couleur} strokeWidth="1" />}
+              <circle cx={point.x.toFixed(2)} cy={point.y.toFixed(2)} r={active ? 6 : 4.5} fill={dimension.couleur} stroke="white" strokeWidth="1.5" />
+              {dimension.emoji && <text x={point.x.toFixed(2)} y={(point.y + 1).toFixed(2)} textAnchor="middle" dominantBaseline="middle" fontSize={active ? "12" : "10"} aria-hidden="true">{dimension.emoji}</text>}
+            </g>
+          ) : <circle key={dimension.label} cx={point.x.toFixed(2)} cy={point.y.toFixed(2)} r="4.5" fill={dimension.couleur} stroke="white" strokeWidth="1.5" />;
+        })}
+        {interactive && dimensions.map((dimension, index) => {
+          const angle = (index * 72 - 90) * Math.PI / 180;
+          const labelX = cx + (radius + 23) * Math.cos(angle);
+          const labelY = cy + (radius + 23) * Math.sin(angle);
+          return <text key={`${dimension.label}-label`} x={labelX.toFixed(1)} y={labelY.toFixed(1)} textAnchor="middle" dominantBaseline="middle" fontSize="11" fontWeight="700" fill={activeIndex === index ? dimension.couleur : "#64748b"}>{dimension.label}</text>;
+        })}
+      </svg>
+      {interactive && activeDimension && (
+        <p className="mt-3 text-center text-xs leading-relaxed text-slate-500" aria-live="polite">
+          <span className="font-bold" style={{ color: activeDimension.couleur }}>{activeDimension.label}</span>
+          {activeDimension.resume ? ` — ${activeDimension.resume}` : ". Cliquez sur un repère pour explorer une autre dimension."}
+        </p>
+      )}
+    </div>
+  );
 }

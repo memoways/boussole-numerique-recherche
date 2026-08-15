@@ -24,6 +24,7 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Deck partenaire recomposé en largeur sur desktop : gabarit interne de 950 px, titre compact sur grand écran, zone de navigation de 72 px fixe et détails défilables dans l’espace restant.
 - Boutons **Précédent** et **Suivant** stabilisés avant les toggles afin qu’ils ne changent plus de position à l’ouverture d’un détail.
 - Radar-boussole réservé à la première slide ; le radar animé de l’accueil est désormais fourni par le composant partagé `AnimatedRadarGraphic`.
+- Radar de la première slide rendu exploratoire : repères et dimensions lisibles, activation à la souris ou au clavier, résumé contextuel et absence de panneau glassmorphism.
 - Éléments de navigation redondants retirés de la présentation et du questionnaire : le fil d’Ariane global porte seul le chemin Accueil → Partenaires → sous-page.
 - README, STORY, archive d’implémentation, opérations et index documentaire restructurés pour refléter la réalité livrée.
 - Open Graph renforcé dans le layout de secours, le composant de métadonnées et le générateur statique : titre, description, URL, image sécurisée, texte alternatif et carte Twitter enrichie.
@@ -56,6 +57,7 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Fallback `/liaison-introuvable` contrôlé visuellement : hiérarchie, contraste, raccourcis et CTA de retour lisibles ; la requête « UNESCO » fait apparaître la source correspondante.
 - Route `/404` contrôlée : titre « Page introuvable », canonique dédiée et directive `noindex,follow` rendus dans le navigateur.
 - Slide partenaire 7 contrôlée visuellement : le titre tient sur une ligne à largeur desktop, la barre est située entre Précédent et Suivant, et le contenu utile gagne 50 px de hauteur ; les canoniques et Open Graph n’exposent pas le port interne.
+- Première slide contrôlée visuellement : le radar sans overlay affiche les cinq dimensions, et le choix de « Compétences » met à jour son résumé contextuel.
 
 ## [1.1.0] — 2026-08-09 au 2026-08-12 — Alignement institutionnel, accessibilité et diffusion
 

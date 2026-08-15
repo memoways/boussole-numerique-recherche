@@ -44,7 +44,7 @@ La page Ressources rassemble les documents internes, les études externes et les
 
 Toute URL inconnue ouvre une page 404 en français, sans impasse : elle reprend la recherche locale des documents et sources, ses suggestions et son filtrage tolérant aux accents. Les premiers résultats apparaissent directement dans la page, tandis que les accès vers Projet, Expérience, Méthode, Partenaires, Ressources et Accueil offrent des chemins de reprise explicites. La route `/404` est non indexable ; les URL inconnues héritent également du comportement SEO de secours non indexable.
 
-L’expérience Boussole utilise cinq dimensions pour rendre le diagnostic tangible. Le radar animé de l’accueil est maintenant fourni par le composant partagé `AnimatedRadarGraphic`. Il est repris dans la première slide de la présentation partenaire, sans surcharger les autres slides.
+L’expérience Boussole utilise cinq dimensions pour rendre le diagnostic tangible. Le radar animé de l’accueil est maintenant fourni par le composant partagé `AnimatedRadarGraphic`. Il est repris dans la première slide de la présentation partenaire comme visualisation exploratoire, sans overlay glassmorphism : les dimensions sont nommées, chaque repère peut être activé à la souris ou au clavier et un résumé contextuel explique la sélection. Les autres slides ne sont pas surchargées de radar.
 
 ### Présentation partenaire
 
@@ -130,6 +130,7 @@ Qualité            pnpm verify · TypeScript · builds · scripts mobile/contra
 | 14 août 2026 | Recherche guidée ajoutée sur Ressources : suggestions thématiques, combinaison des filtres et recherche tolérante aux accents |
 | 14 août 2026 | Page 404 de réorientation ajoutée : recherche locale Ressources, résultats immédiats, raccourcis publics et métadonnées non indexables |
 | 15 août 2026 | Deck partenaire ajusté d’après retour visuel : 950 px, titre compact, progression entre les commandes et suppression du texte de navigation ; URL SEO sans port interne stabilisées |
+| 15 août 2026 | Radar de première slide remplacé : visualisation interactive issue du langage de l’accueil, dimensions sélectionnables et suppression du panneau glassmorphism |
 
 ## 8. État d’activation et limites connues
 

@@ -83,3 +83,4 @@
 - [x] Ajouter des suggestions d’autocomplétion accessibles à la recherche de la page Ressources.
 - [x] Ajuster le deck partenaire : barre de progression, hauteur utile, titre et navigation selon les annotations validées.
 - [x] Corriger l’exposition du port interne 8080 dans les URL publiques derrière Coolify.
+- [x] Remplacer le radar simplifié de la première slide par le radar interactif de l’accueil, sans effet glassmorphism.
