@@ -81,3 +81,5 @@
 - [x] Vérifier les liens externes des archives, documenter les résultats et signaler visuellement les liens sortants.
 - [x] Remplacer ou archiver les 404 prioritaires des archives et afficher leur statut de vérification sur chaque fiche.
 - [x] Ajouter des suggestions d’autocomplétion accessibles à la recherche de la page Ressources.
+- [x] Ajuster le deck partenaire : barre de progression, hauteur utile, titre et navigation selon les annotations validées.
+- [x] Corriger l’exposition du port interne 8080 dans les URL publiques derrière Coolify.

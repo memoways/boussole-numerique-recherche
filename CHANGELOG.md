@@ -21,7 +21,7 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 
 ### Modifié
 
-- Deck partenaire recomposé en largeur sur desktop : gabarit interne de 900 px, titre pleine largeur, zone de navigation de 72 px fixe et détails défilables dans l’espace restant.
+- Deck partenaire recomposé en largeur sur desktop : gabarit interne de 950 px, titre compact sur grand écran, zone de navigation de 72 px fixe et détails défilables dans l’espace restant.
 - Boutons **Précédent** et **Suivant** stabilisés avant les toggles afin qu’ils ne changent plus de position à l’ouverture d’un détail.
 - Radar-boussole réservé à la première slide ; le radar animé de l’accueil est désormais fourni par le composant partagé `AnimatedRadarGraphic`.
 - Éléments de navigation redondants retirés de la présentation et du questionnaire : le fil d’Ariane global porte seul le chemin Accueil → Partenaires → sous-page.
@@ -30,7 +30,9 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - `SITE_URL` fixé par défaut dans le Dockerfile et la documentation sur `https://boussole-culture-recherche.memoways.com`, avec vérification des URL canoniques et Open Graph générées.
 - Sitemap généré au build avec domaine final, date de génération, fréquence et priorité par route indexable ; `robots.txt` référence ce sitemap et exclut les parcours administratifs et de questionnaire.
 - Radar de l’accueil extrait dans `AnimatedRadarGraphic`, puis réemployé dans la première slide partenaire ; les autres slides utilisent des illustrations limitées à leur rôle narratif.
-- Gabarit de la présentation partenaire fixé à 900 px sur desktop, navigation placée dans une bande immobile et fil d’Ariane conservé comme seul repère de retour.
+- Gabarit de la présentation partenaire fixé à 950 px sur desktop, navigation placée dans une bande immobile avec la progression entre les boutons, et fil d’Ariane conservé comme seul repère de retour.
+- Aide textuelle redondante de navigation retirée du deck afin de dégager la bande de commandes ; le compteur de slide accompagne désormais la barre de progression.
+- Origine des métadonnées dynamiques stabilisée sur `VITE_SITE_URL`, avec repli sur le domaine public final, pour empêcher la reprise d’un éventuel port interne Coolify dans les URL canoniques et Open Graph.
 - Plan d’optimisation rédactionnelle ajouté dans `docs/`, avec diagnostic des promesses au présent, répétitions, CTA et affirmations documentaires à vérifier avant réécriture.
 - Première passe éditoriale appliquée : Accueil, Projet, Expérience et Calendrier distinguent la co-conception du futur outil ; Références renonce aux revendications d’exclusivité non étayées ; Méthode et Partenaires resserrent leurs répétitions et CTA.
 - Seconde passe éditoriale appliquée : Recherche distingue les constats sourcés des pistes de conception ; Partenaires clarifie les étapes et contreparties de contribution ; le footer décrit le projet au stade de co-conception.
@@ -53,6 +55,7 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Pages Recherche et Partenaires contrôlées visuellement après la seconde passe ; premier écran, deux parcours d’entrée, CTA de contribution et hiérarchie documentaire validés.
 - Fallback `/liaison-introuvable` contrôlé visuellement : hiérarchie, contraste, raccourcis et CTA de retour lisibles ; la requête « UNESCO » fait apparaître la source correspondante.
 - Route `/404` contrôlée : titre « Page introuvable », canonique dédiée et directive `noindex,follow` rendus dans le navigateur.
+- Slide partenaire 7 contrôlée visuellement : le titre tient sur une ligne à largeur desktop, la barre est située entre Précédent et Suivant, et le contenu utile gagne 50 px de hauteur ; les canoniques et Open Graph n’exposent pas le port interne.
 
 ## [1.1.0] — 2026-08-09 au 2026-08-12 — Alignement institutionnel, accessibilité et diffusion
 

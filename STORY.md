@@ -48,7 +48,7 @@ L’expérience Boussole utilise cinq dimensions pour rendre le diagnostic tangi
 
 ### Présentation partenaire
 
-La route `/partenaires/presentation` contient neuf slides. Les détails sont dépliables au clavier, les liens contextuels ouvrent les pages utiles et l’URL conserve `slide` et `detail` pour que le bouton précédent du navigateur retrouve le contexte de lecture. Le deck desktop utilise un gabarit interne de 900 px : titre pleine largeur, navigation fixe et panneaux défilables dans l’espace restant. Sur mobile, les colonnes se replient et les commandes restent accessibles.
+La route `/partenaires/presentation` contient neuf slides. Les détails sont dépliables au clavier, les liens contextuels ouvrent les pages utiles et l’URL conserve `slide` et `detail` pour que le bouton précédent du navigateur retrouve le contexte de lecture. Le deck desktop utilise un gabarit interne de 950 px : titre compact, navigation fixe et panneaux défilables dans l’espace restant. La barre de progression est placée entre les commandes Précédent et Suivant, avec un compteur de slide ; l’aide textuelle redondante est retirée. Sur mobile, les colonnes se replient et les commandes restent accessibles.
 
 La première slide utilise le radar animé ; les autres n’emploient une illustration que lorsqu’elle explicite réellement le récit. Les retours de navigation redondants, les labels sous le radar et les icônes décoratives inutiles ont été supprimés lors des derniers ajustements visuels.
 
@@ -73,6 +73,7 @@ Après chaque soumission, l’API prépare un e-mail de récapitulatif détermin
 | Fil d’Ariane unique | Éviter les parcours redondants | Les sous-pages n’affichent pas un second retour concurrent |
 | Direction bleu → cyan → vert → orange | Conserver un langage visuel commun | Les contributions, étapes et CTA restent immédiatement identifiables |
 | Open Graph statique et dynamique | Les robots sociaux ne dépendent pas de JavaScript | Les balises de partage sont injectées au build et mises à jour à chaque route SPA |
+| URL SEO ancrées au domaine public | Le proxy ne doit jamais faire remonter son port interne dans les métadonnées | `VITE_SITE_URL`, ou le domaine final en repli, construit les canoniques, Open Graph et JSON-LD côté interface |
 | Sitemap et robots générés au build | Le domaine final doit se propager sans édition manuelle | Les seules routes indexables entrent dans le sitemap ; les parcours privés sont exclus |
 | Outil en co-conception | Le site public ne doit pas annoncer un diagnostic déjà disponible | Les pages d’entrée, le calendrier et les démonstrations décrivent la future version au futur |
 | Recherche documentaire distincte des promesses produit | Les sources servent à éclairer les choix, sans faire preuve de l’utilité future | La page Recherche parle de constats documentés et de questions à tester ; les pistes de conception sont nommées comme telles |
@@ -128,6 +129,7 @@ Qualité            pnpm verify · TypeScript · builds · scripts mobile/contra
 | 14 août 2026 | Traitement des 404 : destinations officielles actualisées, références sans équivalent archivées et badge de dernier contrôle ajouté aux fiches d’archive |
 | 14 août 2026 | Recherche guidée ajoutée sur Ressources : suggestions thématiques, combinaison des filtres et recherche tolérante aux accents |
 | 14 août 2026 | Page 404 de réorientation ajoutée : recherche locale Ressources, résultats immédiats, raccourcis publics et métadonnées non indexables |
+| 15 août 2026 | Deck partenaire ajusté d’après retour visuel : 950 px, titre compact, progression entre les commandes et suppression du texte de navigation ; URL SEO sans port interne stabilisées |
 
 ## 8. État d’activation et limites connues
 

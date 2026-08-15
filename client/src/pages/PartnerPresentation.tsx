@@ -18,6 +18,7 @@ import { AnimatedRadarGraphic } from "@/components/AnimatedRadarGraphic";
 
 /**
  * Présentation partenaire — direction visuelle : progression bleu → cyan → vert → orange.
+ * Le deck privilégie une lecture horizontale, une navigation immobile et des titres compacts sur desktop.
  * Les détails se déploient dans le flux de lecture ; l’état slide/détail reste dans l’URL.
  */
 
@@ -363,20 +364,12 @@ export default function PartnerPresentation() {
   }, [currentIndex]);
 
   return (
-    <div className="bg-white px-4 py-8 sm:py-12">
+    <div className="bg-white px-4 py-4 sm:py-6">
       <section className="mx-auto max-w-7xl">
-        <div className="mb-6 flex items-center justify-end text-sm text-slate-500">
-          <span aria-live="polite">{currentIndex + 1} / {SLIDES.length}</span>
-        </div>
-
-        <div className="h-1.5 overflow-hidden rounded-full bg-slate-100" aria-label={`Progression : ${currentIndex + 1} sur ${SLIDES.length}`} role="progressbar" aria-valuenow={currentIndex + 1} aria-valuemin={1} aria-valuemax={SLIDES.length}>
-          <div className="h-full rounded-full transition-[width] duration-300 motion-reduce:transition-none" style={{ width: `${((currentIndex + 1) / SLIDES.length) * 100}%`, backgroundColor: slide.accent }} />
-        </div>
-
-        <article className="mt-5 overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-50 via-white to-white shadow-[0_20px_70px_rgba(42,54,90,0.08)] lg:flex lg:h-[900px] lg:max-h-[900px] lg:flex-col">
-          <div className="p-5 sm:p-7 lg:h-[480px] lg:shrink-0 lg:overflow-y-auto lg:p-9 xl:p-10">
+        <article className="overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-50 via-white to-white shadow-[0_20px_70px_rgba(42,54,90,0.08)] lg:flex lg:h-[950px] lg:max-h-[950px] lg:flex-col">
+          <div className="p-5 sm:p-6 lg:h-[480px] lg:shrink-0 lg:overflow-y-auto lg:p-7 xl:p-8">
             <p className="text-xs font-extrabold uppercase tracking-[0.16em]" style={{ color: slide.accent }}>{slide.eyebrow}</p>
-            <h1 className="mt-5 max-w-none text-3xl font-extrabold leading-tight text-slate-950 sm:text-4xl xl:text-[2.7rem]">{slide.title}</h1>
+            <h1 className="mt-3 max-w-none text-3xl font-extrabold leading-[1.12] tracking-tight text-slate-950 sm:text-4xl lg:text-[2rem] xl:text-[2.25rem] xl:whitespace-nowrap">{slide.title}</h1>
             <div className={`mt-3 grid gap-5 lg:items-start lg:gap-8 ${slide.visual === "none" ? "" : "lg:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)]"}`}>
               <div>
                 <p className="max-w-3xl text-base leading-relaxed text-slate-600 sm:text-lg">{slide.text}</p>
@@ -388,11 +381,16 @@ export default function PartnerPresentation() {
           </div>
 
           <nav className="shrink-0 border-y border-slate-200 bg-white px-5 py-4 sm:px-7 lg:h-[72px] lg:px-9 xl:px-10" aria-label="Navigation de la présentation">
-            <div className="flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 sm:gap-5">
               <Button variant="outline" disabled={currentIndex === 0} onClick={() => goToSlide(currentIndex - 1)}>
                 <ArrowLeft className="mr-2 h-4 w-4" /> Précédent
               </Button>
-              <p className="text-center text-xs text-slate-400 sm:order-none">Flèches gauche et droite disponibles hors des contrôles interactifs.</p>
+              <div className="flex min-w-0 items-center gap-2 sm:gap-3">
+                <div className="h-1.5 min-w-0 flex-1 overflow-hidden rounded-full bg-slate-100" aria-label={`Progression : ${currentIndex + 1} sur ${SLIDES.length}`} role="progressbar" aria-valuenow={currentIndex + 1} aria-valuemin={1} aria-valuemax={SLIDES.length}>
+                  <div className="h-full rounded-full transition-[width] duration-300 motion-reduce:transition-none" style={{ width: `${((currentIndex + 1) / SLIDES.length) * 100}%`, backgroundColor: slide.accent }} />
+                </div>
+                <span className="shrink-0 text-xs font-semibold tabular-nums text-slate-500" aria-live="polite">{currentIndex + 1} / {SLIDES.length}</span>
+              </div>
               {isLast ? (
                 <Button asChild style={{ backgroundColor: "#E07428", color: "#fff" }}>
                   <Link href="/partenaires/questionnaire">Partager mes idées et feedbacks <ArrowRight className="ml-2 h-4 w-4" /></Link>

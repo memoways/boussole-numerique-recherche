@@ -2,7 +2,7 @@
 
 ## État actuel
 
-La version actuelle de **Boussole Numérique Culture** est un portail statique accompagné d’une API partenaire optionnelle. Les réglages de build publics sont `SITE_URL`, l’URL publique finale utilisée pour les URL canoniques, Open Graph, `sitemap.xml` et `robots.txt`, ainsi que `VITE_PARTNER_API_URL`, l’URL publique de l’API partenaire.
+La version actuelle de **Boussole Numérique Culture** est un portail statique accompagné d’une API partenaire optionnelle. Les réglages de build publics sont `SITE_URL`, l’URL publique finale utilisée pour les fichiers générés (`sitemap.xml`, `robots.txt` et pages de partage), `VITE_SITE_URL`, l’origine publique utilisée par l’interface pour les balises canoniques et Open Graph, ainsi que `VITE_PARTNER_API_URL`, l’URL publique de l’API partenaire.
 
 > Ne créez pas de variable `VITE_*` pour un secret : Vite l'intègre au JavaScript distribué au navigateur.
 
@@ -13,11 +13,12 @@ Si une fonctionnalité a besoin d'un secret — clé IA, API externe, envoi d'e-
 | Type de valeur | Où la stocker | Exposition au navigateur |
 |---|---|---|
 | URL publique du site (`SITE_URL`) | Variable de build Coolify | Oui, dans les métadonnées générées |
+| Origine publique côté interface (`VITE_SITE_URL`) | Variable de build Coolify | Oui, dans le JavaScript et les métadonnées dynamiques |
 | Réglage purement public côté interface | Variable `VITE_*` au build, si nécessaire | Oui |
 | Clé API, token, mot de passe, clé privée | Variable runtime du backend dans Coolify | Non |
 | Certificat ou secret multiligne | Variable multiligne verrouillée dans Coolify | Non |
 
-Dans Coolify, ajoutez `SITE_URL=https://boussole-culture-recherche.memoways.com` et `VITE_PARTNER_API_URL=https://api.boussole-culture-recherche.memoways.com` comme variables de **build**, sans slash final. Ces valeurs sont publiques. Les anciennes variables propres à Manus ne doivent pas être copiées vers Coolify.
+Dans Coolify, ajoutez `SITE_URL=https://boussole-culture-recherche.memoways.com`, `VITE_SITE_URL=https://boussole-culture-recherche.memoways.com` et `VITE_PARTNER_API_URL=https://api.boussole-culture-recherche.memoways.com` comme variables de **build**, sans slash final ni port `:8080`. Ces valeurs sont publiques. Les anciennes variables propres à Manus ne doivent pas être copiées vers Coolify.
 
 ## Questionnaire partenaire
 

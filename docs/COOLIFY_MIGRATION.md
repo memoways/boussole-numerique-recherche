@@ -15,8 +15,9 @@ Vous devez disposer d'une instance Coolify self-hosted opérationnelle, d'un ser
 | Dépôt | Git privé, branche `main` | Contrôle des accès et traçabilité des mises à jour. |
 | Build pack Coolify | **Dockerfile** | Reproductibilité exacte de l'image définie dans le dépôt. |
 | Base directory | `/` | Le `Dockerfile` et `package.json` sont à la racine. |
-| Port exposé | `8080` | Port Nginx défini dans le `Dockerfile`. |
-| Variable de build | `SITE_URL=https://votre-domaine.example` | Génère les URL SEO finales ; ce n'est pas un secret. |
+| Port interne de l’application | `8080` | Port Nginx défini dans le `Dockerfile` ; il est raccordé au proxy Coolify, pas ajouté au domaine public. |
+| Domaine public | `https://votre-domaine.example` | FQDN HTTPS sans `:8080`, présenté aux visiteurs et utilisé par le proxy. |
+| Variables de build | `SITE_URL` et `VITE_SITE_URL` | Les deux portent l’URL HTTPS publique sans port ; elles génèrent les URL SEO finales et dynamiques. |
 | Stockage persistant | Aucun | L'application n'écrit aucune donnée. |
 
 ## Première mise en ligne
@@ -29,11 +30,13 @@ Poussez la branche `main` vers GitHub, GitLab, Gitea ou votre forge Git habituel
 
 Dans Coolify, créez un projet puis une nouvelle ressource applicative. Sélectionnez le dépôt Git, choisissez **Dockerfile** au lieu de Nixpacks, gardez `/` comme base directory et conservez le chemin `Dockerfile`. Cette configuration donne à l'image le contrôle complet de son build et de son exécution.[1]
 
-Dans **Network**, définissez le port exposé sur `8080`. Ajoutez le ou les noms de domaine souhaités dans le champ FQDN, par exemple `boussole.example.org` et `www.boussole.example.org`. Coolify gère les certificats TLS pour les domaines de la ressource lorsque le DNS est correctement orienté vers le serveur.[4]
+Dans **Network**, définissez le port interne sur `8080`. Ajoutez le ou les noms de domaine souhaités dans le champ FQDN, par exemple `https://boussole.example.org` et `https://www.boussole.example.org`. **N’ajoutez jamais `:8080` au FQDN** : ce port appartient uniquement au conteneur Nginx et doit être atteint par le proxy Coolify. Coolify gère les certificats TLS pour les domaines de la ressource lorsque le DNS est correctement orienté vers le serveur.[4]
+
+> Si une adresse publique comporte déjà `:8080`, supprimez cette entrée du champ FQDN, enregistrez uniquement l’URL HTTPS sans port, puis relancez le déploiement. L’adresse à ouvrir doit être `https://boussole-culture-recherche.memoways.com/timeline`, jamais `https://boussole-culture-recherche.memoways.com:8080/timeline`.
 
 ### 3. Variables et secrets
 
-N'ajoutez aucune ancienne variable de Manus. Ajoutez `SITE_URL=https://votre-domaine.example` comme variable de build pour les métadonnées SEO ; elle est publique et ne constitue pas un secret. Le site ne requiert aucune variable runtime. Si vous activez ultérieurement un backend, stockez les secrets uniquement dans la ressource backend ; les variables runtime ne sont nécessaires qu'au conteneur qui les consomme.[3]
+N'ajoutez aucune ancienne variable de Manus. Ajoutez `SITE_URL=https://votre-domaine.example` et `VITE_SITE_URL=https://votre-domaine.example` comme variables de build pour les métadonnées SEO ; elles sont publiques et ne constituent pas des secrets. Les deux valeurs doivent être strictement identiques, en HTTPS, sans slash final ni `:8080`. Le site ne requiert aucune variable runtime. Si vous activez ultérieurement un backend, stockez les secrets uniquement dans la ressource backend ; les variables runtime ne sont nécessaires qu'au conteneur qui les consomme.[3]
 
 Les variables de build sont injectées comme `ARG` pour les applications Dockerfile et peuvent être retrouvées dans les métadonnées de l'image. Pour une future clé réellement requise au build, activez les Docker Build Secrets dans Coolify ; cette option évite de l'inscrire dans les couches de l'image.[3]
 
@@ -59,8 +62,9 @@ La version actuelle est volontairement sans backend. Une future fonctionnalité 
 
 - [ ] Le dépôt Git contient le kit Docker et la documentation actuelle.
 - [ ] `pnpm verify` est vert localement et dans GitHub Actions.
-- [ ] La ressource Coolify utilise le build pack Dockerfile, la base `/` et le port `8080`.
-- [ ] La variable de build publique `SITE_URL` correspond exactement au domaine final en HTTPS, sans slash final.
+- [ ] La ressource Coolify utilise le build pack Dockerfile, la base `/` et le port interne `8080`.
+- [ ] Le FQDN Coolify correspond exactement au domaine final en HTTPS, sans `:8080`.
+- [ ] Les variables de build publiques `SITE_URL` et `VITE_SITE_URL` correspondent exactement au domaine final en HTTPS, sans slash final ni port.
 - [ ] Le DNS du domaine cible pointe sur le serveur Coolify.
 - [ ] La racine et les routes profondes sont validées après déploiement.
 - [ ] Les anciennes URL Manus sont retirées des documents et liens de production après validation du nouveau domaine.

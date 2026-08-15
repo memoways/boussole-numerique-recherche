@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 import { getBreadcrumbs, getSeoPage, normalizePathname, SITE_NAME } from "@/lib/seo";
 
+/** Métadonnées publiques : les canoniques restent sur le domaine HTTPS configuré, sans port interne Coolify. */
+const PUBLIC_SITE_URL = (import.meta.env.VITE_SITE_URL ?? "https://boussole-culture-recherche.memoways.com").replace(/\/+$/, "");
+
 function upsertMeta(selector: string, attributes: Record<string, string>, content: string) {
   let element = document.head.querySelector<HTMLMetaElement>(selector);
   if (!element) {
@@ -26,7 +29,7 @@ export default function SeoMeta({ pathname }: { pathname: string }) {
     const normalizedPath = normalizePathname(pathname);
     const page = getSeoPage(normalizedPath);
     const canonicalPath = page.canonicalPath ?? normalizedPath;
-    const origin = window.location.origin;
+    const origin = PUBLIC_SITE_URL;
     const canonicalUrl = new URL(canonicalPath, origin).toString();
     const imageUrl = new URL("/logo-memoways.png", origin).toString();
     const robots = page.index === false ? "noindex,follow" : "index,follow";
