@@ -90,3 +90,4 @@
 - [x] Fluidifier les transitions entre les slides de la présentation partenaire.
 - [x] Densifier la zone de schéma et compacter la narration à gauche sur les neuf slides partenaire.
 - [x] Éliminer les chevauchements de libellés dans les schémas narratifs du deck.
+- [x] Consolider CHANGELOG et STORY avec les derniers changements de la présentation partenaire.

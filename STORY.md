@@ -44,21 +44,19 @@ La page Ressources rassemble les documents internes, les études externes et les
 
 Toute URL inconnue ouvre une page 404 en français, sans impasse : elle reprend la recherche locale des documents et sources, ses suggestions et son filtrage tolérant aux accents. Les premiers résultats apparaissent directement dans la page, tandis que les accès vers Projet, Expérience, Méthode, Partenaires, Ressources et Accueil offrent des chemins de reprise explicites. La route `/404` est non indexable ; les URL inconnues héritent également du comportement SEO de secours non indexable.
 
-L’expérience Boussole utilise cinq dimensions pour rendre le diagnostic tangible. Le radar animé de l’accueil est maintenant fourni par le composant partagé `AnimatedRadarGraphic`. Il est repris dans la première slide de la présentation partenaire comme visualisation exploratoire, sans overlay glassmorphism : les dimensions sont nommées, chaque repère peut être activé à la souris ou au clavier et un résumé contextuel explique la sélection. Les autres slides ne sont pas surchargées de radar.
+L’expérience Boussole utilise cinq dimensions pour rendre le diagnostic tangible. Le radar animé de l’accueil est fourni par le composant partagé `AnimatedRadarGraphic`. Il ouvre la présentation partenaire comme visualisation exploratoire, sans overlay glassmorphism : les dimensions sont nommées, chaque repère répond au survol, au focus, au clic et au clavier, puis met à jour une lecture contextuelle. Les autres slides n’emploient pas de radar afin que chaque illustration conserve un rôle propre.
 
 ### Présentation partenaire
 
 La route `/partenaires/presentation` contient neuf slides. Les détails sont dépliables au clavier, les liens contextuels ouvrent les pages utiles et l’URL conserve `slide` et `detail` pour que le bouton précédent du navigateur retrouve le contexte de lecture. Le deck desktop utilise un gabarit interne de 950 px : titre compact, navigation fixe et panneaux défilables dans l’espace restant. La barre de progression est placée entre les commandes Précédent et Suivant, avec un compteur de slide ; l’aide textuelle redondante est retirée. Sur mobile, les colonnes se replient et les commandes restent accessibles.
 
-La première slide utilise le radar animé ; les autres n’emploient une illustration que lorsqu’elle explicite réellement le récit. Les retours de navigation redondants, les labels sous le radar et les icônes décoratives inutiles ont été supprimés lors des derniers ajustements visuels.
+La première slide utilise le radar animé ; les huit autres s’appuient sur `InteractiveNarrativeIllustration`. Chaque composant relie un schéma à une idée précise : signaux du terrain, parcours, réalités à relier, lecture sans note unique, conditions de confiance, écoute, atelier ou contribution. Les retours de navigation redondants et les icônes décoratives inutiles ont été supprimés lors des derniers ajustements visuels.
 
-Les neuf slides sont désormais construites comme un récit partenaire. La colonne de gauche occupe deux tiers du gabarit desktop : elle réunit l’intention, le contexte, trois effets attendus et la valeur concrète de la contribution. Le tiers droit accueille un schéma propre à chaque propos — parcours, signaux du terrain, communauté, cycle, principes, passerelle, atelier ou contribution — sans carte, bordure ou glassmorphism qui le dissocierait du récit. Les accordéons prolongent la lecture sans être annoncés par un texte d’instruction redondant.
+Les neuf slides sont construites comme un récit partenaire. La colonne de gauche reste majoritaire et réunit l’intention, le contexte, trois effets attendus et la valeur concrète de la contribution. La zone d’illustration de droite est volontairement plus large qu’auparavant : elle accueille un schéma propre à chaque propos, sans carte extérieure, bordure décorative ou glassmorphism qui le dissocierait du récit. Les accordéons prolongent la lecture sans être annoncés par un texte d’instruction redondant.
 
 Le haut de chaque slide conserve une zone narrative de 580 px sur desktop. Cette hauteur évite un défilement interne avant les commandes tout en laissant le texte et son illustration dans le même champ de lecture. Les accordéons restent dans la partie basse, séparés par la navigation fixe.
 
-Les schémas du tiers droit ne sont plus décoratifs : chacun présente une séquence ou une relation propre au propos de la slide et expose une phrase de lecture lorsque l’un de ses repères est survolé, focalisé ou activé. Les transitions entre slides sont directionnelles et brèves lors des actions de navigation ; les raccourcis clavier restent instantanés et les animations sont coupées lorsque la préférence système de mouvement réduit est active.
-
-Après contrôle des premiers schémas, la composition est resserrée sur l’ensemble du deck : la colonne textuelle garde l’essentiel du récit, tandis que la zone d’illustration reçoit un espace élargi. Les étapes sont désormais contenues dans des repères alignés, sans libellés flottants ni croisement entre le schéma et sa phrase de lecture. Le cycle à quatre temps s’affiche en matrice lisible ; les signaux se lisent comme des barres progressives.
+Les schémas du tiers droit ne sont pas décoratifs : chacun présente une séquence ou une relation propre au propos de la slide et expose une phrase de lecture lorsque l’un de ses repères est survolé, focalisé ou activé. Les étapes sont contenues dans des tuiles alignées, sans libellé flottant ni croisement avec l’explication. Le cycle à quatre temps s’affiche en matrice lisible ; les signaux se lisent comme des barres progressives. Les transitions entre slides sont directionnelles et limitées à 260 ms lors des actions de navigation ; les raccourcis clavier restent instantanés et les animations sont coupées lorsque la préférence système de mouvement réduit est active.
 
 ### Questionnaire, données et administration
 
@@ -80,6 +78,8 @@ Après chaque soumission, l’API prépare un e-mail de récapitulatif détermin
 | Boîte Dreamlit restreinte | L’outil d’e-mail ne doit pas lire les réponses brutes | Dreamlit consomme uniquement destinataire, objet et texte préparé |
 | Fil d’Ariane unique | Éviter les parcours redondants | Les sous-pages n’affichent pas un second retour concurrent |
 | Direction bleu → cyan → vert → orange | Conserver un langage visuel commun | Les contributions, étapes et CTA restent immédiatement identifiables |
+| Schémas partenaires alignés | Une illustration doit expliquer le récit, sans empiéter sur lui | Chaque slide associe un schéma interactif, des repères contenus et une phrase contextuelle séparée |
+| Animation de navigation mesurée | Une transition doit orienter sans ralentir la consultation | Les commandes produisent une entrée directionnelle de 260 ms ; clavier et mouvement réduit évitent l’animation |
 | Open Graph statique et dynamique | Les robots sociaux ne dépendent pas de JavaScript | Les balises de partage sont injectées au build et mises à jour à chaque route SPA |
 | URL SEO ancrées au domaine public | Le proxy ne doit jamais faire remonter son port interne dans les métadonnées | `VITE_SITE_URL`, ou le domaine final en repli, construit les canoniques, Open Graph et JSON-LD côté interface |
 | Sitemap et robots générés au build | Le domaine final doit se propager sans édition manuelle | Les seules routes indexables entrent dans le sitemap ; les parcours privés sont exclus |
@@ -111,7 +111,7 @@ Qualité            pnpm verify · TypeScript · builds · scripts mobile/contra
 | Emplacement | Contenu |
 |---|---|
 | `client/src/pages/` | Pages éditoriales, expérience et interfaces partenaires |
-| `client/src/components/` | Navigation, fil d’Ariane, composants UI et `AnimatedRadarGraphic` |
+| `client/src/components/` | Navigation, fil d’Ariane, composants UI, `AnimatedRadarGraphic` et `InteractiveNarrativeIllustration` |
 | `client/src/lib/` | SEO, client API partenaire et utilitaires |
 | `services/partner-feedback-api/` | API, schéma SQL idempotent, e-mail et tests de récapitulatif |
 | `docs/` | Migration, opérations, activation Dreamlit, validation et archives |
@@ -140,6 +140,7 @@ Qualité            pnpm verify · TypeScript · builds · scripts mobile/contra
 | 15 août 2026 | Deck partenaire ajusté d’après retour visuel : 950 px, titre compact, progression entre les commandes et suppression du texte de navigation ; URL SEO sans port interne stabilisées |
 | 15 août 2026 | Radar de première slide remplacé : visualisation interactive issue du langage de l’accueil, dimensions sélectionnables et suppression du panneau glassmorphism |
 | 15 août 2026 | Récit partenaire recomposé : contenu dense en colonne 2/3, schémas narratifs sans cadre dans le tiers droit, phrase d’instruction retirée et valeur de contribution explicitée slide par slide |
+| 15 août 2026 | Illustrations partenaires consolidées : composants exploratoires, transitions directionnelles accessibles, zone graphique élargie, étapes contenues et contrôles visuels des slides 1, 2, 5 et 9 |
 
 ## 8. État d’activation et limites connues
 

@@ -18,10 +18,11 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Vue d’administration des e-mails prêts, aperçu du récapitulatif et régénération manuelle sans doublon, avec compteur et trace d’événement.
 - Documentation d’exploitation de l’API, de PostgreSQL, de Dreamlit, de Coolify, de l’environnement et du contrôle pilote.
 - Page **404** française, intégrée au layout du portail, avec recherche locale tolérante aux accents dans les documents et sources, suggestions, résultats immédiats et cinq raccourcis de réorientation.
+- Composant partagé `InteractiveNarrativeIllustration` pour les huit schémas de présentation non radar : signaux, parcours, communauté, cycle, principes, passerelle, atelier et contribution.
 
 ### Modifié
 
-- Deck partenaire recomposé en largeur sur desktop : gabarit interne de 950 px, titre compact sur grand écran, zone de navigation de 72 px fixe et détails défilables dans l’espace restant.
+- Deck partenaire stabilisé sur desktop : gabarit interne de 950 px, zone narrative de 580 px sans défilement interne, titre compact, navigation fixe de 72 px et approfondissements réservés à la partie basse.
 - Boutons **Précédent** et **Suivant** stabilisés avant les toggles afin qu’ils ne changent plus de position à l’ouverture d’un détail.
 - Radar-boussole réservé à la première slide ; le radar animé de l’accueil est désormais fourni par le composant partagé `AnimatedRadarGraphic`.
 - Radar de la première slide rendu exploratoire : repères et dimensions lisibles, activation à la souris ou au clavier, résumé contextuel et absence de panneau glassmorphism.
@@ -31,14 +32,13 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - `SITE_URL` fixé par défaut dans le Dockerfile et la documentation sur `https://boussole-culture-recherche.memoways.com`, avec vérification des URL canoniques et Open Graph générées.
 - Sitemap généré au build avec domaine final, date de génération, fréquence et priorité par route indexable ; `robots.txt` référence ce sitemap et exclut les parcours administratifs et de questionnaire.
 - Radar de l’accueil extrait dans `AnimatedRadarGraphic`, puis réemployé dans la première slide partenaire ; les autres slides utilisent des illustrations limitées à leur rôle narratif.
-- Gabarit de la présentation partenaire fixé à 950 px sur desktop, navigation placée dans une bande immobile avec la progression entre les boutons, et fil d’Ariane conservé comme seul repère de retour.
 - Aide textuelle redondante de navigation retirée du deck afin de dégager la bande de commandes ; le compteur de slide accompagne désormais la barre de progression.
 - Origine des métadonnées dynamiques stabilisée sur `VITE_SITE_URL`, avec repli sur le domaine public final, pour empêcher la reprise d’un éventuel port interne Coolify dans les URL canoniques et Open Graph.
-- Contenu des neuf slides partenaire recomposé : explication, mise en contexte, trois effets attendus et valeur de contribution structurent les deux tiers de lecture à gauche ; les illustrations à droite deviennent des schémas narratifs sans panneau ni effet glassmorphism.
+- Contenu des neuf slides partenaire recomposé : explication, mise en contexte, trois effets attendus et valeur de contribution structurent une colonne narrative majoritaire ; la zone d’illustration, élargie à droite, accueille des schémas narratifs sans panneau ni effet glassmorphism.
 - La phrase d’instruction « Ouvrez les repères ci-dessous… » est retirée du deck ; les accordéons restent disponibles comme approfondissement facultatif.
 - Schémas narratifs rendus exploratoires : chaque repère répond au survol, au focus ou au clic, modifie l’élément actif et affiche une explication complémentaire ; le radar de la première slide adopte aussi l’activation au survol.
 - Entrées directionnelles de 260 ms ajoutées aux slides lors d’une navigation par commande, sans animation pour les flèches clavier ni pour les préférences de mouvement réduit.
-- Illustrations du deck recomposées dans un système commun : étapes contenues dans leurs tuiles, explication contextuelle séparée, zone de schéma élargie et colonne textuelle resserrée pour éliminer les chevauchements.
+- Illustrations du deck recomposées dans un système commun : étapes contenues dans leurs tuiles, explication contextuelle séparée, zone de schéma élargie et colonne textuelle resserrée pour éliminer les chevauchements ; le cycle utilise une matrice à quatre temps et les signaux des barres progressives.
 - Plan d’optimisation rédactionnelle ajouté dans `docs/`, avec diagnostic des promesses au présent, répétitions, CTA et affirmations documentaires à vérifier avant réécriture.
 - Première passe éditoriale appliquée : Accueil, Projet, Expérience et Calendrier distinguent la co-conception du futur outil ; Références renonce aux revendications d’exclusivité non étayées ; Méthode et Partenaires resserrent leurs répétitions et CTA.
 - Seconde passe éditoriale appliquée : Recherche distingue les constats sourcés des pistes de conception ; Partenaires clarifie les étapes et contreparties de contribution ; le footer décrit le projet au stade de co-conception.
