@@ -273,7 +273,7 @@ export default function Projet() {
             </span>
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl leading-relaxed">
-            Un projet en co-conception pour concevoir un outil web gratuit qui aidera les actrices et acteurs culturels à situer leurs pratiques numériques et à choisir leurs priorités.
+            Un outil en co-conception, accompagné par ce site, pour aider les actrices et acteurs culturels à situer leurs pratiques numériques et à choisir leurs priorités avec l’appui de partenaires relais.
           </p>
         </div>
       </section>
@@ -348,13 +348,13 @@ export default function Projet() {
           {/* ── 1. NOTE D'INTENTION ─────────────────────────────────────────── */}
           <section id="intention" style={{ scrollMarginTop: '80px' }}>
             <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#515792' }}>Note d'intention</Badge>
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-5">Un projet pour situer les pratiques numériques</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-5">Un outil à définir avec les personnes concernées</h2>
             <div className="space-y-4 text-gray-600 leading-relaxed">
               <p>
-                La <strong className="text-gray-900">Boussole Numérique Culture</strong> est un projet d’application web gratuite. Sa version publique proposera un état des lieux des usages numériques, suivi d’une restitution visuelle et d’un dialogue guidé.
+                La <strong className="text-gray-900">Boussole Numérique Culture</strong> est un outil en co-conception. Ce site compagnon rend son développement lisible, recueille les réactions des partenaires et accompagnera les décisions qui mèneront à un premier prototype.
               </p>
               <p>
-                Les partenaires précisent aujourd’hui les questions, les dimensions et les formes de restitution. La version publique s’appuiera sur un questionnaire adaptatif d’une dizaine de minutes, puis proposera une restitution visuelle et un dialogue guidé. Elle devra aider chacun et chacune à repérer les changements utiles dans leur quotidien de travail.
+                Les partenaires précisent aujourd’hui les questions, les dimensions et les formes de restitution. Ils relient l’outil aux artistes, aux équipes et aux communautés qu’ils accompagnent. La future version s’appuiera sur un questionnaire adaptatif, une restitution visuelle et un dialogue guidé pour aider chacun et chacune à repérer les changements utiles dans son quotidien de travail.
               </p>
               <p>
                 Le projet est porté par une équipe spécialisée dans la transformation numérique des organisations culturelles et créatives, avec une pratique professionnelle ancrée dans le secteur culturel suisse.
@@ -374,7 +374,7 @@ export default function Projet() {
               <div className="flex-1 min-w-0">
                 <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: '#515792' }}>Qui est Memoways ?</p>
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  Memoways est une agence fondée à Genève en 2011 par Ulrich Fischer, spécialisée dans la transformation numérique des organisations culturelles et créatives. Elle accompagne musées, théâtres, associations et institutions dans leurs transitions numériques — avec une approche ancrée dans les réalités du terrain.
+                  Memoways est une agence fondée en 2011 par Ulrich Fischer, spécialisée dans la transformation numérique des organisations culturelles et créatives. Elle accompagne musées, théâtres, associations et institutions dans leurs transitions numériques — avec une approche ancrée dans les réalités du terrain.
                 </p>
                 <a
                   href="https://memoways.com"

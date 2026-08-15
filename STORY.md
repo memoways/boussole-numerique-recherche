@@ -2,9 +2,9 @@
 
 ## 1. Raison d’être du projet
 
-**Boussole Numérique Culture** est un portail institutionnel et un projet de futur outil de diagnostic. La version publique aidera les actrices, acteurs et structures culturelles à situer leurs pratiques numériques, à reconnaître leurs priorités et à choisir des pistes d’action compréhensibles. Le portail présente le projet, son contexte, ses références, ses principes de gouvernance et les manières de participer à sa co-construction.
+**Boussole Numérique Culture** est un outil en co-conception et son site compagnon. La future version aidera les actrices, acteurs et structures culturelles à situer leurs pratiques numériques, à reconnaître leurs priorités et à choisir des pistes d’action compréhensibles. Le site rend l’outil, son contexte, ses références, ses principes de gouvernance et les manières de contribuer lisibles au fil de son développement.
 
-Le site n’est pas le diagnostic public lui-même. Il rend l’intention du projet lisible, matérialise une première expérience de Boussole et prépare le pilote partenaire. Il doit pouvoir être maintenu et déployé indépendamment de Manus, par l’équipe de projet ou par des agents de code compatibles.
+Le site n’est pas le diagnostic public lui-même. Il s’adresse d’abord aux institutions, structures, associations, réseaux et collectifs culturels capables de relier l’outil aux artistes et aux personnes actives dans la culture. Il rend l’intention lisible, matérialise une première expérience de Boussole et prépare le pilote partenaire. Il doit pouvoir être maintenu et déployé indépendamment de Manus, par l’équipe de projet ou par des agents de code compatibles.
 
 > **Positionnement.** Une ressource de repérage et de dialogue destinée au secteur culturel, qui privilégie des prochaines étapes adaptées plutôt qu’une évaluation unique ou une prescription d’outils.
 
@@ -16,7 +16,7 @@ La version actuelle distingue quatre couches complémentaires : le récit instit
 
 | Couche | Rôle | État actuel |
 |---|---|---|
-| Portail public | Présenter projet, méthode, calendrier, références et partenaires | Livré et vérifié |
+| Site compagnon | Identifier les partenaires, présenter l’outil, organiser les contributions et documenter les décisions | Livré ; phase de mobilisation en cours |
 | Expérience Boussole | Rendre les cinq dimensions et le parcours perceptibles | Livrée sous forme de démonstration interactive |
 | Module partenaire | Présentation, invitations, questionnaire, administration et synthèses | Code livré ; activation Coolify à réaliser |
 | Recherche et ressources | Montrer l’apprentissage à partir de l’existant | Livré et relié au portail |
@@ -32,7 +32,7 @@ La recherche ne sert pas à prouver par avance l’utilité de la future Boussol
 | Interlocuteurs institutionnels | « Le projet est-il cohérent, documenté et gouverné ? » | Projet → Calendrier → Méthode → Références |
 | Équipe de projet | « Comment activer, maintenir et faire évoluer le dispositif ? » | README → docs → AGENTS → Coolify |
 
-Le menu public reste volontairement court : **Projet, Calendrier, Expérience, Méthode, Partenaires**. Les contenus de recherche et de ressources sont accessibles depuis le footer et les liens contextuels. Le fil d’Ariane fournit un repère unique dans les sous-pages ; les retours redondants dans le contenu ont été retirés.
+Le menu public reste volontairement court : **Projet, Calendrier, Expérience, Méthode, Partenaires**. L’accueil et la page Partenaires servent de portes d’entrée : la première identifie les organisations et personnes auxquelles le site parle ; la seconde transforme cette reconnaissance en découverte, questionnaire, demande d’invitation et préparation d’atelier. Les contenus de recherche et de ressources sont accessibles depuis le footer et les liens contextuels. Le fil d’Ariane fournit un repère unique dans les sous-pages ; les retours redondants dans le contenu ont été retirés.
 
 ## 4. Ce qui est effectivement livré
 
@@ -43,6 +43,8 @@ Le portail comporte un hero éditorial, la présentation détaillée du projet, 
 La page Ressources rassemble les documents internes, les études externes et les sources qui accompagnent la co-conception. Ses fiches distinguent le document interne à lire, le PDF externe à ouvrir et la source web à consulter. Les CTA transversaux emploient le même principe : ils annoncent l’action et le contenu de la destination, sans supposer qu’un diagnostic public est déjà actif.
 
 Toute URL inconnue ouvre une page 404 en français, sans impasse : elle reprend la recherche locale des documents et sources, ses suggestions et son filtrage tolérant aux accents. Les premiers résultats apparaissent directement dans la page, tandis que les accès vers Projet, Expérience, Méthode, Partenaires, Ressources et Accueil offrent des chemins de reprise explicites. La route `/404` est non indexable ; les URL inconnues héritent également du comportement SEO de secours non indexable.
+
+La phase actuelle du site compagnon est la mobilisation et l’écoute. Le questionnaire partenaire recueille besoins, priorités, idées et points de vigilance ; les contributions prépareront un atelier de co-conception, dont le format et la date restent à confirmer. Les phases suivantes sont explicites sans être surpromises : décider le prototype, tester avec les personnes concernées, puis diffuser et accompagner. Les pages Calendrier, Projet, Méthode et Expérience emploient ce même déroulé.
 
 L’expérience Boussole utilise cinq dimensions pour rendre le diagnostic tangible. Le radar animé de l’accueil est fourni par le composant partagé `AnimatedRadarGraphic`. Il ouvre la présentation partenaire comme visualisation exploratoire, sans overlay glassmorphism : les dimensions sont nommées, chaque repère répond au survol, au focus, au clic et au clavier, puis met à jour une lecture contextuelle. Les autres slides n’emploient pas de radar afin que chaque illustration conserve un rôle propre.
 
@@ -95,6 +97,8 @@ Après chaque soumission, l’API prépare un e-mail de récapitulatif détermin
 | Le contrôle d’une archive est daté | Une URL fonctionnelle un jour peut disparaître ensuite | Chaque fiche d’archive indique le dernier contrôle et les références sans remplacement restent archivées sans lien actif |
 | La recherche reste guidée et locale | Les ressources sont peu nombreuses, mais leurs thèmes se recoupent | Les suggestions, le filtrage sans accent et les filtres de catégorie et date facilitent l’exploration sans service externe |
 | Une page 404 réoriente plutôt qu’elle ne bloque | Une ancienne URL ou un lien externe peut rester en circulation | La page de secours propose la recherche documentaire et des accès vers les parcours publics, sans ajouter de dépendance externe |
+| Le site compagnon s’adresse d’abord aux partenaires relais | L’outil doit être défini avec des organisations capables de le connecter aux artistes | Accueil, Partenaires, CTA, pages de contexte et métadonnées guident vers la découverte puis le questionnaire |
+| Les phases futures sont visibles, mais non annoncées comme réalisées | La contribution actuelle doit préparer le prototype sans créer de promesse prématurée | Le déroulé distingue mobilisation, prototype, tests et diffusion ; l’atelier reste formulé comme une étape à confirmer |
 
 ## 6. Stack et structure du dépôt
 
@@ -141,6 +145,7 @@ Qualité            pnpm verify · TypeScript · builds · scripts mobile/contra
 | 15 août 2026 | Radar de première slide remplacé : visualisation interactive issue du langage de l’accueil, dimensions sélectionnables et suppression du panneau glassmorphism |
 | 15 août 2026 | Récit partenaire recomposé : contenu dense en colonne 2/3, schémas narratifs sans cadre dans le tiers droit, phrase d’instruction retirée et valeur de contribution explicitée slide par slide |
 | 15 août 2026 | Illustrations partenaires consolidées : composants exploratoires, transitions directionnelles accessibles, zone graphique élargie, étapes contenues et contrôles visuels des slides 1, 2, 5 et 9 |
+| 15 août 2026 | Adressage du site compagnon clarifié : outil en co-conception, partenaires relais prioritaires, questionnaire comme action de phase 1, parcours de vie en quatre étapes et SEO aligné |
 
 ## 8. État d’activation et limites connues
 

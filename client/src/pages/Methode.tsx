@@ -89,14 +89,14 @@ export default function Methode() {
             Méthode, co-conception & gouvernance
           </h1>
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl leading-relaxed mb-8">
-            La Boussole sera construite avec les structures culturelles. Ses six principes de gouvernance guident déjà la conception du projet.
+            La Boussole sera construite avec des partenaires qui relient l’outil aux artistes, aux équipes et aux communautés culturelles. Le site compagnon rendra les étapes et les choix de cette co-conception discutables.
           </p>
           <div className="flex flex-wrap gap-3">
-            <Button style={{ backgroundColor: '#515792' }} asChild>
-              <Link href="/timeline">Consulter les quatre phases <ArrowRight className="ml-2 h-4 w-4" /></Link>
+            <Button style={{ backgroundColor: '#E07428', color: '#fff' }} asChild>
+              <Link href="/partenaires/questionnaire">Répondre au questionnaire partenaire <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
-            <Button variant="outline" style={{ borderColor: '#E27227', color: '#E27227' }} asChild>
-              <Link href="/partenaires">Découvrir comment contribuer</Link>
+            <Button variant="outline" style={{ borderColor: '#515792', color: '#515792' }} asChild>
+              <Link href="/timeline">Voir les phases de l’outil</Link>
             </Button>
           </div>
         </div>
@@ -109,8 +109,8 @@ export default function Methode() {
             <div>
               <h2 className="text-2xl font-bold text-gray-900 mb-5">Pourquoi co-construire ?</h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
-                <p>Les premières rencontres servent à vérifier que les questions, les exemples et les restitutions correspondent aux pratiques des structures. Les retours alimentent chaque étape de la conception.</p>
-                <p>Les structures culturelles ont des réalités diverses : artistes indépendants, institutions, associations de médiation et compagnies de spectacle vivant. Les prototypes devront tenir compte de cette diversité.</p>
+                <p>La première phase sert à vérifier que les questions, les exemples et les restitutions correspondent aux pratiques réelles. Les retours alimentent chaque étape de la conception, du questionnaire jusqu’au prototype.</p>
+                <p>Les partenaires représentent des réalités diverses : artistes indépendants, institutions, associations de médiation et compagnies de spectacle vivant. Leur rôle est de relier ces expériences aux choix de conception.</p>
                 <p>La co-conception rend les choix de conception discutables et traçables. Les partenaires pourront voir ce qui est retenu, ajusté ou laissé de côté.</p>
               </div>
             </div>

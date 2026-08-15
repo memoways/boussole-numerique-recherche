@@ -13,6 +13,7 @@ Ce dossier réunit les documents nécessaires au développement, à l’exploita
 | [Contrôle des liens d’archives — 14 août 2026](./CONTROLE_LIENS_ARCHIVES_2026-08-14.md) | Résultats du contrôle HTTP, liens à vérifier et procédure de correction. | Avant toute mise à jour d’une URL historique. |
 | [Étude Dreamlit — e-mails récapitulatifs](./DREAMLIT_EMAIL_INTEGRATION_OPTIONS.md) | Capacités vérifiées, options de flux et contraintes avant mise en œuvre. | Pour choisir l’architecture d’envoi Dreamlit. |
 | [Plan d’optimisation rédactionnelle](./PLAN_OPTIMISATION_REDACTIONNELLE.md) | Diagnostic des contenus publiés, corrections prioritaires et séquence de réécriture sans modification des pages. | Avant toute passe éditoriale du portail. |
+| [Plan d’adressage du site compagnon — 15 août 2026](./PLAN_ADRESSAGE_SITE_COMPAGNON_2026-08-15.md) | Positionnement de l’outil en co-conception, publics partenaires prioritaires, parcours de contribution et quatre phases de vie du site. | Avant toute évolution de l’accueil, des CTA partenaires ou des pages de contexte. |
 | [Migration Coolify du portail](./COOLIFY_MIGRATION.md) | Déploiement du portail statique et continuité multi-agent. | Pour le déploiement général du site. |
 | [Diagnostic du domaine public — 14 août 2026](./DIAGNOSTIC_DOMAINE_BOUSSOLE_2026-08-14.md) | Cause IPv6 du délai de connexion et procédure DNS/Coolify de correction. | Avant toute modification du domaine public. |
 

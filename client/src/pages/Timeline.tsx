@@ -5,7 +5,7 @@ import { ArrowRight, ChevronDown, ChevronUp, Calendar, Users, Wrench, TestTube, 
 import { Link } from "wouter";
 
 /**
- * Page /timeline — Calendrier du projet (24 mois, 4 phases)
+ * Page /timeline — Phases de vie du site compagnon et de l’outil (24 mois, 4 phases)
  * Pas de détails financiers
  * Couleurs Memoways : bleu #515792, orange #E27227, vert #3aab8a
  */
@@ -13,58 +13,58 @@ import { Link } from "wouter";
 const PHASES = [
   {
     num: "01",
-    titre: "Conception participative",
+    titre: "Mobiliser et co-concevoir",
     duree: "Mois 1–3",
     icon: Users,
     couleur: "#515792",
     statut: "En cours",
     items: [
-      "Ateliers de cadrage avec les partenaires culturels confirmés",
-      "Entretiens individuels avec des professionnels du secteur",
+      "Questionnaire partenaire et demandes d’invitation",
+      "Mobilisation des institutions, réseaux, collectifs et personnes actives dans la culture",
+      "Préparation d’un atelier de co-conception, à confirmer avec les partenaires",
       "Validation des cinq dimensions d'évaluation",
       "Scénarios d'usage (individuel et structure)",
       "Premières maquettes du questionnaire adaptatif",
       "Validation des formulations et des références locales",
     ],
-    detail: "Cette phase est la plus déterminante. Elle ancre l'outil dans les pratiques réelles des structures culturelles genevoises. L'objectif n'est pas de projeter des hypothèses, mais d'écouter, de reformuler et de valider avec celles et ceux qui utiliseront la Boussole.",
+    detail: "Cette première phase ancre l’outil dans les pratiques réelles. L’objectif est d’écouter, de reformuler et de relier les organisations partenaires aux artistes et aux communautés qu’elles accompagnent, avant de décider ce qui mérite d’être prototypé.",
   },
   {
     num: "02",
-    titre: "Tests et ajustements",
+    titre: "Décider et prototyper",
     duree: "Mois 4–5",
     icon: TestTube,
     couleur: "#E27227",
     statut: "À venir",
     items: [
+      "Restitution synthétique des retours et des décisions d’atelier",
       "Prototype fonctionnel du questionnaire conversationnel",
-      "Restitution visuelle (radar cinq dimensions)",
-      "Synthèse personnalisée et pistes d'action",
-      "Sessions de tests avec les partenaires pilotes",
-      "Ajustements UX, formulations et recommandations",
+      "Restitution visuelle et pistes d’action à tester",
+      "Ajustements UX, formulations et priorités de conception",
       "Vérification des principes de données et de consentement",
     ],
-    detail: "Le prototype sera confronté aux situations rencontrées par les partenaires. Chaque session de test sera documentée. Les retours guideront les ajustements et la phase se conclura par un prototype stabilisé, prêt pour la mise en ligne.",
+    detail: "Les choix issus de la phase d’écoute deviennent un prototype testable. Les partenaires confrontent alors les questions et les restitutions à leurs situations ; chaque retour sert à décider ce qui doit être conservé, modifié ou laissé de côté.",
   },
   {
     num: "03",
-    titre: "Version publique",
+    titre: "Tester et préparer la diffusion",
     duree: "Mois 6–8",
     icon: Globe,
     couleur: "#3aab8a",
     statut: "À venir",
     items: [
-      "Mise à disposition publique de la Boussole",
-      "Communication vers les structures culturelles genevoises",
+      "Tests avec des artistes et des structures volontaires",
+      "Préparation d’une mise à disposition élargie",
       "Activation du mécanisme de retour continu (questionnaire de satisfaction)",
       "Suivi des premiers usages et des retours",
       "Rapport d'évaluation intermédiaire (fin de phase pilote)",
       "Ajustements prioritaires basés sur les retours",
     ],
-    detail: "La mise à disposition publique constituera une étape du projet. La Boussole sera proposée, observée et ajustée. Un rapport d’évaluation intermédiaire documentera les premiers usages et guidera les améliorations suivantes.",
+    detail: "Les premiers tests reconnectent le prototype aux personnes qui en auront l’usage. Le site compagnon rendra visibles les apprentissages, les retours et les décisions prises avant toute diffusion plus large.",
   },
   {
     num: "04",
-    titre: "Exploitation et amélioration continue",
+    titre: "Diffuser et accompagner",
     duree: "Mois 9–24",
     icon: BookOpen,
     couleur: "#9b59b6",
@@ -72,12 +72,12 @@ const PHASES = [
     items: [
       "Hébergement et maintenance de l'outil",
       "Enrichissement continu de la base de ressources",
-      "Diffusion élargie vers de nouvelles structures",
+      "Diffusion élargie via les partenaires et les réseaux",
       "Améliorations itératives basées sur les usages",
-      "Documentation ouverte de la méthode",
-      "Rapport final et pistes d'évolution (fin de mois 24)",
+      "Documentation ouverte de la méthode et des décisions",
+      "Rapport final et pistes d’évolution à l’issue des 24 mois",
     ],
-    detail: "La phase la plus longue suivra les usages de l’outil. La Boussole sera enrichie et documentée au fil des retours. L’objectif indicatif est d’atteindre 1 500 tests réalisés et 600 utilisateurs inscrits, dont 30 % de manière régulière. Un rapport final documentera les apprentissages et les pistes d’évolution pour la suite.",
+    detail: "La phase la plus longue suit les usages de l’outil. La Boussole, ses ressources et le site compagnon pourront être enrichis au fil des retours. Un rapport final documentera les apprentissages et les pistes d’évolution pour la suite.",
   },
 ];
 
@@ -92,10 +92,10 @@ export default function Timeline() {
         <div className="max-w-4xl mx-auto">
           <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#9b59b6' }}>Calendrier</Badge>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4 leading-tight">
-            Calendrier du projet
+            Les phases du site compagnon
           </h1>
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl leading-relaxed mb-6">
-            Un projet de 24 mois, organisé en quatre phases progressives — de la conception participative à l'exploitation et l'amélioration continue.
+            Un parcours indicatif de 24 mois, organisé en quatre phases : mobiliser les partenaires, décider le prototype, tester avec le terrain, puis diffuser et accompagner.
           </p>
           <div className="flex items-center gap-2 text-sm text-gray-500 bg-gray-100 rounded-full px-4 py-2 w-fit">
             <Calendar className="h-4 w-4" />
@@ -257,14 +257,14 @@ export default function Timeline() {
       {/* CTA */}
       <section className="py-14 px-4 bg-white">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Suivre l'avancement</h2>
-          <p className="text-gray-500 mb-8">Ce portail sera mis à jour régulièrement pour refléter l'état d'avancement du projet.</p>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Contribuer à la phase en cours</h2>
+          <p className="text-gray-500 mb-8">Le site compagnon sera mis à jour au fil des apprentissages. Aujourd’hui, le questionnaire partenaire permet de préparer la suite du travail collectif.</p>
           <div className="flex flex-wrap gap-3 justify-center">
-            <Button style={{ backgroundColor: '#515792' }} asChild>
-              <Link href="/partenaires">Signaler mon intérêt <ArrowRight className="ml-2 h-4 w-4" /></Link>
+            <Button style={{ backgroundColor: '#E07428', color: '#fff' }} asChild>
+              <Link href="/partenaires/questionnaire">Répondre au questionnaire partenaire <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
             <Button variant="outline" style={{ borderColor: '#515792', color: '#515792' }} asChild>
-              <Link href="/methode">La méthode</Link>
+              <Link href="/partenaires">Comprendre le rôle des partenaires</Link>
             </Button>
           </div>
         </div>

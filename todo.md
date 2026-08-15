@@ -91,3 +91,5 @@
 - [x] Densifier la zone de schéma et compacter la narration à gauche sur les neuf slides partenaire.
 - [x] Éliminer les chevauchements de libellés dans les schémas narratifs du deck.
 - [x] Consolider CHANGELOG et STORY avec les derniers changements de la présentation partenaire.
+- [x] Clarifier l’adressage partenaire et la promesse du site compagnon sur l’accueil et la page Partenaires.
+- [x] Aligner les pages de contexte, les CTA, le SEO et la documentation sur les phases de vie de la co-conception.

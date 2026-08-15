@@ -12,7 +12,7 @@ import { Link } from "wouter";
 /**
  * Home — Boussole Numérique Culture
  * Design: Memoways — bleu #515792, orange #E27227, orange clair #E58441
- * 9 blocs selon le PRD : Hero, Promesse, Pourquoi, Ce que l'outil fera,
+ * 9 blocs selon le PRD : Hero partenaires, Promesse, Pourquoi, Ce que l'outil fera,
  * 5 dimensions, Méthode, Recherche & inspirations, Garanties, Portail compagnon
  */
 
@@ -580,7 +580,7 @@ export default function Home() {
 
           {/* Labels sobres — ligne de texte, séparateurs · */}
           <p className="text-xs tracking-[0.18em] uppercase mb-10 select-none" style={{ color: '#6b7280' }}>
-            Gratuit · Open source · Hébergé en Suisse · Co-construit avec le terrain
+            Site compagnon · Outil en co-conception · Hébergé en Suisse · Avec le terrain
           </p>
 
           {/* Titre gradient fluide */}
@@ -597,20 +597,31 @@ export default function Home() {
           </h1>
 
           {/* Sous-titre */}
-          <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto mb-12 leading-relaxed">
-            Un projet en co-conception avec les actrices et acteurs culturels de Genève. La future Boussole aidera les structures à faire le point sur leurs pratiques numériques et à choisir des pistes d'action utiles.
+          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto mb-5 leading-relaxed">
+            Un outil en co-conception pour les actrices et acteurs de la culture à Genève. Ce site compagnon s’adresse d’abord aux institutions, structures, associations, réseaux et collectifs qui accompagnent des artistes.
+          </p>
+          <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto mb-10 leading-relaxed">
+            Ensemble, nous pouvons faire des pratiques numériques et de l’IA des appuis plus conscients, plus efficaces et plus favorables à la création — à partir des réalités du terrain, pas d’un modèle imposé.
           </p>
 
           {/* 2 CTAs */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="font-semibold text-sm sm:text-base shadow-md hover:shadow-lg transition-shadow" style={{ backgroundColor: '#515792' }} asChild>
-              <Link href="/projet">
-                Comprendre le projet <ArrowRight className="ml-2 h-4 w-4" />
+            <Button size="lg" className="font-semibold text-sm sm:text-base shadow-md hover:shadow-lg transition-shadow" style={{ backgroundColor: '#E07428', color: '#fff' }} asChild>
+              <Link href="/partenaires/questionnaire">
+                Répondre au questionnaire partenaire <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
-            <Button size="lg" variant="outline" className="font-semibold text-sm sm:text-base border-2" style={{ borderColor: '#E27227', color: '#E27227' }} asChild>
-              <Link href="/experience">Explorer la démonstration</Link>
+            <Button size="lg" variant="outline" className="font-semibold text-sm sm:text-base border-2" style={{ borderColor: '#515792', color: '#515792' }} asChild>
+              <Link href="/partenaires/presentation">Découvrir la Boussole</Link>
             </Button>
+          </div>
+          <div className="mt-10 border-t border-slate-200 pt-6">
+            <p className="text-sm font-semibold text-slate-800">Ce site est fait pour vous si vous représentez :</p>
+            <div className="mt-3 grid gap-2 text-sm text-slate-600 sm:grid-cols-3">
+              <p>Une institution, structure ou association culturelle</p>
+              <p>Un réseau ou collectif qui relie des artistes</p>
+              <p>Une pratique culturelle et l’envie de contribuer individuellement</p>
+            </div>
           </div>
         </div>
       </section>
@@ -619,14 +630,14 @@ export default function Home() {
       <section className="py-16 sm:py-20 px-4 bg-white">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#E27227' }}>La promesse</p>
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">En trois gestes</h2>
+            <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#E27227' }}>Pourquoi agir ensemble</p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">Faire du numérique un appui, pas une charge</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { icon: Eye, titre: "Observer", texte: "Le futur questionnaire proposera de faire le point sur ses pratiques numériques à travers cinq dimensions.", couleur: "#515792", bg: "#f0f1f8" },
-              { icon: Lightbulb, titre: "Comprendre", texte: "Une carte visuelle aidera à repérer ce qui fonctionne, ce qui coince et les priorités à discuter.", couleur: "#E27227", bg: "#fdf3ec" },
-              { icon: Zap, titre: "Agir", texte: "Des ressources et suggestions proposeront quelques pistes de premier pas.", couleur: "#3aab8a", bg: "#f0faf6" },
+              { icon: Eye, titre: "Faire le point", texte: "Nommer les frictions qui font perdre du temps, dispersent les compétences ou freinent la création.", couleur: "#515792", bg: "#f0f1f8" },
+              { icon: Lightbulb, titre: "Choisir avec discernement", texte: "Mettre les usages numériques et l’IA en perspective, sans céder aux habitudes ni aux promesses faciles.", couleur: "#E27227", bg: "#fdf3ec" },
+              { icon: Zap, titre: "Construire des réponses utiles", texte: "Relier les besoins des artistes, les capacités des structures et des pistes testables ensemble.", couleur: "#3aab8a", bg: "#f0faf6" },
             ].map(({ icon: Icon, titre, texte, couleur, bg }) => (
               <div
                 key={titre}
@@ -649,8 +660,8 @@ export default function Home() {
         <div className="max-w-5xl mx-auto">
           <div className="mb-10">
             <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#515792' }}>Pourquoi une Boussole ?</p>
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">De la confusion vers une carte lisible</h2>
-            <p className="text-gray-600 leading-relaxed max-w-2xl">Le numérique est présent dans toutes les pratiques culturelles. Les difficultés sont souvent ordinaires : fichiers éparpillés, outils inadaptés, coordination qui prend trop de place. Le futur parcours aidera à les nommer, à les situer et à identifier où agir en premier.</p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Des pratiques dispersées vers des choix partagés</h2>
+            <p className="text-gray-600 leading-relaxed max-w-2xl">Le numérique et l’IA modifient déjà les façons de créer, collaborer, diffuser et archiver. Les difficultés restent souvent ordinaires : fichiers éparpillés, outils inadaptés, coordination qui prend trop de place ou décisions reportées. La Boussole doit aider à les rendre discutables, puis à décider ce qui mérite un premier geste.</p>
           </div>
           <BoussoleDemoInteractive />
         </div>
@@ -734,7 +745,7 @@ export default function Home() {
             <div>
               <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: '#E27227' }}>Co-conception</p>
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Une méthode construite avec le terrain</h2>
-              <p className="text-gray-600 leading-relaxed mb-6">La Boussole est construite avec les professionnels et les structures du secteur culturel, étape par étape. Les retours du terrain orientent chaque phase — de la formulation des questions à la pertinence des recommandations.</p>
+              <p className="text-gray-600 leading-relaxed mb-6">Les partenaires ne sont pas seulement des destinataires. Ils relient la Boussole aux artistes, aux équipes et aux communautés qu’ils accompagnent ; leurs retours orientent chaque phase, des questions du questionnaire à la forme du prototype.</p>
               <div className="flex flex-wrap gap-2 mb-8">
                 {[
                   { label: 'Cadrage', color: '#515792' },
@@ -885,14 +896,14 @@ export default function Home() {
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-xs font-bold uppercase tracking-widest mb-4 text-white/70">Horizon</p>
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-6">Vers un portail compagnon</h2>
-          <p className="text-white/80 leading-relaxed max-w-2xl mx-auto mb-10 text-lg">
-            Ce site commence comme un espace de présentation et de recherche. Il pourra devenir, avec les partenaires et premiers utilisateurs, un portail compagnon pour suivre l'avancement, partager les retours, documenter les choix et préparer les premiers usages de la Boussole.
+            <p className="text-white/80 leading-relaxed max-w-2xl mx-auto mb-10 text-lg">
+            Le site accompagne les étapes de l’outil : mobiliser les partenaires, préparer l’atelier de co-conception, documenter les choix du prototype, puis organiser les retours de test et les premiers relais. Il évoluera avec ce qui est décidé ensemble.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Button size="lg" className="font-semibold bg-white hover:bg-gray-50" style={{ color: '#515792' }} asChild>
               <Link href="/partenaires">
                 <Users className="mr-2 h-4 w-4" />
-                Découvrir comment contribuer
+                Comprendre le rôle des partenaires
               </Link>
             </Button>
             <Button size="lg" variant="outline" className="font-semibold border-white/50 text-white hover:bg-white/10" asChild>

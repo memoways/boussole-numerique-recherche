@@ -4,8 +4,8 @@ import { ArrowRight, Users, Building2, TestTube, Heart, MessageSquare, ChevronRi
 import { Link } from "wouter";
 
 /**
- * Page /partenaires — Partenaires & premiers utilisateurs
- * CTA doux : mailto, pas de formulaire complexe
+ * Page /partenaires — entrée d’engagement des organisations relais et contributeurs individuels.
+ * CTA primaire : questionnaire partenaire ; parcours d’invitation conservé pour les personnes non invitées.
  * Direction visuelle : progression bleu → cyan → vert → orange, CTA orange #E07428.
  */
 
@@ -18,23 +18,24 @@ const SPECTRE_PARTENAIRES = [
 ] as const;
 
 const POURQUOI_PARTICIPER = [
-  { titre: "Mettre les questions à l’épreuve", desc: "Votre expérience aide l’équipe de projet à préciser les questions et les formes de restitution à tester.", icon: Heart, couleur: "#515792" },
-  { titre: "Tester avant la version publique", desc: "Les partenaires de co-conception pourront essayer les premières versions et signaler ce qui demande un ajustement.", icon: TestTube, couleur: "#3a7fc1" },
-  { titre: "Contribuer à un bien commun", desc: "Le projet prévoit une Boussole gratuite et à code ouvert. Votre participation nourrit un outil collectif pour le secteur.", icon: Users, couleur: "#3aab8a" },
+  { titre: "Réfléchir avec le terrain", desc: "Votre expérience aide à préciser les problèmes qui pèsent réellement sur les pratiques numériques et créatives.", icon: Heart, couleur: "#515792" },
+  { titre: "Co-concevoir le prototype", desc: "Les partenaires mettent les questions, les exemples et les restitutions à l’épreuve avant toute version publique.", icon: TestTube, couleur: "#3a7fc1" },
+  { titre: "Préparer les tests", desc: "Votre structure peut relier l’outil aux artistes, aux équipes et aux communautés qu’elle accompagne.", icon: Users, couleur: "#3aab8a" },
+  { titre: "Devenir un relais", desc: "Les apprentissages serviront à préparer une diffusion utile, sans demander aux partenaires de porter seuls le dispositif.", icon: Building2, couleur: "#E07428" },
 ];
 
 const QUI_PEUT_CONTRIBUER = [
-  { titre: "Structures culturelles genevoises", desc: "Musées, galeries, compagnies, associations, bibliothèques, écoles de musique, centres culturels — toute structure active dans le secteur culturel.", icon: Building2, couleur: "#515792", couleurTexte: "#ffffff" },
-  { titre: "Artistes et professionnels indépendants", desc: "Artistes, créateurs, médiateurs, gestionnaires culturels qui souhaitent tester l'outil et partager leur expérience.", icon: Users, couleur: "#3a7fc1", couleurTexte: "#ffffff" },
-  { titre: "Institutions partenaires", desc: "Organisations qui soutiennent le secteur culturel et souhaitent contribuer à un outil d'intérêt public.", icon: Heart, couleur: "#3aab8a", couleurTexte: "#ffffff" },
+  { titre: "Institutions, structures et associations culturelles", desc: "Vous représentez un lieu, une association, une fédération ou une structure qui organise, soutient ou accompagne des pratiques culturelles.", icon: Building2, couleur: "#515792", couleurTexte: "#ffffff" },
+  { titre: "Réseaux et collectifs qui relient des artistes", desc: "Vous connaissez les besoins de membres, de communautés ou de publics et pouvez aider à les traduire dans la conception de l’outil.", icon: Users, couleur: "#3a7fc1", couleurTexte: "#ffffff" },
+  { titre: "Personnes actives dans la culture", desc: "Artistes, créatrices, créateurs, médiatrices et professionnels qui souhaitent contribuer à titre individuel peuvent aussi demander une invitation.", icon: Heart, couleur: "#3aab8a", couleurTexte: "#ffffff" },
 ];
 
 const PARCOURS_PARTENAIRE = [
-  { num: "01", titre: "Je découvre", desc: "Je consulte la présentation pour comprendre le projet et son état d’avancement.", ...SPECTRE_PARTENAIRES[0] },
-  { num: "02", titre: "Je signale mon intérêt", desc: "J’envoie un message ou je demande une invitation personnelle au questionnaire partenaire.", ...SPECTRE_PARTENAIRES[1] },
-  { num: "03", titre: "Je contribue", desc: "Je pourrai participer à un entretien, un atelier ou un test selon ma disponibilité.", ...SPECTRE_PARTENAIRES[2] },
-  { num: "04", titre: "Je teste", desc: "Je testerai une version du prototype et je partagerai ce qui mérite d’être ajusté.", ...SPECTRE_PARTENAIRES[3] },
-  { num: "05", titre: "Je suis les apprentissages", desc: "Je recevrai les éléments documentés issus de la co-conception et des premiers tests.", ...SPECTRE_PARTENAIRES[4] },
+  { num: "01", titre: "Je me reconnais", desc: "Je vérifie que mon organisation, mon réseau ou ma pratique peut contribuer à la démarche.", ...SPECTRE_PARTENAIRES[0] },
+  { num: "02", titre: "Je découvre", desc: "Je consulte la présentation pour comprendre le problème traité et le rôle attendu des partenaires.", ...SPECTRE_PARTENAIRES[1] },
+  { num: "03", titre: "Je réponds", desc: "Je réponds au questionnaire ou je demande une invitation personnelle si je n’en ai pas encore.", ...SPECTRE_PARTENAIRES[2] },
+  { num: "04", titre: "Je contribue", desc: "Je peux rejoindre l’atelier de co-conception et aider à choisir ce qui mérite d’être prototypé.", ...SPECTRE_PARTENAIRES[3] },
+  { num: "05", titre: "Je deviens relais", desc: "Je partage les apprentissages, teste le prototype et le relie aux personnes concernées.", ...SPECTRE_PARTENAIRES[4] },
 ];
 
 export default function Partenaires() {
@@ -46,10 +47,10 @@ export default function Partenaires() {
         <div className="max-w-4xl mx-auto">
           <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#515792', color: '#fff' }}>Partenaires</Badge>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4 leading-tight">
-            Partenaires & premiers utilisateurs
+            Partenaires de co-conception
           </h1>
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl leading-relaxed mb-5">
-            La Boussole se construit avec les professionnels et les structures du secteur culturel. Votre participation aidera l’équipe de projet à tester les questions, les exemples et les usages à privilégier.
+            Ce site compagnon s’adresse aux institutions, structures, associations, réseaux et collectifs qui peuvent relier la Boussole aux artistes et aux personnes actives dans la culture. Votre contribution aidera l’équipe de projet à définir un prototype réellement utile.
           </p>
           <div className="mb-5 flex max-w-2xl items-center gap-3 rounded-xl border border-slate-200 bg-white px-3 py-3 sm:gap-4 sm:px-4 sm:py-3.5">
             <a
@@ -61,7 +62,7 @@ export default function Partenaires() {
             >
               <img
                 src="/ville-geneve-soutien.8334b29d.png"
-                alt="Ville de Genève"
+                alt="Logo du soutien institutionnel"
                 className="h-11 w-11 object-contain sm:h-14 sm:w-14"
               />
             </a>
@@ -69,28 +70,30 @@ export default function Partenaires() {
               <p className="text-[10px] font-bold uppercase tracking-[0.14em] sm:text-xs sm:tracking-widest" style={{ color: '#515792' }}>Avec le soutien de</p>
               <p className="mt-0.5 text-sm font-semibold text-slate-900">Ville de Genève</p>
               <p className="mt-0.5 text-xs leading-relaxed text-slate-600 sm:mt-1 sm:text-sm">
-                Ce projet bénéficie du soutien de la Ville de Genève dans le cadre de sa démarche de subvention pour projets ponctuels, culturels ou scientifiques.
+                Soutien obtenu dans le cadre d’une démarche de subvention pour projets ponctuels, culturels ou scientifiques.
               </p>
             </div>
           </div>
           <div className="grid max-w-2xl gap-3 sm:grid-cols-2">
             <Link href="/partenaires/presentation" className="group rounded-xl border border-[#515792]/25 bg-white p-4 transition-all hover:-translate-y-0.5 hover:border-[#515792] hover:shadow-sm">
               <span className="flex items-center gap-2 font-semibold text-slate-950"><Compass className="h-4 w-4 text-[#515792]" /> Découvrir la Boussole <ArrowRight className="ml-auto h-4 w-4 text-[#515792] transition-transform group-hover:translate-x-0.5" /></span>
-              <span className="mt-2 block text-sm leading-relaxed text-slate-600">Une présentation courte pour comprendre le projet et son utilité.</span>
+              <span className="mt-2 block text-sm leading-relaxed text-slate-600">Comprendre le problème à résoudre, les rôles des partenaires et le prototype à décider ensemble.</span>
             </Link>
             <Link href="/partenaires/questionnaire" className="group rounded-xl bg-[#E07428] p-4 text-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
-              <span className="flex items-center gap-2 font-semibold"><MessagesSquare className="h-4 w-4" /> Partager mes idées et feedbacks <ArrowRight className="ml-auto h-4 w-4 transition-transform group-hover:translate-x-0.5" /></span>
-              <span className="mt-2 block text-sm leading-relaxed text-white/90">Pour co-construire la Boussole en phase avec nos besoins, objectifs et enjeux.</span>
+              <span className="flex items-center gap-2 font-semibold"><MessagesSquare className="h-4 w-4" /> Répondre au questionnaire partenaire <ArrowRight className="ml-auto h-4 w-4 transition-transform group-hover:translate-x-0.5" /></span>
+              <span className="mt-2 block text-sm leading-relaxed text-white/90">Partager besoins, priorités, idées et points de vigilance avant l’atelier de co-conception.</span>
             </Link>
           </div>
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-500"><span className="font-semibold text-slate-700">Phase 1 — Mobiliser et écouter.</span> Si vous n’avez pas encore reçu d’invitation, le parcours vous permet d’en demander une.</p>
         </div>
       </section>
 
       {/* Pourquoi participer */}
       <section className="py-14 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8">Pourquoi participer</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <h2 className="text-2xl font-bold text-gray-900 mb-3">Pourquoi votre rôle compte</h2>
+          <p className="mb-8 max-w-2xl text-gray-600 leading-relaxed">Les partenaires servent de trait d’union entre les choix de conception et les réalités des personnes qui créeront, collaboreront ou diffuseront avec l’outil.</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {POURQUOI_PARTICIPER.map(({ titre, desc, icon: Icon, couleur }) => (
               <div key={titre} className="rounded-2xl p-6" style={{ backgroundColor: couleur + '10' }}>
                 <Icon className="h-8 w-8 mb-4" style={{ color: couleur }} />
@@ -105,7 +108,8 @@ export default function Partenaires() {
       {/* Qui peut contribuer */}
       <section className="py-14 px-4" style={{ backgroundColor: '#f8f9fc' }}>
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8">Qui peut contribuer</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-3">À qui ce site s’adresse-t-il ?</h2>
+          <p className="mb-8 max-w-2xl text-gray-600 leading-relaxed">La priorité va aux organisations qui peuvent porter la voix de communautés artistiques. Une contribution individuelle reste bienvenue lorsqu’elle apporte une expérience de terrain utile.</p>
           <div className="space-y-4">
             {QUI_PEUT_CONTRIBUER.map(({ titre, desc, icon: Icon, couleur, couleurTexte }) => (
               <div key={titre} className="bg-white rounded-xl p-5 border border-gray-100 flex items-start gap-4">
@@ -125,8 +129,8 @@ export default function Partenaires() {
       {/* Parcours partenaire */}
       <section className="py-14 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-gray-900 mb-3">De la découverte à la contribution</h2>
-          <p className="text-gray-500 mb-10">Un parcours progressif : chacun·e choisit sa forme de contribution et son niveau d’implication.</p>
+          <h2 className="text-2xl font-bold text-gray-900 mb-3">Du questionnaire au prototype : un parcours en quatre phases</h2>
+          <p className="text-gray-500 mb-10">La première étape est d’écouter et de regrouper les énergies. L’atelier, le prototype et les tests viendront ensuite, selon les décisions prises ensemble.</p>
 
           {/* Desktop */}
           <div className="hidden md:flex items-start gap-2">
@@ -248,8 +252,8 @@ export default function Partenaires() {
       <section className="py-14 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
           <div className="rounded-2xl p-8" style={{ background: 'linear-gradient(135deg, #515792 0%, #3a7fc1 32%, #3aab8a 62%, #E07428 100%)' }}>
-            <h2 className="text-2xl font-bold text-white mb-4">Comment le portail pourra évoluer</h2>
-            <p className="text-white/80 leading-relaxed">Ce site compagnon pourra devenir, avec les partenaires et premiers utilisateurs, un espace de suivi de l’avancement, de partage des apprentissages, de documentation des retours et de préparation des premiers usages.</p>
+            <h2 className="text-2xl font-bold text-white mb-4">Un site compagnon qui évolue avec l’outil</h2>
+            <p className="text-white/80 leading-relaxed">Après la mobilisation et le questionnaire, ce site accompagnera l’atelier, la définition du prototype, les tests avec les artistes et les premiers relais. Chaque étape rendra visibles les apprentissages et les décisions réellement prises.</p>
           </div>
         </div>
       </section>
@@ -257,17 +261,17 @@ export default function Partenaires() {
       {/* CTA */}
       <section className="py-14 px-4" style={{ backgroundColor: '#f8f9fc' }}>
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Participer à la co-conception</h2>
-          <p className="text-gray-500 mb-8 max-w-xl mx-auto">Expliquez en quelques mots le lien de votre structure avec le projet. L’équipe de projet vous répondra avec les prochaines étapes et les modalités de participation.</p>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Contribuer à la première étape</h2>
+          <p className="text-gray-500 mb-8 max-w-xl mx-auto">Le questionnaire permet de recueillir les pratiques, les attentes et les questions qui prépareront le travail collectif. Si vous n’avez pas d’invitation, vous pourrez en demander une depuis ce parcours.</p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Button size="lg" style={{ backgroundColor: '#E07428', color: '#fff' }} asChild>
               <a href="mailto:ulrich.fischer@memoways.com?subject=Boussole Numérique Culture — Je souhaite participer">
                 <MessageSquare className="mr-2 h-4 w-4" />
-                Demander à participer
+                Demander une invitation
               </a>
             </Button>
             <Button size="lg" variant="outline" style={{ borderColor: '#E07428', color: '#1f2937' }} asChild>
-              <Link href="/timeline">Consulter les quatre phases <ArrowRight className="ml-2 h-4 w-4" /></Link>
+              <Link href="/timeline">Voir les phases de l’outil <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
           </div>
           <p className="mt-4 text-xs text-gray-400">

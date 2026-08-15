@@ -13,13 +13,13 @@ export type BreadcrumbItem = {
 
 export const SITE_NAME = "Boussole Numérique Culture";
 export const DEFAULT_DESCRIPTION =
-  "Un outil de diagnostic numérique pour aider les actrices, acteurs et structures culturelles à situer leurs pratiques et choisir des pistes d'action utiles.";
+  "Le site compagnon d’un outil en co-conception pour aider les partenaires culturels à définir des pratiques numériques plus utiles.";
 
 export const SEO_PAGES: Record<string, SeoPage> = {
   "/": {
-    title: "Boussole Numérique Culture | Diagnostic numérique",
+    title: "Boussole Numérique Culture | Outil en co-conception",
     description:
-      "Un outil de diagnostic numérique pour aider les actrices, acteurs et structures culturelles à situer leurs pratiques et choisir des pistes d'action utiles.",
+      "Le site compagnon d’un outil en co-conception pour les institutions, structures, associations, réseaux et collectifs culturels qui accompagnent des artistes.",
   },
   "/404": {
     title: "Page introuvable | Boussole Numérique Culture",
@@ -28,34 +28,34 @@ export const SEO_PAGES: Record<string, SeoPage> = {
     index: false,
   },
   "/projet": {
-    title: "Le projet | Boussole Numérique Culture",
+    title: "L’outil en co-conception | Boussole Numérique Culture",
     description:
-      "Découvrez le projet Boussole Numérique Culture : un diagnostic numérique co-construit pour renforcer les pratiques du secteur culturel.",
+      "Découvrez comment les partenaires contribuent à définir la Boussole Numérique Culture, un outil de pratiques numériques à co-concevoir.",
   },
   "/timeline": {
-    title: "Calendrier du projet | Boussole Numérique Culture",
+    title: "Phases du site compagnon | Boussole Numérique Culture",
     description:
-      "Suivez les quatre phases et les 24 mois de conception, de test et d'amélioration continue de la Boussole Numérique Culture.",
+      "Suivez les phases indicatives de mobilisation, de prototype, de test et d’accompagnement de la Boussole Numérique Culture.",
   },
   "/experience": {
-    title: "L'expérience Boussole | Boussole Numérique Culture",
+    title: "Démonstration de la Boussole | Partenaires",
     description:
-      "Explorez les cinq dimensions d'un diagnostic numérique pensé pour les pratiques et les réalités du secteur culturel.",
+      "Une démonstration du futur parcours destinée à aider les partenaires à réagir aux dimensions et aux choix de conception de la Boussole.",
   },
   "/methode": {
-    title: "Méthode et principes | Boussole Numérique Culture",
+    title: "Méthode de co-conception | Boussole Numérique Culture",
     description:
-      "Découvrez la méthode de co-conception, les principes de service public et les engagements de gouvernance de la Boussole.",
+      "Découvrez comment les partenaires, les artistes et l’équipe de projet définissent ensemble les questions, le prototype et les principes de la Boussole.",
   },
   "/partenaires": {
-    title: "Partenaires | Boussole Numérique Culture",
+    title: "Partenaires de co-conception | Boussole Numérique Culture",
     description:
-      "Découvrez comment les structures, les professionnelles et professionnels, et les partenaires contribuent à la Boussole Numérique Culture.",
+      "Institutions, structures, associations, réseaux et collectifs : découvrez votre rôle, le questionnaire partenaire et les phases de co-conception.",
   },
   "/partenaires/presentation": {
     title: "Découvrir la Boussole | Partenaires",
     description:
-      "Une présentation courte de la Boussole Numérique Culture pour les partenaires et premiers utilisateurs.",
+      "Une présentation courte pour comprendre le problème traité, le rôle des partenaires et le prototype de la Boussole à décider ensemble.",
     breadcrumbs: [
       { label: "Accueil", path: "/" },
       { label: "Partenaires", path: "/partenaires" },
@@ -63,9 +63,9 @@ export const SEO_PAGES: Record<string, SeoPage> = {
     ],
   },
   "/partenaires/questionnaire": {
-    title: "Partager mes idées et feedbacks | Partenaires",
+    title: "Questionnaire partenaire | Boussole Numérique Culture",
     description:
-      "Demandez une invitation personnelle pour contribuer au questionnaire de co-construction de la Boussole Numérique Culture.",
+      "Partagez besoins, priorités, idées et points de vigilance pour préparer l’atelier de co-conception de la Boussole Numérique Culture.",
     index: false,
     breadcrumbs: [
       { label: "Accueil", path: "/" },

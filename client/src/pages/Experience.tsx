@@ -263,7 +263,7 @@ export default function Experience() {
             L'expérience Boussole
           </h1>
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl leading-relaxed mb-8">
-            Une démonstration du futur parcours, actuellement en co-conception avec des structures culturelles. Elle présente les étapes envisagées, sans collecter de données réelles.
+            Une démonstration du futur parcours, mise à disposition sur ce site compagnon pour aider les partenaires à réagir aux étapes envisagées. Elle ne collecte pas de données réelles.
           </p>
           <div className="flex flex-wrap gap-3 items-center">
             <div className="flex items-center gap-2 text-sm text-gray-500 bg-gray-100 rounded-full px-4 py-2">
@@ -417,14 +417,14 @@ export default function Experience() {
       {/* CTA */}
       <section className="py-14 px-4 bg-white">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Envie de participer à la co-conception ?</h2>
-          <p className="text-gray-500 mb-8">La Boussole est construite avec les structures culturelles genevoises. Votre retour compte.</p>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Votre réaction peut aider à définir le prototype</h2>
+          <p className="text-gray-500 mb-8">Les partenaires peuvent partager leurs besoins, leurs points de vigilance et les situations à ne pas oublier avant l’atelier de co-conception.</p>
           <div className="flex flex-wrap gap-3 justify-center">
-            <Button style={{ backgroundColor: '#515792' }} asChild>
-              <Link href="/partenaires">Découvrir comment contribuer <ArrowRight className="ml-2 h-4 w-4" /></Link>
+            <Button style={{ backgroundColor: '#E07428', color: '#fff' }} asChild>
+              <Link href="/partenaires/questionnaire">Répondre au questionnaire partenaire <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
-            <Button variant="outline" style={{ borderColor: '#E27227', color: '#E27227' }} asChild>
-              <Link href="/methode">Comprendre la co-conception</Link>
+            <Button variant="outline" style={{ borderColor: '#515792', color: '#515792' }} asChild>
+              <Link href="/partenaires">Comprendre le rôle des partenaires</Link>
             </Button>
           </div>
         </div>
