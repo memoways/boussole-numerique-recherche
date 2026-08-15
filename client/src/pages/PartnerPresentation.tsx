@@ -15,6 +15,7 @@ import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { AnimatedRadarGraphic } from "@/components/AnimatedRadarGraphic";
+import { InteractiveNarrativeIllustration, type NarrativeVisualKind } from "@/components/InteractiveNarrativeIllustration";
 
 /**
  * Présentation partenaire — direction visuelle : progression bleu → cyan → vert → orange.
@@ -371,6 +372,7 @@ export default function PartnerPresentation() {
   const initialState = useMemo(() => getPresentationState(), []);
   const [currentIndex, setCurrentIndex] = useState(initialState.currentIndex);
   const [openDetail, setOpenDetail] = useState(initialState.detail);
+  const [transitionDirection, setTransitionDirection] = useState<"forward" | "backward" | "instant">("instant");
   const slide = SLIDES[currentIndex];
   const isLast = currentIndex === SLIDES.length - 1;
 
@@ -390,9 +392,10 @@ export default function PartnerPresentation() {
     }
   };
 
-  const goToSlide = (nextIndex: number) => {
+  const goToSlide = (nextIndex: number, instant = false) => {
+    setTransitionDirection(instant ? "instant" : nextIndex > currentIndex ? "forward" : "backward");
     setPresentationState(nextIndex);
-    window.requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "smooth" }));
+    window.requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: instant ? "auto" : "smooth" }));
   };
 
   useEffect(() => {
@@ -401,11 +404,11 @@ export default function PartnerPresentation() {
       if (event.altKey || event.ctrlKey || event.metaKey || target?.matches("input, textarea, select, button, a, [role=button]")) return;
       if (event.key === "ArrowLeft" && currentIndex > 0) {
         event.preventDefault();
-        goToSlide(currentIndex - 1);
+        goToSlide(currentIndex - 1, true);
       }
       if (event.key === "ArrowRight" && currentIndex < SLIDES.length - 1) {
         event.preventDefault();
-        goToSlide(currentIndex + 1);
+        goToSlide(currentIndex + 1, true);
       }
     };
     window.addEventListener("keydown", onKeyDown);
@@ -417,6 +420,7 @@ export default function PartnerPresentation() {
       <section className="mx-auto max-w-7xl">
         <article className="overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-50 via-white to-white shadow-[0_20px_70px_rgba(42,54,90,0.08)] lg:flex lg:h-[950px] lg:max-h-[950px] lg:flex-col">
           <div className="p-5 sm:p-6 lg:h-[580px] lg:shrink-0 lg:overflow-hidden lg:p-7 xl:p-8">
+            <div key={currentIndex} className={`partner-slide-enter partner-slide-enter--${transitionDirection} h-full`}>
             <p className="text-xs font-extrabold uppercase tracking-[0.16em]" style={{ color: slide.accent }}>{slide.eyebrow}</p>
             <h1 className="mt-3 max-w-none text-3xl font-extrabold leading-[1.12] tracking-tight text-slate-950 sm:text-4xl lg:text-[2rem] xl:text-[2.25rem] xl:whitespace-nowrap">{slide.title}</h1>
             <div className="mt-4 grid gap-8 lg:min-h-[455px] lg:grid-cols-[minmax(0,2fr)_minmax(260px,1fr)] lg:items-center lg:gap-10">
@@ -429,8 +433,9 @@ export default function PartnerPresentation() {
                 <p className="mt-5 border-l-2 pl-4 text-sm font-semibold leading-relaxed text-slate-700 lg:mt-auto" style={{ borderColor: slide.accent }}>{slide.partnerValue}</p>
               </div>
               <div className="min-w-0 lg:pl-2">
-                {slide.visual === "compass" ? <AnimatedRadarGraphic interactive dimensions={PARTNER_RADAR_DIMENSIONS} ariaLabel="Radar interactif des cinq dimensions de la Boussole" className="mx-auto h-[250px] w-[250px] sm:h-[285px] sm:w-[285px]" /> : <StoryIllustration kind={slide.visual as Exclude<VisualKind, "compass" | "none">} accent={slide.accent} />}
+                {slide.visual === "compass" ? <AnimatedRadarGraphic interactive dimensions={PARTNER_RADAR_DIMENSIONS} ariaLabel="Radar interactif des cinq dimensions de la Boussole" className="mx-auto h-[250px] w-[250px] sm:h-[285px] sm:w-[285px]" /> : <InteractiveNarrativeIllustration kind={slide.visual as NarrativeVisualKind} accent={slide.accent} />}
               </div>
+            </div>
             </div>
           </div>
 

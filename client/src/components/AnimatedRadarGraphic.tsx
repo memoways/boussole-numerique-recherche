@@ -97,6 +97,8 @@ export function AnimatedRadarGraphic({
               aria-pressed={active}
               className="outline-none"
               style={{ cursor: "pointer" }}
+              onMouseEnter={activate}
+              onFocus={activate}
               onClick={activate}
               onKeyDown={(event) => {
                 if (event.key === "Enter" || event.key === " ") {
