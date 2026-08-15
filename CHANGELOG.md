@@ -34,6 +34,8 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Gabarit de la présentation partenaire fixé à 950 px sur desktop, navigation placée dans une bande immobile avec la progression entre les boutons, et fil d’Ariane conservé comme seul repère de retour.
 - Aide textuelle redondante de navigation retirée du deck afin de dégager la bande de commandes ; le compteur de slide accompagne désormais la barre de progression.
 - Origine des métadonnées dynamiques stabilisée sur `VITE_SITE_URL`, avec repli sur le domaine public final, pour empêcher la reprise d’un éventuel port interne Coolify dans les URL canoniques et Open Graph.
+- Contenu des neuf slides partenaire recomposé : explication, mise en contexte, trois effets attendus et valeur de contribution structurent les deux tiers de lecture à gauche ; les illustrations à droite deviennent des schémas narratifs sans panneau ni effet glassmorphism.
+- La phrase d’instruction « Ouvrez les repères ci-dessous… » est retirée du deck ; les accordéons restent disponibles comme approfondissement facultatif.
 - Plan d’optimisation rédactionnelle ajouté dans `docs/`, avec diagnostic des promesses au présent, répétitions, CTA et affirmations documentaires à vérifier avant réécriture.
 - Première passe éditoriale appliquée : Accueil, Projet, Expérience et Calendrier distinguent la co-conception du futur outil ; Références renonce aux revendications d’exclusivité non étayées ; Méthode et Partenaires resserrent leurs répétitions et CTA.
 - Seconde passe éditoriale appliquée : Recherche distingue les constats sourcés des pistes de conception ; Partenaires clarifie les étapes et contreparties de contribution ; le footer décrit le projet au stade de co-conception.
@@ -58,6 +60,8 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Route `/404` contrôlée : titre « Page introuvable », canonique dédiée et directive `noindex,follow` rendus dans le navigateur.
 - Slide partenaire 7 contrôlée visuellement : le titre tient sur une ligne à largeur desktop, la barre est située entre Précédent et Suivant, et le contenu utile gagne 50 px de hauteur ; les canoniques et Open Graph n’exposent pas le port interne.
 - Première slide contrôlée visuellement : le radar sans overlay affiche les cinq dimensions, et le choix de « Compétences » met à jour son résumé contextuel.
+- Slide 3 contrôlée visuellement : le texte occupe la colonne principale, la valeur partenaire ancre la lecture vers le bas, et le schéma Décrire → Situer → Agir est rendu sans capsule extérieure.
+- Zone narrative desktop portée à 580 px et contrôlée sans défilement interne avant la navigation, afin de conserver le récit, le schéma et les commandes dans un même gabarit de lecture.
 
 ## [1.1.0] — 2026-08-09 au 2026-08-12 — Alignement institutionnel, accessibilité et diffusion
 

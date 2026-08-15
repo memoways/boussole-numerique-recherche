@@ -36,6 +36,9 @@ type Slide = {
   eyebrow: string;
   title: string;
   text: string;
+  narrative: string;
+  outcomes: string[];
+  partnerValue: string;
   accent: string;
   icon: typeof CircleHelp;
   visual: VisualKind;
@@ -47,6 +50,9 @@ const SLIDES: Slide[] = [
     eyebrow: "Présentation partenaire",
     title: "Une Boussole pour mieux situer les pratiques numériques",
     text: "La Boussole Numérique Culture aide les actrices, acteurs et structures culturelles à faire le point, choisir des pistes utiles et avancer à leur rythme.",
+    narrative: "Elle ne compare pas les personnes à un modèle idéal. Elle part de ce qui fonctionne déjà, des contraintes réelles et des priorités que chaque structure souhaite rendre possibles.",
+    outcomes: ["Mettre des mots sur les pratiques plutôt que sur les outils.", "Rendre visibles les points d’appui comme les sujets à examiner.", "Transformer un constat en prochaine étape compréhensible."],
+    partnerValue: "L’enjeu est de donner un repère commun pour ouvrir une conversation utile, sans simplifier les réalités du terrain.",
     accent: "#515792",
     icon: Compass,
     visual: "compass",
@@ -71,9 +77,12 @@ const SLIDES: Slide[] = [
     eyebrow: "Le point de départ",
     title: "Les besoins du terrain ne suivent pas tous le même chemin",
     text: "Les usages, les ressources et les enjeux numériques varient fortement. Une réponse utile commence par écouter les situations réelles plutôt que par prescrire un modèle unique.",
+    narrative: "Une équipe peut être freinée par la circulation de l’information, une autre par la transmission des compétences ou par la relation à ses publics. La même solution ne convient donc pas à toutes les situations.",
+    outcomes: ["Faire remonter les difficultés et les ambitions telles qu’elles sont vécues.", "Distinguer ce qui demande une décision, un appui ou un temps d’exploration.", "Éviter les recommandations génériques qui déplacent le problème."],
+    partnerValue: "Les partenaires apportent les nuances qui permettront à la Boussole de parler juste à des profils, des métiers et des communautés différentes.",
     accent: "#3a7fc1",
     icon: Users,
-    visual: "none",
+    visual: "signals",
     details: [
       {
         id: "realites",
@@ -95,6 +104,9 @@ const SLIDES: Slide[] = [
     eyebrow: "L’outil proposé",
     title: "Un diagnostic court, puis des pistes adaptées",
     text: "Un questionnaire adaptatif ouvre une restitution visuelle et un dialogue guidé. L’objectif est de repérer les leviers concrets, les priorités et les appuis possibles.",
+    narrative: "Le futur parcours reste volontairement léger : il recueille quelques repères, les restitue dans une carte lisible, puis aide à formuler ce qui pourrait être tenté, discuté ou approfondi.",
+    outcomes: ["Décrire une situation sans mobiliser de vocabulaire technique.", "Situer les priorités dans un panorama à cinq dimensions.", "Agir à partir de pistes reliées au contexte, pas d’une liste standard."],
+    partnerValue: "Pour vos membres, la valeur se mesure à la qualité du premier pas : réaliste, appropriable et facile à partager avec une équipe.",
     accent: "#3aab8a",
     icon: Lightbulb,
     visual: "journey",
@@ -119,6 +131,9 @@ const SLIDES: Slide[] = [
     eyebrow: "Pour qui ?",
     title: "Pour les personnes et structures qui font vivre la culture",
     text: "La démarche s’adresse aux artistes, professionnelles et professionnels, lieux, associations, réseaux et institutions qui souhaitent avancer avec leurs publics et leurs membres.",
+    narrative: "La Boussole devra pouvoir servir une personne indépendante comme une organisation structurée, sans effacer leurs différences de moyens, de temps disponible ou de responsabilité.",
+    outcomes: ["Adapter les formulations au rôle et à la réalité de la personne qui répond.", "Relier les pratiques internes aux besoins des membres, équipes et publics.", "Proposer des repères qui restent utiles lorsqu’une structure évolue."],
+    partnerValue: "Votre retour permet de tester qui se reconnaît dans le parcours, ce qui manque et ce qui doit être simplifié pour rester inclusif.",
     accent: "#7ab648",
     icon: Users,
     visual: "community",
@@ -143,6 +158,9 @@ const SLIDES: Slide[] = [
     eyebrow: "Comment cela fonctionne ?",
     title: "Comprendre, situer, prioriser, agir",
     text: "La Boussole part des situations décrites, propose une lecture visuelle et ouvre des pistes d’action. Elle peut ensuite nourrir un accompagnement conversationnel adapté au contexte.",
+    narrative: "Le résultat ne cherche pas à attribuer une note. Il compose une lecture de plusieurs dimensions qui invite à choisir ce qui mérite une attention immédiate, puis ce qui peut devenir un chantier collectif.",
+    outcomes: ["Comprendre les liens entre usages, compétences, organisation et publics.", "Prioriser sans réduire une situation complexe à un score unique.", "Conserver une trace claire des décisions et des pistes explorées."],
+    partnerValue: "La Boussole doit aider à passer d’un ressenti diffus à une discussion structurée, sans transformer le diagnostic en prescription.",
     accent: "#E07428",
     icon: Route,
     visual: "cycle",
@@ -167,6 +185,9 @@ const SLIDES: Slide[] = [
     eyebrow: "Un cadre partagé",
     title: "Une démarche gratuite, neutre et souveraine",
     text: "Le projet défend un service utile, sans mise en avant payante, avec une attention forte au consentement, à la lisibilité et à l’autonomie des participantes et participants.",
+    narrative: "Les choix de conception doivent pouvoir être expliqués. Les données recueillies ont une finalité précise, les ressources sont présentées sans hiérarchisation commerciale et les règles d’évolution restent discutables publiquement.",
+    outcomes: ["Donner accès à des informations et des ressources sans logique de mise en avant payante.", "Rendre visibles les conditions de collecte, d’usage et de conservation des données.", "Préserver la capacité de chaque personne à comprendre et à décider."],
+    partnerValue: "Ce cadre est une condition de confiance : il se vérifie avec les partenaires avant de devenir un engagement de la version publique.",
     accent: "#515792",
     icon: CheckCircle2,
     visual: "principles",
@@ -191,6 +212,9 @@ const SLIDES: Slide[] = [
     eyebrow: "Valeur partenaire",
     title: "Relier les besoins des membres à une réponse collective",
     text: "Les partenaires peuvent faire remonter les réalités de leurs communautés, tester les formulations et contribuer à une ressource qui enrichit leur mission de médiation et d’accompagnement.",
+    narrative: "La Boussole ne sera utile que si ses questions, ses résultats et ses modes de diffusion prennent appui sur les situations que vous observez au quotidien. Votre rôle dépasse le test d’interface : il oriente les choix de fond.",
+    outcomes: ["Faire remonter les enjeux que vos membres rencontrent maintenant.", "Vérifier les mots, exemples et repères qui favorisent l’appropriation.", "Imaginer les conditions d’une diffusion et d’un accompagnement réalistes."],
+    partnerValue: "La contribution partenaire transforme des besoins dispersés en base de travail collective pour la suite du projet.",
     accent: "#3a7fc1",
     icon: Network,
     visual: "bridge",
@@ -215,6 +239,9 @@ const SLIDES: Slide[] = [
     eyebrow: "Co-construction",
     title: "Vos retours participent aux fondations de la Boussole",
     text: "Le questionnaire partenaire prépare un atelier avec les partenaires et les utilisateurs finaux. Il sert à clarifier les besoins, les priorités, les idées et les craintes avant le prototypage.",
+    narrative: "Les réponses ne sont ni une enquête de satisfaction ni un vote. Elles permettent d’arriver à l’atelier avec des situations concrètes, des désaccords utiles et des critères de réussite déjà formulés.",
+    outcomes: ["Poser un premier regard à travers des choix, des échelles et des réponses ouvertes.", "Exprimer une idée, une crainte ou un besoin non couvert avec ses propres mots.", "Préparer un atelier qui priorise les hypothèses avant de prototyper."],
+    partnerValue: "Votre contribution contribue directement à définir ce que la première version devra faire, expliquer et ne pas faire.",
     accent: "#3aab8a",
     icon: Sparkles,
     visual: "workshop",
@@ -239,9 +266,12 @@ const SLIDES: Slide[] = [
     eyebrow: "Prochaine étape",
     title: "Partager vos idées, maintenant ou plus tard",
     text: "Si vous avez reçu une invitation, le questionnaire est accessible directement. Sinon, vous pouvez demander un lien personnel pour contribuer au moment qui vous convient.",
+    narrative: "Chaque réponse reste liée à une invitation personnelle, peut être enregistrée comme brouillon et relue avant l’envoi. Le temps de contribution doit s’adapter à votre disponibilité, pas l’inverse.",
+    outcomes: ["Répondre seul·e ou préparer sa contribution avec son équipe.", "Reprendre le questionnaire plus tard sans perdre son travail.", "Conserver les nuances nécessaires avant de valider une réponse."],
+    partnerValue: "Une contribution attentive, même courte, apporte des éléments décisifs pour concevoir une Boussole pertinente et praticable.",
     accent: "#E07428",
     icon: CheckCircle2,
-    visual: "none",
+    visual: "next",
     details: [
       {
         id: "invitation",
@@ -288,32 +318,51 @@ function StoryIllustration({ kind, accent }: { kind: Exclude<VisualKind, "compas
   const pale = `${accent}14`;
   const soft = `${accent}2b`;
 
-  if (kind === "journey") return <div aria-hidden="true" className="grid w-full grid-cols-3 items-center gap-2">
-    {["Décrire", "Situer", "Agir"].map((label, index) => <div key={label} className="relative"><div className="grid h-16 place-items-center rounded-2xl px-2 text-center text-xs font-bold" style={{ backgroundColor: index === 1 ? accent : pale, color: index === 1 ? "#fff" : accent }}>{label}</div>{index < 2 && <ArrowRight className="absolute -right-2 top-1/2 z-10 h-4 w-4 -translate-y-1/2 rounded-full bg-white p-0.5" style={{ color: accent }} />}</div>)}
+  if (kind === "journey") return <div aria-hidden="true" className="relative mx-auto w-full max-w-[320px] py-5">
+    <span className="absolute left-[14%] right-[14%] top-1/2 h-px -translate-y-1/2" style={{ backgroundColor: soft }} />
+    <div className="relative grid grid-cols-3 gap-2">{[["01", "Décrire"], ["02", "Situer"], ["03", "Agir"]].map(([number, label], index) => <div key={label} className="text-center"><span className="mx-auto grid h-12 w-12 place-items-center rounded-full text-xs font-extrabold" style={{ backgroundColor: index === 1 ? accent : pale, color: index === 1 ? "#fff" : accent }}>{number}</span><span className="mt-3 block text-xs font-bold" style={{ color: accent }}>{label}</span></div>)}</div>
+    <p className="mt-6 text-center text-xs leading-relaxed text-slate-500">Une lecture courte pour passer d’une situation à une décision praticable.</p>
   </div>;
 
-  if (kind === "community") return <div aria-hidden="true" className="relative mx-auto h-36 w-full max-w-[280px]">
-    {[["Artistes", "6%", "12%"], ["Lieux", "65%", "6%"], ["Réseaux", "5%", "71%"], ["Équipes", "67%", "74%"]].map(([label, left, top]) => <span key={label} className="absolute rounded-full px-3 py-1.5 text-xs font-bold" style={{ left, top, backgroundColor: pale, color: accent }}>{label}</span>)}
-    <span className="absolute left-1/2 top-1/2 grid h-20 w-20 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border-4 border-white text-center text-xs font-bold text-white shadow-lg" style={{ backgroundColor: accent }}>Boussole</span>
-    <span className="absolute left-[21%] top-[45%] h-px w-[56%] -rotate-[20deg]" style={{ backgroundColor: soft }} /><span className="absolute left-[20%] top-[47%] h-px w-[58%] rotate-[22deg]" style={{ backgroundColor: soft }} />
+  if (kind === "signals") return <div aria-hidden="true" className="mx-auto w-full max-w-[310px]">
+    <p className="mb-5 text-center text-xs font-bold uppercase tracking-[0.16em]" style={{ color: accent }}>Ce qui mérite attention</p>
+    <div className="space-y-4">{[["Temps perdu", "72%"], ["Compétences à partager", "54%"], ["Publics à mieux connaître", "38%"]].map(([label, value], index) => <div key={label}><div className="mb-1.5 flex justify-between text-xs font-semibold text-slate-600"><span>{label}</span><span style={{ color: accent }}>{value}</span></div><div className="h-2 overflow-hidden rounded-full bg-slate-100"><span className="block h-full rounded-full" style={{ width: value, backgroundColor: index === 1 ? "#E07428" : accent }} /></div></div>)}</div>
+    <p className="mt-6 text-center text-xs leading-relaxed text-slate-500">Chaque communauté fait émerger ses propres priorités.</p>
   </div>;
 
-  if (kind === "cycle") return <div aria-hidden="true" className="relative mx-auto h-36 w-full max-w-[280px]">
-    <div className="absolute left-1/2 top-1/2 h-24 w-24 -translate-x-1/2 -translate-y-1/2 rounded-full border-[10px] border-transparent" style={{ borderTopColor: accent, borderRightColor: soft, borderBottomColor: accent, borderLeftColor: soft }} />
-    {["Comprendre", "Situer", "Prioriser", "Agir"].map((label, index) => <span key={label} className="absolute grid h-11 w-20 place-items-center rounded-full px-1 text-center text-[10px] font-bold" style={{ backgroundColor: index % 2 ? pale : accent, color: index % 2 ? accent : "#fff", left: index === 1 || index === 2 ? "calc(100% - 5rem)" : "0", top: index > 1 ? "calc(100% - 2.75rem)" : "0" }}>{label}</span>)}
+  if (kind === "community") return <div aria-hidden="true" className="relative mx-auto h-48 w-full max-w-[320px]">
+    {[["Artistes", "6%", "15%"], ["Lieux", "70%", "8%"], ["Réseaux", "4%", "73%"], ["Équipes", "70%", "78%"]].map(([label, left, top]) => <span key={label} className="absolute text-xs font-bold" style={{ left, top, color: accent }}>{label}</span>)}
+    <span className="absolute left-[18%] top-[34%] h-px w-[64%] -rotate-[20deg]" style={{ backgroundColor: soft }} /><span className="absolute left-[18%] top-[62%] h-px w-[64%] rotate-[20deg]" style={{ backgroundColor: soft }} />
+    <span className="absolute left-1/2 top-1/2 grid h-24 w-24 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full text-center text-xs font-bold text-white shadow-lg" style={{ backgroundColor: accent }}>Un repère<br />commun</span>
+    {[["24%", "29%"], ["75%", "32%"], ["24%", "65%"], ["74%", "67%"]].map(([left, top], index) => <span key={`${left}-${top}`} className="absolute h-3.5 w-3.5 rounded-full border-2 border-white" style={{ left, top, backgroundColor: index === 1 ? "#E07428" : accent }} />)}
   </div>;
 
-  if (kind === "principles") return <div aria-hidden="true" className="grid w-full grid-cols-3 gap-2">
-    {["Utile", "Neutre", "Souveraine"].map((label, index) => <div key={label} className="flex h-20 items-end rounded-2xl p-3 text-xs font-bold" style={{ backgroundColor: index === 1 ? accent : pale, color: index === 1 ? "#fff" : accent }}>{label}</div>)}
+  if (kind === "cycle") return <div aria-hidden="true" className="relative mx-auto h-48 w-full max-w-[310px]">
+    <div className="absolute left-1/2 top-1/2 h-28 w-28 -translate-x-1/2 -translate-y-1/2 rounded-full border-[12px] border-transparent" style={{ borderTopColor: accent, borderRightColor: soft, borderBottomColor: accent, borderLeftColor: soft }} />
+    {["Comprendre", "Situer", "Prioriser", "Agir"].map((label, index) => <span key={label} className="absolute text-xs font-bold" style={{ color: index % 2 ? accent : "#64748b", left: index === 1 || index === 2 ? "calc(100% - 4.6rem)" : "0", top: index > 1 ? "calc(100% - 1.25rem)" : "0" }}>{label}</span>)}
+    <p className="absolute inset-x-10 top-1/2 -translate-y-1/2 text-center text-xs font-bold" style={{ color: accent }}>Pas de note unique</p>
   </div>;
 
-  if (kind === "bridge") return <div aria-hidden="true" className="flex w-full items-center gap-3">
-    <span className="grid h-20 w-20 shrink-0 place-items-center rounded-2xl p-2 text-center text-xs font-bold" style={{ backgroundColor: pale, color: accent }}>Membres<br />& publics</span><span className="h-1 flex-1 rounded-full" style={{ background: `linear-gradient(90deg, ${soft}, ${accent})` }} /><span className="grid h-20 w-20 shrink-0 place-items-center rounded-2xl p-2 text-center text-xs font-bold text-white" style={{ backgroundColor: accent }}>Projet<br />partagé</span>
+  if (kind === "principles") return <div aria-hidden="true" className="mx-auto grid w-full max-w-[320px] grid-cols-3 gap-3 pt-5">
+    {[["Utile", "Ce qui aide"], ["Neutre", "Sans classement"], ["Souveraine", "Choix compris"]].map(([label, detail], index) => <div key={label} className="text-center"><span className="mx-auto grid h-14 w-14 place-items-center rounded-full text-xs font-extrabold" style={{ backgroundColor: index === 1 ? accent : pale, color: index === 1 ? "#fff" : accent }}>{index + 1}</span><span className="mt-3 block text-xs font-bold" style={{ color: accent }}>{label}</span><span className="mt-1 block text-[11px] leading-snug text-slate-500">{detail}</span></div>)}
   </div>;
 
-  return <div aria-hidden="true" className="relative mx-auto h-36 w-full max-w-[280px]">
-    {[{ label: "Retours", left: "2%", top: "48%" }, { label: "Atelier", left: "36%", top: "3%" }, { label: "Prototype", left: "66%", top: "53%" }].map((item, index) => <span key={item.label} className="absolute grid h-16 w-16 place-items-center rounded-full p-2 text-center text-[10px] font-bold" style={{ left: item.left, top: item.top, backgroundColor: index === 1 ? accent : pale, color: index === 1 ? "#fff" : accent }}>{item.label}</span>)}
-    <span className="absolute left-[25%] top-[49%] h-px w-[47%] -rotate-[26deg]" style={{ backgroundColor: soft }} /><span className="absolute left-[28%] top-[42%] h-px w-[33%] rotate-[28deg]" style={{ backgroundColor: soft }} />
+  if (kind === "bridge") return <div aria-hidden="true" className="relative mx-auto h-48 w-full max-w-[320px]">
+    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold" style={{ color: accent }}>Besoins<br />des membres</span><span className="absolute right-3 top-1/2 -translate-y-1/2 text-right text-xs font-bold" style={{ color: accent }}>Projet<br />partagé</span>
+    <span className="absolute left-[25%] right-[25%] top-1/2 h-1 -translate-y-1/2 rounded-full" style={{ background: `linear-gradient(90deg, ${soft}, ${accent}, ${soft})` }} />
+    {["Formulations", "Priorités", "Diffusion"].map((label, index) => <span key={label} className="absolute grid h-16 w-16 place-items-center rounded-full p-2 text-center text-[10px] font-bold text-white shadow-md" style={{ backgroundColor: index === 1 ? accent : "#3a7fc1", left: index === 0 ? "31%" : index === 1 ? "calc(50% - 2rem)" : "calc(69% - 4rem)", top: index === 1 ? "15%" : "58%" }}>{label}</span>)}
+  </div>;
+
+  if (kind === "next") return <div aria-hidden="true" className="relative mx-auto w-full max-w-[320px] py-6">
+    <span className="absolute left-[12%] right-[12%] top-[3.9rem] h-px" style={{ backgroundColor: soft }} />
+    <div className="relative grid grid-cols-3 gap-3">{[["1", "Invitation"], ["2", "Brouillon"], ["3", "Contribution"]].map(([number, label], index) => <div key={label} className="text-center"><span className="mx-auto grid h-14 w-14 place-items-center rounded-full text-lg font-extrabold" style={{ backgroundColor: index === 2 ? accent : pale, color: index === 2 ? "#fff" : accent }}>{number}</span><span className="mt-3 block text-xs font-bold" style={{ color: accent }}>{label}</span></div>)}</div>
+    <p className="mt-6 text-center text-xs leading-relaxed text-slate-500">Un rythme de réponse qui laisse la place à la réflexion.</p>
+  </div>;
+
+  return <div aria-hidden="true" className="relative mx-auto h-48 w-full max-w-[320px]">
+    <span className="absolute left-[19%] top-[50%] h-px w-[62%] -rotate-[25deg]" style={{ backgroundColor: soft }} /><span className="absolute left-[18%] top-[49%] h-px w-[62%] rotate-[25deg]" style={{ backgroundColor: soft }} />
+    {[{ label: "Retours", left: "4%", top: "50%" }, { label: "Atelier", left: "38%", top: "7%" }, { label: "Prototype", left: "69%", top: "54%" }].map((item, index) => <span key={item.label} className="absolute grid h-20 w-20 place-items-center rounded-full p-2 text-center text-xs font-bold" style={{ left: item.left, top: item.top, backgroundColor: index === 1 ? accent : pale, color: index === 1 ? "#fff" : accent }}>{item.label}</span>)}
+    <p className="absolute inset-x-6 bottom-0 text-center text-xs leading-relaxed text-slate-500">Des retours concrets deviennent une matière de conception partagée.</p>
   </div>;
 }
 
@@ -367,16 +416,21 @@ export default function PartnerPresentation() {
     <div className="bg-white px-4 py-4 sm:py-6">
       <section className="mx-auto max-w-7xl">
         <article className="overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-50 via-white to-white shadow-[0_20px_70px_rgba(42,54,90,0.08)] lg:flex lg:h-[950px] lg:max-h-[950px] lg:flex-col">
-          <div className="p-5 sm:p-6 lg:h-[480px] lg:shrink-0 lg:overflow-y-auto lg:p-7 xl:p-8">
+          <div className="p-5 sm:p-6 lg:h-[580px] lg:shrink-0 lg:overflow-hidden lg:p-7 xl:p-8">
             <p className="text-xs font-extrabold uppercase tracking-[0.16em]" style={{ color: slide.accent }}>{slide.eyebrow}</p>
             <h1 className="mt-3 max-w-none text-3xl font-extrabold leading-[1.12] tracking-tight text-slate-950 sm:text-4xl lg:text-[2rem] xl:text-[2.25rem] xl:whitespace-nowrap">{slide.title}</h1>
-            <div className={`mt-3 grid gap-5 lg:items-start lg:gap-8 ${slide.visual === "none" ? "" : "lg:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)]"}`}>
-              <div>
-                <p className="max-w-3xl text-base leading-relaxed text-slate-600 sm:text-lg">{slide.text}</p>
-                <p className="mt-4 text-sm font-medium text-slate-500">Ouvrez les repères ci-dessous pour approfondir sans quitter cette présentation.</p>
+            <div className="mt-4 grid gap-8 lg:min-h-[455px] lg:grid-cols-[minmax(0,2fr)_minmax(260px,1fr)] lg:items-center lg:gap-10">
+              <div className="flex min-w-0 flex-col lg:min-h-[455px]">
+                <p className="max-w-4xl text-base leading-relaxed text-slate-700 sm:text-lg">{slide.text}</p>
+                <p className="mt-4 max-w-4xl text-sm leading-relaxed text-slate-600 sm:text-base">{slide.narrative}</p>
+                <div className="mt-5 grid gap-2.5 sm:grid-cols-3">
+                  {slide.outcomes.map((outcome, index) => <div key={outcome} className="border-l-2 pl-3 text-sm leading-snug text-slate-600" style={{ borderColor: index === 1 ? "#E07428" : slide.accent }}>{outcome}</div>)}
+                </div>
+                <p className="mt-5 border-l-2 pl-4 text-sm font-semibold leading-relaxed text-slate-700 lg:mt-auto" style={{ borderColor: slide.accent }}>{slide.partnerValue}</p>
               </div>
-              {slide.visual === "compass" && <div className="flex justify-center lg:-mt-7"><AnimatedRadarGraphic interactive dimensions={PARTNER_RADAR_DIMENSIONS} ariaLabel="Radar interactif des cinq dimensions de la Boussole" className="h-[255px] w-[255px] sm:h-[285px] sm:w-[285px]" /></div>}
-              {slide.visual !== "none" && slide.visual !== "compass" && <div className="rounded-3xl border border-white bg-white/70 p-5 shadow-inner sm:p-6"><StoryIllustration kind={slide.visual} accent={slide.accent} /></div>}
+              <div className="min-w-0 lg:pl-2">
+                {slide.visual === "compass" ? <AnimatedRadarGraphic interactive dimensions={PARTNER_RADAR_DIMENSIONS} ariaLabel="Radar interactif des cinq dimensions de la Boussole" className="mx-auto h-[250px] w-[250px] sm:h-[285px] sm:w-[285px]" /> : <StoryIllustration kind={slide.visual as Exclude<VisualKind, "compass" | "none">} accent={slide.accent} />}
+              </div>
             </div>
           </div>
 

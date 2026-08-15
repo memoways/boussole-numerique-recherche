@@ -84,3 +84,5 @@
 - [x] Ajuster le deck partenaire : barre de progression, hauteur utile, titre et navigation selon les annotations validées.
 - [x] Corriger l’exposition du port interne 8080 dans les URL publiques derrière Coolify.
 - [x] Remplacer le radar simplifié de la première slide par le radar interactif de l’accueil, sans effet glassmorphism.
+- [x] Recomposer le contenu partenaire sur deux tiers à gauche et des illustrations narratives sans cadre sur un tiers à droite.
+- [x] Retirer partout l’instruction redondante sur l’ouverture des repères du deck partenaire.

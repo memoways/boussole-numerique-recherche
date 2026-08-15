@@ -52,6 +52,10 @@ La route `/partenaires/presentation` contient neuf slides. Les détails sont dé
 
 La première slide utilise le radar animé ; les autres n’emploient une illustration que lorsqu’elle explicite réellement le récit. Les retours de navigation redondants, les labels sous le radar et les icônes décoratives inutiles ont été supprimés lors des derniers ajustements visuels.
 
+Les neuf slides sont désormais construites comme un récit partenaire. La colonne de gauche occupe deux tiers du gabarit desktop : elle réunit l’intention, le contexte, trois effets attendus et la valeur concrète de la contribution. Le tiers droit accueille un schéma propre à chaque propos — parcours, signaux du terrain, communauté, cycle, principes, passerelle, atelier ou contribution — sans carte, bordure ou glassmorphism qui le dissocierait du récit. Les accordéons prolongent la lecture sans être annoncés par un texte d’instruction redondant.
+
+Le haut de chaque slide conserve une zone narrative de 580 px sur desktop. Cette hauteur évite un défilement interne avant les commandes tout en laissant le texte et son illustration dans le même champ de lecture. Les accordéons restent dans la partie basse, séparés par la navigation fixe.
+
 ### Questionnaire, données et administration
 
 Le module partenaire est présent dans `services/partner-feedback-api/`. Il gère les organisations, contacts, invitations, demandes d’invitation, versions du questionnaire, réponses, événements et boîte d’envoi. Les réponses peuvent être enregistrées comme brouillons, soumises après consentement, complétées à l’oral si Deepgram est activé puis relues avant enregistrement.
@@ -131,6 +135,7 @@ Qualité            pnpm verify · TypeScript · builds · scripts mobile/contra
 | 14 août 2026 | Page 404 de réorientation ajoutée : recherche locale Ressources, résultats immédiats, raccourcis publics et métadonnées non indexables |
 | 15 août 2026 | Deck partenaire ajusté d’après retour visuel : 950 px, titre compact, progression entre les commandes et suppression du texte de navigation ; URL SEO sans port interne stabilisées |
 | 15 août 2026 | Radar de première slide remplacé : visualisation interactive issue du langage de l’accueil, dimensions sélectionnables et suppression du panneau glassmorphism |
+| 15 août 2026 | Récit partenaire recomposé : contenu dense en colonne 2/3, schémas narratifs sans cadre dans le tiers droit, phrase d’instruction retirée et valeur de contribution explicitée slide par slide |
 
 ## 8. État d’activation et limites connues
 
