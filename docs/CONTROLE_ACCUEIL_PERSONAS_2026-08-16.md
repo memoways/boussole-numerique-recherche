@@ -48,6 +48,8 @@ Le même comportement est confirmé pour Institutionnel : le clic sur sa carte d
 
 Le parcours Enjeux du numérique adopte le même alignement : la sélection déclenche le défilement fluide, le séparateur arrive sous le sous-menu et le radar Pratiques ainsi que les étapes Utile, Neutre et Souveraine restent entièrement visibles.
 
+Sur l’accueil neutre, les trois CTA orange de profils sont visibles sous la promesse et le sous-menu sticky est absent. Le clic sur le CTA Artiste ajoute `?public=artiste`, déclenche le récit et, une fois les cartes dépassées, affiche le sous-menu contextuel avec le profil actif et les deux alternatives.
+
 ## Contrôles restant à effectuer
 
 - Vérifier le comportement clavier, les préférences de mouvement réduit et la largeur mobile.

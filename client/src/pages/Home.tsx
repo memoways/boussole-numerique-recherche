@@ -187,8 +187,8 @@ function PersonaVisualizations({ persona }: { persona: Persona }) {
   );
 }
 
-function StickyPersonaMenu({ activePersona, onSelect }: { activePersona: PersonaId | null; onSelect: (personaId: PersonaId) => void }) {
-  if (!activePersona) return null;
+function StickyPersonaMenu({ activePersona, onSelect, visible }: { activePersona: PersonaId | null; onSelect: (personaId: PersonaId) => void; visible: boolean }) {
+  if (!activePersona || !visible) return null;
 
   return (
     <nav className="fixed inset-x-0 top-14 z-40 border-b border-slate-200 bg-white/95 shadow-sm backdrop-blur-md sm:top-16" aria-label="Profil sélectionné">
@@ -374,7 +374,9 @@ function InterestForm({ activePersona }: { activePersona: PersonaId | null }) {
 
 export default function Home() {
   const [activePersona, setActivePersona] = useState<PersonaId | null>(null);
+  const [showStickyPersonaMenu, setShowStickyPersonaMenu] = useState(false);
   const storyRef = useRef<HTMLDivElement>(null);
+  const personaSelectorRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const syncPersona = () => setActivePersona(getPersonaFromUrl());
@@ -382,6 +384,21 @@ export default function Home() {
     window.addEventListener("popstate", syncPersona);
     return () => window.removeEventListener("popstate", syncPersona);
   }, []);
+
+  useEffect(() => {
+    const target = personaSelectorRef.current;
+    if (!target || !activePersona) {
+      setShowStickyPersonaMenu(false);
+      return;
+    }
+
+    const observer = new IntersectionObserver(([entry]) => {
+      setShowStickyPersonaMenu(!entry.isIntersecting && entry.boundingClientRect.bottom < 0);
+    }, { threshold: 0 });
+
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, [activePersona]);
 
   const selectPersona = (personaId: PersonaId) => {
     const nextUrl = new URL(window.location.href);
@@ -414,12 +431,32 @@ export default function Home() {
             <span className="block bg-[linear-gradient(90deg,#515792_0%,#3a7fc1_20%,#3aab8a_43%,#7ab648_60%,#E07428_80%)] bg-clip-text text-transparent">Boussole Numérique Culture</span>
           </h1>
           <p className="mx-auto mt-6 max-w-3xl text-lg leading-relaxed text-slate-600 sm:text-xl">Un outil en création pour aider les artistes et les personnes qui les accompagnent à mieux comprendre leurs pratiques numériques, choisir des priorités et ouvrir des pistes d’action utiles.</p>
+          <div className="mx-auto mt-8 grid max-w-4xl gap-3 sm:grid-cols-3" role="group" aria-label="Choisir un profil">
+            {PERSONAS.map((persona) => {
+              const Icon = persona.icon;
+              const selected = activePersona === persona.id;
+              return (
+                <button
+                  key={persona.id}
+                  type="button"
+                  aria-pressed={selected}
+                  onClick={() => selectPersona(persona.id)}
+                  className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-[#E07428] px-4 py-3 text-sm font-bold text-white shadow-sm transition-[transform,background-color,box-shadow] duration-200 ease-out hover:-translate-y-0.5 hover:bg-[#c95f19] hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#515792]"
+                  style={{ boxShadow: selected ? `inset 0 0 0 2px ${persona.color}, 0 4px 10px rgba(224, 116, 40, 0.18)` : undefined }}
+                >
+                  <Icon className="h-4 w-4 transition-transform duration-200 group-hover:rotate-[-8deg]" aria-hidden="true" />
+                  <span>{persona.stickyLabel}</span>
+                  {selected && <Check className="h-4 w-4" aria-label="Profil sélectionné" />}
+                </button>
+              );
+            })}
+          </div>
         </div>
       </section>
 
-      <StickyPersonaMenu activePersona={activePersona} onSelect={selectPersona} />
+      <StickyPersonaMenu activePersona={activePersona} onSelect={selectPersona} visible={showStickyPersonaMenu} />
 
-      <section className="px-4 py-14" aria-labelledby="persona-selector-title">
+      <section ref={personaSelectorRef} className="px-4 py-14" aria-labelledby="persona-selector-title">
         <div className="mx-auto max-w-6xl">
           <div className="text-center">
             <h2 id="persona-selector-title" className="text-2xl font-extrabold tracking-tight text-slate-950 sm:text-3xl">Entrée dans le site par profil</h2>

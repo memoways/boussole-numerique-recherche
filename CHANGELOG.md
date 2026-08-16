@@ -37,6 +37,8 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Hero et entrée de l’accueil simplifiés selon annotations : le hero ne conserve que le titre et la promesse ; la section s’intitule « Entrée dans le site par profil » sans libellés ni décorations redondantes.
 - Traits verticaux décoratifs retirés des questions, du message de contribution et du résumé de la boussole dans les trois parcours de profils.
 - Ancrage du récit de profil rendu responsive : 7 rem sur mobile et 8 rem à partir de `sm`, correspondant aux hauteurs respectives de navigation et de sous-menu ; le séparateur arrive sous les barres fixes sans masquer le radar.
+- Trois CTA de profils orange ajoutés sous la promesse du hero : Institutionnel, Artiste et Enjeux du numérique activent directement le récit, avec état sélectionné, icône et micro-interaction cohérents avec les actions du portail.
+- Sous-menu de profils conditionné au dépassement complet des trois cartes : il disparaît dès que les cartes redeviennent visibles dans le hero et réapparaît seulement dans le récit personnalisé.
 
 ### Modifié
 
@@ -125,6 +127,7 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Sélection Artiste contrôlée : le sous-menu sticky reste visible tandis que la totalité du radar est dégagée sous son ancre.
 - Sélection Artiste affinée : le séparateur du récit s’aligne exactement sous le sous-menu, sans espace blanc excessif avant le contenu.
 - Défilement fluide contrôlé sur Institutionnel et Enjeux du numérique : les deux récits atteignent leur séparateur, radars et boussoles entièrement visibles ; l’animation est automatiquement désactivée si `prefers-reduced-motion` est activé.
+- Accueil contrôlé : les CTA orange sont présents en état neutre ; le CTA Artiste ouvre son récit et le sous-menu actif apparaît après les cartes, puis disparaît au retour dans le hero.
 
 ## [1.1.0] — 2026-08-09 au 2026-08-12 — Alignement institutionnel, accessibilité et diffusion
 
