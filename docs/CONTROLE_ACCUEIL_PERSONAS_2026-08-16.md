@@ -34,6 +34,10 @@ Le défilement du parcours Artiste conserve le sous-menu sous la navigation glob
 
 La page Expérience a aussi été contrôlée après clarification du radar : les cinq icônes périphériques sont les seuls éléments exposés comme boutons. Le clic sur l’icône Outils ouvre sa lecture contextuelle ; les cinq points du tracé ne portent plus de rôle, de focus ni de contrôle interactif.
 
+Le radar partagé du parcours Artiste applique désormais la même règle. Il expose cinq icônes périphériques comme contrôles, tandis que les cinq points du tracé restent graphiques. Le clic sur l’icône Compétences met à jour le résumé associé. La boussole interactive conserve ses trois grandes cibles de contribution, qui deviennent une colonne de boutons tactiles sur petit écran pour éviter les libellés comprimés.
+
+Le clic sur l’étape « Situer » de la boussole Artiste met à jour sa lecture contextuelle. Les trois cibles sont des boutons complets, avec une hauteur minimale de 92 px et un empilement prévu avant le breakpoint `sm`, ce qui maintient des cibles confortables et des libellés entiers sur mobile.
+
 ## Contrôles restant à effectuer
 
 - Vérifier le comportement clavier, les préférences de mouvement réduit et la largeur mobile.

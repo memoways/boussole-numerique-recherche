@@ -31,6 +31,8 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Entrée par personas renommée « Entrée dans le site par profil » ; le libellé redondant, la ligne décorative et la note de réversibilité ont été retirés.
 - Sous-menu de profils sticky ajouté après sélection : « Institutionnel », « Artiste » et « Enjeux du numérique » restent disponibles sous la navigation principale, avec le profil actif mis en évidence par sa couleur.
 - Radar de la page Expérience clarifié : les icônes périphériques, fixes et accessibles, deviennent les seuls contrôles des dimensions ; les points du tracé sont désormais purement visuels.
+- Convention appliquée au radar partagé de l’accueil et de la présentation partenaire : les points restent graphiques, les cinq icônes périphériques portent les contrôles, les états et les retours de survol.
+- Boussole narrative optimisée pour mobile : ses étapes sont empilées sous `sm`, conservent des cibles de 92 px et des libellés de taille lisible ; elles retrouvent leur grille sur écrans plus larges.
 
 ### Modifié
 
@@ -110,6 +112,7 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Vérification complète `pnpm verify` validée après la simplification : TypeScript, build statique, vérification SEO-GEO et build de l’API partenaire passent.
 - Changement direct de profil et maintien du sous-menu au défilement contrôlés : une seule entrée est active, le menu reste fixé sous la navigation globale et l’URL ainsi que le récit sont actualisés.
 - Page Expérience contrôlée : l’icône Outils met à jour sa lecture contextuelle, tandis que les points du radar ne sont plus exposés comme contrôles ni accessibles au focus.
+- Parcours Artiste contrôlé : l’icône Compétences met à jour le radar partagé, l’étape Situer met à jour la boussole et les contrôles restent distincts des points du tracé.
 
 ## [1.1.0] — 2026-08-09 au 2026-08-12 — Alignement institutionnel, accessibilité et diffusion
 

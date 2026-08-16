@@ -105,3 +105,4 @@
 - [x] Renommer et simplifier la section d’entrée par profils selon les annotations validées.
 - [x] Ajouter un sous-menu sticky de profils avec mise en évidence colorée du profil actif et changement de parcours direct.
 - [x] Rendre les icônes périphériques de la page Expérience les seuls contrôles interactifs explicites du radar.
+- [x] Harmoniser les contrôles des radars, ajouter des retours de survol et optimiser la boussole interactive sur mobile.

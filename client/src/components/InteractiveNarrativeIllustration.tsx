@@ -107,7 +107,7 @@ export function InteractiveNarrativeIllustration({ kind, accent }: Props) {
     onKeyDown: (event: KeyboardEvent<HTMLButtonElement>) => keyboardActivate(event, index),
     "aria-pressed": activeIndex === index,
   });
-  const tileClass = "relative flex min-h-24 min-w-0 flex-col items-start justify-between rounded-2xl border px-3 py-3 text-left outline-none transition-[transform,box-shadow,background-color,border-color] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] hover:-translate-y-1 focus-visible:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-4 motion-reduce:transform-none motion-reduce:transition-none";
+  const tileClass = "relative flex min-h-[92px] min-w-0 flex-col items-start justify-between rounded-2xl border px-4 py-3 text-left outline-none transition-[transform,box-shadow,background-color,border-color] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] hover:-translate-y-1 focus-visible:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-4 motion-reduce:transform-none motion-reduce:transition-none";
   const tileStyle = (index: number) => ({
     backgroundColor: activeIndex === index ? accent : pale,
     borderColor: activeIndex === index ? accent : soft,
@@ -127,11 +127,11 @@ export function InteractiveNarrativeIllustration({ kind, accent }: Props) {
     })}
   </div>;
 
-  const StepGraphic = () => <div className={`grid gap-3 ${isCycle ? "grid-cols-2" : "grid-cols-3"}`}>
+  const StepGraphic = () => <div className={`grid gap-3 ${isCycle ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1 sm:grid-cols-3"}`}>
     {story.steps.map((step, index) => <button key={step.label} type="button" {...interaction(index)} className={tileClass} style={tileStyle(index)}>
       <span className="grid h-6 min-w-6 place-items-center rounded-full text-[11px] font-extrabold" style={{ backgroundColor: activeIndex === index ? "rgba(255,255,255,0.22)" : soft, color: activeIndex === index ? "#fff" : accent }}>{String(index + 1).padStart(2, "0")}</span>
       <span className="mt-4 text-sm font-extrabold leading-tight">{step.label}</span>
-      <span className="mt-2 text-[11px] font-medium leading-snug" style={{ color: activeIndex === index ? "rgba(255,255,255,0.85)" : "#64748b" }}>{isCycle ? ["La situation", "Les liens", "Le choix", "Le geste"][index] : index === 0 ? "Point de départ" : index === story.steps.length - 1 ? "Point d’arrivée" : "Temps de lecture"}</span>
+      <span className="mt-2 text-xs font-medium leading-snug" style={{ color: activeIndex === index ? "rgba(255,255,255,0.85)" : "#64748b" }}>{isCycle ? ["La situation", "Les liens", "Le choix", "Le geste"][index] : index === 0 ? "Point de départ" : index === story.steps.length - 1 ? "Point d’arrivée" : "Temps de lecture"}</span>
     </button>)}
   </div>;
 

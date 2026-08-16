@@ -29,6 +29,7 @@ export function AnimatedRadarGraphic({
 }: AnimatedRadarGraphicProps) {
   const [values, setValues] = useState(PROFILE_A);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const rafRef = useRef<number | null>(null);
   const phaseRef = useRef(0);
   const progressRef = useRef(0);
@@ -36,6 +37,7 @@ export function AnimatedRadarGraphic({
   const cx = 150;
   const cy = 150;
   const radius = 100;
+  const controlRadius = 138;
 
   useEffect(() => {
     const duration = 4000;
@@ -84,49 +86,46 @@ export function AnimatedRadarGraphic({
           return <line key={index} x1={cx} y1={cy} x2={(cx + radius * Math.cos(angle)).toFixed(1)} y2={(cy + radius * Math.sin(angle)).toFixed(1)} stroke="#e5e7eb" strokeWidth="1" />;
         })}
         <path d={shape} fill="#515792" fillOpacity="0.18" stroke="#515792" strokeWidth="2" strokeLinejoin="round" />
-        {points.map((point, index) => {
-          const dimension = dimensions[index];
-          const active = interactive && activeIndex === index;
-          const activate = () => setActiveIndex(index);
-
-          return interactive ? (
-            <g
-              key={dimension.label}
-              role="button"
-              tabIndex={0}
-              aria-label={`Afficher la dimension ${dimension.label}`}
-              aria-pressed={active}
-              className="outline-none"
-              style={{ cursor: "pointer" }}
-              onMouseEnter={activate}
-              onFocus={activate}
-              onClick={activate}
-              onKeyDown={(event) => {
-                if (event.key === "Enter" || event.key === " ") {
-                  event.preventDefault();
-                  activate();
-                }
-              }}
-            >
-              <circle cx={point.x.toFixed(2)} cy={point.y.toFixed(2)} r="14" fill="transparent" />
-              {active && <circle cx={point.x.toFixed(2)} cy={point.y.toFixed(2)} r="9" fill={dimension.couleur} fillOpacity="0.16" stroke={dimension.couleur} strokeWidth="1" />}
-              <circle cx={point.x.toFixed(2)} cy={point.y.toFixed(2)} r={active ? 6 : 4.5} fill={dimension.couleur} stroke="white" strokeWidth="1.5" />
-              {dimension.emoji && <text x={point.x.toFixed(2)} y={(point.y + 1).toFixed(2)} textAnchor="middle" dominantBaseline="middle" fontSize={active ? "12" : "10"} aria-hidden="true">{dimension.emoji}</text>}
-            </g>
-          ) : <circle key={dimension.label} cx={point.x.toFixed(2)} cy={point.y.toFixed(2)} r="4.5" fill={dimension.couleur} stroke="white" strokeWidth="1.5" />;
-        })}
+        {points.map((point, index) => <circle key={dimensions[index].label} cx={point.x.toFixed(2)} cy={point.y.toFixed(2)} r="4.5" fill={dimensions[index].couleur} stroke="white" strokeWidth="1.5" aria-hidden="true" />)}
         {interactive && dimensions.map((dimension, index) => {
           const angle = (index * 72 - 90) * Math.PI / 180;
-          const labelX = cx + (radius + 23) * Math.cos(angle);
-          const labelY = cy + (radius + 23) * Math.sin(angle);
-          return <text key={`${dimension.label}-label`} x={labelX.toFixed(1)} y={labelY.toFixed(1)} textAnchor="middle" dominantBaseline="middle" fontSize="11" fontWeight="700" fill={activeIndex === index ? dimension.couleur : "#64748b"}>{dimension.label}</text>;
+          const controlX = cx + controlRadius * Math.cos(angle);
+          const controlY = cy + controlRadius * Math.sin(angle);
+          const active = activeIndex === index;
+          const hovered = hoveredIndex === index;
+          const controlSize = active || hovered ? 18 : 16;
+          const activate = () => setActiveIndex(index);
+          return <g
+            key={`${dimension.label}-control`}
+            role="button"
+            tabIndex={0}
+            aria-label={`Afficher la dimension ${dimension.label}`}
+            aria-pressed={active}
+            style={{ cursor: "pointer", outline: "none" }}
+            onMouseEnter={() => setHoveredIndex(index)}
+            onMouseLeave={() => setHoveredIndex(null)}
+            onFocus={() => { setHoveredIndex(index); activate(); }}
+            onBlur={() => setHoveredIndex(null)}
+            onClick={activate}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                activate();
+              }
+            }}
+          >
+            <title>{dimension.label}</title>
+            <circle cx={controlX.toFixed(2)} cy={controlY.toFixed(2)} r="23" fill="transparent" />
+            <circle cx={controlX.toFixed(2)} cy={controlY.toFixed(2)} r={controlSize} fill={active ? `${dimension.couleur}16` : "white"} stroke={dimension.couleur} strokeWidth={active || hovered ? "2.5" : "1.5"} style={{ filter: "drop-shadow(0 1px 3px rgba(0,0,0,0.12))", transition: "r 180ms ease, fill 180ms ease, stroke-width 180ms ease" }} />
+            <text x={controlX.toFixed(2)} y={controlY.toFixed(2)} textAnchor="middle" dominantBaseline="middle" fontSize="14" aria-hidden="true">{dimension.emoji ?? "•"}</text>
+          </g>;
         })}
         </svg>
       </div>
       {interactive && activeDimension && (
         <p className="mt-4 max-w-[320px] text-center text-sm leading-relaxed text-slate-500" aria-live="polite">
           <span className="font-bold" style={{ color: activeDimension.couleur }}>{activeDimension.label}</span>
-          {activeDimension.resume ? ` — ${activeDimension.resume}` : ". Cliquez sur un repère pour explorer une autre dimension."}
+          {activeDimension.resume ? ` — ${activeDimension.resume}` : ". Sélectionnez une icône autour du radar pour explorer une autre dimension."}
         </p>
       )}
     </div>

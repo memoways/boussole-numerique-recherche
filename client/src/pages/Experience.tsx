@@ -114,6 +114,7 @@ const TARGETS_B = [0.40, 0.78, 0.55, 0.82, 0.35];
 function AnimatedRadar() {
   const [vals, setVals] = useState(TARGETS_A);
   const [activeDim, setActiveDim] = useState<number | null>(null);
+  const [hoveredDim, setHoveredDim] = useState<number | null>(null);
   const rafRef = useRef<number | null>(null);
   const startRef = useRef<number | null>(null);
   const phaseRef = useRef(0); // 0 = vers B, 1 = vers A
@@ -187,6 +188,8 @@ function AnimatedRadar() {
         const a = baseAngle * Math.PI / 180;
         const x = CX + R_ORBIT * Math.cos(a);
         const y = CY + R_ORBIT * Math.sin(a);
+        const selected = activeDim === i;
+        const hovered = hoveredDim === i;
         return (
           <g
             key={i}
@@ -195,6 +198,10 @@ function AnimatedRadar() {
             aria-label={`Afficher la dimension ${dim.label}`}
             aria-pressed={activeDim === i}
             style={{ cursor: 'pointer', outline: 'none' }}
+            onMouseEnter={() => setHoveredDim(i)}
+            onMouseLeave={() => setHoveredDim(null)}
+            onFocus={() => { setHoveredDim(i); setActiveDim(i); }}
+            onBlur={() => setHoveredDim(null)}
             onClick={() => setActiveDim(activeDim === i ? null : i)}
             onKeyDown={(event) => {
               if (event.key === 'Enter' || event.key === ' ') {
@@ -207,10 +214,10 @@ function AnimatedRadar() {
             <circle
               cx={x.toFixed(1)}
               cy={y.toFixed(1)}
-              r={activeDim === i ? "18" : "16"}
-              fill={activeDim === i ? dim.couleur + "16" : "white"}
+              r={selected || hovered ? "18" : "16"}
+              fill={selected ? dim.couleur + "16" : hovered ? dim.couleur + "0d" : "white"}
               stroke={dim.couleur}
-              strokeWidth={activeDim === i ? "2.5" : "1.5"}
+              strokeWidth={selected || hovered ? "2.5" : "1.5"}
               style={{ filter: 'drop-shadow(0 1px 3px rgba(0,0,0,0.12))', transition: 'r 180ms ease, fill 180ms ease, stroke-width 180ms ease' }}
             />
             <text x={x.toFixed(1)} y={y.toFixed(1)} textAnchor="middle" dominantBaseline="middle" fontSize="14" aria-hidden="true">{dim.emoji}</text>
