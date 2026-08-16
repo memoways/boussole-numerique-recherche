@@ -22,7 +22,7 @@ Dans Coolify, ajoutez `SITE_URL=https://boussole-culture-recherche.memoways.com`
 
 ## Questionnaire partenaire
 
-Le questionnaire partenaire ajoute un backend distinct déployé comme une seconde application Coolify. La page statique reçoit uniquement l’URL publique de cette API via `VITE_PARTNER_API_URL` au **build**. Cette URL est publique et ne contient aucun secret.
+Le questionnaire partenaire et le formulaire public de manifestation d’intérêt utilisent un backend distinct déployé comme une seconde application Coolify. La page statique reçoit uniquement l’URL publique de cette API via `VITE_PARTNER_API_URL` au **build**. Cette URL est publique et ne contient aucun secret.
 
 | Variable backend | Type | Règle |
 |---|---|---|
@@ -38,3 +38,9 @@ Le questionnaire partenaire ajoute un backend distinct déployé comme une secon
 | `RUN_MIGRATIONS` | Configuration | `true` au premier déploiement ou après une migration contrôlée. |
 
 Dreamlit ne requiert aucune clé dans l’API : sa connexion PostgreSQL et son mot de passe dédié sont configurés dans Dreamlit. La base expose à Dreamlit uniquement `notifications.partner_response_recap_outbox`, avec un utilisateur distinct et des droits minimaux. Ne créez jamais ces secrets dans le frontend ni dans un fichier d’environnement commité. La liste complète et la procédure d’activation figurent dans [le tutoriel partenaire](../docs/PARTNER_FEEDBACK_OPERATIONS.md).
+
+## Manifestations d’intérêt
+
+Le formulaire de l’accueil ne transmet une adresse e-mail que lorsque `VITE_PARTNER_API_URL` est configurée et que l’API partenaire est déployée. Les données sont alors stockées dans `public_interest_submissions` : public déclaré, intérêt pour un atelier, intérêt pour une notification, date de consentement et page d’origine. La table est créée par `schema.sql` lors d’un déploiement avec `RUN_MIGRATIONS=true`.
+
+Le formulaire reste sur un lien `mailto:` honnête tant que l’API n’est pas disponible. Une adresse enregistrée peut être mise à jour par une nouvelle soumission ; le retrait de consentement est traité par l’équipe de projet depuis la console d’administration. Les exports dédiés sont protégés par la session administrateur et ne doivent pas être partagés hors du cadre de la co-conception.

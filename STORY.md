@@ -48,6 +48,10 @@ Les routes publiques indexables sont pré-rendues après Vite. Leurs fichiers HT
 
 La phase actuelle du site compagnon est la mobilisation et l’écoute. Le questionnaire partenaire recueille besoins, priorités, idées et points de vigilance ; les contributions prépareront un atelier de co-conception, dont le format et la date restent à confirmer. Les phases suivantes sont explicites sans être surpromises : décider le prototype, tester avec les personnes concernées, puis diffuser et accompagner. Les pages Calendrier, Projet, Méthode et Expérience emploient ce même déroulé.
 
+L’accueil traduit cette mobilisation par trois parcours : partenaires relais, artistes et personnes actives dans la culture, ou personnes intéressées par les enjeux numériques. Le choix est réversible et mémorisé dans `?public=partenaire`, `?public=artiste` ou `?public=enjeux-numeriques` pour partager un état de lecture, sans créer de variante SEO : la canonique reste celle de l’accueil. Chaque parcours déploie une intention, trois questions, une proposition de contribution et une illustration propre.
+
+Les manifestations d’intérêt sont distinctes du questionnaire partenaire. Après activation de l’API, le formulaire public conserve dans `public_interest_submissions` le consentement, le public déclaré, le souhait d’être invité·e à un atelier et/ou d’être informé·e d’une ouverture, ainsi que la page d’origine. Sans `VITE_PARTNER_API_URL`, aucun faux formulaire ne s’affiche : un relais e-mail honnête reste disponible. La console `/admin` prévoit la consultation et l’export CSV dédiés.
+
 L’expérience Boussole utilise cinq dimensions pour rendre le diagnostic tangible. Le radar animé de l’accueil est fourni par le composant partagé `AnimatedRadarGraphic`. Il ouvre la présentation partenaire comme visualisation exploratoire, sans overlay glassmorphism : les dimensions sont nommées, chaque repère répond au survol, au focus, au clic et au clavier, puis met à jour une lecture contextuelle. Les autres slides n’emploient pas de radar afin que chaque illustration conserve un rôle propre.
 
 ### Présentation partenaire
@@ -106,6 +110,8 @@ Après chaque soumission, l’API prépare un e-mail de récapitulatif détermin
 | Une page 404 réoriente plutôt qu’elle ne bloque | Une ancienne URL ou un lien externe peut rester en circulation | La page de secours propose la recherche documentaire et des accès vers les parcours publics, sans ajouter de dépendance externe |
 | Le site compagnon s’adresse d’abord aux partenaires relais | L’outil doit être défini avec des organisations capables de le connecter aux artistes | Accueil, Partenaires, CTA, pages de contexte et métadonnées guident vers la découverte puis le questionnaire |
 | Les phases futures sont visibles, mais non annoncées comme réalisées | La contribution actuelle doit préparer le prototype sans créer de promesse prématurée | Le déroulé distingue mobilisation, prototype, tests et diffusion ; l’atelier reste formulé comme une étape à confirmer |
+| Accueil par persona, canonique unique | Les publics doivent se reconnaître sans fragmenter l’indexation | `?public=` partage un état de lecture tandis que la page conserve une même canonique et un même graphe JSON-LD |
+| Manifestation d’intérêt séparée du questionnaire | Une personne non invitée doit pouvoir rester liée à la démarche sans être assimilée à un partenaire pilote | Le formulaire stocke seulement le consentement, le public, les préférences d’information et l’origine ; l’admin et l’export restent protégés |
 
 ## 6. Stack et structure du dépôt
 
@@ -157,6 +163,7 @@ Qualité            pnpm verify · TypeScript · builds · scripts mobile/contra
 | 15 août 2026 | Illustrations partenaires consolidées : composants exploratoires, transitions directionnelles accessibles, zone graphique élargie, étapes contenues et contrôles visuels des slides 1, 2, 5 et 9 |
 | 15 août 2026 | Adressage du site compagnon clarifié : outil en co-conception, partenaires relais prioritaires, questionnaire comme action de phase 1, parcours de vie en quatre étapes et SEO aligné |
 | 15 août 2026 | SEO-GEO renforcé : registre partagé, pré-rendu HTML de dix routes indexables, graphe JSON-LD consolidé, llms.txt, vraie 404 Nginx et vérification automatisée intégrée à `pnpm verify` |
+| 16 août 2026 | Accueil par persona livré : trois parcours réversibles et partageables, récits et illustrations adaptés, collecte d’intérêt consentie prête côté API, console et export préparés |
 
 ## 8. État d’activation et limites connues
 
@@ -171,6 +178,7 @@ Le portail statique peut être déployé immédiatement. Le module partenaire es
 | Console `/admin` | Interface livrée | Définir `ADMIN_EMAIL` et `ADMIN_PASSWORD`, puis déployer l’API |
 | Transcription Deepgram | Intégration livrée | Fournir `DEEPGRAM_API_KEY` |
 | E-mails Dreamlit | Boîte d’envoi livrée | Créer l’utilisateur DB restreint, connecter Dreamlit et publier le workflow |
+| Manifestations d’intérêt | Frontend et API livrés | Activer l’API, PostgreSQL et `RUN_MIGRATIONS=true`, puis contrôler la première soumission et l’export dans `/admin` |
 
 Le domaine public de référence est **https://boussole-culture-recherche.memoways.com**. Cette valeur est le défaut du Dockerfile et doit aussi être renseignée comme variables de build `SITE_URL` et `VITE_SITE_URL` dans Coolify afin que les URL canoniques, Open Graph, le sitemap, `robots.txt`, `llms.txt` et les données structurées restent cohérents lors du déploiement. Le 14 août 2026, le chemin IPv4 et le certificat ont été validés, tandis que l’IPv6 héritée du CNAME ne répondait pas. La correction DNS est documentée dans [`docs/DIAGNOSTIC_DOMAINE_BOUSSOLE_2026-08-14.md`](docs/DIAGNOSTIC_DOMAINE_BOUSSOLE_2026-08-14.md).
 
@@ -189,3 +197,4 @@ Les contenus éditoriaux restent principalement dans les composants React. Une s
 | [`docs/PLAN_PARTENAIRES_PRESENTATION_QUESTIONNAIRE.md`](docs/PLAN_PARTENAIRES_PRESENTATION_QUESTIONNAIRE.md) | Cadrage et décisions du module partenaire |
 | [`docs/IMPLEMENTATION_ARCHIVE_PARTNER_MODULE_2026-08-13.md`](docs/IMPLEMENTATION_ARCHIVE_PARTNER_MODULE_2026-08-13.md) | Trace factuelle des fonctionnalités partenaire effectivement livrées |
 | [`docs/PLAN_OPTIMISATION_REDACTIONNELLE.md`](docs/PLAN_OPTIMISATION_REDACTIONNELLE.md) | Diagnostic éditorial et séquence de réécriture à valider avant toute modification de contenu |
+| [`docs/CONTROLE_ACCUEIL_PERSONAS_2026-08-16.md`](docs/CONTROLE_ACCUEIL_PERSONAS_2026-08-16.md) | Contrôle visuel, parcours, accessibilité et activation de la collecte d’intérêt |

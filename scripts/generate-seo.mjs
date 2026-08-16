@@ -22,14 +22,14 @@ const navigation = [
 const pages = {
   "/": {
     title: "Boussole Numérique Culture | Outil en co-conception",
-    description: "Le site compagnon d’un outil en co-conception pour les institutions, structures, associations, réseaux et collectifs culturels qui accompagnent des artistes.",
+    description: "Le site compagnon d’un outil en co-conception pour les partenaires culturels, les artistes et les personnes qui souhaitent agir sur les enjeux numériques dans la culture.",
     h1: "Boussole Numérique Culture",
-    intro: "Un outil en co-conception pour les actrices et acteurs de la culture. Ce site compagnon s’adresse d’abord aux organisations qui accompagnent des artistes et souhaitent participer à la définition d’un prototype utile.",
+    intro: "Un outil en co-conception pour aider les artistes et les personnes qui les accompagnent à mieux comprendre leurs pratiques numériques, choisir des priorités et ouvrir des pistes d’action utiles.",
     sections: [
-      { heading: "À qui s’adresse ce site ?", text: "Aux institutions, structures, associations, réseaux et collectifs culturels, ainsi qu’aux personnes actives dans la culture qui souhaitent contribuer à titre individuel." },
-      { heading: "La phase actuelle", text: "Le questionnaire partenaire recueille besoins, priorités, idées et points de vigilance afin de préparer un atelier de co-conception." },
+      { heading: "Trois points de départ", text: "Le site propose un parcours pour les partenaires relais, un parcours pour les artistes et personnes actives dans la culture, ainsi qu’un parcours pour les personnes intéressées par les enjeux numériques culturels." },
+      { heading: "Ce qui se construit maintenant", text: "La phase actuelle écoute les besoins, mobilise les contributions et prépare les décisions qui orienteront un premier prototype. Les étapes suivantes concernent le test puis la diffusion accompagnée." },
     ],
-    links: [{ label: "Découvrir le rôle des partenaires", path: "/partenaires" }, { label: "Accéder au questionnaire partenaire", path: "/partenaires/questionnaire" }],
+    links: [{ label: "Découvrir le rôle des partenaires", path: "/partenaires" }, { label: "Explorer l’expérience Boussole", path: "/experience" }, { label: "Voir les phases du site compagnon", path: "/timeline" }],
   },
   "/projet": {
     title: "L’outil en co-conception | Boussole Numérique Culture",
@@ -352,7 +352,7 @@ async function generate() {
   }).join("\n");
   await writeTextFile("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapEntries}\n</urlset>\n`);
   await writeTextFile("robots.txt", `User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /partenaires/admin\nDisallow: /partenaires/questionnaire\n\nSitemap: ${siteUrl}/sitemap.xml\n`);
-  await writeTextFile("llms.txt", `# ${siteName}\n\n> Site compagnon d’un outil en co-conception destiné aux organisations culturelles qui accompagnent des artistes.\n\n## Statut\n\nLa Boussole est en co-conception. Le site ne propose pas encore le diagnostic public ; il organise la mobilisation des partenaires, le questionnaire et la préparation d’un prototype.\n\n## Public prioritaire\n\nInstitutions, structures, associations, réseaux et collectifs culturels. Les personnes actives dans la culture peuvent aussi demander une invitation pour contribuer.\n\n## Parcours\n\n- [Accueil](${canonicalUrl("/")})\n- [L’outil en co-conception](${canonicalUrl("/projet")})\n- [Phases du site compagnon](${canonicalUrl("/timeline")})\n- [Méthode de co-conception](${canonicalUrl("/methode")})\n- [Partenaires](${canonicalUrl("/partenaires")})\n- [Recherche et enseignements](${canonicalUrl("/recherche")})\n- [Références comparables](${canonicalUrl("/references")})\n- [Documents et sources](${canonicalUrl("/ressources")})\n\n## Contact\n\nulrich.fischer@memoways.com\n\n## Mise à jour\n\n${buildDate}\n`);
+  await writeTextFile("llms.txt", `# ${siteName}\n\n> Site compagnon d’un outil en co-conception pour les partenaires culturels, les artistes et les personnes qui souhaitent agir sur les enjeux numériques dans la culture.\n\n## Statut\n\nLa Boussole est en co-conception. Le site ne propose pas encore le diagnostic public ; il organise la mobilisation des partenaires, les contributions d’intérêt et la préparation d’un prototype.\n\n## Trois parcours\n\n- **Partenaires relais** : institutions, structures, associations, réseaux et collectifs qui relient le prototype aux réalités des artistes.\n- **Artistes et personnes actives dans la culture** : futures utilisatrices et futurs utilisateurs invités à faire émerger les situations et questions importantes.\n- **Enjeux numériques** : personnes qui souhaitent contribuer avec des ressources, analyses ou retours sur la littératie numérique culturelle.\n\n## Parcours publics\n\n- [Accueil](${canonicalUrl("/")}) : choisir un point de départ selon son rôle.\n- [L’outil en co-conception](${canonicalUrl("/projet")})\n- [Phases du site compagnon](${canonicalUrl("/timeline")})\n- [Méthode de co-conception](${canonicalUrl("/methode")})\n- [Partenaires](${canonicalUrl("/partenaires")})\n- [Recherche et enseignements](${canonicalUrl("/recherche")})\n- [Références comparables](${canonicalUrl("/references")})\n- [Documents et sources](${canonicalUrl("/ressources")})\n\n## Contact\n\nulrich.fischer@memoways.com\n\n## Mise à jour\n\n${buildDate}\n`);
   console.log(`Pages HTML statiques, sitemap, robots et llms.txt générés pour ${Object.keys(pages).length} routes indexables.`);
 }
 

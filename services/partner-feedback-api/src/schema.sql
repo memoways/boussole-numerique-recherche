@@ -29,6 +29,20 @@ CREATE TABLE IF NOT EXISTS partner_invitation_requests (
   reviewed_at TIMESTAMPTZ
 );
 
+CREATE TABLE IF NOT EXISTS public_interest_submissions (
+  id UUID PRIMARY KEY,
+  email TEXT NOT NULL UNIQUE,
+  first_name TEXT,
+  audience TEXT NOT NULL CHECK (audience IN ('artist', 'digital_interest')),
+  workshop_interest BOOLEAN NOT NULL DEFAULT FALSE,
+  notification_interest BOOLEAN NOT NULL DEFAULT FALSE,
+  consented_at TIMESTAMPTZ NOT NULL,
+  source_path TEXT NOT NULL DEFAULT '/',
+  status TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'withdrawn')),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
 CREATE TABLE IF NOT EXISTS partner_invitations (
   id UUID PRIMARY KEY,
   contact_id UUID NOT NULL REFERENCES partner_contacts(id) ON DELETE CASCADE,
@@ -107,3 +121,4 @@ CREATE INDEX IF NOT EXISTS partner_invitations_contact_idx ON partner_invitation
 CREATE INDEX IF NOT EXISTS partner_responses_invitation_idx ON partner_responses(invitation_id);
 CREATE INDEX IF NOT EXISTS partner_response_answers_response_idx ON partner_response_answers(response_id);
 CREATE INDEX IF NOT EXISTS partner_response_recap_outbox_created_idx ON notifications.partner_response_recap_outbox(created_at);
+CREATE INDEX IF NOT EXISTS public_interest_submissions_audience_idx ON public_interest_submissions(audience, created_at DESC);

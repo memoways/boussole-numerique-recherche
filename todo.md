@@ -95,3 +95,6 @@
 - [x] Aligner les pages de contexte, les CTA, le SEO et la documentation sur les phases de vie de la co-conception.
 - [x] Auditer le rendu HTML, les métadonnées, le sitemap, l’indexation et les données structurées du portail.
 - [x] Implémenter et valider les améliorations SEO-GEO compatibles avec le déploiement statique Coolify.
+- [x] Inventorier les contenus réemployables et formaliser le modèle des trois personas de l’accueil.
+- [x] Refondre l’accueil en lanceur personnalisé, accessible et réversible.
+- [x] Préparer les parcours d’intérêt artistes et enjeux numériques, puis aligner le SEO et la documentation.

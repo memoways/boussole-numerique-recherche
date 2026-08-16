@@ -38,6 +38,19 @@ const requestSchema = z.object({
   email: z.string().trim().email().max(320),
 });
 
+const publicInterestSchema = z.object({
+  firstName: z.string().trim().max(100).optional(),
+  email: z.string().trim().email().max(320),
+  audience: z.enum(["artist", "digital_interest"]),
+  workshopInterest: z.boolean(),
+  notificationInterest: z.boolean(),
+  consent: z.literal(true),
+  sourcePath: z.string().trim().max(200).default("/"),
+}).refine((value) => value.workshopInterest || value.notificationInterest, {
+  message: "Choisissez au moins un type d’information souhaité.",
+  path: ["workshopInterest"],
+});
+
 const answersSchema = z.object({
   consent: z.boolean(),
   answers: z.array(z.object({
@@ -219,6 +232,29 @@ app.post("/api/public/invitation-requests", async (req, res) => {
   res.status(202).json({ message: "Votre demande a bien été enregistrée. L’équipe vous recontactera après vérification." });
 });
 
+app.post("/api/public/interests", async (req, res) => {
+  if (!consumeRateLimit(req, res, "public-interest", 10, 60 * 60 * 1000)) return;
+  const parsed = publicInterestSchema.safeParse(req.body);
+  if (!parsed.success) return res.status(400).json({ error: parsed.error.issues[0]?.message ?? "Les informations sont incomplètes." });
+  const value = parsed.data;
+  await getPool().query(
+    `INSERT INTO public_interest_submissions
+       (id, email, first_name, audience, workshop_interest, notification_interest, consented_at, source_path)
+     VALUES ($1, $2, $3, $4, $5, $6, NOW(), $7)
+     ON CONFLICT (email) DO UPDATE SET
+       first_name = EXCLUDED.first_name,
+       audience = EXCLUDED.audience,
+       workshop_interest = EXCLUDED.workshop_interest,
+       notification_interest = EXCLUDED.notification_interest,
+       consented_at = NOW(),
+       source_path = EXCLUDED.source_path,
+       status = 'active',
+       updated_at = NOW()`,
+    [randomUUID(), value.email, value.firstName || null, value.audience, value.workshopInterest, value.notificationInterest, value.sourcePath],
+  );
+  res.status(202).json({ message: "Votre intérêt est bien enregistré. L’équipe utilisera vos coordonnées uniquement pour les étapes que vous avez choisies." });
+});
+
 app.get("/api/public/invitations/:token", async (req, res) => {
   const invitation = await getInvitationContext(req.params.token);
   if (!invitation) return res.status(404).json({ error: "Lien d’invitation introuvable." });
@@ -345,7 +381,7 @@ app.post("/api/admin/logout", requireAdmin, (_req, res) => {
 });
 
 app.get("/api/admin/overview", requireAdmin, async (_req, res) => {
-  const [organizations, contacts, requests, responses, recapOutbox] = await Promise.all([
+  const [organizations, contacts, requests, responses, recapOutbox, interests] = await Promise.all([
     getPool().query("SELECT id, name, status, created_at FROM partner_organizations ORDER BY name"),
     getPool().query("SELECT c.id, c.first_name, c.last_name, c.email, c.organization_id, o.name AS organization_name FROM partner_contacts c JOIN partner_organizations o ON o.id = c.organization_id ORDER BY o.name, c.last_name"),
     getPool().query("SELECT id, organization_name, first_name, last_name, email, status, created_at FROM partner_invitation_requests ORDER BY created_at DESC"),
@@ -356,8 +392,9 @@ app.get("/api/admin/overview", requireAdmin, async (_req, res) => {
        FROM notifications.partner_response_recap_outbox o
        ORDER BY o.updated_at DESC`,
     ),
+    getPool().query("SELECT id, first_name, email, audience, workshop_interest, notification_interest, status, created_at FROM public_interest_submissions ORDER BY created_at DESC"),
   ]);
-  res.json({ organizations: organizations.rows, contacts: contacts.rows, invitationRequests: requests.rows, responses: responses.rows, recapOutbox: recapOutbox.rows });
+  res.json({ organizations: organizations.rows, contacts: contacts.rows, invitationRequests: requests.rows, responses: responses.rows, recapOutbox: recapOutbox.rows, interests: interests.rows });
 });
 
 app.post("/api/admin/responses/:responseId/regenerate-recap", requireAdmin, async (req, res) => {
@@ -503,6 +540,17 @@ app.get("/api/admin/export.csv", requireAdmin, async (_req, res) => {
   const rows = ["organisation,email,statut,soumis_le,question,reponse", ...result.rows.map((row) => [row.organization, row.contact_email, row.status, row.submitted_at ?? "", row.question_key, JSON.stringify(row.value_json ?? "")].map(escape).join(","))];
   res.setHeader("Content-Type", "text/csv; charset=utf-8");
   res.setHeader("Content-Disposition", "attachment; filename=responses-partenaires.csv");
+  res.send(rows.join("\n"));
+});
+
+app.get("/api/admin/interests.csv", requireAdmin, async (_req, res) => {
+  const result = await getPool().query<{ first_name: string | null; email: string; audience: string; workshop_interest: boolean; notification_interest: boolean; status: string; created_at: string }>(
+    "SELECT first_name, email, audience, workshop_interest, notification_interest, status, created_at FROM public_interest_submissions ORDER BY created_at DESC",
+  );
+  const escape = (value: unknown) => `"${String(value ?? "").replaceAll('"', '""')}"`;
+  const rows = ["prenom,email,public,atelier,notification,statut,cree_le", ...result.rows.map((row) => [row.first_name ?? "", row.email, row.audience, row.workshop_interest, row.notification_interest, row.status, row.created_at].map(escape).join(","))];
+  res.setHeader("Content-Type", "text/csv; charset=utf-8");
+  res.setHeader("Content-Disposition", "attachment; filename=manifestations-interet.csv");
   res.send(rows.join("\n"));
 });
 

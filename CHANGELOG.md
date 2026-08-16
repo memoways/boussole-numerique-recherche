@@ -19,6 +19,10 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Documentation d’exploitation de l’API, de PostgreSQL, de Dreamlit, de Coolify, de l’environnement et du contrôle pilote.
 - Page **404** française, intégrée au layout du portail, avec recherche locale tolérante aux accents dans les documents et sources, suggestions, résultats immédiats et cinq raccourcis de réorientation.
 - Composant partagé `InteractiveNarrativeIllustration` pour les huit schémas de présentation non radar : signaux, parcours, communauté, cycle, principes, passerelle, atelier et contribution.
+- Accueil entièrement transformé en lanceur de parcours : sélection réversible entre partenaires relais, artistes ou personnes actives dans la culture, et personnes intéressées par les enjeux numériques ; chaque choix déploie un récit, des questions de contribution, des actions et une illustration appropriée.
+- Formulaire de manifestation d’intérêt prêt à être activé : consentement explicite, intérêt dissocié pour les ateliers et les notifications, source de la demande, fallback e-mail honnête sans API et retour de confirmation après enregistrement.
+- Stockage PostgreSQL `public_interest_submissions`, route publique limitée `/api/public/interests`, export CSV protégé et section dédiée dans la console d’administration partenaire.
+- Document de contrôle de l’accueil par personas et documentation d’activation de la collecte d’intérêt ajoutés dans `docs/` et `config/`.
 
 ### Modifié
 
@@ -65,6 +69,7 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Fichiers `llms.txt`, `robots.txt`, `sitemap.xml` et `404.html` produits dans la sortie de build ; `llms.txt` explicite le statut de co-conception, les publics prioritaires et les parcours sans prétendre garantir une citation par un assistant tiers.
 - Nginx sert les index HTML compilés et retourne une vraie 404 pour les routes inconnues au lieu d’un fallback SPA assimilable à une soft 404.
 - Commande `pnpm verify:seo` ajoutée puis intégrée à `pnpm verify` : elle contrôle les pages HTML, titres, descriptions, canoniques, graphes JSON-LD, assets, sitemap, robots, llms.txt et parcours non indexables.
+- Pré-rendu HTML de l’accueil, description SEO et `llms.txt` alignés sur les trois parcours ; les paramètres `?public=` restent des états de lecture partageables et ne modifient pas la canonique de la page.
 
 ### Vérifié
 
@@ -87,6 +92,9 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Audit SEO-GEO contrôlé : les dix pages indexables générées ont chacune une meta description, une URL canonique, un `h1`, un graphe JSON-LD valide et des assets compilés ; les trois parcours privés et la 404 sont non indexables.
 - Contrôle navigateur de la page Partenaires : après hydratation React, une seule meta description, une seule canonique et un seul graphe JSON-LD à quatre entités subsistent.
 - Vérification complète `pnpm verify` validée : TypeScript du portail et de l’API, build statique, `pnpm verify:seo` et build de l’API partenaire passent.
+- Accueil neutre, parcours Partenaire, Artiste et Enjeux numériques contrôlés visuellement ; les URLs partageables activent le bon récit, le retour vers les trois choix est disponible et le fallback e-mail apparaît tant que l’API n’est pas configurée.
+- Contrôle DOM du parcours Enjeux numériques : états `aria-pressed` cohérents, titre de récit focalisable, une canonique sans paramètre et un seul graphe JSON-LD après hydratation.
+- Validation finale : TypeScript du portail et de l’API, build statique, vérification SEO-GEO et build de l’API partenaire passent après l’ajout des parcours par persona et de la collecte d’intérêt.
 
 ## [1.1.0] — 2026-08-09 au 2026-08-12 — Alignement institutionnel, accessibilité et diffusion
 

@@ -2,7 +2,7 @@
 
 ## Aperçu
 
-**Boussole Numérique Culture** est le dépôt du site compagnon et du module partenaire qui accompagnent un outil en co-conception destiné aux actrices, acteurs et structures culturelles. Le portail explique l’outil, ses phases, l’expérience Boussole, la méthode, la recherche et les modalités de co-construction. Le module partenaire ajoute une présentation dédiée, des invitations personnelles, un questionnaire qualitatif, une console d’administration et l’envoi de récapitulatifs contrôlés.
+**Boussole Numérique Culture** est le dépôt du site compagnon et du module partenaire qui accompagnent un outil en co-conception destiné aux actrices, acteurs et structures culturelles. L’accueil fonctionne comme un lanceur de parcours pour les partenaires relais, les artistes et les personnes intéressées par les enjeux numériques. Le portail explique l’outil, ses phases, l’expérience Boussole, la méthode, la recherche et les modalités de co-construction. Le module partenaire ajoute une présentation dédiée, des invitations personnelles, un questionnaire qualitatif, une collecte d’intérêt consentie, une console d’administration et l’envoi de récapitulatifs contrôlés.
 
 Le projet est conçu pour être déployé et maintenu hors plateforme : le portail est une application statique servie par Nginx ; l’API partenaire est une application Express distincte ; PostgreSQL, l’API et Dreamlit sont activés dans Coolify lorsque le pilote démarre.
 
@@ -33,11 +33,12 @@ La page Ressources complète ses filtres de catégorie et de période par une re
 | Ensemble | Rôle | Routes ou emplacement |
 |---|---|---|
 | Récit institutionnel | Projet, calendrier, méthode, gouvernance, partenaires et soutien institutionnel | `/projet`, `/timeline`, `/methode`, `/partenaires` |
+| Accueil par persona | Lanceur réversible vers les parcours partenaires, artistes et enjeux numériques | `/?public=partenaire`, `/?public=artiste`, `/?public=enjeux-numeriques` |
 | Expérience Boussole | Démonstration des cinq dimensions, radars et parcours | `/experience` |
 | Recherche | Méthode de recherche, références comparables et ressources | `/recherche`, `/references`, `/ressources` |
 | Présentation partenaire | Neuf slides avec détails dépliables, contexte conservé dans l’URL et navigation fixe | `/partenaires/presentation` |
 | Questionnaire partenaire | Demande d’invitation publique ou questionnaire privé par lien personnel | `/partenaires/questionnaire`, `/partenaires/questionnaire/:token` |
-| Administration | Organisations, contacts, invitations, réponses, export CSV et boîte Dreamlit | `/admin` et `/partenaires/admin` |
+| Administration | Organisations, contacts, invitations, réponses, manifestations d’intérêt, exports CSV et boîte Dreamlit | `/admin` et `/partenaires/admin` |
 
 La navigation publique principale reste limitée à **Projet, Calendrier, Expérience, Méthode et Partenaires**. Recherche et Ressources restent accessibles par le footer et des liens contextuels. Les sous-pages utilisent le fil d’Ariane global plutôt que des retours dupliqués dans le contenu.
 
@@ -96,7 +97,7 @@ Le questionnaire accepte les liens personnels sécurisés, conserve les brouillo
 
 ### API, données et sécurité
 
-Le schéma PostgreSQL crée des organisations, contacts, demandes, invitations, versions de questionnaire, réponses, réponses détaillées, événements et une boîte d’envoi de récapitulatifs. Une invitation est générée de manière aléatoire ; seule son empreinte SHA-256 renforcée par un secret serveur est persistée. L’administration utilise une session JWT signée, stockée dans un cookie `httpOnly` de huit heures.
+Le schéma PostgreSQL crée des organisations, contacts, demandes, invitations, manifestations d’intérêt, versions de questionnaire, réponses, réponses détaillées, événements et une boîte d’envoi de récapitulatifs. Une manifestation d’intérêt associe un consentement explicite à un choix indépendant entre ateliers et notification ; elle est conservée séparément des réponses qualitatives partenaires. Une invitation est générée de manière aléatoire ; seule son empreinte SHA-256 renforcée par un secret serveur est persistée. L’administration utilise une session JWT signée, stockée dans un cookie `httpOnly` de huit heures.
 
 La console est disponible à `/admin`. L’identifiant initial doit être défini par `ADMIN_EMAIL` — prévu pour `ulrich.fischer@memoways.com` — et son mot de passe par `ADMIN_PASSWORD` dans Coolify. La console ne doit jamais être indexée par les moteurs de recherche.
 
@@ -153,6 +154,8 @@ Toute modification effectivement livrée doit mettre à jour `CHANGELOG.md`, `ST
 | [`docs/IMPLEMENTATION_ARCHIVE_PARTNER_MODULE_2026-08-13.md`](./docs/IMPLEMENTATION_ARCHIVE_PARTNER_MODULE_2026-08-13.md) | Archive factuelle des fonctionnalités partenaire livrées |
 | [`docs/PLAN_OPTIMISATION_REDACTIONNELLE.md`](./docs/PLAN_OPTIMISATION_REDACTIONNELLE.md) | Diagnostic rédactionnel et plan d’amélioration à valider avant réécriture |
 | [`docs/AUDIT_SEO_GEO_2026-08-15.md`](./docs/AUDIT_SEO_GEO_2026-08-15.md) | Référentiel, constats, corrections et contrôles SEO-GEO des pages HTML statiques |
+| [`docs/PLAN_REFONTE_ACCUEIL_PERSONAS_2026-08-16.md`](./docs/PLAN_REFONTE_ACCUEIL_PERSONAS_2026-08-16.md) | Plan validé et décisions de la refonte de l’accueil par persona |
+| [`docs/CONTROLE_ACCUEIL_PERSONAS_2026-08-16.md`](./docs/CONTROLE_ACCUEIL_PERSONAS_2026-08-16.md) | Contrôle des parcours, de l’accessibilité et de l’activation de la collecte d’intérêt |
 
 ## Licence
 
