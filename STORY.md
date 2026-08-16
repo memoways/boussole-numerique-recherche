@@ -65,6 +65,8 @@ Les manifestations d’intérêt sont distinctes du questionnaire partenaire. Ap
 
 L’expérience Boussole utilise cinq dimensions pour rendre le diagnostic tangible. Le radar animé de l’accueil est fourni par le composant partagé `AnimatedRadarGraphic`. Il ouvre la présentation partenaire comme visualisation exploratoire, sans overlay glassmorphism : les dimensions sont nommées, chaque repère répond au survol, au focus, au clic et au clavier, puis met à jour une lecture contextuelle. Les autres slides n’emploient pas de radar afin que chaque illustration conserve un rôle propre.
 
+La page Expérience conserve son propre radar explicatif. Ses cinq points visualisent le tracé animé, mais ne sont pas des contrôles : les cinq icônes périphériques fixes sont les seules à pouvoir être activées au clic ou au clavier. Elles sélectionnent une dimension, mettent leur propre état en évidence et ouvrent la lecture associée sous le graphique. Cette séparation évite de suggérer que le point du radar serait la cible interactive.
+
 ### Présentation partenaire
 
 La route `/partenaires/presentation` contient neuf slides. Les détails sont dépliables au clavier, les liens contextuels ouvrent les pages utiles et l’URL conserve `slide` et `detail` pour que le bouton précédent du navigateur retrouve le contexte de lecture. Le deck desktop utilise un gabarit interne de 950 px : titre compact, navigation fixe et panneaux défilables dans l’espace restant. La barre de progression est placée entre les commandes Précédent et Suivant, avec un compteur de slide ; l’aide textuelle redondante est retirée. Sur mobile, les colonnes se replient et les commandes restent accessibles.
@@ -128,6 +130,7 @@ Après chaque soumission, l’API prépare un e-mail de récapitulatif détermin
 | Deux CTA dans le récit personnalisé | Des actions concurrentes affaiblissent le choix de parcours | Chaque récit expose un CTA primaire et un CTA secondaire ; les liens de profondeur migrent dans les contenus de contexte |
 | Hero et entrée par profil allégés | Trop de microtextes peuvent retarder la reconnaissance de la promesse et des publics visés | Le hero ne garde que le nom et la promesse ; l’entrée nommée sert directement les trois cartes de profil |
 | Sous-menu sticky de profils | Le contexte du récit peut se perdre lorsque la personne fait défiler l’accueil | Les trois profils restent visibles sous la navigation, le profil actif est coloré et le basculement reste direct |
+| Icônes périphériques pour le radar Expérience | La cible interactive doit être identifiable sans ambiguïté | Les points restent graphiques ; les icônes, fixes, portent les rôles, focus et états de sélection |
 
 ## 6. Stack et structure du dépôt
 
@@ -184,6 +187,7 @@ Qualité            pnpm verify · TypeScript · builds · scripts mobile/contra
 | 16 août 2026 | Visualisations par persona restaurées : radar et boussole interactifs adaptés, correction mobile du commentaire radar et récits limités à deux CTA |
 | 16 août 2026 | Accueil simplifié selon annotations : hero ramené au titre et à la promesse, entrée par profils renommée et éléments décoratifs retirés |
 | 16 août 2026 | Sous-menu sticky de profils : état actif coloré, bascule directe entre Institutionnel, Artiste et Enjeux du numérique, libellés complets sur mobile |
+| 16 août 2026 | Radar de la page Expérience clarifié : icônes périphériques interactives et points du tracé rendus purement visuels |
 
 ## 8. État d’activation et limites connues
 

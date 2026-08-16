@@ -32,6 +32,8 @@ Lorsqu’un profil est sélectionné, un sous-menu fixe apparaît sous la naviga
 
 Le défilement du parcours Artiste conserve le sous-menu sous la navigation globale. Un contrôle DOM confirme un positionnement `fixed`, une hauteur de 49 px, un ancrage à 64 px du haut et un seul état actif, « Artiste ».
 
+La page Expérience a aussi été contrôlée après clarification du radar : les cinq icônes périphériques sont les seuls éléments exposés comme boutons. Le clic sur l’icône Outils ouvre sa lecture contextuelle ; les cinq points du tracé ne portent plus de rôle, de focus ni de contrôle interactif.
+
 ## Contrôles restant à effectuer
 
 - Vérifier le comportement clavier, les préférences de mouvement réduit et la largeur mobile.

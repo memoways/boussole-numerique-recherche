@@ -30,6 +30,7 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Hero de l’accueil allégé selon les annotations : suppression du sur-titre de statut et de la phrase d’orientation, afin de concentrer l’entrée sur le nom de l’outil et sa promesse.
 - Entrée par personas renommée « Entrée dans le site par profil » ; le libellé redondant, la ligne décorative et la note de réversibilité ont été retirés.
 - Sous-menu de profils sticky ajouté après sélection : « Institutionnel », « Artiste » et « Enjeux du numérique » restent disponibles sous la navigation principale, avec le profil actif mis en évidence par sa couleur.
+- Radar de la page Expérience clarifié : les icônes périphériques, fixes et accessibles, deviennent les seuls contrôles des dimensions ; les points du tracé sont désormais purement visuels.
 
 ### Modifié
 
@@ -108,6 +109,7 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Rendu de l’accueil contrôlé après relance du serveur : les éléments annotés ont disparu, le nouvel intitulé est correctement hiérarchisé et les trois profils restent accessibles.
 - Vérification complète `pnpm verify` validée après la simplification : TypeScript, build statique, vérification SEO-GEO et build de l’API partenaire passent.
 - Changement direct de profil et maintien du sous-menu au défilement contrôlés : une seule entrée est active, le menu reste fixé sous la navigation globale et l’URL ainsi que le récit sont actualisés.
+- Page Expérience contrôlée : l’icône Outils met à jour sa lecture contextuelle, tandis que les points du radar ne sont plus exposés comme contrôles ni accessibles au focus.
 
 ## [1.1.0] — 2026-08-09 au 2026-08-12 — Alignement institutionnel, accessibilité et diffusion
 

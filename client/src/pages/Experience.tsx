@@ -113,7 +113,6 @@ const TARGETS_B = [0.40, 0.78, 0.55, 0.82, 0.35];
 
 function AnimatedRadar() {
   const [vals, setVals] = useState(TARGETS_A);
-  const [orbitAngle, setOrbitAngle] = useState(0);
   const [activeDim, setActiveDim] = useState<number | null>(null);
   const rafRef = useRef<number | null>(null);
   const startRef = useRef<number | null>(null);
@@ -121,7 +120,6 @@ function AnimatedRadar() {
   const progressRef = useRef(0);
 
   useEffect(() => {
-    const ORBIT_SPEED = 0.008; // degrés par ms → ~125s/tour
     const MORPH_DURATION = 4000; // ms pour passer d'un état à l'autre
     let lastTime = 0;
 
@@ -129,9 +127,6 @@ function AnimatedRadar() {
       if (!startRef.current) startRef.current = ts;
       const dt = ts - lastTime;
       lastTime = ts;
-
-      // Orbite
-      setOrbitAngle(prev => (prev + ORBIT_SPEED * dt) % 360);
 
       // Morphing des pointes
       progressRef.current = Math.min(progressRef.current + dt / MORPH_DURATION, 1);
@@ -166,7 +161,7 @@ function AnimatedRadar() {
 
   return (
     <div className="flex flex-col items-center gap-4 w-full">
-    <svg viewBox="0 0 300 300" className="w-64 h-64 sm:w-80 sm:h-80" style={{ overflow: 'visible' }} role="group" aria-label="Radar interactif des cinq dimensions de l'expérience">
+    <svg viewBox="0 0 300 300" className="w-64 h-64 sm:w-80 sm:h-80" style={{ overflow: 'visible' }} role="group" aria-label="Radar des cinq dimensions de l'expérience. Utilisez les icônes autour du graphique pour afficher une dimension.">
       {/* Grille pentagone */}
       {[1, 0.75, 0.5, 0.25].map((scale, si) => {
         const pts = [0,1,2,3,4].map(i => {
@@ -182,42 +177,43 @@ function AnimatedRadar() {
       })}
       {/* Zone radar animée */}
       <path d={radarPath} fill="#515792" fillOpacity="0.18" stroke="#515792" strokeWidth="2" strokeLinejoin="round" />
-      {/* Points sur les pointes — cliquables */}
+      {/* Points du radar — purement visuels */}
       {radarPoints.map((p, i) => (
-        <g
-          key={i}
-          role="button"
-          tabIndex={0}
-          aria-label={`Afficher ${DIMS[i].label}`}
-          aria-pressed={activeDim === i}
-          style={{ cursor: 'pointer' }}
-          onClick={() => setActiveDim(activeDim === i ? null : i)}
-          onKeyDown={(event) => {
-            if (event.key === 'Enter' || event.key === ' ') {
-              event.preventDefault();
-              setActiveDim(activeDim === i ? null : i);
-            }
-          }}
-        >
-          {/* Halo de clic élargi */}
-          <circle cx={p.x.toFixed(2)} cy={p.y.toFixed(2)} r="14" fill="transparent" />
-          {/* Anneau de sélection */}
-          {activeDim === i && (
-            <circle cx={p.x.toFixed(2)} cy={p.y.toFixed(2)} r="9" fill={DIMS[i].couleur} fillOpacity="0.2" stroke={DIMS[i].couleur} strokeWidth="1" />
-          )}
-          <circle cx={p.x.toFixed(2)} cy={p.y.toFixed(2)} r={activeDim === i ? 6 : 4.5} fill={DIMS[i].couleur} stroke="white" strokeWidth="1.5" />
-        </g>
+        <circle key={i} cx={p.x.toFixed(2)} cy={p.y.toFixed(2)} r="4.5" fill={DIMS[i].couleur} stroke="white" strokeWidth="1.5" aria-hidden="true" />
       ))}
-      {/* Icônes en orbite dans le sens horaire */}
+      {/* Icônes périphériques — seuls contrôles du radar */}
       {DIMS.map((dim, i) => {
         const baseAngle = i * 72 - 90;
-        const a = (baseAngle + orbitAngle) * Math.PI / 180;
+        const a = baseAngle * Math.PI / 180;
         const x = CX + R_ORBIT * Math.cos(a);
         const y = CY + R_ORBIT * Math.sin(a);
         return (
-          <g key={i}>
-            <circle cx={x.toFixed(1)} cy={y.toFixed(1)} r="16" fill="white" stroke={dim.couleur} strokeWidth="1.5" style={{ filter: 'drop-shadow(0 1px 3px rgba(0,0,0,0.12))' }} />
-            <text x={x.toFixed(1)} y={y.toFixed(1)} textAnchor="middle" dominantBaseline="middle" fontSize="14">{dim.emoji}</text>
+          <g
+            key={i}
+            role="button"
+            tabIndex={0}
+            aria-label={`Afficher la dimension ${dim.label}`}
+            aria-pressed={activeDim === i}
+            style={{ cursor: 'pointer', outline: 'none' }}
+            onClick={() => setActiveDim(activeDim === i ? null : i)}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                setActiveDim(activeDim === i ? null : i);
+              }
+            }}
+          >
+            <circle cx={x.toFixed(1)} cy={y.toFixed(1)} r="22" fill="transparent" />
+            <circle
+              cx={x.toFixed(1)}
+              cy={y.toFixed(1)}
+              r={activeDim === i ? "18" : "16"}
+              fill={activeDim === i ? dim.couleur + "16" : "white"}
+              stroke={dim.couleur}
+              strokeWidth={activeDim === i ? "2.5" : "1.5"}
+              style={{ filter: 'drop-shadow(0 1px 3px rgba(0,0,0,0.12))', transition: 'r 180ms ease, fill 180ms ease, stroke-width 180ms ease' }}
+            />
+            <text x={x.toFixed(1)} y={y.toFixed(1)} textAnchor="middle" dominantBaseline="middle" fontSize="14" aria-hidden="true">{dim.emoji}</text>
           </g>
         );
       })}
@@ -242,7 +238,7 @@ function AnimatedRadar() {
           <p className="text-gray-600">{DIMS[activeDim].desc}</p>
         </>
       ) : (
-        <p className="text-gray-400 italic text-xs">Cliquez sur un point du radar pour découvrir la dimension correspondante.</p>
+        <p className="text-gray-400 italic text-xs">Sélectionnez une icône autour du radar pour découvrir la dimension correspondante.</p>
       )}
     </div>
     </div>
