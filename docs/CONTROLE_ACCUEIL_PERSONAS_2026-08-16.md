@@ -52,6 +52,8 @@ Sur l’accueil neutre, les trois CTA orange de profils sont visibles sous la pr
 
 Le sélecteur est désormais unique : les trois profils prennent la forme de capsules colorées dans le hero, chacune avec son icône, son intitulé et son périmètre. Les anciennes cartes séparées n’apparaissent plus. Le clic sur Institutionnel confirme que le récit, les deux actions et les visualisations se chargent correctement, tandis que le sous-menu contextuel reste disponible après le dépassement du hero.
 
+Le clic sur la capsule Artiste déclenche désormais simultanément le récit, le défilement fluide et l’affichage immédiat du sous-menu contextuel. Pendant l’arrivée sur le contenu, le profil actif et les deux alternatives sont déjà disponibles sous la navigation principale ; après le déplacement, le récit Artiste, ses deux CTA, le radar et la boussole restent visibles et cohérents.
+
 ## Contrôles restant à effectuer
 
 - Vérifier le comportement clavier, les préférences de mouvement réduit et la largeur mobile.

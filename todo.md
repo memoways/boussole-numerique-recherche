@@ -113,3 +113,4 @@
 - [x] Optimiser la marge d’ancrage mobile, vérifier les trois profils et confirmer le défilement fluide respectueux des préférences utilisateur.
 - [x] Déplacer les CTA de sélection de profils dans le hero et n’afficher le sous-menu sticky qu’après les trois cartes.
 - [x] Unifier l’entrée par profils dans une seule rangée de capsules colorées et retirer le séparateur avant le contexte.
+- [x] Afficher le sous-menu sticky dès le clic sur un profil et synchroniser son arrivée avec le défilement vers le récit.

@@ -374,9 +374,11 @@ function InterestForm({ activePersona }: { activePersona: PersonaId | null }) {
 
 export default function Home() {
   const [activePersona, setActivePersona] = useState<PersonaId | null>(null);
-  const [showStickyPersonaMenu, setShowStickyPersonaMenu] = useState(false);
+  const [hasPassedPersonaSelector, setHasPassedPersonaSelector] = useState(false);
+  const [isProfileTransition, setIsProfileTransition] = useState(false);
   const storyRef = useRef<HTMLDivElement>(null);
   const personaSelectorRef = useRef<HTMLElement>(null);
+  const profileTransitionTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     const syncPersona = () => setActivePersona(getPersonaFromUrl());
@@ -388,22 +390,28 @@ export default function Home() {
   useEffect(() => {
     const target = personaSelectorRef.current;
     if (!target || !activePersona) {
-      setShowStickyPersonaMenu(false);
+      setHasPassedPersonaSelector(false);
       return;
     }
 
     const observer = new IntersectionObserver(([entry]) => {
-      setShowStickyPersonaMenu(!entry.isIntersecting && entry.boundingClientRect.bottom < 0);
+      setHasPassedPersonaSelector(!entry.isIntersecting && entry.boundingClientRect.bottom < 0);
     }, { threshold: 0 });
 
     observer.observe(target);
     return () => observer.disconnect();
   }, [activePersona]);
 
+  useEffect(() => () => {
+    if (profileTransitionTimeoutRef.current) window.clearTimeout(profileTransitionTimeoutRef.current);
+  }, []);
+
   const selectPersona = (personaId: PersonaId) => {
     const nextUrl = new URL(window.location.href);
     nextUrl.searchParams.set("public", personaId);
     window.history.pushState({}, "", `${nextUrl.pathname}${nextUrl.search}${nextUrl.hash}`);
+    if (profileTransitionTimeoutRef.current) window.clearTimeout(profileTransitionTimeoutRef.current);
+    setIsProfileTransition(true);
     setActivePersona(personaId);
     window.requestAnimationFrame(() => {
       const target = storyRef.current;
@@ -411,6 +419,7 @@ export default function Home() {
       const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       target.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "start" });
       target.focus({ preventScroll: true });
+      profileTransitionTimeoutRef.current = window.setTimeout(() => setIsProfileTransition(false), reducedMotion ? 0 : 500);
     });
   };
 
@@ -418,6 +427,8 @@ export default function Home() {
     const nextUrl = new URL(window.location.href);
     nextUrl.searchParams.delete("public");
     window.history.pushState({}, "", `${nextUrl.pathname}${nextUrl.search}${nextUrl.hash}`);
+    if (profileTransitionTimeoutRef.current) window.clearTimeout(profileTransitionTimeoutRef.current);
+    setIsProfileTransition(false);
     setActivePersona(null);
   };
 
@@ -468,7 +479,7 @@ export default function Home() {
         </div>
       </section>
 
-      <StickyPersonaMenu activePersona={activePersona} onSelect={selectPersona} visible={showStickyPersonaMenu} />
+      <StickyPersonaMenu activePersona={activePersona} onSelect={selectPersona} visible={Boolean(activePersona && (isProfileTransition || hasPassedPersonaSelector))} />
 
       {active ? (
         <div ref={storyRef} tabIndex={-1} className="scroll-mt-28 outline-none sm:scroll-mt-32">
