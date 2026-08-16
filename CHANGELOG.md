@@ -36,6 +36,7 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Sous-menu sticky de profils ajouté après sélection : Institutionnel, Artiste et Enjeux du numérique restent disponibles sous la navigation principale, avec le profil actif mis en évidence par sa couleur et un changement direct de récit.
 - Hero et entrée de l’accueil simplifiés selon annotations : le hero ne conserve que le titre et la promesse ; la section s’intitule « Entrée dans le site par profil » sans libellés ni décorations redondantes.
 - Traits verticaux décoratifs retirés des questions, du message de contribution et du résumé de la boussole dans les trois parcours de profils.
+- Ancrage du récit de profil décalé sous les barres fixes : après un choix, le défilement place le contenu à 15 rem du haut, laissant le radar, ses icônes et son libellé intégralement visibles.
 
 ### Modifié
 
@@ -121,6 +122,7 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Page Expérience contrôlée : l’icône Outils met à jour sa lecture contextuelle, tandis que les points du radar ne sont plus exposés comme contrôles ni accessibles au focus.
 - Parcours Artiste contrôlé : l’icône Compétences met à jour le radar partagé, l’étape Situer met à jour la boussole et les contrôles restent distincts des points du tracé.
 - Contrôles récents consolidés : les profils actifs, les cinq icônes radar, les boussoles, les CTA limités à deux et la lecture mobile des étapes sont validés ; TypeScript, build statique, vérification SEO-GEO et API partenaire passent.
+- Sélection Artiste contrôlée : le sous-menu sticky reste visible tandis que la totalité du radar est dégagée sous son ancre.
 
 ## [1.1.0] — 2026-08-09 au 2026-08-12 — Alignement institutionnel, accessibilité et diffusion
 

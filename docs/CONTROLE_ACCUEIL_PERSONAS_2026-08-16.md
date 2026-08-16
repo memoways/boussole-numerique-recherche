@@ -40,6 +40,8 @@ Le clic sur l’étape « Situer » de la boussole Artiste met à jour sa lectur
 
 La présentation partenaire a été contrôlée sur `/partenaires/presentation?slide=3`, puis avec la commande Suivant. La pagination produit `/partenaires/presentation?slide=4` : elle ne fabrique ni URL absolue, ni port interne, et le compteur comme le contenu correspondent à la slide active.
 
+Après sélection du profil Artiste, le récit est maintenant ancré avec une marge de 15 rem sous les barres fixes. Le sous-menu reste visible et le radar, ses cinq icônes ainsi que son libellé d’exploration sont entièrement contenus dans le premier écran du récit, sans découpe supérieure.
+
 ## Contrôles restant à effectuer
 
 - Vérifier le comportement clavier, les préférences de mouvement réduit et la largeur mobile.

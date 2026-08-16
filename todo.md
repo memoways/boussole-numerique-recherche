@@ -108,3 +108,4 @@
 - [x] Harmoniser les contrôles des radars, ajouter des retours de survol et optimiser la boussole interactive sur mobile.
 - [x] Retirer les traits verticaux décoratifs du récit et de la boussole sur les trois profils.
 - [x] Supprimer toute exposition du port interne 8080 dans les URL publiques et vérifier la pagination du deck partenaire.
+- [x] Augmenter l’espace d’ancrage du récit personnalisé sous le sous-menu sticky afin que le radar reste entièrement visible.

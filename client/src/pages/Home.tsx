@@ -388,7 +388,13 @@ export default function Home() {
     nextUrl.searchParams.set("public", personaId);
     window.history.pushState({}, "", `${nextUrl.pathname}${nextUrl.search}${nextUrl.hash}`);
     setActivePersona(personaId);
-    window.requestAnimationFrame(() => storyRef.current?.focus({ preventScroll: false }));
+    window.requestAnimationFrame(() => {
+      const target = storyRef.current;
+      if (!target) return;
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "start" });
+      target.focus({ preventScroll: true });
+    });
   };
 
   const resetPersona = () => {
@@ -447,7 +453,7 @@ export default function Home() {
       </section>
 
       {active ? (
-        <div ref={storyRef} tabIndex={-1} className="outline-none">
+        <div ref={storyRef} tabIndex={-1} className="scroll-mt-52 outline-none sm:scroll-mt-56 lg:scroll-mt-60">
           <PersonaStory persona={active} />
           <PersonaFaq key={active.id} persona={active} />
           <div className="border-b border-slate-200 bg-slate-50 px-4 py-6 text-center">
