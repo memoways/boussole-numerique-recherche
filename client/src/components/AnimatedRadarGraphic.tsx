@@ -75,8 +75,9 @@ export function AnimatedRadarGraphic({
   const activeDimension = dimensions[activeIndex];
 
   return (
-    <div className={className}>
-      <svg viewBox="0 0 300 300" className="h-full w-full" style={{ overflow: "visible" }} role={interactive ? "group" : "img"} aria-label={ariaLabel}>
+    <div className="flex w-full flex-col items-center">
+      <div className={className}>
+        <svg viewBox="0 0 300 300" className="h-full w-full" style={{ overflow: "visible" }} role={interactive ? "group" : "img"} aria-label={ariaLabel}>
         {[1, 0.75, 0.5, 0.25].map((scale) => <polygon key={scale} points={polygon(scale)} fill="none" stroke="#e5e7eb" strokeWidth="1" />)}
         {dimensions.map((_, index) => {
           const angle = (index * 72 - 90) * Math.PI / 180;
@@ -120,9 +121,10 @@ export function AnimatedRadarGraphic({
           const labelY = cy + (radius + 23) * Math.sin(angle);
           return <text key={`${dimension.label}-label`} x={labelX.toFixed(1)} y={labelY.toFixed(1)} textAnchor="middle" dominantBaseline="middle" fontSize="11" fontWeight="700" fill={activeIndex === index ? dimension.couleur : "#64748b"}>{dimension.label}</text>;
         })}
-      </svg>
+        </svg>
+      </div>
       {interactive && activeDimension && (
-        <p className="mt-3 text-center text-xs leading-relaxed text-slate-500" aria-live="polite">
+        <p className="mt-4 max-w-[320px] text-center text-sm leading-relaxed text-slate-500" aria-live="polite">
           <span className="font-bold" style={{ color: activeDimension.couleur }}>{activeDimension.label}</span>
           {activeDimension.resume ? ` — ${activeDimension.resume}` : ". Cliquez sur un repère pour explorer une autre dimension."}
         </p>

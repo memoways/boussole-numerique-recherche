@@ -24,6 +24,9 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Stockage PostgreSQL `public_interest_submissions`, route publique limitée `/api/public/interests`, export CSV protégé et section dédiée dans la console d’administration partenaire.
 - Document de contrôle de l’accueil par personas et documentation d’activation de la collecte d’intérêt ajoutés dans `docs/` et `config/`.
 - FAQ dynamique ajoutée aux trois parcours de l’accueil : trois questions et réponses adaptées par persona, une réponse ouverte à la fois, libellés et états accessibles, ainsi que des liens vers les pages d’approfondissement utiles.
+- Deux visualisations interactives restaurées sur chacun des parcours : un radar contextualisé et une boussole narrative complémentaire. Les dimensions et étapes varient selon le rôle sélectionné.
+- Composant radar corrigé : son commentaire contextuel se place désormais hors du conteneur SVG, évitant tout chevauchement avec le radar sur petit écran.
+- Récit par persona resserré à un CTA primaire et un CTA secondaire ; le troisième lien d’action a été retiré.
 
 ### Modifié
 
@@ -97,6 +100,8 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Contrôle DOM du parcours Enjeux numériques : états `aria-pressed` cohérents, titre de récit focalisable, une canonique sans paramètre et un seul graphe JSON-LD après hydratation.
 - Validation finale : TypeScript du portail et de l’API, build statique, vérification SEO-GEO et build de l’API partenaire passent après l’ajout des parcours par persona et de la collecte d’intérêt.
 - FAQ partenaire, Artiste et Enjeux numériques contrôlées visuellement : les réponses se remplacent correctement, les questions restent adaptées au parcours actif et les liens contextuels vers les phases, l’expérience et les sources sont accessibles.
+- Les trois parcours contrôlés après restauration des visuels : radars activables et boussoles interactives présents, commentaires mis à jour au clic et deux CTA seulement dans chaque récit. Le contrôle DOM confirme une séparation de 16 px entre le radar et son commentaire.
+- Vérification complète `pnpm verify` validée après ces corrections : TypeScript, build statique, vérification SEO-GEO et build de l’API partenaire passent.
 
 ## [1.1.0] — 2026-08-09 au 2026-08-12 — Alignement institutionnel, accessibilité et diffusion
 

@@ -18,6 +18,14 @@ Le parcours `?public=artiste` remplace bien cette FAQ par les questions propres 
 
 Le parcours `?public=enjeux-numeriques` affiche sa propre FAQ, dont la première réponse confirme que le diagnostic public n’est pas encore ouvert. L’ouverture de la question sur la contribution sans rôle pilote dévoile le relais vers les documents et sources ; elle remplace correctement la réponse initiale sans chevauchement de contenu.
 
+Le parcours partenaire affiche désormais deux visualisations interactives : un radar adapté aux gestes d’écoute, relais, priorisation, test et transmission, puis une boussole « Écouter → Traduire → Relier ». L’activation de « Prioriser » actualise bien la lecture sous le radar. Le récit ne propose plus que deux CTA : comprendre le rôle des partenaires et partager besoins et idées.
+
+Le parcours Artiste présente de nouveau le radar des cinq dimensions et la boussole « Décrire → Situer → Agir ». Le texte d’explication du radar est maintenant situé hors de la zone de taille du SVG : il ne chevauche plus l’illustration sur petit écran. L’activation de « Situer » met à jour la lecture narrative de la boussole, tandis que le récit conserve uniquement les CTA vers la manifestation d’intérêt et l’expérience Boussole.
+
+Le parcours Enjeux numériques présente son radar adapté aux pratiques, à la littératie, aux ressources, à la responsabilité et aux communs, accompagné de la boussole « Utile → Neutre → Souveraine ». L’activation de « Neutre » met à jour le commentaire associé. Le récit n’expose que deux CTA : consulter la recherche et les ressources, puis suivre la démarche.
+
+Un contrôle DOM sur le parcours Enjeux numériques confirme que le récit personnalisé contient exactement deux liens d’action. La vérification de géométrie confirme également que le texte contextuel du radar est placé 16 px sous le SVG : il ne partage plus la zone de rendu du graphique et ne peut donc plus produire le chevauchement observé.
+
 ## Contrôles restant à effectuer
 
 - Vérifier le comportement clavier, les préférences de mouvement réduit et la largeur mobile.

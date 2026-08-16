@@ -52,6 +52,10 @@ L’accueil traduit cette mobilisation par trois parcours : partenaires relais, 
 
 Chaque parcours déploie ensuite une FAQ de trois réponses utiles à sa situation. Les réponses ne répètent pas le récit : elles précisent l’engagement attendu, le statut du questionnaire, la non-évaluation, les façons de contribuer ou la place de la recherche selon le persona. Une seule réponse est ouverte à la fois ; le contrôle expose son état et son panneau associé, puis propose les liens d’approfondissement utiles sans sortir prématurément du parcours.
 
+Les trois parcours disposent aussi de deux repères interactifs plutôt que d’une illustration décorative isolée. Le premier est un radar dont les cinq dimensions sont adaptées à la personne sélectionnée : gestes de relais pour les partenaires, dimensions de pratiques pour les artistes, ou conditions de littératie et de communs pour les enjeux numériques. Le second est une boussole en trois étapes — « Écouter → Traduire → Relier », « Décrire → Situer → Agir » ou « Utile → Neutre → Souveraine ». Chaque repère est activable au clic, au survol ou au clavier et actualise son commentaire. Le commentaire du radar appartient maintenant au flux du document, sous le SVG, afin de rester lisible sur mobile.
+
+Le récit principal conserve exactement deux actions : une action primaire orange et une action secondaire liée au persona. Les liens d’approfondissement restent dans les réponses de FAQ ou la navigation globale, afin de ne pas diluer la décision demandée au moment du choix de parcours.
+
 Les manifestations d’intérêt sont distinctes du questionnaire partenaire. Après activation de l’API, le formulaire public conserve dans `public_interest_submissions` le consentement, le public déclaré, le souhait d’être invité·e à un atelier et/ou d’être informé·e d’une ouverture, ainsi que la page d’origine. Sans `VITE_PARTNER_API_URL`, aucun faux formulaire ne s’affiche : un relais e-mail honnête reste disponible. La console `/admin` prévoit la consultation et l’export CSV dédiés.
 
 L’expérience Boussole utilise cinq dimensions pour rendre le diagnostic tangible. Le radar animé de l’accueil est fourni par le composant partagé `AnimatedRadarGraphic`. Il ouvre la présentation partenaire comme visualisation exploratoire, sans overlay glassmorphism : les dimensions sont nommées, chaque repère répond au survol, au focus, au clic et au clavier, puis met à jour une lecture contextuelle. Les autres slides n’emploient pas de radar afin que chaque illustration conserve un rôle propre.
@@ -115,6 +119,8 @@ Après chaque soumission, l’API prépare un e-mail de récapitulatif détermin
 | Accueil par persona, canonique unique | Les publics doivent se reconnaître sans fragmenter l’indexation | `?public=` partage un état de lecture tandis que la page conserve une même canonique et un même graphe JSON-LD |
 | Manifestation d’intérêt séparée du questionnaire | Une personne non invitée doit pouvoir rester liée à la démarche sans être assimilée à un partenaire pilote | Le formulaire stocke seulement le consentement, le public, les préférences d’information et l’origine ; l’admin et l’export restent protégés |
 | FAQ propre au persona | Les questions d’un partenaire, d’un artiste et d’une personne ressource ne sont pas identiques | Trois réponses courtes se substituent après la sélection, avec un seul panneau ouvert et des liens de profondeur contextualisés |
+| Deux repères interactifs par persona | Un seul visuel ne suffit pas à expliquer à la fois les dimensions et le geste de contribution | Le radar porte les cinq repères adaptés au rôle ; la boussole raconte ensuite le mouvement de contribution en trois étapes |
+| Deux CTA dans le récit personnalisé | Des actions concurrentes affaiblissent le choix de parcours | Chaque récit expose un CTA primaire et un CTA secondaire ; les liens de profondeur migrent dans les contenus de contexte |
 
 ## 6. Stack et structure du dépôt
 
@@ -168,6 +174,7 @@ Qualité            pnpm verify · TypeScript · builds · scripts mobile/contra
 | 15 août 2026 | SEO-GEO renforcé : registre partagé, pré-rendu HTML de dix routes indexables, graphe JSON-LD consolidé, llms.txt, vraie 404 Nginx et vérification automatisée intégrée à `pnpm verify` |
 | 16 août 2026 | Accueil par persona livré : trois parcours réversibles et partageables, récits et illustrations adaptés, collecte d’intérêt consentie prête côté API, console et export préparés |
 | 16 août 2026 | FAQ contextuelles ajoutées aux trois parcours : réponses accessibles, accordéon à panneau unique et approfondissements liés à chaque rôle |
+| 16 août 2026 | Visualisations par persona restaurées : radar et boussole interactifs adaptés, correction mobile du commentaire radar et récits limités à deux CTA |
 
 ## 8. État d’activation et limites connues
 

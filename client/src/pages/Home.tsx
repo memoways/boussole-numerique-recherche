@@ -12,12 +12,12 @@ import {
   Check,
   Compass,
   Lightbulb,
-  Network,
   RotateCcw,
   Send,
   Users,
 } from "lucide-react";
 import { AnimatedRadarGraphic, type RadarDimension } from "@/components/AnimatedRadarGraphic";
+import { InteractiveNarrativeIllustration, type NarrativeVisualKind } from "@/components/InteractiveNarrativeIllustration";
 import { hasPartnerApi, partnerApi } from "@/lib/partnerApi";
 import { Button } from "@/components/ui/button";
 
@@ -42,7 +42,6 @@ type Persona = {
   faq: FaqItem[];
   primary: { label: string; href: string };
   secondary: { label: string; href: string };
-  deepLink: { label: string; href: string };
   color: string;
   softColor: string;
   icon: typeof Users;
@@ -55,6 +54,30 @@ const RADAR_DIMENSIONS: RadarDimension[] = [
   { label: "Diffusion", couleur: "#3a7fc1", emoji: "◒", resume: "Des canaux choisis pour les publics." },
   { label: "Collaboration", couleur: "#7ab648", emoji: "↔", resume: "Des pratiques de travail qui circulent." },
 ];
+
+const PERSONA_RADAR_DIMENSIONS: Record<PersonaId, RadarDimension[]> = {
+  partenaire: [
+    { label: "Écouter", couleur: "#515792", emoji: "◌", resume: "Faire remonter les réalités du terrain." },
+    { label: "Relayer", couleur: "#3a7fc1", emoji: "↗", resume: "Relier les questions aux artistes et aux équipes." },
+    { label: "Prioriser", couleur: "#E07428", emoji: "◆", resume: "Distinguer ce qui mérite une réponse." },
+    { label: "Tester", couleur: "#3aab8a", emoji: "✓", resume: "Mettre les hypothèses à l’épreuve du contexte." },
+    { label: "Transmettre", couleur: "#7ab648", emoji: "↔", resume: "Partager les apprentissages sans classement." },
+  ],
+  artiste: RADAR_DIMENSIONS,
+  "enjeux-numeriques": [
+    { label: "Pratiques", couleur: "#3aab8a", emoji: "◌", resume: "Partir des situations concrètes plutôt que des outils." },
+    { label: "Littératie", couleur: "#3a7fc1", emoji: "↗", resume: "Rendre les choix numériques plus discutables." },
+    { label: "Ressources", couleur: "#515792", emoji: "⌁", resume: "Relier les sources fiables aux besoins du terrain." },
+    { label: "Responsabilité", couleur: "#E07428", emoji: "◆", resume: "Identifier les conditions d’un usage soutenable." },
+    { label: "Communs", couleur: "#7ab648", emoji: "↔", resume: "Faire circuler des repères utiles dans la culture." },
+  ],
+};
+
+const PERSONA_COMPASS_KIND: Record<PersonaId, NarrativeVisualKind> = {
+  partenaire: "bridge",
+  artiste: "journey",
+  "enjeux-numeriques": "principles",
+};
 
 const PERSONAS: Persona[] = [
   {
@@ -78,7 +101,6 @@ const PERSONAS: Persona[] = [
     ],
     primary: { label: "Comprendre le rôle des partenaires", href: "/partenaires/presentation" },
     secondary: { label: "Partager besoins et idées", href: "/partenaires/questionnaire" },
-    deepLink: { label: "Voir le parcours partenaire", href: "/partenaires" },
     color: "#515792",
     softColor: "#f0f1f8",
     icon: Users,
@@ -104,7 +126,6 @@ const PERSONAS: Persona[] = [
     ],
     primary: { label: "Signaler mon intérêt", href: "#interet" },
     secondary: { label: "Explorer l’expérience Boussole", href: "/experience" },
-    deepLink: { label: "Comprendre les cinq dimensions", href: "/projet#proposition" },
     color: "#E07428",
     softColor: "#fdf3ec",
     icon: Brush,
@@ -130,7 +151,6 @@ const PERSONAS: Persona[] = [
     ],
     primary: { label: "Consulter la recherche et les ressources", href: "/recherche" },
     secondary: { label: "Suivre la démarche", href: "#interet" },
-    deepLink: { label: "Lire la méthode de co-conception", href: "/methode" },
     color: "#3aab8a",
     softColor: "#eef9f5",
     icon: Lightbulb,
@@ -142,60 +162,23 @@ function getPersonaFromUrl(): PersonaId | null {
   return PERSONAS.some((persona) => persona.id === value) ? value as PersonaId : null;
 }
 
-function PersonaIllustration({ persona }: { persona: Persona }) {
-  if (persona.id === "artiste") {
-    return (
-      <div className="relative mx-auto flex w-full max-w-[320px] flex-col items-center">
-        <AnimatedRadarGraphic
-          dimensions={RADAR_DIMENSIONS}
-          interactive
-          className="h-64 w-64 sm:h-72 sm:w-72"
-          ariaLabel="Cinq dimensions à explorer dans la future Boussole"
-        />
-        <p className="mt-2 max-w-[270px] text-center text-sm leading-relaxed text-slate-500">
-          Il ne s’agit pas d’attribuer une note, mais de repérer ce qui mérite une attention.
-        </p>
-      </div>
-    );
-  }
-
-  if (persona.id === "partenaire") {
-    const steps = ["Relayer", "Mettre à l’épreuve", "Faire circuler"];
-    return (
-      <div className="mx-auto flex w-full max-w-[330px] flex-col gap-4" aria-label="Le rôle partenaire en trois gestes">
-        {steps.map((step, index) => (
-          <div key={step} className="flex items-center gap-3" style={{ color: persona.color }}>
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-sm font-black text-white" style={{ backgroundColor: persona.color }}>
-              0{index + 1}
-            </div>
-            <div className="min-w-0">
-              <p className="font-bold text-slate-900">{step}</p>
-              <p className="text-sm leading-snug text-slate-500">
-                {index === 0 ? "Faire remonter les situations et les questions du terrain." : index === 1 ? "Tester les formulations et les priorités du prototype." : "Préparer un lien utile vers les personnes concernées."}
-              </p>
-            </div>
-          </div>
-        ))}
-        <div className="ml-5 h-8 border-l-2 border-dashed" style={{ borderColor: `${persona.color}80` }} aria-hidden="true" />
-        <p className="ml-8 text-sm font-semibold" style={{ color: persona.color }}>Un prototype défini avec le terrain, étape par étape.</p>
-      </div>
-    );
-  }
-
-  const nodes = ["Pratiques", "Questions", "Ressources", "Choix partagés"];
+function PersonaVisualizations({ persona }: { persona: Persona }) {
   return (
-    <div className="relative mx-auto grid w-full max-w-[330px] grid-cols-2 gap-3" aria-label="Les éléments reliés par la démarche">
-      {nodes.map((node, index) => (
-        <div
-          key={node}
-          className={`min-h-24 rounded-2xl px-4 py-4 ${index === 3 ? "col-span-2" : ""}`}
-          style={{ backgroundColor: index === 3 ? persona.color : `${persona.color}12`, color: index === 3 ? "#fff" : persona.color }}
-        >
-          <Network className="mb-2 h-5 w-5" aria-hidden="true" />
-          <p className="text-sm font-bold leading-tight">{node}</p>
-        </div>
-      ))}
-      <p className="col-span-2 mt-1 text-center text-sm leading-relaxed text-slate-500">Comprendre les liens, plutôt que chercher une solution universelle.</p>
+    <div className="mx-auto flex w-full max-w-[360px] flex-col gap-10" aria-label={`Visualisations interactives du parcours ${persona.shortLabel}`}>
+      <div>
+        <p className="mb-3 text-center text-xs font-black uppercase tracking-[0.16em]" style={{ color: persona.color }}>Repères à explorer</p>
+        <AnimatedRadarGraphic
+          key={`${persona.id}-radar`}
+          dimensions={PERSONA_RADAR_DIMENSIONS[persona.id]}
+          interactive
+          className="mx-auto h-60 w-60 sm:h-64 sm:w-64"
+          ariaLabel={`Radar interactif : ${persona.shortLabel}`}
+        />
+      </div>
+      <div>
+        <p className="mb-3 text-center text-xs font-black uppercase tracking-[0.16em]" style={{ color: persona.color }}>Boussole de contribution</p>
+        <InteractiveNarrativeIllustration key={`${persona.id}-compass`} kind={PERSONA_COMPASS_KIND[persona.id]} accent={persona.color} />
+      </div>
     </div>
   );
 }
@@ -241,13 +224,10 @@ function PersonaStory({ persona }: { persona: Persona }) {
                 {isInternal(persona.secondary.href) ? <Link href={persona.secondary.href}>{persona.secondary.label} <ArrowUpRight className="ml-2 h-4 w-4" /></Link> : <a href={persona.secondary.href}>{persona.secondary.label} <ArrowUpRight className="ml-2 h-4 w-4" /></a>}
               </Button>
             </div>
-            <Link href={persona.deepLink.href} className="mt-5 inline-flex items-center gap-2 text-sm font-bold underline decoration-2 underline-offset-4" style={{ color: persona.color }}>
-              {persona.deepLink.label} <ArrowRight className="h-4 w-4" />
-            </Link>
           </div>
 
           <aside className="lg:pl-3">
-            <PersonaIllustration persona={persona} />
+            <PersonaVisualizations persona={persona} />
           </aside>
         </div>
       </div>

@@ -99,3 +99,5 @@
 - [x] Refondre l’accueil en lanceur personnalisé, accessible et réversible.
 - [x] Préparer les parcours d’intérêt artistes et enjeux numériques, puis aligner le SEO et la documentation.
 - [x] Définir et intégrer une FAQ dynamique, accessible et spécifique aux trois parcours de persona de l’accueil.
+- [x] Rétablir deux visualisations interactives adaptées à chaque persona et corriger le radar sur mobile.
+- [x] Limiter chaque parcours par persona à un CTA primaire et un CTA secondaire.
