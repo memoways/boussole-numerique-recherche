@@ -42,6 +42,8 @@ La présentation partenaire a été contrôlée sur `/partenaires/presentation?s
 
 Après sélection du profil Artiste, le récit est maintenant ancré avec une marge de 15 rem sous les barres fixes. Le sous-menu reste visible et le radar, ses cinq icônes ainsi que son libellé d’exploration sont entièrement contenus dans le premier écran du récit, sans découpe supérieure.
 
+Le réglage final ramène cette marge à 8 rem, correspondant à la hauteur cumulée de la navigation globale et du sous-menu de profils. Après un clic sur la carte Artiste, le séparateur du récit arrive exactement sous ces deux barres fixes ; le radar et ses icônes restent entièrement visibles, sans espace blanc excessif au-dessus du contenu.
+
 ## Contrôles restant à effectuer
 
 - Vérifier le comportement clavier, les préférences de mouvement réduit et la largeur mobile.
