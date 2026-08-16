@@ -118,3 +118,4 @@
 - [x] Diagnostiquer puis réécrire l’accueil autour du pourquoi du projet et des besoins concrets des artistes.
 - [x] Différencier les parcours Institutionnel, Artiste et Enjeux du numérique avec des liens de profondeur explicites.
 - [x] Aligner le statut de co-conception, les étapes visées, le SEO et la documentation avec la nouvelle ligne éditoriale.
+- [x] Consolider CHANGELOG.md et STORY.md avec les développements effectivement livrés depuis la dernière révision documentaire.

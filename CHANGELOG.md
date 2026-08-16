@@ -2,6 +2,28 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.2.1] — 2026-08-16 — Refonte de l’accueil et continuité de parcours
+
+### Modifié
+
+- Accueil entièrement réécrit autour de la raison d’être de la Boussole : difficultés concrètes des pratiques numériques, amélioration progressive recherchée et priorité donnée aux artistes, sans présenter le futur outil comme déjà disponible.
+- Hero et entrée par profils clarifiés : trois capsules colorées et accessibles — Institutionnel, Artiste, Enjeux du numérique — permettent de reconnaître son rôle avant d’ouvrir un récit dédié.
+- Trois récits alignés sur une structure commune, mais différenciés dans leur contenu : situation concrète, contribution ou bénéfice attendu, trois questions utiles, deux actions hiérarchisées et lien de profondeur explicitement annoncé.
+- Sous-menu de profils conservé dès le clic et pendant tout le récit ; le profil actif reste coloré, le changement de persona est immédiat et le menu disparaît seulement au retour effectif dans le hero.
+- Ancrage du récit harmonisé avec les barres fixes : 7 rem sur mobile et 8 rem à partir de `sm`, afin que le séparateur, le radar et ses contrôles restent visibles après un défilement de profil.
+- FAQ, radar et boussole narrative adaptés à chaque persona ; les radars partagés et celui de la page Expérience réservent l’interaction aux icônes périphériques, les points restant graphiques.
+- Pré-rendu de l’accueil, description SEO, données structurées et `llms.txt` alignés sur la nouvelle promesse, les rôles des publics et le statut de co-conception.
+
+### Corrigé
+
+- Contrôle de `llms.txt` rendu insensible à la casse, pour vérifier le rôle du site compagnon sans imposer une capitalisation précise au manifeste conversationnel.
+- Documentation de continuité complétée : plan de réécriture, diagnostic par profils et contrôle de l’accueil sont désormais référencés dans `docs/`, `README.md`, `STORY.md` et le suivi des tâches.
+
+### Vérifié
+
+- `pnpm verify` repasse après la réécriture : TypeScript du portail et de l’API, build statique, génération des dix routes indexables, contrôle SEO-GEO et build de l’API partenaire.
+- Les trois parcours expliquent une situation, un apport ou bénéfice, l’étape actuelle et des liens cohérents ; la page hydratée conserve une canonique sans paramètre et un unique graphe JSON-LD.
+
 ## [1.2.0] — 2026-08-13 — Module partenaire et préparation du pilote
 
 ### Ajouté

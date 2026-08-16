@@ -39,6 +39,8 @@ Le premier écran de l’accueil est volontairement réduit au nom « Boussole N
 
 La promesse de l’accueil part désormais de la raison d’être de la Boussole : les difficultés numériques ordinaires — fichiers dispersés, outils de partage mal ajustés, procédures de collaboration opaques — coûtent du temps, compliquent les choix et peuvent isoler les artistes. Le projet cherche à rendre ces situations discutables sans les transformer en note ou en jugement. La future Boussole devra permettre de choisir une première amélioration compréhensible, puis d’avancer progressivement avec les personnes concernées.
 
+La consolidation du 16 août 2026 fixe le fonctionnement de cette entrée : un clic sur une capsule rend immédiatement visible le sous-menu de profils et lance le défilement vers le récit correspondant. Ce sous-menu reste disponible pendant toute la lecture du récit, conserve le profil actif en couleur et ne disparaît qu’au retour effectif des capsules dans le hero. La marge d’ancrage s’adapte à la hauteur des barres fixes — 7 rem sur mobile et 8 rem à partir de `sm` — afin que le début du récit, le radar et ses icônes ne soient pas masqués.
+
 ## 4. Ce qui est effectivement livré
 
 ### Portail et expérience
@@ -56,6 +58,8 @@ La phase actuelle du site compagnon est la mobilisation et l’écoute. Le quest
 L’accueil traduit cette mobilisation par trois parcours : partenaires relais, artistes et personnes actives dans la culture, ou personnes intéressées par les enjeux numériques. Le choix est réversible et mémorisé dans `?public=partenaire`, `?public=artiste` ou `?public=enjeux-numeriques` pour partager un état de lecture, sans créer de variante SEO : la canonique reste celle de l’accueil. Chaque parcours déploie une intention, trois questions, une proposition de contribution et une illustration propre.
 
 Le parcours Institutionnel explique comment une structure ou un réseau peut rendre visibles les situations coûteuses, préparer des améliorations collectives et les conditions d’un test, sans valider un outil déjà décidé. Le parcours Artiste établit que l’on n’a pas à devenir spécialiste du numérique pour repérer un premier changement utile, puis renvoie vers l’expérience et la manifestation d’intérêt. Le parcours Enjeux du numérique attend des ressources, méthodes, alertes et critères de vigilance, sans décider à la place des artistes. Dans les trois cas, la phase actuelle recueille des idées et des propositions pour préparer un atelier de co-conception visé à l’automne ; le prototype reste à décider avec les personnes impliquées.
+
+La cohérence éditoriale de l’accueil est également portée par les sorties non visuelles : le pré-rendu HTML, la description SEO, les données structurées et `llms.txt` reprennent la même promesse, les mêmes publics et le même statut de co-conception. Les états `?public=` restent partageables pour ouvrir le bon récit, sans créer de variante indexable : la canonique de l’accueil ne porte pas de paramètre.
 
 Chaque parcours déploie ensuite une FAQ de trois réponses utiles à sa situation. Les réponses ne répètent pas le récit : elles précisent l’engagement attendu, le statut du questionnaire, la non-évaluation, les façons de contribuer ou la place de la recherche selon le persona. Une seule réponse est ouverte à la fois ; le contrôle expose son état et son panneau associé, puis propose les liens d’approfondissement utiles sans sortir prématurément du parcours.
 
@@ -201,6 +205,7 @@ Qualité            pnpm verify · TypeScript · builds · scripts mobile/contra
 | 16 août 2026 | Radar de la page Expérience clarifié : icônes périphériques interactives et points du tracé rendus purement visuels |
 | 16 août 2026 | Navigation partenaire sécurisée : redirections relatives sans port interne, routes canoniques sans slash terminal et conservation de `slide` et `detail` dans la pagination |
 | 16 août 2026 | Accueil réécrit : raison d’être concrète, problèmes et opportunité explicités, trois parcours différenciés, statut de co-conception et liens de profondeur alignés avec le SEO-GEO |
+| 16 août 2026 | Consolidation de l’accueil : sous-menu maintenu dans tout récit sélectionné, ancrage responsive, radars contrôlés par icônes, boussoles tactiles et contrôle `pnpm verify` complet après alignement du manifeste conversationnel |
 
 ## 8. État d’activation et limites connues
 
@@ -235,3 +240,6 @@ Les contenus éditoriaux restent principalement dans les composants React. Une s
 | [`docs/IMPLEMENTATION_ARCHIVE_PARTNER_MODULE_2026-08-13.md`](docs/IMPLEMENTATION_ARCHIVE_PARTNER_MODULE_2026-08-13.md) | Trace factuelle des fonctionnalités partenaire effectivement livrées |
 | [`docs/PLAN_OPTIMISATION_REDACTIONNELLE.md`](docs/PLAN_OPTIMISATION_REDACTIONNELLE.md) | Diagnostic éditorial et séquence de réécriture à valider avant toute modification de contenu |
 | [`docs/CONTROLE_ACCUEIL_PERSONAS_2026-08-16.md`](docs/CONTROLE_ACCUEIL_PERSONAS_2026-08-16.md) | Contrôle visuel, parcours, accessibilité et activation de la collecte d’intérêt |
+| [`docs/PLAN_REFONTE_EDITORIALE_ACCUEIL_2026-08-16.md`](docs/PLAN_REFONTE_EDITORIALE_ACCUEIL_2026-08-16.md) | Décisions de la réécriture de l’accueil, centrée sur le pourquoi, les rôles et le statut de co-conception |
+| [`docs/DIAGNOSTIC_REECRITURE_ACCUEIL_PROFILS_2026-08-16.md`](docs/DIAGNOSTIC_REECRITURE_ACCUEIL_PROFILS_2026-08-16.md) | Diagnostic des formulations et textes de référence appliqués aux trois parcours |
+| [`docs/CONTROLE_REECRITURE_ACCUEIL_2026-08-16.md`](docs/CONTROLE_REECRITURE_ACCUEIL_2026-08-16.md) | Contrôle de cohérence éditoriale, SEO-GEO et point de test restant sur appareil mobile réel |
