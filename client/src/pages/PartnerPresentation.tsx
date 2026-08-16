@@ -300,6 +300,8 @@ const PARTNER_RADAR_DIMENSIONS = [
   { label: "Collaboration", couleur: "#E58441", emoji: "🔗", resume: "partage et cohérence d’équipe." },
 ];
 
+const PRESENTATION_PATH = "/partenaires/presentation";
+
 function getPresentationState() {
   const params = new URLSearchParams(window.location.search);
   const parsedIndex = Number.parseInt(params.get("slide") ?? "1", 10);
@@ -312,7 +314,7 @@ function getPresentationState() {
 function createPresentationUrl(currentIndex: number, detail = "") {
   const params = new URLSearchParams({ slide: String(currentIndex + 1) });
   if (detail) params.set("detail", detail);
-  return `/partenaires/presentation?${params.toString()}`;
+  return `${PRESENTATION_PATH}?${params.toString()}`;
 }
 
 function StoryIllustration({ kind, accent }: { kind: Exclude<VisualKind, "compass" | "none">; accent: string }) {
@@ -381,6 +383,11 @@ export default function PartnerPresentation() {
     setCurrentIndex(nextState.currentIndex);
     setOpenDetail(nextState.detail);
   }, [location]);
+
+  useEffect(() => {
+    if (window.location.pathname !== `${PRESENTATION_PATH}/`) return;
+    window.history.replaceState({}, "", `${PRESENTATION_PATH}${window.location.search}${window.location.hash}`);
+  }, []);
 
   const setPresentationState = (nextIndex: number, detail = "") => {
     const safeIndex = Math.min(Math.max(nextIndex, 0), SLIDES.length - 1);

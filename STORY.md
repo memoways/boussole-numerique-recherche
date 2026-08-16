@@ -71,7 +71,7 @@ La page Expérience conserve son propre radar explicatif. Ses cinq points visual
 
 ### Présentation partenaire
 
-La route `/partenaires/presentation` contient neuf slides. Les détails sont dépliables au clavier, les liens contextuels ouvrent les pages utiles et l’URL conserve `slide` et `detail` pour que le bouton précédent du navigateur retrouve le contexte de lecture. Le deck desktop utilise un gabarit interne de 950 px : titre compact, navigation fixe et panneaux défilables dans l’espace restant. La barre de progression est placée entre les commandes Précédent et Suivant, avec un compteur de slide ; l’aide textuelle redondante est retirée. Sur mobile, les colonnes se replient et les commandes restent accessibles.
+La route `/partenaires/presentation` contient neuf slides. Les détails sont dépliables au clavier, les liens contextuels ouvrent les pages utiles et l’URL conserve `slide` et `detail` pour que le bouton précédent du navigateur retrouve le contexte de lecture. Le deck produit uniquement des chemins relatifs de la forme `/partenaires/presentation?slide=3` : aucune navigation ne reconstruit une origine ou ne peut exposer le port interne. Les URLs avec slash terminal sont redirigées vers ce chemin canonique par Nginx, en préservant les paramètres de slide et de détail. Le deck desktop utilise un gabarit interne de 950 px : titre compact, navigation fixe et panneaux défilables dans l’espace restant. La barre de progression est placée entre les commandes Précédent et Suivant, avec un compteur de slide ; l’aide textuelle redondante est retirée. Sur mobile, les colonnes se replient et les commandes restent accessibles.
 
 La première slide utilise le radar animé ; les huit autres s’appuient sur `InteractiveNarrativeIllustration`. Chaque composant relie un schéma à une idée précise : signaux du terrain, parcours, réalités à relier, lecture sans note unique, conditions de confiance, écoute, atelier ou contribution. Les retours de navigation redondants et les icônes décoratives inutiles ont été supprimés lors des derniers ajustements visuels.
 
@@ -105,6 +105,7 @@ Après chaque soumission, l’API prépare un e-mail de récapitulatif détermin
 | Animation de navigation mesurée | Une transition doit orienter sans ralentir la consultation | Les commandes produisent une entrée directionnelle de 260 ms ; clavier et mouvement réduit évitent l’animation |
 | Open Graph statique et dynamique | Les robots sociaux ne dépendent pas de JavaScript | Les balises de partage sont injectées au build et mises à jour à chaque route SPA |
 | URL SEO ancrées au domaine public | Le proxy ne doit jamais faire remonter son port interne dans les métadonnées | `VITE_SITE_URL`, ou le domaine final en repli, construit les canoniques, Open Graph et JSON-LD côté interface |
+| Redirections relatives sans port interne | Coolify utilise le port 8080 derrière son proxy HTTPS, qui ne doit jamais devenir une URL publique | Nginx désactive les redirections absolues et la réécriture du port ; les routes partenaires sont canonisées sans supprimer `slide` ni `detail` |
 | Sitemap et robots générés au build | Le domaine final doit se propager sans édition manuelle | Les seules routes indexables entrent dans le sitemap ; les parcours privés sont exclus |
 | Registre SEO unique | Le rendu HTML, la navigation SPA et les aperçus de partage ne doivent pas se contredire | `shared/seo-pages.json` porte les titres, descriptions, canoniques, directives et fils d’Ariane consommés par React et le générateur |
 | HTML statique après Vite | Certains moteurs, prévisualiseurs et lecteurs ne rendent pas JavaScript | Chaque route indexable reçoit une page HTML avec son contenu de contexte, des liens et les assets compilés avant hydratation |
@@ -192,6 +193,7 @@ Qualité            pnpm verify · TypeScript · builds · scripts mobile/contra
 | 16 août 2026 | Accueil simplifié selon annotations : hero ramené au titre et à la promesse, entrée par profils renommée et éléments décoratifs retirés |
 | 16 août 2026 | Sous-menu sticky de profils : état actif coloré, bascule directe entre Institutionnel, Artiste et Enjeux du numérique, libellés complets sur mobile |
 | 16 août 2026 | Radar de la page Expérience clarifié : icônes périphériques interactives et points du tracé rendus purement visuels |
+| 16 août 2026 | Navigation partenaire sécurisée : redirections relatives sans port interne, routes canoniques sans slash terminal et conservation de `slide` et `detail` dans la pagination |
 
 ## 8. État d’activation et limites connues
 

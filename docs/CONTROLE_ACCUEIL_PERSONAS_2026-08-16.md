@@ -38,6 +38,8 @@ Le radar partagé du parcours Artiste applique désormais la même règle. Il ex
 
 Le clic sur l’étape « Situer » de la boussole Artiste met à jour sa lecture contextuelle. Les trois cibles sont des boutons complets, avec une hauteur minimale de 92 px et un empilement prévu avant le breakpoint `sm`, ce qui maintient des cibles confortables et des libellés entiers sur mobile.
 
+La présentation partenaire a été contrôlée sur `/partenaires/presentation?slide=3`, puis avec la commande Suivant. La pagination produit `/partenaires/presentation?slide=4` : elle ne fabrique ni URL absolue, ni port interne, et le compteur comme le contenu correspondent à la slide active.
+
 ## Contrôles restant à effectuer
 
 - Vérifier le comportement clavier, les préférences de mouvement réduit et la largeur mobile.

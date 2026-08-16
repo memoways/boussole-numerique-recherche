@@ -42,7 +42,7 @@ Les variables de build sont injectées comme `ARG` pour les applications Dockerf
 
 ### 4. Déployer et valider
 
-Lancez **Deploy**. Après un déploiement réussi, ouvrez la racine puis les routes profondes dans une fenêtre privée : `/`, `/projet`, `/timeline`, `/references` et `/partenaires`. Le rechargement direct de chacune de ces routes doit afficher l'application, pas une page 404. Vérifiez aussi le menu mobile, le tableau comparatif et le téléchargement des ressources PDF.
+Lancez **Deploy**. Après un déploiement réussi, ouvrez la racine puis les routes profondes dans une fenêtre privée : `/`, `/projet`, `/timeline`, `/references`, `/partenaires` et `/partenaires/presentation?slide=3`. Le rechargement direct de chacune de ces routes doit afficher l'application, pas une page 404. Vérifiez que Suivant produit `/partenaires/presentation?slide=4`, sans domaine reconstruit ni `:8080`. Vérifiez aussi le menu mobile, le tableau comparatif et le téléchargement des ressources PDF.
 
 ## Mises à jour après migration
 
@@ -67,6 +67,7 @@ La version actuelle est volontairement sans backend. Une future fonctionnalité 
 - [ ] Les variables de build publiques `SITE_URL` et `VITE_SITE_URL` correspondent exactement au domaine final en HTTPS, sans slash final ni port.
 - [ ] Le DNS du domaine cible pointe sur le serveur Coolify.
 - [ ] La racine et les routes profondes sont validées après déploiement.
+- [ ] La pagination de `/partenaires/presentation` conserve `?slide=` et ne génère aucune URL avec `:8080`.
 - [ ] Les anciennes URL Manus sont retirées des documents et liens de production après validation du nouveau domaine.
 - [ ] Aucun secret n'est présent dans le dépôt ou dans une variable `VITE_*`.
 - [ ] `pnpm audit --prod` ne signale aucune vulnérabilité critique ou élevée.

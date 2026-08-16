@@ -51,6 +51,9 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Radar de l’accueil extrait dans `AnimatedRadarGraphic`, puis réemployé dans la première slide partenaire ; les autres slides utilisent des illustrations limitées à leur rôle narratif.
 - Aide textuelle redondante de navigation retirée du deck afin de dégager la bande de commandes ; le compteur de slide accompagne désormais la barre de progression.
 - Origine des métadonnées dynamiques stabilisée sur `VITE_SITE_URL`, avec repli sur le domaine public final, pour empêcher la reprise d’un éventuel port interne Coolify dans les URL canoniques et Open Graph.
+- Nginx configuré pour ne jamais propager `:8080` dans une redirection (`absolute_redirect off`, `port_in_redirect off`) ; les chemins partenaires avec slash terminal sont canonisés par redirection relative 308.
+- Canonisation des trois parcours partenaires sans slash terminal, avec conservation explicite des paramètres de requête, notamment `?slide=` et `?detail=` de la présentation.
+- Navigation du deck consolidée sur le chemin relatif `/partenaires/presentation` : la pagination produit des URL internes canoniques, sans origine reconstruite ni port de service.
 - Contenu des neuf slides partenaire recomposé : explication, mise en contexte, trois effets attendus et valeur de contribution structurent une colonne narrative majoritaire ; la zone d’illustration, élargie à droite, accueille des schémas narratifs sans panneau ni effet glassmorphism.
 - La phrase d’instruction « Ouvrez les repères ci-dessous… » est retirée du deck ; les accordéons restent disponibles comme approfondissement facultatif.
 - Schémas narratifs rendus exploratoires : chaque repère répond au survol, au focus ou au clic, modifie l’élément actif et affiche une explication complémentaire ; le radar de la première slide adopte aussi l’activation au survol.
@@ -104,6 +107,7 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Compilation TypeScript et build final validés après l’application systématique de cette composition aux neuf slides.
 - Audit SEO-GEO contrôlé : les dix pages indexables générées ont chacune une meta description, une URL canonique, un `h1`, un graphe JSON-LD valide et des assets compilés ; les trois parcours privés et la 404 sont non indexables.
 - Contrôle navigateur de la page Partenaires : après hydratation React, une seule meta description, une seule canonique et un seul graphe JSON-LD à quatre entités subsistent.
+- Présentation partenaire contrôlée sur les slides 3 puis 4 : le bouton Suivant met à jour uniquement `?slide=`, le compteur correspond au contenu et l’URL reste relative au domaine public.
 - Vérification complète `pnpm verify` validée : TypeScript du portail et de l’API, build statique, `pnpm verify:seo` et build de l’API partenaire passent.
 - Accueil neutre, parcours Partenaire, Artiste et Enjeux numériques contrôlés visuellement ; les URLs partageables activent le bon récit, le retour vers les trois choix est disponible et le fallback e-mail apparaît tant que l’API n’est pas configurée.
 - Contrôle DOM du parcours Enjeux numériques : états `aria-pressed` cohérents, titre de récit focalisable, une canonique sans paramètre et un seul graphe JSON-LD après hydratation.
