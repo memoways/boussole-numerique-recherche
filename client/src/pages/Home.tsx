@@ -181,7 +181,7 @@ function PersonaVisualizations({ persona }: { persona: Persona }) {
       </div>
       <div>
         <p className="mb-3 text-center text-xs font-black uppercase tracking-[0.16em]" style={{ color: persona.color }}>Boussole de contribution</p>
-        <InteractiveNarrativeIllustration key={`${persona.id}-compass`} kind={PERSONA_COMPASS_KIND[persona.id]} accent={persona.color} />
+        <InteractiveNarrativeIllustration key={`${persona.id}-compass`} kind={PERSONA_COMPASS_KIND[persona.id]} accent={persona.color} plainSummary />
       </div>
     </div>
   );
@@ -245,14 +245,14 @@ function PersonaStory({ persona }: { persona: Persona }) {
 
             <div className="mt-8 grid gap-3 sm:grid-cols-3">
               {persona.questions.map((question, index) => (
-                <div key={question} className="border-l-2 px-4 py-1" style={{ borderColor: persona.color }}>
+                <div key={question} className="px-4 py-1">
                   <span className="text-xs font-black" style={{ color: persona.color }}>0{index + 1}</span>
                   <p className="mt-1 text-sm font-medium leading-snug text-slate-700">{question}</p>
                 </div>
               ))}
             </div>
 
-            <p className="mt-8 max-w-3xl border-l-4 py-1 pl-4 text-base font-semibold leading-relaxed text-slate-800" style={{ borderColor: persona.color }}>
+            <p className="mt-8 max-w-3xl py-1 text-base font-semibold leading-relaxed text-slate-800">
               {persona.contribution}
             </p>
 

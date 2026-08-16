@@ -33,6 +33,9 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Radar de la page Expérience clarifié : les icônes périphériques, fixes et accessibles, deviennent les seuls contrôles des dimensions ; les points du tracé sont désormais purement visuels.
 - Convention appliquée au radar partagé de l’accueil et de la présentation partenaire : les points restent graphiques, les cinq icônes périphériques portent les contrôles, les états et les retours de survol.
 - Boussole narrative optimisée pour mobile : ses étapes sont empilées sous `sm`, conservent des cibles de 92 px et des libellés de taille lisible ; elles retrouvent leur grille sur écrans plus larges.
+- Sous-menu sticky de profils ajouté après sélection : Institutionnel, Artiste et Enjeux du numérique restent disponibles sous la navigation principale, avec le profil actif mis en évidence par sa couleur et un changement direct de récit.
+- Hero et entrée de l’accueil simplifiés selon annotations : le hero ne conserve que le titre et la promesse ; la section s’intitule « Entrée dans le site par profil » sans libellés ni décorations redondantes.
+- Traits verticaux décoratifs retirés des questions, du message de contribution et du résumé de la boussole dans les trois parcours de profils.
 
 ### Modifié
 
@@ -113,6 +116,7 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Changement direct de profil et maintien du sous-menu au défilement contrôlés : une seule entrée est active, le menu reste fixé sous la navigation globale et l’URL ainsi que le récit sont actualisés.
 - Page Expérience contrôlée : l’icône Outils met à jour sa lecture contextuelle, tandis que les points du radar ne sont plus exposés comme contrôles ni accessibles au focus.
 - Parcours Artiste contrôlé : l’icône Compétences met à jour le radar partagé, l’étape Situer met à jour la boussole et les contrôles restent distincts des points du tracé.
+- Contrôles récents consolidés : les profils actifs, les cinq icônes radar, les boussoles, les CTA limités à deux et la lecture mobile des étapes sont validés ; TypeScript, build statique, vérification SEO-GEO et API partenaire passent.
 
 ## [1.1.0] — 2026-08-09 au 2026-08-12 — Alignement institutionnel, accessibilité et diffusion
 

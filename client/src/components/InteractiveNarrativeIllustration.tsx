@@ -82,9 +82,10 @@ const STORIES: Record<NarrativeVisualKind, { title: string; steps: StoryStep[] }
 type Props = {
   kind: NarrativeVisualKind;
   accent: string;
+  plainSummary?: boolean;
 };
 
-export function InteractiveNarrativeIllustration({ kind, accent }: Props) {
+export function InteractiveNarrativeIllustration({ kind, accent, plainSummary = false }: Props) {
   const story = STORIES[kind];
   const [activeIndex, setActiveIndex] = useState(0);
   const active = story.steps[activeIndex];
@@ -138,6 +139,6 @@ export function InteractiveNarrativeIllustration({ kind, accent }: Props) {
   return <section className="mx-auto w-full max-w-[440px]" aria-label={story.title}>
     <p className="mb-5 text-center text-xs font-bold uppercase tracking-[0.16em]" style={{ color: accent }}>{story.title}</p>
     {isSignals ? <SignalGraphic /> : <StepGraphic />}
-    <div className="mt-5 border-l-2 pl-3 text-sm leading-relaxed text-slate-600" style={{ borderColor: accent }} aria-live="polite"><span className="font-bold" style={{ color: accent }}>{active.label}</span> — {active.summary}</div>
+    <div className={`mt-5 text-sm leading-relaxed text-slate-600 ${plainSummary ? "" : "border-l-2 pl-3"}`} style={plainSummary ? undefined : { borderColor: accent }} aria-live="polite"><span className="font-bold" style={{ color: accent }}>{active.label}</span> — {active.summary}</div>
   </section>;
 }
