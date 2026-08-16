@@ -59,6 +59,8 @@ Les trois parcours disposent aussi de deux repères interactifs plutôt que d’
 
 Le récit principal conserve exactement deux actions : une action primaire orange et une action secondaire liée au persona. Les liens d’approfondissement restent dans les réponses de FAQ ou la navigation globale, afin de ne pas diluer la décision demandée au moment du choix de parcours.
 
+Dès qu’un profil est actif, un sous-menu contextuel reste fixé sous la navigation globale. Il affiche « Institutionnel », « Artiste » et « Enjeux du numérique » avec les couleurs du langage visuel de chaque parcours. Le choix en cours est contrasté et les deux autres profils restent activables directement : le changement met à jour l’URL, le récit, la FAQ et les visualisations sans demander de remonter au sélecteur initial. Les libellés conservent leur forme complète sur petits écrans.
+
 Les manifestations d’intérêt sont distinctes du questionnaire partenaire. Après activation de l’API, le formulaire public conserve dans `public_interest_submissions` le consentement, le public déclaré, le souhait d’être invité·e à un atelier et/ou d’être informé·e d’une ouverture, ainsi que la page d’origine. Sans `VITE_PARTNER_API_URL`, aucun faux formulaire ne s’affiche : un relais e-mail honnête reste disponible. La console `/admin` prévoit la consultation et l’export CSV dédiés.
 
 L’expérience Boussole utilise cinq dimensions pour rendre le diagnostic tangible. Le radar animé de l’accueil est fourni par le composant partagé `AnimatedRadarGraphic`. Il ouvre la présentation partenaire comme visualisation exploratoire, sans overlay glassmorphism : les dimensions sont nommées, chaque repère répond au survol, au focus, au clic et au clavier, puis met à jour une lecture contextuelle. Les autres slides n’emploient pas de radar afin que chaque illustration conserve un rôle propre.
@@ -125,6 +127,7 @@ Après chaque soumission, l’API prépare un e-mail de récapitulatif détermin
 | Deux repères interactifs par persona | Un seul visuel ne suffit pas à expliquer à la fois les dimensions et le geste de contribution | Le radar porte les cinq repères adaptés au rôle ; la boussole raconte ensuite le mouvement de contribution en trois étapes |
 | Deux CTA dans le récit personnalisé | Des actions concurrentes affaiblissent le choix de parcours | Chaque récit expose un CTA primaire et un CTA secondaire ; les liens de profondeur migrent dans les contenus de contexte |
 | Hero et entrée par profil allégés | Trop de microtextes peuvent retarder la reconnaissance de la promesse et des publics visés | Le hero ne garde que le nom et la promesse ; l’entrée nommée sert directement les trois cartes de profil |
+| Sous-menu sticky de profils | Le contexte du récit peut se perdre lorsque la personne fait défiler l’accueil | Les trois profils restent visibles sous la navigation, le profil actif est coloré et le basculement reste direct |
 
 ## 6. Stack et structure du dépôt
 
@@ -180,6 +183,7 @@ Qualité            pnpm verify · TypeScript · builds · scripts mobile/contra
 | 16 août 2026 | FAQ contextuelles ajoutées aux trois parcours : réponses accessibles, accordéon à panneau unique et approfondissements liés à chaque rôle |
 | 16 août 2026 | Visualisations par persona restaurées : radar et boussole interactifs adaptés, correction mobile du commentaire radar et récits limités à deux CTA |
 | 16 août 2026 | Accueil simplifié selon annotations : hero ramené au titre et à la promesse, entrée par profils renommée et éléments décoratifs retirés |
+| 16 août 2026 | Sous-menu sticky de profils : état actif coloré, bascule directe entre Institutionnel, Artiste et Enjeux du numérique, libellés complets sur mobile |
 
 ## 8. État d’activation et limites connues
 

@@ -28,6 +28,10 @@ Un contrôle DOM sur le parcours Enjeux numériques confirme que le récit perso
 
 Après la restauration du sandbox, l’aperçu de développement a temporairement affiché une page blanche sans erreur console, alors que la compilation TypeScript restait valide. La relance du serveur a résolu cet incident ; le contrôle visuel final confirme le hero réduit au titre et à la promesse, ainsi que l’entrée « Entrée dans le site par profil » sans éléments décoratifs signalés.
 
+Lorsqu’un profil est sélectionné, un sous-menu fixe apparaît sous la navigation principale. Il expose les trois raccourcis attendus : « Institutionnel », « Artiste » et « Enjeux du numérique ». Le profil actif adopte sa couleur propre ; le clic sur « Artiste » met à jour l’URL vers `?public=artiste`, le récit, les visualisations et les CTA, sans imposer de retour au sélecteur initial.
+
+Le défilement du parcours Artiste conserve le sous-menu sous la navigation globale. Un contrôle DOM confirme un positionnement `fixed`, une hauteur de 49 px, un ancrage à 64 px du haut et un seul état actif, « Artiste ».
+
 ## Contrôles restant à effectuer
 
 - Vérifier le comportement clavier, les préférences de mouvement réduit et la largeur mobile.

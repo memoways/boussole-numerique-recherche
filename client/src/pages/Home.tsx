@@ -33,6 +33,7 @@ type Persona = {
   id: PersonaId;
   label: string;
   shortLabel: string;
+  stickyLabel: string;
   recognition: string;
   eyebrow: string;
   title: string;
@@ -84,6 +85,7 @@ const PERSONAS: Persona[] = [
     id: "partenaire",
     label: "Je représente une structure ou un réseau culturel",
     shortLabel: "Partenaire relais",
+    stickyLabel: "Institutionnel",
     recognition: "Institution, association, structure, réseau ou collectif qui relie des artistes",
     eyebrow: "Parcours partenaire",
     title: "Relier le prototype aux réalités des artistes",
@@ -109,6 +111,7 @@ const PERSONAS: Persona[] = [
     id: "artiste",
     label: "Je suis artiste ou actif·ve dans la culture",
     shortLabel: "Artiste et futur utilisateur",
+    stickyLabel: "Artiste",
     recognition: "Création, médiation, diffusion ou pratique culturelle à titre individuel",
     eyebrow: "Parcours artistes",
     title: "Faire émerger les questions qui comptent dans votre quotidien",
@@ -134,6 +137,7 @@ const PERSONAS: Persona[] = [
     id: "enjeux-numeriques",
     label: "Je m’intéresse aux enjeux du numérique dans la culture",
     shortLabel: "Enjeux numériques",
+    stickyLabel: "Enjeux du numérique",
     recognition: "Recherche, littératie numérique, pratiques responsables et apprentissages collectifs",
     eyebrow: "Parcours ressources",
     title: "Documenter un enjeu culturel qui dépasse les outils",
@@ -183,12 +187,48 @@ function PersonaVisualizations({ persona }: { persona: Persona }) {
   );
 }
 
+function StickyPersonaMenu({ activePersona, onSelect }: { activePersona: PersonaId | null; onSelect: (personaId: PersonaId) => void }) {
+  if (!activePersona) return null;
+
+  return (
+    <nav className="fixed inset-x-0 top-14 z-40 border-b border-slate-200 bg-white/95 shadow-sm backdrop-blur-md sm:top-16" aria-label="Profil sélectionné">
+      <div className="mx-auto flex min-h-12 max-w-7xl items-center gap-2 px-3 py-1.5 sm:px-5">
+        <span className="hidden shrink-0 text-xs font-black uppercase tracking-[0.13em] text-slate-500 lg:inline">Profil</span>
+        <div className="grid min-w-0 flex-1 grid-cols-3 gap-1.5">
+          {PERSONAS.map((persona) => {
+            const isActive = persona.id === activePersona;
+            const Icon = persona.icon;
+            return (
+              <button
+                key={persona.id}
+                type="button"
+                aria-pressed={isActive}
+                onClick={() => onSelect(persona.id)}
+                className="flex min-w-0 items-center justify-center gap-1.5 rounded-md px-2 py-2 text-center text-[11px] font-bold leading-tight transition-[transform,background-color,color,box-shadow] duration-200 ease-out focus-visible:outline-2 focus-visible:outline-offset-2 sm:text-xs"
+                style={{
+                  backgroundColor: isActive ? persona.color : persona.softColor,
+                  color: isActive ? "#fff" : persona.color,
+                  boxShadow: isActive ? `inset 0 0 0 1px ${persona.color}` : "inset 0 0 0 1px transparent",
+                  outlineColor: persona.color,
+                }}
+              >
+                <Icon className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                <span className="whitespace-normal">{persona.stickyLabel}</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    </nav>
+  );
+}
+
 function PersonaStory({ persona }: { persona: Persona }) {
   const Icon = persona.icon;
   const isInternal = (href: string) => href.startsWith("/");
 
   return (
-    <section id="parcours-personnalise" className="scroll-mt-24 border-y border-slate-200 bg-white px-4 py-16 sm:py-20" aria-labelledby="persona-story-title">
+    <section id="parcours-personnalise" className="scroll-mt-32 border-y border-slate-200 bg-white px-4 py-16 sm:py-20" aria-labelledby="persona-story-title">
       <div className="mx-auto max-w-6xl">
         <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,2fr)_minmax(250px,1fr)] lg:gap-16">
           <div>
@@ -370,6 +410,8 @@ export default function Home() {
           <p className="mx-auto mt-6 max-w-3xl text-lg leading-relaxed text-slate-600 sm:text-xl">Un outil en création pour aider les artistes et les personnes qui les accompagnent à mieux comprendre leurs pratiques numériques, choisir des priorités et ouvrir des pistes d’action utiles.</p>
         </div>
       </section>
+
+      <StickyPersonaMenu activePersona={activePersona} onSelect={selectPersona} />
 
       <section className="px-4 py-14" aria-labelledby="persona-selector-title">
         <div className="mx-auto max-w-6xl">
