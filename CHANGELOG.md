@@ -92,6 +92,9 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Nginx sert les index HTML compilés et retourne une vraie 404 pour les routes inconnues au lieu d’un fallback SPA assimilable à une soft 404.
 - Commande `pnpm verify:seo` ajoutée puis intégrée à `pnpm verify` : elle contrôle les pages HTML, titres, descriptions, canoniques, graphes JSON-LD, assets, sitemap, robots, llms.txt et parcours non indexables.
 - Pré-rendu HTML de l’accueil, description SEO et `llms.txt` alignés sur les trois parcours ; les paramètres `?public=` restent des états de lecture partageables et ne modifient pas la canonique de la page.
+- Réécriture éditoriale complète de l’accueil : le hero répond désormais à la raison d’être de la Boussole, à ses bénéficiaires premiers et à son statut de co-conception ; le tronc commun nomme des difficultés concrètes et l’opportunité d’une amélioration progressive.
+- Parcours Institutionnel, Artiste et Enjeux du numérique reconstruits sur une même logique : situation spécifique, apport ou bénéfice concret, trois questions utiles, deux actions hiérarchisées et un lien de profondeur explicitement annoncé.
+- Liens, pré-rendu HTML, meta description et manifeste conversationnel de l’accueil alignés sur la nouvelle promesse, les rôles et le statut réel du projet.
 
 ### Vérifié
 
@@ -134,6 +137,7 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Accueil final contrôlé : une seule rangée de capsules colorées est présente dans le hero ; le parcours Institutionnel ouvre correctement le récit et le sous-menu contextuel persiste après le dépassement du hero.
 - Transition Artiste contrôlée : le sous-menu est disponible dès l’amorce du défilement, puis le récit, les deux CTA, le radar et la boussole arrivent avec le profil actif conservé.
 - Défilement aller-retour Artiste contrôlé : le sous-menu reste visible après le dépassement des capsules et disparaît seulement lorsqu’elles reviennent dans le hero.
+- Réécriture contrôlée sur les trois parcours : Institutionnel, Artiste et Enjeux du numérique expliquent chacun une situation, une contribution ou un bénéfice, l’étape actuelle et des liens cohérents ; la page hydratée conserve une canonique sans paramètre et un unique graphe JSON-LD.
 
 ## [1.1.0] — 2026-08-09 au 2026-08-12 — Alignement institutionnel, accessibilité et diffusion
 

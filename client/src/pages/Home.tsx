@@ -43,6 +43,7 @@ type Persona = {
   faq: FaqItem[];
   primary: { label: string; href: string };
   secondary: { label: string; href: string };
+  resourceLink?: { label: string; href: string };
   color: string;
   softColor: string;
   icon: typeof Users;
@@ -84,25 +85,26 @@ const PERSONAS: Persona[] = [
   {
     id: "partenaire",
     label: "Je représente une structure ou un réseau culturel",
-    shortLabel: "Partenaire relais",
+    shortLabel: "Structure ou réseau culturel",
     stickyLabel: "Institutionnel",
-    recognition: "Institution, association, structure, réseau ou collectif qui relie des artistes",
+    recognition: "Institution, association, structure ou réseau qui accompagne des artistes et veut améliorer des pratiques collectives.",
     eyebrow: "Parcours partenaire",
-    title: "Relier le prototype aux réalités des artistes",
-    introduction: "Votre organisation connaît les usages, les contraintes et les priorités de personnes actives dans la culture. Elle peut aider à formuler les bonnes questions, mettre les hypothèses à l’épreuve et préparer les conditions d’un test utile.",
+    title: "Faire remonter ce qui freine les artistes, puis choisir quoi améliorer ensemble.",
+    introduction: "Une structure ou un réseau voit où les pratiques numériques ralentissent la collaboration : fichiers dispersés, outils mal adaptés, procédures incertaines. Ses observations peuvent aider à nommer les priorités et à définir un test qui fasse sens pour les artistes.",
     questions: [
-      "Quelles frictions numériques vos membres rencontrent-ils aujourd’hui ?",
-      "Quelles questions la Boussole devrait-elle poser pour être vraiment utile ?",
-      "Comment votre structure pourrait-elle devenir un relais pendant les tests ?",
+      "Dans quelles situations vos membres perdent-ils le plus de temps avec les outils, les fichiers ou la coordination ?",
+      "Quelles améliorations devraient passer en premier pour alléger leur travail quotidien ?",
+      "Quelles conditions rendraient un test utile et accessible dans votre structure ou votre réseau ?",
     ],
-    contribution: "La phase actuelle recueille les retours qui prépareront l’atelier de co-conception et le choix du prototype.",
+    contribution: "Cette phase cherche des idées, des propositions et des points de vigilance pour préparer l’atelier de co-conception. Il ne s’agit pas de valider un outil déjà décidé.",
     faq: [
-      { question: "Quel engagement est attendu de notre structure ?", answer: "Vous pouvez d’abord partager des situations de terrain et réagir aux hypothèses. La participation aux ateliers ou aux tests se décidera ensuite selon vos disponibilités et la forme retenue pour le pilote.", link: { label: "Voir les phases de la démarche", href: "/timeline" } },
-      { question: "Le questionnaire est-il déjà ouvert à toutes les organisations ?", answer: "Le questionnaire qualitatif est préparé pour des partenaires invités. Si votre structure souhaite contribuer, vous pouvez demander une invitation ; l’équipe vérifiera alors le cadre le plus approprié." },
-      { question: "Que deviendront nos retours ?", answer: "Ils serviront à préciser les questions, les priorités et les critères de réussite du prototype. Ils ne produisent pas de classement public des organisations.", link: { label: "Lire la méthode et les principes", href: "/methode" } },
+      { question: "Quel engagement est attendu de notre structure ?", answer: "Vous pouvez d’abord partager des situations concrètes et réagir aux hypothèses. La participation aux ateliers ou aux tests se décidera ensuite selon vos disponibilités et la forme retenue pour le pilote.", link: { label: "Voir les phases de la démarche", href: "/timeline" } },
+      { question: "Le questionnaire est-il déjà ouvert à toutes les organisations ?", answer: "Le questionnaire qualitatif est préparé pour des partenaires invités. Une structure intéressée peut demander une invitation ; l’équipe examinera alors le cadre de contribution le plus approprié." },
+      { question: "Que deviendront nos idées et réserves ?", answer: "Elles serviront à préciser les questions, les priorités et les critères de réussite du prototype. Elles ne produiront pas de classement public des organisations.", link: { label: "Lire la méthode et les principes", href: "/methode" } },
     ],
-    primary: { label: "Comprendre le rôle des partenaires", href: "/partenaires/presentation" },
-    secondary: { label: "Partager besoins et idées", href: "/partenaires/questionnaire" },
+    primary: { label: "Voir ce que le partenariat implique", href: "/partenaires/presentation" },
+    secondary: { label: "Partager besoins, idées et réserves", href: "/partenaires/questionnaire" },
+    resourceLink: { label: "Voir les recherches et exemples mobilisés", href: "/references" },
     color: "#515792",
     softColor: "#f0f1f8",
     icon: Users,
@@ -110,25 +112,26 @@ const PERSONAS: Persona[] = [
   {
     id: "artiste",
     label: "Je suis artiste ou actif·ve dans la culture",
-    shortLabel: "Artiste et futur utilisateur",
+    shortLabel: "Artiste ou personne active dans la culture",
     stickyLabel: "Artiste",
-    recognition: "Création, médiation, diffusion ou pratique culturelle à titre individuel",
+    recognition: "Création, médiation, diffusion ou pratique culturelle. Des outils et procédures qui devraient aider, pas faire perdre du temps.",
     eyebrow: "Parcours artistes",
-    title: "Faire émerger les questions qui comptent dans votre quotidien",
-    introduction: "La future Boussole doit aider à rendre les pratiques numériques plus discutables et moins solitaires. Avant de définir le prototype, l’équipe de projet cherche à comprendre ce qui vous fait gagner du temps, ce qui vous fatigue et ce qui mérite un vrai accompagnement.",
+    title: "Mieux travailler avec le numérique commence par regarder ce qui prend du temps.",
+    introduction: "Fichiers dispersés, outils de partage qui ne conviennent pas, procédures opaques : ces difficultés peuvent s’installer sans qu’il soit simple de savoir par où commencer. La future Boussole devra proposer un état des lieux non jugeant pour choisir une première amélioration et faire évoluer les pratiques petit à petit.",
     questions: [
-      "Quels outils ou usages vous compliquent la vie sans réellement vous aider ?",
-      "Sur quels sujets aimeriez-vous pouvoir faire le point sans être évalué·e ?",
-      "Qu’aimeriez-vous apporter à un atelier qui définira un outil destiné aux artistes ?",
+      "Qu’est-ce qui vous fait perdre du temps sans vous aider vraiment dans votre travail culturel ?",
+      "Quelle pratique numérique aimeriez-vous comprendre ou améliorer sans être évalué·e ?",
+      "Quelle situation devrait être prise en compte avant de concevoir un outil destiné aux artistes ?",
     ],
-    contribution: "Vous pouvez signaler votre intérêt pour un atelier, pour les futurs tests ou pour être informé·e quand une première version sera prête.",
+    contribution: "Les idées partagées maintenant serviront à préparer l’atelier, les futurs tests et les premières questions du prototype. Participer ne vous engage pas à toutes les étapes.",
     faq: [
-      { question: "Puis-je participer même si je ne représente pas une organisation ?", answer: "Oui. Les artistes et personnes actives dans la culture peuvent signaler un intérêt individuel pour les ateliers, les tests ou les informations liées à l’ouverture d’une première version." },
-      { question: "La Boussole va-t-elle évaluer mon niveau numérique ?", answer: "Non. Le prototype cherchera à faire apparaître des pratiques, des contraintes et des priorités. Il ne vise pas à attribuer une note, ni à juger vos compétences.", link: { label: "Explorer les cinq dimensions", href: "/experience" } },
-      { question: "Puis-je proposer un problème ou une idée avant un atelier ?", answer: "Oui. Vous pouvez signaler votre intérêt, puis l’équipe de projet vous recontactera selon les étapes que vous avez choisies. Les sujets remontés alimenteront la préparation des ateliers." },
+      { question: "Puis-je participer même si je ne représente pas une organisation ?", answer: "Oui. Les artistes et personnes actives dans la culture peuvent signaler un intérêt individuel pour les ateliers, les tests ou les informations liées à une première ouverture." },
+      { question: "La Boussole évaluera-t-elle mon niveau numérique ?", answer: "Non. Le prototype devra faire apparaître des pratiques, des contraintes et des priorités. Il ne donnera pas de note et ne jugera pas vos compétences.", link: { label: "Voir les cinq dimensions envisagées", href: "/experience" } },
+      { question: "Puis-je proposer un problème ou une idée avant un atelier ?", answer: "Oui. Signaler un intérêt permet de partager une situation ou une question. Ces éléments nourriront la préparation des ateliers, sans vous engager à y participer." },
     ],
-    primary: { label: "Signaler mon intérêt", href: "#interet" },
-    secondary: { label: "Explorer l’expérience Boussole", href: "/experience" },
+    primary: { label: "Signaler mon intérêt pour l’atelier et les tests", href: "#interet" },
+    secondary: { label: "Voir les situations que la Boussole explorera", href: "/experience" },
+    resourceLink: { label: "Lire les recherches et exemples qui fondent le projet", href: "/recherche" },
     color: "#E07428",
     softColor: "#fdf3ec",
     icon: Brush,
@@ -136,25 +139,26 @@ const PERSONAS: Persona[] = [
   {
     id: "enjeux-numeriques",
     label: "Je m’intéresse aux enjeux du numérique dans la culture",
-    shortLabel: "Enjeux numériques",
+    shortLabel: "Personne ressource sur les enjeux numériques",
     stickyLabel: "Enjeux du numérique",
-    recognition: "Recherche, littératie numérique, pratiques responsables et apprentissages collectifs",
-    eyebrow: "Parcours ressources",
-    title: "Documenter un enjeu culturel qui dépasse les outils",
-    introduction: "La Boussole part d’une situation précise : des pratiques numériques qui pèsent sur le travail culturel sans toujours donner les moyens de choisir, partager ou progresser. Le site rassemble des enseignements, des références et une méthode pour traiter cet écart de manière collaborative.",
+    recognition: "Recherche, littératie numérique ou pratiques responsables. Des ressources et une vigilance à mettre au service des artistes.",
+    eyebrow: "Parcours enjeux numériques",
+    title: "Mettre les savoirs numériques au service de pratiques artistiques plus simples à faire évoluer.",
+    introduction: "Le problème ne se réduit pas au choix d’un logiciel. Il concerne la capacité à choisir, partager, comprendre les conséquences d’un outil et trouver des ressources fiables. Les personnes qui travaillent sur ces enjeux peuvent aider à nourrir la Boussole avec des exemples, des méthodes et des points de vigilance, sans décider à la place des artistes.",
     questions: [
-      "Comment rendre la littératie numérique plus concrète pour des pratiques culturelles variées ?",
-      "Quelles conditions rendent une démarche de diagnostic réellement appropriable ?",
-      "Quelles ressources, exemples ou alertes devraient nourrir la co-conception ?",
+      "Quels repères aideraient des artistes à faire un premier choix numérique sans les noyer dans les options ?",
+      "Quelles conditions rendent un état des lieux appropriable dans des pratiques culturelles très diverses ?",
+      "Quelles ressources, exemples ou alertes devraient éclairer la co-conception du prototype ?",
     ],
-    contribution: "Vous pouvez suivre la démarche, consulter les sources et indiquer si vous souhaitez contribuer à la réflexion ou recevoir ses prochaines étapes.",
+    contribution: "Cette phase accueille des ressources, des exemples et des questions de vigilance. Ils serviront à préparer l’atelier et à préciser les critères du prototype avec les personnes concernées.",
     faq: [
-      { question: "Le site propose-t-il déjà un diagnostic utilisable ?", answer: "Non. La Boussole est en co-conception. Le site présente les questions, les références et les formes de prototype qui seront discutées avec le terrain." },
-      { question: "Comment contribuer sans devenir partenaire pilote ?", answer: "Vous pouvez partager des ressources ou des points de vigilance, suivre les prochaines étapes et choisir de recevoir les informations concernant les ateliers ou une première ouverture.", link: { label: "Consulter les documents et sources", href: "/ressources" } },
-      { question: "Sur quoi s’appuie la démarche ?", answer: "Elle relie des enseignements de recherche, des références comparables et des retours de terrain. Ces éléments orientent les questions de conception sans décider à la place des personnes concernées.", link: { label: "Lire la recherche et les enseignements", href: "/recherche" } },
+      { question: "Le site propose-t-il déjà un diagnostic utilisable ?", answer: "Non. La Boussole est en co-conception. Le site présente les questions, les références et les formes de prototype qui seront discutées avec les personnes concernées." },
+      { question: "Comment contribuer sans devenir partenaire pilote ?", answer: "Vous pouvez partager des ressources ou des points de vigilance, suivre les prochaines étapes et choisir de recevoir les informations liées aux ateliers ou à une première ouverture.", link: { label: "Consulter les documents et sources", href: "/ressources" } },
+      { question: "Sur quoi s’appuie la démarche ?", answer: "Elle relie des recherches, des références comparables et des retours de terrain. Ces éléments éclairent les questions de conception sans décider à la place des personnes concernées.", link: { label: "Lire la recherche et les enseignements", href: "/recherche" } },
     ],
-    primary: { label: "Consulter la recherche et les ressources", href: "/recherche" },
-    secondary: { label: "Suivre la démarche", href: "#interet" },
+    primary: { label: "Lire les recherches et exemples mobilisés", href: "/recherche" },
+    secondary: { label: "Comprendre les principes de co-conception", href: "/methode" },
+    resourceLink: { label: "Consulter les documents et sources", href: "/ressources" },
     color: "#3aab8a",
     softColor: "#eef9f5",
     icon: Lightbulb,
@@ -264,6 +268,11 @@ function PersonaStory({ persona }: { persona: Persona }) {
                 {isInternal(persona.secondary.href) ? <Link href={persona.secondary.href}>{persona.secondary.label} <ArrowUpRight className="ml-2 h-4 w-4" /></Link> : <a href={persona.secondary.href}>{persona.secondary.label} <ArrowUpRight className="ml-2 h-4 w-4" /></a>}
               </Button>
             </div>
+            {persona.resourceLink && (
+              <Link href={persona.resourceLink.href} className="mt-5 inline-flex items-center gap-2 text-sm font-bold underline decoration-2 underline-offset-4" style={{ color: persona.color }}>
+                {persona.resourceLink.label} <ArrowUpRight className="h-4 w-4" />
+              </Link>
+            )}
           </div>
 
           <aside className="lg:pl-3">
@@ -324,13 +333,14 @@ function NeutralOverview() {
       <div className="mx-auto max-w-6xl">
         <div className="grid items-start gap-9 lg:grid-cols-[minmax(0,1.35fr)_minmax(260px,0.65fr)]">
           <div>
-            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#515792]">Ce qui se construit maintenant</p>
-            <h2 id="why-title" className="mt-3 max-w-3xl text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">Un outil pour transformer des questions diffuses en prochaines étapes discutables.</h2>
-            <p className="mt-5 max-w-3xl text-lg leading-relaxed text-slate-600">La Boussole ne cherche pas à classer les personnes, ni à prescrire un outil commercial. Elle devra aider à comprendre des pratiques, à situer des priorités et à ouvrir une conversation entre artistes, structures et personnes qui les accompagnent.</p>
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#515792]">Pourquoi la Boussole ?</p>
+            <h2 id="why-title" className="mt-3 max-w-3xl text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">Quand les outils compliquent le travail, il faut pouvoir choisir par où commencer.</h2>
+            <p className="mt-5 max-w-3xl text-lg leading-relaxed text-slate-600">Fichiers éparpillés, outils qui ne se parlent pas, consignes de collaboration floues : ces situations prennent du temps et fatiguent les équipes. Elles ne disent rien d’un manque de compétence. Elles montrent qu’il manque souvent des repères pour décider ce qu’il est utile d’améliorer.</p>
+            <p className="mt-4 max-w-3xl text-lg leading-relaxed text-slate-600">Le futur outil proposera un état des lieux non jugeant. Il devra aider à identifier une première priorité, à discuter des pratiques et à envisager une amélioration réalisable. Le prototype reste à décider avec les personnes qui y contribueront.</p>
           </div>
           <div className="space-y-3 border-l-2 border-[#3aab8a] pl-5 text-sm leading-relaxed text-slate-600">
-            <p><span className="font-bold text-slate-900">Phase actuelle :</span> écouter, mobiliser et préciser le problème avec les personnes concernées.</p>
-            <p><span className="font-bold text-slate-900">Étapes suivantes :</span> choisir un prototype, le tester, puis préparer une diffusion et un accompagnement adaptés.</p>
+            <p><span className="font-bold text-slate-900">Phase actuelle :</span> recueillir des idées, des propositions et des points de vigilance, puis préparer un atelier de co-conception visé à l’automne.</p>
+            <p><span className="font-bold text-slate-900">Suite du projet :</span> choisir le prototype, le tester avec les personnes concernées, puis préparer son ouverture et l’accompagnement associé.</p>
             <Link href="/timeline" className="inline-flex items-center gap-2 font-bold text-[#3a7fc1] underline underline-offset-4">Voir les phases de l’outil <CalendarDays className="h-4 w-4" /></Link>
           </div>
         </div>
@@ -447,7 +457,7 @@ export default function Home() {
           <h1 className="text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
             <span className="block bg-[linear-gradient(90deg,#515792_0%,#3a7fc1_20%,#3aab8a_43%,#7ab648_60%,#E07428_80%)] bg-clip-text text-transparent">Boussole Numérique Culture</span>
           </h1>
-          <p className="mx-auto mt-6 max-w-3xl text-lg leading-relaxed text-slate-600 sm:text-xl">Un outil en création pour aider les artistes et les personnes qui les accompagnent à mieux comprendre leurs pratiques numériques, choisir des priorités et ouvrir des pistes d’action utiles.</p>
+          <p className="mx-auto mt-6 max-w-3xl text-lg leading-relaxed text-slate-600 sm:text-xl">Un outil en co-conception pour aider les artistes à améliorer leurs pratiques numériques, avec les structures et les personnes qui les accompagnent. La phase actuelle recueille des idées et des propositions afin de préparer un atelier de co-conception visé à l’automne.</p>
           <div className="mt-11">
             <h2 id="persona-selector-title" className="text-2xl font-extrabold tracking-tight text-slate-950 sm:text-3xl">Entrée dans le site par profil</h2>
           </div>

@@ -115,3 +115,6 @@
 - [x] Unifier l’entrée par profils dans une seule rangée de capsules colorées et retirer le séparateur avant le contexte.
 - [x] Afficher le sous-menu sticky dès le clic sur un profil et synchroniser son arrivée avec le défilement vers le récit.
 - [x] Maintenir le sous-menu sticky dans tout le récit sélectionné jusqu’au retour effectif dans le hero.
+- [x] Diagnostiquer puis réécrire l’accueil autour du pourquoi du projet et des besoins concrets des artistes.
+- [x] Différencier les parcours Institutionnel, Artiste et Enjeux du numérique avec des liens de profondeur explicites.
+- [x] Aligner le statut de co-conception, les étapes visées, le SEO et la documentation avec la nouvelle ligne éditoriale.

@@ -26,6 +26,8 @@ Les liens externes des archives sont signalés par une icône et un texte access
 
 Les liens 404 qualifiés ont été remplacés par des destinations officielles lorsque cela était possible. Les sources sans équivalent fiable restent mentionnées comme archives, sans lien sortant actif. Les fiches des documents historiques affichent la date de leur dernier contrôle de liens.
 
+Une réécriture ciblée de l’accueil a ensuite recentré le portail sur le **pourquoi** de la Boussole : rendre traitables des difficultés numériques ordinaires qui font perdre du temps aux artistes et compliquent la collaboration. Les trois parcours explicitent désormais le rôle de chaque public, les questions à apporter à la co-conception, l’étape actuelle du projet et les ressources de profondeur. Le diagnostic, le plan archivé et le contrôle associé sont disponibles dans [`docs/DIAGNOSTIC_REECRITURE_ACCUEIL_PROFILS_2026-08-16.md`](./docs/DIAGNOSTIC_REECRITURE_ACCUEIL_PROFILS_2026-08-16.md), [`docs/PLAN_REFONTE_EDITORIALE_ACCUEIL_2026-08-16.md`](./docs/PLAN_REFONTE_EDITORIALE_ACCUEIL_2026-08-16.md) et [`docs/CONTROLE_REECRITURE_ACCUEIL_2026-08-16.md`](./docs/CONTROLE_REECRITURE_ACCUEIL_2026-08-16.md).
+
 La page Ressources complète ses filtres de catégorie et de période par une recherche locale guidée. Elle propose des suggestions thématiques, recherche sans tenir compte de la casse ou des accents, et permet d’effacer la requête sans réinitialiser les autres filtres.
 
 ## Ce que contient le portail
@@ -33,7 +35,7 @@ La page Ressources complète ses filtres de catégorie et de période par une re
 | Ensemble | Rôle | Routes ou emplacement |
 |---|---|---|
 | Récit institutionnel | Projet, calendrier, méthode, gouvernance, partenaires et soutien institutionnel | `/projet`, `/timeline`, `/methode`, `/partenaires` |
-| Accueil par persona | Lanceur réversible vers les parcours partenaires, artistes et enjeux numériques | `/?public=partenaire`, `/?public=artiste`, `/?public=enjeux-numeriques` |
+| Accueil par persona | Lanceur réversible qui expose le pourquoi du projet et des parcours différenciés, au service des artistes | `/?public=partenaire`, `/?public=artiste`, `/?public=enjeux-numeriques` |
 | FAQ par persona | Réponses contextualisées avec liens vers les pages de profondeur pertinentes | Déployée après la sélection d’un parcours sur l’accueil |
 | Expérience Boussole | Démonstration des cinq dimensions, radars et parcours | `/experience` |
 | Recherche | Méthode de recherche, références comparables et ressources | `/recherche`, `/references`, `/ressources` |
@@ -156,6 +158,9 @@ Toute modification effectivement livrée doit mettre à jour `CHANGELOG.md`, `ST
 | [`docs/PLAN_OPTIMISATION_REDACTIONNELLE.md`](./docs/PLAN_OPTIMISATION_REDACTIONNELLE.md) | Diagnostic rédactionnel et plan d’amélioration à valider avant réécriture |
 | [`docs/AUDIT_SEO_GEO_2026-08-15.md`](./docs/AUDIT_SEO_GEO_2026-08-15.md) | Référentiel, constats, corrections et contrôles SEO-GEO des pages HTML statiques |
 | [`docs/PLAN_REFONTE_ACCUEIL_PERSONAS_2026-08-16.md`](./docs/PLAN_REFONTE_ACCUEIL_PERSONAS_2026-08-16.md) | Plan validé et décisions de la refonte de l’accueil par persona |
+| [`docs/PLAN_REFONTE_EDITORIALE_ACCUEIL_2026-08-16.md`](./docs/PLAN_REFONTE_EDITORIALE_ACCUEIL_2026-08-16.md) | Plan et critères de la réécriture de l’accueil centrée sur le pourquoi du projet |
+| [`docs/DIAGNOSTIC_REECRITURE_ACCUEIL_PROFILS_2026-08-16.md`](./docs/DIAGNOSTIC_REECRITURE_ACCUEIL_PROFILS_2026-08-16.md) | Diagnostic des formulations et texte de référence de la réécriture par profil |
+| [`docs/CONTROLE_REECRITURE_ACCUEIL_2026-08-16.md`](./docs/CONTROLE_REECRITURE_ACCUEIL_2026-08-16.md) | Contrôle des parcours, des métadonnées et des liens de profondeur après réécriture |
 | [`docs/CONTROLE_ACCUEIL_PERSONAS_2026-08-16.md`](./docs/CONTROLE_ACCUEIL_PERSONAS_2026-08-16.md) | Contrôle des parcours, de l’accessibilité et de l’activation de la collecte d’intérêt |
 
 ## Licence

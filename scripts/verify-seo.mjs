@@ -32,7 +32,7 @@ const indexedUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) =>
 assert(indexedUrls.length > 0, "Le sitemap ne contient aucune URL indexable.");
 assert(robots.includes(`Sitemap: ${siteUrl}/sitemap.xml`), "robots.txt ne référence pas le sitemap du domaine public.");
 assert(!robots.includes(":8080"), "robots.txt ne doit pas contenir de port interne.");
-assert(llms.includes("Site compagnon"), "llms.txt doit décrire le rôle du site compagnon.");
+assert(llms.toLowerCase().includes("site compagnon"), "llms.txt doit décrire le rôle du site compagnon.");
 assert(llms.includes(`${siteUrl}/partenaires`), "llms.txt doit présenter le parcours partenaire.");
 
 for (const url of indexedUrls) {

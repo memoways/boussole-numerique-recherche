@@ -37,6 +37,8 @@ Le menu public reste volontairement court : **Projet, Calendrier, Expérience, M
 
 Le premier écran de l’accueil est volontairement réduit au nom « Boussole Numérique Culture », à sa promesse et à un seul sélecteur « Entrée dans le site par profil ». Les trois capsules colorées Institutionnel, Artiste et Enjeux du numérique réunissent l’icône, l’intitulé et le périmètre de chaque public, sans dupliquer des boutons ou des cartes plus bas dans la page. Elles permettent de démarrer un parcours immédiatement, tout en restant plus informatives que des CTA génériques.
 
+La promesse de l’accueil part désormais de la raison d’être de la Boussole : les difficultés numériques ordinaires — fichiers dispersés, outils de partage mal ajustés, procédures de collaboration opaques — coûtent du temps, compliquent les choix et peuvent isoler les artistes. Le projet cherche à rendre ces situations discutables sans les transformer en note ou en jugement. La future Boussole devra permettre de choisir une première amélioration compréhensible, puis d’avancer progressivement avec les personnes concernées.
+
 ## 4. Ce qui est effectivement livré
 
 ### Portail et expérience
@@ -52,6 +54,8 @@ Les routes publiques indexables sont pré-rendues après Vite. Leurs fichiers HT
 La phase actuelle du site compagnon est la mobilisation et l’écoute. Le questionnaire partenaire recueille besoins, priorités, idées et points de vigilance ; les contributions prépareront un atelier de co-conception, dont le format et la date restent à confirmer. Les phases suivantes sont explicites sans être surpromises : décider le prototype, tester avec les personnes concernées, puis diffuser et accompagner. Les pages Calendrier, Projet, Méthode et Expérience emploient ce même déroulé.
 
 L’accueil traduit cette mobilisation par trois parcours : partenaires relais, artistes et personnes actives dans la culture, ou personnes intéressées par les enjeux numériques. Le choix est réversible et mémorisé dans `?public=partenaire`, `?public=artiste` ou `?public=enjeux-numeriques` pour partager un état de lecture, sans créer de variante SEO : la canonique reste celle de l’accueil. Chaque parcours déploie une intention, trois questions, une proposition de contribution et une illustration propre.
+
+Le parcours Institutionnel explique comment une structure ou un réseau peut rendre visibles les situations coûteuses, préparer des améliorations collectives et les conditions d’un test, sans valider un outil déjà décidé. Le parcours Artiste établit que l’on n’a pas à devenir spécialiste du numérique pour repérer un premier changement utile, puis renvoie vers l’expérience et la manifestation d’intérêt. Le parcours Enjeux du numérique attend des ressources, méthodes, alertes et critères de vigilance, sans décider à la place des artistes. Dans les trois cas, la phase actuelle recueille des idées et des propositions pour préparer un atelier de co-conception visé à l’automne ; le prototype reste à décider avec les personnes impliquées.
 
 Chaque parcours déploie ensuite une FAQ de trois réponses utiles à sa situation. Les réponses ne répètent pas le récit : elles précisent l’engagement attendu, le statut du questionnaire, la non-évaluation, les façons de contribuer ou la place de la recherche selon le persona. Une seule réponse est ouverte à la fois ; le contrôle expose son état et son panneau associé, puis propose les liens d’approfondissement utiles sans sortir prématurément du parcours.
 
@@ -136,6 +140,8 @@ Après chaque soumission, l’API prépare un e-mail de récapitulatif détermin
 | Hero et entrée par profil allégés | Trop de microtextes peuvent retarder la reconnaissance de la promesse et des publics visés | Le hero ne garde que le nom et la promesse ; l’entrée nommée sert directement les trois cartes de profil |
 | Sous-menu sticky de profils | Le contexte du récit peut se perdre lorsque la personne fait défiler l’accueil | Les trois profils restent visibles sous la navigation, le profil actif est coloré et le basculement reste direct |
 | Icônes périphériques pour le radar Expérience | La cible interactive doit être identifiable sans ambiguïté | Les points restent graphiques ; les icônes, fixes, portent les rôles, focus et états de sélection |
+| Raison d’être concrète au centre de l’accueil | Une promesse abstraite efface le coût des difficultés ordinaires et l’utilité de la démarche | Le hero et le tronc commun partent des situations coûteuses, expliquent l’amélioration progressive recherchée et rappellent que les artistes restent les premiers bénéficiaires |
+| Même logique, apport propre par profil | Les personas deviennent du décor s’ils répètent la même promesse | Chaque récit suit la séquence situation, apport ou bénéfice, questions, deux actions et lien de profondeur, avec un rôle distinct pour chaque public |
 
 ## 6. Stack et structure du dépôt
 
@@ -194,6 +200,7 @@ Qualité            pnpm verify · TypeScript · builds · scripts mobile/contra
 | 16 août 2026 | Sous-menu sticky de profils : état actif coloré, bascule directe entre Institutionnel, Artiste et Enjeux du numérique, libellés complets sur mobile |
 | 16 août 2026 | Radar de la page Expérience clarifié : icônes périphériques interactives et points du tracé rendus purement visuels |
 | 16 août 2026 | Navigation partenaire sécurisée : redirections relatives sans port interne, routes canoniques sans slash terminal et conservation de `slide` et `detail` dans la pagination |
+| 16 août 2026 | Accueil réécrit : raison d’être concrète, problèmes et opportunité explicités, trois parcours différenciés, statut de co-conception et liens de profondeur alignés avec le SEO-GEO |
 
 ## 8. État d’activation et limites connues
 
