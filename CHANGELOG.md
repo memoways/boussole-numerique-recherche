@@ -36,7 +36,7 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Sous-menu sticky de profils ajouté après sélection : Institutionnel, Artiste et Enjeux du numérique restent disponibles sous la navigation principale, avec le profil actif mis en évidence par sa couleur et un changement direct de récit.
 - Hero et entrée de l’accueil simplifiés selon annotations : le hero ne conserve que le titre et la promesse ; la section s’intitule « Entrée dans le site par profil » sans libellés ni décorations redondantes.
 - Traits verticaux décoratifs retirés des questions, du message de contribution et du résumé de la boussole dans les trois parcours de profils.
-- Ancrage du récit de profil réglé à 8 rem, soit la hauteur cumulée de la navigation globale et du sous-menu sticky : le séparateur arrive exactement sous les barres fixes, tandis que le radar et ses icônes restent visibles.
+- Ancrage du récit de profil rendu responsive : 7 rem sur mobile et 8 rem à partir de `sm`, correspondant aux hauteurs respectives de navigation et de sous-menu ; le séparateur arrive sous les barres fixes sans masquer le radar.
 
 ### Modifié
 
@@ -124,6 +124,7 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Contrôles récents consolidés : les profils actifs, les cinq icônes radar, les boussoles, les CTA limités à deux et la lecture mobile des étapes sont validés ; TypeScript, build statique, vérification SEO-GEO et API partenaire passent.
 - Sélection Artiste contrôlée : le sous-menu sticky reste visible tandis que la totalité du radar est dégagée sous son ancre.
 - Sélection Artiste affinée : le séparateur du récit s’aligne exactement sous le sous-menu, sans espace blanc excessif avant le contenu.
+- Défilement fluide contrôlé sur Institutionnel et Enjeux du numérique : les deux récits atteignent leur séparateur, radars et boussoles entièrement visibles ; l’animation est automatiquement désactivée si `prefers-reduced-motion` est activé.
 
 ## [1.1.0] — 2026-08-09 au 2026-08-12 — Alignement institutionnel, accessibilité et diffusion
 

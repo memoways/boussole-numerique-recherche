@@ -44,6 +44,10 @@ Après sélection du profil Artiste, le récit est maintenant ancré avec une ma
 
 Le réglage final ramène cette marge à 8 rem, correspondant à la hauteur cumulée de la navigation globale et du sous-menu de profils. Après un clic sur la carte Artiste, le séparateur du récit arrive exactement sous ces deux barres fixes ; le radar et ses icônes restent entièrement visibles, sans espace blanc excessif au-dessus du contenu.
 
+Le même comportement est confirmé pour Institutionnel : le clic sur sa carte déclenche un défilement fluide vers le séparateur, conserve les deux barres fixes visibles et affiche entièrement le radar de relais ainsi que sa boussole de contribution.
+
+Le parcours Enjeux du numérique adopte le même alignement : la sélection déclenche le défilement fluide, le séparateur arrive sous le sous-menu et le radar Pratiques ainsi que les étapes Utile, Neutre et Souveraine restent entièrement visibles.
+
 ## Contrôles restant à effectuer
 
 - Vérifier le comportement clavier, les préférences de mouvement réduit et la largeur mobile.

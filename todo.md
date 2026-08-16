@@ -110,3 +110,4 @@
 - [x] Supprimer toute exposition du port interne 8080 dans les URL publiques et vérifier la pagination du deck partenaire.
 - [x] Augmenter l’espace d’ancrage du récit personnalisé sous le sous-menu sticky afin que le radar reste entièrement visible.
 - [x] Aligner l’ancrage du récit personnalisé exactement sur le séparateur sous les cartes de profils.
+- [x] Optimiser la marge d’ancrage mobile, vérifier les trois profils et confirmer le défilement fluide respectueux des préférences utilisateur.

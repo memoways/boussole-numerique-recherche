@@ -453,7 +453,7 @@ export default function Home() {
       </section>
 
       {active ? (
-        <div ref={storyRef} tabIndex={-1} className="scroll-mt-32 outline-none">
+        <div ref={storyRef} tabIndex={-1} className="scroll-mt-28 outline-none sm:scroll-mt-32">
           <PersonaStory persona={active} />
           <PersonaFaq key={active.id} persona={active} />
           <div className="border-b border-slate-200 bg-slate-50 px-4 py-6 text-center">
