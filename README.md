@@ -34,6 +34,7 @@ La page Ressources complète ses filtres de catégorie et de période par une re
 |---|---|---|
 | Récit institutionnel | Projet, calendrier, méthode, gouvernance, partenaires et soutien institutionnel | `/projet`, `/timeline`, `/methode`, `/partenaires` |
 | Accueil par persona | Lanceur réversible vers les parcours partenaires, artistes et enjeux numériques | `/?public=partenaire`, `/?public=artiste`, `/?public=enjeux-numeriques` |
+| FAQ par persona | Réponses contextualisées avec liens vers les pages de profondeur pertinentes | Déployée après la sélection d’un parcours sur l’accueil |
 | Expérience Boussole | Démonstration des cinq dimensions, radars et parcours | `/experience` |
 | Recherche | Méthode de recherche, références comparables et ressources | `/recherche`, `/references`, `/ressources` |
 | Présentation partenaire | Neuf slides avec détails dépliables, contexte conservé dans l’URL et navigation fixe | `/partenaires/presentation` |

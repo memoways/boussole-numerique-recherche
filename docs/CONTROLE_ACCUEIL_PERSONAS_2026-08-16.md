@@ -12,6 +12,12 @@ Lorsque `VITE_PARTNER_API_URL` n’est pas configurée, les deux parcours affich
 
 Le contrôle DOM du parcours Enjeux numériques confirme que les trois choix exposent un état `aria-pressed`, que seul le choix actif est annoncé comme sélectionné, que le titre du récit peut recevoir le focus, et que l’hydratation maintient une canonique sans paramètre de persona ainsi qu’un unique graphe JSON-LD. Les paramètres `?public=` servent donc au partage d’un état de lecture, sans créer de variante SEO concurrente.
 
+La FAQ partenaire a été contrôlée sur le parcours `?public=partenaire`. Elle affiche trois questions propres aux organisations relais, déplie initialement la première réponse, puis referme cette réponse lorsqu’une seconde est activée. Les boutons exposent l’état ouvert ou fermé, les panneaux sont associés par `aria-controls` et les liens d’approfondissement restent accessibles dans la réponse dépliée.
+
+Le parcours `?public=artiste` remplace bien cette FAQ par les questions propres aux futurs utilisateurs individuels. L’ouverture de la question sur l’évaluation numérique referme la première réponse, rappelle l’absence de note ou de jugement, puis rend accessible le lien vers les cinq dimensions de l’expérience Boussole.
+
+Le parcours `?public=enjeux-numeriques` affiche sa propre FAQ, dont la première réponse confirme que le diagnostic public n’est pas encore ouvert. L’ouverture de la question sur la contribution sans rôle pilote dévoile le relais vers les documents et sources ; elle remplace correctement la réponse initiale sans chevauchement de contenu.
+
 ## Contrôles restant à effectuer
 
 - Vérifier le comportement clavier, les préférences de mouvement réduit et la largeur mobile.

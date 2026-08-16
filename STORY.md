@@ -50,6 +50,8 @@ La phase actuelle du site compagnon est la mobilisation et l’écoute. Le quest
 
 L’accueil traduit cette mobilisation par trois parcours : partenaires relais, artistes et personnes actives dans la culture, ou personnes intéressées par les enjeux numériques. Le choix est réversible et mémorisé dans `?public=partenaire`, `?public=artiste` ou `?public=enjeux-numeriques` pour partager un état de lecture, sans créer de variante SEO : la canonique reste celle de l’accueil. Chaque parcours déploie une intention, trois questions, une proposition de contribution et une illustration propre.
 
+Chaque parcours déploie ensuite une FAQ de trois réponses utiles à sa situation. Les réponses ne répètent pas le récit : elles précisent l’engagement attendu, le statut du questionnaire, la non-évaluation, les façons de contribuer ou la place de la recherche selon le persona. Une seule réponse est ouverte à la fois ; le contrôle expose son état et son panneau associé, puis propose les liens d’approfondissement utiles sans sortir prématurément du parcours.
+
 Les manifestations d’intérêt sont distinctes du questionnaire partenaire. Après activation de l’API, le formulaire public conserve dans `public_interest_submissions` le consentement, le public déclaré, le souhait d’être invité·e à un atelier et/ou d’être informé·e d’une ouverture, ainsi que la page d’origine. Sans `VITE_PARTNER_API_URL`, aucun faux formulaire ne s’affiche : un relais e-mail honnête reste disponible. La console `/admin` prévoit la consultation et l’export CSV dédiés.
 
 L’expérience Boussole utilise cinq dimensions pour rendre le diagnostic tangible. Le radar animé de l’accueil est fourni par le composant partagé `AnimatedRadarGraphic`. Il ouvre la présentation partenaire comme visualisation exploratoire, sans overlay glassmorphism : les dimensions sont nommées, chaque repère répond au survol, au focus, au clic et au clavier, puis met à jour une lecture contextuelle. Les autres slides n’emploient pas de radar afin que chaque illustration conserve un rôle propre.
@@ -112,6 +114,7 @@ Après chaque soumission, l’API prépare un e-mail de récapitulatif détermin
 | Les phases futures sont visibles, mais non annoncées comme réalisées | La contribution actuelle doit préparer le prototype sans créer de promesse prématurée | Le déroulé distingue mobilisation, prototype, tests et diffusion ; l’atelier reste formulé comme une étape à confirmer |
 | Accueil par persona, canonique unique | Les publics doivent se reconnaître sans fragmenter l’indexation | `?public=` partage un état de lecture tandis que la page conserve une même canonique et un même graphe JSON-LD |
 | Manifestation d’intérêt séparée du questionnaire | Une personne non invitée doit pouvoir rester liée à la démarche sans être assimilée à un partenaire pilote | Le formulaire stocke seulement le consentement, le public, les préférences d’information et l’origine ; l’admin et l’export restent protégés |
+| FAQ propre au persona | Les questions d’un partenaire, d’un artiste et d’une personne ressource ne sont pas identiques | Trois réponses courtes se substituent après la sélection, avec un seul panneau ouvert et des liens de profondeur contextualisés |
 
 ## 6. Stack et structure du dépôt
 
@@ -164,6 +167,7 @@ Qualité            pnpm verify · TypeScript · builds · scripts mobile/contra
 | 15 août 2026 | Adressage du site compagnon clarifié : outil en co-conception, partenaires relais prioritaires, questionnaire comme action de phase 1, parcours de vie en quatre étapes et SEO aligné |
 | 15 août 2026 | SEO-GEO renforcé : registre partagé, pré-rendu HTML de dix routes indexables, graphe JSON-LD consolidé, llms.txt, vraie 404 Nginx et vérification automatisée intégrée à `pnpm verify` |
 | 16 août 2026 | Accueil par persona livré : trois parcours réversibles et partageables, récits et illustrations adaptés, collecte d’intérêt consentie prête côté API, console et export préparés |
+| 16 août 2026 | FAQ contextuelles ajoutées aux trois parcours : réponses accessibles, accordéon à panneau unique et approfondissements liés à chaque rôle |
 
 ## 8. État d’activation et limites connues
 

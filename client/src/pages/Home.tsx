@@ -23,6 +23,12 @@ import { Button } from "@/components/ui/button";
 
 type PersonaId = "partenaire" | "artiste" | "enjeux-numeriques";
 
+type FaqItem = {
+  question: string;
+  answer: string;
+  link?: { label: string; href: string };
+};
+
 type Persona = {
   id: PersonaId;
   label: string;
@@ -33,6 +39,7 @@ type Persona = {
   introduction: string;
   questions: string[];
   contribution: string;
+  faq: FaqItem[];
   primary: { label: string; href: string };
   secondary: { label: string; href: string };
   deepLink: { label: string; href: string };
@@ -64,6 +71,11 @@ const PERSONAS: Persona[] = [
       "Comment votre structure pourrait-elle devenir un relais pendant les tests ?",
     ],
     contribution: "La phase actuelle recueille les retours qui prépareront l’atelier de co-conception et le choix du prototype.",
+    faq: [
+      { question: "Quel engagement est attendu de notre structure ?", answer: "Vous pouvez d’abord partager des situations de terrain et réagir aux hypothèses. La participation aux ateliers ou aux tests se décidera ensuite selon vos disponibilités et la forme retenue pour le pilote.", link: { label: "Voir les phases de la démarche", href: "/timeline" } },
+      { question: "Le questionnaire est-il déjà ouvert à toutes les organisations ?", answer: "Le questionnaire qualitatif est préparé pour des partenaires invités. Si votre structure souhaite contribuer, vous pouvez demander une invitation ; l’équipe vérifiera alors le cadre le plus approprié." },
+      { question: "Que deviendront nos retours ?", answer: "Ils serviront à préciser les questions, les priorités et les critères de réussite du prototype. Ils ne produisent pas de classement public des organisations.", link: { label: "Lire la méthode et les principes", href: "/methode" } },
+    ],
     primary: { label: "Comprendre le rôle des partenaires", href: "/partenaires/presentation" },
     secondary: { label: "Partager besoins et idées", href: "/partenaires/questionnaire" },
     deepLink: { label: "Voir le parcours partenaire", href: "/partenaires" },
@@ -85,6 +97,11 @@ const PERSONAS: Persona[] = [
       "Qu’aimeriez-vous apporter à un atelier qui définira un outil destiné aux artistes ?",
     ],
     contribution: "Vous pouvez signaler votre intérêt pour un atelier, pour les futurs tests ou pour être informé·e quand une première version sera prête.",
+    faq: [
+      { question: "Puis-je participer même si je ne représente pas une organisation ?", answer: "Oui. Les artistes et personnes actives dans la culture peuvent signaler un intérêt individuel pour les ateliers, les tests ou les informations liées à l’ouverture d’une première version." },
+      { question: "La Boussole va-t-elle évaluer mon niveau numérique ?", answer: "Non. Le prototype cherchera à faire apparaître des pratiques, des contraintes et des priorités. Il ne vise pas à attribuer une note, ni à juger vos compétences.", link: { label: "Explorer les cinq dimensions", href: "/experience" } },
+      { question: "Puis-je proposer un problème ou une idée avant un atelier ?", answer: "Oui. Vous pouvez signaler votre intérêt, puis l’équipe de projet vous recontactera selon les étapes que vous avez choisies. Les sujets remontés alimenteront la préparation des ateliers." },
+    ],
     primary: { label: "Signaler mon intérêt", href: "#interet" },
     secondary: { label: "Explorer l’expérience Boussole", href: "/experience" },
     deepLink: { label: "Comprendre les cinq dimensions", href: "/projet#proposition" },
@@ -106,6 +123,11 @@ const PERSONAS: Persona[] = [
       "Quelles ressources, exemples ou alertes devraient nourrir la co-conception ?",
     ],
     contribution: "Vous pouvez suivre la démarche, consulter les sources et indiquer si vous souhaitez contribuer à la réflexion ou recevoir ses prochaines étapes.",
+    faq: [
+      { question: "Le site propose-t-il déjà un diagnostic utilisable ?", answer: "Non. La Boussole est en co-conception. Le site présente les questions, les références et les formes de prototype qui seront discutées avec le terrain." },
+      { question: "Comment contribuer sans devenir partenaire pilote ?", answer: "Vous pouvez partager des ressources ou des points de vigilance, suivre les prochaines étapes et choisir de recevoir les informations concernant les ateliers ou une première ouverture.", link: { label: "Consulter les documents et sources", href: "/ressources" } },
+      { question: "Sur quoi s’appuie la démarche ?", answer: "Elle relie des enseignements de recherche, des références comparables et des retours de terrain. Ces éléments orientent les questions de conception sans décider à la place des personnes concernées.", link: { label: "Lire la recherche et les enseignements", href: "/recherche" } },
+    ],
     primary: { label: "Consulter la recherche et les ressources", href: "/recherche" },
     secondary: { label: "Suivre la démarche", href: "#interet" },
     deepLink: { label: "Lire la méthode de co-conception", href: "/methode" },
@@ -227,6 +249,49 @@ function PersonaStory({ persona }: { persona: Persona }) {
           <aside className="lg:pl-3">
             <PersonaIllustration persona={persona} />
           </aside>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PersonaFaq({ persona }: { persona: Persona }) {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  return (
+    <section className="border-b border-slate-200 bg-slate-50 px-4 py-14 sm:py-16" aria-labelledby={`faq-${persona.id}-title`}>
+      <div className="mx-auto max-w-5xl">
+        <div className="max-w-3xl">
+          <p className="text-xs font-black uppercase tracking-[0.16em]" style={{ color: persona.color }}>Questions fréquentes</p>
+          <h2 id={`faq-${persona.id}-title`} className="mt-3 text-2xl font-extrabold tracking-tight text-slate-950 sm:text-3xl">Ce que vous pouvez vouloir savoir maintenant</h2>
+          <p className="mt-3 text-base leading-relaxed text-slate-600">Ces réponses évoluent avec la co-conception. Elles précisent ce qui est déjà possible et ce qui reste à décider ensemble.</p>
+        </div>
+        <div className="mt-8 divide-y divide-slate-200 border-y border-slate-200 bg-white">
+          {persona.faq.map((item, index) => {
+            const isOpen = openIndex === index;
+            const panelId = `faq-${persona.id}-${index}`;
+            return (
+              <div key={item.question}>
+                <h3>
+                  <button
+                    type="button"
+                    aria-expanded={isOpen}
+                    aria-controls={panelId}
+                    onClick={() => setOpenIndex(isOpen ? null : index)}
+                    className="flex w-full items-center justify-between gap-6 px-5 py-5 text-left text-base font-bold text-slate-900 transition-colors hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-[-2px]"
+                    style={{ outlineColor: persona.color }}
+                  >
+                    <span>{item.question}</span>
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-lg font-normal" style={{ backgroundColor: isOpen ? persona.color : persona.softColor, color: isOpen ? "#fff" : persona.color }} aria-hidden="true">{isOpen ? "−" : "+"}</span>
+                  </button>
+                </h3>
+                <div id={panelId} role="region" aria-label={`Réponse : ${item.question}`} hidden={!isOpen} className="px-5 pb-6">
+                  <p className="max-w-3xl text-base leading-relaxed text-slate-600">{item.answer}</p>
+                  {item.link && <Link href={item.link.href} className="mt-4 inline-flex items-center gap-2 text-sm font-bold underline decoration-2 underline-offset-4" style={{ color: persona.color }}>{item.link.label} <ArrowRight className="h-4 w-4" /></Link>}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -366,6 +431,7 @@ export default function Home() {
       {active ? (
         <div ref={storyRef} tabIndex={-1} className="outline-none">
           <PersonaStory persona={active} />
+          <PersonaFaq key={active.id} persona={active} />
           <div className="border-b border-slate-200 bg-slate-50 px-4 py-6 text-center">
             <button type="button" onClick={resetPersona} className="inline-flex items-center gap-2 text-sm font-bold text-[#515792] underline decoration-2 underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4">
               <RotateCcw className="h-4 w-4" /> Revenir aux trois parcours

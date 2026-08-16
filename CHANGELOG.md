@@ -23,6 +23,7 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Formulaire de manifestation d’intérêt prêt à être activé : consentement explicite, intérêt dissocié pour les ateliers et les notifications, source de la demande, fallback e-mail honnête sans API et retour de confirmation après enregistrement.
 - Stockage PostgreSQL `public_interest_submissions`, route publique limitée `/api/public/interests`, export CSV protégé et section dédiée dans la console d’administration partenaire.
 - Document de contrôle de l’accueil par personas et documentation d’activation de la collecte d’intérêt ajoutés dans `docs/` et `config/`.
+- FAQ dynamique ajoutée aux trois parcours de l’accueil : trois questions et réponses adaptées par persona, une réponse ouverte à la fois, libellés et états accessibles, ainsi que des liens vers les pages d’approfondissement utiles.
 
 ### Modifié
 
@@ -95,6 +96,7 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Accueil neutre, parcours Partenaire, Artiste et Enjeux numériques contrôlés visuellement ; les URLs partageables activent le bon récit, le retour vers les trois choix est disponible et le fallback e-mail apparaît tant que l’API n’est pas configurée.
 - Contrôle DOM du parcours Enjeux numériques : états `aria-pressed` cohérents, titre de récit focalisable, une canonique sans paramètre et un seul graphe JSON-LD après hydratation.
 - Validation finale : TypeScript du portail et de l’API, build statique, vérification SEO-GEO et build de l’API partenaire passent après l’ajout des parcours par persona et de la collecte d’intérêt.
+- FAQ partenaire, Artiste et Enjeux numériques contrôlées visuellement : les réponses se remplacent correctement, les questions restent adaptées au parcours actif et les liens contextuels vers les phases, l’expérience et les sources sont accessibles.
 
 ## [1.1.0] — 2026-08-09 au 2026-08-12 — Alignement institutionnel, accessibilité et diffusion
 
