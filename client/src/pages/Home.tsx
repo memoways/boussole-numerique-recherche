@@ -377,7 +377,7 @@ export default function Home() {
   const [hasPassedPersonaSelector, setHasPassedPersonaSelector] = useState(false);
   const [isProfileTransition, setIsProfileTransition] = useState(false);
   const storyRef = useRef<HTMLDivElement>(null);
-  const personaSelectorRef = useRef<HTMLElement>(null);
+  const personaSelectorRef = useRef<HTMLDivElement>(null);
   const profileTransitionTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
@@ -394,12 +394,18 @@ export default function Home() {
       return;
     }
 
-    const observer = new IntersectionObserver(([entry]) => {
-      setHasPassedPersonaSelector(!entry.isIntersecting && entry.boundingClientRect.bottom < 0);
-    }, { threshold: 0 });
+    const updateStickyThreshold = () => {
+      const fixedBarsHeight = window.matchMedia("(min-width: 640px)").matches ? 128 : 112;
+      setHasPassedPersonaSelector(target.getBoundingClientRect().bottom <= fixedBarsHeight);
+    };
 
-    observer.observe(target);
-    return () => observer.disconnect();
+    updateStickyThreshold();
+    window.addEventListener("scroll", updateStickyThreshold, { passive: true });
+    window.addEventListener("resize", updateStickyThreshold);
+    return () => {
+      window.removeEventListener("scroll", updateStickyThreshold);
+      window.removeEventListener("resize", updateStickyThreshold);
+    };
   }, [activePersona]);
 
   useEffect(() => () => {
@@ -436,7 +442,7 @@ export default function Home() {
 
   return (
     <div className="bg-white">
-      <section ref={personaSelectorRef} className="px-4 pb-16 pt-28 sm:pb-20 sm:pt-36" style={{ background: "linear-gradient(155deg, #f4f5fb 0%, #fff8f2 52%, #f2faf7 100%)" }} aria-labelledby="persona-selector-title">
+      <section className="px-4 pb-16 pt-28 sm:pb-20 sm:pt-36" style={{ background: "linear-gradient(155deg, #f4f5fb 0%, #fff8f2 52%, #f2faf7 100%)" }} aria-labelledby="persona-selector-title">
         <div className="mx-auto max-w-5xl text-center">
           <h1 className="text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
             <span className="block bg-[linear-gradient(90deg,#515792_0%,#3a7fc1_20%,#3aab8a_43%,#7ab648_60%,#E07428_80%)] bg-clip-text text-transparent">Boussole Numérique Culture</span>
@@ -445,7 +451,7 @@ export default function Home() {
           <div className="mt-11">
             <h2 id="persona-selector-title" className="text-2xl font-extrabold tracking-tight text-slate-950 sm:text-3xl">Entrée dans le site par profil</h2>
           </div>
-          <div className="mx-auto mt-6 grid max-w-5xl gap-3 sm:grid-cols-3" role="group" aria-label="Sélection du type de public">
+          <div ref={personaSelectorRef} className="mx-auto mt-6 grid max-w-5xl gap-3 sm:grid-cols-3" role="group" aria-label="Sélection du type de public">
             {PERSONAS.map((persona) => {
               const Icon = persona.icon;
               const selected = activePersona === persona.id;

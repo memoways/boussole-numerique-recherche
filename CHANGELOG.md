@@ -41,6 +41,7 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Sous-menu de profils conditionné au dépassement complet du hero : il disparaît dès que le sélecteur unique redevient visible et réapparaît seulement dans le récit personnalisé.
 - Séparateur retiré avant « Ce qui se construit maintenant » afin de relier plus naturellement le hero et le contenu de contexte.
 - Transition de profil renforcée : le sous-menu sticky apparaît immédiatement au clic sur une capsule, reste visible pendant le défilement vers le récit puis reprend son comportement contextuel après l’arrivée.
+- Seuil de maintien recalibré sur le bas de la rangée de capsules : le sous-menu persiste dans l’ensemble du récit tant que les capsules restent derrière les barres fixes, et ne se masque qu’à leur retour effectif sous la navigation.
 
 ### Modifié
 
@@ -132,6 +133,7 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Accueil contrôlé : les CTA orange sont présents en état neutre ; le CTA Artiste ouvre son récit et le sous-menu actif apparaît après les cartes, puis disparaît au retour dans le hero.
 - Accueil final contrôlé : une seule rangée de capsules colorées est présente dans le hero ; le parcours Institutionnel ouvre correctement le récit et le sous-menu contextuel persiste après le dépassement du hero.
 - Transition Artiste contrôlée : le sous-menu est disponible dès l’amorce du défilement, puis le récit, les deux CTA, le radar et la boussole arrivent avec le profil actif conservé.
+- Défilement aller-retour Artiste contrôlé : le sous-menu reste visible après le dépassement des capsules et disparaît seulement lorsqu’elles reviennent dans le hero.
 
 ## [1.1.0] — 2026-08-09 au 2026-08-12 — Alignement institutionnel, accessibilité et diffusion
 

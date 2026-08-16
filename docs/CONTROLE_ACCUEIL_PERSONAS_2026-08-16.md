@@ -54,6 +54,10 @@ Le sélecteur est désormais unique : les trois profils prennent la forme de cap
 
 Le clic sur la capsule Artiste déclenche désormais simultanément le récit, le défilement fluide et l’affichage immédiat du sous-menu contextuel. Pendant l’arrivée sur le contenu, le profil actif et les deux alternatives sont déjà disponibles sous la navigation principale ; après le déplacement, le récit Artiste, ses deux CTA, le radar et la boussole restent visibles et cohérents.
 
+Le seuil de maintien est désormais attaché à la rangée des capsules et non à l’ensemble du hero : une fois cette rangée dépassée, le sous-menu reste disponible dans le récit. Le retour dans le hero, qui remet les capsules dans le viewport, doit seul masquer ce menu.
+
+Le parcours Artiste confirme ce comportement : après le clic, les trois capsules condensées du sous-menu restent visibles sous la navigation pendant l’ensemble du récit, avec Artiste actif. Le seuil se mesure désormais au bas de la rangée de capsules, à 128 px sous les barres fixes sur écran large et 112 px sur mobile.
+
 ## Contrôles restant à effectuer
 
 - Vérifier le comportement clavier, les préférences de mouvement réduit et la largeur mobile.
