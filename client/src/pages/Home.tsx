@@ -320,7 +320,7 @@ function PersonaFaq({ persona }: { persona: Persona }) {
 
 function NeutralOverview() {
   return (
-    <section className="border-y border-slate-200 bg-white px-4 py-14 sm:py-16" aria-labelledby="why-title">
+    <section className="bg-white px-4 py-14 sm:py-16" aria-labelledby="why-title">
       <div className="mx-auto max-w-6xl">
         <div className="grid items-start gap-9 lg:grid-cols-[minmax(0,1.35fr)_minmax(260px,0.65fr)]">
           <div>
@@ -425,13 +425,16 @@ export default function Home() {
 
   return (
     <div className="bg-white">
-      <section className="px-4 pb-12 pt-28 sm:pb-16 sm:pt-36" style={{ background: "linear-gradient(155deg, #f4f5fb 0%, #fff8f2 52%, #f2faf7 100%)" }}>
+      <section ref={personaSelectorRef} className="px-4 pb-16 pt-28 sm:pb-20 sm:pt-36" style={{ background: "linear-gradient(155deg, #f4f5fb 0%, #fff8f2 52%, #f2faf7 100%)" }} aria-labelledby="persona-selector-title">
         <div className="mx-auto max-w-5xl text-center">
           <h1 className="text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
             <span className="block bg-[linear-gradient(90deg,#515792_0%,#3a7fc1_20%,#3aab8a_43%,#7ab648_60%,#E07428_80%)] bg-clip-text text-transparent">Boussole Numérique Culture</span>
           </h1>
           <p className="mx-auto mt-6 max-w-3xl text-lg leading-relaxed text-slate-600 sm:text-xl">Un outil en création pour aider les artistes et les personnes qui les accompagnent à mieux comprendre leurs pratiques numériques, choisir des priorités et ouvrir des pistes d’action utiles.</p>
-          <div className="mx-auto mt-8 grid max-w-4xl gap-3 sm:grid-cols-3" role="group" aria-label="Choisir un profil">
+          <div className="mt-11">
+            <h2 id="persona-selector-title" className="text-2xl font-extrabold tracking-tight text-slate-950 sm:text-3xl">Entrée dans le site par profil</h2>
+          </div>
+          <div className="mx-auto mt-6 grid max-w-5xl gap-3 sm:grid-cols-3" role="group" aria-label="Sélection du type de public">
             {PERSONAS.map((persona) => {
               const Icon = persona.icon;
               const selected = activePersona === persona.id;
@@ -441,12 +444,23 @@ export default function Home() {
                   type="button"
                   aria-pressed={selected}
                   onClick={() => selectPersona(persona.id)}
-                  className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-[#E07428] px-4 py-3 text-sm font-bold text-white shadow-sm transition-[transform,background-color,box-shadow] duration-200 ease-out hover:-translate-y-0.5 hover:bg-[#c95f19] hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#515792]"
-                  style={{ boxShadow: selected ? `inset 0 0 0 2px ${persona.color}, 0 4px 10px rgba(224, 116, 40, 0.18)` : undefined }}
+                  className="group relative min-h-32 rounded-2xl border-2 p-5 text-left shadow-sm transition-[transform,background-color,color,box-shadow] duration-200 ease-out hover:-translate-y-1 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-4"
+                  style={{
+                    backgroundColor: selected ? persona.color : persona.softColor,
+                    borderColor: persona.color,
+                    color: selected ? "#fff" : "#17223b",
+                    boxShadow: selected ? `0 12px 24px ${persona.color}33` : "0 4px 12px rgba(15, 23, 42, 0.05)",
+                    outlineColor: persona.color,
+                  }}
                 >
-                  <Icon className="h-4 w-4 transition-transform duration-200 group-hover:rotate-[-8deg]" aria-hidden="true" />
-                  <span>{persona.stickyLabel}</span>
-                  {selected && <Check className="h-4 w-4" aria-label="Profil sélectionné" />}
+                  <span className="flex items-start justify-between gap-4">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full transition-transform duration-200 group-hover:scale-110" style={{ backgroundColor: selected ? "rgba(255,255,255,0.92)" : persona.color, color: selected ? persona.color : "#fff" }}>
+                      <Icon className="h-5 w-5" aria-hidden="true" />
+                    </span>
+                    {selected && <Check className="h-5 w-5" aria-label="Profil sélectionné" />}
+                  </span>
+                  <span className="mt-4 block text-base font-extrabold leading-snug">{persona.stickyLabel}</span>
+                  <span className="mt-1.5 block text-sm leading-snug" style={{ color: selected ? "rgba(255,255,255,0.88)" : "#64748b" }}>{persona.recognition}</span>
                 </button>
               );
             })}
@@ -455,39 +469,6 @@ export default function Home() {
       </section>
 
       <StickyPersonaMenu activePersona={activePersona} onSelect={selectPersona} visible={showStickyPersonaMenu} />
-
-      <section ref={personaSelectorRef} className="px-4 py-14" aria-labelledby="persona-selector-title">
-        <div className="mx-auto max-w-6xl">
-          <div className="text-center">
-            <h2 id="persona-selector-title" className="text-2xl font-extrabold tracking-tight text-slate-950 sm:text-3xl">Entrée dans le site par profil</h2>
-          </div>
-          <div className="mt-6 grid gap-3 lg:grid-cols-3" role="group" aria-label="Sélection du type de public">
-            {PERSONAS.map((persona) => {
-              const Icon = persona.icon;
-              const selected = activePersona === persona.id;
-              return (
-                <button
-                  key={persona.id}
-                  type="button"
-                  aria-pressed={selected}
-                  onClick={() => selectPersona(persona.id)}
-                  className="group min-h-40 border-2 p-5 text-left transition-[transform,box-shadow,border-color] duration-200 ease-out hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-4"
-                  style={{ borderColor: selected ? persona.color : "#e2e8f0", backgroundColor: selected ? persona.softColor : "#fff", outlineColor: persona.color }}
-                >
-                  <span className="flex items-start justify-between gap-4">
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-white transition-transform duration-200 group-hover:scale-105" style={{ backgroundColor: persona.color }}>
-                      <Icon className="h-5 w-5" aria-hidden="true" />
-                    </span>
-                    {selected && <Check className="h-5 w-5" style={{ color: persona.color }} aria-label="Parcours sélectionné" />}
-                  </span>
-                  <span className="mt-4 block text-base font-extrabold leading-snug text-slate-900">{persona.label}</span>
-                  <span className="mt-2 block text-sm leading-snug text-slate-500">{persona.recognition}</span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </section>
 
       {active ? (
         <div ref={storyRef} tabIndex={-1} className="scroll-mt-28 outline-none sm:scroll-mt-32">

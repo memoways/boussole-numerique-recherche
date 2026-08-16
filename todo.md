@@ -112,3 +112,4 @@
 - [x] Aligner l’ancrage du récit personnalisé exactement sur le séparateur sous les cartes de profils.
 - [x] Optimiser la marge d’ancrage mobile, vérifier les trois profils et confirmer le défilement fluide respectueux des préférences utilisateur.
 - [x] Déplacer les CTA de sélection de profils dans le hero et n’afficher le sous-menu sticky qu’après les trois cartes.
+- [x] Unifier l’entrée par profils dans une seule rangée de capsules colorées et retirer le séparateur avant le contexte.
