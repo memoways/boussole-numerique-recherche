@@ -26,6 +26,8 @@ Le parcours Enjeux numériques présente son radar adapté aux pratiques, à la 
 
 Un contrôle DOM sur le parcours Enjeux numériques confirme que le récit personnalisé contient exactement deux liens d’action. La vérification de géométrie confirme également que le texte contextuel du radar est placé 16 px sous le SVG : il ne partage plus la zone de rendu du graphique et ne peut donc plus produire le chevauchement observé.
 
+Après la restauration du sandbox, l’aperçu de développement a temporairement affiché une page blanche sans erreur console, alors que la compilation TypeScript restait valide. La relance du serveur a résolu cet incident ; le contrôle visuel final confirme le hero réduit au titre et à la promesse, ainsi que l’entrée « Entrée dans le site par profil » sans éléments décoratifs signalés.
+
 ## Contrôles restant à effectuer
 
 - Vérifier le comportement clavier, les préférences de mouvement réduit et la largeur mobile.

@@ -101,3 +101,5 @@
 - [x] Définir et intégrer une FAQ dynamique, accessible et spécifique aux trois parcours de persona de l’accueil.
 - [x] Rétablir deux visualisations interactives adaptées à chaque persona et corriger le radar sur mobile.
 - [x] Limiter chaque parcours par persona à un CTA primaire et un CTA secondaire.
+- [x] Alléger le hero de l’accueil en retirant les lignes secondaires signalées.
+- [x] Renommer et simplifier la section d’entrée par profils selon les annotations validées.

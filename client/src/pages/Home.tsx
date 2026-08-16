@@ -364,20 +364,17 @@ export default function Home() {
     <div className="bg-white">
       <section className="px-4 pb-12 pt-28 sm:pb-16 sm:pt-36" style={{ background: "linear-gradient(155deg, #f4f5fb 0%, #fff8f2 52%, #f2faf7 100%)" }}>
         <div className="mx-auto max-w-5xl text-center">
-          <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Site compagnon · outil en co-conception · avec le terrain</p>
-          <h1 className="mt-7 text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
+          <h1 className="text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
             <span className="block bg-[linear-gradient(90deg,#515792_0%,#3a7fc1_20%,#3aab8a_43%,#7ab648_60%,#E07428_80%)] bg-clip-text text-transparent">Boussole Numérique Culture</span>
           </h1>
           <p className="mx-auto mt-6 max-w-3xl text-lg leading-relaxed text-slate-600 sm:text-xl">Un outil en création pour aider les artistes et les personnes qui les accompagnent à mieux comprendre leurs pratiques numériques, choisir des priorités et ouvrir des pistes d’action utiles.</p>
-          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-slate-500">Choisissez le point de départ qui correspond à votre rôle pour découvrir ce que le site peut vous apporter aujourd’hui.</p>
         </div>
       </section>
 
-      <section className="relative z-10 -mt-2 px-4 pb-14" aria-labelledby="persona-selector-title">
+      <section className="px-4 py-14" aria-labelledby="persona-selector-title">
         <div className="mx-auto max-w-6xl">
-          <div className="border-b border-slate-200 pb-5 text-center">
-            <p className="text-xs font-black uppercase tracking-[0.16em] text-[#515792]">Choisir son parcours</p>
-            <h2 id="persona-selector-title" className="mt-2 text-2xl font-extrabold tracking-tight text-slate-950 sm:text-3xl">À qui vous adressez-vous ici ?</h2>
+          <div className="text-center">
+            <h2 id="persona-selector-title" className="text-2xl font-extrabold tracking-tight text-slate-950 sm:text-3xl">Entrée dans le site par profil</h2>
           </div>
           <div className="mt-6 grid gap-3 lg:grid-cols-3" role="group" aria-label="Sélection du type de public">
             {PERSONAS.map((persona) => {
@@ -404,7 +401,6 @@ export default function Home() {
               );
             })}
           </div>
-          <p className="mt-4 text-center text-sm text-slate-500">Le choix est réversible et n’empêche pas d’explorer les autres parcours.</p>
         </div>
       </section>
 

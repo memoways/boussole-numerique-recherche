@@ -27,12 +27,15 @@ La recherche ne sert pas à prouver par avance l’utilité de la future Boussol
 
 | Public | Question à laquelle le portail répond | Parcours principal |
 |---|---|---|
-| Actrices, acteurs et structures culturelles | « De quoi s’agit-il et en quoi cela peut-il m’être utile ? » | Accueil → Projet → Expérience |
-| Partenaires et futurs contributeurs | « Comment participer et ce qui sera fait de mes retours ? » | Partenaires → Présentation ou Questionnaire |
+| Partenaires relais | « Comment relier cet outil aux réalités des artistes et contribuer au prototype ? » | Accueil → `?public=partenaire` → Présentation ou Questionnaire |
+| Artistes et personnes actives dans la culture | « Quelles situations de mon quotidien l’outil devrait-il mieux comprendre ? » | Accueil → `?public=artiste` → Expérience ou manifestation d’intérêt |
+| Personnes intéressées par les enjeux numériques | « Comment contribuer à une démarche de littératie numérique utile au secteur culturel ? » | Accueil → `?public=enjeux-numeriques` → Recherche, Méthode ou manifestation d’intérêt |
 | Interlocuteurs institutionnels | « Le projet est-il cohérent, documenté et gouverné ? » | Projet → Calendrier → Méthode → Références |
 | Équipe de projet | « Comment activer, maintenir et faire évoluer le dispositif ? » | README → docs → AGENTS → Coolify |
 
-Le menu public reste volontairement court : **Projet, Calendrier, Expérience, Méthode, Partenaires**. L’accueil et la page Partenaires servent de portes d’entrée : la première identifie les organisations et personnes auxquelles le site parle ; la seconde transforme cette reconnaissance en découverte, questionnaire, demande d’invitation et préparation d’atelier. Les contenus de recherche et de ressources sont accessibles depuis le footer et les liens contextuels. Le fil d’Ariane fournit un repère unique dans les sous-pages ; les retours redondants dans le contenu ont été retirés.
+Le menu public reste volontairement court : **Projet, Calendrier, Expérience, Méthode, Partenaires**. L’accueil est le lanceur des trois parcours : il ne présuppose pas le rôle de la personne, conserve une promesse commune de l’outil puis déploie un contenu adapté après sélection. La page Partenaires conserve l’entrée détaillée des organisations. Les contenus de recherche et de ressources sont accessibles depuis le footer et les liens contextuels. Le fil d’Ariane fournit un repère unique dans les sous-pages ; les retours redondants dans le contenu ont été retirés.
+
+Le premier écran de l’accueil est volontairement réduit à deux éléments : le nom « Boussole Numérique Culture » et sa promesse. L’entrée est ensuite nommée « Entrée dans le site par profil », sans sur-titre, ligne décorative ni note de réversibilité. Cette hiérarchie place directement les trois cartes de profil à la suite de la promesse, sans ajouter d’instructions qui répètent leur fonctionnement.
 
 ## 4. Ce qui est effectivement livré
 
@@ -121,6 +124,7 @@ Après chaque soumission, l’API prépare un e-mail de récapitulatif détermin
 | FAQ propre au persona | Les questions d’un partenaire, d’un artiste et d’une personne ressource ne sont pas identiques | Trois réponses courtes se substituent après la sélection, avec un seul panneau ouvert et des liens de profondeur contextualisés |
 | Deux repères interactifs par persona | Un seul visuel ne suffit pas à expliquer à la fois les dimensions et le geste de contribution | Le radar porte les cinq repères adaptés au rôle ; la boussole raconte ensuite le mouvement de contribution en trois étapes |
 | Deux CTA dans le récit personnalisé | Des actions concurrentes affaiblissent le choix de parcours | Chaque récit expose un CTA primaire et un CTA secondaire ; les liens de profondeur migrent dans les contenus de contexte |
+| Hero et entrée par profil allégés | Trop de microtextes peuvent retarder la reconnaissance de la promesse et des publics visés | Le hero ne garde que le nom et la promesse ; l’entrée nommée sert directement les trois cartes de profil |
 
 ## 6. Stack et structure du dépôt
 
@@ -175,6 +179,7 @@ Qualité            pnpm verify · TypeScript · builds · scripts mobile/contra
 | 16 août 2026 | Accueil par persona livré : trois parcours réversibles et partageables, récits et illustrations adaptés, collecte d’intérêt consentie prête côté API, console et export préparés |
 | 16 août 2026 | FAQ contextuelles ajoutées aux trois parcours : réponses accessibles, accordéon à panneau unique et approfondissements liés à chaque rôle |
 | 16 août 2026 | Visualisations par persona restaurées : radar et boussole interactifs adaptés, correction mobile du commentaire radar et récits limités à deux CTA |
+| 16 août 2026 | Accueil simplifié selon annotations : hero ramené au titre et à la promesse, entrée par profils renommée et éléments décoratifs retirés |
 
 ## 8. État d’activation et limites connues
 

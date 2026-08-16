@@ -27,6 +27,8 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - Deux visualisations interactives restaurées sur chacun des parcours : un radar contextualisé et une boussole narrative complémentaire. Les dimensions et étapes varient selon le rôle sélectionné.
 - Composant radar corrigé : son commentaire contextuel se place désormais hors du conteneur SVG, évitant tout chevauchement avec le radar sur petit écran.
 - Récit par persona resserré à un CTA primaire et un CTA secondaire ; le troisième lien d’action a été retiré.
+- Hero de l’accueil allégé selon les annotations : suppression du sur-titre de statut et de la phrase d’orientation, afin de concentrer l’entrée sur le nom de l’outil et sa promesse.
+- Entrée par personas renommée « Entrée dans le site par profil » ; le libellé redondant, la ligne décorative et la note de réversibilité ont été retirés.
 
 ### Modifié
 
@@ -102,6 +104,8 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 - FAQ partenaire, Artiste et Enjeux numériques contrôlées visuellement : les réponses se remplacent correctement, les questions restent adaptées au parcours actif et les liens contextuels vers les phases, l’expérience et les sources sont accessibles.
 - Les trois parcours contrôlés après restauration des visuels : radars activables et boussoles interactives présents, commentaires mis à jour au clic et deux CTA seulement dans chaque récit. Le contrôle DOM confirme une séparation de 16 px entre le radar et son commentaire.
 - Vérification complète `pnpm verify` validée après ces corrections : TypeScript, build statique, vérification SEO-GEO et build de l’API partenaire passent.
+- Rendu de l’accueil contrôlé après relance du serveur : les éléments annotés ont disparu, le nouvel intitulé est correctement hiérarchisé et les trois profils restent accessibles.
+- Vérification complète `pnpm verify` validée après la simplification : TypeScript, build statique, vérification SEO-GEO et build de l’API partenaire passent.
 
 ## [1.1.0] — 2026-08-09 au 2026-08-12 — Alignement institutionnel, accessibilité et diffusion
 
