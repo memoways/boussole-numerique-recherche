@@ -119,3 +119,5 @@
 - [x] Différencier les parcours Institutionnel, Artiste et Enjeux du numérique avec des liens de profondeur explicites.
 - [x] Aligner le statut de co-conception, les étapes visées, le SEO et la documentation avec la nouvelle ligne éditoriale.
 - [x] Consolider CHANGELOG.md et STORY.md avec les développements effectivement livrés depuis la dernière révision documentaire.
+- [x] Formaliser et faire valider la clarification : site compagnon existant, Boussole en préparation, co-conception à l’automne 2026 et prototype à tester d’ici fin 2026.
+- [x] Après validation, simplifier l’entrée de l’accueil à deux profils — Partenaires culturels et Artistes — puis aligner les pages Partenaires et Calendrier sans modifier les autres pages.

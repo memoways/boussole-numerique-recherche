@@ -5,7 +5,7 @@ import { ArrowRight, ChevronDown, ChevronUp, Calendar, Users, Wrench, TestTube, 
 import { Link } from "wouter";
 
 /**
- * Page /timeline — Phases de vie du site compagnon et de l’outil (24 mois, 4 phases)
+ * Page /timeline — Jalons de démarrage et phases de vie indicatives du site compagnon et de l’outil.
  * Pas de détails financiers
  * Couleurs Memoways : bleu #515792, orange #E27227, vert #3aab8a
  */
@@ -13,59 +13,58 @@ import { Link } from "wouter";
 const PHASES = [
   {
     num: "01",
-    titre: "Mobiliser et co-concevoir",
-    duree: "Mois 1–3",
+    titre: "Atelier et cadrage de co-conception",
+    duree: "Sept.–oct. 2026",
     icon: Users,
     couleur: "#515792",
-    statut: "En cours",
+    statut: "À engager",
     items: [
-      "Questionnaire partenaire et demandes d’invitation",
-      "Mobilisation des institutions, réseaux, collectifs et personnes actives dans la culture",
-      "Préparation d’un atelier de co-conception, à confirmer avec les partenaires",
-      "Validation des cinq dimensions d'évaluation",
-      "Scénarios d'usage (individuel et structure)",
-      "Premières maquettes du questionnaire adaptatif",
+      "Restitution des premiers retours et demandes d’invitation",
+      "Atelier avec les partenaires et les artistes volontaires",
+      "Séance de cadrage pour définir le prototype à développer",
+      "Validation des situations à comprendre, des objectifs et des critères de réussite",
+      "Premières maquettes des parcours et restitutions",
       "Validation des formulations et des références locales",
     ],
-    detail: "Cette première phase ancre l’outil dans les pratiques réelles. L’objectif est d’écouter, de reformuler et de relier les organisations partenaires aux artistes et aux communautés qu’elles accompagnent, avant de décider ce qui mérite d’être prototypé.",
+    detail: "Le site compagnon informe et recueille les retours avant le démarrage. L’atelier puis la séance de cadrage doivent décider quel outil construire, pour quelles situations et avec quels premiers critères d’utilité.",
   },
   {
     num: "02",
-    titre: "Décider et prototyper",
-    duree: "Mois 4–5",
+    titre: "Développer un prototype à tester",
+    duree: "Fin 2026",
     icon: TestTube,
     couleur: "#E27227",
-    statut: "À venir",
+    statut: "Visé",
     items: [
-      "Restitution synthétique des retours et des décisions d’atelier",
-      "Prototype fonctionnel du questionnaire conversationnel",
-      "Restitution visuelle et pistes d’action à tester",
-      "Ajustements UX, formulations et priorités de conception",
+      "Restitution synthétique des décisions d’atelier et de cadrage",
+      "Première version du prototype à tester",
+      "État des lieux et conseils d’optimisation actionnables à éprouver",
+      "Ajustements des parcours, formulations et priorités de conception",
       "Vérification des principes de données et de consentement",
     ],
-    detail: "Les choix issus de la phase d’écoute deviennent un prototype testable. Les partenaires confrontent alors les questions et les restitutions à leurs situations ; chaque retour sert à décider ce qui doit être conservé, modifié ou laissé de côté.",
+    detail: "Les décisions de l’atelier deviennent un prototype. Il devra aider à comprendre des pratiques, à repérer une amélioration et à formuler des conseils utiles. Sa mise à l’épreuve déterminera ce qui doit être conservé, modifié ou laissé de côté.",
   },
   {
     num: "03",
-    titre: "Tester et préparer la diffusion",
-    duree: "Mois 6–8",
+    titre: "Tester et préparer l’ouverture publique",
+    duree: "Début 2027",
     icon: Globe,
     couleur: "#3aab8a",
-    statut: "À venir",
+    statut: "Visé",
     items: [
       "Tests avec des artistes et des structures volontaires",
-      "Préparation d’une mise à disposition élargie",
+      "Ouverture publique visée après les premiers ajustements",
       "Activation du mécanisme de retour continu (questionnaire de satisfaction)",
       "Suivi des premiers usages et des retours",
       "Rapport d'évaluation intermédiaire (fin de phase pilote)",
       "Ajustements prioritaires basés sur les retours",
     ],
-    detail: "Les premiers tests reconnectent le prototype aux personnes qui en auront l’usage. Le site compagnon rendra visibles les apprentissages, les retours et les décisions prises avant toute diffusion plus large.",
+    detail: "Les premiers tests reconnectent le prototype aux personnes qui en auront l’usage. L’ouverture publique est visée après les ajustements nécessaires ; le site compagnon rendra visibles les apprentissages et les décisions prises.",
   },
   {
     num: "04",
     titre: "Diffuser et accompagner",
-    duree: "Mois 9–24",
+    duree: "2027–2028",
     icon: BookOpen,
     couleur: "#9b59b6",
     statut: "À venir",
@@ -92,14 +91,14 @@ export default function Timeline() {
         <div className="max-w-4xl mx-auto">
           <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#9b59b6' }}>Calendrier</Badge>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4 leading-tight">
-            Les phases du site compagnon
+            Du site compagnon à l’ouverture de la Boussole
           </h1>
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl leading-relaxed mb-6">
-            Un parcours indicatif de 24 mois, organisé en quatre phases : mobiliser les partenaires, décider le prototype, tester avec le terrain, puis diffuser et accompagner.
+            La Boussole n’existe pas encore. Ce site compagnon informe et recueille les retours avant l’atelier et le cadrage de l’automne 2026. Le prototype à tester est visé fin 2026, puis une ouverture publique au début de 2027.
           </p>
           <div className="flex items-center gap-2 text-sm text-gray-500 bg-gray-100 rounded-full px-4 py-2 w-fit">
             <Calendar className="h-4 w-4" />
-            <span>24 mois · 4 phases</span>
+            <span>24 mois indicatifs · 4 phases</span>
           </div>
         </div>
       </section>

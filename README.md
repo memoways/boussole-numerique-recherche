@@ -2,7 +2,7 @@
 
 ## Aperçu
 
-**Boussole Numérique Culture** est le dépôt du site compagnon et du module partenaire qui accompagnent un outil en co-conception destiné aux actrices, acteurs et structures culturelles. L’accueil fonctionne comme un lanceur de parcours pour les partenaires relais, les artistes et les personnes intéressées par les enjeux numériques. Le portail explique l’outil, ses phases, l’expérience Boussole, la méthode, la recherche et les modalités de co-construction. Le module partenaire ajoute une présentation dédiée, des invitations personnelles, un questionnaire qualitatif, une collecte d’intérêt consentie, une console d’administration et l’envoi de récapitulatifs contrôlés.
+**Boussole Numérique Culture** est le dépôt du site compagnon et du module partenaire qui préparent un outil en co-conception destiné aux actrices, acteurs et structures culturelles. La Boussole n’existe pas encore comme outil utilisable : l’accueil distingue explicitement le portail existant du futur prototype et oriente vers deux parcours, Partenaire culturel et Artiste. Le portail explique le projet, ses jalons, l’expérience illustrative, la méthode, la recherche et les modalités de co-construction. Le module partenaire ajoute une présentation dédiée, des invitations personnelles, un questionnaire qualitatif, une collecte d’intérêt consentie, une console d’administration et l’envoi de récapitulatifs contrôlés.
 
 Le projet est conçu pour être déployé et maintenu hors plateforme : le portail est une application statique servie par Nginx ; l’API partenaire est une application Express distincte ; PostgreSQL, l’API et Dreamlit sont activés dans Coolify lorsque le pilote démarre.
 
@@ -26,7 +26,7 @@ Les liens externes des archives sont signalés par une icône et un texte access
 
 Les liens 404 qualifiés ont été remplacés par des destinations officielles lorsque cela était possible. Les sources sans équivalent fiable restent mentionnées comme archives, sans lien sortant actif. Les fiches des documents historiques affichent la date de leur dernier contrôle de liens.
 
-Une réécriture ciblée de l’accueil a ensuite recentré le portail sur le **pourquoi** de la Boussole : rendre traitables des difficultés numériques ordinaires qui font perdre du temps aux artistes et compliquent la collaboration. Les trois parcours explicitent désormais le rôle de chaque public, les questions à apporter à la co-conception, l’étape actuelle du projet et les ressources de profondeur. Le diagnostic, le plan archivé et le contrôle associé sont disponibles dans [`docs/DIAGNOSTIC_REECRITURE_ACCUEIL_PROFILS_2026-08-16.md`](./docs/DIAGNOSTIC_REECRITURE_ACCUEIL_PROFILS_2026-08-16.md), [`docs/PLAN_REFONTE_EDITORIALE_ACCUEIL_2026-08-16.md`](./docs/PLAN_REFONTE_EDITORIALE_ACCUEIL_2026-08-16.md) et [`docs/CONTROLE_REECRITURE_ACCUEIL_2026-08-16.md`](./docs/CONTROLE_REECRITURE_ACCUEIL_2026-08-16.md).
+Une clarification de l’accueil a ensuite établi que le portail existe aujourd’hui, tandis que la Boussole reste en préparation. Il présente deux parcours prioritaires, Partenaire culturel et Artiste, ainsi que les jalons de l’atelier et du cadrage à l’automne 2026, du prototype à tester visé fin 2026 et de l’ouverture publique visée début 2027. Le plan validé est archivé dans [`docs/PLAN_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md`](./docs/PLAN_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md).
 
 La page Ressources complète ses filtres de catégorie et de période par une recherche locale guidée. Elle propose des suggestions thématiques, recherche sans tenir compte de la casse ou des accents, et permet d’effacer la requête sans réinitialiser les autres filtres.
 
@@ -35,7 +35,7 @@ La page Ressources complète ses filtres de catégorie et de période par une re
 | Ensemble | Rôle | Routes ou emplacement |
 |---|---|---|
 | Récit institutionnel | Projet, calendrier, méthode, gouvernance, partenaires et soutien institutionnel | `/projet`, `/timeline`, `/methode`, `/partenaires` |
-| Accueil par persona | Lanceur réversible qui expose le pourquoi du projet et des parcours différenciés, au service des artistes | `/?public=partenaire`, `/?public=artiste`, `/?public=enjeux-numeriques` |
+| Accueil à deux profils | Lanceur réversible qui annonce le site compagnon, le statut de l’outil en préparation et les parcours Partenaire culturel et Artiste | `/?public=partenaire`, `/?public=artiste` |
 | FAQ par persona | Réponses contextualisées avec liens vers les pages de profondeur pertinentes | Déployée après la sélection d’un parcours sur l’accueil |
 | Expérience Boussole | Démonstration des cinq dimensions, radars et parcours | `/experience` |
 | Recherche | Méthode de recherche, références comparables et ressources | `/recherche`, `/references`, `/ressources` |
@@ -162,6 +162,8 @@ Toute modification effectivement livrée doit mettre à jour `CHANGELOG.md`, `ST
 | [`docs/DIAGNOSTIC_REECRITURE_ACCUEIL_PROFILS_2026-08-16.md`](./docs/DIAGNOSTIC_REECRITURE_ACCUEIL_PROFILS_2026-08-16.md) | Diagnostic des formulations et texte de référence de la réécriture par profil |
 | [`docs/CONTROLE_REECRITURE_ACCUEIL_2026-08-16.md`](./docs/CONTROLE_REECRITURE_ACCUEIL_2026-08-16.md) | Contrôle des parcours, des métadonnées et des liens de profondeur après réécriture |
 | [`docs/CONTROLE_ACCUEIL_PERSONAS_2026-08-16.md`](./docs/CONTROLE_ACCUEIL_PERSONAS_2026-08-16.md) | Contrôle des parcours, de l’accessibilité et de l’activation de la collecte d’intérêt |
+| [`docs/PLAN_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md`](./docs/PLAN_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md) | Plan validé : site compagnon existant, Boussole en préparation, deux profils et jalons 2026–2027 |
+| [`docs/CONTROLE_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md`](./docs/CONTROLE_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md) | Contrôles de la clarification du statut, des parcours, de l’ancienne URL et des jalons visibles |
 
 ## Licence
 

@@ -21,14 +21,14 @@ const navigation = [
 
 const pages = {
   "/": {
-    title: "Boussole Numérique Culture | Outil en co-conception",
-    description: "Un outil en co-conception pour aider les artistes à améliorer leurs pratiques numériques, avec les structures et les personnes qui les accompagnent.",
+    title: "Boussole en préparation | Site compagnon pour la culture",
+    description: "Le site compagnon d’une Boussole Numérique Culture en préparation : retours, co-conception à l’automne 2026 et prototype à tester visé fin 2026.",
     h1: "Boussole Numérique Culture",
-    intro: "Un outil en co-conception pour aider les artistes à améliorer leurs pratiques numériques, avec les structures et les personnes qui les accompagnent. La phase actuelle recueille des idées et des propositions afin de préparer un atelier de co-conception visé à l’automne.",
+    intro: "Ce site compagnon accompagne la préparation d’une Boussole pour les artistes des milieux culturels genevois. La Boussole n’existe pas encore : le site informe, recueille les retours et prépare sa co-conception avec les partenaires et les artistes.",
     sections: [
-      { heading: "Pourquoi la Boussole ?", text: "Fichiers éparpillés, outils qui ne se parlent pas et consignes de collaboration floues prennent du temps et fatiguent les équipes. La Boussole devra proposer un état des lieux non jugeant pour identifier une première priorité et envisager une amélioration réalisable." },
-      { heading: "Trois points de départ", text: "Le site propose un parcours pour les structures et réseaux qui accompagnent les artistes, un parcours pour les artistes et personnes actives dans la culture, ainsi qu’un parcours pour les personnes intéressées par les enjeux numériques culturels." },
-      { heading: "Ce qui se construit maintenant", text: "La phase actuelle accueille des idées, des propositions et des points de vigilance, puis prépare un atelier de co-conception visé à l’automne. Le prototype reste à décider avec les personnes concernées." },
+      { heading: "Ce que le futur prototype devra apporter", text: "La Boussole devra proposer un état des lieux non jugeant et des conseils actionnables pour choisir de meilleurs outils, procédures et manières de collaborer. Elle ne donnera ni note ni classement." },
+      { heading: "Deux points de départ", text: "Le site propose un parcours pour les partenaires culturels qui relient la co-conception aux artistes, et un parcours pour les artistes qui aideront à définir les situations et conseils utiles." },
+      { heading: "Ce qui se construit maintenant", text: "Le site recueille les retours aujourd’hui. L’atelier et le cadrage sont prévus entre septembre et octobre 2026, un prototype à tester est visé fin 2026 et une ouverture publique début 2027." },
     ],
     links: [{ label: "Découvrir le rôle des partenaires", path: "/partenaires" }, { label: "Explorer l’expérience Boussole", path: "/experience" }, { label: "Voir les phases du site compagnon", path: "/timeline" }],
   },
@@ -41,11 +41,11 @@ const pages = {
     links: [{ label: "Voir les phases du site compagnon", path: "/timeline" }, { label: "Contribuer comme partenaire", path: "/partenaires" }],
   },
   "/timeline": {
-    title: "Phases du site compagnon | Boussole Numérique Culture",
-    description: "Suivez les phases indicatives de mobilisation, de prototype, de test et d’accompagnement de la Boussole Numérique Culture.",
-    h1: "Les phases du site compagnon",
-    intro: "Un parcours indicatif de 24 mois, organisé en quatre phases : mobiliser les partenaires, décider le prototype, tester avec le terrain, puis diffuser et accompagner.",
-    sections: [{ heading: "Quatre étapes", text: "Mobiliser et co-concevoir ; décider et prototyper ; tester et préparer la diffusion ; diffuser et accompagner. Le calendrier s’ajuste avec les retours du terrain." }],
+    title: "Calendrier de la Boussole en préparation | Culture",
+    description: "Atelier et cadrage à l’automne 2026, prototype à tester visé fin 2026, ouverture publique visée début 2027 et phases indicatives du projet.",
+    h1: "Du site compagnon à l’ouverture de la Boussole",
+    intro: "La Boussole n’existe pas encore. Ce site compagnon informe et recueille les retours avant l’atelier et le cadrage de l’automne 2026. Le prototype à tester est visé fin 2026, puis une ouverture publique au début de 2027.",
+    sections: [{ heading: "Quatre étapes indicatives", text: "Atelier et cadrage de co-conception ; développement d’un prototype à tester ; tests et préparation de l’ouverture publique ; diffusion et accompagnement. Le calendrier s’ajuste avec les retours recueillis." }],
     links: [{ label: "Comprendre le rôle des partenaires", path: "/partenaires" }, { label: "Lire la méthode", path: "/methode" }],
   },
   "/experience": {
@@ -65,11 +65,11 @@ const pages = {
     links: [{ label: "Accéder au questionnaire partenaire", path: "/partenaires/questionnaire" }, { label: "Voir les phases", path: "/timeline" }],
   },
   "/partenaires": {
-    title: "Partenaires de co-conception | Boussole Numérique Culture",
-    description: "Institutions, structures, associations, réseaux et collectifs : découvrez votre rôle, le questionnaire partenaire et les phases de co-conception.",
-    h1: "Partenaires de co-conception",
-    intro: "Ce site compagnon s’adresse aux institutions, structures, associations, réseaux et collectifs qui peuvent relier la Boussole aux artistes et aux personnes actives dans la culture. Leur contribution aide à définir un prototype réellement utile.",
-    sections: [{ heading: "Contribuer à la première étape", text: "Le questionnaire recueille besoins, priorités, idées et points de vigilance. Il prépare l’atelier de co-conception et la définition du prototype." }],
+    title: "Co-concevoir la Boussole en préparation | Partenaires",
+    description: "Le site compagnon rassemble les retours des partenaires culturels afin de cadrer puis tester une Boussole avec les artistes.",
+    h1: "Co-concevoir une Boussole encore à construire",
+    intro: "La Boussole n’existe pas encore. Ce site compagnon rassemble les retours des institutions, structures, associations, réseaux et collectifs afin de la co-concevoir avec les artistes, avant le développement d’un prototype.",
+    sections: [{ heading: "Contribuer au cadrage", text: "Le questionnaire recueille besoins, priorités, idées et situations à comprendre. Il prépare l’atelier et le cadrage de l’automne, avant le développement du prototype à tester visé fin 2026." }],
     links: [{ label: "Découvrir la Boussole", path: "/partenaires/presentation" }, { label: "Répondre au questionnaire partenaire", path: "/partenaires/questionnaire" }],
   },
   "/partenaires/presentation": {
@@ -353,7 +353,7 @@ async function generate() {
   }).join("\n");
   await writeTextFile("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapEntries}\n</urlset>\n`);
   await writeTextFile("robots.txt", `User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /partenaires/admin\nDisallow: /partenaires/questionnaire\n\nSitemap: ${siteUrl}/sitemap.xml\n`);
-  await writeTextFile("llms.txt", `# ${siteName}\n\n> Un outil en co-conception pour aider les artistes à améliorer leurs pratiques numériques, avec les structures et les personnes qui les accompagnent.\n\n## Pourquoi\n\nDes fichiers éparpillés, des outils mal adaptés et des consignes de collaboration floues peuvent faire perdre du temps sans aider le travail culturel. La Boussole doit proposer un état des lieux non jugeant pour choisir une première amélioration réalisable.\n\n## Statut\n\nLa Boussole est en co-conception. Le site ne propose pas encore le diagnostic public. La phase actuelle accueille des idées, des propositions et des points de vigilance afin de préparer un atelier de co-conception visé à l’automne ; le prototype reste à décider avec les personnes concernées.\n\n## Trois parcours\n\n- **Institutions, structures et réseaux** : personnes qui accompagnent les artistes et peuvent faire remonter les situations concrètes, les priorités et les conditions de test.\n- **Artistes et personnes actives dans la culture** : personnes invitées à signaler ce qui prend du temps, ce qu’elles souhaitent améliorer et ce qui devrait être pris en compte dans le futur outil.\n- **Enjeux numériques** : personnes qui souhaitent contribuer avec des ressources, exemples, méthodes et points de vigilance, sans décider à la place des artistes.\n\n## Parcours publics\n\n- [Accueil](${canonicalUrl("/")}) : choisir un point de départ selon son rôle.\n- [L’outil en co-conception](${canonicalUrl("/projet")})\n- [Phases du site compagnon](${canonicalUrl("/timeline")})\n- [Méthode de co-conception](${canonicalUrl("/methode")})\n- [Partenaires](${canonicalUrl("/partenaires")})\n- [Recherche et enseignements](${canonicalUrl("/recherche")})\n- [Références comparables](${canonicalUrl("/references")})\n- [Documents et sources](${canonicalUrl("/ressources")})\n\n## Contact\n\nulrich.fischer@memoways.com\n\n## Mise à jour\n\n${buildDate}\n`);
+  await writeTextFile("llms.txt", `# ${siteName}\n\n> Site compagnon d’une Boussole Numérique Culture en préparation pour les artistes des milieux culturels genevois.\n\n## Statut\n\nLa Boussole n’existe pas encore comme outil utilisable. Le site informe, recueille les retours et prépare la co-conception avec les partenaires culturels et les artistes. L’atelier et le cadrage sont prévus entre septembre et octobre 2026. Un prototype à tester est visé fin 2026, puis une ouverture publique début 2027.\n\n## Ce que le futur outil devra apporter\n\nLa Boussole devra proposer un état des lieux non jugeant et des conseils actionnables pour choisir des outils, procédures et pratiques de collaboration plus utiles. Elle ne donnera pas de note ni de classement.\n\n## Deux parcours\n\n- **Partenaires culturels** : institutions, associations, réseaux ou collectifs qui font remonter les situations des artistes et contribuent à cadrer, tester puis ajuster le prototype.\n- **Artistes** : personnes qui partagent les pratiques, contraintes et améliorations à prendre en compte avant le développement de l’outil.\n\n## Parcours publics\n\n- [Accueil](${canonicalUrl("/")}) : comprendre le statut du projet et choisir un profil de contribution.\n- [L’outil en co-conception](${canonicalUrl("/projet")})\n- [Calendrier indicatif](${canonicalUrl("/timeline")})\n- [Méthode de co-conception](${canonicalUrl("/methode")})\n- [Partenaires](${canonicalUrl("/partenaires")})\n- [Recherche et enseignements](${canonicalUrl("/recherche")})\n- [Références comparables](${canonicalUrl("/references")})\n- [Documents et sources](${canonicalUrl("/ressources")})\n\n## Contact\n\nulrich.fischer@memoways.com\n\n## Mise à jour\n\n${buildDate}\n`);
   console.log(`Pages HTML statiques, sitemap, robots et llms.txt générés pour ${Object.keys(pages).length} routes indexables.`);
 }
 

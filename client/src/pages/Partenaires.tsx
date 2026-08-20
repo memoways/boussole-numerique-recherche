@@ -27,15 +27,13 @@ const POURQUOI_PARTICIPER = [
 const QUI_PEUT_CONTRIBUER = [
   { titre: "Institutions, structures et associations culturelles", desc: "Vous représentez un lieu, une association, une fédération ou une structure qui organise, soutient ou accompagne des pratiques culturelles.", icon: Building2, couleur: "#515792", couleurTexte: "#ffffff" },
   { titre: "Réseaux et collectifs qui relient des artistes", desc: "Vous connaissez les besoins de membres, de communautés ou de publics et pouvez aider à les traduire dans la conception de l’outil.", icon: Users, couleur: "#3a7fc1", couleurTexte: "#ffffff" },
-  { titre: "Personnes actives dans la culture", desc: "Artistes, créatrices, créateurs, médiatrices et professionnels qui souhaitent contribuer à titre individuel peuvent aussi demander une invitation.", icon: Heart, couleur: "#3aab8a", couleurTexte: "#ffffff" },
 ];
 
 const PARCOURS_PARTENAIRE = [
-  { num: "01", titre: "Je me reconnais", desc: "Je vérifie que mon organisation, mon réseau ou ma pratique peut contribuer à la démarche.", ...SPECTRE_PARTENAIRES[0] },
-  { num: "02", titre: "Je découvre", desc: "Je consulte la présentation pour comprendre le problème traité et le rôle attendu des partenaires.", ...SPECTRE_PARTENAIRES[1] },
-  { num: "03", titre: "Je réponds", desc: "Je réponds au questionnaire ou je demande une invitation personnelle si je n’en ai pas encore.", ...SPECTRE_PARTENAIRES[2] },
-  { num: "04", titre: "Je contribue", desc: "Je peux rejoindre l’atelier de co-conception et aider à choisir ce qui mérite d’être prototypé.", ...SPECTRE_PARTENAIRES[3] },
-  { num: "05", titre: "Je deviens relais", desc: "Je partage les apprentissages, teste le prototype et le relie aux personnes concernées.", ...SPECTRE_PARTENAIRES[4] },
+  { num: "01", titre: "Je réponds", desc: "Je partage besoins, idées et situations à comprendre, ou je demande une invitation personnelle.", ...SPECTRE_PARTENAIRES[0] },
+  { num: "02", titre: "Je co-conçois", desc: "Je participe à l’atelier et au cadrage prévus entre septembre et octobre 2026.", ...SPECTRE_PARTENAIRES[1] },
+  { num: "03", titre: "Je teste", desc: "Je confronte le prototype visé fin 2026 aux pratiques que je connais.", ...SPECTRE_PARTENAIRES[2] },
+  { num: "04", titre: "Je deviens relais", desc: "Je contribue aux ajustements avant l’ouverture publique visée début 2027.", ...SPECTRE_PARTENAIRES[3] },
 ];
 
 export default function Partenaires() {
@@ -47,11 +45,19 @@ export default function Partenaires() {
         <div className="max-w-4xl mx-auto">
           <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#515792', color: '#fff' }}>Partenaires</Badge>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4 leading-tight">
-            Partenaires de co-conception
+            Co-concevoir une Boussole encore à construire
           </h1>
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl leading-relaxed mb-5">
-            Ce site compagnon s’adresse aux institutions, structures, associations, réseaux et collectifs qui peuvent relier la Boussole aux artistes et aux personnes actives dans la culture. Votre contribution aidera l’équipe de projet à définir un prototype réellement utile.
+            La Boussole n’existe pas encore. Ce site compagnon rassemble les retours des institutions, structures, associations, réseaux et collectifs qui peuvent aider à la co-concevoir avec les artistes. Votre contribution servira à cadrer puis développer un prototype utile et actionnable.
           </p>
+          <div className="mb-5 grid max-w-2xl gap-2 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              ["Aujourd’hui", "Informer et recueillir les retours"],
+              ["Sept.–oct. 2026", "Atelier et cadrage"],
+              ["Fin 2026", "Prototype à tester visé"],
+              ["Début 2027", "Ouverture publique visée"],
+            ].map(([moment, detail], index) => <div key={moment} className="border border-slate-200 bg-white px-3 py-3"><p className="text-[10px] font-bold uppercase tracking-[0.11em]" style={{ color: SPECTRE_PARTENAIRES[index].couleur }}>{moment}</p><p className="mt-1 text-xs font-semibold leading-snug text-slate-700">{detail}</p></div>)}
+          </div>
           <div className="mb-5 flex max-w-2xl items-center gap-3 rounded-xl border border-slate-200 bg-white px-3 py-3 sm:gap-4 sm:px-4 sm:py-3.5">
             <a
               href="https://www.geneve.ch/demarches/subvention-projets-ponctuels-culturels-scientifiques"
@@ -76,15 +82,15 @@ export default function Partenaires() {
           </div>
           <div className="grid max-w-2xl gap-3 sm:grid-cols-2">
             <Link href="/partenaires/presentation" className="group rounded-xl border border-[#515792]/25 bg-white p-4 transition-all hover:-translate-y-0.5 hover:border-[#515792] hover:shadow-sm">
-              <span className="flex items-center gap-2 font-semibold text-slate-950"><Compass className="h-4 w-4 text-[#515792]" /> Découvrir la Boussole <ArrowRight className="ml-auto h-4 w-4 text-[#515792] transition-transform group-hover:translate-x-0.5" /></span>
-              <span className="mt-2 block text-sm leading-relaxed text-slate-600">Comprendre le problème à résoudre, les rôles des partenaires et le prototype à décider ensemble.</span>
+              <span className="flex items-center gap-2 font-semibold text-slate-950"><Compass className="h-4 w-4 text-[#515792]" /> Comprendre la co-conception <ArrowRight className="ml-auto h-4 w-4 text-[#515792] transition-transform group-hover:translate-x-0.5" /></span>
+              <span className="mt-2 block text-sm leading-relaxed text-slate-600">Voir le problème, les rôles des partenaires et le prototype à décider avant son développement.</span>
             </Link>
             <Link href="/partenaires/questionnaire" className="group rounded-xl bg-[#E07428] p-4 text-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
               <span className="flex items-center gap-2 font-semibold"><MessagesSquare className="h-4 w-4" /> Répondre au questionnaire partenaire <ArrowRight className="ml-auto h-4 w-4 transition-transform group-hover:translate-x-0.5" /></span>
               <span className="mt-2 block text-sm leading-relaxed text-white/90">Partager besoins, priorités, idées et points de vigilance avant l’atelier de co-conception.</span>
             </Link>
           </div>
-          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-500"><span className="font-semibold text-slate-700">Phase 1 — Mobiliser et écouter.</span> Si vous n’avez pas encore reçu d’invitation, le parcours vous permet d’en demander une.</p>
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-500"><span className="font-semibold text-slate-700">Étape actuelle : informer et recueillir les retours.</span> Si vous n’avez pas encore reçu d’invitation, le parcours vous permet d’en demander une avant l’atelier et le cadrage de l’automne.</p>
         </div>
       </section>
 
@@ -92,7 +98,7 @@ export default function Partenaires() {
       <section className="py-14 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold text-gray-900 mb-3">Pourquoi votre rôle compte</h2>
-          <p className="mb-8 max-w-2xl text-gray-600 leading-relaxed">Les partenaires servent de trait d’union entre les choix de conception et les réalités des personnes qui créeront, collaboreront ou diffuseront avec l’outil.</p>
+          <p className="mb-8 max-w-2xl text-gray-600 leading-relaxed">Les partenaires font le lien entre les choix de conception et les situations que les artistes rencontrent. Leur rôle est de construire l’outil avant qu’il existe, puis de le confronter aux usages qui compteront réellement.</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {POURQUOI_PARTICIPER.map(({ titre, desc, icon: Icon, couleur }) => (
               <div key={titre} className="rounded-2xl p-6" style={{ backgroundColor: couleur + '10' }}>
@@ -129,8 +135,8 @@ export default function Partenaires() {
       {/* Parcours partenaire */}
       <section className="py-14 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-gray-900 mb-3">Du questionnaire au prototype : un parcours en quatre phases</h2>
-          <p className="text-gray-500 mb-10">La première étape est d’écouter et de regrouper les énergies. L’atelier, le prototype et les tests viendront ensuite, selon les décisions prises ensemble.</p>
+          <h2 className="text-2xl font-bold text-gray-900 mb-3">Du questionnaire à l’ouverture publique : un parcours en quatre étapes</h2>
+          <p className="text-gray-500 mb-10">Le site sert aujourd’hui à écouter et à préparer le travail collectif. L’atelier et le cadrage précèdent le prototype à tester, puis les ajustements avant une ouverture publique visée début 2027.</p>
 
           {/* Desktop */}
           <div className="hidden md:flex items-start gap-2">

@@ -1,7 +1,7 @@
 {
   "/": {
-    "title": "Boussole Numérique Culture | Outil en co-conception",
-    "description": "Un outil en co-conception pour aider les artistes à améliorer leurs pratiques numériques, avec les structures et les personnes qui les accompagnent."
+    "title": "Boussole en préparation | Site compagnon pour la culture",
+    "description": "Le site compagnon d’une Boussole Numérique Culture en préparation : retours, co-conception à l’automne 2026 et prototype à tester visé fin 2026."
   },
   "/404": {
     "title": "Page introuvable | Boussole Numérique Culture",
@@ -13,8 +13,8 @@
     "description": "Découvrez comment les partenaires contribuent à définir la Boussole Numérique Culture, un outil de pratiques numériques à co-concevoir."
   },
   "/timeline": {
-    "title": "Phases du site compagnon | Boussole Numérique Culture",
-    "description": "Suivez les phases indicatives de mobilisation, de prototype, de test et d’accompagnement de la Boussole Numérique Culture."
+    "title": "Calendrier de la Boussole en préparation | Culture",
+    "description": "Atelier et cadrage à l’automne 2026, prototype à tester visé fin 2026, ouverture publique visée début 2027 et phases indicatives du projet."
   },
   "/experience": {
     "title": "Démonstration de la Boussole | Partenaires",
@@ -25,8 +25,8 @@
     "description": "Découvrez comment les partenaires, les artistes et l’équipe de projet définissent ensemble les questions, le prototype et les principes de la Boussole."
   },
   "/partenaires": {
-    "title": "Partenaires de co-conception | Boussole Numérique Culture",
-    "description": "Institutions, structures, associations, réseaux et collectifs : découvrez votre rôle, le questionnaire partenaire et les phases de co-conception."
+    "title": "Co-concevoir la Boussole en préparation | Partenaires",
+    "description": "Le site compagnon rassemble les retours des partenaires culturels afin de cadrer puis tester une Boussole avec les artistes."
   },
   "/partenaires/presentation": {
     "title": "Découvrir la Boussole | Partenaires",

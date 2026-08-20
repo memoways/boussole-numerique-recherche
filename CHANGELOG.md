@@ -2,6 +2,23 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.3.0] — 2026-08-16 — Site compagnon et Boussole en préparation
+
+### Modifié
+
+- Premier écran de l’accueil reformulé pour distinguer sans ambiguïté le site compagnon existant de la Boussole, qui reste en préparation et n’est pas encore utilisable.
+- Statut visible ajouté sur l’accueil et Partenaires : recueil des retours aujourd’hui, atelier et cadrage entre septembre et octobre 2026, prototype à tester visé fin 2026, ouverture publique visée début 2027.
+- Entrée de l’accueil simplifiée à deux profils : **Partenaire culturel** et **Artiste**. Le profil « Enjeux du numérique » et son récit, ses visualisations, sa FAQ et son choix dans le sous-menu sont retirés.
+- Sous-menu sticky, URL partageable et retour à l’entrée adaptés aux deux profils ; l’ancienne valeur `?public=enjeux-numeriques` revient désormais proprement à l’accueil neutre.
+- Récits Partenaire culturel et Artiste réécrits autour d’un état des lieux non jugeant et de conseils d’optimisation actionnables portant sur les outils, les procédures et les pratiques de collaboration.
+- Page Partenaires alignée sur le rôle de co-conception avant développement : questionnaire, atelier, cadrage, prototype puis ajustements avant l’ouverture publique visée.
+- Calendrier aligné sur les jalons validés tout en conservant un horizon de vingt-quatre mois indicatifs et quatre phases de développement.
+- Registre SEO, pré-rendu HTML et `llms.txt` de l’accueil, Partenaires et Calendrier mis à jour pour déclarer explicitement que la Boussole n’existe pas encore.
+
+### Ajouté
+
+- Archive de décision [`docs/PLAN_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md`](./docs/PLAN_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md), qui fixe le calendrier, les deux profils, la ligne éditoriale et le périmètre de cette passe.
+
 ## [1.2.1] — 2026-08-16 — Refonte de l’accueil et continuité de parcours
 
 ### Modifié
