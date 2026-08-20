@@ -14,6 +14,8 @@
     "preview": "vite preview --host 0.0.0.0",
     "check": "tsc --noEmit",
     "check:partner-api": "pnpm --filter @boussole/partner-feedback-api check",
+    "audit:mobile": "node scripts/audit-mobile.mjs",
+    "audit:mobile:interactions": "node scripts/audit-mobile-interactions.mjs",
     "verify": "pnpm check && pnpm check:partner-api && pnpm build && pnpm verify:seo && pnpm build:partner-api",
     "format": "prettier --write ."
   },
@@ -77,6 +79,7 @@
     "@vitejs/plugin-react": "^5.0.4",
     "add": "^2.0.6",
     "autoprefixer": "^10.4.20",
+    "playwright": "1.62.0",
     "pnpm": "^10.33.0",
     "postcss": "^8.4.47",
     "prettier": "^3.6.2",

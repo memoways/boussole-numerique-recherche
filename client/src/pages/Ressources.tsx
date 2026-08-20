@@ -257,13 +257,13 @@ export default function Ressources() {
                   onChange={(event) => setSearchQuery(event.target.value)}
                   list="resource-search-suggestions"
                   placeholder="Ex. intelligence artificielle, UNESCO, 2026"
-                  className="w-full rounded-xl border border-gray-200 bg-white py-2.5 pl-10 pr-10 text-sm text-gray-800 shadow-sm outline-none transition focus:border-[#515792] focus:ring-2 focus:ring-[#515792]/20"
+                  className="min-h-11 w-full rounded-xl border border-gray-200 bg-white py-2.5 pl-10 pr-14 text-sm text-gray-800 shadow-sm outline-none transition focus:border-[#515792] focus:ring-2 focus:ring-[#515792]/20"
                 />
                 {searchQuery && (
                   <button
                     type="button"
                     onClick={() => setSearchQuery("")}
-                    className="absolute right-2 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-md text-gray-500 transition hover:bg-gray-100 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#515792]/30"
+                    className="absolute right-1 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-md text-gray-500 transition hover:bg-gray-100 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#515792]/30"
                     aria-label="Effacer la recherche"
                   >
                     <X className="h-4 w-4" aria-hidden="true" />
@@ -280,7 +280,7 @@ export default function Ressources() {
                     key={suggestion}
                     type="button"
                     onClick={() => setSearchQuery(suggestion)}
-                    className="rounded-full bg-white px-2.5 py-1 text-xs font-medium text-[#515792] ring-1 ring-inset ring-[#515792]/20 transition hover:bg-[#515792] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#515792]/40"
+                    className="inline-flex min-h-11 items-center rounded-full bg-white px-3 py-1 text-xs font-medium text-[#515792] ring-1 ring-inset ring-[#515792]/20 transition hover:bg-[#515792] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#515792]/40"
                   >
                     {suggestion}
                   </button>
@@ -292,7 +292,7 @@ export default function Ressources() {
               <span className="text-xs font-semibold uppercase tracking-wider text-gray-500 mr-1">Catégorie</span>
               <button
                 onClick={() => setActiveType(null)}
-                className={`text-xs px-3 py-1.5 rounded-full font-medium transition-colors ${!activeType ? 'text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+                className={`inline-flex min-h-11 items-center text-xs px-3 py-1.5 rounded-full font-medium transition-colors ${!activeType ? 'text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
                 style={!activeType ? { backgroundColor: '#515792' } : {}}
               >
                 Toutes ({RESSOURCES.length})
@@ -303,7 +303,7 @@ export default function Ressources() {
                   <button
                     key={type}
                     onClick={() => setActiveType(activeType === type ? null : type)}
-                    className="text-xs px-3 py-1.5 rounded-full font-medium transition-colors"
+                    className="inline-flex min-h-11 items-center text-xs px-3 py-1.5 rounded-full font-medium transition-colors"
                     style={{
                       backgroundColor: activeType === type ? TYPE_COLORS[type] : TYPE_COLORS[type] + '20',
                       color: activeType === type ? 'white' : TYPE_COLORS[type],
@@ -319,7 +319,7 @@ export default function Ressources() {
               <span className="text-xs font-semibold uppercase tracking-wider text-gray-500 mr-1">Date</span>
               <button
                 onClick={() => setActiveDateGroup(null)}
-                className={`text-xs px-3 py-1.5 rounded-full font-medium transition-colors ${!activeDateGroup ? 'text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+                className={`inline-flex min-h-11 items-center text-xs px-3 py-1.5 rounded-full font-medium transition-colors ${!activeDateGroup ? 'text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
                 style={!activeDateGroup ? { backgroundColor: '#515792' } : {}}
               >
                 Toutes les dates
@@ -330,7 +330,7 @@ export default function Ressources() {
                   <button
                     key={group}
                     onClick={() => setActiveDateGroup(activeDateGroup === group ? null : group)}
-                    className={`text-xs px-3 py-1.5 rounded-full font-medium transition-colors ${activeDateGroup === group ? 'text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+                    className={`inline-flex min-h-11 items-center text-xs px-3 py-1.5 rounded-full font-medium transition-colors ${activeDateGroup === group ? 'text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
                     style={activeDateGroup === group ? { backgroundColor: '#515792' } : {}}
                   >
                     {group} ({count})
@@ -361,11 +361,11 @@ export default function Ressources() {
                   </p>
                 )}
                 {interne ? (
-                  <Link href={href} className="text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all" style={{ color: couleur }}>
+                  <Link href={href} className="inline-flex min-h-11 items-center gap-1 text-sm font-semibold transition-all group-hover:gap-2" style={{ color: couleur }}>
                     Lire le document <ArrowRight className="h-4 w-4" />
                   </Link>
                 ) : (
-                  <a href={href} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all" style={{ color: couleur }}>
+                  <a href={href} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-11 items-center gap-1 text-sm font-semibold transition-all group-hover:gap-2" style={{ color: couleur }}>
                     {temps === "PDF" ? "Ouvrir le PDF" : "Ouvrir la source"} <ExternalLink className="h-4 w-4" />
                   </a>
                 )}

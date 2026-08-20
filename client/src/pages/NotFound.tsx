@@ -72,10 +72,10 @@ export default function NotFound() {
                   onChange={(event) => setSearchQuery(event.target.value)}
                   list="not-found-search-suggestions"
                   placeholder="Ex. intelligence artificielle, UNESCO, 2026"
-                  className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-12 pr-11 text-base text-slate-900 shadow-sm outline-none transition focus:border-[#515792] focus:ring-4 focus:ring-[#515792]/15"
+                  className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-12 pr-14 text-base text-slate-900 shadow-sm outline-none transition focus:border-[#515792] focus:ring-4 focus:ring-[#515792]/15"
                 />
                 {searchQuery && (
-                  <button type="button" onClick={() => setSearchQuery("")} className="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#515792]/40" aria-label="Effacer la recherche">
+                  <button type="button" onClick={() => setSearchQuery("")} className="absolute right-1 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#515792]/40" aria-label="Effacer la recherche">
                     <X className="h-4 w-4" aria-hidden="true" />
                   </button>
                 )}
@@ -86,7 +86,7 @@ export default function NotFound() {
               <div className="mt-3 flex flex-wrap items-center gap-1.5" aria-label="Suggestions de recherche">
                 <span className="mr-1 text-xs text-slate-500">Suggestions :</span>
                 {visibleSuggestions.map((suggestion) => (
-                  <button key={suggestion} type="button" onClick={() => setSearchQuery(suggestion)} className="rounded-full bg-[#515792]/8 px-2.5 py-1 text-xs font-semibold text-[#515792] ring-1 ring-inset ring-[#515792]/15 transition hover:bg-[#515792] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#515792]/40">
+                  <button key={suggestion} type="button" onClick={() => setSearchQuery(suggestion)} className="inline-flex min-h-11 items-center rounded-full bg-[#515792]/8 px-3 py-1 text-xs font-semibold text-[#515792] ring-1 ring-inset ring-[#515792]/15 transition hover:bg-[#515792] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#515792]/40">
                     {suggestion}
                   </button>
                 ))}

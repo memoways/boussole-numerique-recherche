@@ -310,7 +310,7 @@ export default function Recherche() {
               <Filter className="h-4 w-4 text-gray-400" />
               <button
                 onClick={() => setActiveTag(null)}
-                className={`text-xs px-3 py-1.5 rounded-full font-medium transition-colors ${!activeTag ? 'text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+                className={`inline-flex min-h-11 items-center text-xs px-3 py-1.5 rounded-full font-medium transition-colors ${!activeTag ? 'text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
                 style={!activeTag ? { backgroundColor: '#515792' } : {}}
               >
                 Tous
@@ -319,7 +319,7 @@ export default function Recherche() {
                 <button
                   key={tag}
                   onClick={() => setActiveTag(activeTag === tag ? null : tag)}
-                  className={`text-xs px-3 py-1.5 rounded-full font-medium transition-colors`}
+                  className={`inline-flex min-h-11 items-center text-xs px-3 py-1.5 rounded-full font-medium transition-colors`}
                   style={{
                     backgroundColor: activeTag === tag ? TAG_COLORS[tag].bg : TAG_COLORS[tag].bg + '20',
                     color: activeTag === tag ? TAG_COLORS[tag].text : TAG_COLORS[tag].bg,

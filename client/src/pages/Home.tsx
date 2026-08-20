@@ -380,7 +380,7 @@ export default function Home() {
 
       <StickyPersonaMenu activePersona={activePersona} onSelect={selectPersona} visible={Boolean(activePersona && (isProfileTransition || hasPassedPersonaSelector))} />
 
-      {active ? <div ref={storyRef} tabIndex={-1} className="scroll-mt-28 outline-none sm:scroll-mt-32"><PersonaStory persona={active} /><PersonaFaq key={active.id} persona={active} /><div className="border-b border-slate-200 bg-slate-50 px-4 py-6 text-center"><button type="button" onClick={resetPersona} className="inline-flex items-center gap-2 text-sm font-bold text-[#515792] underline decoration-2 underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4"><RotateCcw className="h-4 w-4" /> Revenir aux deux profils</button></div></div> : <NeutralOverview />}
+      {active ? <div ref={storyRef} tabIndex={-1} className="scroll-mt-28 outline-none sm:scroll-mt-32"><PersonaStory persona={active} /><PersonaFaq key={active.id} persona={active} /><div className="border-b border-slate-200 bg-slate-50 px-4 py-6 text-center"><button type="button" onClick={resetPersona} className="inline-flex min-h-11 items-center gap-2 px-2 text-sm font-bold text-[#515792] underline decoration-2 underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4"><RotateCcw className="h-4 w-4" /> Revenir aux deux profils</button></div></div> : <NeutralOverview />}
 
       <section id="interet" className="scroll-mt-24 bg-slate-950 px-4 py-16 text-white sm:py-20" aria-labelledby="interest-title">
         <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(320px,0.9fr)] lg:items-center">

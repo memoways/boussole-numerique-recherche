@@ -69,7 +69,7 @@ function Router() {
       <ScrollToTop />
       <Navigation />
       <PageBreadcrumbs pathname={location} />
-      <main id="contenu-principal" className="min-h-screen" tabIndex={-1}>
+      <main id="contenu-principal" className="min-h-0" tabIndex={-1}>
       <Switch>
         {/* Home */}
         <Route path={"/"} component={Home} />

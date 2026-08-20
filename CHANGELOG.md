@@ -2,6 +2,25 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.3.2] — 2026-08-20 — Audit et corrections smartphone
+
+### Modifié
+
+- Les actions compactes de l’accueil, les filtres de Recherche et Ressources, la recherche 404 et les liens de cartes Ressources atteignent désormais une cible tactile adaptée aux petits écrans.
+- Les documents historiques replient leur structure en une colonne sur smartphone ; leurs tableaux utilisent un défilement horizontal local et les URL longues se coupent sans élargir la page.
+- Les en-têtes, boutons et actions de téléchargement des documents historiques sont adaptés aux largeurs étroites ; les actions de bas de page se superposent sur mobile.
+- Le conteneur global cesse d’imposer une hauteur minimale d’écran, conformément aux règles de mise en page du projet.
+
+### Ajouté
+
+- Audits reproductibles `pnpm audit:mobile` et `pnpm audit:mobile:interactions`, basés sur Playwright et couvrant vingt routes à 320 px et 390 px, ainsi que huit interactions mobiles prioritaires.
+- Document de contrôle [`docs/CONTROLE_RESPONSIVE_SMARTPHONE_2026-08-20.md`](./docs/CONTROLE_RESPONSIVE_SMARTPHONE_2026-08-20.md).
+
+### Vérifié
+
+- Les 40 rendus audités répondent sans erreur JavaScript, sans débordement horizontal du document et sans contrôle visible sous 36 px. Le burger, les parcours de l’accueil, les écrans Expérience, les recherches, les filtres et la pagination partenaire passent à 320 px.
+- `pnpm verify` passe après les corrections : TypeScript, build statique, pré-rendu SEO-GEO et build de l’API partenaire.
+
 ## [1.3.1] — 2026-08-20 — Prévisualisation concrète de l’expérience Boussole
 
 ### Modifié

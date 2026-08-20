@@ -81,7 +81,7 @@ export default function MarkdownDocument({ title, filename, description, archive
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-0 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4" style={{ borderColor: '#515792' }}></div>
           <p className="text-muted-foreground">Chargement du document...</p>
@@ -91,18 +91,18 @@ export default function MarkdownDocument({ title, filename, description, archive
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-0 bg-background">
       {/* Header fixe */}
       <div className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container py-4">
           <div className="flex items-center justify-between">
             <Link href="/#documents">
-              <Button variant="ghost" size="sm" className="gap-2">
+              <Button variant="ghost" size="sm" className="min-h-11 gap-2">
                 <ArrowLeft className="h-4 w-4" />
                 Retour
               </Button>
             </Link>
-            <Button size="sm" className="gap-2" style={{ backgroundColor: '#515792' }} asChild>
+            <Button size="sm" className="min-h-11 gap-2" style={{ backgroundColor: '#515792' }} asChild>
               <a href={`/${filename}`} download>
                 <Download className="h-4 w-4" />
                 Télécharger
@@ -117,7 +117,7 @@ export default function MarkdownDocument({ title, filename, description, archive
         <div className="max-w-7xl mx-auto">
           {/* En-tête du document */}
           <div className="mb-12 text-center">
-            <h1 className="text-4xl font-bold mb-4">{title}</h1>
+            <h1 className="text-3xl font-bold mb-4 sm:text-4xl">{title}</h1>
             {description && (
               <p className="text-lg text-muted-foreground">{description}</p>
             )}
@@ -135,7 +135,7 @@ export default function MarkdownDocument({ title, filename, description, archive
             )}
           </div>
 
-          <div className="flex gap-8">
+          <div className="flex flex-col gap-8 lg:flex-row">
             {/* Table des matières */}
             {headings.length > 0 && (
               <aside className="hidden lg:block w-64 flex-shrink-0">
@@ -174,7 +174,7 @@ export default function MarkdownDocument({ title, filename, description, archive
                 prose-h4:text-xl prose-h4:mb-2 prose-h4:mt-6
                 prose-p:mb-4 prose-p:leading-7
                 prose-a:text-[#515792] prose-a:no-underline hover:prose-a:underline
-                prose-a:inline-flex prose-a:items-baseline prose-a:gap-1
+                prose-a:break-all
                 prose-strong:text-foreground prose-strong:font-semibold
                 prose-ul:my-4 prose-ul:list-disc prose-ul:pl-6
                 prose-ol:my-4 prose-ol:list-decimal prose-ol:pl-6
@@ -182,14 +182,14 @@ export default function MarkdownDocument({ title, filename, description, archive
                 prose-blockquote:border-l-4 prose-blockquote:border-[#515792] prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:my-6
                 prose-code:bg-muted prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-sm
                 prose-pre:bg-muted prose-pre:p-4 prose-pre:rounded-lg prose-pre:overflow-x-auto
-                prose-table:w-full prose-table:my-6
+                prose-table:my-6
                 prose-th:bg-muted prose-th:p-3 prose-th:text-left prose-th:font-semibold
                 prose-td:p-3 prose-td:border-t
                 prose-hr:my-8 prose-hr:border-border
               ">
                 <Streamdown
                   components={{
-                    a: ({ href, children, ...props }) => {
+                    a: ({ href, children, className, ...props }) => {
                       const isExternal = typeof href === "string" && /^https?:\/\//i.test(href);
 
                       return (
@@ -197,6 +197,7 @@ export default function MarkdownDocument({ title, filename, description, archive
                           href={href}
                           {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                           {...props}
+                          className={`break-all [overflow-wrap:anywhere] ${className ?? ""}`}
                         >
                           {children}
                           {isExternal && (
@@ -208,6 +209,13 @@ export default function MarkdownDocument({ title, filename, description, archive
                         </a>
                       );
                     },
+                    table: ({ children, ...props }) => (
+                      <div className="my-6 w-full overflow-x-auto overscroll-x-contain rounded-lg border border-border" role="region" aria-label="Tableau défilable horizontalement">
+                        <table {...props} className="m-0 min-w-max border-collapse">
+                          {children}
+                        </table>
+                      </div>
+                    ),
                   }}
                 >
                   {content}
@@ -215,14 +223,14 @@ export default function MarkdownDocument({ title, filename, description, archive
               </div>
 
               {/* Pied de page */}
-              <div className="mt-16 pt-8 border-t flex items-center justify-between">
+              <div className="mt-16 flex flex-col gap-3 border-t pt-8 sm:flex-row sm:items-center sm:justify-between">
                 <Link href="/#documents">
-                  <Button variant="outline" className="gap-2">
+                  <Button variant="outline" className="min-h-11 gap-2">
                     <ArrowLeft className="h-4 w-4" />
                     Retour aux documents
                   </Button>
                 </Link>
-                <Button className="gap-2" style={{ backgroundColor: '#515792' }} asChild>
+                <Button className="min-h-11 gap-2" style={{ backgroundColor: '#515792' }} asChild>
                   <a href={`/${filename}`} download>
                     <Download className="h-4 w-4" />
                     Télécharger (MD)
