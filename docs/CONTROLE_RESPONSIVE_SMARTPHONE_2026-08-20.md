@@ -14,8 +14,9 @@ L’audit automatise les vingt routes publiques aux largeurs **320 px** et **390
 | Expérience à 390 px | Les quatre étapes du prototype, le panneau d’explication et le cadre applicatif se replient dans une colonne lisible. |
 | Références à 390 px | Le tableau comparatif reste dans son conteneur horizontal ; les fiches détaillées et la liste d’idées conservent une colonne de lecture continue. |
 | Présentation partenaire à 390 px | La slide, son radar, la navigation Précédent/Suivant et les accordéons restent contenus dans la largeur de l’écran. |
+| Retour en haut à 320 px | Le bouton apparaît après 480 px, reste au-dessus du contenu en bas à droite et remonte vers le sommet après activation. |
 | Historique documentaire | Les longues URL se coupent et les tableaux utilisent désormais un défilement horizontal local, sans étendre la page entière. |
-| Interactions critiques | Burger, navigation mobile, deux profils de l’accueil, onglets de l’Expérience, recherche Ressources, recherche 404 et pagination partenaire passent à 320 px. |
+| Interactions critiques | Burger, navigation mobile, deux profils de l’accueil, onglets de l’Expérience, filtres de ressources, recherche 404, retour en haut et pagination partenaire passent à 320 px. |
 
 ## Point de vigilance
 

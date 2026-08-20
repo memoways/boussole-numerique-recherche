@@ -69,6 +69,16 @@ await verify("Page 404 : recherche et effacement", async () => {
   await page.getByRole("button", { name: "Effacer la recherche" }).click();
 });
 
+await verify("Retour en haut : apparition et remontée de page", async () => {
+  await page.goto(`${baseUrl}/ressources`, { waitUntil: "networkidle" });
+  await page.evaluate(() => window.scrollTo({ top: 720, behavior: "instant" }));
+  const backToTop = page.getByRole("button", { name: "Retour en haut de la page" });
+  await backToTop.waitFor({ state: "visible" });
+  await page.screenshot({ path: resolve("tmp/back-to-top-mobile.png"), fullPage: false });
+  await backToTop.click();
+  await page.waitForFunction(() => window.scrollY < 8);
+});
+
 await verify("Présentation partenaire : changement de slide", async () => {
   await page.goto(`${baseUrl}/partenaires/presentation`, { waitUntil: "networkidle" });
   const initialSlide = new URL(page.url()).searchParams.get("slide");

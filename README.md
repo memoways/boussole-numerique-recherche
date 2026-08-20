@@ -166,7 +166,7 @@ Toute modification effectivement livrée doit mettre à jour `CHANGELOG.md`, `ST
 | [`docs/CONTROLE_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md`](./docs/CONTROLE_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md) | Contrôles de la clarification du statut, des parcours, de l’ancienne URL et des jalons visibles |
 | [`docs/PLAN_PREVISUALISATION_EXPERIENCE_2026-08-20.md`](./docs/PLAN_PREVISUALISATION_EXPERIENCE_2026-08-20.md) | Cadrage des quatre écrans illustratifs du futur prototype sur la page Expérience |
 | [`docs/CONTROLE_PREVISUALISATION_EXPERIENCE_2026-08-20.md`](./docs/CONTROLE_PREVISUALISATION_EXPERIENCE_2026-08-20.md) | Contrôle des écrans, interactions, garde-fous et tests restant sur mobile réel |
-| [`docs/CONTROLE_RESPONSIVE_SMARTPHONE_2026-08-20.md`](./docs/CONTROLE_RESPONSIVE_SMARTPHONE_2026-08-20.md) | Audit 320 px et 390 px, contrôles tactiles, interactions prioritaires et limites de la simulation mobile |
+| [`docs/CONTROLE_RESPONSIVE_SMARTPHONE_2026-08-20.md`](./docs/CONTROLE_RESPONSIVE_SMARTPHONE_2026-08-20.md) | Audit 320 px et 390 px, contrôles tactiles, interactions prioritaires, retour en haut global et limites de la simulation mobile |
 
 ## Licence
 

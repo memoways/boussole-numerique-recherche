@@ -123,3 +123,4 @@
 - [x] Après validation, simplifier l’entrée de l’accueil à deux profils — Partenaires culturels et Artistes — puis aligner les pages Partenaires et Calendrier sans modifier les autres pages.
 - [x] Concevoir et intégrer sur la page Expérience des écrans illustratifs du futur prototype : entrée, questionnaire conversationnel, repères et restitution actionnable.
 - [x] Auditer l’ensemble des pages et composants publics sur smartphone, corriger les débordements, cibles tactiles et interactions mobiles, puis valider les parcours prioritaires.
+- [x] Ajouter un bouton global « Retour en haut », visible après défilement et testé sur les pages longues en format smartphone.

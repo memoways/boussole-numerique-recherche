@@ -7,6 +7,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import ScrollToTop from "./components/ScrollToTop";
+import BackToTop from "./components/BackToTop";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import SeoMeta from "./components/SeoMeta";
@@ -67,6 +68,7 @@ function Router() {
       <SeoMeta pathname={location} />
       <a href="#contenu-principal" className="skip-link">Aller au contenu principal</a>
       <ScrollToTop />
+      <BackToTop />
       <Navigation />
       <PageBreadcrumbs pathname={location} />
       <main id="contenu-principal" className="min-h-0" tabIndex={-1}>

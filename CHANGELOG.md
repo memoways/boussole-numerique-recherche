@@ -2,6 +2,18 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.3.3] — 2026-08-20 — Retour en haut pour les lectures longues
+
+### Ajouté
+
+- Bouton global « Retour en haut » : il apparaît après 480 px de défilement, reste fixe en bas à droite et présente une cible tactile d’au moins 48 px sur smartphone.
+- Remontée fluide vers le sommet, avec retour immédiat lorsque la préférence système de réduction des mouvements est active.
+- Contrôle automatique de l’apparition et de la remontée dans l’audit mobile reproductible ; le scénario d’interactions vérifie désormais neuf gestes prioritaires.
+
+### Vérifié
+
+- Le bouton apparaît, reste lisible au-dessus des cartes de Ressources à 320 px et remonte effectivement au sommet après activation au clavier ou au toucher simulé.
+
 ## [1.3.2] — 2026-08-20 — Audit et corrections smartphone
 
 ### Modifié
