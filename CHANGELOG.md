@@ -2,6 +2,25 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.3.1] — 2026-08-20 — Prévisualisation concrète de l’expérience Boussole
+
+### Modifié
+
+- La page Expérience devient une démonstration en quatre écrans cohérents avec les wireframes de référence : **Se situer**, **Décrire**, **Comprendre** et **Agir**.
+- Chaque étape comporte désormais un cadre applicatif, une indication de progression, des contrôles illustratifs et une explication de ce que le futur prototype devra permettre.
+- L’écran de conversation rend visibles une question en langage ordinaire, des réponses rapides et les modes écrit ou vocal, sans sauvegarde ni envoi de données.
+- L’écran de panorama relie le radar interactif partagé à des repères par dimension, explicitement formulés comme des points à discuter et non comme des scores personnels.
+- L’écran d’action propose trois premières améliorations illustratives et rappelle que les ressources ou recommandations resteront à co-concevoir, sans décision automatisée.
+- Titre, description SEO et pré-rendu HTML de `/experience` sont alignés sur cette prévisualisation de quatre écrans.
+
+### Ajouté
+
+- Plan de conception [`docs/PLAN_PREVISUALISATION_EXPERIENCE_2026-08-20.md`](./docs/PLAN_PREVISUALISATION_EXPERIENCE_2026-08-20.md) et contrôle associé [`docs/CONTROLE_PREVISUALISATION_EXPERIENCE_2026-08-20.md`](./docs/CONTROLE_PREVISUALISATION_EXPERIENCE_2026-08-20.md).
+
+### Vérifié
+
+- Les quatre écrans, le radar à icônes périphériques, les choix illustratifs et les actions de navigation ont été contrôlés dans le navigateur. `pnpm verify` passe après génération du pré-rendu, contrôle SEO-GEO et build de l’API partenaire.
+
 ## [1.3.0] — 2026-08-16 — Site compagnon et Boussole en préparation
 
 ### Modifié

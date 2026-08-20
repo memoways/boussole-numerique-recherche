@@ -121,3 +121,4 @@
 - [x] Consolider CHANGELOG.md et STORY.md avec les développements effectivement livrés depuis la dernière révision documentaire.
 - [x] Formaliser et faire valider la clarification : site compagnon existant, Boussole en préparation, co-conception à l’automne 2026 et prototype à tester d’ici fin 2026.
 - [x] Après validation, simplifier l’entrée de l’accueil à deux profils — Partenaires culturels et Artistes — puis aligner les pages Partenaires et Calendrier sans modifier les autres pages.
+- [x] Concevoir et intégrer sur la page Expérience des écrans illustratifs du futur prototype : entrée, questionnaire conversationnel, repères et restitution actionnable.

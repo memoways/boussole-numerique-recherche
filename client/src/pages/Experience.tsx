@@ -1,437 +1,181 @@
-import { useState, useEffect, useRef } from "react";
+/**
+ * Expérience — prévisualisation interactive et non fonctionnelle du futur prototype.
+ * Design : une suite de quatre écrans applicatifs inspirés des wireframes, toujours explicitement présentés comme une démonstration sans collecte.
+ */
+import { useState, type ReactNode } from "react";
+import { Link } from "wouter";
+import {
+  ArrowRight,
+  Building2,
+  Check,
+  ChevronRight,
+  Compass,
+  FileText,
+  Lightbulb,
+  Mic,
+  MessageSquareText,
+  Sparkles,
+  User,
+  Users,
+  Wrench,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  ArrowRight, User, Building2, Eye, Compass, Lightbulb, Download,
-  Clock, ChevronRight, BarChart3, FileText, Zap
-} from "lucide-react";
-import { Link } from "wouter";
+import { AnimatedRadarGraphic, type RadarDimension } from "@/components/AnimatedRadarGraphic";
 
-/**
- * Page /experience — L'expérience Boussole
- * Visualisations explicatives (pas de collecte de données réelle)
- * Couleurs Memoways : bleu #515792, orange #E27227
- */
+const STEPS = [
+  { id: "profil", num: "01", label: "Se situer", title: "Choisir le point de départ", detail: "Le futur prototype pourra adapter ses questions à la situation décrite, sans produire de profil évaluatif.", color: "#515792", icon: User },
+  { id: "conversation", num: "02", label: "Décrire", title: "Parler de ce qui se passe vraiment", detail: "Une question à la fois, formulée en langage ordinaire, avec une réponse écrite ou vocale à relire.", color: "#E07428", icon: MessageSquareText },
+  { id: "panorama", num: "03", label: "Comprendre", title: "Lire un panorama à discuter", detail: "Le radar et les repères sont une manière de préparer une conversation, jamais une note personnelle.", color: "#3aab8a", icon: Compass },
+  { id: "agir", num: "04", label: "Agir", title: "Choisir une première amélioration", detail: "Les pistes et ressources devront être actionnables, contextualisées et laissées à la décision des personnes concernées.", color: "#3a7fc1", icon: Lightbulb },
+] as const;
 
-const PARCOURS = [
-  {
-    num: "01",
-    temps: "Avant de commencer",
-    titre: "Choisir son profil",
-    desc: "Individuel ou structure ? La future expérience tiendra compte de cette première indication pour orienter le questionnaire.",
-    icon: User,
-    couleur: "#515792",
-    detail: "Le choix du profil déterminera le type de questions, la profondeur de l’analyse et le format de la restitution. Un artiste indépendant n’a pas les mêmes enjeux qu’une équipe de 15 personnes dans un musée.",
-  },
-  {
-    num: "02",
-    temps: "Premier temps",
-    titre: "La photo",
-    desc: "Un questionnaire conversationnel, formulé en langage ordinaire. Vous pourrez décrire vos pratiques telles qu’elles sont.",
-    icon: Eye,
-    couleur: "#E27227",
-    detail: "Le questionnaire explorera les cinq dimensions des pratiques numériques. Les questions seront formulées en langage ordinaire. Il n’y aura pas de bonne ou de mauvaise réponse. L’objectif sera de prendre une photo fidèle de la situation.",
-  },
-  {
-    num: "03",
-    temps: "Deuxième temps",
-    titre: "Le panorama",
-    desc: "Une carte visuelle de vos pratiques numériques. Un radar en cinq dimensions montrera les points d’attention à discuter.",
-    icon: BarChart3,
-    couleur: "#3aab8a",
-    detail: "Le panorama sera une restitution visuelle personnalisée. Chaque dimension sera représentée avec un niveau et des observations issues de vos réponses.",
-  },
-  {
-    num: "04",
-    temps: "Troisième temps",
-    titre: "L'approfondissement",
-    desc: "Des pistes d’action et des ressources proposeront un premier pas en fonction des réponses partagées.",
-    icon: Lightbulb,
-    couleur: "#9b59b6",
-    detail: "L’approfondissement proposera des ressources liées au profil et aux résultats. Il suggérera des lectures, des outils ou des démarches à discuter selon la situation décrite.",
-  },
+const DIMENSIONS: RadarDimension[] = [
+  { label: "Outils", couleur: "#515792", emoji: "⌁", resume: "Des outils cohérents avec les usages et le collectif." },
+  { label: "Compétences", couleur: "#E07428", emoji: "↗", resume: "Des repères partagés, sans jugement de niveau." },
+  { label: "Données", couleur: "#3aab8a", emoji: "◌", resume: "Des informations mieux classées et plus faciles à retrouver." },
+  { label: "Diffusion", couleur: "#3a7fc1", emoji: "◒", resume: "Des canaux choisis selon les projets et les publics." },
+  { label: "Collaboration", couleur: "#7ab648", emoji: "↔", resume: "Des procédures de travail plus simples à partager." },
 ];
 
-const EXTRAS = [
-  {
-    icon: Building2,
-    titre: "Mode structure : regards croisés",
-    desc: "En mode structure, plusieurs membres d'une équipe peuvent répondre séparément. La Boussole croise les regards et fait apparaître les convergences et les écarts de perception.",
-    couleur: "#515792",
-  },
-  {
-    icon: Download,
-    titre: "Export et ressources",
-    desc: "Les résultats peuvent être exportés en PDF. Une sélection de ressources adaptées est proposée à la fin de chaque parcours.",
-    couleur: "#E27227",
-  },
-  {
-    icon: Clock,
-    titre: "Suivi dans le temps",
-    desc: "La Boussole pourra être refaite après quelques mois pour mesurer l'évolution des pratiques et l'impact des changements engagés.",
-    couleur: "#3aab8a",
-  },
+const PREVIEW_BARS = [
+  { label: "Outils", color: "#515792", width: "66%", note: "à explorer" },
+  { label: "Compétences", color: "#E07428", width: "78%", note: "repère solide" },
+  { label: "Données", color: "#3aab8a", width: "43%", note: "priorité à discuter" },
+  { label: "Diffusion", color: "#3a7fc1", width: "61%", note: "à préciser" },
+  { label: "Collaboration", color: "#7ab648", width: "52%", note: "à relier" },
 ];
 
-// Dimensions du radar
-const DIMS = [
-  {
-    label: "Outils",
-    emoji: "🛠️",
-    couleur: "#515792",
-    desc: "Les logiciels, applications et plateformes utilisés au quotidien. Cette dimension évalue si vos outils sont adaptés à vos usages réels — pas à ce qu'on vous a vendu.",
-  },
-  {
-    label: "Compétences",
-    emoji: "🎓",
-    couleur: "#E27227",
-    desc: "Les savoir-faire numériques de votre équipe. La Boussole ne juge pas le niveau — elle aide à repérer les écarts entre les besoins du terrain et les compétences disponibles.",
-  },
-  {
-    label: "Données",
-    emoji: "🗄️",
-    couleur: "#3aab8a",
-    desc: "La manière dont vous collectez, stockez et utilisez vos données (publics, projets, finances). Une dimension souvent sous-estimée, pourtant centrale pour piloter une structure culturelle.",
-  },
-  {
-    label: "Diffusion",
-    emoji: "📡",
-    couleur: "#9b59b6",
-    desc: "Votre présence numérique — site web, réseaux sociaux, newsletters, billetterie en ligne. Cette dimension évalue la cohérence et l'efficacité de vos canaux de communication.",
-  },
-  {
-    label: "Collaboration",
-    emoji: "🔗",
-    couleur: "#E58441",
-    desc: "Les outils et pratiques de travail en équipe — partage de fichiers, gestion de projets, communication interne. Là où beaucoup de structures perdent le plus d'énergie au quotidien.",
-  },
-];
-
-// Valeurs cibles qui oscillent entre min et max
-const TARGETS_A = [0.72, 0.50, 0.83, 0.45, 0.68];
-const TARGETS_B = [0.40, 0.78, 0.55, 0.82, 0.35];
-
-function AnimatedRadar() {
-  const [vals, setVals] = useState(TARGETS_A);
-  const [activeDim, setActiveDim] = useState<number | null>(null);
-  const [hoveredDim, setHoveredDim] = useState<number | null>(null);
-  const rafRef = useRef<number | null>(null);
-  const startRef = useRef<number | null>(null);
-  const phaseRef = useRef(0); // 0 = vers B, 1 = vers A
-  const progressRef = useRef(0);
-
-  useEffect(() => {
-    const MORPH_DURATION = 4000; // ms pour passer d'un état à l'autre
-    let lastTime = 0;
-
-    const tick = (ts: number) => {
-      if (!startRef.current) startRef.current = ts;
-      const dt = ts - lastTime;
-      lastTime = ts;
-
-      // Morphing des pointes
-      progressRef.current = Math.min(progressRef.current + dt / MORPH_DURATION, 1);
-      const t = progressRef.current;
-      // easing sinusoïdal
-      const ease = (1 - Math.cos(t * Math.PI)) / 2;
-      const from = phaseRef.current === 0 ? TARGETS_A : TARGETS_B;
-      const to   = phaseRef.current === 0 ? TARGETS_B : TARGETS_A;
-      setVals(from.map((f, i) => f + (to[i] - f) * ease));
-
-      if (progressRef.current >= 1) {
-        progressRef.current = 0;
-        phaseRef.current = phaseRef.current === 0 ? 1 : 0;
-      }
-
-      rafRef.current = requestAnimationFrame(tick);
-    };
-
-    rafRef.current = requestAnimationFrame(tick);
-    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
-  }, []);
-
-  const CX = 150, CY = 150, R_GRID = 100, R_ORBIT = 138;
-
-  // Calcule les points du radar
-  const radarPoints = vals.map((v, i) => {
-    const angle = (i * 72 - 90) * Math.PI / 180;
-    const r = R_GRID * v;
-    return { x: CX + r * Math.cos(angle), y: CY + r * Math.sin(angle) };
-  });
-  const radarPath = radarPoints.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x.toFixed(2)},${p.y.toFixed(2)}`).join(' ') + ' Z';
-
+function PrototypeFrame({ step, children }: { step: number; children: ReactNode }) {
   return (
-    <div className="flex flex-col items-center gap-4 w-full">
-    <svg viewBox="0 0 300 300" className="w-64 h-64 sm:w-80 sm:h-80" style={{ overflow: 'visible' }} role="group" aria-label="Radar des cinq dimensions de l'expérience. Utilisez les icônes autour du graphique pour afficher une dimension.">
-      {/* Grille pentagone */}
-      {[1, 0.75, 0.5, 0.25].map((scale, si) => {
-        const pts = [0,1,2,3,4].map(i => {
-          const a = (i * 72 - 90) * Math.PI / 180;
-          return `${(CX + R_GRID * scale * Math.cos(a)).toFixed(1)},${(CY + R_GRID * scale * Math.sin(a)).toFixed(1)}`;
-        }).join(' ');
-        return <polygon key={si} points={pts} fill="none" stroke="#e5e7eb" strokeWidth="1" />;
-      })}
-      {/* Axes */}
-      {[0,1,2,3,4].map(i => {
-        const a = (i * 72 - 90) * Math.PI / 180;
-        return <line key={i} x1={CX} y1={CY} x2={(CX + R_GRID * Math.cos(a)).toFixed(1)} y2={(CY + R_GRID * Math.sin(a)).toFixed(1)} stroke="#e5e7eb" strokeWidth="1" />;
-      })}
-      {/* Zone radar animée */}
-      <path d={radarPath} fill="#515792" fillOpacity="0.18" stroke="#515792" strokeWidth="2" strokeLinejoin="round" />
-      {/* Points du radar — purement visuels */}
-      {radarPoints.map((p, i) => (
-        <circle key={i} cx={p.x.toFixed(2)} cy={p.y.toFixed(2)} r="4.5" fill={DIMS[i].couleur} stroke="white" strokeWidth="1.5" aria-hidden="true" />
-      ))}
-      {/* Icônes périphériques — seuls contrôles du radar */}
-      {DIMS.map((dim, i) => {
-        const baseAngle = i * 72 - 90;
-        const a = baseAngle * Math.PI / 180;
-        const x = CX + R_ORBIT * Math.cos(a);
-        const y = CY + R_ORBIT * Math.sin(a);
-        const selected = activeDim === i;
-        const hovered = hoveredDim === i;
-        return (
-          <g
-            key={i}
-            role="button"
-            tabIndex={0}
-            aria-label={`Afficher la dimension ${dim.label}`}
-            aria-pressed={activeDim === i}
-            style={{ cursor: 'pointer', outline: 'none' }}
-            onMouseEnter={() => setHoveredDim(i)}
-            onMouseLeave={() => setHoveredDim(null)}
-            onFocus={() => { setHoveredDim(i); setActiveDim(i); }}
-            onBlur={() => setHoveredDim(null)}
-            onClick={() => setActiveDim(activeDim === i ? null : i)}
-            onKeyDown={(event) => {
-              if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault();
-                setActiveDim(activeDim === i ? null : i);
-              }
-            }}
-          >
-            <circle cx={x.toFixed(1)} cy={y.toFixed(1)} r="22" fill="transparent" />
-            <circle
-              cx={x.toFixed(1)}
-              cy={y.toFixed(1)}
-              r={selected || hovered ? "18" : "16"}
-              fill={selected ? dim.couleur + "16" : hovered ? dim.couleur + "0d" : "white"}
-              stroke={dim.couleur}
-              strokeWidth={selected || hovered ? "2.5" : "1.5"}
-              style={{ filter: 'drop-shadow(0 1px 3px rgba(0,0,0,0.12))', transition: 'r 180ms ease, fill 180ms ease, stroke-width 180ms ease' }}
-            />
-            <text x={x.toFixed(1)} y={y.toFixed(1)} textAnchor="middle" dominantBaseline="middle" fontSize="14" aria-hidden="true">{dim.emoji}</text>
-          </g>
-        );
-      })}
-    </svg>
-
-    {/* Panneau description dimension active */}
-    <div
-      className="w-full max-w-xs rounded-xl px-4 py-3 text-sm leading-relaxed transition-all duration-300"
-      aria-live="polite"
-      style={{
-        minHeight: '72px',
-        backgroundColor: activeDim !== null ? DIMS[activeDim].couleur + '12' : '#f8f9fc',
-        borderLeft: activeDim !== null ? `3px solid ${DIMS[activeDim].couleur}` : '3px solid #e5e7eb',
-        opacity: activeDim !== null ? 1 : 0.5,
-      }}
-    >
-      {activeDim !== null ? (
-        <>
-          <p className="font-bold mb-1" style={{ color: DIMS[activeDim].couleur }}>
-            {DIMS[activeDim].emoji} {DIMS[activeDim].label}
-          </p>
-          <p className="text-gray-600">{DIMS[activeDim].desc}</p>
-        </>
-      ) : (
-        <p className="text-gray-400 italic text-xs">Sélectionnez une icône autour du radar pour découvrir la dimension correspondante.</p>
-      )}
-    </div>
+    <div className="overflow-hidden rounded-[1.6rem] border border-slate-200 bg-white shadow-[0_20px_55px_rgba(31,41,55,0.12)]">
+      <div className="flex items-center justify-between gap-4 border-b border-slate-200 bg-slate-50 px-4 py-3 sm:px-6">
+        <div className="flex min-w-0 items-center gap-2 text-sm font-bold text-[#515792]">
+          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#515792] text-white"><Compass className="h-4 w-4" /></span>
+          <span className="truncate">Boussole Numérique Culture</span>
+        </div>
+        <p className="hidden text-xs font-bold text-slate-500 sm:block">Démonstration · écran {step} sur 4</p>
+        <div className="flex gap-1.5" aria-label={`Progression : écran ${step} sur 4`}>
+          {STEPS.map((item, index) => <span key={item.id} className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: index < step ? item.color : "#d8dce7" }} />)}
+        </div>
+      </div>
+      <div className="p-4 sm:p-6">{children}</div>
+      <div className="border-t border-slate-100 bg-slate-50 px-4 py-2.5 text-xs leading-relaxed text-slate-500 sm:px-6">
+        Prévisualisation du futur prototype. Aucun choix, texte ou résultat n’est enregistré depuis cet écran.
+      </div>
     </div>
   );
 }
 
+function ProfileScreen() {
+  const [selection, setSelection] = useState<"artiste" | "structure">("artiste");
+  const options = [
+    { id: "artiste" as const, title: "Je suis artiste", desc: "Création, médiation, diffusion ou pratique culturelle.", icon: User, color: "#E07428" },
+    { id: "structure" as const, title: "Je représente une structure", desc: "Association, lieu, collectif ou réseau qui accompagne des artistes.", icon: Building2, color: "#515792" },
+  ];
+  return (
+    <PrototypeFrame step={1}>
+      <p className="text-xs font-black uppercase tracking-[0.14em] text-[#515792]">Étape de démonstration</p>
+      <h3 className="mt-2 text-2xl font-extrabold tracking-tight text-slate-950">Quel point de départ vous ressemble le plus ?</h3>
+      <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">Le futur outil utilisera cette indication pour proposer des questions compréhensibles depuis votre situation, sans vous classer.</p>
+      <div className="mt-6 grid gap-3 md:grid-cols-2">
+        {options.map(({ id, title, desc, icon: Icon, color }) => {
+          const active = selection === id;
+          return <button key={id} type="button" aria-pressed={active} onClick={() => setSelection(id)} className="rounded-2xl border-2 p-5 text-left transition-all focus-visible:outline-2 focus-visible:outline-offset-4" style={{ borderColor: active ? color : "#e2e8f0", backgroundColor: active ? `${color}10` : "#fff", boxShadow: active ? `inset 0 0 0 1px ${color}` : "none", outlineColor: color }}><span className="flex h-10 w-10 items-center justify-center rounded-xl text-white" style={{ backgroundColor: color }}><Icon className="h-5 w-5" /></span><span className="mt-4 block font-extrabold text-slate-950">{title}</span><span className="mt-1 block text-sm leading-relaxed text-slate-600">{desc}</span>{active && <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold" style={{ color }}><Check className="h-4 w-4" /> Exemple sélectionné</span>}</button>;
+        })}
+      </div>
+    </PrototypeFrame>
+  );
+}
+
+function ConversationScreen() {
+  const [mode, setMode] = useState<"ecrit" | "vocal">("ecrit");
+  const [choice, setChoice] = useState("partage");
+  const choices = [
+    { id: "partage", label: "Retrouver et partager les fichiers" },
+    { id: "coordination", label: "Coordonner un projet à plusieurs" },
+    { id: "outils", label: "Choisir ou simplifier les outils" },
+  ];
+  return (
+    <PrototypeFrame step={2}>
+      <div className="flex flex-wrap items-center justify-between gap-3"><div><p className="text-xs font-black uppercase tracking-[0.14em] text-[#E07428]">Question conversationnelle</p><h3 className="mt-1 text-2xl font-extrabold tracking-tight text-slate-950">Qu’est-ce qui rend votre travail numérique plus difficile aujourd’hui ?</h3></div><span className="rounded-full bg-orange-50 px-3 py-1.5 text-xs font-bold text-[#a94d14]">Exemple de question</span></div>
+      <div className="mt-5 rounded-2xl border-l-4 border-[#515792] bg-slate-50 p-4 text-sm leading-relaxed text-slate-700 sm:p-5">Vous préparez un projet avec plusieurs personnes. Certaines cherchent les fichiers, d’autres attendent une réponse ou ne savent plus quelle version est la bonne. Quelle situation souhaitez-vous décrire en premier ?</div>
+      <div className="mt-5 grid gap-2 sm:grid-cols-3">{choices.map((item) => <button key={item.id} type="button" aria-pressed={choice === item.id} onClick={() => setChoice(item.id)} className="rounded-xl border px-3 py-3 text-left text-sm font-semibold leading-snug transition-colors focus-visible:outline-2 focus-visible:outline-offset-2" style={{ borderColor: choice === item.id ? "#E07428" : "#e2e8f0", color: choice === item.id ? "#a94d14" : "#475569", backgroundColor: choice === item.id ? "#fff3ec" : "#fff", outlineColor: "#E07428" }}>{item.label}</button>)}</div>
+      <div className="mt-5 flex flex-wrap items-center gap-3"><button type="button" onClick={() => setMode("ecrit")} className="inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-bold" style={{ backgroundColor: mode === "ecrit" ? "#515792" : "#f1f3f8", color: mode === "ecrit" ? "#fff" : "#515792" }}><MessageSquareText className="h-4 w-4" /> Répondre par écrit</button><button type="button" onClick={() => setMode("vocal")} className="inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-bold" style={{ backgroundColor: mode === "vocal" ? "#515792" : "#f1f3f8", color: mode === "vocal" ? "#fff" : "#515792" }}><Mic className="h-4 w-4" /> Répondre à la voix</button><span className="text-xs text-slate-500">{mode === "vocal" ? "La transcription resterait modifiable avant validation." : "La réponse pourrait être complétée à votre rythme."}</span></div>
+    </PrototypeFrame>
+  );
+}
+
+function PanoramaScreen() {
+  const [activeBar, setActiveBar] = useState("Données");
+  return (
+    <PrototypeFrame step={3}>
+      <div className="flex flex-wrap items-start justify-between gap-3"><div><p className="text-xs font-black uppercase tracking-[0.14em] text-[#3aab8a]">Restitution illustrative</p><h3 className="mt-1 text-2xl font-extrabold tracking-tight text-slate-950">Votre panorama numérique</h3></div><span className="rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-bold text-[#18755e]">Aucun score personnel</span></div>
+      <div className="mt-6 grid items-center gap-7 lg:grid-cols-[minmax(220px,0.78fr)_minmax(0,1.22fr)]">
+        <div className="rounded-2xl border border-slate-200 bg-slate-50 px-2 py-4"><p className="text-center text-xs font-black uppercase tracking-[0.14em] text-slate-500">Carte des cinq dimensions</p><AnimatedRadarGraphic dimensions={DIMENSIONS} interactive className="mx-auto h-56 w-56 sm:h-64 sm:w-64" ariaLabel="Radar illustratif des cinq dimensions du futur prototype" /></div>
+        <div><p className="text-xs font-black uppercase tracking-[0.14em] text-slate-500">Repères à discuter</p><div className="mt-3 space-y-3">{PREVIEW_BARS.map((bar) => <button key={bar.label} type="button" onClick={() => setActiveBar(bar.label)} aria-pressed={activeBar === bar.label} className="block w-full rounded-xl p-2 text-left transition-colors focus-visible:outline-2 focus-visible:outline-offset-2" style={{ backgroundColor: activeBar === bar.label ? `${bar.color}10` : "transparent", outlineColor: bar.color }}><span className="flex items-center justify-between gap-3 text-sm"><span className="font-bold text-slate-800">{bar.label}</span><span className="text-xs font-semibold" style={{ color: bar.color }}>{bar.note}</span></span><span className="mt-2 block h-2.5 overflow-hidden rounded-full bg-slate-200"><span className="block h-full rounded-full transition-all duration-300" style={{ width: bar.width, backgroundColor: bar.color }} /></span></button>)}</div><p className="mt-4 rounded-xl bg-slate-50 p-3 text-sm leading-relaxed text-slate-600"><strong className="text-slate-900">Lecture illustrative :</strong> ici, {activeBar.toLowerCase()} devient un point de départ à explorer avec les personnes concernées, pas un verdict.</p></div>
+      </div>
+    </PrototypeFrame>
+  );
+}
+
+function ActionScreen() {
+  const [priority, setPriority] = useState("partage");
+  const actions = [
+    { id: "partage", title: "Clarifier le partage de fichiers", desc: "Choisir un espace commun, nommer les versions et définir une règle simple d’archivage.", icon: FileText, color: "#515792" },
+    { id: "collaboration", title: "Mettre à plat une procédure collective", desc: "Décrire qui fait quoi, où l’information circule et comment une décision est retrouvée.", icon: Users, color: "#3aab8a" },
+    { id: "outils", title: "Réexaminer un outil devenu contraignant", desc: "Comparer les besoins concrets avant de changer, simplifier ou mieux paramétrer un outil.", icon: Wrench, color: "#E07428" },
+  ];
+  return (
+    <PrototypeFrame step={4}>
+      <div className="flex flex-wrap items-start justify-between gap-3"><div><p className="text-xs font-black uppercase tracking-[0.14em] text-[#3a7fc1]">Première piste à choisir</p><h3 className="mt-1 text-2xl font-extrabold tracking-tight text-slate-950">Qu’aimeriez-vous améliorer en premier ?</h3></div><span className="rounded-full bg-blue-50 px-3 py-1.5 text-xs font-bold text-[#2b619d]">Exemples à co-concevoir</span></div>
+      <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600">Le futur prototype devra relier un repère discuté à une action praticable. Les suggestions restent à ajuster selon le contexte, les moyens et les préférences de chaque personne ou équipe.</p>
+      <div className="mt-6 grid gap-3 md:grid-cols-3">{actions.map(({ id, title, desc, icon: Icon, color }) => { const active = priority === id; return <button key={id} type="button" aria-pressed={active} onClick={() => setPriority(id)} className="rounded-2xl border-2 p-4 text-left transition-all focus-visible:outline-2 focus-visible:outline-offset-4" style={{ borderColor: active ? color : "#e2e8f0", backgroundColor: active ? `${color}10` : "#fff", outlineColor: color }}><span className="flex h-9 w-9 items-center justify-center rounded-xl text-white" style={{ backgroundColor: color }}><Icon className="h-4 w-4" /></span><span className="mt-4 block font-extrabold text-slate-950">{title}</span><span className="mt-2 block text-sm leading-relaxed text-slate-600">{desc}</span>{active && <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold" style={{ color }}><Check className="h-4 w-4" /> Piste illustrée</span>}</button>; })}</div>
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-slate-50 p-4"><p className="text-sm leading-relaxed text-slate-600"><strong className="text-slate-900">Ensuite :</strong> le prototype pourrait suggérer une ressource, une méthode ou une conversation à organiser, sans décider à votre place.</p><span className="inline-flex items-center gap-2 text-sm font-bold text-[#515792]"><Sparkles className="h-4 w-4" /> Ressources à préciser</span></div>
+    </PrototypeFrame>
+  );
+}
+
+function ScreenPreview({ activeStep }: { activeStep: number }) {
+  if (activeStep === 0) return <ProfileScreen />;
+  if (activeStep === 1) return <ConversationScreen />;
+  if (activeStep === 2) return <PanoramaScreen />;
+  return <ActionScreen />;
+}
+
 export default function Experience() {
-  const [etapeOuverte, setEtapeOuverte] = useState<number | null>(0);
+  const [activeStep, setActiveStep] = useState(0);
+  const current = STEPS[activeStep];
 
   return (
     <div className="bg-white">
+      <section className="bg-gradient-to-b from-slate-50 to-white px-4 pb-12 pt-20 sm:pt-24">
+        <div className="mx-auto max-w-5xl">
+          <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: "#E07428", color: "#fff" }}>Prévisualisation du futur prototype</Badge>
+          <h1 className="max-w-4xl text-3xl font-extrabold leading-tight text-slate-950 sm:text-4xl lg:text-5xl">Imaginer l’expérience Boussole, écran par écran</h1>
+          <p className="mt-4 max-w-3xl text-lg leading-relaxed text-slate-600 sm:text-xl">Cette page rend tangible le futur parcours : se situer, décrire une situation, lire un panorama, puis choisir une première amélioration. <strong>La Boussole n’existe pas encore et cette démonstration ne collecte aucune donnée.</strong></p>
+          <div className="mt-7 flex flex-wrap gap-3 text-sm"><span className="rounded-full bg-[#515792]/10 px-4 py-2 font-bold text-[#515792]">4 écrans à discuter</span><span className="rounded-full bg-[#3aab8a]/10 px-4 py-2 font-bold text-[#18755e]">État des lieux non jugeant</span><span className="rounded-full bg-[#E07428]/10 px-4 py-2 font-bold text-[#a94d14]">Pistes actionnables à co-concevoir</span></div>
+        </div>
+      </section>
 
-      {/* Hero */}
-      <section className="pt-20 sm:pt-24 pb-12 px-4 bg-gradient-to-b from-slate-50 to-white">
-        <div className="max-w-4xl mx-auto">
-          <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#E27227' }}>L'expérience</Badge>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4 leading-tight">
-            L'expérience Boussole
-          </h1>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-2xl leading-relaxed mb-8">
-            Une démonstration du futur parcours, mise à disposition sur ce site compagnon pour aider les partenaires à réagir aux étapes envisagées. Elle ne collecte pas de données réelles.
-          </p>
-          <div className="flex flex-wrap gap-3 items-center">
-            <div className="flex items-center gap-2 text-sm text-gray-500 bg-gray-100 rounded-full px-4 py-2">
-              <Clock className="h-4 w-4" />
-              <span>20–30 minutes</span>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-gray-500 bg-gray-100 rounded-full px-4 py-2">
-              <User className="h-4 w-4" />
-              <span>Individuel ou structure</span>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-gray-500 bg-gray-100 rounded-full px-4 py-2">
-              <Zap className="h-4 w-4" />
-              <span>Gratuit</span>
-            </div>
+      <section className="border-y border-slate-200 bg-white px-4 py-12 sm:py-16" aria-labelledby="experience-steps-title">
+        <div className="mx-auto max-w-6xl">
+          <div className="max-w-3xl"><p className="text-xs font-black uppercase tracking-[0.15em] text-[#515792]">Parcours illustratif</p><h2 id="experience-steps-title" className="mt-2 text-2xl font-extrabold tracking-tight text-slate-950 sm:text-3xl">Chaque étape propose un écran à mettre à l’épreuve</h2><p className="mt-3 text-base leading-relaxed text-slate-600">Les interfaces ci-dessous reprennent la logique des wireframes fournis, tout en restant cohérentes avec le statut actuel du projet et la charte de la Boussole.</p></div>
+          <div className="mt-8 grid gap-2 sm:grid-cols-4" role="tablist" aria-label="Étapes de la démonstration">
+            {STEPS.map((step, index) => { const Icon = step.icon; const active = activeStep === index; return <button key={step.id} type="button" role="tab" aria-selected={active} aria-controls="prototype-preview" onClick={() => setActiveStep(index)} className="group rounded-2xl border-2 p-4 text-left transition-all focus-visible:outline-2 focus-visible:outline-offset-4" style={{ borderColor: active ? step.color : "#e2e8f0", backgroundColor: active ? `${step.color}10` : "#fff", outlineColor: step.color }}><span className="flex items-center justify-between"><span className="flex h-9 w-9 items-center justify-center rounded-full text-white" style={{ backgroundColor: step.color }}><Icon className="h-4 w-4" /></span><span className="text-xs font-black" style={{ color: step.color }}>{step.num}</span></span><span className="mt-4 block font-extrabold text-slate-950">{step.label}</span><span className="mt-1 block text-xs leading-relaxed text-slate-500">{step.title}</span></button>; })}
+          </div>
+          <div id="prototype-preview" role="tabpanel" className="mt-8 grid gap-6 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:items-start">
+            <aside className="rounded-2xl border border-slate-200 bg-slate-50 p-5 lg:sticky lg:top-24"><span className="text-xs font-black uppercase tracking-[0.14em]" style={{ color: current.color }}>{current.num} · {current.label}</span><h3 className="mt-2 text-2xl font-extrabold tracking-tight text-slate-950">{current.title}</h3><p className="mt-3 text-sm leading-relaxed text-slate-600">{current.detail}</p><div className="mt-6 border-t border-slate-200 pt-5"><p className="text-xs font-bold uppercase tracking-[0.12em] text-slate-500">Ce que la démo montre</p><p className="mt-2 text-sm leading-relaxed text-slate-600">Une interface peut être concrète sans promettre un résultat déjà produit. Les éléments interactifs servent ici à discuter la forme future du prototype.</p></div><div className="mt-6 flex gap-2"><button type="button" onClick={() => setActiveStep(Math.max(0, activeStep - 1))} disabled={activeStep === 0} className="rounded-lg border border-slate-300 px-3 py-2 text-sm font-bold text-slate-600 disabled:cursor-not-allowed disabled:opacity-40">Précédent</button><button type="button" onClick={() => setActiveStep(Math.min(STEPS.length - 1, activeStep + 1))} disabled={activeStep === STEPS.length - 1} className="rounded-lg px-3 py-2 text-sm font-bold text-white disabled:cursor-not-allowed disabled:opacity-40" style={{ backgroundColor: current.color }}>Suivant</button></div></aside>
+            <ScreenPreview activeStep={activeStep} />
           </div>
         </div>
       </section>
 
-      {/* Flowchart du parcours */}
-      <section className="py-14 px-4 bg-white">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-gray-900 mb-3">Le parcours pas à pas</h2>
-          <p className="text-gray-500 mb-10 max-w-xl">Cliquez sur chaque étape pour en savoir plus.</p>
+      <section className="bg-slate-50 px-4 py-12 sm:py-16"><div className="mx-auto max-w-6xl"><div className="grid gap-5 md:grid-cols-3"><div className="border-t-4 bg-white p-6 shadow-sm" style={{ borderColor: "#515792" }}><User className="h-7 w-7 text-[#515792]" /><h2 className="mt-4 text-lg font-extrabold text-slate-950">Pour les artistes</h2><p className="mt-2 text-sm leading-relaxed text-slate-600">Partir d’une pratique vécue et choisir une amélioration qui ne demande pas de devenir spécialiste du numérique.</p></div><div className="border-t-4 bg-white p-6 shadow-sm" style={{ borderColor: "#3aab8a" }}><Users className="h-7 w-7 text-[#18755e]" /><h2 className="mt-4 text-lg font-extrabold text-slate-950">Pour les structures</h2><p className="mt-2 text-sm leading-relaxed text-slate-600">Faire émerger des regards croisés, des priorités communes et les conditions d’un changement collaboratif.</p></div><div className="border-t-4 bg-white p-6 shadow-sm" style={{ borderColor: "#E07428" }}><FileText className="h-7 w-7 text-[#a94d14]" /><h2 className="mt-4 text-lg font-extrabold text-slate-950">Pour le prototype</h2><p className="mt-2 text-sm leading-relaxed text-slate-600">Tester les mots, les écrans, les restitutions et les pistes d’action avant de proposer une ouverture publique.</p></div></div></div></section>
 
-          {/* Desktop: horizontal */}
-          <div className="hidden md:block">
-            {/* Barre de progression */}
-            <div className="flex items-center mb-8">
-              {PARCOURS.map((etape, i) => (
-                <div key={i} className="flex items-center flex-1">
-                  <button
-                    className="flex flex-col items-center gap-2 group flex-shrink-0"
-                    onClick={() => setEtapeOuverte(etapeOuverte === i ? null : i)}
-                  >
-                    <div
-                      className="w-12 h-12 rounded-full flex items-center justify-center font-bold text-white text-sm transition-transform group-hover:scale-110"
-                      style={{ backgroundColor: etapeOuverte === i ? etape.couleur : '#d1d5db' }}
-                    >
-                      {etape.num}
-                    </div>
-                    <span className="text-xs font-semibold text-center" style={{ color: etapeOuverte === i ? etape.couleur : '#6b7280' }}>
-                      {etape.titre}
-                    </span>
-                  </button>
-                  {i < PARCOURS.length - 1 && (
-                    <div className="flex-1 h-0.5 mx-2" style={{ backgroundColor: '#e5e7eb' }}></div>
-                  )}
-                </div>
-              ))}
-            </div>
-            {/* Détail de l'étape sélectionnée */}
-            {etapeOuverte !== null && (
-              <div className="rounded-2xl p-8 transition-all" style={{ backgroundColor: PARCOURS[etapeOuverte].couleur + '10', borderLeft: `4px solid ${PARCOURS[etapeOuverte].couleur}` }}>
-                <div className="flex items-start gap-5">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ backgroundColor: PARCOURS[etapeOuverte].couleur }}>
-                    {(() => { const Icon = PARCOURS[etapeOuverte].icon; return <Icon className="h-6 w-6 text-white" />; })()}
-                  </div>
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: PARCOURS[etapeOuverte].couleur }}>{PARCOURS[etapeOuverte].temps}</p>
-                    <h3 className="text-xl font-bold text-gray-900 mb-3">{PARCOURS[etapeOuverte].titre}</h3>
-                    <p className="text-gray-600 leading-relaxed mb-3">{PARCOURS[etapeOuverte].desc}</p>
-                    <p className="text-sm text-gray-500 leading-relaxed">{PARCOURS[etapeOuverte].detail}</p>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
+      <section className="px-4 py-10"><div className="mx-auto max-w-5xl rounded-2xl border border-slate-200 bg-white p-6 sm:p-8"><div className="flex items-start gap-4"><FileText className="mt-0.5 h-6 w-6 shrink-0 text-[#515792]" /><div><h2 className="font-extrabold text-slate-950">Ce que ces écrans ne font pas encore</h2><p className="mt-2 text-sm leading-relaxed text-slate-600">Ils ne lancent pas de diagnostic, ne calculent pas de score, ne sauvegardent pas de réponse et ne recommandent pas automatiquement un outil. Ils rendent simplement discutables les écrans et les gestes que le prototype devra confirmer avec les partenaires et les artistes.</p></div></div></div></section>
 
-          {/* Mobile: vertical */}
-          <div className="md:hidden space-y-3">
-            {PARCOURS.map((etape, i) => {
-              const Icon = etape.icon;
-              return (
-                <div
-                  key={i}
-                  className="rounded-xl border-2 bg-white cursor-pointer transition-all"
-                  style={{ borderColor: etapeOuverte === i ? etape.couleur : '#e5e7eb' }}
-                  onClick={() => setEtapeOuverte(etapeOuverte === i ? null : i)}
-                >
-                  <div className="p-4 flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 font-bold text-white text-sm" style={{ backgroundColor: etape.couleur }}>
-                      {etape.num}
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-xs text-gray-400">{etape.temps}</p>
-                      <h3 className="font-bold text-gray-900">{etape.titre}</h3>
-                    </div>
-                    <ChevronRight className={`h-4 w-4 text-gray-400 transition-transform ${etapeOuverte === i ? 'rotate-90' : ''}`} />
-                  </div>
-                  {etapeOuverte === i && (
-                    <div className="px-4 pb-4 border-t border-gray-50">
-                      <p className="text-sm text-gray-600 leading-relaxed mt-3">{etape.desc}</p>
-                      <p className="text-sm text-gray-500 leading-relaxed mt-2">{etape.detail}</p>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Exemple de radar (wireframe stylisé) */}
-      <section className="py-14 px-4" style={{ backgroundColor: '#f8f9fc' }}>
-        <div className="max-w-4xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Un panorama visuel en cinq dimensions</h2>
-              <p className="text-gray-600 leading-relaxed mb-4">La future restitution proposera une carte visuelle des pratiques numériques. Ce radar en cinq dimensions est une représentation explicative.</p>
-              <p className="text-gray-500 text-sm leading-relaxed">Il aidera à situer les points d’attention et à choisir les prochaines questions à explorer.</p>
-            </div>
-            {/* Radar animé */}
-            <div className="flex justify-center">
-              <AnimatedRadar />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Fonctionnalités supplémentaires */}
-      <section className="py-14 px-4 bg-white">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8">Fonctionnalités complémentaires</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {EXTRAS.map(({ icon: Icon, titre, desc, couleur }) => (
-              <div key={titre} className="rounded-2xl p-6" style={{ backgroundColor: couleur + '10' }}>
-                <Icon className="h-7 w-7 mb-4" style={{ color: couleur }} />
-                <h3 className="font-bold text-gray-900 mb-2">{titre}</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">{desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Note importante */}
-      <section className="py-10 px-4" style={{ backgroundColor: '#f8f9fc' }}>
-        <div className="max-w-4xl mx-auto">
-          <div className="rounded-2xl p-6 border border-gray-200 bg-white">
-            <div className="flex items-start gap-4">
-              <FileText className="h-6 w-6 flex-shrink-0 mt-0.5" style={{ color: '#515792' }} />
-              <div>
-                <h3 className="font-bold text-gray-900 mb-2">Note importante</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">Les visualisations présentées sur cette page sont des <strong>représentations explicatives</strong> du futur outil. La Boussole est en cours de co-conception. Elle ne collecte pas encore de données réelles. Ces schémas illustrent l'expérience telle qu'elle est envisagée.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-14 px-4 bg-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Votre réaction peut aider à définir le prototype</h2>
-          <p className="text-gray-500 mb-8">Les partenaires peuvent partager leurs besoins, leurs points de vigilance et les situations à ne pas oublier avant l’atelier de co-conception.</p>
-          <div className="flex flex-wrap gap-3 justify-center">
-            <Button style={{ backgroundColor: '#E07428', color: '#fff' }} asChild>
-              <Link href="/partenaires/questionnaire">Répondre au questionnaire partenaire <ArrowRight className="ml-2 h-4 w-4" /></Link>
-            </Button>
-            <Button variant="outline" style={{ borderColor: '#515792', color: '#515792' }} asChild>
-              <Link href="/partenaires">Comprendre le rôle des partenaires</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+      <section className="bg-white px-4 pb-16 pt-8 text-center"><div className="mx-auto max-w-4xl"><h2 className="text-2xl font-extrabold text-slate-950">Votre réaction peut aider à définir ces écrans</h2><p className="mx-auto mt-3 max-w-2xl text-slate-600">Les partenaires peuvent partager ce qui semble juste, ce qui manque et ce qui devrait rester simple avant l’atelier et le cadrage du prototype.</p><div className="mt-7 flex flex-wrap justify-center gap-3"><Button className="text-white" style={{ backgroundColor: "#E07428" }} asChild><Link href="/partenaires/questionnaire">Répondre au questionnaire partenaire <ArrowRight className="ml-2 h-4 w-4" /></Link></Button><Button variant="outline" className="border-[#515792] text-[#515792]" asChild><Link href="/partenaires">Comprendre la co-conception <ChevronRight className="ml-1 h-4 w-4" /></Link></Button></div></div></section>
     </div>
   );
 }

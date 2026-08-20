@@ -49,11 +49,11 @@ const pages = {
     links: [{ label: "Comprendre le rôle des partenaires", path: "/partenaires" }, { label: "Lire la méthode", path: "/methode" }],
   },
   "/experience": {
-    title: "Démonstration de la Boussole | Partenaires",
-    description: "Une démonstration du futur parcours destinée à aider les partenaires à réagir aux dimensions et aux choix de conception de la Boussole.",
-    h1: "L’expérience Boussole",
-    intro: "Cette démonstration du futur parcours aide les partenaires à réagir aux étapes envisagées. Elle ne collecte pas de données réelles.",
-    sections: [{ heading: "Un parcours à discuter", text: "Le futur outil pourrait relier un questionnaire adaptatif, une restitution visuelle et des pistes d’action. Les formes définitives restent à préciser avec le terrain." }],
+    title: "Prévisualiser le futur prototype | Boussole Culture",
+    description: "Quatre écrans illustratifs pour discuter le futur prototype : se situer, décrire une situation, lire un panorama et choisir une première amélioration.",
+    h1: "Imaginer l’expérience Boussole, écran par écran",
+    intro: "Cette page prévisualise quatre écrans du futur prototype : se situer, décrire une situation, lire un panorama et choisir une première amélioration. La Boussole n’existe pas encore et cette démonstration ne collecte aucune donnée.",
+    sections: [{ heading: "Quatre écrans à discuter", text: "Les interfaces montrent comment le futur outil pourrait adapter ses questions, préparer un état des lieux non jugeant, rendre les repères visuels discutables et proposer des pistes d’action sans décider à la place des personnes concernées." }],
     links: [{ label: "Répondre au questionnaire partenaire", path: "/partenaires/questionnaire" }, { label: "Voir la méthode", path: "/methode" }],
   },
   "/methode": {
