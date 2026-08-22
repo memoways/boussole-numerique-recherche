@@ -30,6 +30,8 @@ Une clarification de l’accueil a ensuite établi que le portail existe aujourd
 
 Les deux récits de profils explicitent aussi la logique de la démarche : pourquoi améliorer les pratiques numériques, quoi la future Boussole doit rendre possible, comment l’atelier et le prototype seront co-conçus, puis quels bénéfices sont recherchés. Le radar reste placé dans la partie consacrée au futur outil. Cette architecture est détaillée dans [`docs/PLAN_RECOMPOSITION_RECITS_PROFILS_2026-08-22.md`](./docs/PLAN_RECOMPOSITION_RECITS_PROFILS_2026-08-22.md).
 
+L’accueil reprend aussi la capsule de soutien institutionnel de la page Partenaires au bas du bloc de participation, avec le lien vers la démarche de subvention correspondante et un rendu adapté au fond sombre.
+
 La page Ressources complète ses filtres de catégorie et de période par une recherche locale guidée. Elle propose des suggestions thématiques, recherche sans tenir compte de la casse ou des accents, et permet d’effacer la requête sans réinitialiser les autres filtres.
 
 ## Ce que contient le portail

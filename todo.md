@@ -126,3 +126,4 @@
 - [x] Ajouter un bouton global « Retour en haut », visible après défilement et testé sur les pages longues en format smartphone.
 - [x] Simplifier le hero : retirer les numéros des quatre jalons, la phrase d’orientation et la première proposition de la capsule Artiste.
 - [x] Recomposer les récits Partenaire culturel et Artiste : pourquoi urgent, quoi prépare la Boussole avec radar, comment la co-conception se déroule, puis bénéfices attendus.
+- [x] Reprendre la capsule de soutien de la Ville de Genève sur la page Partenaires et l’intégrer en bas du bloc « Vous souhaitez participer au projet ? » de l’accueil.

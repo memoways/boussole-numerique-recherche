@@ -2,6 +2,13 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.3.6] — 2026-08-22 — Soutien institutionnel sur l’accueil
+
+### Ajouté
+
+- La capsule « Avec le soutien de — Ville de Genève », déjà présente sur la page Partenaires, est désormais placée en bas du bloc sombre « Vous souhaitez participer au projet ? » de l’accueil.
+- La capsule reprend le logo, le lien vers la démarche de subvention et une version adaptée au fond sombre, contrôlée à 390 px.
+
 ## [1.3.5] — 2026-08-22 — Récits de profils centrés sur le pourquoi
 
 ### Modifié
