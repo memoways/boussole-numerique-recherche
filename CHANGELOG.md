@@ -2,6 +2,23 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.3.5] — 2026-08-22 — Récits de profils centrés sur le pourquoi
+
+### Modifié
+
+- Les parcours Partenaire culturel et Artiste suivent désormais le même fil de lecture : **Pourquoi agir maintenant**, **Quoi prépare la future Boussole**, **Comment la co-conception se déroule**, puis **Bénéfices attendus**.
+- Les raisons d’agir explicitent les conséquences concrètes de pratiques numériques mal ajustées : besoins invisibles, outils qui créent de la friction, coordination difficile et choix subis.
+- La partie « Quoi » décrit une application web en préparation, un état des lieux non jugeant et les cinq dimensions à discuter ; le radar interactif y est conservé comme représentation illustrative, jamais comme score.
+- La partie « Comment » relie situations réelles, questionnaire, atelier, cadrage et prototype à une décision concertée avec les partenaires et les artistes.
+
+### Ajouté
+
+- Plan de référence [`docs/PLAN_RECOMPOSITION_RECITS_PROFILS_2026-08-22.md`](./docs/PLAN_RECOMPOSITION_RECITS_PROFILS_2026-08-22.md).
+
+### Vérifié
+
+- Les deux parcours sont contrôlés à 390 px : la lecture suit Pourquoi, Quoi, Comment, bénéfices ; le radar reste dans « Quoi ». `pnpm verify` passe avec le build statique, le contrôle SEO-GEO et l’API partenaire.
+
 ## [1.3.4] — 2026-08-20 — Hero allégé
 
 ### Modifié

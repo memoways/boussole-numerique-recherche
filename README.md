@@ -28,6 +28,8 @@ Les liens 404 qualifiés ont été remplacés par des destinations officielles l
 
 Une clarification de l’accueil a ensuite établi que le portail existe aujourd’hui, tandis que la Boussole reste en préparation. Il présente deux parcours prioritaires, Partenaire culturel et Artiste, ainsi que les jalons de l’atelier et du cadrage à l’automne 2026, du prototype à tester visé fin 2026 et de l’ouverture publique visée début 2027. Les jalons sont volontairement non numérotés et l’entrée de profil ne répète pas son intention afin de préserver une lecture directe sur mobile. Le plan validé est archivé dans [`docs/PLAN_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md`](./docs/PLAN_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md).
 
+Les deux récits de profils explicitent aussi la logique de la démarche : pourquoi améliorer les pratiques numériques, quoi la future Boussole doit rendre possible, comment l’atelier et le prototype seront co-conçus, puis quels bénéfices sont recherchés. Le radar reste placé dans la partie consacrée au futur outil. Cette architecture est détaillée dans [`docs/PLAN_RECOMPOSITION_RECITS_PROFILS_2026-08-22.md`](./docs/PLAN_RECOMPOSITION_RECITS_PROFILS_2026-08-22.md).
+
 La page Ressources complète ses filtres de catégorie et de période par une recherche locale guidée. Elle propose des suggestions thématiques, recherche sans tenir compte de la casse ou des accents, et permet d’effacer la requête sans réinitialiser les autres filtres.
 
 ## Ce que contient le portail
@@ -163,6 +165,7 @@ Toute modification effectivement livrée doit mettre à jour `CHANGELOG.md`, `ST
 | [`docs/CONTROLE_REECRITURE_ACCUEIL_2026-08-16.md`](./docs/CONTROLE_REECRITURE_ACCUEIL_2026-08-16.md) | Contrôle des parcours, des métadonnées et des liens de profondeur après réécriture |
 | [`docs/CONTROLE_ACCUEIL_PERSONAS_2026-08-16.md`](./docs/CONTROLE_ACCUEIL_PERSONAS_2026-08-16.md) | Contrôle des parcours, de l’accessibilité et de l’activation de la collecte d’intérêt |
 | [`docs/PLAN_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md`](./docs/PLAN_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md) | Plan validé : site compagnon existant, Boussole en préparation, deux profils et jalons 2026–2027 |
+| [`docs/PLAN_RECOMPOSITION_RECITS_PROFILS_2026-08-22.md`](./docs/PLAN_RECOMPOSITION_RECITS_PROFILS_2026-08-22.md) | Architecture Pourquoi, Quoi, Comment et bénéfices des parcours Partenaire culturel et Artiste |
 | [`docs/CONTROLE_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md`](./docs/CONTROLE_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md) | Contrôles de la clarification du statut, des parcours, de l’ancienne URL et des jalons visibles |
 | [`docs/PLAN_PREVISUALISATION_EXPERIENCE_2026-08-20.md`](./docs/PLAN_PREVISUALISATION_EXPERIENCE_2026-08-20.md) | Cadrage des quatre écrans illustratifs du futur prototype sur la page Expérience |
 | [`docs/CONTROLE_PREVISUALISATION_EXPERIENCE_2026-08-20.md`](./docs/CONTROLE_PREVISUALISATION_EXPERIENCE_2026-08-20.md) | Contrôle des écrans, interactions, garde-fous et tests restant sur mobile réel |

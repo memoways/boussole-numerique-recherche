@@ -36,9 +36,11 @@ type Persona = {
   recognition: string;
   eyebrow: string;
   title: string;
-  introduction: string;
+  why: string;
+  what: string;
+  how: string;
+  benefits: string[];
   questions: string[];
-  contribution: string;
   faq: FaqItem[];
   primary: { label: string; href: string };
   secondary: { label: string; href: string };
@@ -80,14 +82,16 @@ const PERSONAS: Persona[] = [
     stickyLabel: "Partenaire culturel",
     recognition: "Institution, association, réseau ou collectif qui accompagne des artistes et peut contribuer à définir l’outil.",
     eyebrow: "Parcours partenaire culturel",
-    title: "Faire entrer les besoins des artistes dans les décisions qui construiront la Boussole.",
-    introduction: "La Boussole n’existe pas encore. Les partenaires culturels peuvent aider à préciser ce qui doit être compris avant de développer un prototype : pratiques difficiles à faire évoluer, outils peu adaptés, procédures qui freinent la collaboration et conditions d’un test utile.",
+    title: "Les besoins des artistes doivent pouvoir guider les décisions numériques qui les concernent.",
+    why: "Lorsque les outils, procédures et choix numériques se décident loin des situations de terrain, les difficultés des artistes restent invisibles. Il devient plus difficile de relayer ce qui freine réellement le travail, de préparer des améliorations collectives et de choisir ce qui mérite d’être testé maintenant.",
+    what: "La Boussole sera une application web à co-concevoir : un état des lieux non jugeant pour rendre visibles des pratiques, des contraintes et des priorités. Elle devra aider à ouvrir une conversation commune sur les outils, les compétences, les données, la diffusion et la collaboration — sans classer les personnes ni imposer une solution.",
+    how: "Les partenaires apportent des situations concrètes, répondent au questionnaire et participent à l’atelier de l’automne 2026. Avec les artistes, ils aideront à cadrer les questions, sélectionner les premiers cas d’usage et mettre un prototype à l’épreuve de manière concertée.",
+    benefits: ["Faire remonter des besoins souvent dispersés ou difficiles à formuler.", "Préparer des tests utiles plutôt que choisir un outil à distance.", "Partager un repère commun entre artistes, équipes et réseaux."],
     questions: [
       "Quelles pratiques numériques pèsent le plus sur les artistes et les équipes que vous accompagnez ?",
       "Quels conseils, améliorations ou repères devraient être directement actionnables après un état des lieux ?",
       "Quelles conditions rendraient le futur prototype utile, juste et praticable dans votre structure ou réseau ?",
     ],
-    contribution: "Le questionnaire, l’atelier et le cadrage serviront à décider ensemble quel prototype développer. Il ne s’agit pas de valider un outil déjà construit.",
     faq: [
       { question: "La Boussole est-elle déjà disponible pour nos membres ?", answer: "Non. Le site compagnon existe pour informer et organiser la co-conception. L’atelier et le cadrage prévus entre septembre et octobre doivent préciser le prototype ; une version à tester est visée pour la fin 2026." },
       { question: "Quel engagement est attendu de notre structure ?", answer: "Vous pouvez répondre au questionnaire, signaler des situations concrètes et participer aux échanges de co-conception. Les tests se décideront ensuite avec les organisations et les artistes qui souhaitent s’y associer.", link: { label: "Voir le calendrier indicatif", href: "/timeline" } },
@@ -107,14 +111,16 @@ const PERSONAS: Persona[] = [
     stickyLabel: "Artiste",
     recognition: "Votre expérience aidera à définir un outil qui apporte des conseils utiles.",
     eyebrow: "Parcours artiste",
-    title: "Vers des pratiques numériques plus simples, plus collaboratives et plus agréables à faire évoluer.",
-    introduction: "Le futur prototype devra partir de situations concrètes : outils qui ne soutiennent pas le travail, procédures difficiles à partager, pratiques numériques qui créent de la friction. Il ne s’agira pas d’auditer ni de noter, mais de produire un état des lieux et des conseils actionnables pour mieux choisir quoi améliorer.",
+    title: "Le numérique doit soutenir votre pratique, pas créer davantage de friction autour d’elle.",
+    why: "Quand les outils ne suivent pas les façons de travailler, que les fichiers se perdent ou que les consignes restent floues, collaborer devient plus lourd et les choix numériques sont subis. Améliorer ces pratiques est important maintenant : cela peut rendre le travail plus lisible, plus serein et plus agréable, sans demander de devenir spécialiste.",
+    what: "La Boussole sera une application web à co-concevoir. Elle devra proposer un état des lieux sans note, pour mettre des mots sur une situation, situer ce qui compte et recevoir des conseils ou premières pistes d’amélioration. Son radar représente cinq dimensions à discuter, non un score personnel.",
+    how: "Vos situations vécues serviront au questionnaire, à l’atelier de co-conception et au cadrage du prototype. Avec les partenaires, vous aiderez à décider quelles questions poser, quelles aides proposer et comment tester une première version de manière collaborative.",
+    benefits: ["Comprendre quelle amélioration choisir en premier, sans être évalué·e.", "Accéder à des conseils plus proches de vos outils, projets et collaborations.", "Faire entendre votre expérience dans un outil destiné aux artistes."],
     questions: [
       "Quelle situation numérique vous pèse le plus dans votre pratique culturelle ?",
       "Quel conseil ou quelle amélioration vous aiderait à mieux travailler avec vos outils et vos collaborations ?",
       "Qu’est-ce qu’un prototype destiné aux artistes devrait comprendre avant de proposer une piste d’action ?",
     ],
-    contribution: "Vous pouvez signaler votre intérêt, partager une situation ou rejoindre les étapes de co-conception. Ces retours prépareront l’atelier, le prototype à tester et son ouverture publique visée début 2027.",
     faq: [
       { question: "Puis-je utiliser la Boussole dès maintenant ?", answer: "Non. La Boussole est en préparation. Ce site compagnon recueille les retours qui aideront à la co-concevoir avec les partenaires et les artistes, avant le développement d’un prototype." },
       { question: "Le futur outil évaluera-t-il mon niveau numérique ?", answer: "Non. Le prototype devra aider à comprendre des pratiques, des contraintes et des priorités. Il ne donnera pas de note et ne jugera pas vos compétences.", link: { label: "Voir les dimensions envisagées", href: "/experience" } },
@@ -134,17 +140,21 @@ function getPersonaFromUrl(): PersonaId | null {
   return value === "partenaire" || value === "artiste" ? value : null;
 }
 
-function PersonaVisualizations({ persona }: { persona: Persona }) {
+function PersonaRadar({ persona }: { persona: Persona }) {
   return (
-    <div className="mx-auto flex w-full max-w-[360px] flex-col gap-10" aria-label={`Représentations explicatives du futur outil pour ${persona.shortLabel}`}>
-      <div>
-        <p className="mb-3 text-center text-xs font-black uppercase tracking-[0.16em]" style={{ color: persona.color }}>Repères du futur outil</p>
-        <AnimatedRadarGraphic key={`${persona.id}-radar`} dimensions={PERSONA_RADAR_DIMENSIONS[persona.id]} interactive className="mx-auto h-60 w-60 sm:h-64 sm:w-64" ariaLabel={`Radar illustratif : ${persona.shortLabel}`} />
-      </div>
-      <div>
-        <p className="mb-3 text-center text-xs font-black uppercase tracking-[0.16em]" style={{ color: persona.color }}>Chemin de co-conception</p>
-        <InteractiveNarrativeIllustration key={`${persona.id}-compass`} kind={PERSONA_COMPASS_KIND[persona.id]} accent={persona.color} plainSummary />
-      </div>
+    <div className="rounded-2xl border border-slate-200 bg-slate-50 px-3 py-5 sm:px-5" aria-label={`Radar illustratif du futur outil pour ${persona.shortLabel}`}>
+      <p className="mb-2 text-center text-xs font-black uppercase tracking-[0.16em]" style={{ color: persona.color }}>Cinq dimensions à discuter</p>
+      <AnimatedRadarGraphic key={`${persona.id}-radar`} dimensions={PERSONA_RADAR_DIMENSIONS[persona.id]} interactive className="mx-auto h-60 w-60 sm:h-64 sm:w-64" ariaLabel={`Radar illustratif : ${persona.shortLabel}`} />
+      <p className="mx-auto mt-2 max-w-xs text-center text-xs leading-relaxed text-slate-500">Une représentation illustrative du futur état des lieux, pas un score personnel.</p>
+    </div>
+  );
+}
+
+function PersonaCoDesignPath({ persona }: { persona: Persona }) {
+  return (
+    <div className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5" aria-label={`Chemin de co-conception pour ${persona.shortLabel}`}>
+      <p className="mb-3 text-xs font-black uppercase tracking-[0.16em]" style={{ color: persona.color }}>D’une situation à un prototype</p>
+      <InteractiveNarrativeIllustration key={`${persona.id}-compass`} kind={PERSONA_COMPASS_KIND[persona.id]} accent={persona.color} plainSummary />
     </div>
   );
 }
@@ -187,34 +197,58 @@ function PersonaStory({ persona }: { persona: Persona }) {
   return (
     <section id="parcours-personnalise" className="scroll-mt-32 border-y border-slate-200 bg-white px-4 py-16 sm:py-20" aria-labelledby="persona-story-title">
       <div className="mx-auto max-w-6xl">
-        <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,2fr)_minmax(250px,1fr)] lg:gap-16">
-          <div>
-            <div className="mb-5 flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-full text-white" style={{ backgroundColor: persona.color }}><Icon className="h-5 w-5" aria-hidden="true" /></span>
-              <p className="text-xs font-black uppercase tracking-[0.16em]" style={{ color: persona.color }}>{persona.eyebrow}</p>
-            </div>
-            <h2 id="persona-story-title" tabIndex={-1} className="max-w-3xl text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">{persona.title}</h2>
-            <p className="mt-5 max-w-3xl text-lg leading-relaxed text-slate-600">{persona.introduction}</p>
-
-            <div className="mt-8 grid gap-3 sm:grid-cols-3">
-              {persona.questions.map((question, index) => <div key={question} className="px-4 py-1"><span className="text-xs font-black" style={{ color: persona.color }}>0{index + 1}</span><p className="mt-1 text-sm font-medium leading-snug text-slate-700">{question}</p></div>)}
-            </div>
-
-            <p className="mt-8 max-w-3xl py-1 text-base font-semibold leading-relaxed text-slate-800">{persona.contribution}</p>
-
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <Button className="font-semibold text-white" style={{ backgroundColor: "#E07428" }} asChild>
-                {isInternal(persona.primary.href) ? <Link href={persona.primary.href}>{persona.primary.label} <ArrowRight className="ml-2 h-4 w-4" /></Link> : <a href={persona.primary.href}>{persona.primary.label} <ArrowRight className="ml-2 h-4 w-4" /></a>}
-              </Button>
-              <Button variant="outline" className="border-2 font-semibold" style={{ borderColor: persona.color, color: persona.color }} asChild>
-                {isInternal(persona.secondary.href) ? <Link href={persona.secondary.href}>{persona.secondary.label} <ArrowUpRight className="ml-2 h-4 w-4" /></Link> : <a href={persona.secondary.href}>{persona.secondary.label} <ArrowUpRight className="ml-2 h-4 w-4" /></a>}
-              </Button>
-            </div>
-            {persona.resourceLink && <Link href={persona.resourceLink.href} className="mt-5 inline-flex items-center gap-2 text-sm font-bold underline decoration-2 underline-offset-4" style={{ color: persona.color }}>{persona.resourceLink.label} <ArrowUpRight className="h-4 w-4" /></Link>}
+        <div className="mb-10 max-w-4xl">
+          <div className="mb-5 flex items-center gap-3">
+            <span className="flex h-10 w-10 items-center justify-center rounded-full text-white" style={{ backgroundColor: persona.color }}><Icon className="h-5 w-5" aria-hidden="true" /></span>
+            <p className="text-xs font-black uppercase tracking-[0.16em]" style={{ color: persona.color }}>{persona.eyebrow}</p>
           </div>
-
-          <aside className="lg:pl-3"><PersonaVisualizations persona={persona} /></aside>
+          <h2 id="persona-story-title" tabIndex={-1} className="text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">{persona.title}</h2>
         </div>
+
+        <article className="max-w-4xl border-l-4 bg-slate-50 p-6 sm:p-7" style={{ borderColor: persona.color }}>
+          <p className="text-xs font-black uppercase tracking-[0.16em]" style={{ color: persona.color }}>Pourquoi agir maintenant</p>
+          <h3 className="mt-3 text-2xl font-extrabold tracking-tight text-slate-950">Améliorer les pratiques numériques est une condition de travail plus juste.</h3>
+          <p className="mt-4 text-base leading-relaxed text-slate-600">{persona.why}</p>
+        </article>
+
+        <div className="mt-12 grid gap-8 border-y border-slate-200 py-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(280px,0.85fr)] lg:items-center">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.16em]" style={{ color: persona.color }}>Quoi : la future application web</p>
+            <h3 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-950">Une Boussole pour comprendre une situation et choisir un premier pas utile.</h3>
+            <p className="mt-4 text-base leading-relaxed text-slate-600">{persona.what}</p>
+          </div>
+          <PersonaRadar persona={persona} />
+        </div>
+
+        <div className="mt-12 grid gap-8 lg:grid-cols-[minmax(280px,0.85fr)_minmax(0,1.15fr)] lg:items-start">
+          <PersonaCoDesignPath persona={persona} />
+          <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-7">
+            <p className="text-xs font-black uppercase tracking-[0.16em]" style={{ color: persona.color }}>Comment : co-construire sans décider à votre place</p>
+            <h3 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-950">Des situations réelles, un atelier, puis un prototype à éprouver ensemble.</h3>
+            <p className="mt-4 text-base leading-relaxed text-slate-600">{persona.how}</p>
+            <ol className="mt-6 grid gap-3 sm:grid-cols-3">
+              {persona.questions.map((question, index) => <li key={question} className="border-t border-slate-200 pt-3"><span className="text-xs font-black" style={{ color: persona.color }}>Point à préciser {index + 1}</span><p className="mt-1 text-sm font-medium leading-snug text-slate-700">{question}</p></li>)}
+            </ol>
+          </div>
+        </div>
+
+        <section className="mt-12 max-w-4xl border-l-4 bg-slate-50 p-6 sm:p-7" style={{ borderColor: persona.color }} aria-labelledby={`benefits-${persona.id}`}>
+          <p className="text-xs font-black uppercase tracking-[0.16em]" style={{ color: persona.color }}>Bénéfices attendus</p>
+          <h3 id={`benefits-${persona.id}`} className="mt-3 text-2xl font-extrabold tracking-tight text-slate-950">Ce que cette démarche doit rendre possible.</h3>
+          <ul className="mt-4 grid gap-3 sm:grid-cols-3">
+            {persona.benefits.map((benefit) => <li key={benefit} className="flex gap-3 text-sm leading-relaxed text-slate-700"><span className="mt-1.5 h-2 w-2 shrink-0 rounded-full" style={{ backgroundColor: persona.color }} aria-hidden="true" />{benefit}</li>)}
+          </ul>
+        </section>
+
+        <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <Button className="font-semibold text-white" style={{ backgroundColor: "#E07428" }} asChild>
+            {isInternal(persona.primary.href) ? <Link href={persona.primary.href}>{persona.primary.label} <ArrowRight className="ml-2 h-4 w-4" /></Link> : <a href={persona.primary.href}>{persona.primary.label} <ArrowRight className="ml-2 h-4 w-4" /></a>}
+          </Button>
+          <Button variant="outline" className="border-2 font-semibold" style={{ borderColor: persona.color, color: persona.color }} asChild>
+            {isInternal(persona.secondary.href) ? <Link href={persona.secondary.href}>{persona.secondary.label} <ArrowUpRight className="ml-2 h-4 w-4" /></Link> : <a href={persona.secondary.href}>{persona.secondary.label} <ArrowUpRight className="ml-2 h-4 w-4" /></a>}
+          </Button>
+        </div>
+        {persona.resourceLink && <Link href={persona.resourceLink.href} className="mt-5 inline-flex items-center gap-2 text-sm font-bold underline decoration-2 underline-offset-4" style={{ color: persona.color }}>{persona.resourceLink.label} <ArrowUpRight className="h-4 w-4" /></Link>}
       </div>
     </section>
   );
