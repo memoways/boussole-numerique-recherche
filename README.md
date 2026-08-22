@@ -34,6 +34,8 @@ L’accueil reprend aussi la capsule de soutien institutionnel de la page Parten
 
 La mention globale de footer qualifie désormais le portail de « projet collaboratif en cours ».
 
+Les FAQ des parcours Partenaire culturel et Artiste répondent désormais au pourquoi, au quoi, à la phase actuelle, au comment et aux bénéfices de la co-conception. Leur structure et leurs garde-fous sont consignés dans [`docs/PLAN_ENRICHISSEMENT_FAQ_PROFILS_2026-08-22.md`](./docs/PLAN_ENRICHISSEMENT_FAQ_PROFILS_2026-08-22.md).
+
 La page Ressources complète ses filtres de catégorie et de période par une recherche locale guidée. Elle propose des suggestions thématiques, recherche sans tenir compte de la casse ou des accents, et permet d’effacer la requête sans réinitialiser les autres filtres.
 
 ## Ce que contient le portail
@@ -170,6 +172,7 @@ Toute modification effectivement livrée doit mettre à jour `CHANGELOG.md`, `ST
 | [`docs/CONTROLE_ACCUEIL_PERSONAS_2026-08-16.md`](./docs/CONTROLE_ACCUEIL_PERSONAS_2026-08-16.md) | Contrôle des parcours, de l’accessibilité et de l’activation de la collecte d’intérêt |
 | [`docs/PLAN_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md`](./docs/PLAN_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md) | Plan validé : site compagnon existant, Boussole en préparation, deux profils et jalons 2026–2027 |
 | [`docs/PLAN_RECOMPOSITION_RECITS_PROFILS_2026-08-22.md`](./docs/PLAN_RECOMPOSITION_RECITS_PROFILS_2026-08-22.md) | Architecture Pourquoi, Quoi, Comment et bénéfices des parcours Partenaire culturel et Artiste |
+| [`docs/PLAN_ENRICHISSEMENT_FAQ_PROFILS_2026-08-22.md`](./docs/PLAN_ENRICHISSEMENT_FAQ_PROFILS_2026-08-22.md) | FAQ par profil : pourquoi, quoi, phase actuelle, comment et bénéfices |
 | [`docs/CONTROLE_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md`](./docs/CONTROLE_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md) | Contrôles de la clarification du statut, des parcours, de l’ancienne URL et des jalons visibles |
 | [`docs/PLAN_PREVISUALISATION_EXPERIENCE_2026-08-20.md`](./docs/PLAN_PREVISUALISATION_EXPERIENCE_2026-08-20.md) | Cadrage des quatre écrans illustratifs du futur prototype sur la page Expérience |
 | [`docs/CONTROLE_PREVISUALISATION_EXPERIENCE_2026-08-20.md`](./docs/CONTROLE_PREVISUALISATION_EXPERIENCE_2026-08-20.md) | Contrôle des écrans, interactions, garde-fous et tests restant sur mobile réel |

@@ -2,6 +2,22 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.3.8] — 2026-08-22 — FAQ approfondies par profil
+
+### Modifié
+
+- Les FAQ Partenaire culturel et Artiste passent de trois à cinq réponses ciblées, articulées autour du pourquoi, du quoi, de la phase actuelle, du comment et des bénéfices attendus.
+- La phase actuelle est explicitée dans les deux parcours : site compagnon actif, atelier et cadrage à l’automne 2026, prototype à tester visé fin 2026 et ouverture publique visée début 2027.
+- Les réponses précisent que la Boussole sera un outil non jugeant, sans note, classement ou solution imposée ; elles donnent un rôle concret aux retours de terrain.
+
+### Ajouté
+
+- Plan de référence [`docs/PLAN_ENRICHISSEMENT_FAQ_PROFILS_2026-08-22.md`](./docs/PLAN_ENRICHISSEMENT_FAQ_PROFILS_2026-08-22.md).
+
+### Vérifié
+
+- Les deux FAQ enrichies restent lisibles à 390 px ; les interactions mobiles prioritaires passent après leur intégration.
+
 ## [1.3.7] — 2026-08-22 — Mention collaborative de footer
 
 ### Modifié
