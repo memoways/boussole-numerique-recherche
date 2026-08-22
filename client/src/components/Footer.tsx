@@ -103,7 +103,7 @@ export default function Footer() {
       <div className="border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-gray-400">
-            © {year} Memoways — Genève, Suisse. Projet de recherche en cours.
+            © {year} Memoways — Genève. Projet collaboratif en cours.
           </p>
           <div className="flex flex-wrap items-center gap-3 justify-center sm:justify-end">
             <a

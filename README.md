@@ -32,6 +32,8 @@ Les deux récits de profils explicitent aussi la logique de la démarche : pourq
 
 L’accueil reprend aussi la capsule de soutien institutionnel de la page Partenaires au bas du bloc de participation, avec le lien vers la démarche de subvention correspondante et un rendu adapté au fond sombre.
 
+La mention globale de footer qualifie désormais le portail de « projet collaboratif en cours ».
+
 La page Ressources complète ses filtres de catégorie et de période par une recherche locale guidée. Elle propose des suggestions thématiques, recherche sans tenir compte de la casse ou des accents, et permet d’effacer la requête sans réinitialiser les autres filtres.
 
 ## Ce que contient le portail

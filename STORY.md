@@ -88,6 +88,8 @@ Les deux récits de profils sont désormais structurés dans un ordre stable : *
 
 La capsule de soutien institutionnel est présente à deux endroits cohérents : dans l’introduction de la page Partenaires et au bas du bloc d’intérêt de l’accueil. Dans ce dernier emplacement, elle clôt le contexte de participation sans concurrencer le formulaire. Elle conserve le logo, le lien vers la démarche de subvention et un contraste adapté au fond sombre, y compris sur smartphone.
 
+La mention située sous le footer est formulée de manière cohérente avec cette démarche : « © 2026 Memoways — Genève. Projet collaboratif en cours. » Elle remplace la précédente formulation centrée sur la recherche.
+
 ### Présentation partenaire
 
 La route `/partenaires/presentation` contient neuf slides. Les détails sont dépliables au clavier, les liens contextuels ouvrent les pages utiles et l’URL conserve `slide` et `detail` pour que le bouton précédent du navigateur retrouve le contexte de lecture. Le deck produit uniquement des chemins relatifs de la forme `/partenaires/presentation?slide=3` : aucune navigation ne reconstruit une origine ou ne peut exposer le port interne. Les URLs avec slash terminal sont redirigées vers ce chemin canonique par Nginx, en préservant les paramètres de slide et de détail. Le deck desktop utilise un gabarit interne de 950 px : titre compact, navigation fixe et panneaux défilables dans l’espace restant. La barre de progression est placée entre les commandes Précédent et Suivant, avec un compteur de slide ; l’aide textuelle redondante est retirée. Sur mobile, les colonnes se replient et les commandes restent accessibles.

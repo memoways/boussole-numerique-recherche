@@ -2,6 +2,12 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.3.7] — 2026-08-22 — Mention collaborative de footer
+
+### Modifié
+
+- La mention de bas de page devient : « © 2026 Memoways — Genève. Projet collaboratif en cours. »
+
 ## [1.3.6] — 2026-08-22 — Soutien institutionnel sur l’accueil
 
 ### Ajouté
