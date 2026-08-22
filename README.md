@@ -26,7 +26,7 @@ Les liens externes des archives sont signalés par une icône et un texte access
 
 Les liens 404 qualifiés ont été remplacés par des destinations officielles lorsque cela était possible. Les sources sans équivalent fiable restent mentionnées comme archives, sans lien sortant actif. Les fiches des documents historiques affichent la date de leur dernier contrôle de liens.
 
-Une clarification de l’accueil a ensuite établi que le portail existe aujourd’hui, tandis que la Boussole reste en préparation. Il présente deux parcours prioritaires, Partenaire culturel et Artiste, ainsi que les jalons de l’atelier et du cadrage à l’automne 2026, du prototype à tester visé fin 2026 et de l’ouverture publique visée début 2027. Le plan validé est archivé dans [`docs/PLAN_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md`](./docs/PLAN_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md).
+Une clarification de l’accueil a ensuite établi que le portail existe aujourd’hui, tandis que la Boussole reste en préparation. Il présente deux parcours prioritaires, Partenaire culturel et Artiste, ainsi que les jalons de l’atelier et du cadrage à l’automne 2026, du prototype à tester visé fin 2026 et de l’ouverture publique visée début 2027. Les jalons sont volontairement non numérotés et l’entrée de profil ne répète pas son intention afin de préserver une lecture directe sur mobile. Le plan validé est archivé dans [`docs/PLAN_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md`](./docs/PLAN_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md).
 
 La page Ressources complète ses filtres de catégorie et de période par une recherche locale guidée. Elle propose des suggestions thématiques, recherche sans tenir compte de la casse ou des accents, et permet d’effacer la requête sans réinitialiser les autres filtres.
 

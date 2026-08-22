@@ -124,3 +124,4 @@
 - [x] Concevoir et intégrer sur la page Expérience des écrans illustratifs du futur prototype : entrée, questionnaire conversationnel, repères et restitution actionnable.
 - [x] Auditer l’ensemble des pages et composants publics sur smartphone, corriger les débordements, cibles tactiles et interactions mobiles, puis valider les parcours prioritaires.
 - [x] Ajouter un bouton global « Retour en haut », visible après défilement et testé sur les pages longues en format smartphone.
+- [x] Simplifier le hero : retirer les numéros des quatre jalons, la phrase d’orientation et la première proposition de la capsule Artiste.

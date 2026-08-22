@@ -105,7 +105,7 @@ const PERSONAS: Persona[] = [
     label: "Je suis artiste ou actif·ve dans la culture",
     shortLabel: "Artiste",
     stickyLabel: "Artiste",
-    recognition: "Création, médiation, diffusion ou pratique culturelle. Votre expérience aidera à définir un outil qui apporte des conseils utiles.",
+    recognition: "Votre expérience aidera à définir un outil qui apporte des conseils utiles.",
     eyebrow: "Parcours artiste",
     title: "Vers des pratiques numériques plus simples, plus collaboratives et plus agréables à faire évoluer.",
     introduction: "Le futur prototype devra partir de situations concrètes : outils qui ne soutiennent pas le travail, procédures difficiles à partager, pratiques numériques qui créent de la friction. Il ne s’agira pas d’auditer ni de noter, mais de produire un état des lieux et des conseils actionnables pour mieux choisir quoi améliorer.",
@@ -364,10 +364,10 @@ export default function Home() {
           <p className="mx-auto mt-6 max-w-3xl text-lg leading-relaxed text-slate-700 sm:text-xl">Ce site accompagne la préparation d’une Boussole pour les artistes des milieux culturels genevois. <strong>La Boussole n’existe pas encore.</strong> Le site informe, recueille les retours et prépare sa co-conception avec les partenaires et les artistes.</p>
 
           <ol className="mx-auto mt-8 grid max-w-5xl gap-3 text-left sm:grid-cols-2 lg:grid-cols-4" aria-label="Étapes indicatives du projet">
-            {[{ moment: "Aujourd’hui", detail: "Informer et recueillir les retours", color: "#515792" }, { moment: "Sept.–oct. 2026", detail: "Atelier et cadrage de co-conception", color: "#3a7fc1" }, { moment: "Fin 2026", detail: "Prototype à tester visé", color: "#3aab8a" }, { moment: "Début 2027", detail: "Ouverture publique visée", color: "#E07428" }].map((step, index) => <li key={step.moment} className="border border-slate-200 bg-white/85 p-4 shadow-sm"><span className="text-xs font-black uppercase tracking-[0.12em]" style={{ color: step.color }}>0{index + 1} · {step.moment}</span><span className="mt-1.5 block text-sm font-semibold leading-snug text-slate-800">{step.detail}</span></li>)}
+            {[{ moment: "Aujourd’hui", detail: "Informer et recueillir les retours", color: "#515792" }, { moment: "Sept.–oct. 2026", detail: "Atelier et cadrage de co-conception", color: "#3a7fc1" }, { moment: "Fin 2026", detail: "Prototype à tester visé", color: "#3aab8a" }, { moment: "Début 2027", detail: "Ouverture publique visée", color: "#E07428" }].map((step) => <li key={step.moment} className="border border-slate-200 bg-white/85 p-4 shadow-sm"><span className="text-xs font-black uppercase tracking-[0.12em]" style={{ color: step.color }}>{step.moment}</span><span className="mt-1.5 block text-sm font-semibold leading-snug text-slate-800">{step.detail}</span></li>)}
           </ol>
 
-          <div className="mt-11"><h2 id="persona-selector-title" className="text-2xl font-extrabold tracking-tight text-slate-950 sm:text-3xl">Entrée dans le site par profil</h2><p className="mx-auto mt-2 max-w-2xl text-base leading-relaxed text-slate-600">Choisissez le rôle depuis lequel vous souhaitez contribuer à la co-conception.</p></div>
+          <div className="mt-11"><h2 id="persona-selector-title" className="text-2xl font-extrabold tracking-tight text-slate-950 sm:text-3xl">Entrée dans le site par profil</h2></div>
           <div ref={personaSelectorRef} className="mx-auto mt-6 grid max-w-4xl gap-4 sm:grid-cols-2" role="group" aria-label="Sélection du type de public">
             {PERSONAS.map((persona) => {
               const Icon = persona.icon;

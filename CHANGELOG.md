@@ -2,6 +2,18 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.3.4] — 2026-08-20 — Hero allégé
+
+### Modifié
+
+- Les quatre jalons de l’accueil conservent leur date et leur intention, sans numérotation décorative.
+- La phrase redondante sous « Entrée dans le site par profil » est retirée.
+- La capsule Artiste commence directement par le bénéfice de la contribution, sans énumération préalable des pratiques culturelles.
+
+### Vérifié
+
+- Le hero simplifié reste lisible à 390 px ; l’audit mobile repasse sans débordement, erreur JavaScript ni cible tactile sous-dimensionnée.
+
 ## [1.3.3] — 2026-08-20 — Retour en haut pour les lectures longues
 
 ### Ajouté
