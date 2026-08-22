@@ -2,6 +2,19 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.3.9] — 2026-08-22 — FAQ complémentaires aux récits de profils
+
+### Modifié
+
+- Les FAQ ne répètent plus le pourquoi, le quoi, le comment ou les bénéfices déjà exposés dans les récits Partenaire culturel et Artiste.
+- Le parcours Partenaire culturel répond désormais aux rôles dans les arbitrages, à la participation d’équipe, au devenir des retours, aux écarts de perception et aux garde-fous de neutralité et de données.
+- Le parcours Artiste répond désormais à la participation sans expertise, aux situations ponctuelles, au devenir d’une manifestation d’intérêt, à la confidentialité et à la place encore à tester de l’IA.
+- Le titre et l’introduction de la section FAQ précisent qu’il s’agit de détails pratiques, de règles de participation et de garde-fous complémentaires.
+
+### Vérifié
+
+- L’ouverture d’une FAQ complémentaire dans chacun des deux profils est couverte par l’audit smartphone ; les dix interactions prioritaires passent à 320 px.
+
 ## [1.3.8] — 2026-08-22 — FAQ approfondies par profil
 
 ### Modifié

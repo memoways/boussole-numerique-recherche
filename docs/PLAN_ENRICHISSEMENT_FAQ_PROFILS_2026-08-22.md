@@ -26,3 +26,7 @@ Les FAQ des parcours Partenaire culturel et Artiste doivent prolonger le récit 
 - Les réponses ne présentent jamais la Boussole comme disponible aujourd’hui.
 - Les dates sont formulées comme des jalons visés.
 - Les liens de profondeur conduisent uniquement vers Calendrier, Méthode ou Expérience lorsque cela éclaire le sujet de la réponse.
+
+## Révision appliquée : éviter les répétitions
+
+Après comparaison avec les récits de profils, les FAQ ne reprennent plus le pourquoi, le quoi, le comment et les bénéfices déjà établis dans le parcours principal. Elles répondent désormais à des questions complémentaires : rôle dans les arbitrages, participation d’une équipe, devenir des retours, écarts de perception, confidentialité, neutralité, participation sans expertise, situations ponctuelles et place éventuelle de l’IA. Les réponses s’appuient sur les sections Mode collaboratif, Gouvernance, Proposition et Architecture de la page Projet.

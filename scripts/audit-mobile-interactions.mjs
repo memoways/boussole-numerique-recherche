@@ -47,6 +47,15 @@ await verify("Accueil : sélection Artiste puis retour", async () => {
   await page.waitForURL(`${baseUrl}/`);
 });
 
+await verify("Accueil : FAQ complémentaires des deux profils", async () => {
+  await page.goto(`${baseUrl}/?public=partenaire`, { waitUntil: "networkidle" });
+  await page.getByRole("button", { name: "Notre structure doit-elle mobiliser toute son équipe pour contribuer ?" }).click();
+  await page.getByText("Une personne peut d’abord relayer des situations").waitFor({ state: "visible" });
+  await page.goto(`${baseUrl}/?public=artiste`, { waitUntil: "networkidle" });
+  await page.getByRole("button", { name: "Quelle place l’IA pourrait-elle prendre dans l’expérience ?" }).click();
+  await page.getByText("Un dialogue guidé par IA est une piste à tester").waitFor({ state: "visible" });
+});
+
 await verify("Expérience : navigation des quatre écrans", async () => {
   await page.goto(`${baseUrl}/experience`, { waitUntil: "networkidle" });
   await page.getByRole("tab", { name: /04 Agir/ }).click();

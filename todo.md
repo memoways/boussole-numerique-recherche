@@ -129,3 +129,4 @@
 - [x] Reprendre la capsule de soutien de la Ville de Genève sur la page Partenaires et l’intégrer en bas du bloc « Vous souhaitez participer au projet ? » de l’accueil.
 - [x] Remplacer la mention de bas de page par « © 2026 Memoways — Genève. Projet collaboratif en cours. ».
 - [x] Étoffer les FAQ Partenaire culturel et Artiste : pourquoi, quoi, comment, phase actuelle et bénéfices concrets de la co-conception.
+- [x] Réviser les FAQ Partenaire culturel et Artiste pour supprimer les répétitions avec les récits et traiter les questions complémentaires issues de la page Projet.
