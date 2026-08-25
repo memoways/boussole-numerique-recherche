@@ -173,6 +173,7 @@ Toute modification effectivement livrée doit mettre à jour `CHANGELOG.md`, `ST
 | [`docs/PLAN_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md`](./docs/PLAN_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md) | Plan validé : site compagnon existant, Boussole en préparation, deux profils et jalons 2026–2027 |
 | [`docs/PLAN_RECOMPOSITION_RECITS_PROFILS_2026-08-22.md`](./docs/PLAN_RECOMPOSITION_RECITS_PROFILS_2026-08-22.md) | Architecture Pourquoi, Quoi, Comment et bénéfices des parcours Partenaire culturel et Artiste |
 | [`docs/PLAN_ENRICHISSEMENT_FAQ_PROFILS_2026-08-22.md`](./docs/PLAN_ENRICHISSEMENT_FAQ_PROFILS_2026-08-22.md) | FAQ complémentaires : rôles, participation, retours, garde-fous et IA à tester |
+| [`docs/ETAT_LIEUX_ACTIVATION_QUESTIONNAIRE_COOLIFY_2026-08-25.md`](./docs/ETAT_LIEUX_ACTIVATION_QUESTIONNAIRE_COOLIFY_2026-08-25.md) | État prêt/non activé du questionnaire et checklist Coolify de finalisation |
 | [`docs/CONTROLE_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md`](./docs/CONTROLE_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md) | Contrôles de la clarification du statut, des parcours, de l’ancienne URL et des jalons visibles |
 | [`docs/PLAN_PREVISUALISATION_EXPERIENCE_2026-08-20.md`](./docs/PLAN_PREVISUALISATION_EXPERIENCE_2026-08-20.md) | Cadrage des quatre écrans illustratifs du futur prototype sur la page Expérience |
 | [`docs/CONTROLE_PREVISUALISATION_EXPERIENCE_2026-08-20.md`](./docs/CONTROLE_PREVISUALISATION_EXPERIENCE_2026-08-20.md) | Contrôle des écrans, interactions, garde-fous et tests restant sur mobile réel |
