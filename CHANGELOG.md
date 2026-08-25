@@ -2,6 +2,18 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.3.10] — 2026-08-25 — État des lieux d’activation du questionnaire
+
+### Ajouté
+
+- Tutoriel opérationnel [`docs/ETAT_LIEUX_ACTIVATION_QUESTIONNAIRE_COOLIFY_2026-08-25.md`](./docs/ETAT_LIEUX_ACTIVATION_QUESTIONNAIRE_COOLIFY_2026-08-25.md), qui distingue le module prêt au déploiement des ressources encore non activées en production.
+- Checklist ordonnée pour le DNS, PostgreSQL privé, l’API partenaire, les secrets runtime, les migrations initiales, le rebuild du portail, le test pilote et les options Deepgram, SMTP et Dreamlit.
+
+### Documenté
+
+- L’API publique `api.boussole-culture-recherche.memoways.com` ne résout pas encore ; elle ne peut donc pas recevoir de réponses de questionnaire tant que le DNS, PostgreSQL et le service API ne sont pas mis en place.
+- La console `/admin` reste volontairement dans son état d’activation tant que `VITE_PARTNER_API_URL` n’est pas injectée au build du portail et que l’API/PostgreSQL ne sont pas déployés.
+
 ## [1.3.9] — 2026-08-22 — FAQ complémentaires aux récits de profils
 
 ### Modifié

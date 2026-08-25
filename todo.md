@@ -131,3 +131,4 @@
 - [x] Étoffer les FAQ Partenaire culturel et Artiste : pourquoi, quoi, comment, phase actuelle et bénéfices concrets de la co-conception.
 - [x] Réviser les FAQ Partenaire culturel et Artiste pour supprimer les répétitions avec les récits et traiter les questions complémentaires issues de la page Projet.
 - [x] Dresser l’état des lieux du questionnaire et fournir la checklist Coolify, PostgreSQL, secrets, SMTP, Deepgram et Dreamlit pour son activation en production.
+- [x] Consolider CHANGELOG.md et STORY.md avec les derniers développements effectivement livrés et la documentation d’activation Coolify.

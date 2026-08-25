@@ -54,13 +54,13 @@ Les routes publiques indexables sont pré-rendues après Vite. Leurs fichiers HT
 
 La phase actuelle du site compagnon informe et recueille les retours. Le questionnaire partenaire recueille besoins, priorités, idées et points de vigilance ; les contributions prépareront un atelier, puis une séance de cadrage, entre septembre et octobre 2026. Le prototype à tester est visé fin 2026 et l’ouverture publique début 2027. Le calendrier conserve ensuite ses phases indicatives de test, diffusion et accompagnement, sans présenter les jalons comme acquis avant les décisions collectives.
 
-L’accueil traduit cette mobilisation par deux parcours : partenaires culturels et artistes. Le choix est réversible et mémorisé dans `?public=partenaire` ou `?public=artiste` pour partager un état de lecture, sans créer de variante SEO : la canonique reste celle de l’accueil. Chaque parcours déploie une intention, trois questions, une proposition de contribution et une représentation explicative du futur outil.
+L’accueil traduit cette mobilisation par deux parcours : partenaires culturels et artistes. Le choix est réversible et mémorisé dans `?public=partenaire` ou `?public=artiste` pour partager un état de lecture, sans créer de variante SEO : la canonique reste celle de l’accueil. Chaque parcours déroule le pourquoi, le quoi, le comment et les bénéfices, puis une FAQ pratique et une représentation explicative du futur outil.
 
 Le parcours Partenaire culturel explique comment une structure ou un réseau peut rendre visibles les situations que les artistes rencontrent, contribuer au cadrage et préparer les conditions d’un test, sans valider un outil déjà décidé. Le parcours Artiste établit que l’on n’a pas à devenir spécialiste du numérique pour exprimer une friction, un besoin ou une amélioration souhaitée. Les deux récits présentent la Boussole comme un état des lieux non jugeant, accompagné à terme de conseils actionnables sur les outils, les procédures et la collaboration. Ils renvoient vers le questionnaire, la présentation, l’expérience illustrative ou la manifestation d’intérêt selon le rôle choisi.
 
 La cohérence éditoriale de l’accueil est également portée par les sorties non visuelles : le pré-rendu HTML, la description SEO, les données structurées et `llms.txt` reprennent la même promesse, les mêmes publics et le même statut de co-conception. Les états `?public=` restent partageables pour ouvrir le bon récit, sans créer de variante indexable : la canonique de l’accueil ne porte pas de paramètre.
 
-Chaque parcours déploie ensuite une FAQ de trois réponses utiles à sa situation. Les réponses ne répètent pas le récit : elles rappellent que la Boussole n’est pas encore disponible, précisent l’engagement attendu, la non-évaluation et les façons de contribuer. Une seule réponse est ouverte à la fois ; le contrôle expose son état et son panneau associé, puis propose les liens d’approfondissement utiles sans sortir prématurément du parcours.
+Chaque parcours déploie ensuite une FAQ de cinq réponses utiles à sa situation. Les réponses ne répètent pas le récit : elles approfondissent les rôles dans les arbitrages, la participation d’équipe, le devenir des retours, les écarts de perception, la confidentialité et la neutralité pour les partenaires ; elles traitent la participation sans expertise, les situations ponctuelles, le consentement et la place encore à tester de l’IA pour les artistes. Une seule réponse est ouverte à la fois ; le contrôle expose son état et son panneau associé, puis propose les liens d’approfondissement utiles sans sortir prématurément du parcours.
 
 Les deux parcours disposent aussi de deux repères interactifs plutôt que d’une illustration décorative isolée. Le premier est un radar dont les cinq dimensions sont adaptées à la personne sélectionnée : gestes de relais pour les partenaires, dimensions de pratiques pour les artistes. Ses points restent graphiques ; les cinq icônes périphériques fixes portent les gestes de survol, focus, clic et clavier, puis actualisent le commentaire. Le second est une boussole en trois étapes — « Écouter → Traduire → Relier » ou « Décrire → Situer → Agir ». Ces visualisations sont des représentations explicatives du futur prototype, non un diagnostic actif. Le commentaire du radar appartient au flux du document, sous le SVG, afin de rester lisible sur mobile.
 
@@ -114,13 +114,15 @@ Les liens personnels utilisent un jeton aléatoire qui n’est conservé qu’ap
 
 Après chaque soumission, l’API prépare un e-mail de récapitulatif déterministe dans `notifications.partner_response_recap_outbox`. Dreamlit doit surveiller uniquement cette boîte d’envoi, à laquelle elle reçoit des droits limités. La console affiche ces messages prêts, leur contenu et leur compteur de régénération ; une régénération met à jour la même ligne sans créer de doublon.
 
+Au 25 août 2026, le module est **livré dans le dépôt mais non activé en production**. Les composants applicatifs, le schéma PostgreSQL, les Dockerfiles, les routes d’administration et les contrôles de build sont prêts. Restent à créer les ressources Coolify, orienter le DNS du sous-domaine API, ajouter les secrets runtime, exécuter une première migration contrôlée, rebâtir le portail avec `VITE_PARTNER_API_URL` et effectuer le pilote. L’URL `https://api.boussole-culture-recherche.memoways.com/health` ne résout pas encore ; aucune réponse réelle ne doit donc être collectée. Le tutoriel complet est archivé dans [`docs/ETAT_LIEUX_ACTIVATION_QUESTIONNAIRE_COOLIFY_2026-08-25.md`](docs/ETAT_LIEUX_ACTIVATION_QUESTIONNAIRE_COOLIFY_2026-08-25.md).
+
 ## 5. Décisions structurantes
 
 | Décision | Raison | Effet pratique |
 |---|---|---|
 | Portail et API séparés | Les pages publiques n’ont pas besoin de secrets | Le frontend reste déployable statiquement ; les données restent dans l’API privée |
 | Docker + Nginx | Déploiement reproductible hors plateforme | Fallback SPA, cache des actifs et compatibilité Coolify |
-| PostgreSQL privé | Invitations et réponses ne sont pas des données de contenu public | Base non exposée au portail ; accès contrôlé pour l’API et Dreamlit |
+| PostgreSQL privé à activer | Invitations et réponses ne sont pas des données de contenu public | Base à déployer hors du portail ; accès contrôlé pour l’API et Dreamlit après sauvegarde et test de restauration |
 | Questionnaire versionné | Les résultats doivent être interprétables dans le temps | La définition du questionnaire est figée avec la réponse |
 | Synthèse déterministe | Une personne reçoit une trace fidèle de sa contribution | Pas de diagnostic ou d’inférence automatique dans l’e-mail |
 | Boîte Dreamlit restreinte | L’outil d’e-mail ne doit pas lire les réponses brutes | Dreamlit consomme uniquement destinataire, objet et texte préparé |
@@ -153,12 +155,12 @@ Après chaque soumission, l’API prépare un e-mail de récapitulatif détermin
 | Les phases futures sont visibles, mais non annoncées comme réalisées | La contribution actuelle doit préparer le prototype sans créer de promesse prématurée | Le déroulé distingue mobilisation, prototype, tests et diffusion ; l’atelier reste formulé comme une étape à confirmer |
 | Accueil à deux profils, canonique unique | Les publics prioritaires doivent se reconnaître sans fragmenter l’indexation ni suggérer que l’outil est actif | `?public=partenaire` et `?public=artiste` partagent un état de lecture ; la page conserve une même canonique et un même graphe JSON-LD |
 | Manifestation d’intérêt séparée du questionnaire | Une personne non invitée doit pouvoir rester liée à la démarche sans être assimilée à un partenaire pilote | Le formulaire stocke seulement le consentement, le public, les préférences d’information et l’origine ; l’admin et l’export restent protégés |
-| FAQ propre au profil | Les questions d’un partenaire culturel et d’un artiste ne sont pas identiques | Trois réponses courtes se substituent après la sélection, avec un seul panneau ouvert et des liens de profondeur contextualisés |
+| FAQ propre au profil | Les questions d’un partenaire culturel et d’un artiste ne sont pas identiques | Cinq réponses complémentaires se substituent après la sélection, avec un seul panneau ouvert et des liens de profondeur contextualisés |
 | Deux repères interactifs par profil | Un seul visuel ne suffit pas à expliquer à la fois les dimensions et le geste de contribution | Le radar porte les cinq repères adaptés au rôle ; la boussole raconte ensuite le mouvement de contribution en trois étapes |
 | Deux CTA dans le récit personnalisé | Des actions concurrentes affaiblissent le choix de parcours | Chaque récit expose un CTA primaire et un CTA secondaire ; les liens de profondeur migrent dans les contenus de contexte |
 | Contrôles radars harmonisés | Le même geste doit avoir la même signification sur les pages et le deck | Les radars partagés et Expérience réservent leurs actions aux cinq icônes périphériques, avec une réaction de survol et de focus |
 | Boussole mobile en colonne | Trois tuiles horizontales compriment les cibles et leurs libellés sur petit écran | Les étapes sont empilées avant `sm`, avec des cibles de 92 px et une grille conservée sur les écrans plus larges |
-| Hero et entrée par profil allégés | Trop de microtextes peuvent retarder la reconnaissance de la promesse et des publics visés | Le hero ne garde que le nom et la promesse ; l’entrée nommée sert directement les trois cartes de profil |
+| Hero et entrée par profil allégés | Trop de microtextes peuvent retarder la reconnaissance de la promesse et des publics visés | Le hero garde la promesse, quatre jalons non numérotés et une entrée directe vers les deux cartes de profil |
 | Sous-menu sticky de deux profils | Le contexte du récit peut se perdre lorsque la personne fait défiler l’accueil | Partenaire culturel et Artiste restent visibles sous la navigation, le profil actif est coloré et le basculement reste direct |
 | Icônes périphériques pour le radar Expérience | La cible interactive doit être identifiable sans ambiguïté | Les points restent graphiques ; les icônes, fixes, portent les rôles, focus et états de sélection |
 | Raison d’être concrète au centre de l’accueil | Une promesse abstraite efface le coût des difficultés ordinaires et l’utilité de la démarche | Le hero et le tronc commun partent des situations coûteuses, expliquent l’amélioration progressive recherchée et rappellent que les artistes restent les premiers bénéficiaires |
@@ -169,8 +171,8 @@ Après chaque soumission, l’API prépare un e-mail de récapitulatif détermin
 ```text
 Portail public     React 19 · TypeScript · Vite · Wouter · Tailwind CSS 4 · shadcn/ui
 API partenaire     Express · TypeScript · pg · Zod · jose · nodemailer · esbuild
-Base de données    PostgreSQL, déployée en service privé dans Coolify
-E-mail             Dreamlit, via une boîte PostgreSQL à périmètre limité
+Base de données    PostgreSQL, schéma prêt ; service privé Coolify à activer
+E-mail             Dreamlit, boîte PostgreSQL à périmètre limité prête à connecter
 Transcription      Deepgram, optionnelle et utilisée uniquement côté API
 Hébergement        Docker · Nginx · Coolify self-hosted
 Qualité            pnpm verify · TypeScript · builds · scripts mobile/contraste/SEO
