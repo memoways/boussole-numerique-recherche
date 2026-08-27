@@ -1,83 +1,62 @@
 # Migration vers Coolify self-hosted
 
-## Objectif et résultat attendu
+## Objectif et périmètre actuel
 
-Ce dépôt est maintenant **autonome** : il compile une application React/Vite statique puis la sert avec Nginx dans une image Docker. Il ne requiert plus de runtime, d'analytics, de proxy ou de secret liés à Manus. Le `Dockerfile` est retenu plutôt qu'un build pack statique générique afin de maîtriser explicitement le cache HTTP et le fallback SPA nécessaire aux routes `/projet`, `/timeline` et `/references`.[1] [2]
+Le dépôt est autonome : le portail React/Vite est servi par Nginx dans une image Docker et le questionnaire repose sur une API Express distincte, une base PostgreSQL privée et des intégrations optionnelles. La migration ne consiste donc plus seulement à publier un site statique : elle doit mettre en place trois ressources Coolify cohérentes — **portail**, **API partenaire** et **PostgreSQL** — sans faire remonter de ports internes dans les URL publiques.
 
-> Le site actuel n'appelle aucune API privée et ne demande aucun secret. Ajoutez uniquement `SITE_URL` comme variable de build afin de générer des URL canoniques, Open Graph, `sitemap.xml` et `robots.txt` cohérents avec le domaine final.
+La configuration DNS retenue pour `memoways.com` utilise Cloudflare et des **CNAME vers `lime.1024b.net`**, sans enregistrement A dans la zone de la Boussole. Le guide détaillé, étape par étape, est disponible dans [`TUTORIEL_CLOUDFLARE_CNAME_COOLIFY_QUESTIONNAIRE_2026-08-27.md`](./TUTORIEL_CLOUDFLARE_CNAME_COOLIFY_QUESTIONNAIRE_2026-08-27.md).
 
-## Pré-requis
+> **Statut au 27 août 2026.** Le code du portail, de l’API, de la console `/admin`, des invitations, du questionnaire et des migrations est prêt dans le dépôt. La production reste à activer : les CNAME, la base, l’API, les secrets, le build du portail et le pilote sont les prochaines étapes.
 
-Vous devez disposer d'une instance Coolify self-hosted opérationnelle, d'un serveur de destination Docker connecté à Coolify et d'un accès à un dépôt Git. Coolify se connecte à un dépôt public ou privé via GitHub App ou clé de déploiement, puis peut déployer directement le Dockerfile du dépôt.[1] Un nom de domaine doit pointer vers l'adresse IP du serveur Coolify avant la mise en production.
+## Architecture de déploiement
 
-| Élément | Valeur recommandée | Motif |
+| Ressource Coolify | Dockerfile | Port interne | FQDN public | Stockage |
+|---|---|---:|---|---|
+| `boussole-portal` | `Dockerfile` à la racine | `8080` | `https://boussole-culture-recherche.memoways.com` | Aucun |
+| `boussole-partner-api` | `services/partner-feedback-api/Dockerfile` | `3001` | `https://api.boussole-culture-recherche.memoways.com` | Aucun hors PostgreSQL |
+| `boussole-postgres` | Service PostgreSQL Coolify | Aucun FQDN | Privé | Volume persistant et sauvegardes |
+
+Dans Cloudflare, les deux FQDN publics sont des CNAME **DNS only** vers `lime.1024b.net` pendant la première activation. Le proxy Coolify émet les certificats des FQDN publics via le DNS challenge Cloudflare. Cette étape doit réussir avant toute activation facultative du nuage orange.
+
+## Variables essentielles
+
+| Ressource | Variables | Portée |
 |---|---|---|
-| Dépôt | Git privé, branche `main` | Contrôle des accès et traçabilité des mises à jour. |
-| Build pack Coolify | **Dockerfile** | Reproductibilité exacte de l'image définie dans le dépôt. |
-| Base directory | `/` | Le `Dockerfile` et `package.json` sont à la racine. |
-| Port interne de l’application | `8080` | Port Nginx défini dans le `Dockerfile` ; il est raccordé au proxy Coolify, pas ajouté au domaine public. |
-| Domaine public | `https://votre-domaine.example` | FQDN HTTPS sans `:8080`, présenté aux visiteurs et utilisé par le proxy. |
-| Variables de build | `SITE_URL` et `VITE_SITE_URL` | Les deux portent l’URL HTTPS publique sans port ; elles génèrent les URL SEO finales et dynamiques. |
-| Stockage persistant | Aucun | L'application n'écrit aucune donnée. |
+| Portail | `SITE_URL`, `VITE_SITE_URL`, `VITE_PARTNER_API_URL` | Build uniquement ; valeurs HTTPS publiques sans slash final ni port. |
+| API | `DATABASE_URL`, `PUBLIC_APP_URL`, `ALLOWED_ORIGIN`, secrets d’invitation et de session, compte admin, `RUN_MIGRATIONS` | Runtime uniquement ; aucune variable ne porte le préfixe `VITE_`. |
+| Proxy Coolify | `CF_DNS_API_TOKEN` | Secret du proxy uniquement ; permission Cloudflare DNS Edit limitée à la zone `memoways.com`. |
 
-## Première mise en ligne
+## Ordre de déploiement
 
-### 1. Préparer le dépôt
+1. Créer les CNAME DNS only et vérifier leur résolution.
+2. Configurer le DNS challenge du proxy Coolify à l’aide d’un token Cloudflare limité.
+3. Créer PostgreSQL privé avec volume, sauvegarde et test de restauration.
+4. Déployer l’API avec `RUN_MIGRATIONS=true`, vérifier `/health`, puis désactiver cette variable et redéployer.
+5. Rebâtir le portail avec `VITE_PARTNER_API_URL`.
+6. Valider `/admin`, invitation, brouillon, consentement, soumission, CSV et suppression des données de test.
+7. Décider ensuite si Deepgram, SMTP, Dreamlit ou le proxy Cloudflare orange doivent être activés.
 
-Poussez la branche `main` vers GitHub, GitLab, Gitea ou votre forge Git habituelle. Vérifiez que `pnpm-lock.yaml`, `Dockerfile`, `infra/nginx/default.conf`, `AGENTS.md` et le dossier `docs/` font partie du commit. Les fichiers `.env` restent exclus du dépôt.
+## Garde-fous de migration
 
-### 2. Créer la ressource Coolify
+- Le target `lime.1024b.net` n’est jamais une URL affichée, une variable publique ou un FQDN de ressource Coolify : il sert uniquement de destination DNS.
+- Les FQDN Coolify ne contiennent jamais `:8080` ni `:3001`.
+- La base n’a aucun FQDN public et aucun secret ne se trouve dans une variable `VITE_*`.
+- Toute modification est effectuée dans Git, vérifiée avec `pnpm verify`, puis redéployée depuis Coolify ; aucune modification manuelle du conteneur ne doit être conservée comme source de vérité.
+- L’activation du nuage orange reste une optimisation ultérieure. Elle exige des certificats valides pour les noms publics et le mode Cloudflare **Full (strict)** ; revenir à DNS only si elle crée une erreur 526 ou 1014.
 
-Dans Coolify, créez un projet puis une nouvelle ressource applicative. Sélectionnez le dépôt Git, choisissez **Dockerfile** au lieu de Nixpacks, gardez `/` comme base directory et conservez le chemin `Dockerfile`. Cette configuration donne à l'image le contrôle complet de son build et de son exécution.[1]
+## Checklist courte
 
-Dans **Network**, définissez le port interne sur `8080`. Ajoutez le ou les noms de domaine souhaités dans le champ FQDN, par exemple `https://boussole.example.org` et `https://www.boussole.example.org`. **N’ajoutez jamais `:8080` au FQDN** : ce port appartient uniquement au conteneur Nginx et doit être atteint par le proxy Coolify. Coolify gère les certificats TLS pour les domaines de la ressource lorsque le DNS est correctement orienté vers le serveur.[4]
-
-> Si une adresse publique comporte déjà `:8080`, supprimez cette entrée du champ FQDN, enregistrez uniquement l’URL HTTPS sans port, puis relancez le déploiement. L’adresse à ouvrir doit être `https://boussole-culture-recherche.memoways.com/timeline`, jamais `https://boussole-culture-recherche.memoways.com:8080/timeline`.
-
-### 3. Variables et secrets
-
-N'ajoutez aucune ancienne variable de Manus. Ajoutez `SITE_URL=https://votre-domaine.example` et `VITE_SITE_URL=https://votre-domaine.example` comme variables de build pour les métadonnées SEO ; elles sont publiques et ne constituent pas des secrets. Les deux valeurs doivent être strictement identiques, en HTTPS, sans slash final ni `:8080`. Le site ne requiert aucune variable runtime. Si vous activez ultérieurement un backend, stockez les secrets uniquement dans la ressource backend ; les variables runtime ne sont nécessaires qu'au conteneur qui les consomme.[3]
-
-Les variables de build sont injectées comme `ARG` pour les applications Dockerfile et peuvent être retrouvées dans les métadonnées de l'image. Pour une future clé réellement requise au build, activez les Docker Build Secrets dans Coolify ; cette option évite de l'inscrire dans les couches de l'image.[3]
-
-### 4. Déployer et valider
-
-Lancez **Deploy**. Après un déploiement réussi, ouvrez la racine puis les routes profondes dans une fenêtre privée : `/`, `/projet`, `/timeline`, `/references`, `/partenaires` et `/partenaires/presentation?slide=3`. Le rechargement direct de chacune de ces routes doit afficher l'application, pas une page 404. Vérifiez que Suivant produit `/partenaires/presentation?slide=4`, sans domaine reconstruit ni `:8080`. Vérifiez aussi le menu mobile, le tableau comparatif et le téléchargement des ressources PDF.
-
-## Mises à jour après migration
-
-Le code est destiné à être modifié indifféremment par un développeur humain, Cursor, Codex ou Claude Code. `AGENTS.md` est le guide commun ; `CLAUDE.md` et `.cursor/rules/project.mdc` relaient les mêmes contraintes aux outils qui les reconnaissent.
-
-Avant chaque fusion, exécutez `pnpm verify`. La vérification GitHub Actions exécute cette commande et construit l'image Docker à chaque push sur `main` ou pull request. Coolify peut ensuite redéployer le nouveau commit depuis sa connexion Git. Pour une mise à jour sans automatisation, utilisez simplement **Redeploy** dans la ressource Coolify après avoir poussé le commit validé.
-
-## Gestion des incidents et retour arrière
-
-Le retour arrière doit toujours partir du dépôt Git. Identifiez le dernier commit connu comme fonctionnel, redeployez ce commit depuis Coolify ou créez un commit de réversion, puis redéployez `main`. Évitez toute modification manuelle dans le conteneur : elle serait perdue à la reconstruction suivante.
-
-## Évolutions avec données ou IA
-
-La version actuelle est volontairement sans backend. Une future fonctionnalité qui traite des réponses de questionnaire, envoie des e-mails ou appelle un modèle IA doit être ajoutée comme service backend distinct. Le frontend communique avec ce service via une URL publique non sensible ; le backend conserve ses propres variables runtime et ses secrets dans Coolify. Cette séparation évite d'exposer des clés dans le bundle Vite.[3]
-
-## Checklist de bascule
-
-- [ ] Le dépôt Git contient le kit Docker et la documentation actuelle.
-- [ ] `pnpm verify` est vert localement et dans GitHub Actions.
-- [ ] La ressource Coolify utilise le build pack Dockerfile, la base `/` et le port interne `8080`.
-- [ ] Le FQDN Coolify correspond exactement au domaine final en HTTPS, sans `:8080`.
-- [ ] Les variables de build publiques `SITE_URL` et `VITE_SITE_URL` correspondent exactement au domaine final en HTTPS, sans slash final ni port.
-- [ ] Le DNS du domaine cible pointe sur le serveur Coolify.
-- [ ] La racine et les routes profondes sont validées après déploiement.
-- [ ] La pagination de `/partenaires/presentation` conserve `?slide=` et ne génère aucune URL avec `:8080`.
-- [ ] Les anciennes URL Manus sont retirées des documents et liens de production après validation du nouveau domaine.
-- [ ] Aucun secret n'est présent dans le dépôt ou dans une variable `VITE_*`.
-- [ ] `pnpm audit --prod` ne signale aucune vulnérabilité critique ou élevée.
+- [ ] CNAME portail et API créés vers `lime.1024b.net`, en DNS only.
+- [ ] Token Cloudflare de DNS challenge créé et placé uniquement dans le proxy Coolify.
+- [ ] PostgreSQL privé, persistant et sauvegardé.
+- [ ] API saine sur `/health` après migration.
+- [ ] Portail reconstruit avec l’URL API.
+- [ ] Pilote questionnaire effectué avec suppression des données de test.
+- [ ] Seules les intégrations utiles au pilote sont activées.
 
 ## Références
 
-[1] [Coolify — Dockerfile Build Pack](https://coolify.io/docs/applications/build-packs/dockerfile)
-
-[2] [Coolify — Static Build Packs](https://coolify.io/docs/applications/build-packs/static)
-
-[3] [Coolify — Environment Variables](https://coolify.io/docs/knowledge-base/environment-variables)
-
-[4] [Coolify — Introduction au self-hosting](https://coolify.io/docs/get-started/introduction)
+- [Tutoriel complet Cloudflare CNAME, Coolify et questionnaire](./TUTORIEL_CLOUDFLARE_CNAME_COOLIFY_QUESTIONNAIRE_2026-08-27.md)
+- [État des lieux d’activation du questionnaire](./ETAT_LIEUX_ACTIVATION_QUESTIONNAIRE_COOLIFY_2026-08-25.md)
+- [Coolify — DNS Challenge avec Cloudflare](https://coolify.io/docs/knowledge-base/proxy/traefik/dns-challenge)
+- [Cloudflare — Full (strict)](https://developers.cloudflare.com/ssl/origin-configuration/ssl-modes/full-strict/)

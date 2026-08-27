@@ -116,6 +116,8 @@ Après chaque soumission, l’API prépare un e-mail de récapitulatif détermin
 
 Au 25 août 2026, le module est **livré dans le dépôt mais non activé en production**. Les composants applicatifs, le schéma PostgreSQL, les Dockerfiles, les routes d’administration et les contrôles de build sont prêts. Restent à créer les ressources Coolify, orienter le DNS du sous-domaine API, ajouter les secrets runtime, exécuter une première migration contrôlée, rebâtir le portail avec `VITE_PARTNER_API_URL` et effectuer le pilote. L’URL `https://api.boussole-culture-recherche.memoways.com/health` ne résout pas encore ; aucune réponse réelle ne doit donc être collectée. Le tutoriel complet est archivé dans [`docs/ETAT_LIEUX_ACTIVATION_QUESTIONNAIRE_COOLIFY_2026-08-25.md`](docs/ETAT_LIEUX_ACTIVATION_QUESTIONNAIRE_COOLIFY_2026-08-25.md).
 
+Le 27 août 2026, ce chemin d’activation a été adapté à l’infrastructure DNS Cloudflare réelle : la zone ne publiera pas d’adresse IP pour les deux sous-domaines de la Boussole, mais des CNAME DNS only vers `lime.1024b.net`. Le proxy Coolify devra obtenir les certificats des noms publics avec le DNS challenge Cloudflare, à l’aide d’un token limité à l’édition DNS de la zone. Cette stratégie évite d’utiliser `lime.1024b.net` comme URL publique, et maintient le portail ainsi que l’API derrière leurs noms dédiés. Le guide pas à pas est [`docs/TUTORIEL_CLOUDFLARE_CNAME_COOLIFY_QUESTIONNAIRE_2026-08-27.md`](docs/TUTORIEL_CLOUDFLARE_CNAME_COOLIFY_QUESTIONNAIRE_2026-08-27.md) ; il remplace les instructions précédentes qui recommandaient des enregistrements A.
+
 ## 5. Décisions structurantes
 
 | Décision | Raison | Effet pratique |

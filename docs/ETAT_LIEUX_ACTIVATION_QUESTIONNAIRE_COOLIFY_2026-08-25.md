@@ -3,6 +3,8 @@
 **Date de contrôle :** 25 août 2026  
 **Statut global :** le module est développé, contrôlé au build et prêt à être déployé ; il n’est **pas encore activé en production**.
 
+> **Mise à jour du 27 août 2026.** Les instructions DNS fondées sur un enregistrement A sont remplacées par une configuration Cloudflare à deux CNAME DNS only vers `lime.1024b.net`. Suivez désormais le [tutoriel Cloudflare, CNAME et Coolify](./TUTORIEL_CLOUDFLARE_CNAME_COOLIFY_QUESTIONNAIRE_2026-08-27.md), qui traite aussi les certificats et le DNS challenge.
+
 ## Résumé opérationnel
 
 Le portail public est autonome et peut être servi par Nginx. Le questionnaire, la console `/admin`, les invitations individuelles, les brouillons, la soumission, l’export CSV, la révocation et la boîte de récapitulatifs sont déjà implémentés dans une API Express distincte. Leur activation dépend maintenant de trois ressources Coolify — portail, API et PostgreSQL — ainsi que de la configuration de secrets et des tests de pilote.

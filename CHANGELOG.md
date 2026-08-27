@@ -2,6 +2,21 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.3.11] — 2026-08-27 — Migration Coolify adaptée à Cloudflare
+
+### Modifié
+
+- Le plan de migration Coolify couvre désormais le portail, l’API partenaire et PostgreSQL, au lieu de décrire uniquement la publication statique initiale.
+- La stratégie DNS du projet est adaptée à Cloudflare : les sous-domaines publics reposent sur des CNAME DNS only vers `lime.1024b.net`, et le proxy Coolify demande les certificats via le DNS challenge Cloudflare.
+
+### Ajouté
+
+- Tutoriel téléchargeable [`docs/TUTORIEL_CLOUDFLARE_CNAME_COOLIFY_QUESTIONNAIRE_2026-08-27.md`](./docs/TUTORIEL_CLOUDFLARE_CNAME_COOLIFY_QUESTIONNAIRE_2026-08-27.md) : DNS, token Cloudflare minimal, proxy, ressources, secrets, migration, pilote, options et diagnostic d’incidents.
+
+### Documenté
+
+- Le target `lime.1024b.net` résout vers `185.131.204.133`, mais retourne actuellement 503 en HTTPS et 404 en HTTP lorsqu’il est appelé directement. Ce comportement est attendu tant qu’aucune ressource Coolify n’est routée pour ce hostname ; les contrôles doivent viser les deux FQDN publics de la Boussole après déploiement.
+
 ## [1.3.10] — 2026-08-25 — État des lieux d’activation du questionnaire
 
 ### Ajouté
