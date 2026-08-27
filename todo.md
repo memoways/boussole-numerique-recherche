@@ -133,3 +133,4 @@
 - [x] Dresser l’état des lieux du questionnaire et fournir la checklist Coolify, PostgreSQL, secrets, SMTP, Deepgram et Dreamlit pour son activation en production.
 - [x] Consolider CHANGELOG.md et STORY.md avec les derniers développements effectivement livrés et la documentation d’activation Coolify.
 - [x] Adapter le tutoriel Coolify du questionnaire à Cloudflare avec des CNAME vers lime.1024b.net et livrer une version Markdown téléchargeable.
+- [x] Synchroniser README.md, CHANGELOG.md et STORY.md avec le tutoriel Cloudflare/CNAME et les derniers changements documentaires livrés.

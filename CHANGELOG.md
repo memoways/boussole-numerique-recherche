@@ -2,6 +2,14 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.3.12] — 2026-08-27 — Continuité documentaire Cloudflare et Coolify
+
+### Modifié
+
+- README et STORY distinguent désormais explicitement ce qui est livré dans le dépôt de ce qui reste à activer dans Coolify : PostgreSQL privé, API partenaire, secrets runtime, migration, rebuild du portail et pilote.
+- L’architecture du README représente Cloudflare, les CNAME DNS only vers `lime.1024b.net`, le proxy Coolify, les deux ports internes et la séparation des services optionnels.
+- Les références d’exploitation renvoient au tutoriel Cloudflare/CNAME applicable, qui remplace les anciennes indications basées sur des enregistrements A.
+
 ## [1.3.11] — 2026-08-27 — Migration Coolify adaptée à Cloudflare
 
 ### Modifié

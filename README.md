@@ -4,7 +4,7 @@
 
 **Boussole Numérique Culture** est le dépôt du site compagnon et du module partenaire qui préparent un outil en co-conception destiné aux actrices, acteurs et structures culturelles. La Boussole n’existe pas encore comme outil utilisable : l’accueil distingue explicitement le portail existant du futur prototype et oriente vers deux parcours, Partenaire culturel et Artiste. Le portail explique le projet, ses jalons, l’expérience illustrative, la méthode, la recherche et les modalités de co-construction. Le module partenaire ajoute une présentation dédiée, des invitations personnelles, un questionnaire qualitatif, une collecte d’intérêt consentie, une console d’administration et l’envoi de récapitulatifs contrôlés.
 
-Le projet est conçu pour être déployé et maintenu hors plateforme : le portail est une application statique servie par Nginx ; l’API partenaire est une application Express distincte ; PostgreSQL, l’API et Dreamlit sont activés dans Coolify lorsque le pilote démarre.
+Le projet est conçu pour être déployé et maintenu hors plateforme : le portail est une application statique servie par Nginx ; l’API partenaire est une application Express distincte ; PostgreSQL et l’API sont à activer dans Coolify avant le pilote. La zone Cloudflare utilisera deux CNAME DNS only vers `lime.1024b.net`, tandis que le proxy Coolify obtiendra les certificats des noms publics par DNS challenge. Dreamlit reste un service externe, à connecter seulement après validation du pilote de base.
 
 > **Principe produit.** La future Boussole aidera à situer des pratiques et à choisir une prochaine étape. Elle ne produira pas une note unique et ne recommandera pas automatiquement un outil commercial.
 
@@ -38,6 +38,8 @@ Les FAQ des parcours Partenaire culturel et Artiste complètent désormais les r
 
 La page Ressources complète ses filtres de catégorie et de période par une recherche locale guidée. Elle propose des suggestions thématiques, recherche sans tenir compte de la casse ou des accents, et permet d’effacer la requête sans réinitialiser les autres filtres.
 
+Le tutoriel de déploiement actuellement applicable est [`docs/TUTORIEL_CLOUDFLARE_CNAME_COOLIFY_QUESTIONNAIRE_2026-08-27.md`](./docs/TUTORIEL_CLOUDFLARE_CNAME_COOLIFY_QUESTIONNAIRE_2026-08-27.md). Il remplace les instructions anciennes fondées sur des enregistrements A : il couvre les deux CNAME vers `lime.1024b.net`, le token DNS Cloudflare limité, les certificats par DNS challenge, les trois ressources Coolify, les secrets, la migration initiale et le pilote du questionnaire.
+
 ## Ce que contient le portail
 
 | Ensemble | Rôle | Routes ou emplacement |
@@ -57,12 +59,14 @@ La navigation publique principale reste limitée à **Projet, Calendrier, Expér
 
 ```text
 Navigateur
-  └─ Portail React/Vite statique ── Nginx ── domaine public
-       └─ VITE_PARTNER_API_URL ── API partenaire Express
-                                      ├─ PostgreSQL privé
-                                      ├─ Deepgram (transcription optionnelle)
-                                      ├─ SMTP (invitations optionnelles)
-                                      └─ Dreamlit (récapitulatifs depuis boîte d’envoi limitée)
+  └─ Cloudflare DNS : CNAME DNS only vers lime.1024b.net
+       └─ Proxy Coolify : TLS des FQDN publics via DNS challenge Cloudflare
+            ├─ Portail React/Vite statique ── Nginx interne :8080
+            │    └─ VITE_PARTNER_API_URL ── API partenaire Express interne :3001
+            │                                   ├─ PostgreSQL privé
+            │                                   ├─ Deepgram (transcription optionnelle)
+            │                                   ├─ SMTP (invitations optionnelles)
+            │                                   └─ Dreamlit (récapitulatifs depuis boîte d’envoi limitée)
 ```
 
 | Dossier ou fichier | Responsabilité |
