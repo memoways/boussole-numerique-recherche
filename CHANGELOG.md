@@ -2,6 +2,22 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.3.13] — 2026-08-28 — Healthcheck Coolify indépendant du routage public
+
+### Corrigé
+
+- Le healthcheck Docker du portail ne demande plus la racine sur `127.0.0.1:8080`, qui suivait une redirection HTTPS vers le FQDN public et pouvait provoquer un rollback `503` avant la fin du routage Coolify.
+- Nginx expose maintenant `/healthz`, endpoint interne qui répond `200 ok` sans redirection ; le healthcheck Docker cible exclusivement cet endpoint local.
+- La normalisation des anciennes URL publiques contenant `:8080` reste active pour le FQDN canonique, mais ne s’applique plus aux requêtes locales de healthcheck.
+
+### Ajouté
+
+- Diagnostic de déploiement [`docs/DIAGNOSTIC_ECHEC_DEPLOIEMENT_COOLIFY_2026-08-28.md`](./docs/DIAGNOSTIC_ECHEC_DEPLOIEMENT_COOLIFY_2026-08-28.md) et commandes `dig` macOS dans le tutoriel de migration.
+
+### Vérifié
+
+- `pnpm verify` passe avec le pré-rendu, le contrôle SEO-GEO et le build de l’API. La validation Docker finale sera effectuée par le prochain redeploy Coolify, Docker n’étant pas présent dans l’environnement local de contrôle.
+
 ## [1.3.12] — 2026-08-27 — Continuité documentaire Cloudflare et Coolify
 
 ### Modifié

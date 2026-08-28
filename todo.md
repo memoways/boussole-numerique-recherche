@@ -134,3 +134,4 @@
 - [x] Consolider CHANGELOG.md et STORY.md avec les derniers développements effectivement livrés et la documentation d’activation Coolify.
 - [x] Adapter le tutoriel Coolify du questionnaire à Cloudflare avec des CNAME vers lime.1024b.net et livrer une version Markdown téléchargeable.
 - [x] Synchroniser README.md, CHANGELOG.md et STORY.md avec le tutoriel Cloudflare/CNAME et les derniers changements documentaires livrés.
+- [x] Corriger le healthcheck du portail Coolify qui suit une redirection HTTPS externe et fournir les commandes DNS équivalentes pour macOS.

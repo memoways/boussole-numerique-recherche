@@ -51,9 +51,21 @@ Les CNAME de sous-domaines sont compatibles avec cette configuration. N’ajoute
 Attendez que les deux noms soient résolus. Depuis un terminal, les commandes suivantes doivent aboutir à la même destination que `lime.1024b.net` :
 
 ```bash
-getent ahostsv4 boussole-culture-recherche.memoways.com
-getent ahostsv4 api.boussole-culture-recherche.memoways.com
+# La première réponse doit indiquer lime.1024b.net.
+dig +short CNAME boussole-culture-recherche.memoways.com
+dig +short CNAME api.boussole-culture-recherche.memoways.com
+
+# Ces commandes doivent ensuite retourner la même IPv4 que le target.
+dig +short A boussole-culture-recherche.memoways.com
+dig +short A api.boussole-culture-recherche.memoways.com
+dig +short A lime.1024b.net
+
+# Vérification auprès du résolveur Cloudflare, sans dépendre du cache local.
+dig @1.1.1.1 +short CNAME boussole-culture-recherche.memoways.com
+dig @1.1.1.1 +short CNAME api.boussole-culture-recherche.memoways.com
 ```
+
+`getent` est une commande Linux : elle n’est pas fournie avec zsh sur macOS. Les commandes `dig` ci-dessus sont présentes par défaut sur macOS et ne modifient rien ; elles confirment uniquement la propagation DNS. Avec des enregistrements **DNS only**, les commandes `A` peuvent afficher directement l’IPv4 finale après le CNAME. Avec le nuage orange, elles afficheront des adresses Cloudflare : cela ne permet plus de confirmer le target direct et constitue une raison supplémentaire de commencer en DNS only.
 
 Ne testez pas encore HTTPS : les certificats des deux noms publics seront demandés par le proxy Coolify aux étapes suivantes.
 
@@ -150,7 +162,7 @@ La base reste une dépendance privée. Elle n’a ni domaine public, ni variable
 
 1. Créez une application depuis le même dépôt, avec le build pack **Dockerfile** et le chemin `Dockerfile` à la racine.
 2. Définissez le port interne sur `8080`.
-3. Dans le FQDN, indiquez seulement :
+3. Dans le FQDN, indiquez seulement, **sans slash terminal** :
 
    ```text
    https://boussole-culture-recherche.memoways.com
@@ -165,6 +177,29 @@ La base reste une dépendance privée. Elle n’a ni domaine public, ni variable
 | `VITE_PARTNER_API_URL` | `https://api.boussole-culture-recherche.memoways.com` |
 
 5. Lancez un **nouveau build complet** du portail. Les variables `VITE_*` sont intégrées au JavaScript à la compilation ; un simple redémarrage ne suffit pas.
+
+### Réglages à vérifier dans la capture Coolify
+
+La configuration visible est presque correcte : le build pack Dockerfile, le répertoire de base `/`, le chemin `/Dockerfile` et le port exposé `8080` correspondent au portail. Ajustez seulement les éléments suivants avant le prochain déploiement.
+
+| Élément Coolify | Valeur à conserver ou appliquer | Pourquoi |
+|---|---|---|
+| Domaines | `https://boussole-culture-recherche.memoways.com` sans `/` final | Le FQDN public doit rester exact et ne contenir aucun port interne. |
+| Direction | **Allow non-www** | Aucun sous-domaine `www` n’est prévu dans les enregistrements Cloudflare. |
+| Ports Exposes | `8080` | Correct : c’est le port interne du Nginx du portail. |
+| Healthcheck Coolify | Laisser la page vide si Coolify détecte le `HEALTHCHECK` Dockerfile | Le contrôle est défini dans l’image et teste uniquement `http://127.0.0.1:8080/healthz`. |
+| Custom Docker Options | Vide | Aucune option supplémentaire n’est nécessaire. |
+
+### Si le déploiement échoue avec `Healthcheck … 503`
+
+Le journal joint du 28 août 2026 permet d’identifier la cause : le conteneur Nginx démarre correctement, mais son ancien healthcheck appelait `http://127.0.0.1:8080/`. Nginx répondait alors `308`, car cette adresse contenait le port interne, et `wget` suivait la redirection HTTPS vers le domaine public. Avant que le proxy, le certificat et le routage Coolify soient prêts, cette requête externe termine en `503`. Le rollback est donc causé par le **healthcheck**, non par une erreur de build ou par le DNS de l’application.
+
+La version actuelle du dépôt corrige ce point avec un endpoint local `GET /healthz` qui répond `200 ok` et ne redirige jamais. Après synchronisation du dernier commit dans Coolify :
+
+1. Vérifiez que le `Dockerfile` indique bien `http://127.0.0.1:8080/healthz` dans `HEALTHCHECK`.
+2. Utilisez **Redeploy** ; un nouveau commit doit apparaître et Coolify doit reconstruire l’image. Le message « Build step skipped » dans votre journal concernait le commit déjà connu, pas une erreur de code.
+3. Attendez le statut Healthy. L’endpoint `/healthz` est interne : ne l’ajoutez pas aux liens publics et ne l’utilisez pas comme FQDN Coolify.
+4. Ensuite seulement, testez `https://boussole-culture-recherche.memoways.com` dans le navigateur.
 
 ## 6. Premier test complet du questionnaire
 
@@ -205,7 +240,9 @@ Cloudflare peut proxifier les enregistrements A, AAAA et CNAME qui servent le tr
 | Symptôme | Cause probable | Action |
 |---|---|---|
 | `ERR_NAME_NOT_RESOLVED` sur l’API | CNAME absent, mal orthographié ou non propagé. | Vérifier les deux enregistrements Cloudflare et attendre la propagation. |
+| `zsh: command not found: getent` | `getent` est une commande Linux, absente de macOS. | Employer les commandes `dig` de la section « Vérification DNS avant Coolify ». |
 | Avertissement de certificat sur le domaine public | Certificat Coolify non émis ou DNS challenge non configuré. | Vérifier `CF_DNS_API_TOKEN`, les logs ACME du proxy et que le FQDN est exact. |
+| Le déploiement du portail rollback après `Healthcheck … 503` | L’ancien healthcheck suivait la redirection HTTPS du port interne vers un FQDN pas encore routé. | Déployer le dernier commit, qui contrôle `/healthz` localement, et ne pas désactiver le healthcheck. |
 | `503` sur `lime.1024b.net` | Aucun routeur Coolify ne correspond à ce hostname générique. | Attendu tant que `lime.1024b.net` n’est pas un FQDN d’application ; tester uniquement les FQDN publics de la Boussole. |
 | `526` après activation du nuage orange | Cloudflare Full (strict) ne valide pas le certificat origine. | Revenir à DNS only, corriger le certificat Coolify pour le domaine public, puis retester. |
 | `1014 CNAME Cross-User Banned` après activation du nuage orange | La chaîne CNAME traverse deux comptes Cloudflare incompatibles. | Revenir à DNS only. Ne réactiver le proxy qu’après vérification que la chaîne est compatible ou après adoption d’un Cloudflare Tunnel. |

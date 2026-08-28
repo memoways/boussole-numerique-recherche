@@ -79,6 +79,7 @@ Navigateur
 | `scripts/verify-seo.mjs` | Contrôle automatisé des pages HTML, métadonnées, schémas, assets et routes non indexables |
 | `services/partner-feedback-api/` | API Express, schéma SQL, invitations, réponses, session admin et récapitulatifs |
 | `Dockerfile` | Image Nginx du portail avec fallback SPA |
+| `infra/nginx/default.conf` | Cache, routes générées, redirections publiques et endpoint local `/healthz` du healthcheck Docker |
 | `services/partner-feedback-api/Dockerfile` | Image de l’API partenaire |
 | `infra/nginx/default.conf` | Cache des actifs, service des pages HTML générées et vraie 404 pour les routes inconnues |
 | `config/ENVIRONMENT.md` | Variables de build publiques et secrets runtime |
@@ -179,6 +180,7 @@ Toute modification effectivement livrée doit mettre à jour `CHANGELOG.md`, `ST
 | [`docs/PLAN_ENRICHISSEMENT_FAQ_PROFILS_2026-08-22.md`](./docs/PLAN_ENRICHISSEMENT_FAQ_PROFILS_2026-08-22.md) | FAQ complémentaires : rôles, participation, retours, garde-fous et IA à tester |
 | [`docs/ETAT_LIEUX_ACTIVATION_QUESTIONNAIRE_COOLIFY_2026-08-25.md`](./docs/ETAT_LIEUX_ACTIVATION_QUESTIONNAIRE_COOLIFY_2026-08-25.md) | État prêt/non activé du questionnaire et checklist Coolify de finalisation |
 | [`docs/TUTORIEL_CLOUDFLARE_CNAME_COOLIFY_QUESTIONNAIRE_2026-08-27.md`](./docs/TUTORIEL_CLOUDFLARE_CNAME_COOLIFY_QUESTIONNAIRE_2026-08-27.md) | Tutoriel détaillé Cloudflare/CNAME vers `lime.1024b.net`, Coolify, certificats et pilote questionnaire |
+| [`docs/DIAGNOSTIC_ECHEC_DEPLOIEMENT_COOLIFY_2026-08-28.md`](./docs/DIAGNOSTIC_ECHEC_DEPLOIEMENT_COOLIFY_2026-08-28.md) | Analyse du rollback 503, correction `/healthz`, redéploiement et commandes DNS macOS |
 | [`docs/CONTROLE_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md`](./docs/CONTROLE_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md) | Contrôles de la clarification du statut, des parcours, de l’ancienne URL et des jalons visibles |
 | [`docs/PLAN_PREVISUALISATION_EXPERIENCE_2026-08-20.md`](./docs/PLAN_PREVISUALISATION_EXPERIENCE_2026-08-20.md) | Cadrage des quatre écrans illustratifs du futur prototype sur la page Expérience |
 | [`docs/CONTROLE_PREVISUALISATION_EXPERIENCE_2026-08-20.md`](./docs/CONTROLE_PREVISUALISATION_EXPERIENCE_2026-08-20.md) | Contrôle des écrans, interactions, garde-fous et tests restant sur mobile réel |
