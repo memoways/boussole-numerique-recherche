@@ -175,14 +175,15 @@ Le premier démarrage réel de Boussole API a révélé une incompatibilité du 
 | Icônes périphériques pour le radar Expérience | La cible interactive doit être identifiable sans ambiguïté | Les points restent graphiques ; les icônes, fixes, portent les rôles, focus et états de sélection |
 | Raison d’être concrète au centre de l’accueil | Une promesse abstraite efface le coût des difficultés ordinaires et l’utilité de la démarche | Le hero et le tronc commun partent des situations coûteuses, expliquent l’amélioration progressive recherchée et rappellent que les artistes restent les premiers bénéficiaires |
 | Même logique, apport propre par profil | Les personas deviennent du décor s’ils répètent la même promesse | Chaque récit suit la séquence Pourquoi, Quoi, Comment, bénéfices, FAQ complémentaire et deux actions, avec un rôle distinct pour chaque public |
-| Cloudflare par CNAME DNS only | La zone disponible ne permet pas d’enregistrer directement l’IP Coolify pour ce projet | Deux sous-domaines publics ciblent `lime.1024b.net` ; les certificats sont demandés au proxy via DNS challenge et les ports restent internes |
+| Cloudflare par CNAME DNS only | La zone disponible ne permet pas d’enregistrer directement l’IP Coolify pour ce projet | Deux sous-domaines publics ciblent `lime.1024b.net` ; le challenge HTTP-01 standard de Coolify émet les certificats si les ports 80 et 443 sont publics, et le DNS challenge reste une solution de repli ciblée |
+| Confirmation finale dégagée | Un message de réussite trop proche de la navigation fixe brouille la séparation entre contexte et résultat | La confirmation du questionnaire reçoit une marge supérieure de 2,5 rem sur mobile et de 3,5 rem à partir de `sm` |
 
 ## 6. Stack et structure du dépôt
 
 ```text
 Portail public     React 19 · TypeScript · Vite · Wouter · Tailwind CSS 4 · shadcn/ui
 API partenaire     Express · TypeScript · pg · Zod · jose · nodemailer · esbuild
-Base de données    PostgreSQL, schéma prêt ; service privé Coolify à activer
+Base de données    PostgreSQL privé Coolify, actif pour le pilote
 E-mail             Dreamlit, boîte PostgreSQL à périmètre limité prête à connecter
 Transcription      Deepgram, optionnelle et utilisée uniquement côté API
 Hébergement        Cloudflare DNS · CNAME DNS only · Docker · Nginx · Coolify self-hosted
@@ -240,20 +241,20 @@ Qualité            pnpm verify · TypeScript · builds · scripts mobile/contra
 
 ## 8. État d’activation et limites connues
 
-Le portail statique peut être déployé immédiatement. Le module partenaire est implémenté et vérifié dans le dépôt, mais il n’est pas encore actif en production parce que les ressources Coolify, PostgreSQL, les secrets API, SMTP, Deepgram et le workflow Dreamlit doivent encore être configurés.
+Le portail statique et le flux de base du module partenaire sont actifs en production. PostgreSQL, l’API, son certificat, la console `/admin`, les invitations personnelles, la persistance des brouillons, la soumission et la transcription Deepgram ont été testés avec une organisation et un contact de contrôle. Les intégrations e-mail SMTP et Dreamlit restent optionnelles et ne sont pas nécessaires au pilote de base.
 
 | Élément | État | Action restante |
 |---|---|---|
-| Portail public | IPv4 valide, IPv6 défaillant | Remplacer le CNAME par l’A record `185.131.204.133` et ne pas publier d’AAAA |
+| Portail public | Déployé derrière Cloudflare et Coolify | Conserver les CNAME DNS only vers `lime.1024b.net` et surveiller la disponibilité des FQDN publics |
 | SEO et GEO | Sorties HTML et contrôles automatisés prêts | Soumettre sitemap et domaine dans Google Search Console et Bing Webmaster Tools après publication ; fournir une image Open Graph dédiée si souhaité |
-| API partenaire | Prête | Créer l’application Coolify et ses secrets |
-| PostgreSQL | Prêt à initialiser | Créer le service privé et appliquer le schéma idempotent |
-| Console `/admin` | Interface livrée | Définir `ADMIN_EMAIL` et `ADMIN_PASSWORD`, puis déployer l’API |
-| Transcription Deepgram | Intégration livrée | Fournir `DEEPGRAM_API_KEY` |
-| E-mails Dreamlit | Boîte d’envoi livrée | Créer l’utilisateur DB restreint, connecter Dreamlit et publier le workflow |
-| Manifestations d’intérêt | Frontend et API livrés | Activer l’API, PostgreSQL et `RUN_MIGRATIONS=true`, puis contrôler la première soumission et l’export dans `/admin` |
+| API partenaire | Déployée, saine et certifiée | Contrôler les journaux après chaque évolution et maintenir `RUN_MIGRATIONS=false` hors migration initiale |
+| PostgreSQL | Créé et sain | Préserver le réseau privé et les sauvegardes Coolify |
+| Console `/admin` | Accessible et testée | Contrôler export, révocation et régénération avant la clôture du pilote |
+| Transcription Deepgram | Configurée et testée | Contrôler ponctuellement transcription, correction manuelle et absence de conservation de l’audio |
+| E-mails Dreamlit | Boîte d’envoi livrée, activation non confirmée | Créer l’utilisateur DB restreint, connecter Dreamlit et publier le workflow seulement après le pilote de base |
+| Manifestations d’intérêt | Frontend et API livrés | Contrôler la première soumission et l’export dans `/admin` si ce parcours est activé |
 
-Le domaine public de référence est **https://boussole-culture-recherche.memoways.com**. Cette valeur est le défaut du Dockerfile et doit aussi être renseignée comme variables de build `SITE_URL` et `VITE_SITE_URL` dans Coolify afin que les URL canoniques, Open Graph, le sitemap, `robots.txt`, `llms.txt` et les données structurées restent cohérents lors du déploiement. Le 14 août 2026, le chemin IPv4 et le certificat ont été validés, tandis que l’IPv6 héritée du CNAME ne répondait pas. La correction DNS est documentée dans [`docs/DIAGNOSTIC_DOMAINE_BOUSSOLE_2026-08-14.md`](docs/DIAGNOSTIC_DOMAINE_BOUSSOLE_2026-08-14.md).
+Le domaine public de référence est **https://boussole-culture-recherche.memoways.com**. Cette valeur est le défaut du Dockerfile et doit aussi être renseignée comme variables de build `SITE_URL` et `VITE_SITE_URL` dans Coolify afin que les URL canoniques, Open Graph, le sitemap, `robots.txt`, `llms.txt` et les données structurées restent cohérents lors du déploiement. Les deux FQDN publics utilisent des CNAME DNS only vers `lime.1024b.net` ; la procédure de contrôle actualisée est documentée dans [`docs/TUTORIEL_CLOUDFLARE_CNAME_COOLIFY_QUESTIONNAIRE_2026-08-27.md`](docs/TUTORIEL_CLOUDFLARE_CNAME_COOLIFY_QUESTIONNAIRE_2026-08-27.md).
 
 Les contenus éditoriaux restent principalement dans les composants React. Une synthèse statique par route est maintenue dans le générateur SEO ; elle doit être revue lorsqu’un changement de fond modifie le message public d’une page. Une source de contenu structurée pourra être envisagée si les mises à jour deviennent fréquentes. Le bundle principal dépasse l’avertissement de taille Vite ; une optimisation par import dynamique est envisageable après mesure sur le domaine de production.
 

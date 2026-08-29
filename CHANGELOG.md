@@ -2,6 +2,16 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.3.17] — 2026-08-29 — Confirmation de questionnaire dégagée
+
+### Corrigé
+
+- Le panneau de remerciement qui suit la soumission du questionnaire reçoit une marge supérieure de 2,5 rem sur mobile et 3,5 rem à partir de `sm`, afin de ne plus être visuellement collé à la navigation fixe.
+
+### Vérifié
+
+- TypeScript passe après l’ajustement de la vue de confirmation.
+
 ## [1.3.16] — 2026-08-29 — Démarrage Express fiable dans l’API Coolify
 
 ### Corrigé
