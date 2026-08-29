@@ -214,6 +214,12 @@ Ne renseignez **pas encore** `DEEPGRAM_API_KEY` ni les variables SMTP, sauf si v
 
 > **Si l’API échoue avant le statut Healthy.** Vérifiez d’abord `DATABASE_URL`, puis l’existence de PostgreSQL sur le même réseau Coolify. Ne rendez jamais PostgreSQL public pour contourner cette erreur.
 
+#### D. Cas observé : erreur Express `Dynamic require of "tty" is not supported`
+
+Si le journal affiche `Dynamic require of "tty" is not supported`, ne modifiez pas les variables et ne contournez pas le certificat. L’erreur provient d’un ancien bundle ESM d’Express, non de PostgreSQL ou de Cloudflare. Le correctif est déjà présent dans le dépôt : l’API démarre désormais depuis `dist/index.cjs`, les dépendances de production sont emballées par le Dockerfile et le routeur Express utilise une version compatible de `path-to-regexp`.
+
+Vérifiez seulement que Coolify a récupéré le dernier commit de `main`, puis cliquez sur **Redeploy**. Attendez le message `Partner feedback API listening on 3001`. Le diagnostic complet est archivé dans [`DIAGNOSTIC_API_EXPRESS_COOLIFY_2026-08-29.md`](./DIAGNOSTIC_API_EXPRESS_COOLIFY_2026-08-29.md).
+
 ### 5.3 Créer ou corriger le portail : `boussole-portal`
 
 Le portail est une seconde application Docker dans le même dépôt. Il sert les pages publiques et appelle l’API par HTTPS depuis le navigateur. C’est donc ici, et uniquement ici, que `VITE_PARTNER_API_URL` doit être renseignée.

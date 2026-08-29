@@ -2,6 +2,22 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.3.16] — 2026-08-29 — Démarrage Express fiable dans l’API Coolify
+
+### Corrigé
+
+- L’API partenaire n’est plus bundlée en ESM avec les dépendances CommonJS d’Express, ce qui causait `Dynamic require of "tty" is not supported` et des redémarrages en boucle dans Coolify.
+- L’artefact API est compilé en CommonJS, utilise un chemin de schéma compatible production et embarque ses dépendances runtime via `pnpm deploy --legacy --prod`.
+- La surcharge pnpm de `path-to-regexp` est désormais ciblée sur le routeur Express 5 avec la version 8.3.0, compatible avec son API `match`.
+
+### Vérifié
+
+- Le bundle CommonJS et l’artefact runtime isolé démarrent avec l’ensemble des variables obligatoires et exposent le message `Partner feedback API listening on 3999` lors du contrôle local.
+
+### Ajouté
+
+- Diagnostic de redéploiement [`docs/DIAGNOSTIC_API_EXPRESS_COOLIFY_2026-08-29.md`](./docs/DIAGNOSTIC_API_EXPRESS_COOLIFY_2026-08-29.md).
+
 ## [1.3.15] — 2026-08-29 — Procédure Coolify détaillée pour les trois ressources
 
 ### Modifié

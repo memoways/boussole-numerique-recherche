@@ -137,3 +137,6 @@
 - [x] Corriger le healthcheck du portail Coolify qui suit une redirection HTTPS externe et fournir les commandes DNS équivalentes pour macOS.
 - [x] Distinguer dans le tutoriel Coolify le chemin minimal HTTP-01 des options DNS challenge Cloudflare avec les CNAME DNS only.
 - [x] Détailler la création de PostgreSQL, le déploiement de l’API et celui du portail dans le point 5 du tutoriel Coolify.
+- [ ] Diagnostiquer et corriger l’émission du certificat HTTPS de l’API partenaire avant tout test de connexion ou de questionnaire.
+- [x] Diagnostiquer les redémarrages en boucle de l’API Coolify et compléter ses prérequis de démarrage avant le redéploiement.
+- [x] Corriger le bundling ESM de l’API partenaire qui déclenche « Dynamic require of tty is not supported » au démarrage d’Express.

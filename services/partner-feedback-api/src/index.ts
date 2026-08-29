@@ -1,6 +1,6 @@
 import { createHash, randomBytes, randomUUID, timingSafeEqual } from "node:crypto";
 import { readFile } from "node:fs/promises";
-import { fileURLToPath } from "node:url";
+import { join } from "node:path";
 import cors from "cors";
 import express, { type Request, type Response } from "express";
 import helmet from "helmet";
@@ -16,7 +16,9 @@ const config = getConfig();
 const app = express();
 const tokenPepper = new TextEncoder().encode(config.INVITATION_TOKEN_PEPPER);
 const adminSecret = new TextEncoder().encode(config.ADMIN_SESSION_SECRET);
-const schemaPath = fileURLToPath(new URL("./schema.sql", import.meta.url));
+const schemaPath = process.env.NODE_ENV === "production"
+  ? join(process.cwd(), "dist", "schema.sql")
+  : join(process.cwd(), "src", "schema.sql");
 const rateLimits = new Map<string, { count: number; resetAt: number }>();
 
 type InvitationContext = {

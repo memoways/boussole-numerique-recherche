@@ -124,6 +124,8 @@ Le tutoriel Cloudflare a été corrigé le même jour : les deux CNAME DNS only 
 
 Le point de création des ressources Coolify a été détaillé le 29 août 2026. Il commence par la préparation de trois secrets distincts, puis encadre la création de PostgreSQL comme service privé persistant, sans FQDN ni port public. Il décrit ensuite la ressource API avec son Dockerfile, ses variables runtime, la migration initiale unique et le contrôle `/health`. Enfin, il décrit le portail avec ses variables de build, son FQDN propre, le healthcheck `/healthz` et le contrôle de `/admin`. Cette séparation précise à quel moment le site public peut être sain sans que le questionnaire soit encore activé.
 
+Le premier démarrage réel de Boussole API a révélé une incompatibilité du bundle ESM avec les dépendances CommonJS d’Express : la ressource redémarrait avec `Dynamic require of "tty" is not supported`. Une seconde erreur a montré qu’une surcharge pnpm globale imposait `path-to-regexp` 0.1.13 au routeur d’Express 5, qui attend son API moderne. L’API est maintenant compilée en CommonJS avec les paquets Node externalisés, son runtime contient les dépendances de production et la surcharge est limitée à `router>path-to-regexp: 8.3.0`. Le démarrage de l’artefact runtime a été validé localement. Le redéploiement Coolify doit maintenant faire apparaître `Partner feedback API listening on 3001` puis permettre l’émission du certificat du FQDN API.
+
 ## 5. Décisions structurantes
 
 | Décision | Raison | Effet pratique |
