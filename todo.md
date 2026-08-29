@@ -143,3 +143,7 @@
 - [ ] Finaliser le premier cycle de test en production : contrôler l’export CSV, la révocation, la régénération d’e-mail et la suppression effective des données de test après les étapes organisation, contact, invitation, brouillon, consentement et soumission déjà validées.
 - [x] Tester une réponse vocale Deepgram, sa transcription française, sa correction manuelle et l’absence de conservation du fichier audio.
 - [x] Ajouter une marge supérieure à la confirmation de soumission du questionnaire pour la dégager de la navigation fixe.
+- [ ] Vérifier dans l’administration la régénération d’un récapitulatif associé à une réponse de test, sans créer de doublon.
+- [ ] Activer Dreamlit avec un accès PostgreSQL restreint à la boîte d’envoi, puis tester son workflow sans envoyer de message non souhaité.
+- [x] Corriger la restauration de session `/admin` après un rafraîchissement, afin que seule la déconnexion explicite ferme l’accès.
+- [ ] Vérifier que l’accès de navigation pilotable partage bien les sessions nécessaires avant de reprendre la configuration Dreamlit.

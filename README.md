@@ -110,7 +110,7 @@ Le portail public ne requiert aucun secret. `SITE_URL` et `VITE_PARTNER_API_URL`
 
 La page Partenaires fournit deux CTA indépendants : **Découvrir la Boussole** et **Partager mes idées et feedbacks**. La présentation contient neuf slides ; les panneaux de détail s’ouvrent dans le flux de lecture et l’URL conserve la slide et le détail ouverts. Sur desktop, le deck occupe un gabarit intérieur de 900 px avec une bande de navigation fixe. La première slide reprend l’animation radar de l’accueil ; les illustrations des suivantes sont choisies selon leur pertinence narrative.
 
-Le questionnaire accepte les liens personnels sécurisés, conserve les brouillons et propose une transcription vocale optionnelle. La personne répondante peut relire et modifier le texte avant sa sauvegarde ; les fichiers audio sont supprimés après transcription. Les réponses restent disponibles jusqu’à la fin du développement de la version publique, selon le texte de consentement affiché.
+Le questionnaire accepte les liens personnels sécurisés, conserve les brouillons et propose une transcription vocale optionnelle. La personne répondante peut relire et modifier le texte avant sa sauvegarde ; les fichiers audio sont supprimés après transcription. Les réponses restent disponibles jusqu’à la fin du développement de la version publique, selon le texte de consentement affiché. La console `/admin` restaure automatiquement une session valide à partir de son cookie lors d’un rafraîchissement ; seule la déconnexion explicite met fin à l’accès côté interface.
 
 ### API, données et sécurité
 

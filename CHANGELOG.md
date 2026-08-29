@@ -2,6 +2,17 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.3.18] — 2026-08-29 — Session administrateur restaurée au rafraîchissement
+
+### Corrigé
+
+- La console `/admin` vérifie désormais la session stockée dans le cookie `partner_admin_session` dès son chargement en appelant `/api/admin/overview` avec les identifiants de requête inclus.
+- Un état de vérification explicite s’affiche pendant ce contrôle ; le formulaire de connexion n’apparaît qu’en l’absence de session valide. Une déconnexion explicite reste la seule action qui efface l’état local de la session.
+
+### À contrôler en production
+
+- Le portail doit être rebâti puis redéployé dans Coolify avant de tester un rafraîchissement d’onglet avec une session déjà ouverte.
+
 ## [1.3.17] — 2026-08-29 — Confirmation de questionnaire dégagée
 
 ### Corrigé
