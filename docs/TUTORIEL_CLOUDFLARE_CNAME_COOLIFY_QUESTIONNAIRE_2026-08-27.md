@@ -3,7 +3,7 @@
 **Version :** 27 août 2026  
 **Objectif :** publier le portail, l’API du questionnaire et la console d’administration derrière Cloudflare, sans exposer d’adresse IP dans votre zone DNS et en utilisant `lime.1024b.net` comme target unique.
 
-> **Décision recommandée pour le premier déploiement.** Créez deux **CNAME DNS only** (nuage gris) vers `lime.1024b.net`, activez le challenge DNS de Cloudflare dans le proxy Coolify, puis utilisez des certificats Let’s Encrypt sur Coolify. Cette méthode évite de dépendre du certificat actuellement présenté par `lime.1024b.net`, qui n’est pas destiné aux domaines publics de la Boussole. Elle conserve Cloudflare comme DNS autoritatif et ne requiert aucun enregistrement A dans la zone `memoways.com`.
+> **Décision recommandée pour le premier déploiement.** Créez deux **CNAME DNS only** (nuage gris) vers `lime.1024b.net`, conservez le challenge HTTP standard de Coolify et vérifiez que les ports publics 80 et 443 du serveur sont accessibles. Cette méthode fonctionne avec des domaines pointés par CNAME, évite de placer un jeton Cloudflare sur le serveur et ne requiert aucun enregistrement A dans la zone `memoways.com`. Le DNS challenge Cloudflare n’est utile qu’en cas de wildcard, de port 80 non accessible ou de contrainte d’infrastructure particulière.[1] [2]
 
 ## 1. Architecture cible
 
@@ -16,7 +16,7 @@ Cloudflare DNS
    │ CNAME DNS only vers lime.1024b.net
    ▼
 lime.1024b.net → serveur Coolify
-   ├── Proxy Coolify / Traefik : certificats Let's Encrypt via DNS challenge Cloudflare
+   ├── Proxy Coolify / Traefik : certificats Let's Encrypt via challenge HTTP par défaut
    ├── boussole-portal : Nginx interne, port 8080
    ├── boussole-partner-api : Express interne, port 3001
    └── boussole-postgres : privé, sans domaine public
@@ -69,11 +69,28 @@ dig @1.1.1.1 +short CNAME api.boussole-culture-recherche.memoways.com
 
 Ne testez pas encore HTTPS : les certificats des deux noms publics seront demandés par le proxy Coolify aux étapes suivantes.
 
-## 4. Permettre à Coolify d’émettre les certificats par DNS challenge
+## 4. Décider du mode de certificat : HTTP standard ou DNS challenge
 
-Le proxy Coolify peut demander les certificats Let’s Encrypt lui-même. Comme les noms publics reposent sur des CNAME et que vous utilisez Cloudflare, utilisez le **DNS challenge** plutôt que le HTTP challenge. Coolify créera temporairement les TXT `_acme-challenge` requis dans Cloudflare.[1]
+> **Réponse à la question pratique.** Si vous avez fait la section 3, le point 4 n’est **pas indispensable** pour le premier déploiement. Coolify utilise déjà le challenge HTTP par défaut. Il fonctionne avec vos CNAME DNS only, à condition que le serveur Coolify soit joignable publiquement sur les ports 80 et 443. Let’s Encrypt indique explicitement que HTTP-01 permet aux hébergeurs d’émettre des certificats pour des domaines qui leur sont associés par CNAME.[2]
 
-### 4.1 Créer un jeton Cloudflare limité
+| Situation | Choix à faire maintenant | Pourquoi |
+|---|---|---|
+| Deux sous-domaines précis, CNAME DNS only, ports 80/443 ouverts | **Conserver le challenge HTTP par défaut** et passer directement à la section 5. | C’est le chemin le plus simple, sans jeton DNS sur le serveur. |
+| Certificat wildcard, par exemple `*.memoways.com` | Configurer le **DNS challenge**. | Let’s Encrypt exige DNS-01 pour les wildcards.[2] |
+| Port 80 bloqué, serveur privé ou réseau ne laissant pas entrer HTTP | Configurer le **DNS challenge**. | Le challenge HTTP de Coolify a besoin du port 80 public.[1] |
+| Échec prouvé de HTTP-01 dans les logs du proxy | Configurer le **DNS challenge** après diagnostic. | C’est une alternative pertinente, mais plus sensible car elle nécessite un secret Cloudflare. |
+
+### 4.1 Parcours minimal recommandé : garder HTTP-01
+
+Ne modifiez pas le proxy Coolify et ne créez pas de token Cloudflare pour le moment. Vérifiez plutôt que les ports entrants **80** et **443** du serveur Coolify ne sont bloqués ni par le pare-feu du serveur ni par celui de votre hébergeur. Lorsqu’un FQDN est ajouté à une ressource, Traefik déposera automatiquement le challenge HTTP sous `/.well-known/acme-challenge/` et demandera le certificat correspondant.[1] [2]
+
+Après le premier déploiement de la ressource portail, Coolify devra obtenir automatiquement le certificat de `boussole-culture-recherche.memoways.com`. Après le déploiement de l’API, il fera de même pour `api.boussole-culture-recherche.memoways.com`.
+
+### 4.2 Option avancée : activer le DNS challenge Cloudflare
+
+N’appliquez cette section que dans l’un des cas décrits dans le tableau ci-dessus. Le proxy Coolify peut alors demander les certificats Let’s Encrypt au moyen de TXT `_acme-challenge` temporaires dans Cloudflare.[1]
+
+#### Créer un jeton Cloudflare limité
 
 Dans **Cloudflare → My Profile → API Tokens → Create Token**, créez un jeton intitulé, par exemple, `coolify-acme-memoways` avec :
 
@@ -86,7 +103,7 @@ Dans **Cloudflare → My Profile → API Tokens → Create Token**, créez un je
 
 Copiez ce jeton dans votre gestionnaire de mots de passe. Il permet de modifier les enregistrements DNS de la zone sélectionnée : **ne le placez ni dans Git, ni dans les variables de build du portail, ni dans les variables de l’API.**
 
-### 4.2 Configurer le proxy Coolify
+#### Configurer le proxy Coolify
 
 Dans **Coolify → Servers → [votre serveur] → Proxy**, conservez votre proxy actuel et ajoutez le secret `CF_DNS_API_TOKEN` au service proxy. Dans la configuration Traefik, utilisez le résolveur Let’s Encrypt avec :
 
@@ -97,7 +114,7 @@ Dans **Coolify → Servers → [votre serveur] → Proxy**, conservez votre prox
 
 Conservez également le stockage ACME déjà configuré dans Coolify. Redémarrez le proxy après enregistrement. La documentation Coolify contient l’exemple complet de proxy Traefik pour Cloudflare.[1]
 
-> **Point important.** Si vous utilisez une délégation CNAME pour les challenges ACME et que le renouvellement échoue, Coolify indique l’option `LEGO_DISABLE_CNAME_SUPPORT=true`. **Ne l’ajoutez pas par défaut** : commencez avec la configuration standard et appliquez-la seulement si le journal ACME montre précisément un échec de suivi de CNAME.[1]
+> **Point important.** Si vous activez finalement DNS-01 et qu’un renouvellement échoue à cause d’une délégation CNAME des challenges ACME, Coolify indique l’option `LEGO_DISABLE_CNAME_SUPPORT=true`. **Ne l’ajoutez pas par défaut** : commencez avec la configuration standard et appliquez-la seulement si le journal ACME montre précisément un échec de suivi de CNAME.[1]
 
 ## 5. Créer les trois ressources dans Coolify
 
@@ -220,12 +237,12 @@ La configuration initiale en DNS only est la plus prévisible avec un origin CNA
 
 Avant ce changement :
 
-1. Dans **Cloudflare → SSL/TLS → Overview**, sélectionnez **Full (strict)**. Ce mode exige un certificat d’origine non expiré qui correspond au FQDN demandé.[2]
+1. Dans **Cloudflare → SSL/TLS → Overview**, sélectionnez **Full (strict)**. Ce mode exige un certificat d’origine non expiré qui correspond au FQDN demandé.[3]
 2. Vérifiez que Coolify a bien émis un certificat contenant chacun des deux noms publics.
 3. Passez **un seul** CNAME en Proxied, testez le portail puis l’API, et seulement ensuite passez le second.
 4. Si une erreur 526 ou 1014 apparaît, revenez immédiatement à DNS only et vérifiez les journaux du proxy Coolify. N’utilisez jamais le mode SSL/TLS Flexible.
 
-Cloudflare peut proxifier les enregistrements A, AAAA et CNAME qui servent le trafic HTTP/HTTPS ; l’origine verra alors les IP Cloudflare et non celles des visiteurs.[3] Pour ce projet, la limitation locale de tentatives ne doit donc pas être considérée comme un contrôle anti-abus exhaustif une fois le proxy activé ; ajoutez une règle WAF/Rate Limiting Cloudflare pour les routes de l’API si le pilote devient public.
+Cloudflare peut proxifier les enregistrements A, AAAA et CNAME qui servent le trafic HTTP/HTTPS ; l’origine verra alors les IP Cloudflare et non celles des visiteurs.[4] Pour ce projet, la limitation locale de tentatives ne doit donc pas être considérée comme un contrôle anti-abus exhaustif une fois le proxy activé ; ajoutez une règle WAF/Rate Limiting Cloudflare pour les routes de l’API si le pilote devient public.
 
 ## 8. Deepgram, SMTP et Dreamlit : après le pilote de base
 
@@ -241,7 +258,7 @@ Cloudflare peut proxifier les enregistrements A, AAAA et CNAME qui servent le tr
 |---|---|---|
 | `ERR_NAME_NOT_RESOLVED` sur l’API | CNAME absent, mal orthographié ou non propagé. | Vérifier les deux enregistrements Cloudflare et attendre la propagation. |
 | `zsh: command not found: getent` | `getent` est une commande Linux, absente de macOS. | Employer les commandes `dig` de la section « Vérification DNS avant Coolify ». |
-| Avertissement de certificat sur le domaine public | Certificat Coolify non émis ou DNS challenge non configuré. | Vérifier `CF_DNS_API_TOKEN`, les logs ACME du proxy et que le FQDN est exact. |
+| Avertissement de certificat sur le domaine public | Certificat Coolify non émis, FQDN incorrect ou ports 80/443 non joignables. | En DNS only, vérifier les CNAME, les ports 80/443 et les logs ACME. Vérifier `CF_DNS_API_TOKEN` seulement si DNS-01 est activé. |
 | Le déploiement du portail rollback après `Healthcheck … 503` | L’ancien healthcheck suivait la redirection HTTPS du port interne vers un FQDN pas encore routé. | Déployer le dernier commit, qui contrôle `/healthz` localement, et ne pas désactiver le healthcheck. |
 | `503` sur `lime.1024b.net` | Aucun routeur Coolify ne correspond à ce hostname générique. | Attendu tant que `lime.1024b.net` n’est pas un FQDN d’application ; tester uniquement les FQDN publics de la Boussole. |
 | `526` après activation du nuage orange | Cloudflare Full (strict) ne valide pas le certificat origine. | Revenir à DNS only, corriger le certificat Coolify pour le domaine public, puis retester. |
@@ -252,7 +269,7 @@ Cloudflare peut proxifier les enregistrements A, AAAA et CNAME qui servent le tr
 ## 10. Checklist de clôture
 
 - [ ] Deux CNAME DNS only vers `lime.1024b.net` sont créés et résolus.
-- [ ] Le proxy Coolify utilise un jeton Cloudflare DNS limité et le DNS challenge.
+- [ ] Les ports 80 et 443 du serveur Coolify sont accessibles pour le challenge HTTP par défaut.
 - [ ] `boussole-postgres` est privé, persistant, sauvegardé et son test de restauration est documenté.
 - [ ] L’API tourne au port interne `3001`, `/health` répond `{"status":"ok"}`, et `RUN_MIGRATIONS` n’est plus actif après initialisation.
 - [ ] Le portail est rebâti avec `SITE_URL`, `VITE_SITE_URL` et `VITE_PARTNER_API_URL`.
@@ -260,14 +277,18 @@ Cloudflare peut proxifier les enregistrements A, AAAA et CNAME qui servent le tr
 - [ ] Toute URL publique utilise HTTPS sans `:8080`, `:3001` ni `lime.1024b.net`.
 - [ ] Deepgram, SMTP et Dreamlit ne sont activés que lorsqu’ils ont une finalité validée et testée.
 
+> Le token Cloudflare et le DNS challenge restent une option à ajouter uniquement pour un wildcard, un port 80 inaccessible ou un échec HTTP-01 confirmé.
+
 ## Références
 
 [1] [Coolify — DNS Challenge avec Cloudflare](https://coolify.io/docs/knowledge-base/proxy/traefik/dns-challenge)
 
-[2] [Cloudflare — Full (strict)](https://developers.cloudflare.com/ssl/origin-configuration/ssl-modes/full-strict/)
+[2] [Let’s Encrypt — Challenge Types](https://letsencrypt.org/docs/challenge-types/)
 
-[3] [Cloudflare — Proxy status](https://developers.cloudflare.com/dns/proxy-status/)
+[3] [Cloudflare — Full (strict)](https://developers.cloudflare.com/ssl/origin-configuration/ssl-modes/full-strict/)
 
-[4] [Cloudflare — Cas d’usage du proxy DNS](https://developers.cloudflare.com/dns/proxy-status/use-cases/)
+[4] [Cloudflare — Proxy status](https://developers.cloudflare.com/dns/proxy-status/)
 
-[5] [Coolify — Domains](https://coolify.io/docs/knowledge-base/domains)
+[5] [Cloudflare — Cas d’usage du proxy DNS](https://developers.cloudflare.com/dns/proxy-status/use-cases/)
+
+[6] [Coolify — Domains](https://coolify.io/docs/knowledge-base/domains)

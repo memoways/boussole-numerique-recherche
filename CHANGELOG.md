@@ -2,6 +2,17 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.3.14] — 2026-08-28 — Parcours de certificat Coolify simplifié
+
+### Corrigé
+
+- Le tutoriel ne présente plus le DNS challenge Cloudflare comme obligatoire avec les deux CNAME DNS only vers `lime.1024b.net`.
+- Le chemin initial est désormais le challenge HTTP standard de Coolify, sous réserve que les ports publics 80 et 443 soient accessibles ; le DNS challenge reste réservé aux wildcards, au port 80 inaccessible ou à un échec HTTP-01 confirmé.
+
+### Ajouté
+
+- Tableau décisionnel HTTP-01/DNS-01, garde-fous de sécurité sur le token Cloudflare et références officielles Coolify/Let’s Encrypt corrigées.
+
 ## [1.3.13] — 2026-08-28 — Healthcheck Coolify indépendant du routage public
 
 ### Corrigé

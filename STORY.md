@@ -120,6 +120,8 @@ Le 27 août 2026, ce chemin d’activation a été adapté à l’infrastructure
 
 Le 28 août 2026, le premier redeploy Coolify du portail a été analysé. Le conteneur démarrait, mais le healthcheck interne appelait la racine du port `8080`. Cette route était redirigée vers le FQDN HTTPS public ; avant que ce FQDN soit routé et certifié, `wget` suivait la redirection et recevait `503`, provoquant le rollback. Le dépôt utilise maintenant l’endpoint local `/healthz`, qui répond directement `200 ok` sans redirection, et réserve la réécriture de `:8080` au FQDN public canonique. Le diagnostic et les commandes macOS `dig` sont consignés dans [`docs/DIAGNOSTIC_ECHEC_DEPLOIEMENT_COOLIFY_2026-08-28.md`](docs/DIAGNOSTIC_ECHEC_DEPLOIEMENT_COOLIFY_2026-08-28.md). Le prochain redeploy Coolify doit valider l’image, Docker n’étant pas disponible dans l’environnement de contrôle local.
 
+Le tutoriel Cloudflare a été corrigé le même jour : les deux CNAME DNS only vers `lime.1024b.net` n’imposent pas de DNS challenge. Le proxy Coolify utilise HTTP-01 par défaut, compatible avec un FQDN associé par CNAME lorsque les ports 80 et 443 sont accessibles. Le token Cloudflare et le DNS challenge constituent une option avancée, à utiliser seulement pour un wildcard, l’absence d’accès au port 80 ou un échec HTTP-01 attesté par les logs. Cette distinction évite de placer inutilement un secret de modification DNS sur le serveur.
+
 ## 5. Décisions structurantes
 
 | Décision | Raison | Effet pratique |
