@@ -118,82 +118,158 @@ Conservez également le stockage ACME déjà configuré dans Coolify. Redémarre
 
 ## 5. Créer les trois ressources dans Coolify
 
-Créez les ressources dans cet ordre, dans le même projet Coolify et le même environnement de production.
+Créez les ressources dans le **même projet Coolify** et dans l’environnement de production. Le parcours le plus sûr est PostgreSQL, puis l’API, puis le portail. Si le portail est déjà créé, laissez-le en place : vous le redeploierez après les deux premières ressources avec le commit qui contient `/healthz`.
 
-### 5.1 PostgreSQL privé : `boussole-postgres`
+### 5.0 Préparer les valeurs une seule fois
 
-1. Créez un service PostgreSQL maintenu par Coolify.
-2. Activez un volume persistant, sans FQDN et sans port publié sur Internet.
-3. Conservez la chaîne de connexion **interne** fournie par Coolify ; elle deviendra `DATABASE_URL` de l’API.
-4. Configurez une sauvegarde et testez une restauration sur une base ou un environnement isolé avant la première vraie invitation.
+Avant de cliquer dans Coolify, ouvrez votre gestionnaire de mots de passe et préparez trois secrets différents. Ne réutilisez ni un mot de passe personnel ni un secret déjà utilisé par le portail. Les valeurs ci-dessous ne sont jamais copiées dans Git, dans une capture d’écran ou dans une variable `VITE_*`.
 
-La base reste une dépendance privée. Elle n’a ni domaine public, ni variable `VITE_*`, ni accès navigateur.
+| Nom à préparer | Usage | Règle pratique |
+|---|---|---|
+| `INVITATION_TOKEN_PEPPER` | Hachage des liens individuels d’invitation. | Chaîne aléatoire de 32 caractères ou plus. |
+| `ADMIN_SESSION_SECRET` | Signature de la session de la console `/admin`. | Chaîne aléatoire différente, de 32 caractères ou plus. |
+| `ADMIN_PASSWORD` | Connexion administrative. | Mot de passe unique de 16 caractères ou plus, stocké dans le coffre-fort. |
 
-### 5.2 API : `boussole-partner-api`
+Conservez aussi ces deux valeurs publiques exactes, sans slash terminal :
 
-1. Créez une nouvelle application depuis le dépôt Git.
-2. Choisissez le build pack **Dockerfile** et le chemin :
+```text
+https://boussole-culture-recherche.memoways.com
+https://api.boussole-culture-recherche.memoways.com
+```
+
+### 5.1 Créer PostgreSQL privé : `boussole-postgres`
+
+Cette ressource ne répondra jamais à un navigateur. Elle stockera les organisations, contacts, invitations, brouillons, réponses, événements, intérêts publics et la boîte d’envoi Dreamlit.
+
+1. Dans le projet Coolify ciblé, cliquez sur **New Resource** puis choisissez le service **PostgreSQL** géré par Coolify. Les intitulés peuvent légèrement varier selon la version ; choisissez la ressource de base de données maintenue par Coolify, et non une application Docker générique.
+2. Attribuez-lui le nom lisible `boussole-postgres`. Conservez le réseau privé/projet proposé par Coolify.
+3. Laissez Coolify générer le nom de base, l’utilisateur et le mot de passe. Copiez-les dans votre coffre-fort ; ils seront nécessaires pour une restauration ou un diagnostic, mais pas pour le navigateur.
+4. Dans **Persistent Storage**, confirmez qu’un volume est actif pour les données PostgreSQL. Sans volume, une suppression ou un remplacement du conteneur détruirait les réponses au questionnaire.
+5. N’ajoutez **aucun domaine**, aucun FQDN et aucun port mapping public. N’utilisez pas non plus une option « Expose port » vers Internet.
+6. Déployez la base et attendez son statut sain dans Coolify.
+7. Ouvrez les informations de connexion de la ressource et copiez la **chaîne interne** proposée par Coolify. Elle doit conserver l’hôte interne généré par Coolify et le port PostgreSQL interne, généralement `5432`. Ne remplacez pas cet hôte par le domaine public du portail ou de l’API.
+8. Configurez la sauvegarde du service dans Coolify. Avant de collecter de vraies réponses, effectuez une restauration de test sur une base ou un environnement isolé, jamais en écrasant la base active.
+
+> **Résultat attendu.** La base est saine, privée, persistante et vous disposez d’une chaîne `DATABASE_URL` interne. Il est normal que vous ne puissiez pas l’ouvrir dans un navigateur.
+
+### 5.2 Créer l’API : `boussole-partner-api`
+
+L’API est la seule ressource qui parle simultanément à PostgreSQL et au portail. Elle doit être créée séparément du site statique, même si les deux utilisent le même dépôt Git.
+
+#### A. Créer la ressource
+
+1. Dans le même projet Coolify, cliquez sur **New Resource → Application** et sélectionnez la source Git qui pointe vers `memoways/boussole-numerique-recherche` sur la branche `main`.
+2. Nommez l’application `boussole-partner-api` afin de la distinguer clairement du portail.
+3. Sélectionnez le build pack **Dockerfile**.
+4. Dans **Base Directory**, conservez `/`. Le Dockerfile de l’API doit voir `package.json`, `pnpm-lock.yaml`, `pnpm-workspace.yaml`, `patches/` et `services/partner-feedback-api/` à la racine du contexte de build.
+5. Dans **Dockerfile Location**, saisissez exactement :
 
    ```text
-   services/partner-feedback-api/Dockerfile
+   /services/partner-feedback-api/Dockerfile
    ```
 
-3. Définissez le port interne de l’application sur `3001`.
-4. Dans **Domains / FQDN**, indiquez seulement :
+6. Dans la section réseau, définissez **Ports Exposes** à `3001`. Il s’agit du port entre Traefik/Coolify et Express ; il ne doit pas apparaître dans l’URL publique.
+7. Dans **Domains / FQDN**, saisissez exactement, sans slash terminal :
 
    ```text
    https://api.boussole-culture-recherche.memoways.com
    ```
 
-5. N’indiquez ni `lime.1024b.net`, ni `:3001` dans le FQDN.
-6. Ajoutez ces variables **Runtime** :
+8. N’ajoutez ni `lime.1024b.net`, ni `:3001`, ni une URL `http://` dans les domaines de cette ressource.
 
-| Variable | Valeur | Nature |
+#### B. Renseigner les variables runtime
+
+Ouvrez **Environment Variables**. Marquez les variables indiquées « secret » comme masquées/protégées par Coolify et ne les activez pas comme variables de build. L’API lit ces valeurs uniquement au démarrage.
+
+| Variable | Valeur à coller | À vérifier avant de sauvegarder |
 |---|---|---|
-| `DATABASE_URL` | Chaîne interne de `boussole-postgres` | Secret requis |
-| `PUBLIC_APP_URL` | `https://boussole-culture-recherche.memoways.com` | Requise |
-| `ALLOWED_ORIGIN` | `https://boussole-culture-recherche.memoways.com` | Requise |
-| `INVITATION_TOKEN_PEPPER` | Secret aléatoire de 32 caractères ou plus | Secret requis |
-| `ADMIN_SESSION_SECRET` | Secret aléatoire différent de 32 caractères ou plus | Secret requis |
-| `ADMIN_EMAIL` | `ulrich.fischer@memoways.com` | Requise |
-| `ADMIN_PASSWORD` | Mot de passe unique de 16 caractères ou plus, géré dans votre coffre-fort | Secret requis |
-| `RUN_MIGRATIONS` | `true` au premier déploiement seulement | Temporaire |
-| `DEEPGRAM_API_KEY` | Clé Deepgram | Optionnelle |
-| `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `MAIL_FROM` | Paramètres transactionnels | Optionnels |
+| `DATABASE_URL` | La chaîne interne copiée depuis `boussole-postgres`. | Elle ne contient pas le domaine public ni une URL de navigateur. |
+| `PUBLIC_APP_URL` | `https://boussole-culture-recherche.memoways.com` | HTTPS, sans slash final. |
+| `ALLOWED_ORIGIN` | `https://boussole-culture-recherche.memoways.com` | Strictement identique à `PUBLIC_APP_URL`. |
+| `INVITATION_TOKEN_PEPPER` | Premier secret préparé en 5.0. | Au moins 32 caractères et différent des autres secrets. |
+| `ADMIN_SESSION_SECRET` | Deuxième secret préparé en 5.0. | Au moins 32 caractères et différent des autres secrets. |
+| `ADMIN_EMAIL` | `ulrich.fischer@memoways.com` | Utilisez cette adresse exactement. |
+| `ADMIN_PASSWORD` | Troisième secret préparé en 5.0. | Unique et conservé dans le coffre-fort. |
+| `RUN_MIGRATIONS` | `true` pour ce seul premier déploiement. | Cette valeur sera retirée ou passée à `false` juste après la migration. |
 
-7. Déployez. Dès que l’API est saine, ouvrez :
+Ne renseignez **pas encore** `DEEPGRAM_API_KEY` ni les variables SMTP, sauf si vous avez déjà décidé de les tester dès ce premier pilote. L’API, le questionnaire écrit, les invitations depuis l’admin et les exports CSV fonctionnent sans ces options.
+
+#### C. Déployer et vérifier l’API
+
+1. Sauvegardez les variables, puis cliquez sur **Deploy**.
+2. Dans les logs, contrôlez que la migration crée les tables sans erreur de connexion PostgreSQL. Le premier démarrage peut prendre plus de temps que les suivants.
+3. Une fois l’application Healthy et le certificat livré, ouvrez dans un navigateur :
 
    ```text
    https://api.boussole-culture-recherche.memoways.com/health
    ```
 
-   La réponse attendue est exactement :
+   La réponse attendue est :
 
    ```json
    {"status":"ok"}
    ```
 
-8. Une fois la migration réussie, retirez `RUN_MIGRATIONS` ou définissez-la à `false`, puis faites un nouveau déploiement.
+4. Retournez dans **Environment Variables**, supprimez `RUN_MIGRATIONS` ou changez sa valeur en `false`, sauvegardez puis cliquez à nouveau sur **Redeploy**. Cette seconde livraison confirme que l’API redémarre avec le schéma déjà initialisé, sans relancer les migrations inutilement.
 
-### 5.3 Portail : `boussole-portal`
+> **Si l’API échoue avant le statut Healthy.** Vérifiez d’abord `DATABASE_URL`, puis l’existence de PostgreSQL sur le même réseau Coolify. Ne rendez jamais PostgreSQL public pour contourner cette erreur.
 
-1. Créez une application depuis le même dépôt, avec le build pack **Dockerfile** et le chemin `Dockerfile` à la racine.
-2. Définissez le port interne sur `8080`.
-3. Dans le FQDN, indiquez seulement, **sans slash terminal** :
+### 5.3 Créer ou corriger le portail : `boussole-portal`
+
+Le portail est une seconde application Docker dans le même dépôt. Il sert les pages publiques et appelle l’API par HTTPS depuis le navigateur. C’est donc ici, et uniquement ici, que `VITE_PARTNER_API_URL` doit être renseignée.
+
+#### A. Créer ou contrôler la ressource
+
+1. Créez une application Git séparée, ou ouvrez votre ressource actuelle `boussole-numerique-recherche` si elle représente déjà le portail.
+2. Vérifiez les valeurs suivantes dans l’écran **Configuration** :
+
+| Champ Coolify | Valeur attendue |
+|---|---|
+| Nom | `boussole-portal` ou le nom actuel clairement identifié comme portail. |
+| Source Git / branche | `memoways/boussole-numerique-recherche` / `main`. |
+| Build Pack | `Dockerfile`. |
+| Base Directory | `/`. |
+| Dockerfile Location | `/Dockerfile`. |
+| Domaines | `https://boussole-culture-recherche.memoways.com` — sans slash terminal. |
+| Direction | **Allow non-www**. |
+| Ports Exposes | `8080`. |
+| Healthcheck UI | Vide : le Dockerfile porte le healthcheck interne `/healthz`. |
+| Persistent Storage / Port mappings / Custom Docker Options | Vides pour le portail. |
+
+3. Ne saisissez jamais `lime.1024b.net`, `:8080` ou l’adresse IPv4 du serveur dans le champ Domaines.
+
+#### B. Renseigner les variables de build du portail
+
+Ouvrez **Environment Variables** et créez les trois valeurs suivantes avec la portée **Build** lorsque l’interface Coolify propose ce choix. Elles sont publiques par nature car elles sont compilées dans le JavaScript livré au navigateur ; aucune ne doit contenir un secret.
+
+| Variable | Valeur exacte | Pourquoi |
+|---|---|---|
+| `SITE_URL` | `https://boussole-culture-recherche.memoways.com` | Génère les canoniques, sitemap, robots et métadonnées du domaine final. |
+| `VITE_SITE_URL` | `https://boussole-culture-recherche.memoways.com` | Rend le domaine public disponible au frontend. |
+| `VITE_PARTNER_API_URL` | `https://api.boussole-culture-recherche.memoways.com` | Active l’API partenaire, le questionnaire et la connexion `/admin`. |
+
+Si Coolify n’affiche pas de sélecteur Build/Runtime pour cette application Dockerfile, enregistrez ces trois variables sur l’application puis déclenchez un **Redeploy** complet. Elles sont déclarées comme `ARG` avant la compilation dans le Dockerfile et doivent être présentes au moment du build.
+
+#### C. Déployer et vérifier le portail
+
+1. Vérifiez que le dernier commit contenant `GET /healthz` est visible dans la source Git de Coolify.
+2. Cliquez sur **Redeploy**, et non sur Restart : le Dockerfile et les variables `VITE_*` doivent être relus lors de la construction de l’image.
+3. Dans les logs, le healthcheck doit désormais réussir sans appeler le FQDN public. Si Coolify affiche encore `GET /` puis une réponse `308`, le commit actuel n’a pas encore été récupéré : synchronisez Git et redeployez.
+4. Une fois le statut Healthy, ouvrez :
 
    ```text
    https://boussole-culture-recherche.memoways.com
    ```
 
-4. Ajoutez ces variables **de build** publiques :
+5. Ouvrez ensuite :
 
-| Variable | Valeur |
-|---|---|
-| `SITE_URL` | `https://boussole-culture-recherche.memoways.com` |
-| `VITE_SITE_URL` | `https://boussole-culture-recherche.memoways.com` |
-| `VITE_PARTNER_API_URL` | `https://api.boussole-culture-recherche.memoways.com` |
+   ```text
+   https://boussole-culture-recherche.memoways.com/admin
+   ```
 
-5. Lancez un **nouveau build complet** du portail. Les variables `VITE_*` sont intégrées au JavaScript à la compilation ; un simple redémarrage ne suffit pas.
+   Vous devez voir la connexion administrateur, et non le message indiquant que le module doit encore être activé.
+
+> **Point de contrôle.** Le portail peut être Healthy même si l’API ne l’est pas encore. En revanche, le questionnaire et la console ne deviennent actifs qu’après le build du portail avec une `VITE_PARTNER_API_URL` exacte et une API dont `/health` répond `{"status":"ok"}`.
 
 ### Réglages à vérifier dans la capture Coolify
 

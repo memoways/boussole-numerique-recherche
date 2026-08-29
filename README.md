@@ -38,7 +38,7 @@ Les FAQ des parcours Partenaire culturel et Artiste complètent désormais les r
 
 La page Ressources complète ses filtres de catégorie et de période par une recherche locale guidée. Elle propose des suggestions thématiques, recherche sans tenir compte de la casse ou des accents, et permet d’effacer la requête sans réinitialiser les autres filtres.
 
-Le tutoriel de déploiement actuellement applicable est [`docs/TUTORIEL_CLOUDFLARE_CNAME_COOLIFY_QUESTIONNAIRE_2026-08-27.md`](./docs/TUTORIEL_CLOUDFLARE_CNAME_COOLIFY_QUESTIONNAIRE_2026-08-27.md). Il remplace les instructions anciennes fondées sur des enregistrements A : il couvre les deux CNAME vers `lime.1024b.net`, le token DNS Cloudflare limité, les certificats par DNS challenge, les trois ressources Coolify, les secrets, la migration initiale et le pilote du questionnaire.
+Le tutoriel de déploiement actuellement applicable est [`docs/TUTORIEL_CLOUDFLARE_CNAME_COOLIFY_QUESTIONNAIRE_2026-08-27.md`](./docs/TUTORIEL_CLOUDFLARE_CNAME_COOLIFY_QUESTIONNAIRE_2026-08-27.md). Il remplace les instructions anciennes fondées sur des enregistrements A : il couvre les deux CNAME vers `lime.1024b.net`, le challenge HTTP standard, le DNS challenge optionnel, les trois ressources Coolify, les secrets, la migration initiale et le pilote du questionnaire. Son point 5 détaille champ par champ la création de PostgreSQL, de l’API et du portail.
 
 ## Ce que contient le portail
 

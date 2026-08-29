@@ -2,6 +2,17 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.3.15] — 2026-08-29 — Procédure Coolify détaillée pour les trois ressources
+
+### Modifié
+
+- Le point 5 du tutoriel Cloudflare/Coolify devient une procédure guidée : préparation des secrets, création de PostgreSQL privé, déploiement de l’API partenaire, déploiement ou correction du portail et contrôles attendus à chaque étape.
+- Chaque écran Coolify important est documenté avec sa valeur exacte : Dockerfile, base directory, ports internes, FQDN, portée des variables et statut des intégrations optionnelles.
+
+### Ajouté
+
+- Étapes de contrôle après chaque déploiement, critères du statut Healthy et diagnostic de la différence entre un portail sain et un questionnaire réellement connecté à l’API.
+
 ## [1.3.14] — 2026-08-28 — Parcours de certificat Coolify simplifié
 
 ### Corrigé

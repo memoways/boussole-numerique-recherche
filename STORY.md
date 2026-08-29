@@ -122,6 +122,8 @@ Le 28 août 2026, le premier redeploy Coolify du portail a été analysé. Le co
 
 Le tutoriel Cloudflare a été corrigé le même jour : les deux CNAME DNS only vers `lime.1024b.net` n’imposent pas de DNS challenge. Le proxy Coolify utilise HTTP-01 par défaut, compatible avec un FQDN associé par CNAME lorsque les ports 80 et 443 sont accessibles. Le token Cloudflare et le DNS challenge constituent une option avancée, à utiliser seulement pour un wildcard, l’absence d’accès au port 80 ou un échec HTTP-01 attesté par les logs. Cette distinction évite de placer inutilement un secret de modification DNS sur le serveur.
 
+Le point de création des ressources Coolify a été détaillé le 29 août 2026. Il commence par la préparation de trois secrets distincts, puis encadre la création de PostgreSQL comme service privé persistant, sans FQDN ni port public. Il décrit ensuite la ressource API avec son Dockerfile, ses variables runtime, la migration initiale unique et le contrôle `/health`. Enfin, il décrit le portail avec ses variables de build, son FQDN propre, le healthcheck `/healthz` et le contrôle de `/admin`. Cette séparation précise à quel moment le site public peut être sain sans que le questionnaire soit encore activé.
+
 ## 5. Décisions structurantes
 
 | Décision | Raison | Effet pratique |
