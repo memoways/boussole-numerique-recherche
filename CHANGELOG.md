@@ -2,6 +2,24 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.3.19] — 2026-09-03 — Contrôles de pilote hors e-mail complétés
+
+### Ajouté
+
+- La console `/admin` liste désormais les invitations encore actives et permet leur révocation explicite. Le lien personnel devient alors immédiatement inutilisable, sans effacer une réponse déjà soumise.
+- L’endpoint d’administration fournit les données d’invitation nécessaires à ce contrôle, en complément des organisations, contacts, réponses, intérêts et récapitulatifs existants.
+- L’état des lieux [`docs/ETAT_PILOTE_QUESTIONNAIRE_2026-09-03.md`](./docs/ETAT_PILOTE_QUESTIONNAIRE_2026-09-03.md) sépare les contrôles finalisables sans Dreamlit, le périmètre actuel des artistes et le blocage de certificat TLS restant.
+- Les écrans sans API configurée affichent maintenant un statut de collecte structuré, des repères numérotés et des libellés monospace cohérents avec le langage visuel analytique du portail.
+
+### Corrigé
+
+- La confirmation publique après soumission ne promet plus qu’un e-mail sera envoyé alors que le workflow Dreamlit n’est pas encore actif ; elle indique qu’une copie pourra être transmise après son activation.
+- Les libellés de l’administration parlent de boîte d’envoi et de récapitulatifs préparés durant la phase de transition, sans présenter Dreamlit comme déjà opérationnel.
+
+### Vérifié
+
+- Les contrôles TypeScript du portail et de l’API passent après l’ajout de la révocation.
+
 ## [1.3.18] — 2026-08-29 — Session administrateur restaurée au rafraîchissement
 
 ### Corrigé

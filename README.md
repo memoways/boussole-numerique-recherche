@@ -120,9 +120,9 @@ La console est disponible à `/admin`. L’identifiant initial doit être défin
 
 ### Récapitulatifs Dreamlit
 
-Après une soumission, l’API prépare un texte de récapitulatif déterministe dans `notifications.partner_response_recap_outbox`. Dreamlit doit se connecter avec un utilisateur PostgreSQL limité à cette boîte, puis déclencher un e-mail lors d’une insertion ou d’une mise à jour de `updated_at`. La console affiche les messages préparés, leur destinataire, leur contenu et le nombre de régénérations ; l’action de régénération met à jour la même ligne et ne crée pas de doublon.
+Après une soumission, l’API prépare un texte de récapitulatif déterministe dans `notifications.partner_response_recap_outbox`. Dreamlit devra se connecter avec un utilisateur PostgreSQL limité à cette boîte, puis déclencher un e-mail lors d’une insertion ou d’une mise à jour de `updated_at`. La console affiche les messages préparés, leur destinataire, leur contenu et le nombre de régénérations ; l’action de régénération met à jour la même ligne et ne crée pas de doublon. L’endpoint PostgreSQL public répond en TLS, mais Dreamlit ne reconnaît pas encore l’autorité de certificat interne Coolify : aucun workflow de récapitulatif n’est donc publié à ce stade.
 
-Le fonctionnement complet, les droits SQL minimaux et le workflow Dreamlit sont documentés dans [`docs/PARTNER_FEEDBACK_OPERATIONS.md`](./docs/PARTNER_FEEDBACK_OPERATIONS.md) et [`docs/DREAMLIT_EMAIL_INTEGRATION_OPTIONS.md`](./docs/DREAMLIT_EMAIL_INTEGRATION_OPTIONS.md).
+Le fonctionnement complet, les droits SQL minimaux et le workflow Dreamlit sont documentés dans [`docs/PARTNER_FEEDBACK_OPERATIONS.md`](./docs/PARTNER_FEEDBACK_OPERATIONS.md) et [`docs/DREAMLIT_EMAIL_INTEGRATION_OPTIONS.md`](./docs/DREAMLIT_EMAIL_INTEGRATION_OPTIONS.md). L’état pilotable sans e-mail est consigné dans [`docs/ETAT_PILOTE_QUESTIONNAIRE_2026-09-03.md`](./docs/ETAT_PILOTE_QUESTIONNAIRE_2026-09-03.md).
 
 ## Déploiement Coolify
 
@@ -167,6 +167,7 @@ Toute modification effectivement livrée doit mettre à jour `CHANGELOG.md`, `ST
 | [`docs/README.md`](./docs/README.md) | Index des documents opérationnels |
 | [`docs/COOLIFY_MIGRATION.md`](./docs/COOLIFY_MIGRATION.md) | Migration et déploiement du portail hors plateforme |
 | [`docs/PARTNER_FEEDBACK_OPERATIONS.md`](./docs/PARTNER_FEEDBACK_OPERATIONS.md) | Activation du module partenaire et du pilote |
+| [`docs/ETAT_PILOTE_QUESTIONNAIRE_2026-09-03.md`](./docs/ETAT_PILOTE_QUESTIONNAIRE_2026-09-03.md) | État du pilote, contrôles hors e-mail et périmètre actuel du parcours artiste |
 | [`docs/PLAN_PARTENAIRES_PRESENTATION_QUESTIONNAIRE.md`](./docs/PLAN_PARTENAIRES_PRESENTATION_QUESTIONNAIRE.md) | Décisions de conception du module partenaire |
 | [`docs/IMPLEMENTATION_ARCHIVE_PARTNER_MODULE_2026-08-13.md`](./docs/IMPLEMENTATION_ARCHIVE_PARTNER_MODULE_2026-08-13.md) | Archive factuelle des fonctionnalités partenaire livrées |
 | [`docs/PLAN_OPTIMISATION_REDACTIONNELLE.md`](./docs/PLAN_OPTIMISATION_REDACTIONNELLE.md) | Diagnostic rédactionnel et plan d’amélioration à valider avant réécriture |

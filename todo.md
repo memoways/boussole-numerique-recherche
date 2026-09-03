@@ -147,3 +147,8 @@
 - [ ] Activer Dreamlit avec un accès PostgreSQL restreint à la boîte d’envoi, puis tester son workflow sans envoyer de message non souhaité.
 - [x] Corriger la restauration de session `/admin` après un rafraîchissement, afin que seule la déconnexion explicite ferme l’accès.
 - [ ] Vérifier que l’accès de navigation pilotable partage bien les sessions nécessaires avant de reprendre la configuration Dreamlit.
+- [x] Auditer les parcours partenaires et artistes afin de finaliser les contrôles indépendants de Dreamlit.
+- [x] Distinguer dans la checklist de pilote les éléments finalisables sans e-mail de ceux bloqués par Dreamlit.
+- [x] Exposer dans la console la révocation d’une invitation active, déjà prise en charge par l’API, afin de terminer ce contrôle de pilote sans Dreamlit.
+- [x] Rétablir l’exposition TCP PostgreSQL de Coolify et valider la réponse TLS externe sur `lime.1024b.net:5432`.
+- [ ] Résoudre la confiance du certificat Coolify présenté à Dreamlit, ou convenir avec Dreamlit d’un canal TLS compatible sans affaiblir la sécurité.

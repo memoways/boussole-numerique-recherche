@@ -1,3 +1,7 @@
+/**
+ * API partenaire — collecte sécurisée et boîte d’envoi transactionnelle.
+ * Les invitations, réponses et révocations restent vérifiables sans intégration e-mail active.
+ */
 import { createHash, randomBytes, randomUUID, timingSafeEqual } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
@@ -383,7 +387,7 @@ app.post("/api/admin/logout", requireAdmin, (_req, res) => {
 });
 
 app.get("/api/admin/overview", requireAdmin, async (_req, res) => {
-  const [organizations, contacts, requests, responses, recapOutbox, interests] = await Promise.all([
+  const [organizations, contacts, requests, responses, recapOutbox, interests, invitations] = await Promise.all([
     getPool().query("SELECT id, name, status, created_at FROM partner_organizations ORDER BY name"),
     getPool().query("SELECT c.id, c.first_name, c.last_name, c.email, c.organization_id, o.name AS organization_name FROM partner_contacts c JOIN partner_organizations o ON o.id = c.organization_id ORDER BY o.name, c.last_name"),
     getPool().query("SELECT id, organization_name, first_name, last_name, email, status, created_at FROM partner_invitation_requests ORDER BY created_at DESC"),
@@ -395,8 +399,17 @@ app.get("/api/admin/overview", requireAdmin, async (_req, res) => {
        ORDER BY o.updated_at DESC`,
     ),
     getPool().query("SELECT id, first_name, email, audience, workshop_interest, notification_interest, status, created_at FROM public_interest_submissions ORDER BY created_at DESC"),
+    getPool().query(
+      `SELECT i.id, i.status, i.expires_at AS "expiresAt", i.created_at AS "createdAt", i.revoked_at AS "revokedAt",
+              c.id AS "contactId", c.first_name AS "firstName", c.last_name AS "lastName", c.email,
+              o.name AS "organizationName"
+       FROM partner_invitations i
+       JOIN partner_contacts c ON c.id = i.contact_id
+       JOIN partner_organizations o ON o.id = c.organization_id
+       ORDER BY i.created_at DESC`,
+    ),
   ]);
-  res.json({ organizations: organizations.rows, contacts: contacts.rows, invitationRequests: requests.rows, responses: responses.rows, recapOutbox: recapOutbox.rows, interests: interests.rows });
+  res.json({ organizations: organizations.rows, contacts: contacts.rows, invitationRequests: requests.rows, responses: responses.rows, recapOutbox: recapOutbox.rows, interests: interests.rows, invitations: invitations.rows });
 });
 
 app.post("/api/admin/responses/:responseId/regenerate-recap", requireAdmin, async (req, res) => {

@@ -113,3 +113,9 @@ Compteurs animés pour les chiffres clés (89 sources, 70% échec), graphiques q
 ## Design Choisi
 
 **Data-Driven Infographic** - Ce style correspond parfaitement à la nature du contenu (recherche avec données chiffrées), permet de mettre en valeur les statistiques clés (89 sources, 70% échec, 4 PDF), et crée une expérience visuelle engageante pour un sujet académique. La palette colorée par thématique aidera à naviguer entre les différentes sections (état des lieux, IA, politiques publiques, recommandations).
+
+## Style Decisions
+
+- Les états fonctionnels — collecte non reliée, administration non reliée, indicateurs de pilote — utilisent un libellé monospace en capitales, une ligne colorée et des micro-statuts structurés, plutôt qu’une carte d’attente générique.
+- La palette porte un sens constant : indigo pour la gouvernance et les services, cyan pour les flux, vert pour la disponibilité et les bénéfices, orange pour l’action qui demande une décision.
+- Les chiffres, étapes et statuts de pilote privilégient une voix typographique monospace afin de distinguer clairement les données opérationnelles de la lecture éditoriale.
