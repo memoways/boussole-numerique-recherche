@@ -83,6 +83,8 @@ Navigateur
 | `services/partner-feedback-api/Dockerfile` | Image de l’API partenaire |
 | `services/partner-feedback-api/package.json` | Build CommonJS de l’API et démarrage `dist/index.cjs` compatible avec Express en production |
 | `client/src/pages/PartnerQuestionnaire.tsx` | Questionnaire partenaire, brouillons, transcription vocale et confirmation finale dégagée de la navigation |
+| `client/src/pages/Home.tsx` | Accueil sous forme de tableau de cadrage : statut du projet, métriques descriptives, deux profils et chemin de co-conception |
+| `client/index.html` | Métadonnées globales, polices et chargement du script d’instrumentation GrainQL |
 | `config/ENVIRONMENT.md` | Variables de build publiques et secrets runtime |
 | `docs/` | Guides d’exploitation, migration, activation et archives |
 
@@ -122,7 +124,7 @@ La console est disponible à `/admin`. L’identifiant initial doit être défin
 
 Après une soumission, l’API prépare un texte de récapitulatif déterministe dans `notifications.partner_response_recap_outbox`. Dreamlit devra se connecter avec un utilisateur PostgreSQL limité à cette boîte, puis déclencher un e-mail lors d’une insertion ou d’une mise à jour de `updated_at`. La console affiche les messages préparés, leur destinataire, leur contenu et le nombre de régénérations ; l’action de régénération met à jour la même ligne et ne crée pas de doublon. L’endpoint PostgreSQL public répond en TLS, mais Dreamlit ne reconnaît pas encore l’autorité de certificat interne Coolify : aucun workflow de récapitulatif n’est donc publié à ce stade.
 
-Le fonctionnement complet, les droits SQL minimaux et le workflow Dreamlit sont documentés dans [`docs/PARTNER_FEEDBACK_OPERATIONS.md`](./docs/PARTNER_FEEDBACK_OPERATIONS.md) et [`docs/DREAMLIT_EMAIL_INTEGRATION_OPTIONS.md`](./docs/DREAMLIT_EMAIL_INTEGRATION_OPTIONS.md). L’état pilotable sans e-mail est consigné dans [`docs/ETAT_PILOTE_QUESTIONNAIRE_2026-09-03.md`](./docs/ETAT_PILOTE_QUESTIONNAIRE_2026-09-03.md). Deux prompts prêts à l’emploi encadrent la proposition via Codex et DreamLead, sans publication ni e-mail prématuré : [`docs/PROMPTS_CODEX_DREAMLEAD_RECAPITULATIFS.md`](./docs/PROMPTS_CODEX_DREAMLEAD_RECAPITULATIFS.md).
+Le fonctionnement complet, les droits SQL minimaux et le workflow Dreamlit sont documentés dans [`docs/PARTNER_FEEDBACK_OPERATIONS.md`](./docs/PARTNER_FEEDBACK_OPERATIONS.md) et [`docs/DREAMLIT_EMAIL_INTEGRATION_OPTIONS.md`](./docs/DREAMLIT_EMAIL_INTEGRATION_OPTIONS.md). L’état pilotable sans e-mail est consigné dans [`docs/ETAT_PILOTE_QUESTIONNAIRE_2026-09-03.md`](./docs/ETAT_PILOTE_QUESTIONNAIRE_2026-09-03.md). Deux prompts prêts à l’emploi encadrent la proposition via Codex et Dreamlit, sans publication ni e-mail prématuré : [`docs/PROMPTS_CODEX_DREAMLIT_RECAPITULATIFS.md`](./docs/PROMPTS_CODEX_DREAMLIT_RECAPITULATIFS.md).
 
 ## Déploiement Coolify
 

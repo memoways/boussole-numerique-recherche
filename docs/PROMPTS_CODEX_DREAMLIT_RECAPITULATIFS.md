@@ -1,25 +1,25 @@
-# Prompts Codex et DreamLead — récapitulatifs du questionnaire partenaire
+# Prompts Codex et Dreamlit — récapitulatifs du questionnaire partenaire
 
-> **Objectif.** Ces deux prompts servent à terminer la configuration de DreamLead avec une proposition contrôlée avant tout envoi. Ils suivent l’architecture retenue : DreamLead ne reçoit que les données déjà préparées pour l’e-mail, jamais les réponses brutes au questionnaire.
+> **Objectif.** Ces deux prompts servent à terminer la configuration de Dreamlit avec une proposition contrôlée avant tout envoi. Ils suivent l’architecture retenue : Dreamlit ne reçoit que les données déjà préparées pour l’e-mail, jamais les réponses brutes au questionnaire.
 
 ## 1. Prompt à coller dans Codex
 
 ```text
-Tu travailles sur le projet Boussole Numérique Culture. Tu as accès à DreamLead via MCP. Ton rôle est de préparer, vérifier et proposer une configuration de workflow transactionnel ; ne publie aucun workflow, ne modifie pas le schéma de production et n’envoie aucun e-mail sans une confirmation explicite de ma part.
+Tu travailles sur le projet Boussole Numérique Culture. Tu as accès à Dreamlit via MCP. Ton rôle est de préparer, vérifier et proposer une configuration de workflow transactionnel ; ne publie aucun workflow, ne modifie pas le schéma de production et n’envoie aucun e-mail sans une confirmation explicite de ma part.
 
-Avant toute action, inspecte les outils MCP DreamLead disponibles et utilise uniquement leurs paramètres documentés. Vérifie que tu travailles dans le projet DreamLead dédié à la Boussole, pas dans un projet Memoways existant.
+Avant toute action, inspecte les outils MCP Dreamlit disponibles et utilise uniquement leurs paramètres documentés. Vérifie que tu travailles dans le projet Dreamlit dédié à la Boussole, pas dans un projet Memoways existant.
 
 ## Contexte fonctionnel
 
-Une personne partenaire reçoit un lien d’invitation personnel, sauvegarde éventuellement un brouillon, donne son consentement puis soumet son questionnaire. L’API Boussole écrit alors un récapitulatif déterministe dans une boîte d’envoi PostgreSQL. Le but de DreamLead est d’envoyer à cette même personne une copie fidèle et lisible de ce qu’elle a validé.
+Une personne partenaire reçoit un lien d’invitation personnel, sauvegarde éventuellement un brouillon, donne son consentement puis soumet son questionnaire. L’API Boussole écrit alors un récapitulatif déterministe dans une boîte d’envoi PostgreSQL. Le but de Dreamlit est d’envoyer à cette même personne une copie fidèle et lisible de ce qu’elle a validé.
 
 Il s’agit d’un e-mail transactionnel individuel, et non d’une newsletter, d’un diagnostic automatisé ou d’une analyse IA. L’envoi doit être en français, sobre, utile et respectueux. Il ne doit jamais attribuer de score, déduire un profil, interpréter des réponses ou promettre une fonctionnalité future.
 
 ## Architecture et principe de minimisation
 
-La source est PostgreSQL 18, exposé en TLS sur lime.1024b.net:5432. Le compte de connexion DreamLead est un compte PostgreSQL dédié, dreamlit_boussole. Ne demande ni n’affiche aucun mot de passe ou secret dans les comptes rendus.
+La source est PostgreSQL 18, exposé en TLS sur lime.1024b.net:5432. Le compte de connexion Dreamlit est un compte PostgreSQL dédié, dreamlit_boussole. Ne demande ni n’affiche aucun mot de passe ou secret dans les comptes rendus.
 
-DreamLead ne doit accéder ni à partner_responses ni à partner_response_answers. Il doit exclusivement observer et exploiter :
+Dreamlit ne doit accéder ni à partner_responses ni à partner_response_answers. Il doit exclusivement observer et exploiter :
 
 notifications.partner_response_recap_outbox
 
@@ -37,14 +37,14 @@ Les colonnes disponibles à ce jour sont :
 - regenerated_at
 - regeneration_count
 
-Le compte DreamLead doit avoir des droits limités au schéma notifications et aux objets techniques qu’il doit créer dans son propre schéma dreamlit. N’élargis pas son accès à des réponses brutes, à des contacts, à des invitations ou à toute autre table.
+Le compte Dreamlit doit avoir des droits limités au schéma notifications et aux objets techniques qu’il doit créer dans son propre schéma dreamlit. N’élargis pas son accès à des réponses brutes, à des contacts, à des invitations ou à toute autre table.
 
 ## Prévol à exécuter et à rapporter
 
-1. Vérifie que la connexion PostgreSQL DreamLead passe les trois contrôles : connexion, gestion du schéma dreamlit et gestion des triggers.
-2. Confirme les droits effectifs du compte DreamLead uniquement sur notifications.partner_response_recap_outbox et le schéma technique dreamlit.
-3. Vérifie les déclencheurs que DreamLead prévoit de créer, leurs événements et leur condition. Ne les active pas encore.
-4. Contrôle que le domaine et l’expéditeur de DreamLead sont vérifiés. Propose l’expéditeur transactionnel le plus clair ; ne l’invente pas s’il n’est pas vérifié. Utilise ulrich.fischer@memoways.com comme adresse Reply-To proposée.
+1. Vérifie que la connexion PostgreSQL Dreamlit passe les trois contrôles : connexion, gestion du schéma dreamlit et gestion des triggers.
+2. Confirme les droits effectifs du compte Dreamlit uniquement sur notifications.partner_response_recap_outbox et le schéma technique dreamlit.
+3. Vérifie les déclencheurs que Dreamlit prévoit de créer, leurs événements et leur condition. Ne les active pas encore.
+4. Contrôle que le domaine et l’expéditeur de Dreamlit sont vérifiés. Propose l’expéditeur transactionnel le plus clair ; ne l’invente pas s’il n’est pas vérifié. Utilise ulrich.fischer@memoways.com comme adresse Reply-To proposée.
 5. Ne contourne jamais une erreur de certificat TLS en désactivant TLS, en acceptant silencieusement un certificat non fiable ou en utilisant un compte PostgreSQL plus privilégié.
 
 ## Garde-fou essentiel : éviter les doublons
@@ -72,14 +72,14 @@ Prépare un modèle transactionnel français utilisant uniquement recipient_name
 - proposer ulrich.fischer@memoways.com comme Reply-To ;
 - ne contenir ni bouton marketing, ni suivi commercial, ni option de désabonnement pour cet e-mail transactionnel.
 
-Prévois une version texte brut accessible et, si DreamLead le gère, une version HTML minimaliste et responsive. Évite les phrases promotionnelles ou les promesses concernant une Boussole déjà disponible.
+Prévois une version texte brut accessible et, si Dreamlit le gère, une version HTML minimaliste et responsive. Évite les phrases promotionnelles ou les promesses concernant une Boussole déjà disponible.
 
 ## Livrable attendu avant validation
 
 Ne publie rien. Retourne une proposition structurée avec :
 
 1. le statut de la connexion et les trois contrôles techniques ;
-2. les tables et colonnes réellement accessibles à DreamLead ;
+2. les tables et colonnes réellement accessibles à Dreamlit ;
 3. le type de déclencheur proposé, sa condition précise et la stratégie anti-doublon ;
 4. les droits SQL strictement nécessaires et, si besoin, le SQL de migration séparé ;
 5. l’expéditeur proposé, le Reply-To et le modèle d’e-mail complet ;
@@ -90,7 +90,7 @@ Ne publie rien. Retourne une proposition structurée avec :
 Attends ma réponse « VALIDER LA PUBLICATION » avant toute publication de workflow et ma réponse « VALIDER L’ENVOI DE TEST » avant tout envoi d’e-mail.
 ```
 
-## 2. Prompt à coller dans DreamLead
+## 2. Prompt à coller dans Dreamlit
 
 ```text
 Tu prépares un workflow transactionnel pour Boussole Numérique Culture. Ne publie pas le workflow, ne modifie pas le schéma PostgreSQL et n’envoie aucun e-mail tant qu’une validation explicite n’a pas été donnée.
@@ -149,7 +149,7 @@ Vos retours contribueront à préparer les prochaines étapes de la co-conceptio
 Bien cordialement,
 L’équipe de projet Boussole Numérique Culture
 
-Propose ulrich.fischer@memoways.com comme Reply-To. Utilise seulement un expéditeur dont le domaine est déjà vérifié dans DreamLead ; si aucun expéditeur approprié n’est prêt, signale-le au lieu d’en inventer un.
+Propose ulrich.fischer@memoways.com comme Reply-To. Utilise seulement un expéditeur dont le domaine est déjà vérifié dans Dreamlit ; si aucun expéditeur approprié n’est prêt, signale-le au lieu d’en inventer un.
 
 Prépare une version texte brut et une version HTML simple, accessible et responsive. N’ajoute ni tracking commercial, ni contenu promotionnel, ni désabonnement à cet e-mail transactionnel.
 
@@ -172,7 +172,7 @@ Marque explicitement les étapes qui publieraient le workflow, créeraient un tr
 ## Utilisation recommandée
 
 1. Coller d’abord le prompt Codex dans Codex et demander uniquement la **proposition**.
-2. Une fois la proposition affichée, copier le second prompt dans DreamLead pour obtenir son cadrage métier et son modèle d’e-mail.
+2. Une fois la proposition affichée, copier le second prompt dans Dreamlit pour obtenir son cadrage métier et son modèle d’e-mail.
 3. Comparer les deux propositions, valider explicitement la stratégie anti-doublon et l’expéditeur.
 4. Publier ensuite le workflow et autoriser séparément un unique envoi de test vers `ulrich.fischer@memoways.com`.
 

@@ -1,6 +1,6 @@
 /**
  * Accueil — site compagnon de la Boussole Numérique Culture en préparation.
- * Design : le premier écran distingue explicitement le site existant du futur outil ; deux profils ouvrent des récits et visuels de co-conception.
+ * Design : tableau de cadrage « Data-Driven Infographic » — les repères opérationnels structurent l’entrée, avec une palette sémantique et deux profils de co-conception.
  */
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
@@ -395,24 +395,36 @@ export default function Home() {
 
   return (
     <div className="bg-white">
-      <section className="px-4 pb-16 pt-28 sm:pb-20 sm:pt-36" style={{ background: "linear-gradient(155deg, #f4f5fb 0%, #fff8f2 52%, #f2faf7 100%)" }} aria-labelledby="persona-selector-title">
-        <div className="mx-auto max-w-5xl text-center">
-          <p className="text-xs font-black uppercase tracking-[0.16em] text-[#515792]">Site compagnon · Boussole en préparation</p>
-          <h1 className="mt-3 text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl"><span className="block bg-[linear-gradient(90deg,#515792_0%,#3a7fc1_20%,#3aab8a_43%,#7ab648_60%,#E07428_80%)] bg-clip-text text-transparent">Boussole Numérique Culture</span></h1>
-          <p className="mx-auto mt-6 max-w-3xl text-lg leading-relaxed text-slate-700 sm:text-xl">Ce site accompagne la préparation d’une Boussole pour les artistes des milieux culturels genevois. <strong>La Boussole n’existe pas encore.</strong> Le site informe, recueille les retours et prépare sa co-conception avec les partenaires et les artistes.</p>
+      <section className="overflow-hidden border-b border-[#515792]/15 bg-[#f6f7fb] px-4 pb-14 pt-24 sm:pb-20 sm:pt-32" aria-labelledby="persona-selector-title">
+        <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(320px,0.9fr)] lg:items-stretch">
+          <div className="min-w-0 lg:pt-4">
+            <div className="inline-flex items-center gap-2 border-l-4 border-[#515792] bg-white px-3 py-2 shadow-sm"><span className="font-mono text-[11px] font-bold tracking-[0.12em] text-[#515792]">ÉTAT / 01</span><span className="text-xs font-bold text-slate-700">Site compagnon · outil en préparation</span></div>
+            <h1 className="mt-6 max-w-4xl text-4xl font-extrabold leading-[1.02] tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">Boussole <span className="text-[#515792]">Numérique</span><br />Culture</h1>
+            <p className="mt-6 max-w-3xl text-lg leading-relaxed text-slate-700 sm:text-xl">Ce site accompagne la préparation d’une Boussole pour les artistes des milieux culturels genevois. <strong>La Boussole n’existe pas encore.</strong> Il rend la démarche lisible, recueille les retours et prépare sa co-conception avec les partenaires et les artistes.</p>
 
-          <ol className="mx-auto mt-8 grid max-w-5xl gap-3 text-left sm:grid-cols-2 lg:grid-cols-4" aria-label="Étapes indicatives du projet">
-            {[{ moment: "Aujourd’hui", detail: "Informer et recueillir les retours", color: "#515792" }, { moment: "Sept.–oct. 2026", detail: "Atelier et cadrage de co-conception", color: "#3a7fc1" }, { moment: "Fin 2026", detail: "Prototype à tester visé", color: "#3aab8a" }, { moment: "Début 2027", detail: "Ouverture publique visée", color: "#E07428" }].map((step) => <li key={step.moment} className="border border-slate-200 bg-white/85 p-4 shadow-sm"><span className="text-xs font-black uppercase tracking-[0.12em]" style={{ color: step.color }}>{step.moment}</span><span className="mt-1.5 block text-sm font-semibold leading-snug text-slate-800">{step.detail}</span></li>)}
-          </ol>
+            <div className="mt-8 grid gap-3 sm:grid-cols-3" aria-label="Repères de cadrage">
+              {[{ value: "02", label: "publics", detail: "partenaires et artistes", color: "#515792" }, { value: "05", label: "dimensions", detail: "à mettre en discussion", color: "#3a7fc1" }, { value: "04", label: "jalons", detail: "jusqu’à l’ouverture visée", color: "#3aab8a" }].map((metric) => <div key={metric.label} className="border-l-4 bg-white px-4 py-3 shadow-sm" style={{ borderColor: metric.color }}><span className="font-mono text-2xl font-bold" style={{ color: metric.color }}>{metric.value}</span><span className="ml-2 text-xs font-black uppercase tracking-[0.12em] text-slate-800">{metric.label}</span><span className="mt-1 block text-xs leading-relaxed text-slate-500">{metric.detail}</span></div>)}
+            </div>
 
-          <div className="mt-11"><h2 id="persona-selector-title" className="text-2xl font-extrabold tracking-tight text-slate-950 sm:text-3xl">Entrée dans le site par profil</h2></div>
-          <div ref={personaSelectorRef} className="mx-auto mt-6 grid max-w-4xl gap-4 sm:grid-cols-2" role="group" aria-label="Sélection du type de public">
-            {PERSONAS.map((persona) => {
-              const Icon = persona.icon;
-              const selected = activePersona === persona.id;
-              return <button key={persona.id} type="button" aria-pressed={selected} onClick={() => selectPersona(persona.id)} className="group relative min-h-36 rounded-2xl border-2 p-5 text-left shadow-sm transition-[transform,background-color,color,box-shadow] duration-200 ease-out hover:-translate-y-1 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-4" style={{ backgroundColor: selected ? persona.color : persona.softColor, borderColor: persona.color, color: selected ? "#fff" : "#17223b", boxShadow: selected ? `0 12px 24px ${persona.color}33` : "0 4px 12px rgba(15, 23, 42, 0.05)", outlineColor: persona.color }}><span className="flex items-start justify-between gap-4"><span className="flex h-10 w-10 items-center justify-center rounded-full transition-transform duration-200 group-hover:scale-110" style={{ backgroundColor: selected ? "rgba(255,255,255,0.92)" : persona.color, color: selected ? persona.color : "#fff" }}><Icon className="h-5 w-5" aria-hidden="true" /></span>{selected && <Check className="h-5 w-5" aria-label="Profil sélectionné" />}</span><span className="mt-4 block text-base font-extrabold leading-snug">{persona.stickyLabel}</span><span className="mt-1.5 block text-sm leading-snug" style={{ color: selected ? "rgba(255,255,255,0.88)" : "#64748b" }}>{persona.recognition}</span></button>;
-            })}
+            <div className="mt-10 border-t border-slate-200 pt-6"><div className="flex items-end justify-between gap-4"><div><p className="font-mono text-[11px] font-bold tracking-[0.12em] text-[#E07428]">CHOISIR UN POINT D’ENTRÉE</p><h2 id="persona-selector-title" className="mt-2 text-2xl font-extrabold tracking-tight text-slate-950 sm:text-3xl">Depuis quel rôle souhaitez-vous contribuer ?</h2></div><span className="hidden shrink-0 border border-[#E07428]/30 bg-[#fdf3ec] px-2 py-1 font-mono text-[11px] font-bold text-[#E07428] sm:inline">ACTION / 02</span></div></div>
+            <div ref={personaSelectorRef} className="mt-5 grid gap-3 sm:grid-cols-2" role="group" aria-label="Sélection du type de public">
+              {PERSONAS.map((persona, index) => {
+                const Icon = persona.icon;
+                const selected = activePersona === persona.id;
+                return <button key={persona.id} type="button" aria-pressed={selected} onClick={() => selectPersona(persona.id)} className="group relative min-h-36 border-2 p-5 text-left shadow-sm transition-[transform,background-color,color,box-shadow] duration-200 ease-out hover:-translate-y-1 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-4" style={{ backgroundColor: selected ? persona.color : persona.softColor, borderColor: persona.color, color: selected ? "#fff" : "#17223b", boxShadow: selected ? `0 12px 24px ${persona.color}33` : "0 4px 12px rgba(15, 23, 42, 0.05)", outlineColor: persona.color }}><span className="flex items-start justify-between gap-4"><span className="flex items-center gap-2"><span className="font-mono text-xs font-bold" style={{ color: selected ? "rgba(255,255,255,0.82)" : persona.color }}>0{index + 1}</span><span className="flex h-9 w-9 items-center justify-center rounded-full transition-transform duration-200 group-hover:scale-110" style={{ backgroundColor: selected ? "rgba(255,255,255,0.92)" : persona.color, color: selected ? persona.color : "#fff" }}><Icon className="h-4 w-4" aria-hidden="true" /></span></span>{selected && <Check className="h-5 w-5" aria-label="Profil sélectionné" />}</span><span className="mt-4 block text-base font-extrabold leading-snug">{persona.stickyLabel}</span><span className="mt-1.5 block text-sm leading-snug" style={{ color: selected ? "rgba(255,255,255,0.88)" : "#64748b" }}>{persona.recognition}</span></button>;
+              })}
+            </div>
           </div>
+
+          <aside className="relative overflow-hidden border border-slate-900 bg-slate-950 p-5 text-white shadow-xl sm:p-7" aria-label="Tableau de bord de la co-conception">
+            <div className="pointer-events-none absolute -right-12 -top-12 h-44 w-44 rounded-full border border-[#3a7fc1]/30" /><div className="pointer-events-none absolute -bottom-16 -left-16 h-40 w-40 rounded-full border border-[#3aab8a]/25" />
+            <div className="relative"><div className="flex items-center justify-between gap-3 border-b border-white/15 pb-4"><p className="font-mono text-[11px] font-bold tracking-[0.14em] text-[#7ed3be]">TABLEAU DE CADRAGE</p><span className="border border-[#3a7fc1]/60 bg-[#3a7fc1]/15 px-2 py-1 font-mono text-[10px] font-bold text-[#9ed0ff]">2026 → 2027</span></div><h2 className="mt-6 max-w-sm text-2xl font-extrabold leading-tight tracking-tight sm:text-3xl">Mettre les situations vécues au centre des prochaines décisions.</h2><p className="mt-4 max-w-md text-sm leading-relaxed text-slate-300">La démarche avance par étapes : écouter, cadrer, tester, puis partager une première version. Chaque couleur désigne une fonction dans ce parcours.</p>
+              <ol className="mt-7 space-y-0" aria-label="Chemin de co-conception">
+                {[{ code: "01", title: "Écouter", detail: "recueillir les situations et priorités", color: "#3a7fc1" }, { code: "02", title: "Cadrer", detail: "choisir ce qui mérite un premier test", color: "#E07428" }, { code: "03", title: "Tester", detail: "mettre le prototype à l’épreuve", color: "#3aab8a" }, { code: "04", title: "Partager", detail: "préparer l’ouverture publique", color: "#515792" }].map((step, index) => <li key={step.code} className="relative grid grid-cols-[2.75rem_1fr] gap-3 py-3"><div className="relative"><span className="flex h-8 w-8 items-center justify-center rounded-full border font-mono text-xs font-bold" style={{ borderColor: step.color, color: step.color, backgroundColor: `${step.color}22` }}>{step.code}</span>{index < 3 && <span className="absolute left-4 top-8 h-7 border-l border-dashed border-slate-600" aria-hidden="true" />}</div><div><p className="text-sm font-extrabold" style={{ color: step.color }}>{step.title}</p><p className="mt-0.5 text-xs leading-relaxed text-slate-300">{step.detail}</p></div></li>)}
+              </ol>
+              <div className="mt-5 grid grid-cols-4 gap-1" aria-label="Avancement indicatif de la démarche">{["#515792", "#3a7fc1", "#3aab8a", "#E07428"].map((color, index) => <span key={color} className="h-1.5" style={{ backgroundColor: color, opacity: index === 0 ? 1 : 0.45 }} />)}</div><p className="mt-2 font-mono text-[10px] font-bold tracking-[0.1em] text-slate-400">PHASE ACTIVE / ÉCOUTE ET CADRAGE</p>
+            </div>
+          </aside>
         </div>
       </section>
 

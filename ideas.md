@@ -119,3 +119,6 @@ Compteurs animés pour les chiffres clés (89 sources, 70% échec), graphiques q
 - Les états fonctionnels — collecte non reliée, administration non reliée, indicateurs de pilote — utilisent un libellé monospace en capitales, une ligne colorée et des micro-statuts structurés, plutôt qu’une carte d’attente générique.
 - La palette porte un sens constant : indigo pour la gouvernance et les services, cyan pour les flux, vert pour la disponibilité et les bénéfices, orange pour l’action qui demande une décision.
 - Les chiffres, étapes et statuts de pilote privilégient une voix typographique monospace afin de distinguer clairement les données opérationnelles de la lecture éditoriale.
+- Chaque section structurante de l’accueil expose un objet de lecture opérationnel : métrique vérifiable, état de phase, jalon, chaîne d’étapes ou repère catégoriel. Les chiffres ne sont jamais décoratifs ni inventés.
+- L’accueil privilégie une composition en tableau de cadrage asymétrique : récit à gauche, visualisation de processus à droite, puis points d’entrée présentés comme des choix de contribution.
+- La couleur est réservée aux rôles : indigo pour le cadre et la gouvernance, cyan pour les flux, vert pour le test et les bénéfices, orange pour l’action ou la décision. Les dégradés décoratifs sont écartés au profit de ces repères.

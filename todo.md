@@ -152,4 +152,10 @@
 - [x] Exposer dans la console la révocation d’une invitation active, déjà prise en charge par l’API, afin de terminer ce contrôle de pilote sans Dreamlit.
 - [x] Rétablir l’exposition TCP PostgreSQL de Coolify et valider la réponse TLS externe sur `lime.1024b.net:5432`.
 - [ ] Résoudre la confiance du certificat Coolify présenté à Dreamlit, ou convenir avec Dreamlit d’un canal TLS compatible sans affaiblir la sécurité.
-- [x] Rédiger un prompt Codex et un prompt DreamLead pour proposer, configurer et valider le workflow de récapitulatif partenaire.
+- [x] Rédiger un prompt Codex et un prompt Dreamlit pour proposer, configurer et valider le workflow de récapitulatif partenaire.
+- [ ] Synchroniser le schéma PostgreSQL dans Dreamlit et confirmer la visibilité limitée de `notifications.partner_response_recap_outbox` avant de relancer le workflow en brouillon.
+- [x] Ajouter et vérifier le chargement global du script GrainQL sur le portail public.
+- [x] Renforcer l’accueil par des repères analytiques, une palette sémantique et une composition plus infographique conformément à la revue visuelle.
+- [ ] Clarifier la procédure de resynchronisation Dreamlit sans bouton dédié et les éventuels accès limités nécessaires à Codex pour intervenir sur Coolify.
+- [x] Exécuter le contrôle des privilèges `dreamlit_boussole` avec `psql` dans le conteneur PostgreSQL, puis interpréter les droits manquants éventuels.
+- [x] Accorder uniquement les droits Dreamlit nécessaires au schéma `notifications`, à l’outbox de récapitulatifs et au schéma technique `dreamlit`, puis vérifier les quatre privilèges attendus.

@@ -2,11 +2,28 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
-## [1.3.20] — 2026-09-03 — Prompts de configuration DreamLead
+## [1.3.21] — 2026-09-04 — Instrumentation GrainQL
 
 ### Ajouté
 
-- [`docs/PROMPTS_CODEX_DREAMLEAD_RECAPITULATIFS.md`](./docs/PROMPTS_CODEX_DREAMLEAD_RECAPITULATIFS.md) fournit un prompt Codex et un prompt DreamLead pour préparer le workflow de récapitulatif partenaire sans publier, modifier la base ou envoyer d’e-mail.
+- Le script fourni par GrainQL est chargé dans le `<head>` de `client/index.html`, afin d’être disponible sur toutes les pages publiques du portail.
+- L’accueil présente un tableau de cadrage latéral, des métriques de lecture et un chemin de co-conception à quatre étapes afin de rendre l’état du projet immédiatement lisible.
+
+### Modifié
+
+- Le hero abandonne le dégradé décoratif et la composition centrée au profit d’une structure asymétrique. Indigo, cyan, vert et orange y portent désormais des rôles explicites : cadre, flux, test et action.
+- Les deux profils restent les uniques entrées du site, mais leurs cartes sont intégrées à une lecture de contribution numérotée plutôt qu’à une succession de blocs promotionnels.
+
+### Vérifié
+
+- Le script répond à une requête `GET` et le build du portail génère les pages statiques, le sitemap, `robots.txt` et `llms.txt` sans erreur.
+- L’accueil restructuré est contrôlé sur smartphone à 390 px, sans débordement horizontal ni perte de lisibilité des repères de cadrage.
+
+## [1.3.20] — 2026-09-03 — Prompts de configuration Dreamlit
+
+### Ajouté
+
+- [`docs/PROMPTS_CODEX_DREAMLIT_RECAPITULATIFS.md`](./docs/PROMPTS_CODEX_DREAMLIT_RECAPITULATIFS.md) fournit un prompt Codex et un prompt Dreamlit pour préparer le workflow de récapitulatif partenaire sans publier, modifier la base ou envoyer d’e-mail.
 - Les prompts documentent le périmètre strict de la boîte `notifications.partner_response_recap_outbox`, le modèle transactionnel français, la proposition attendue et une validation séparée pour la publication puis l’envoi de test.
 
 ## [1.3.19] — 2026-09-03 — Contrôles de pilote hors e-mail complétés
