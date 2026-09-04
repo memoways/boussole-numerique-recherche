@@ -2,6 +2,13 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.3.20] — 2026-09-03 — Prompts de configuration DreamLead
+
+### Ajouté
+
+- [`docs/PROMPTS_CODEX_DREAMLEAD_RECAPITULATIFS.md`](./docs/PROMPTS_CODEX_DREAMLEAD_RECAPITULATIFS.md) fournit un prompt Codex et un prompt DreamLead pour préparer le workflow de récapitulatif partenaire sans publier, modifier la base ou envoyer d’e-mail.
+- Les prompts documentent le périmètre strict de la boîte `notifications.partner_response_recap_outbox`, le modèle transactionnel français, la proposition attendue et une validation séparée pour la publication puis l’envoi de test.
+
 ## [1.3.19] — 2026-09-03 — Contrôles de pilote hors e-mail complétés
 
 ### Ajouté

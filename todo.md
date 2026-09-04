@@ -152,3 +152,4 @@
 - [x] Exposer dans la console la révocation d’une invitation active, déjà prise en charge par l’API, afin de terminer ce contrôle de pilote sans Dreamlit.
 - [x] Rétablir l’exposition TCP PostgreSQL de Coolify et valider la réponse TLS externe sur `lime.1024b.net:5432`.
 - [ ] Résoudre la confiance du certificat Coolify présenté à Dreamlit, ou convenir avec Dreamlit d’un canal TLS compatible sans affaiblir la sécurité.
+- [x] Rédiger un prompt Codex et un prompt DreamLead pour proposer, configurer et valider le workflow de récapitulatif partenaire.
