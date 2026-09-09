@@ -155,6 +155,22 @@
 - [x] Rédiger un prompt Codex et un prompt Dreamlit pour proposer, configurer et valider le workflow de récapitulatif partenaire.
 - [ ] Synchroniser le schéma PostgreSQL dans Dreamlit et confirmer la visibilité limitée de `notifications.partner_response_recap_outbox` avant de relancer le workflow en brouillon.
 - [x] Ajouter et vérifier le chargement global du script GrainQL sur le portail public.
+- [ ] Corriger dans Dreamlit le nom de base `postgres`, distinct du rôle `dreamlit_boussole`, puis vérifier la visibilité de l’outbox.
+- [ ] Vérifier si la base dédiée `dreamlit_boussole` contient l’outbox métier, ses schémas et les droits requis par Dreamlit avant toute modification de connexion.
+- [ ] Confirmer l’architecture cible : accès Dreamlit limité à la base métier actuelle ou migration complète de l’API et de ses données vers une base Boussole dédiée.
+- [ ] Auditer et sauvegarder les données de la base `postgres` avant la migration réversible vers `dreamlit_boussole`.
+- [ ] Préparer la bascule de `DATABASE_URL`, la migration du schéma et les droits Dreamlit strictement limités dans la base dédiée.
+- [x] Réinitialiser la base `dreamlit_boussole` sans migrer les données de test de `postgres`.
+- [x] Initialiser le schéma partenaire dans la base `dreamlit_boussole` via le déploiement contrôlé de l’API.
+- [ ] Vérifier l’API redéployée sur `dreamlit_boussole`, puis attribuer les droits Dreamlit limités à l’outbox de cette base.
+- [x] Attribuer et vérifier les droits Dreamlit limités à l’outbox dans la base `dreamlit_boussole`.
+- [ ] Définir puis valider les états de livraison et de régénération de l’outbox avant la publication du workflow Dreamlit.
+- [ ] Vérifier et tester un expéditeur Dreamlit répliable avant toute publication ou envoi transactionnel.
+- [ ] Configurer `boussole@hello.memoways.com` comme expéditeur Dreamlit avec `ulrich.fischer@memoways.com` en Reply-To, puis tester la réception de réponse.
+- [ ] Préparer le prompt Dreamlit de vérification de l’expéditeur et du workflow en brouillon, sans publication ni envoi.
+- [x] Valider l’option B : compléter le suivi de livraison de l’outbox avant de préparer le workflow Dreamlit complet.
+- [x] Implémenter dans le dépôt le suivi de livraison versionné et le renvoi manuel explicite de l’outbox partenaire.
+- [ ] Redéployer l’API avec la migration d’outbox, vérifier les nouvelles colonnes dans `dreamlit_boussole` et accorder à Dreamlit l’UPDATE limité aux colonnes de livraison.
 - [x] Renforcer l’accueil par des repères analytiques, une palette sémantique et une composition plus infographique conformément à la revue visuelle.
 - [ ] Clarifier la procédure de resynchronisation Dreamlit sans bouton dédié et les éventuels accès limités nécessaires à Codex pour intervenir sur Coolify.
 - [x] Exécuter le contrôle des privilèges `dreamlit_boussole` avec `psql` dans le conteneur PostgreSQL, puis interpréter les droits manquants éventuels.

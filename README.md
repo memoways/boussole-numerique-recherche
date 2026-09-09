@@ -126,6 +126,8 @@ Après une soumission, l’API prépare un texte de récapitulatif déterministe
 
 Le fonctionnement complet, les droits SQL minimaux et le workflow Dreamlit sont documentés dans [`docs/PARTNER_FEEDBACK_OPERATIONS.md`](./docs/PARTNER_FEEDBACK_OPERATIONS.md) et [`docs/DREAMLIT_EMAIL_INTEGRATION_OPTIONS.md`](./docs/DREAMLIT_EMAIL_INTEGRATION_OPTIONS.md). L’état pilotable sans e-mail est consigné dans [`docs/ETAT_PILOTE_QUESTIONNAIRE_2026-09-03.md`](./docs/ETAT_PILOTE_QUESTIONNAIRE_2026-09-03.md). Deux prompts prêts à l’emploi encadrent la proposition via Codex et Dreamlit, sans publication ni e-mail prématuré : [`docs/PROMPTS_CODEX_DREAMLIT_RECAPITULATIFS.md`](./docs/PROMPTS_CODEX_DREAMLIT_RECAPITULATIFS.md).
 
+La migration de l’outbox versionnée, la base dédiée `dreamlit_boussole`, les droits Dreamlit restreints et la séquence de validation avant publication sont détaillés dans [`docs/MIGRATION_OUTBOX_DREAMLIT_2026-09-04.md`](./docs/MIGRATION_OUTBOX_DREAMLIT_2026-09-04.md).
+
 ## Déploiement Coolify
 
 Le déploiement final utilise trois ressources : le portail Nginx, une base PostgreSQL privée et l’API partenaire. Un quatrième élément, le workflow Dreamlit, délivre les e-mails après connexion à la boîte d’envoi. La procédure pas à pas est documentée ; elle comprend les domaines, les variables, les droits PostgreSQL, les tests de pilote et les sauvegardes.

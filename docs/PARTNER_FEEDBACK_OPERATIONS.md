@@ -64,7 +64,7 @@ Dans la ressource `boussole-partner-api`, ouvrez **Environment Variables**. Util
 | `ADMIN_SESSION_SECRET` | Secret aléatoire de 32 caractères minimum | Oui | Runtime | Signe les sessions d’administration. |
 | `ADMIN_EMAIL` | `ulrich.fischer@memoways.com` | Non | Runtime | Identifiant du premier administrateur. |
 | `ADMIN_PASSWORD` | Mot de passe unique de 16 caractères ou plus | Oui | Runtime | Mot de passe de connexion à `/admin`. |
-| `RUN_MIGRATIONS` | `true` uniquement à la première initialisation | Non | Runtime | Crée le schéma et la version initiale du questionnaire. |
+| `RUN_MIGRATIONS` | `true` uniquement lors d’une initialisation ou migration contrôlée | Non | Runtime | Crée ou complète le schéma et la version initiale du questionnaire. |
 | `DEEPGRAM_API_KEY` | Clé Deepgram | Oui | Runtime | Active les transcriptions vocales. |
 | `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `MAIL_FROM` | Selon le prestataire choisi | Partiellement | Runtime | Reste facultatif pour les invitations personnelles pendant la transition. Les récapitulatifs de réponses sont préparés pour Dreamlit. |
 
@@ -112,39 +112,47 @@ Pour changer le mot de passe, modifiez uniquement `ADMIN_PASSWORD` dans Coolify,
 
 ## 9. Activer Dreamlit pour les récapitulatifs
 
-L’API crée, dans la même transaction que la soumission, une ligne dans `notifications.partner_response_recap_outbox`. Cette ligne ne contient que le destinataire, son prénom, le nom de l’organisation, l’objet et un récapitulatif déterministe déjà préparé. Dreamlit ne reçoit ni les tables `partner_response_answers` ni les jetons d’invitation.
+L’API et Dreamlit utilisent la base PostgreSQL dédiée `dreamlit_boussole`. L’API crée, dans la même transaction que la soumission, une ligne dans `notifications.partner_response_recap_outbox`. Cette ligne contient seulement le destinataire, son prénom, le nom de l’organisation, l’objet et un récapitulatif déterministe déjà préparé. Dreamlit ne reçoit aucun droit sur `partner_response_answers`, les jetons d’invitation ou les autres tables métier.
 
-Dans Coolify, activez SSL sur PostgreSQL. Un client externe tel que Dreamlit ne peut pas monter le certificat d’autorité interne de Coolify ; utilisez donc le niveau `require` afin de chiffrer le transport, puis vérifiez avec Dreamlit sa compatibilité avec un certificat interne avant de renforcer le contrôle de certificat. Coolify distingue les ports mappés et les ports publics : le second crée un proxy TCP pour une connexion externe.[5] [6]
+Dans Coolify, activez SSL sur PostgreSQL, utilisez le niveau `require` et exposez le port TCP uniquement pour Dreamlit, avec les restrictions de pare-feu disponibles. Dans l’installation actuelle, l’hôte public est `lime.1024b.net` et le port est `5432`. La connexion Dreamlit doit utiliser la base et le rôle `dreamlit_boussole`. Ne placez jamais ses identifiants dans une variable `VITE_`, le dépôt ou la ressource portail.[5] [6]
 
-Créez un **port public** pour PostgreSQL et protégez-le au niveau du pare-feu du serveur avec les plages publiées par Dreamlit si cette option est disponible dans votre infrastructure. Ne le publiez pas par un domaine web. Copiez dans Dreamlit l’hôte public, le port, le nom de base, le nom d’utilisateur dédié et son mot de passe ; ne placez aucun de ces éléments dans les variables de l’API ou dans le dépôt.
-
-Créez ensuite l’utilisateur Dreamlit avec les privilèges minimaux suivants, en exécutant le SQL avec l’utilisateur propriétaire de la base. Remplacez les valeurs entre chevrons par celles de votre environnement, sans conserver le mot de passe dans un fichier :
+Le rôle Dreamlit reçoit un accès strictement limité à l’outbox et à son schéma technique :
 
 ```sql
-CREATE ROLE dreamlit_app LOGIN PASSWORD '<mot-de-passe-unique>' INHERIT;
-GRANT CONNECT, CREATE, TEMP ON DATABASE <nom_base> TO dreamlit_app;
-GRANT USAGE ON SCHEMA notifications TO dreamlit_app;
-GRANT SELECT, TRIGGER ON ALL TABLES IN SCHEMA notifications TO dreamlit_app;
-GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA notifications TO dreamlit_app;
-ALTER DEFAULT PRIVILEGES IN SCHEMA notifications
-  GRANT SELECT, TRIGGER ON TABLES TO dreamlit_app;
-ALTER DEFAULT PRIVILEGES IN SCHEMA notifications
-  GRANT USAGE, SELECT ON SEQUENCES TO dreamlit_app;
+GRANT CONNECT, CREATE, TEMP ON DATABASE dreamlit_boussole TO dreamlit_boussole;
+GRANT USAGE ON SCHEMA notifications TO dreamlit_boussole;
+GRANT SELECT, TRIGGER ON TABLE notifications.partner_response_recap_outbox TO dreamlit_boussole;
+CREATE SCHEMA IF NOT EXISTS dreamlit AUTHORIZATION dreamlit_boussole;
+GRANT ALL ON SCHEMA dreamlit TO dreamlit_boussole;
 ```
 
-Dans Dreamlit, connectez cette base puis créez le workflow suivant :
+Après la migration d’outbox versionnée, ajoutez seulement l’écriture des colonnes de livraison :
 
-| Étape | Réglage |
+```sql
+GRANT UPDATE (
+  delivery_status,
+  sent_at,
+  last_attempt_at,
+  provider_message_id,
+  last_error
+) ON notifications.partner_response_recap_outbox TO dreamlit_boussole;
+```
+
+Ne définissez pas de privilèges par défaut sur `public` ni `notifications`. Dreamlit ne doit pas gagner automatiquement accès aux tables créées ultérieurement.
+
+| Étape | Réglage retenu |
 |---|---|
-| Déclencheur | Insertion ou mise à jour de `notifications.partner_response_recap_outbox`, en surveillant la colonne `updated_at`. |
-| Données | Utiliser directement les champs de la ligne déclenchante ; aucune requête sur les réponses brutes n’est nécessaire. |
+| Déclencheur initial | Insertion d’une ligne avec `delivery_status = 'pending'`. |
+| Déclencheur de renvoi | Mise à jour où `send_version` augmente et où le nouvel état est `pending`. |
+| Données | Utiliser uniquement les champs de la ligne d’outbox ; aucune requête sur les réponses brutes. |
 | Destinataire | `{{ recipient_email }}`. |
 | Objet | `{{ subject }}`. |
-| Contenu | Salutation avec `{{ recipient_name }}`, nom de l’organisation et `{{ summary_text }}` ; ajouter l’adresse de contact de l’équipe de projet. |
-| Désabonnement | Désactivé : il s’agit d’un accusé de réception transactionnel lié à une soumission. |
-| Expéditeur | Domaine d’envoi vérifié dans Dreamlit, idéalement un sous-domaine dédié tel que `mail.memoways.com`. |
+| Contenu | Salutation avec `{{ recipient_name }}`, nom de l’organisation et `{{ summary_text }}` ; aucun diagnostic ni contenu promotionnel. |
+| Expéditeur | `Boussole Numérique Culture <boussole@hello.memoways.com>` après vérification dans Dreamlit. |
+| Reply-To | `ulrich.fischer@memoways.com`. |
+| Relance | Aucune relance automatique. Un échec devient `failed` ; l’administrateur crée une nouvelle version d’envoi depuis `/admin`. |
 
-Prévisualisez le workflow avec une ligne réelle de test, envoyez l’e-mail à l’adresse de test, puis publiez seulement après validation du rendu et du destinataire. Dreamlit déclenche ses workflows sur les lignes ajoutées ou mises à jour et peut personnaliser l’envoi au moyen de variables Liquid.[7] [8] La console `/admin` affiche cette boîte d’envoi. Son action **Régénérer** actualise la ligne et `updated_at`, ce qui déclenche un nouvel envoi uniquement lorsque le workflow est publié.
+Dreamlit renseigne `sent`, `failed`, les horodatages et l’identifiant fournisseur lorsqu’il existe. La console `/admin` affiche alors la version d’envoi et le statut. Préparez le workflow en brouillon, vérifiez son modèle, puis obtenez deux validations distinctes : publication, puis un seul envoi de test à `ulrich.fischer@memoways.com`.[7] [8]
 
 ## 10. Activer Deepgram et SMTP après le contrôle de base
 

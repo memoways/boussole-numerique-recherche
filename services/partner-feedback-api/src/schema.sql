@@ -104,6 +104,12 @@ CREATE TABLE IF NOT EXISTS notifications.partner_response_recap_outbox (
   subject TEXT NOT NULL,
   summary_text TEXT NOT NULL,
   summary_version TEXT NOT NULL DEFAULT 'v1',
+  send_version INTEGER NOT NULL DEFAULT 1 CHECK (send_version >= 1),
+  delivery_status TEXT NOT NULL DEFAULT 'pending' CHECK (delivery_status IN ('pending', 'sent', 'failed')),
+  sent_at TIMESTAMPTZ,
+  last_attempt_at TIMESTAMPTZ,
+  provider_message_id TEXT,
+  last_error TEXT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   regenerated_at TIMESTAMPTZ,
@@ -116,9 +122,22 @@ ALTER TABLE notifications.partner_response_recap_outbox
   ADD COLUMN IF NOT EXISTS regenerated_at TIMESTAMPTZ;
 ALTER TABLE notifications.partner_response_recap_outbox
   ADD COLUMN IF NOT EXISTS regeneration_count INTEGER NOT NULL DEFAULT 0 CHECK (regeneration_count >= 0);
+ALTER TABLE notifications.partner_response_recap_outbox
+  ADD COLUMN IF NOT EXISTS send_version INTEGER NOT NULL DEFAULT 1 CHECK (send_version >= 1);
+ALTER TABLE notifications.partner_response_recap_outbox
+  ADD COLUMN IF NOT EXISTS delivery_status TEXT NOT NULL DEFAULT 'pending' CHECK (delivery_status IN ('pending', 'sent', 'failed'));
+ALTER TABLE notifications.partner_response_recap_outbox
+  ADD COLUMN IF NOT EXISTS sent_at TIMESTAMPTZ;
+ALTER TABLE notifications.partner_response_recap_outbox
+  ADD COLUMN IF NOT EXISTS last_attempt_at TIMESTAMPTZ;
+ALTER TABLE notifications.partner_response_recap_outbox
+  ADD COLUMN IF NOT EXISTS provider_message_id TEXT;
+ALTER TABLE notifications.partner_response_recap_outbox
+  ADD COLUMN IF NOT EXISTS last_error TEXT;
 
 CREATE INDEX IF NOT EXISTS partner_invitations_contact_idx ON partner_invitations(contact_id);
 CREATE INDEX IF NOT EXISTS partner_responses_invitation_idx ON partner_responses(invitation_id);
 CREATE INDEX IF NOT EXISTS partner_response_answers_response_idx ON partner_response_answers(response_id);
 CREATE INDEX IF NOT EXISTS partner_response_recap_outbox_created_idx ON notifications.partner_response_recap_outbox(created_at);
+CREATE INDEX IF NOT EXISTS partner_response_recap_outbox_pending_idx ON notifications.partner_response_recap_outbox(delivery_status, send_version);
 CREATE INDEX IF NOT EXISTS public_interest_submissions_audience_idx ON public_interest_submissions(audience, created_at DESC);

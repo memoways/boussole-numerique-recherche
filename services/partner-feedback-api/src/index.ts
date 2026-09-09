@@ -394,7 +394,8 @@ app.get("/api/admin/overview", requireAdmin, async (_req, res) => {
     getPool().query("SELECT r.id, r.status, r.submitted_at, o.name AS organization_name, c.email FROM partner_responses r JOIN partner_invitations i ON i.id = r.invitation_id JOIN partner_contacts c ON c.id = i.contact_id JOIN partner_organizations o ON o.id = c.organization_id ORDER BY r.updated_at DESC"),
     getPool().query(
       `SELECT o.id, o.response_id, o.recipient_email, o.recipient_name, o.organization_name, o.subject,
-              o.summary_text, o.created_at, o.updated_at, o.regenerated_at, o.regeneration_count
+              o.summary_text, o.created_at, o.updated_at, o.regenerated_at, o.regeneration_count,
+              o.send_version, o.delivery_status, o.sent_at, o.last_attempt_at, o.provider_message_id, o.last_error
        FROM notifications.partner_response_recap_outbox o
        ORDER BY o.updated_at DESC`,
     ),
@@ -442,8 +443,14 @@ app.post("/api/admin/responses/:responseId/regenerate-recap", requireAdmin, asyn
        summary_text = EXCLUDED.summary_text,
        updated_at = NOW(),
        regenerated_at = NOW(),
-       regeneration_count = notifications.partner_response_recap_outbox.regeneration_count + 1
-     RETURNING id, response_id, updated_at, regenerated_at, regeneration_count`,
+       regeneration_count = notifications.partner_response_recap_outbox.regeneration_count + 1,
+       send_version = notifications.partner_response_recap_outbox.send_version + 1,
+       delivery_status = 'pending',
+       sent_at = NULL,
+       last_attempt_at = NULL,
+       provider_message_id = NULL,
+       last_error = NULL
+     RETURNING id, response_id, updated_at, regenerated_at, regeneration_count, send_version, delivery_status`,
     [
       randomUUID(),
       responseId,
@@ -455,7 +462,7 @@ app.post("/api/admin/responses/:responseId/regenerate-recap", requireAdmin, asyn
     ],
   );
   await getPool().query("INSERT INTO response_events (id, response_id, event_type) VALUES ($1, $2, 'recap_regenerated')", [randomUUID(), responseId]);
-  res.json({ message: "Le récapitulatif a été régénéré et remis dans la boîte Dreamlit.", recap: result.rows[0] });
+  res.json({ message: "Le récapitulatif a été régénéré et une nouvelle version d’envoi est en attente dans la boîte Dreamlit.", recap: result.rows[0] });
 });
 
 app.post("/api/admin/organizations", requireAdmin, async (req, res) => {

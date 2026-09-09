@@ -2,6 +2,23 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.3.22] — 2026-09-04 — Outbox Dreamlit versionnée
+
+### Ajouté
+
+- L’outbox partenaire suit désormais `send_version`, `delivery_status`, `sent_at`, `last_attempt_at`, `provider_message_id` et `last_error` afin de distinguer une version d’envoi attendue, envoyée ou en échec.
+- La console `/admin` affiche l’état de livraison, la version d’envoi et les erreurs techniques éventuelles, sans exposer de données supplémentaires.
+- Le guide [`docs/MIGRATION_OUTBOX_DREAMLIT_2026-09-04.md`](./docs/MIGRATION_OUTBOX_DREAMLIT_2026-09-04.md) documente la migration de la base dédiée `dreamlit_boussole`, le droit `UPDATE` limité et les validations nécessaires avant mise en service.
+
+### Modifié
+
+- L’action administrative de régénération devient **Nouvel envoi** : elle crée explicitement une nouvelle version, remet la livraison à `pending` et efface seulement les traces de la tentative précédente.
+- Le module ne prévoit aucune relance automatique après un échec ; Dreamlit devra signaler `failed` et attendre une décision administrative visible.
+
+### Vérifié
+
+- Les contrôles TypeScript du portail et de l’API, le build, les sorties SEO-GEO et le bundle CommonJS de l’API passent après le changement de contrat d’outbox.
+
 ## [1.3.21] — 2026-09-04 — Instrumentation GrainQL
 
 ### Ajouté
