@@ -2,6 +2,20 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.3.23] — 2026-09-14 — Accueil recentré sur la raison d’être du projet
+
+### Modifié
+
+- Le hero de l’accueil reprend une lecture éditoriale proche de la page Projet : titre « Description du projet », nom de la Boussole, explication immédiate de l’outil en co-conception et statut explicite d’un outil qui n’existe pas encore.
+- Les métriques, statuts et numéros décoratifs ont été retirés des cartouches du hero et des deux cartes de profils. Les entrées Partenaire culturel et Artiste sont conservées, mais arrivent après une explication claire de leur rôle dans la co-conception.
+- Une section d’orientation précède désormais les deux profils. Elle explicite le problème traité, l’opportunité de l’outil, le rôle du site compagnon et relie sans répétition vers Projet, Enjeux, Méthode et Partenaires.
+- Le bloc neutre après les profils rappelle que la phase actuelle sert à recueillir les retours et à préparer un prototype, sans présenter le diagnostic comme disponible.
+
+### Vérifié
+
+- `pnpm verify` passe intégralement : TypeScript portail et API, build, génération SEO-GEO, contrôle SEO et bundle de l’API.
+- Le nouveau cadrage et les parcours par profil sont contrôlés en rendu complet à 1280 px et à 390 px, sans débordement horizontal.
+
 ## [1.3.22] — 2026-09-04 — Outbox Dreamlit versionnée
 
 ### Ajouté

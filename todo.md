@@ -168,9 +168,36 @@
 - [ ] Vérifier et tester un expéditeur Dreamlit répliable avant toute publication ou envoi transactionnel.
 - [ ] Configurer `boussole@hello.memoways.com` comme expéditeur Dreamlit avec `ulrich.fischer@memoways.com` en Reply-To, puis tester la réception de réponse.
 - [ ] Préparer le prompt Dreamlit de vérification de l’expéditeur et du workflow en brouillon, sans publication ni envoi.
+- [ ] Valider la proposition Dreamlit avec une condition de déclenchement précise et des droits UPDATE limités aux champs de livraison.
 - [x] Valider l’option B : compléter le suivi de livraison de l’outbox avant de préparer le workflow Dreamlit complet.
 - [x] Implémenter dans le dépôt le suivi de livraison versionné et le renvoi manuel explicite de l’outbox partenaire.
-- [ ] Redéployer l’API avec la migration d’outbox, vérifier les nouvelles colonnes dans `dreamlit_boussole` et accorder à Dreamlit l’UPDATE limité aux colonnes de livraison.
+- [x] Redéployer l’API avec la migration d’outbox et vérifier les nouvelles colonnes et contraintes dans `dreamlit_boussole`.
+- [x] Accorder à Dreamlit l’UPDATE limité aux seules colonnes de livraison, puis contrôler ces droits.
+- [ ] Faire relire à Dreamlit le schéma d’outbox après migration afin de préparer son brouillon complet sans activation.
+- [ ] Définir un mécanisme réel de retour de statut de livraison, Dreamlit ne proposant pas d’écriture PostgreSQL dans les étapes actuellement disponibles.
+- [x] Limiter le pilote Dreamlit à quatre à six invitations, un envoi initial unique et des renvois décidés manuellement.
+- [ ] Identifier le prérequis Dreamlit qui maintient le bouton Publish inactif, sans modifier le brouillon ni déclencher d’e-mail.
+- [ ] Diagnostiquer l’absence de déclenchement Dreamlit après la soumission test depuis l’administration.
+- [x] Confirmer qu’une soumission test crée bien un récapitulatif dans `notifications.partner_response_recap_outbox`.
+- [x] Confirmer que Dreamlit voit la ligne d’outbox test dans l’aperçu du déclencheur, malgré zéro exécution.
+- [x] Constater que Dreamlit ne rejoue pas les insertions antérieures au déclencheur actif ; la ligne test est visible mais n’a produit aucune exécution.
+- [x] Vérifier que le déclencheur PostgreSQL Dreamlit `AFTER INSERT` est effectivement installé sur `notifications.partner_response_recap_outbox`.
+- [ ] Comparer les dernières lignes d’outbox avec le journal de capture Dreamlit afin d’isoler l’absence de run après la seconde soumission test.
+- [x] Confirmer qu’une seconde insertion à 08:20, postérieure au trigger installé, crée un récapitulatif sans générer de run Dreamlit.
+- [ ] Inspecter la fonction et les journaux techniques Dreamlit dans PostgreSQL afin d’identifier l’échec de capture.
+- [ ] Extraire les appels et réglages utilisés par la fonction Dreamlit afin d’identifier sa dépendance manquante.
+- [ ] Faire recréer par Dreamlit les tables `dreamlit.event_log` et `dreamlit.error_log` requises par son trigger, sans toucher aux tables métier ni renvoyer les tests existants.
+- [ ] Diagnostiquer et rétablir la connexion Dreamlit affichée en échec avant toute recréation de son mécanisme de capture.
+- [ ] Reporter la réparation Dreamlit après le pilote ; documenter le trigger installé mais inopérant et l’état Failed de la connexion.
+- [ ] Finaliser le pilote avec invitations, soumissions, export CSV et suivi manuel des cinq à six réponses.
+- [ ] Effectuer une dernière reprise Dreamlit via Resume, vérifier `dreamlit.event_log` et `dreamlit.error_log`, puis reporter définitivement l’intégration si elles ne sont pas recréées.
+- [x] Réactiver la connexion Dreamlit et confirmer la restauration de `dreamlit.event_log`, `dreamlit.error_log` et `dreamlit.version`.
+- [ ] Vérifier que la connexion Dreamlit est active, puis effectuer un unique nouvel envoi de test contrôlé.
+- [x] Recentrer le hero de l’accueil sur le pourquoi, les enjeux et la co-conception de la Boussole, sans numéros décoratifs dans les cartouches.
+- [x] Ajouter avant les entrées par rôle une section courte qui oriente sans redondance vers Projet, Méthode, Enjeux et Partenaires.
+- [x] Confirmer que le schéma `dreamlit` ne contient aucune table technique de journalisation dans `dreamlit_boussole`.
+- [x] Confirmer dans Dreamlit que le workflow d’envoi initial est déjà publié, sans exécution ni e-mail envoyé.
+- [ ] Obtenir une confirmation distincte avant d’envoyer un unique e-mail de test à `ulrich.fischer@memoways.com`.
 - [x] Renforcer l’accueil par des repères analytiques, une palette sémantique et une composition plus infographique conformément à la revue visuelle.
 - [ ] Clarifier la procédure de resynchronisation Dreamlit sans bouton dédié et les éventuels accès limités nécessaires à Codex pour intervenir sur Coolify.
 - [x] Exécuter le contrôle des privilèges `dreamlit_boussole` avec `psql` dans le conteneur PostgreSQL, puis interpréter les droits manquants éventuels.
