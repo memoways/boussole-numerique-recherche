@@ -5,7 +5,7 @@
 ## État
 
 - **Lot 1 (socle et avis réel) : livré en v1.4.0.** Routage `/experience/demo/:persona/:etape`, mode immersif, `DemoShell`, `PersonaPicker`, `TrustNotice`, `FeedbackForm`, API Notion et transcription, SEO `noindex`, règle Nginx, `verify-demo-content`, `test:demo-feedback`.
-- **Activation Notion : à confirmer.** `NOTION_TOKEN` et `NOTION_FEEDBACK_DB_ID` doivent être configurés dans le service API sur Coolify ; sans eux, l’avis répond 503.
+- **Activation Notion : faite le 14 octobre 2026.** `NOTION_TOKEN` et `NOTION_FEEDBACK_DB_ID` sont configurés dans le service API sur Coolify (et seulement là). Un avis de test texte, sans e-mail, a été écrit dans « Retours démo Boussole » avec Persona, Mode, titre et Suivi corrects ; la page de test est à supprimer par Ulrich. Reste à tester en conditions réelles un avis vocal et un avis avec e-mail (lot 3, avec accord avant d’écrire dans la base).
 - **Lot 2 (parcours Claire de bout en bout, v1.4.1) : à faire.** Lot 3 (Marc, Nadia, comparaison, finitions, v1.4.2) : à faire.
 - Non vérifié au lot 1 : `docker build` / `docker run` (Docker absent de la machine). Nginx a été testé avec la même configuration hors conteneur.
 

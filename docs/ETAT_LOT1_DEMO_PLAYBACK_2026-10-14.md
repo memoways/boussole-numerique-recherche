@@ -33,9 +33,14 @@ Le PRD ne fournit pas l’accroche de Marc et de Nadia : « Une création en ré
 - Nginx (installé via Homebrew, même fichier `infra/nginx/default.conf`, racine sur `dist/public`) : `/experience/demo`, `/experience/demo/cinema/5` et `/experience/demo/cinema/avis` répondent 200 avec `X-Robots-Tag: noindex, follow` ; `/experience/demo/` redirige en 308 ; `/projet`, `/timeline`, `/references`, `/partenaires` et `/experience` restent en 200 ; une route inconnue reste en 404.
 - Non réalisé : `docker build` et `docker run` (Docker n’est pas installé sur la machine de développement).
 
+## Activation Notion (14 octobre 2026)
+
+- L’intégration interne « Boussole démo » (capacité « Insérer du contenu » seule) est connectée à la base « Retours démo Boussole ».
+- `NOTION_TOKEN` et `NOTION_FEEDBACK_DB_ID` sont définis dans l’application API de Coolify (Runtime). Ils avaient d’abord été ajoutés par erreur à l’application du portail, puis retirés : le jeton n’existe que côté API. Tant qu’ils manquaient côté API, l’endpoint répondait 503 et rien n’était écrit.
+- Production après redéploiement : `/experience/demo`, `/experience/demo/cinema/5` et `/experience/demo/cinema/avis` en 200 avec `X-Robots-Tag: noindex, follow`, absents du sitemap ; `/projet`, `/timeline`, `/references` en 200 ; `/health` de l’API ok ; CORS conforme.
+- Avis de test réel (texte, Cinéma, sans e-mail) : une page créée avec le titre `2026-10-14 16:58 — Cinéma`, Persona Cinéma, Mode Texte, Suivi Nouveau, commentaire complet. La page est à supprimer manuellement.
+
 ## Reste à faire
 
-1. Créer l’intégration Notion « Boussole démo » et la connecter à la base.
-2. Ajouter `NOTION_TOKEN` et `NOTION_FEEDBACK_DB_ID` au service API sur Coolify, puis redéployer.
-3. Faire un envoi de test marqué « TEST » (avec accord explicite avant d’écrire dans la base).
-4. Lots 2 et 3 du plan.
+1. Tester en conditions réelles un avis vocal et un avis avec e-mail, marqués « TEST » (accord explicite avant d’écrire dans la base).
+2. Lots 2 et 3 du plan.

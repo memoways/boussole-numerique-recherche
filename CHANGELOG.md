@@ -22,7 +22,7 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 ### Vérifié
 
 - `pnpm verify`, `pnpm test:demo-feedback`, rendus à 1280 px et 390 px sans débordement ni erreur console, et routes directes via Nginx (`/experience/demo/*`, `/projet`, `/timeline`, `/references`). `docker build` n’a pas pu être exécuté faute de Docker sur la machine. Détail dans [`docs/ETAT_LOT1_DEMO_PLAYBACK_2026-10-14.md`](./docs/ETAT_LOT1_DEMO_PLAYBACK_2026-10-14.md).
-- Non activé tant que `NOTION_TOKEN` et `NOTION_FEEDBACK_DB_ID` ne sont pas configurés sur Coolify : l’endpoint répond alors 503.
+- Activé le 14 octobre 2026 après configuration de `NOTION_TOKEN` et `NOTION_FEEDBACK_DB_ID` sur l’API Coolify : un avis de test texte est bien arrivé dans Notion. Sans ces variables, l’endpoint répond 503.
 
 ## [1.3.23] — 2026-09-14 — Accueil recentré sur la raison d’être du projet
 
