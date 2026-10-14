@@ -2,6 +2,26 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.4.1] — 2026-10-14 — Démo playback : parcours Claire de bout en bout (lot 2)
+
+### Ajouté
+
+- Parcours de Claire (productrice cinéma) jouable de bout en bout : 11 échanges sur les cinq dimensions, numérique idéal, restitution, micro-démos, fonctions futures, puis avis. Script repris de l’annexe A du PRD.
+- Lecture des échanges : question en fondu, réponse de Claire (cases cochées une à une, micro-scénario A/B/C/D ou voix avec onde animée), transcription mot par mot, temps de digestion puis « La Boussole retient ». Curseurs qualitatifs induits avec correction animée, rebonds mémoire et points d’étape « Premier constat » avec ordre de grandeur illustratif.
+- Panneau « Ce que la Boussole retient » (extraits, notes par dimension, repères par dimension) : colonne rétractable sur ordinateur, bouton « Ce que je retiens (n) » et tiroir sur smartphone. Le cumul est déduit de l’URL.
+- Restitution : lettre, radar Recharts qualitatif sans chiffre dessiné axe par axe, ce qui fonctionne et ce qui peut s’améliorer reliés aux phrases dites, trois pistes vers les ressources du site. Trois micro-démos au clic et cinq fonctions futures grisées.
+- Commandes « Passer l’animation » et « Aller à la restitution », raccourcis clavier (Entrée ou Espace pour avancer, flèches pour changer d’étape), respect de `prefers-reduced-motion`.
+- Deux blocs « Voir une démonstration du parcours » sur `/experience` : la démo devient publique. Marc et Nadia restent « en préparation ».
+
+### Modifié
+
+- `verify-demo-content` contrôle la grammaire complète des étapes et la restitution des personas « pret ».
+- `check-contrast` couvre les nouvelles couleurs de texte de la démo.
+
+### Vérifié
+
+- `pnpm verify`, `pnpm test:demo-feedback`, contrôles Playwright à 1280 et 390 px (parcours complet, sauts de chapitre, rechargement direct, bouton retour, clavier, mouvement réduit, tiroir, aucun débordement ni erreur console) sur le serveur de développement et sur le build servi par Nginx, et routes directes via Nginx. Détail et contenu complété pour relecture : [`docs/ETAT_LOT2_DEMO_PLAYBACK_2026-10-14.md`](./docs/ETAT_LOT2_DEMO_PLAYBACK_2026-10-14.md).
+
 ## [1.4.0] — 2026-10-14 — Démo playback : socle et avis réel (lot 1)
 
 ### Ajouté

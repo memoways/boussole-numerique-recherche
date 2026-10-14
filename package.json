@@ -10,6 +10,7 @@
     "generate:seo:root": "node scripts/generate-seo.mjs",
     "verify:seo": "node scripts/verify-seo.mjs",
     "verify:demo-content": "node scripts/verify-demo-content.mjs",
+    "check:demo-playback": "node scripts/check-demo-playback.mjs",
     "build": "vite build && pnpm generate:seo",
     "build:partner-api": "pnpm --filter @boussole/partner-feedback-api build",
     "test:demo-feedback": "pnpm --filter @boussole/partner-feedback-api test:demo-feedback",

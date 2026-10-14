@@ -136,6 +136,21 @@ function ActionScreen() {
   );
 }
 
+/** Appel vers la démonstration jouée (`/experience/demo`), sous les quatre écrans et en bas de page. */
+function DemoCallout({ id }: { id: string }) {
+  return (
+    <div className="flex flex-col gap-4 rounded-2xl border border-[#515792]/30 bg-[#515792]/[0.06] p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+      <div>
+        <h3 id={id} className="text-lg font-extrabold text-slate-950">Voir la conversation se dérouler</h3>
+        <p className="mt-1 max-w-2xl text-sm leading-relaxed text-slate-700">Un parcours fictif, joué à l’écran en quelques minutes : les questions, les réponses, ce que la Boussole retient et la restitution. Rien n’est enregistré.</p>
+      </div>
+      <Link href="/experience/demo" aria-describedby={id} className="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-xl bg-[#E07428] px-5 text-base font-bold text-[#1F2937] transition-colors hover:bg-[#d06a22]">
+        Voir une démonstration du parcours <ArrowRight className="h-5 w-5" aria-hidden="true" />
+      </Link>
+    </div>
+  );
+}
+
 function ScreenPreview({ activeStep }: { activeStep: number }) {
   if (activeStep === 0) return <ProfileScreen />;
   if (activeStep === 1) return <ConversationScreen />;
@@ -168,12 +183,15 @@ export default function Experience() {
             <aside className="rounded-2xl border border-slate-200 bg-slate-50 p-5 lg:sticky lg:top-24"><span className="text-xs font-black uppercase tracking-[0.14em]" style={{ color: current.color }}>{current.num} · {current.label}</span><h3 className="mt-2 text-2xl font-extrabold tracking-tight text-slate-950">{current.title}</h3><p className="mt-3 text-sm leading-relaxed text-slate-600">{current.detail}</p><div className="mt-6 border-t border-slate-200 pt-5"><p className="text-xs font-bold uppercase tracking-[0.12em] text-slate-500">Ce que la démo montre</p><p className="mt-2 text-sm leading-relaxed text-slate-600">Une interface peut être concrète sans promettre un résultat déjà produit. Les éléments interactifs servent ici à discuter la forme future du prototype.</p></div><div className="mt-6 flex gap-2"><button type="button" onClick={() => setActiveStep(Math.max(0, activeStep - 1))} disabled={activeStep === 0} className="rounded-lg border border-slate-300 px-3 py-2 text-sm font-bold text-slate-600 disabled:cursor-not-allowed disabled:opacity-40">Précédent</button><button type="button" onClick={() => setActiveStep(Math.min(STEPS.length - 1, activeStep + 1))} disabled={activeStep === STEPS.length - 1} className="rounded-lg px-3 py-2 text-sm font-bold text-white disabled:cursor-not-allowed disabled:opacity-40" style={{ backgroundColor: current.color }}>Suivant</button></div></aside>
             <ScreenPreview activeStep={activeStep} />
           </div>
+          <div className="mt-10"><DemoCallout id="experience-demo-callout" /></div>
         </div>
       </section>
 
       <section className="bg-slate-50 px-4 py-12 sm:py-16"><div className="mx-auto max-w-6xl"><div className="grid gap-5 md:grid-cols-3"><div className="border-t-4 bg-white p-6 shadow-sm" style={{ borderColor: "#515792" }}><User className="h-7 w-7 text-[#515792]" /><h2 className="mt-4 text-lg font-extrabold text-slate-950">Pour les artistes</h2><p className="mt-2 text-sm leading-relaxed text-slate-600">Partir d’une pratique vécue et choisir une amélioration qui ne demande pas de devenir spécialiste du numérique.</p></div><div className="border-t-4 bg-white p-6 shadow-sm" style={{ borderColor: "#3aab8a" }}><Users className="h-7 w-7 text-[#18755e]" /><h2 className="mt-4 text-lg font-extrabold text-slate-950">Pour les structures</h2><p className="mt-2 text-sm leading-relaxed text-slate-600">Faire émerger des regards croisés, des priorités communes et les conditions d’un changement collaboratif.</p></div><div className="border-t-4 bg-white p-6 shadow-sm" style={{ borderColor: "#E07428" }}><FileText className="h-7 w-7 text-[#a94d14]" /><h2 className="mt-4 text-lg font-extrabold text-slate-950">Pour le prototype</h2><p className="mt-2 text-sm leading-relaxed text-slate-600">Tester les mots, les écrans, les restitutions et les pistes d’action avant de proposer une ouverture publique.</p></div></div></div></section>
 
       <section className="px-4 py-10"><div className="mx-auto max-w-5xl rounded-2xl border border-slate-200 bg-white p-6 sm:p-8"><div className="flex items-start gap-4"><FileText className="mt-0.5 h-6 w-6 shrink-0 text-[#515792]" /><div><h2 className="font-extrabold text-slate-950">Ce que ces écrans ne font pas encore</h2><p className="mt-2 text-sm leading-relaxed text-slate-600">Ils ne lancent pas de diagnostic, ne calculent pas de score, ne sauvegardent pas de réponse et ne recommandent pas automatiquement un outil. Ils rendent simplement discutables les écrans et les gestes que le prototype devra confirmer avec les partenaires et les artistes.</p></div></div></div></section>
+
+      <section className="px-4 pb-4"><div className="mx-auto max-w-5xl"><DemoCallout id="experience-demo-callout-bas" /></div></section>
 
       <section className="bg-white px-4 pb-16 pt-8 text-center"><div className="mx-auto max-w-4xl"><h2 className="text-2xl font-extrabold text-slate-950">Votre réaction peut aider à définir ces écrans</h2><p className="mx-auto mt-3 max-w-2xl text-slate-600">Les partenaires peuvent partager ce qui semble juste, ce qui manque et ce qui devrait rester simple avant l’atelier et le cadrage du prototype.</p><div className="mt-7 flex flex-wrap justify-center gap-3"><Button className="text-white" style={{ backgroundColor: "#E07428" }} asChild><Link href="/partenaires/questionnaire">Répondre au questionnaire partenaire <ArrowRight className="ml-2 h-4 w-4" /></Link></Button><Button variant="outline" className="border-[#515792] text-[#515792]" asChild><Link href="/partenaires">Comprendre la co-conception <ChevronRight className="ml-1 h-4 w-4" /></Link></Button></div></div></section>
     </div>
