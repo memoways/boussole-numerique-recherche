@@ -1,11 +1,12 @@
 /**
  * Démonstration playback `/experience/demo/*` : routage par URL, chaque étape est partageable.
  * L’état affiché est entièrement déduit de l’URL et du JSON : une étape rechargée s’affiche à l’identique.
- * Lot 2bis : le parcours de Claire (annexe v2) est jouable de bout en bout ; Marc et Nadia restent « en préparation ».
+ * Lot 3 : les trois parcours (annexe v2) sont jouables de bout en bout, suivis de la comparaison des trois parcours.
  */
 import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { Link, useLocation } from "wouter";
+import ComparisonView from "@/components/demo/ComparisonView";
 import FeedbackForm from "@/components/demo/FeedbackForm";
 import DemoShell, { DemoActions, demoPrimaryButton, demoSecondaryButton } from "@/components/demo/DemoShell";
 import FutureFeatures from "@/components/demo/FutureFeatures";
@@ -23,6 +24,7 @@ import {
   fillTemplate,
   getNeighbours,
   getPersona,
+  isComparisonReady,
   parseStep,
   stepPath,
   type DemoPersona,
@@ -138,7 +140,7 @@ function StepView({ persona, step, panelOpen, onTogglePanel }: { persona: DemoPe
     case "futur":
       return <FutureFeatures persona={persona} />;
     default:
-      return <StepPlaceholder persona={persona} texte={DEMO_CONTENT.preparation.comparaisonTexte} />;
+      return isComparisonReady() ? <ComparisonView persona={persona} /> : <StepPlaceholder persona={persona} texte={DEMO_CONTENT.preparation.comparaisonTexte} />;
   }
 }
 
@@ -159,7 +161,7 @@ export default function ExperienceDemo() {
   const step = parseStep(segments[1]);
   if (!step) return <Redirect to={DEMO_ROOT} />;
 
-  const wide = isPlayable(persona, step) || (persona.statut === "pret" && step.kind === "named" && ["restitution", "demos"].includes(step.name));
+  const wide = isPlayable(persona, step) || (persona.statut === "pret" && step.kind === "named" && ["restitution", "demos", "comparaison"].includes(step.name));
   return (
     <DemoShell persona={persona} step={step} wide={wide}>
       <StepView persona={persona} step={step} panelOpen={panelOpen} onTogglePanel={() => setPanelOpen((open) => !open)} />

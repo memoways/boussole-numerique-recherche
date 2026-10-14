@@ -2,9 +2,9 @@
  * Contrôle du contenu de la démonstration playback (`client/src/data/demo-parcours.json`).
  * Les règles de structure s’appliquent à tous les personas ; les règles de contenu (interactions,
  * curseurs, rebonds, numérique responsable, radar, pistes) ne s’appliquent qu’aux personas au statut « pret ».
- * Lot 2bis : le parcours de Claire suit l’annexe v2 (échelle Exploration · Improvisation · Organisé · Orchestré,
- * trame concret → général → ce qui pèse, « Un premier regard » en fin de dimension) ; Marc et Nadia seront
- * contrôlés dès qu’ils passeront à « pret » (lot 3).
+ * Lot 3 : les trois parcours suivent l’annexe v2 (échelle Exploration · Improvisation · Organisé · Orchestré,
+ * trame concret → général → ce qui pèse, « Un premier regard » en fin de dimension) ; la comparaison
+ * (section 5) est contrôlée dès que les trois personas sont « pret ».
  */
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
@@ -28,7 +28,7 @@ const EXPECTED_ORDER = {
   "arts-visuels": ["donnees", "outils", "publics", "competences", "partage"],
 };
 const LEVELS = ["Exploration", "Improvisation", "Organisé", "Orchestré"];
-const MICRO_DEMOS = new Set(["convergence", "tri", "validation", "fiche", "source-unique"]);
+const MICRO_DEMOS = new Set(["convergence", "tri", "validation", "fiche", "source-unique", "note"]);
 const STEP_NAMES = new Set(["accueil", "ideal", "restitution", "demos", "futur", "comparaison", "avis"]);
 
 // --- Textes communs ---------------------------------------------------------------------------------
@@ -151,8 +151,24 @@ for (const persona of personas) {
       assert(demo.endroits.some((endroit) => endroit.valeurs.some((value, index) => value !== demo.reference[index])), `${where}, micro-démo convergence : au moins une valeur doit diverger de la référence.`);
     }
     if (demo.id === "tri") assert(demo.places?.length >= 2 && demo.places.every((place) => place.elements?.length > 0), `${where}, micro-démo tri : au moins deux places, chacune avec des éléments.`);
+    if (demo.id === "fiche") assert(demo.source && demo.sorties?.length >= 2 && demo.elements?.length >= 2 && demo.elements.every((element) => element.cibles?.length > 0 && element.cibles.every((cible) => demo.sorties.includes(cible))), `${where}, micro-démo fiche : une source, au moins deux sorties, et des éléments qui ne visent que ces sorties.`);
+    if (demo.id === "source-unique") assert(demo.destination && demo.pieces?.length >= 2 && new Set(demo.pieces).size === demo.pieces.length, `${where}, micro-démo source unique : une destination et au moins deux pièces distinctes.`);
+    if (demo.id === "note") assert(demo.dicteeTitre && demo.dictee?.length >= 2 && demo.note?.titre && demo.note?.champs?.length >= 2 && demo.note.champs.every((champ) => champ.libelle && champ.valeur) && demo.partage, `${where}, micro-démo note : au moins deux phrases dictées, une note d’au moins deux champs remplis et la mention de partage.`);
     if (demo.id === "validation") assert(demo.validations?.length > 0 && demo.validations.every((item) => demo.libelles?.[item.statut]) && demo.historique?.length > 0, `${where}, micro-démo validation : validations avec statut connu et historique requis.`);
   }
+}
+
+// --- Comparaison des trois parcours (annexe v2, section 5) ---------------------------------------------
+const comparison = content.comparaison ?? {};
+for (const key of ["surtitre", "titre", "texte", "questionTitre", "questionLien", "radarTitre", "parcoursSuivi", "boutonVoir", "boutonAvis"]) {
+  assert(typeof comparison[key] === "string" && comparison[key].length > 0, `Comparaison : le texte « ${key} » est requis.`);
+}
+assert(DIMENSIONS.includes(comparison.dimension), "Comparaison : la dimension comparée doit être l’une des cinq dimensions.");
+assert(/\{prenom\}/.test(comparison.boutonVoir ?? ""), "Comparaison : le bouton « Voir le parcours de… » doit nommer le persona ({prenom}).");
+if (personas.every((persona) => persona.statut === "pret")) {
+  const questions = personas.map((persona) => persona.etapes.find((step) => step.dimension === comparison.dimension)?.question);
+  assert(questions.every(Boolean) && new Set(questions).size === personas.length, "Comparaison : chaque parcours doit poser sa propre question d’entrée sur la dimension comparée.");
+  assert(content.futur?.boutonSuite && !/avis/i.test(content.futur.boutonSuite), "Comparaison : depuis l’écran « futur », le bouton mène à la comparaison, pas encore à l’avis.");
 }
 
 assert(content.restitution?.radarPhrase === "Ce n’est ni bien ni mal : c’est ton point de départ.", "La phrase sous le radar doit être « Ce n’est ni bien ni mal : c’est ton point de départ. ».");

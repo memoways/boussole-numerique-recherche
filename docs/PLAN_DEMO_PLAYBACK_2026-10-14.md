@@ -208,7 +208,7 @@ Ton action humaine : relire le parcours Claire en ligne et me donner tes retours
 
 La relecture du parcours Claire (v1.4.1) change le concept des scripts pour les trois personas. Les principes, l’échelle (Exploration · Improvisation · Organisé · Orchestré), la trame concret → général → ce qui pèse, les points d’étape repliés et les scripts réécrits sont dans la sous-page Notion « Annexe v2 — scripts des 3 parcours (principes révisés) », qui remplace l’annexe du PRD une fois validée. Le découpage devient : **lot 2bis** (refonte de Claire, de l’échelle et des points d’étape, v1.4.2), puis **lot 3** (Marc, Nadia, comparaison, finitions, v1.4.3). Détail et prompts de reprise dans `HANDOFF.md`.
 
-L’annexe v2 a été validée par Ulrich le 14 octobre 2026 ; le lot 2bis est livré en v1.4.2 (voir [`ETAT_LOT2BIS_DEMO_PLAYBACK_2026-10-14.md`](./ETAT_LOT2BIS_DEMO_PLAYBACK_2026-10-14.md)).
+L’annexe v2 a été validée par Ulrich le 14 octobre 2026 ; le lot 2bis est livré en v1.4.2 (voir [`ETAT_LOT2BIS_DEMO_PLAYBACK_2026-10-14.md`](./ETAT_LOT2BIS_DEMO_PLAYBACK_2026-10-14.md)), le lot 3 en v1.4.3 (voir [`ETAT_LOT3_DEMO_PLAYBACK_2026-10-14.md`](./ETAT_LOT3_DEMO_PLAYBACK_2026-10-14.md)) ; les deux avis de test réels sont reportés.
 
 ### Lot 3 — Marc, Nadia, comparaison et finitions (v1.4.3 après révision) · environ 25 % de l'effort
 Contenu :

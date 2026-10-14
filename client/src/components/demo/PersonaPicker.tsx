@@ -4,7 +4,8 @@ import { Link } from "wouter";
 import { trackDemoEvent } from "@/lib/analytics";
 import { DEMO_CONTENT, stepPath, type PersonaId } from "@/lib/demoContent";
 
-const PERSONA_STYLE: Record<PersonaId, { icon: LucideIcon; color: string; tint: string }> = {
+/** Pictogramme et couleurs de chaque persona, repris par la comparaison des parcours. */
+export const PERSONA_STYLE: Record<PersonaId, { icon: LucideIcon; color: string; tint: string }> = {
   cinema: { icon: Clapperboard, color: "#515792", tint: "#515792" },
   scene: { icon: Drama, color: "#A8440D", tint: "#E07428" },
   "arts-visuels": { icon: Palette, color: "#167A5E", tint: "#3aab8a" },

@@ -2,12 +2,13 @@
  * Micro-démos après la restitution : trois animations courtes (5 à 10 s), lancées au clic, centrées sur
  * les données. Gabarits : convergence (une info à plusieurs endroits → une fiche qui fait foi), tri (où va
  * quoi), validation (un document, une liste de validation, un historique), fiche (une source alimente
- * plusieurs sorties) et source unique (des pièces éparses convergent). Avec `prefers-reduced-motion`,
+ * plusieurs sorties), source unique (des pièces éparses convergent) et note (quelques phrases dictées
+ * deviennent une note structurée). Avec `prefers-reduced-motion`,
  * le clic affiche directement l’état final.
  */
 import { useEffect, useState, type ReactNode } from "react";
 import { LayoutGroup, motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, Check, Clock, Database, FileText, Folder, History, Mail, Paperclip, Play, RotateCcw, Tag } from "lucide-react";
+import { ArrowRight, Check, Clock, Database, FileText, Folder, History, Mail, Mic, NotebookPen, Paperclip, Play, RotateCcw, Tag, Users } from "lucide-react";
 import { Link } from "wouter";
 import { DEMO_CONTENT, stepPath, type DemoMicro, type DemoPersona } from "@/lib/demoContent";
 import { DemoActions, demoPrimaryButton, demoSecondaryButton } from "./DemoShell";
@@ -257,6 +258,47 @@ function SourceDemo({ demo }: { demo: Extract<DemoMicro, { id: "source-unique" }
   );
 }
 
+/** Une décision, une trace : les phrases dictées apparaissent, puis la note se remplit champ par champ et se partage. */
+function NoteDemo({ demo }: { demo: Extract<DemoMicro, { id: "note" }> }) {
+  const spoken = demo.dictee.length;
+  const fields = demo.note.champs.length;
+  const controls = useStages(spoken + fields + 1, 700);
+  const said = Math.min(spoken, controls.stage);
+  const filled = Math.max(0, Math.min(fields, controls.stage - spoken));
+  const shared = controls.finished;
+  const fade = { initial: controls.reducedMotion ? false : { opacity: 0, y: 4 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.35 } };
+  return (
+    <DemoCard demo={demo} controls={controls} status={shared ? DEMO_CONTENT.demos.apres : DEMO_CONTENT.demos.avant}>
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div className="min-w-0">
+          <p className="flex items-center gap-1.5 text-xs font-bold text-slate-700"><Mic className="h-3.5 w-3.5 text-slate-500" aria-hidden="true" />{demo.dicteeTitre}</p>
+          <ol className="mt-2 min-h-12 space-y-1.5">
+            {demo.dictee.slice(0, said).map((phrase) => (
+              <motion.li key={phrase} {...fade} className="rounded-md bg-white px-2.5 py-1.5 text-sm italic leading-relaxed text-slate-800 shadow-sm">« {phrase} »</motion.li>
+            ))}
+          </ol>
+        </div>
+        <div className={`min-w-0 self-start rounded-lg border-2 p-3 transition-colors duration-500 ${filled > 0 ? "border-[#515792] bg-white" : "border-dashed border-slate-300 bg-white"}`}>
+          <p className="flex items-center gap-1.5 text-sm font-bold text-[#515792]"><NotebookPen className="h-4 w-4" aria-hidden="true" />{demo.note.titre}</p>
+          <dl className="mt-2 space-y-1.5 text-sm">
+            {demo.note.champs.map((champ, index) => (
+              <div key={champ.libelle} className="min-w-0">
+                <dt className="text-xs font-semibold text-slate-600">{champ.libelle}</dt>
+                <dd className="font-semibold text-slate-900">{index < filled ? <motion.span {...fade}>{champ.valeur}</motion.span> : <span className="text-slate-500" aria-hidden="true">…</span>}</dd>
+              </div>
+            ))}
+          </dl>
+          {shared && (
+            <motion.p {...fade} className="mt-3 flex items-center gap-1.5 border-t border-slate-100 pt-2 text-xs font-semibold text-[#167A5E]">
+              <Users className="h-3.5 w-3.5" aria-hidden="true" />{demo.partage}
+            </motion.p>
+          )}
+        </div>
+      </div>
+    </DemoCard>
+  );
+}
+
 export default function MicroDemos({ persona }: { persona: DemoPersona }) {
   const copy = DEMO_CONTENT.demos;
   return (
@@ -271,6 +313,7 @@ export default function MicroDemos({ persona }: { persona: DemoPersona }) {
           case "tri": return <SortDemo key={demo.id} demo={demo} />;
           case "validation": return <ValidationDemo key={demo.id} demo={demo} />;
           case "fiche": return <SheetDemo key={demo.id} demo={demo} />;
+          case "note": return <NoteDemo key={demo.id} demo={demo} />;
           default: return <SourceDemo key={demo.id} demo={demo} />;
         }
       })}

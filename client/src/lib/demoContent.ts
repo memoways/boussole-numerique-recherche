@@ -70,7 +70,17 @@ export type DemoMicro =
       historique: string[];
     }
   | { id: "fiche"; titre: string; texte: string; source: string; elements: { libelle: string; cibles: string[] }[]; sorties: string[] }
-  | { id: "source-unique"; titre: string; texte: string; pieces: string[]; destination: string };
+  | { id: "source-unique"; titre: string; texte: string; pieces: string[]; destination: string }
+  | {
+      id: "note";
+      titre: string;
+      texte: string;
+      /** Phrases dictées à la voix, qui deviennent une note structurée (décision, personnes concernées, scène…). */
+      dicteeTitre: string;
+      dictee: string[];
+      note: { titre: string; champs: { libelle: string; valeur: string }[] };
+      partage: string;
+    };
 
 export type DemoPersona = {
   id: PersonaId;
@@ -123,6 +133,19 @@ export type DemoContent = {
   >;
   demos: Record<"titre" | "intro" | "lancer" | "rejouer" | "avant" | "apres" | "boutonSuite", string>;
   futur: { titre: string; intro: string; badge: string; fonctions: { titre: string; texte: string }[]; boutonSuite: string };
+  /** Comparaison des trois parcours : la même dimension, formulée par chaque persona, et les trois radars. */
+  comparaison: {
+    surtitre: string;
+    titre: string;
+    texte: string;
+    dimension: DimensionId;
+    questionTitre: string;
+    questionLien: string;
+    radarTitre: string;
+    parcoursSuivi: string;
+    boutonVoir: string;
+    boutonAvis: string;
+  };
   avis: {
     titre: string;
     intro: string;
@@ -220,11 +243,15 @@ export function levelValue(level: RadarLevel) {
   return DEMO_CONTENT.niveauxRadar.indexOf(level) + 1;
 }
 
-/**
- * Ordre de lecture d’un parcours jouable. La comparaison (lot 3) s’insérera entre `futur` et `avis`.
- */
+/** La comparaison n’a de sens que si les trois parcours sont jouables. */
+export function isComparisonReady() {
+  return DEMO_CONTENT.personas.every((persona) => persona.statut === "pret");
+}
+
+/** Ordre de lecture d’un parcours jouable : la comparaison des trois parcours précède l’avis. */
 export function getStepSequence(persona: DemoPersona): (NamedStep | number)[] {
-  return ["accueil", ...persona.etapes.map((step) => step.id), "ideal", "restitution", "demos", "futur", "avis"];
+  const comparison: NamedStep[] = isComparisonReady() ? ["comparaison"] : [];
+  return ["accueil", ...persona.etapes.map((step) => step.id), "ideal", "restitution", "demos", "futur", ...comparison, "avis"];
 }
 
 export function stepKey(step: StepRef): NamedStep | number {
