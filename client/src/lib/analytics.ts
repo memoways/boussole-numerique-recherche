@@ -7,6 +7,7 @@ export type DemoEventName =
   | "demo_persona_choisi"
   | "demo_etape_vue"
   | "demo_saut_chapitre"
+  | "demo_regard_ouvert"
   | "demo_restitution_vue"
   | "demo_comparaison_vue"
   | "demo_avis_commence"

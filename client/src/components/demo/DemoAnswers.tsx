@@ -5,7 +5,7 @@
  */
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Check, History } from "lucide-react";
+import { Check, History, Info } from "lucide-react";
 import { DEMO_CONTENT, fillTemplate, type DemoSlider, type RadarLevel } from "@/lib/demoContent";
 
 const SELECTION_STEP_MS = 420;
@@ -116,7 +116,8 @@ export function InducedSliders({ sliders, corrected, reducedMotion }: SlidersPro
                   transition={reducedMotion ? { duration: 0 } : { duration: 0.9, ease: "easeInOut" }}
                 />
               </div>
-              <div className="mt-2 grid grid-cols-4 text-[11px] text-slate-600">
+              {/* À 390 px, « Improvisation » dépasse un quart de largeur : césure française plutôt que chevauchement. */}
+              <div lang="fr" className="mt-2 grid grid-cols-4 gap-1 text-[10px] leading-tight text-slate-600 hyphens-auto sm:text-[11px]">
                 {levels.map((item, index) => (
                   <span key={item} className={index === 0 ? "text-left" : index === levels.length - 1 ? "text-right" : "text-center"}>{item}</span>
                 ))}
@@ -126,6 +127,34 @@ export function InducedSliders({ sliders, corrected, reducedMotion }: SlidersPro
         );
       })}
     </ul>
+  );
+}
+
+/** Définition de chaque niveau de l’échelle, pour que personne n’ait à deviner ce que veut dire un mot. */
+export function LevelDefinitions({ className = "" }: { className?: string }) {
+  const { niveauxRadar, niveauxDefinitions } = DEMO_CONTENT;
+  return (
+    <dl className={`grid gap-2 text-sm sm:grid-cols-2 ${className}`}>
+      {niveauxRadar.map((level) => (
+        <div key={level} className="rounded-lg bg-slate-50 px-3 py-2">
+          <dt className="font-bold text-[#515792]">{level}</dt>
+          <dd className="mt-0.5 leading-snug text-slate-700">{niveauxDefinitions[level]}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
+/** Aide repliable sous les curseurs : les définitions de l’échelle, à ouvrir au besoin. */
+export function LevelHelp() {
+  return (
+    <details className="mt-3 text-sm">
+      <summary className="inline-flex min-h-11 cursor-pointer list-none items-center gap-1.5 font-semibold text-[#515792] underline underline-offset-4 [&::-webkit-details-marker]:hidden">
+        <Info className="h-4 w-4" aria-hidden="true" />
+        {DEMO_CONTENT.niveauxTitre}
+      </summary>
+      <LevelDefinitions className="mt-2" />
+    </details>
   );
 }
 

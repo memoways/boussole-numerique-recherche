@@ -18,6 +18,8 @@ const colors = {
   gris_500: '#6B7280',
   blanc: '#FFFFFF',
   surface: '#F8F9FC',
+  gris_600: '#475569',
+  surface_ardoise: '#F8FAFC',
 };
 
 function linear(value) {
@@ -55,6 +57,11 @@ const pairs = [
   ['bleu_accessible', 'blanc'],
   ['gris_700', 'blanc'],
   ['gris_700', 'surface_neutre'],
+  // Lot 2bis : définitions des niveaux (fond ardoise), libellés des micro-démos et du curseur.
+  ['bleu_memoways', 'surface_ardoise'],
+  ['gris_700', 'surface_ardoise'],
+  ['gris_600', 'blanc'],
+  ['gris_600', 'surface_ardoise'],
 ];
 
 console.table(pairs.map(([foreground, background]) => {

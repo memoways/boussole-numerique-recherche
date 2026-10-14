@@ -10,7 +10,14 @@
     "partage": "Partage & cohérence"
   },
   "restitutionLibelle": "Restitution",
-  "niveauxRadar": ["Exploration", "Bricolage", "Structuré", "Fluide"],
+  "niveauxRadar": ["Exploration", "Improvisation", "Organisé", "Orchestré"],
+  "niveauxDefinitions": {
+    "Exploration": "On découvre ; peu d’habitudes établies.",
+    "Improvisation": "Ça fonctionne, au cas par cas, selon le moment et les personnes.",
+    "Organisé": "Des repères stables existent (un endroit, une façon de faire), mais l’information est encore recopiée ou dispersée.",
+    "Orchestré": "Une source fait foi ; les informations circulent entre outils et personnes sans recopie."
+  },
+  "niveauxTitre": "Ce que veulent dire les niveaux",
   "choixPersona": {
     "titre": "Choisis une situation à suivre",
     "intro": "Trois personnes fictives, trois métiers. Tu les accompagnes pendant quelques minutes pour voir comment la future Boussole pourrait mener la conversation. Rien ne t’est demandé : tout est joué à l’écran.",
@@ -66,7 +73,9 @@
     "corrige": "{prenom} corrige « {libelle} » : {avant} → {apres}.",
     "rebondTitre": "Tu disais plus tôt",
     "rebondEchange": "échange {n}",
-    "pointEtapeTitre": "Premier constat",
+    "pointEtapeTitre": "Un premier regard",
+    "pointEtapeOuvrir": "Lire",
+    "pointEtapeReplier": "Replier",
     "annonceRetenu": "Ajouté à ce que la Boussole retient : {elements}."
   },
   "memoire": {
@@ -91,7 +100,7 @@
     "radarTitre": "Tes cinq dimensions",
     "radarPhrase": "Ce n’est ni bien ni mal : c’est ton point de départ.",
     "fonctionneTitre": "Ce qui fonctionne",
-    "ameliorerTitre": "Ce qui peut s’améliorer",
+    "ameliorerTitre": "Ce qui pourrait être plus léger",
     "citationLien": "dit à l’échange {n}",
     "pistesTitre": "Trois pistes",
     "pistesIntro": "Des pistes, pas des obligations.",
@@ -165,42 +174,47 @@
           "options": ["Gmail / Outlook", "WhatsApp", "Word", "Excel / Sheets", "Google Drive", "Dropbox", "WeTransfer", "Logiciel de montage", "Notion / Trello", "Autre"],
           "reponse": {
             "choix": ["Gmail / Outlook", "WhatsApp", "Word", "Excel / Sheets", "Dropbox", "WeTransfer"],
-            "transcription": "Et mon Excel maître pour les budgets. Celui-là, je ne le lâche pas."
+            "transcription": "Le mail, c’est la colonne vertébrale. Et Excel pour les budgets. Le reste, ça dépend des projets et des gens avec qui je travaille : un coproducteur veut du Drive, un autre m’envoie tout par WeTransfer."
           },
           "retenu": {
-            "extrait": "mon Excel maître pour les budgets",
-            "tags": ["e-mail au centre", "tableur maître", "Dropbox personnel"]
+            "extrait": "ça dépend des projets et des gens avec qui je travaille",
+            "tags": ["e-mail au centre", "outils imposés par les partenaires", "tableur pour les budgets"]
           }
         },
         {
           "id": 2,
           "dimension": "outils",
           "type": "question",
-          "question": "Là, maintenant : où se trouve la dernière version du budget du documentaire ?",
+          "pese": true,
+          "question": "Et d’un projet à l’autre, tu travailles toujours de la même façon ? Qu’est-ce qui te pèse le plus dans cette organisation ?",
           "reponse": {
-            "transcription": "Alors… dans mon Excel. Mais j’en ai envoyé une version à la télé la semaine passée, et une autre à Cinéforom, avec des chiffres un peu différents. Donc la vraie, c’est celle dans ma tête. Et dans le dernier mail."
+            "transcription": "Non, jamais vraiment. Sur le court, on avait un dossier partagé bien rangé, parce que le monteur est très carré. Sur le documentaire, c’est plus éclaté. Ce qui me pèse, c’est de ne jamais savoir si j’ai la dernière version de quelque chose, parce que les fichiers voyagent par mail et que chacun les modifie de son côté."
           },
           "retenu": {
-            "extrait": "j’en ai envoyé une version à la télé la semaine passée, et une autre à Cinéforom",
+            "tags": ["organisation variable selon l’équipe"],
             "curseurs": [
-              { "libelle": "Outils de production", "valeur": "Structuré", "corrigeA": null },
-              { "libelle": "Versions maîtrisées", "valeur": "Bricolage", "corrigeA": null }
+              { "libelle": "Outils de production", "valeur": "Organisé", "corrigeA": null },
+              { "libelle": "Circulation des versions", "valeur": "Improvisation", "corrigeA": null }
             ]
           },
           "pointEtape": {
-            "texte": "Tes outils tiennent la route : tu sais monter un budget et suivre une postproduction. Ce qui coince, c’est la circulation des versions.",
-            "ordreDeGrandeur": "Ordre de grandeur illustratif : 1 à 2 h par semaine à retrouver la bonne pièce jointe."
+            "texte": "Tes outils suffisent pour produire. Ce qui varie, c’est l’organisation autour, qui dépend de chaque équipe. La difficulté n’est pas l’outil : ce sont les copies qui circulent.",
+            "ordreDeGrandeur": "Ordre de grandeur illustratif : 1 à 2 h par semaine à vérifier quelle version est la bonne."
           }
         },
         {
           "id": 3,
           "dimension": "donnees",
           "type": "scenario",
-          "question": "Dans deux ans, un festival te demande un extrait HD du court que tu termines aujourd’hui, et le contrat de la musique. Ça se passerait comment ?",
-          "options": ["Honnêtement, pas sûre de retrouver", "J’en retrouverais une partie, en fouillant", "J’ai un système, je retrouverais l’essentiel", "Tout est organisé"],
+          "question": "Un festival te demande la fiche technique du court : durée, format, crédits, synopsis court. Où vas-tu la chercher ?",
+          "options": ["Je la refais à partir de mes mails", "Je reprends le dernier dossier envoyé et je corrige", "J’ai un document de référence, je le mets à jour", "Tout est dans une fiche unique, à jour"],
           "reponse": {
-            "choix": ["J’en retrouverais une partie, en fouillant"],
-            "transcription": "Les rushes sont sur trois disques durs, dont un chez le monteur. Le contrat… quelque part dans mes mails."
+            "choix": ["Je reprends le dernier dossier envoyé et je corrige"],
+            "transcription": "Je reprends le dernier dossier, celui de la télé, et je corrige. Sauf qu’entre-temps la durée a changé au montage, et le générique aussi. Il y a la fiche dans un Word, les crédits dans un Excel, le synopsis sur le site… et elles ne disent pas toutes la même chose."
+          },
+          "retenu": {
+            "extrait": "elles ne disent pas toutes la même chose",
+            "tags": ["même information à plusieurs endroits", "pas de version de référence"]
           }
         },
         {
@@ -210,32 +224,32 @@
           "question": "D’après ce que tu dis :",
           "questionSuite": "C’est juste ?",
           "reponse": {
-            "transcription": "Non, quand même : j’ai une copie de tout sur un deuxième disque, au bureau."
+            "transcription": "Pour les médias, quand même, je suis plutôt rigoureuse : tout est en double, sur deux disques, et je sais ce qu’il y a dessus. C’est pour les informations que c’est le flou."
           },
           "retenu": {
-            "extrait": "j’ai une copie de tout sur un deuxième disque",
             "curseurs": [
-              { "libelle": "Sauvegarde", "valeur": "Exploration", "corrigeA": "Bricolage" },
-              { "libelle": "Nommage des fichiers", "valeur": "Bricolage", "corrigeA": null },
-              { "libelle": "Retrouver un contrat", "valeur": "Bricolage", "corrigeA": null }
+              { "libelle": "Retrouver une information", "valeur": "Improvisation", "corrigeA": null },
+              { "libelle": "Source de référence", "valeur": "Exploration", "corrigeA": null },
+              { "libelle": "Sauvegarde des médias", "valeur": "Improvisation", "corrigeA": "Organisé" }
             ]
           }
         },
         {
           "id": 5,
           "dimension": "donnees",
-          "type": "relance",
-          "question": "Juste pour que la photo soit juste : ces disques, quelqu’un d’autre que toi sait lequel contient quoi ?",
+          "type": "question",
+          "pese": true,
+          "question": "D’habitude, quand une information change, une durée, un crédit, un partenaire, comment elle se propage partout où elle apparaît ?",
           "reponse": {
-            "transcription": "Moi. Enfin, à peu près. Il y a des étiquettes."
+            "transcription": "Elle ne se propage pas. Je corrige là où je pense à corriger. Et un jour, quelqu’un m’écrit que le site affiche encore l’ancien titre. C’est ça qui m’use : je passe mon temps à recopier la même chose, et j’ai toujours peur d’avoir oublié un endroit."
           },
           "retenu": {
-            "extrait": "Il y a des étiquettes.",
-            "tags": ["double copie ✓", "pas de carte des supports", "dépendance à la mémoire"]
+            "extrait": "j’ai toujours peur d’avoir oublié un endroit",
+            "tags": ["correction à la main dans chaque document", "pas de source de vérité"]
           },
           "pointEtape": {
-            "texte": "Tu as déjà le réflexe de la double copie, et beaucoup ne l’ont pas. Ce qui manque, c’est une carte : savoir ce qui est où, sans tout faire reposer sur ta mémoire.",
-            "ordreDeGrandeur": null
+            "texte": "Tes médias sont protégés : la double copie est un vrai réflexe. Pour les informations, chaque document vit sa vie. La question n’est pas de mieux ranger, mais de savoir quel endroit fait foi.",
+            "ordreDeGrandeur": "Ordre de grandeur illustratif : une même fiche technique recopiée dans quatre à six documents par film."
           }
         },
         {
@@ -244,32 +258,36 @@
           "type": "question",
           "question": "Une stagiaire arrive lundi sur le documentaire. Comment elle trouve les infos ?",
           "reponse": {
-            "transcription": "Je lui transfère une dizaine de mails et je lui explique au café. Ça prend une demi-journée. Et elle me pose encore des questions trois semaines après."
+            "transcription": "Je lui transfère une dizaine de mails et je lui explique au café. Ça prend une demi-journée. Et elle me pose encore des questions trois semaines après, parce que l’essentiel est dans ma tête : qui est qui, ce qui a été décidé, pourquoi on a changé de distributeur."
           },
           "retenu": {
-            "extrait": "Ça prend une demi-journée."
+            "extrait": "l’essentiel est dans ma tête",
+            "tags": ["transmission orale", "décisions sans trace"]
           }
         },
         {
           "id": 7,
           "dimension": "partage",
           "type": "question",
-          "question": "Tu parlais de ton Excel maître et des versions envoyées à la télé et à Cinéforom. Quand tu choisis où ranger tout ça, est-ce que l’endroit où sont stockées tes données compte pour toi ?",
+          "pese": true,
+          "question": "Tu parlais de la fiche technique qui existe en plusieurs versions. Quand un document doit être validé par plusieurs personnes, coproducteur, réalisatrice, télé, comment ça se passe en général ?",
           "rebond": {
-            "etape": 2,
-            "rappel": "j’en ai envoyé une version à la télé la semaine passée, et une autre à Cinéforom"
+            "etape": 3,
+            "rappel": "même information à plusieurs endroits"
           },
-          "numeriqueResponsable": true,
           "reponse": {
-            "transcription": "Honnêtement, je n’y ai jamais pensé. Pour les contrats de coproduction… peut-être que ça devrait compter, oui."
+            "transcription": "Par mail. J’envoie, chacun répond avec ses corrections, parfois sur des versions différentes, et je fusionne à la main. Pour un dossier de coproduction, ça peut faire quinze allers-retours. Le plus pénible, ce n’est pas le travail, c’est de reconstituer qui a validé quoi."
           },
           "retenu": {
-            "extrait": "peut-être que ça devrait compter, oui",
-            "tags": ["tu es le point central des infos", "souveraineté : curiosité éveillée"]
+            "tags": ["validations dispersées dans les mails"],
+            "curseurs": [
+              { "libelle": "Circulation des décisions", "valeur": "Improvisation", "corrigeA": null },
+              { "libelle": "Accueil d’une nouvelle personne", "valeur": "Exploration", "corrigeA": null }
+            ]
           },
           "pointEtape": {
-            "texte": "Tu es le centre de toutes les infos : c’est efficace tant que tu es là.",
-            "ordreDeGrandeur": "Ordre de grandeur illustratif : une demi-journée d’accueil par nouvelle personne, qui pourrait devenir une heure."
+            "texte": "Ton équipe avance, et tu tiens le fil. Mais tout passe par toi : les décisions, les validations, l’historique. Une trace partagée t’éviterait d’être le seul point de passage.",
+            "ordreDeGrandeur": "Ordre de grandeur illustratif : une demi-journée pour accueillir une nouvelle personne, qui pourrait devenir une heure."
           }
         },
         {
@@ -280,110 +298,127 @@
           "options": ["Pas pour moi", "Intéressant, mais je ne vois pas comment m’en servir", "J’ai essayé, sans être sûre de bien m’en servir", "Je m’en sers régulièrement"],
           "reponse": {
             "choix": ["J’ai essayé, sans être sûre de bien m’en servir"],
-            "transcription": "Je l’ai utilisée pour reformuler une lettre pour un fonds. C’était plat. Je l’ai réécrite."
+            "transcription": "Je l’ai utilisée pour reformuler une lettre pour un fonds. C’était plat, ça ne connaissait rien du film. Je l’ai réécrite."
+          },
+          "retenu": {
+            "extrait": "ça ne connaissait rien du film",
+            "tags": ["IA essayée sans contexte"]
           }
         },
         {
           "id": 9,
           "dimension": "competences",
           "type": "question",
-          "question": "Si tu devais expliquer, étape par étape, comment tu montes un dossier de financement, tu saurais le faire ?",
+          "pese": true,
+          "question": "Ton dossier de financement, tu sais le monter par cœur. Si tu devais le confier en partie à quelqu’un, ou à une IA, qu’est-ce qu’il faudrait lui donner pour que le résultat soit bon ?",
           "reponse": {
-            "transcription": "Oui, je le fais par cœur depuis quinze ans. Mais l’écrire… jamais."
+            "transcription": "Tout ce qui est dans ma tête : l’ordre des étapes, qui je relance, où sont les bonnes pièces, ce que chaque fonds attend vraiment. Je ne l’ai jamais écrit. Du coup je ne délègue pas, ou je délègue et je refais derrière."
           },
           "retenu": {
-            "extrait": "je le fais par cœur depuis quinze ans",
-            "tags": ["processus maîtrisés, non écrits"],
+            "tags": ["savoir-faire non transmis", "l’IA manque de contexte"],
             "curseurs": [
-              { "libelle": "Décrire tes manières de faire", "valeur": "Exploration", "corrigeA": null }
+              { "libelle": "Décrire tes processus", "valeur": "Exploration", "corrigeA": null }
             ]
-          },
-          "pointEtape": {
-            "texte": "Tu connais tes processus par cœur : c’est exactement la matière dont un outil a besoin pour t’aider. Tant qu’ils restent dans ta tête, aucun outil ne peut les reprendre.",
-            "ordreDeGrandeur": null
           }
         },
         {
           "id": 10,
-          "dimension": "publics",
-          "type": "cases",
-          "question": "Pour faire connaître tes films, tu utilises quoi ?",
-          "options": ["Site", "Instagram", "LinkedIn", "Newsletter", "Dossier de presse PDF", "Festivals et marchés"],
+          "dimension": "competences",
+          "type": "relance",
+          "question": "Juste pour que la photo soit juste : si tu confiais des contrats ou des budgets à un outil en ligne, l’endroit où ces données sont stockées, ça compterait pour toi ?",
+          "numeriqueResponsable": true,
           "reponse": {
-            "choix": ["Instagram", "Dossier de presse PDF", "Festivals et marchés"],
-            "transcription": "Instagram, je le fais parce qu’il faut. Je déteste."
+            "transcription": "Honnêtement, je n’y avais jamais pensé. Pour les contrats de coproduction… oui, ça devrait compter. Je ne saurais même pas dire où sont mes fichiers Dropbox."
           },
           "retenu": {
-            "extrait": "je le fais parce qu’il faut",
-            "tags": ["Instagram par obligation"]
+            "tags": ["souveraineté : curiosité éveillée"]
+          },
+          "pointEtape": {
+            "texte": "Tu as essayé l’IA et tu as vu sa limite : sans contexte, elle reste générique. Ce qui lui manque, c’est précisément ce que tu sais par cœur. Écrire tes processus sert autant à déléguer à une personne qu’à un outil.",
+            "ordreDeGrandeur": null
           }
         },
         {
           "id": 11,
           "dimension": "publics",
-          "type": "question",
-          "question": "Tout à l’heure, tu disais que tout passe par tes mails. Pour le dossier de presse, les textes et les photos viennent d’où ?",
-          "rebond": {
-            "etape": 1,
-            "rappel": "e-mail au centre"
-          },
+          "type": "cases",
+          "question": "Pour faire connaître tes films, tu utilises quoi ?",
+          "options": ["Site", "Instagram", "LinkedIn", "Newsletter", "Dossier de presse PDF", "Festivals et marchés"],
           "reponse": {
-            "transcription": "Des mêmes mails. Je recopie le synopsis du dossier de financement et je change deux phrases."
+            "choix": ["Site", "Instagram", "Dossier de presse PDF", "Festivals et marchés"],
+            "transcription": "Le site, c’est un ami qui le met à jour quand il a le temps. Instagram, je le fais parce qu’il faut. Je déteste."
           },
           "retenu": {
-            "extrait": "Je recopie le synopsis du dossier de financement",
-            "tags": ["même contenu réécrit plusieurs fois → piste source unique"]
+            "tags": ["site mis à jour par un tiers", "Instagram par obligation"]
+          }
+        },
+        {
+          "id": 12,
+          "dimension": "publics",
+          "type": "question",
+          "pese": true,
+          "question": "Tout à l’heure, tu disais que chaque correction se fait à la main, document par document. Pour le dossier de presse, le site et les festivals, les textes et les photos viennent d’où ?",
+          "rebond": {
+            "etape": 5,
+            "rappel": "correction à la main dans chaque document"
+          },
+          "reponse": {
+            "transcription": "Des mêmes mails, et du dernier dossier envoyé. Je recopie le synopsis du dossier de financement et je change deux phrases. Les photos, je les redemande au photographe à chaque fois, parce que je ne sais plus lesquelles sont validées."
+          },
+          "retenu": {
+            "extrait": "je ne sais plus lesquelles sont validées",
+            "tags": ["contenus recopiés pour chaque support → piste source unique"]
           },
           "pointEtape": {
-            "texte": "Tes contenus existent déjà : ils sont simplement recopiés à chaque fois.",
-            "ordreDeGrandeur": "Ordre de grandeur illustratif : trois réécritures du même synopsis par film."
+            "texte": "Tes contenus existent déjà, et ils sont bons. Ils sont simplement recopiés, et parfois redemandés, à chaque support. Une fiche film qui fait foi pourrait alimenter le dossier de presse, le site et les festivals.",
+            "ordreDeGrandeur": "Ordre de grandeur illustratif : trois à cinq réécritures du même synopsis par film."
           }
         }
       ],
       "ideal": {
         "question": "Pour finir : au mieux, ça ressemblerait à quoi, ton rapport à l’informatique ?",
-        "transcription": "Que je puisse dire : envoie à Cinéforom le dernier budget et le synopsis à jour. Et que ce soit les bons. Sans chercher."
+        "transcription": "Qu’il y ait un seul endroit où le film existe vraiment : la fiche, le budget à jour, les contrats, qui a validé quoi. Que je puisse dire : envoie à Cinéforom le dossier avec les bonnes pièces, sans chercher. Et qu’une stagiaire puisse s’y retrouver sans moi."
       },
       "restitution": {
-        "lettre": "Claire, tu fais tenir deux films avec des outils simples, et ça marche : tes budgets sont solides, tu doubles tes copies, tu connais tes processus par cœur. Ce qui te coûte, c’est que tout passe par toi et par tes mails : les versions se multiplient, les rushes dépendent de ta mémoire, et chaque nouvelle personne te prend une demi-journée. Tu as dit vouloir dire envoie le bon budget, sans chercher. Ce n’est pas si loin : la matière existe déjà. Ce qu’on peut évaluer, on peut l’améliorer.",
+        "lettre": "Claire, tu fais tenir deux films avec des outils simples, et ça fonctionne : tes budgets sont solides, tes médias sont protégés en double, et tu connais tes processus par cœur. Ton organisation change d’un projet à l’autre, selon les équipes et le temps disponible, et c’est normal dans une production indépendante. Ce qui te coûte, c’est que la même information vit à plusieurs endroits : la fiche technique dans un Word, les crédits dans un Excel, le synopsis sur le site, et chaque correction se fait à la main. Les validations passent par des allers-retours de mails, et tout l’historique repose sur toi, si bien que chaque arrivée prend du temps. Tu as dit vouloir un seul endroit où le film existe vraiment, et pouvoir déléguer sans tout réexpliquer. C’est exactement l’idée d’une source de vérité : une fiche qui fait foi, d’où partent les dossiers, la presse et le site. C’est aussi ce qui rendrait l’IA vraiment utile, parce qu’elle aurait enfin du contexte. Ce qu’on peut évaluer, on peut l’améliorer.",
         "radar": {
-          "outils": "Structuré",
-          "donnees": "Bricolage",
-          "partage": "Bricolage",
-          "competences": "Bricolage",
-          "publics": "Bricolage"
+          "outils": "Organisé",
+          "donnees": "Improvisation",
+          "partage": "Improvisation",
+          "competences": "Exploration",
+          "publics": "Improvisation"
         },
         "fonctionne": [
-          { "texte": "Budgets maîtrisés", "etape": 1, "citation": "Et mon Excel maître pour les budgets. Celui-là, je ne le lâche pas." },
-          { "texte": "Double copie des médias", "etape": 4, "citation": "j’ai une copie de tout sur un deuxième disque, au bureau." },
-          { "texte": "Processus de financement connus par cœur", "etape": 9, "citation": "je le fais par cœur depuis quinze ans." }
+          { "texte": "Des médias protégés", "etape": 4, "citation": "tout est en double, sur deux disques, et je sais ce qu’il y a dessus" },
+          { "texte": "Un savoir-faire solide", "etape": 9, "citation": "l’ordre des étapes, qui je relance, où sont les bonnes pièces, ce que chaque fonds attend vraiment" },
+          { "texte": "Une organisation qui sait se mettre en place quand l’équipe s’y prête", "etape": 2, "citation": "on avait un dossier partagé bien rangé" }
         ],
         "ameliorer": [
           {
-            "texte": "Versions qui circulent par mail",
-            "etape": 2,
-            "citation": "j’en ai envoyé une version à la télé la semaine passée, et une autre à Cinéforom, avec des chiffres un peu différents.",
-            "ordreDeGrandeur": "Ordre de grandeur illustratif : 1 à 2 h par semaine à retrouver la bonne pièce jointe."
+            "texte": "Une même information à plusieurs endroits",
+            "etape": 3,
+            "citation": "elles ne disent pas toutes la même chose",
+            "ordreDeGrandeur": "Ordre de grandeur illustratif : une fiche recopiée dans quatre à six documents."
           },
-          { "texte": "Aucune carte des disques", "etape": 5, "citation": "Moi. Enfin, à peu près. Il y a des étiquettes." },
-          { "texte": "Savoir-faire non écrit", "etape": 9, "citation": "Mais l’écrire… jamais." }
+          { "texte": "Des validations dispersées dans les mails", "etape": 7, "citation": "reconstituer qui a validé quoi" },
+          { "texte": "Un historique qui repose sur toi", "etape": 6, "citation": "l’essentiel est dans ma tête" }
         ],
         "pistes": [
           {
             "horizon": "2 semaines",
-            "texte": "Une règle de nommage pour budgets et contrats, et un dossier « Versions envoyées ».",
+            "texte": "Pour chaque film, désigner un seul document de référence pour la fiche technique (durée, format, crédits, synopsis) et y renvoyer au lieu de recopier.",
             "lien": "/ressources",
             "libelleLien": "Ressources du projet"
           },
           {
             "horizon": "1 mois",
-            "texte": "Écrire en une page ton processus de dossier de financement, puis tester une IA pour en tirer une checklist.",
+            "texte": "Écrire en une page le déroulé du dossier de financement (étapes, pièces, qui valide) ; il sert à accueillir quelqu’un et à donner du contexte à une IA pour préparer un premier jet.",
             "lien": "/ressources/etude-complete",
             "libelleLien": "Étude complète : repères sur l’IA dans la culture"
           },
           {
             "horizon": "3–6 mois",
-            "texte": "Une fiche film unique (synopsis, budget, contrats, médias) d’où partent les dossiers et la presse.",
+            "texte": "Une base film structurée (fiche, contrats, médias validés, suivi des validations) d’où partent les dossiers, la presse et le site, avec un suivi de tâches partagé avec l’équipe.",
             "lien": "/ressources/references-inspirantes",
             "libelleLien": "Références inspirantes"
           }
@@ -391,37 +426,47 @@
       },
       "demos": [
         {
-          "id": "arborescence",
-          "titre": "Avant / après : l’arborescence du documentaire",
-          "texte": "Des fichiers en vrac se rangent et se renomment selon une convention simple : date_projet_type_version.",
-          "fichiers": [
-            { "avant": "Budget DOC FINAL.xlsx", "apres": "2026-09-28_documentaire_budget_v2.xlsx", "dossier": "Budget" },
-            { "avant": "Synopsis nouveau.docx", "apres": "2026-10-01_documentaire_synopsis_v5.docx", "dossier": "Textes" },
-            { "avant": "budget doc final v2 (1).xlsx", "apres": "2026-10-05_documentaire_budget_v3.xlsx", "dossier": "Budget" },
-            { "avant": "contrat musique scan.pdf", "apres": "2026-06-12_court_contrat-musique_v1.pdf", "dossier": "Contrats" },
-            { "avant": "Budget TV envoyé.xlsx", "apres": "2026-10-07_documentaire_budget_v3-tele.xlsx", "dossier": "Versions envoyées" },
-            { "avant": "Dossier Cineforom OK.pdf", "apres": "2026-10-08_documentaire_dossier-cineforom_v1.pdf", "dossier": "Versions envoyées" }
+          "id": "convergence",
+          "titre": "Une info, cinq endroits",
+          "texte": "La durée, les crédits et le synopsis du court diffèrent d’un document à l’autre. Ils convergent vers une fiche film qui fait foi, puis repartent identiques vers chaque support.",
+          "champs": ["Durée", "Crédits", "Synopsis"],
+          "endroits": [
+            { "nom": "Fiche technique (Word)", "valeurs": ["14 min", "générique de mars", "synopsis de mars"] },
+            { "nom": "Crédits (Excel)", "valeurs": ["15 min 30", "générique de juin", "—"] },
+            { "nom": "Dossier Cinéforom", "valeurs": ["14 min", "générique de mars", "synopsis du dépôt"] },
+            { "nom": "Site", "valeurs": ["16 min", "générique de janvier", "synopsis de janvier"] },
+            { "nom": "Mail au festival", "valeurs": ["15 min 30", "générique de mars", "synopsis de mars"] }
+          ],
+          "source": "Fiche film — le court",
+          "reference": ["15 min 30", "générique de juin", "synopsis de juin"]
+        },
+        {
+          "id": "tri",
+          "titre": "Où va quoi",
+          "texte": "Chaque nature d’information trouve sa place : ce qui est structuré dans une base, les textes dans des documents, les suivis dans un outil de tâches, les médias dans leur stockage.",
+          "places": [
+            { "nom": "Base structurée", "elements": ["Fiche technique", "Crédits", "Contacts"] },
+            { "nom": "Documents", "elements": ["Synopsis", "Note d’intention", "Lettres"] },
+            { "nom": "Suivi de tâches", "elements": ["Relances", "Échéances", "Livrables"] },
+            { "nom": "Stockage des médias", "elements": ["Rushes", "Photos validées"] }
           ]
         },
         {
-          "id": "fiche",
-          "titre": "Une fiche film, deux dossiers",
-          "texte": "La fiche film reçoit des tags. Elle alimente à la fois le dossier Cinéforom et le dossier de presse, sans recopier le synopsis.",
-          "source": "Fiche film — documentaire",
-          "elements": [
-            { "libelle": "Synopsis", "cibles": ["Dossier Cinéforom", "Dossier de presse"] },
-            { "libelle": "Budget", "cibles": ["Dossier Cinéforom"] },
-            { "libelle": "Contrats", "cibles": ["Dossier Cinéforom"] },
-            { "libelle": "Photos de tournage", "cibles": ["Dossier de presse"] }
+          "id": "validation",
+          "titre": "Valider sans allers-retours",
+          "texte": "Quinze mails et quatre versions deviennent un seul document, avec sa liste de validation et son historique.",
+          "avant": {
+            "messages": ["Re: dossier coprod v2", "Re: Re: dossier coprod v2", "corrections réalisatrice (v3)", "TR: version télé", "Re: dossier coprod v3 final"],
+            "resume": "15 mails · 4 versions"
+          },
+          "document": "Dossier de coproduction",
+          "validations": [
+            { "qui": "Réalisatrice", "statut": "valide" },
+            { "qui": "Coproducteur", "statut": "valide" },
+            { "qui": "Télé", "statut": "attente" }
           ],
-          "sorties": ["Dossier Cinéforom", "Dossier de presse"]
-        },
-        {
-          "id": "source-unique",
-          "titre": "Une source unique, en esquisse",
-          "texte": "Les pièces jointes dispersées pourraient converger vers un seul endroit. Ce n’est qu’une piste : à toi de voir si elle te parle.",
-          "pieces": ["budget_v4.xlsx · mail du 7 octobre", "synopsis.docx · mail du 1er octobre", "contrat-musique.pdf · mail de juin", "photos-tournage.zip · WeTransfer", "devis-mixage.pdf · WhatsApp"],
-          "destination": "Fiche film"
+          "libelles": { "valide": "validé", "attente": "en attente" },
+          "historique": ["Version partagée avec l’équipe", "Réalisatrice : synopsis validé", "Coproducteur : budget validé"]
         }
       ]
     },

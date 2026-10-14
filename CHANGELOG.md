@@ -2,6 +2,27 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.4.2] — 2026-10-14 — Démo playback : refonte du parcours Claire (lot 2bis)
+
+### Modifié
+
+- Parcours de Claire réécrit selon l’annexe v2 du PRD, validée le 14 octobre 2026 : 12 échanges suivant la trame concret → général → ce qui pèse, centrés sur la redondance des informations, la source de vérité, la transmission des processus et l’IA nourrie de contexte. Le nommage de fichiers disparaît. Numérique idéal, lettre de restitution (9 phrases), radar, citations et pistes repris de l’annexe.
+- Échelle qualitative : Exploration · Improvisation · Organisé · Orchestré (au lieu de Bricolage, Structuré, Fluide), avec une définition par niveau affichée sous le radar, en aide repliable sous les curseurs et au survol des jauges.
+- Les points d’étape deviennent « Un premier regard » : bloc replié par défaut sous le dernier échange de chaque dimension, ouvert au clic ou au clavier.
+- « Ce qui peut s’améliorer » devient « Ce qui pourrait être plus léger ».
+- Micro-démos centrées sur les données : « Une info, cinq endroits » (des valeurs qui divergent convergent vers une fiche film qui fait foi), « Où va quoi » (base structurée, documents, suivi de tâches, stockage des médias) et « Valider sans allers-retours » (un document, sa liste de validation et son historique). Le gabarit d’arborescence et de nommage est retiré.
+- Guillemets et points-virgules tenus par des espaces insécables dans les transcriptions et les textes concernés.
+
+### Ajouté
+
+- Événement de mesure `demo_regard_ouvert` (persona, échange, dimension) à chaque ouverture d’un premier regard.
+- `verify-demo-content` contrôle l’échelle et ses définitions, l’absence de l’ancienne échelle, 2 à 3 échanges par dimension, au moins un échange « ce qui pèse » (`pese: true`) après l’entrée concrète, un seul premier regard sous le dernier échange de chaque dimension, les libellés de restitution et les nouveaux gabarits de micro-démos.
+- `check-demo-playback` couvre les 12 échanges, les regards repliés par défaut, leur ouverture au clic et au clavier sans changer d’étape, la mesure d’ouverture, l’aide des niveaux, les définitions sous le radar et le chevauchement des libellés de l’échelle à 390 px.
+
+### Vérifié
+
+- `pnpm verify`, `pnpm test:demo-feedback`, `scripts/check-contrast.mjs` (nouvelles paires en AA) et 105 contrôles Playwright à 1280 et 390 px sur le serveur de développement et sur le build servi par Nginx ; routes directes via Nginx. Détail et contenu complété pour relecture : [`docs/ETAT_LOT2BIS_DEMO_PLAYBACK_2026-10-14.md`](./docs/ETAT_LOT2BIS_DEMO_PLAYBACK_2026-10-14.md).
+
 ## [1.4.1] — 2026-10-14 — Démo playback : parcours Claire de bout en bout (lot 2)
 
 ### Ajouté

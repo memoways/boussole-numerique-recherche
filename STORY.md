@@ -138,6 +138,10 @@ Le lot 2 rend la démo vivante avec un premier parcours complet, celui de Claire
 
 La relecture du parcours Claire a recentré le propos : photographier des pratiques plutôt que des anecdotes, ne jamais juger, écouter ce qui pèse, et parler de redondance des informations, de source de vérité, de transmission des processus et d’IA nourrie de contexte plutôt que de nommage de fichiers. L’échelle devient Exploration · Improvisation · Organisé · Orchestré (« Bricolage » était perçu comme négatif) et les points d’étape passent dans un bloc replié. Les trois scripts ont été réécrits dans une annexe v2 du PRD, à valider avant la refonte de Claire (lot 2bis) puis Marc et Nadia (lot 3).
 
+### Démonstration playback (lot 2bis, octobre 2026)
+
+Ulrich a validé l’annexe v2 le 14 octobre 2026 et le parcours de Claire a été réécrit à partir d’elle. Chaque dimension part d’une situation concrète, remonte vers l’habitude (« et d’habitude ? »), puis laisse Claire dire ce qui lui pèse. Le fil rouge n’est plus le rangement des fichiers, mais une même information qui vit à plusieurs endroits, des validations dispersées dans les mails et un historique qui repose sur une seule personne. L’échelle Exploration · Improvisation · Organisé · Orchestré est expliquée niveau par niveau, pour que personne n’ait à deviner ce que veut dire un mot. Les points d’étape deviennent « Un premier regard », replié par défaut : la personne l’ouvre si elle le souhaite, et ces ouvertures sont mesurées pour décider de les garder. Les micro-démos montrent des données plutôt que des fichiers : quelle information va où, quelle source fait foi, comment on valide à plusieurs. Marc et Nadia suivront au lot 3. Voir [`docs/ETAT_LOT2BIS_DEMO_PLAYBACK_2026-10-14.md`](docs/ETAT_LOT2BIS_DEMO_PLAYBACK_2026-10-14.md).
+
 ## 5. Décisions structurantes
 
 | Décision | Raison | Effet pratique |
@@ -272,7 +276,7 @@ Le portail statique et le flux de base du module partenaire sont actifs en produ
 | Console `/admin` | Accessible et testée | Contrôler export, révocation et régénération avant la clôture du pilote |
 | Transcription Deepgram | Configurée et testée | Contrôler ponctuellement transcription, correction manuelle et absence de conservation de l’audio |
 | E-mails Dreamlit | Boîte d’envoi livrée, workflow non publié | Le transport PostgreSQL public répond en TLS ; résoudre la confiance du certificat Coolify côté Dreamlit avant de connecter puis publier le workflow |
-| Démo playback `/experience/demo` | Socle et avis (v1.4.0) puis parcours Claire complet et accès depuis `/experience` (v1.4.1) ; Marc, Nadia et comparaison au lot 3 | Relecture du parcours Claire en ligne ; tester un avis vocal et un avis avec e-mail |
+| Démo playback `/experience/demo` | Socle et avis (v1.4.0), parcours Claire et accès depuis `/experience` (v1.4.1), Claire v2 selon l’annexe v2 (v1.4.2) ; Marc, Nadia et comparaison au lot 3 | Relecture de Claire v2 en ligne ; tester un avis vocal et un avis avec e-mail |
 | Manifestations d’intérêt | Frontend et API livrés | Contrôler une première soumission artiste de test et l’export dans `/admin` ; il ne s’agit pas encore d’un questionnaire artiste individuel |
 
 Le domaine public de référence est **https://boussole-culture-recherche.memoways.com**. Cette valeur est le défaut du Dockerfile et doit aussi être renseignée comme variables de build `SITE_URL` et `VITE_SITE_URL` dans Coolify afin que les URL canoniques, Open Graph, le sitemap, `robots.txt`, `llms.txt` et les données structurées restent cohérents lors du déploiement. Les deux FQDN publics utilisent des CNAME DNS only vers `lime.1024b.net` ; la procédure de contrôle actualisée est documentée dans [`docs/TUTORIEL_CLOUDFLARE_CNAME_COOLIFY_QUESTIONNAIRE_2026-08-27.md`](docs/TUTORIEL_CLOUDFLARE_CNAME_COOLIFY_QUESTIONNAIRE_2026-08-27.md).

@@ -1,6 +1,7 @@
 /**
- * Restitution : lettre courte, radar qualitatif (aucun chiffre affiché, dessiné axe par axe),
- * ce qui fonctionne et ce qui peut s’améliorer (chaque point relié à une phrase dite), puis trois pistes.
+ * Restitution : lettre, radar qualitatif (aucun chiffre affiché, dessiné axe par axe) suivi de la définition
+ * de chaque niveau, ce qui fonctionne et ce qui pourrait être plus léger (chaque point relié à une phrase dite),
+ * puis trois pistes.
  */
 import { useEffect, useState } from "react";
 import { useReducedMotion } from "framer-motion";
@@ -8,6 +9,7 @@ import { ArrowRight, Check, Sprout } from "lucide-react";
 import { PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, ResponsiveContainer } from "recharts";
 import { Link } from "wouter";
 import { DEMO_CONTENT, fillTemplate, levelValue, stepPath, type DemoCitation, type DemoPersona } from "@/lib/demoContent";
+import { LevelDefinitions } from "./DemoAnswers";
 import { DemoActions, demoPrimaryButton, demoSecondaryButton } from "./DemoShell";
 import { DIMENSION_COLORS } from "./demoTheme";
 
@@ -70,6 +72,10 @@ function QualitativeRadar({ persona }: { persona: DemoPersona }) {
         </ul>
       </div>
       <p className="mt-4 text-center text-base font-semibold text-slate-800">{DEMO_CONTENT.restitution.radarPhrase}</p>
+      <div className="mt-6 border-t border-slate-100 pt-4">
+        <p className="text-sm font-bold text-slate-900">{DEMO_CONTENT.niveauxTitre}</p>
+        <LevelDefinitions className="mt-2" />
+      </div>
     </figure>
   );
 }

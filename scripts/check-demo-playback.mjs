@@ -1,8 +1,9 @@
 /**
- * Contrôle Playwright de la démo playback (parcours Claire, lot 2), à lancer contre un serveur en marche :
+ * Contrôle Playwright de la démo playback (parcours Claire v2, lot 2bis), à lancer contre un serveur en marche :
  *   node scripts/check-demo-playback.mjs http://localhost:5173 /tmp/captures-demo
  * Couvre 1280 et 390 px, sauts de chapitre, rechargement direct, bouton retour, clavier, mouvement réduit,
- * tiroir mobile, débordement horizontal et erreurs console. `CHROME_BIN` permet d’utiliser un Chromium déjà
+ * tiroir mobile, « Un premier regard » replié et sa mesure d’ouverture, définitions des niveaux,
+ * débordement horizontal et erreurs console. `CHROME_BIN` permet d’utiliser un Chromium déjà
  * installé si la version attendue par Playwright manque. Sort en code 1 si au moins un contrôle échoue.
  */
 import { mkdirSync } from "node:fs";
@@ -34,7 +35,15 @@ const overflow = (page) => page.evaluate(() => {
   return Math.max(doc, Math.round(widest));
 });
 const path = (page) => new URL(page.url()).pathname;
-const primary = (page) => page.locator("main button").filter({ hasText: /Réponse de Claire|Passer l’animation|Continuer|Voir la restitution/ }).first();
+const MILESTONES = [2, 5, 7, 10, 12];
+const REBONDS = [7, 12];
+const CORRECTION = "Claire corrige « Sauvegarde des médias » : Improvisation → Organisé.";
+const regardButton = (page) => page.getByRole("button", { name: /Un premier regard/ });
+// Libellés de l’échelle sous un curseur : aucun ne doit en chevaucher un autre (« Improvisation » à 390 px).
+const labelsOverlap = (page) => page.evaluate(() => [...document.querySelectorAll("main .grid-cols-4.hyphens-auto")].some((row) => {
+  const boxes = [...row.children].map((child) => { const range = document.createRange(); range.selectNodeContents(child); return range.getBoundingClientRect(); });
+  return boxes.some((box, index) => index > 0 && box.left < boxes[index - 1].right - 0.5 && box.top < boxes[index - 1].bottom && boxes[index - 1].top < box.bottom);
+}));
 
 async function playStep(page, { skip = false } = {}) {
   await page.getByRole("button", { name: "Réponse de Claire" }).click();
@@ -62,15 +71,26 @@ async function walk(label, viewport, { skip }) {
   await page.screenshot({ path: `${OUT}/${label}-accueil.png`, fullPage: true });
   await page.getByRole("link", { name: /Commencer/ }).click();
 
-  for (let n = 1; n <= 11; n++) {
+  for (let n = 1; n <= 12; n++) {
     await page.waitForURL(`**/cinema/${n}`);
     await playStep(page, { skip: skip && n % 2 === 0 });
     await check(`étape ${n}`);
-    if ([2, 4, 7, 11].includes(n)) await page.screenshot({ path: `${OUT}/${label}-etape-${n}.png`, fullPage: true });
-    const milestone = await page.getByText("Premier constat", { exact: false }).count();
-    ok(([2, 5, 7, 9, 11].includes(n) ? milestone > 0 : milestone === 0), `${label} étape ${n} : point d’étape ${[2, 5, 7, 9, 11].includes(n) ? "présent" : "absent"}`);
-    if (n === 4) ok((await page.getByText("Claire corrige « Sauvegarde » : Exploration → Bricolage.").count()) === 1, `${label} étape 4 : correction de curseur affichée`);
-    if (n === 7) ok((await page.getByText("Tu disais plus tôt").count()) === 1, `${label} étape 7 : rebond mémoire`);
+    if ([2, 4, 7, 12].includes(n)) await page.screenshot({ path: `${OUT}/${label}-etape-${n}.png`, fullPage: true });
+    const regard = await regardButton(page).count();
+    ok((MILESTONES.includes(n) ? regard === 1 : regard === 0), `${label} étape ${n} : premier regard ${MILESTONES.includes(n) ? "présent" : "absent"}`);
+    if (regard) {
+      ok((await regardButton(page).getAttribute("aria-expanded")) === "false" && (await page.getByText("Ordre de grandeur illustratif", { exact: false }).count()) === 0, `${label} étape ${n} : premier regard replié par défaut`);
+    }
+    if (n === 4) {
+      ok((await page.getByText(CORRECTION).count()) === 1, `${label} étape 4 : correction de curseur affichée`);
+      ok(!(await labelsOverlap(page)), `${label} étape 4 : libellés de l’échelle sans chevauchement`);
+    }
+    if (n === 12) {
+      await regardButton(page).click();
+      await check("étape 12, regard ouvert");
+      await page.screenshot({ path: `${OUT}/${label}-etape-12-regard-ouvert.png`, fullPage: true });
+    }
+    if (REBONDS.includes(n)) ok((await page.getByText("Tu disais plus tôt").count()) === 1, `${label} étape ${n} : rebond mémoire`);
     if (label.startsWith("mobile") && n === 7) {
       const trigger = page.getByRole("button", { name: /Ce que je retiens \(\d+\)/ });
       const text = await trigger.textContent();
@@ -81,7 +101,7 @@ async function walk(label, viewport, { skip }) {
       await trigger.click();
       const dialog = page.getByRole("dialog");
       await dialog.waitFor();
-      ok(await dialog.getByText("tableur maître").isVisible(), `${label} tiroir : notes visibles`);
+      ok(await dialog.getByText("e-mail au centre").isVisible(), `${label} tiroir : notes visibles`);
       await page.screenshot({ path: `${OUT}/${label}-tiroir.png` });
       await dialog.getByRole("button", { name: "Fermer" }).click();
       await dialog.waitFor({ state: "detached" });
@@ -99,6 +119,8 @@ async function walk(label, viewport, { skip }) {
   ok(!/\d/.test(radarText), `${label} restitution : aucun chiffre dans le radar`);
   ok(await page.getByText("Ce n’est ni bien ni mal : c’est ton point de départ.").isVisible(), `${label} restitution : phrase sous le radar`);
   ok((await page.locator("#demo-pistes ~ ol li").count()) === 3, `${label} restitution : 3 pistes`);
+  ok(await page.getByRole("heading", { name: "Ce qui pourrait être plus léger" }).isVisible(), `${label} restitution : « Ce qui pourrait être plus léger »`);
+  ok((await page.locator("figure dl dt").allInnerTexts()).join(" · ") === "Exploration · Improvisation · Organisé · Orchestré", `${label} restitution : définitions des 4 niveaux sous le radar`);
   await page.screenshot({ path: `${OUT}/${label}-restitution.png`, fullPage: true });
   await page.getByRole("link", { name: /Voir à quoi ça pourrait ressembler/ }).click();
   await page.waitForURL("**/cinema/demos");
@@ -133,8 +155,8 @@ await walk("mobile", { width: 390, height: 844 }, { skip: true });
 
   await page.goto(`${BASE}/experience/demo/cinema/7`);
   const panel = page.locator("aside[aria-labelledby='demo-memoire-titre']");
-  ok(await panel.getByText("tableur maître").isVisible(), "rechargement direct étape 7 : panneau cumulé (étape 1)");
-  ok(await panel.getByText("Sauvegarde : Bricolage").isVisible(), "rechargement direct étape 7 : curseur corrigé conservé");
+  ok(await panel.getByText("e-mail au centre").isVisible(), "rechargement direct étape 7 : panneau cumulé (étape 1)");
+  ok(await panel.getByText("Sauvegarde des médias : Organisé").isVisible(), "rechargement direct étape 7 : curseur corrigé conservé");
   ok((await panel.locator(".ring-2").count()) === 1, "rechargement direct étape 7 : élément cité mis en évidence");
   ok(await panel.getByText("Outils & workflows").first().isVisible(), "rechargement direct étape 7 : jauges des dimensions passées");
 
@@ -172,13 +194,51 @@ await walk("mobile", { width: 390, height: 844 }, { skip: true });
   await context.close();
 }
 
+// « Un premier regard » : ouverture au clic et au clavier sans changer d’étape, mesure `demo_regard_ouvert`, aide sur les niveaux.
+{
+  const { context, page } = await newPage({ width: 1280, height: 900 });
+  await context.route("https://tag.grainql.com/**", (route) => route.fulfill({
+    contentType: "application/javascript",
+    body: "window.__demoEvents = []; window.GrainTag = { track: (name, props) => window.__demoEvents.push({ name, props }) };",
+  }));
+  await page.goto(`${BASE}/experience/demo/cinema/2`);
+  await playStep(page, { skip: true });
+  const regard = regardButton(page);
+  await regard.click();
+  ok((await regard.getAttribute("aria-expanded")) === "true", "premier regard : ouvert au clic");
+  ok(await page.getByText("Ordre de grandeur illustratif : 1 à 2 h par semaine", { exact: false }).isVisible(), "premier regard : texte et ordre de grandeur visibles une fois ouvert");
+  const events = await page.evaluate(() => window.__demoEvents ?? []);
+  const opened = events.filter((event) => event.name === "demo_regard_ouvert");
+  ok(opened.length === 1 && opened[0].props.persona === "cinema" && opened[0].props.etape === "2" && opened[0].props.dimension === "outils", `premier regard : ouverture mesurée (${JSON.stringify(opened)})`);
+  await regard.press("Enter");
+  ok((await regard.getAttribute("aria-expanded")) === "false" && path(page) === "/experience/demo/cinema/2", "premier regard : Entrée replie sans changer d’étape");
+  await regard.press(" ");
+  ok((await regard.getAttribute("aria-expanded")) === "true" && path(page) === "/experience/demo/cinema/2", "premier regard : Espace rouvre sans changer d’étape");
+  ok((await page.evaluate(() => (window.__demoEvents ?? []).filter((event) => event.name === "demo_regard_ouvert").length)) === 2, "premier regard : chaque ouverture est mesurée, pas les replis");
+
+  await page.goto(`${BASE}/experience/demo/cinema/4`);
+  const help = page.locator("main summary").filter({ hasText: "Ce que veulent dire les niveaux" });
+  ok((await help.count()) === 1 && !(await page.getByText("Une source fait foi", { exact: false }).isVisible()), "aide des niveaux : repliée sous les curseurs");
+  await help.focus();
+  await page.keyboard.press("Enter");
+  ok(await page.getByText("Une source fait foi", { exact: false }).isVisible() && path(page) === "/experience/demo/cinema/4", "aide des niveaux : ouverte au clavier sans lancer la réponse");
+  ok((await page.getByRole("button", { name: "Réponse de Claire" }).count()) === 1, "aide des niveaux : la réponse attend toujours le clic");
+  ok(page.errors.length === 0, `premier regard et aide sans erreur console${page.errors.length ? ` : ${page.errors.join(" | ")}` : ""}`);
+  await context.close();
+}
+
 // Mouvement réduit.
 {
   const { context, page } = await newPage({ width: 1280, height: 900 }, { reducedMotion: "reduce" });
   await page.goto(`${BASE}/experience/demo/cinema/4`);
   await page.getByRole("button", { name: "Réponse de Claire" }).click();
   ok((await page.locator("main button").filter({ hasText: /^Continuer/ }).count()) === 1, "reduced-motion : réponse complète dès le clic");
-  ok(await page.getByText("Claire corrige « Sauvegarde » : Exploration → Bricolage.").isVisible(), "reduced-motion : correction affichée");
+  ok(await page.getByText(CORRECTION).isVisible(), "reduced-motion : correction affichée");
+  ok((await regardButton(page).count()) === 0, "reduced-motion : pas de premier regard à l’étape 4");
+  await page.goto(`${BASE}/experience/demo/cinema/5`);
+  await page.getByRole("button", { name: "Réponse de Claire" }).click();
+  await regardButton(page).click();
+  ok(await page.getByText("Ordre de grandeur illustratif : une même fiche technique", { exact: false }).isVisible(), "reduced-motion : premier regard ouvert immédiatement");
   await page.goto(`${BASE}/experience/demo/cinema/restitution`);
   ok((await page.locator(".recharts-radar-polygon").count()) === 1, "reduced-motion : radar complet immédiatement");
   await page.goto(`${BASE}/experience/demo/cinema/demos`);
@@ -191,9 +251,9 @@ await walk("mobile", { width: 390, height: 844 }, { skip: true });
 // Redirections et personas en préparation.
 {
   const { context, page } = await newPage({ width: 390, height: 844 });
-  await page.goto(`${BASE}/experience/demo/cinema/12`);
-  await page.waitForURL("**/cinema/accueil");
-  ok(true, "étape inexistante → accueil du parcours");
+  await page.goto(`${BASE}/experience/demo/cinema/13`);
+  await page.waitForURL("**/experience/demo");
+  ok(true, "étape hors parcours (13) → choix du persona");
   await page.goto(`${BASE}/experience/demo/cinema/comparaison`);
   ok(await page.getByText(/La comparaison des trois parcours arrive/).isVisible(), "comparaison : écran en préparation dédié");
   await page.goto(`${BASE}/experience/demo/scene/3`);

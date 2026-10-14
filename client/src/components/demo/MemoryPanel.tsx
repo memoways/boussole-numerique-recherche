@@ -85,7 +85,7 @@ function PanelBody({ persona, items, gauges, currentStep, highlight, reducedMoti
                 <li key={dimension}>
                   <p className="flex justify-between gap-2 text-xs">
                     <span className="font-semibold text-slate-800">{dimensions[dimension]}</span>
-                    <span className="font-bold" style={{ color: color.text }}>{level}</span>
+                    <span className="font-bold" style={{ color: color.text }} title={DEMO_CONTENT.niveauxDefinitions[level]}>{level}</span>
                   </p>
                   <span aria-hidden="true" className="mt-1 grid grid-cols-4 gap-1">
                     {niveauxRadar.map((name, index) => (

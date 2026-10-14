@@ -1,7 +1,7 @@
 /**
  * Démonstration playback `/experience/demo/*` : routage par URL, chaque étape est partageable.
  * L’état affiché est entièrement déduit de l’URL et du JSON : une étape rechargée s’affiche à l’identique.
- * Lot 2 : le parcours de Claire est jouable de bout en bout ; Marc et Nadia restent « en préparation ».
+ * Lot 2bis : le parcours de Claire (annexe v2) est jouable de bout en bout ; Marc et Nadia restent « en préparation ».
  */
 import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
