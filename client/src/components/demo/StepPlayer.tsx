@@ -18,7 +18,7 @@ import {
   type DemoStep,
   type NamedStep,
 } from "@/lib/demoContent";
-import { ChecklistAnswer, InducedSliders, MemoryEcho, ScenarioAnswer } from "./DemoAnswers";
+import { ChecklistAnswer, InducedSliders, LevelHelp, MemoryEcho, ScenarioAnswer } from "./DemoAnswers";
 import { DemoActions, demoPrimaryButton, demoSecondaryButton } from "./DemoShell";
 import { DIMENSION_COLORS, dimensionVar } from "./demoTheme";
 import { MemoryColumn, MemoryDrawer } from "./MemoryPanel";
@@ -110,6 +110,7 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
           {isSliderQuestion && (
             <div className="mt-5">
               <InducedSliders sliders={sliders} corrected={receptionPlayed} reducedMotion={reducedMotion} />
+              <LevelHelp />
               {step.questionSuite && <p className="mt-4 text-lg font-extrabold text-slate-950 sm:text-xl">{step.questionSuite}</p>}
             </div>
           )}
@@ -167,6 +168,7 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
                 <p className="mb-3 text-sm font-semibold text-slate-800">{lecture.induction}</p>
                 <InducedSliders sliders={sliders} corrected={false} reducedMotion={reducedMotion} />
                 <p className="mt-3 text-sm text-slate-700">{fillTemplate(lecture.valide, { prenom: persona.prenom })}</p>
+                <LevelHelp />
               </div>
             )}
             {isSliderQuestion && correction && (
@@ -188,9 +190,9 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
         )}
         <p className="sr-only" aria-live="polite">{announce}</p>
 
-        {playback.isDone && step.pointEtape && step.dimension && (
+        {playback.isDone && step.pointEtape && step.dimension && step.id !== null && (
           <div ref={milestoneRef}>
-            <MilestoneCard dimension={step.dimension} texte={step.pointEtape.texte} ordreDeGrandeur={step.pointEtape.ordreDeGrandeur} reducedMotion={reducedMotion} />
+            <MilestoneCard personaId={persona.id} etape={step.id} dimension={step.dimension} texte={step.pointEtape.texte} ordreDeGrandeur={step.pointEtape.ordreDeGrandeur} reducedMotion={reducedMotion} />
           </div>
         )}
 

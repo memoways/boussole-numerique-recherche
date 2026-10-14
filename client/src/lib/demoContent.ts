@@ -8,7 +8,8 @@ export type DimensionId = "outils" | "competences" | "donnees" | "publics" | "pa
 export type PersonaId = "cinema" | "scene" | "arts-visuels";
 export type PersonaStatus = "en-preparation" | "pret";
 
-export type RadarLevel = "Exploration" | "Bricolage" | "Structuré" | "Fluide";
+/** Échelle qualitative de l’annexe v2 : chaque niveau a une définition affichée (`niveauxDefinitions`). */
+export type RadarLevel = "Exploration" | "Improvisation" | "Organisé" | "Orchestré";
 export type StepType = "cases" | "question" | "scenario" | "curseurs" | "relance";
 
 /** Curseur qualitatif induit : position proposée par la Boussole, puis éventuelle correction par la personne. */
@@ -36,14 +37,38 @@ export type DemoStep = {
   /** Rebond mémoire : l’élément retenu plus tôt que la Boussole cite. */
   rebond?: { etape: number; rappel: string };
   numeriqueResponsable?: boolean;
+  /** Échange où la personne dit ce qui lui pèse (trame concret → général → ce qui pèse) : au moins un par dimension. */
+  pese?: boolean;
+  /** « Un premier regard », replié par défaut sous l’échange de fin de dimension. */
   pointEtape?: { texte: string; ordreDeGrandeur: string | null };
 };
 
 export type DemoCitation = { texte: string; etape: number; citation: string; ordreDeGrandeur?: string };
 export type DemoPiste = { horizon: string; texte: string; lien: string; libelleLien: string };
 
+/** Gabarits de micro-démos, tous centrés sur les données : quelle information va où, quelle source fait foi, comment on valide. */
 export type DemoMicro =
-  | { id: "arborescence"; titre: string; texte: string; fichiers: { avant: string; apres: string; dossier: string }[] }
+  | {
+      id: "convergence";
+      titre: string;
+      texte: string;
+      /** Informations comparées (durée, crédits…) ; `valeurs` et `reference` suivent cet ordre. */
+      champs: string[];
+      endroits: { nom: string; valeurs: string[] }[];
+      source: string;
+      reference: string[];
+    }
+  | { id: "tri"; titre: string; texte: string; places: { nom: string; elements: string[] }[] }
+  | {
+      id: "validation";
+      titre: string;
+      texte: string;
+      avant: { messages: string[]; resume: string };
+      document: string;
+      validations: { qui: string; statut: "valide" | "attente" }[];
+      libelles: Record<"valide" | "attente", string>;
+      historique: string[];
+    }
   | { id: "fiche"; titre: string; texte: string; source: string; elements: { libelle: string; cibles: string[] }[]; sorties: string[] }
   | { id: "source-unique"; titre: string; texte: string; pieces: string[]; destination: string };
 
@@ -61,6 +86,7 @@ export type DemoPersona = {
     lettre: string;
     radar: Record<DimensionId, RadarLevel>;
     fonctionne: DemoCitation[];
+    /** Affiché sous le titre « Ce qui pourrait être plus léger ». */
     ameliorer: DemoCitation[];
     pistes: DemoPiste[];
   };
@@ -74,6 +100,8 @@ export type DemoContent = {
   dimensions: Record<DimensionId, string>;
   restitutionLibelle: string;
   niveauxRadar: RadarLevel[];
+  niveauxDefinitions: Record<RadarLevel, string>;
+  niveauxTitre: string;
   choixPersona: { titre: string; intro: string; bouton: string; badgePreparation: string };
   confiance: {
     debut: { titre: string; texte: string; engagementsTitre: string; engagements: string[] };
@@ -84,7 +112,7 @@ export type DemoContent = {
   lecture: Record<
     | "boussole" | "echange" | "reponseDe" | "passerAnimation" | "continuer" | "retour" | "allerRestitution"
     | "selectionCases" | "selectionScenario" | "ecoute" | "accelerer" | "digestion" | "retenuTitre" | "induction"
-    | "valide" | "corrige" | "rebondTitre" | "rebondEchange" | "pointEtapeTitre" | "annonceRetenu",
+    | "valide" | "corrige" | "rebondTitre" | "rebondEchange" | "pointEtapeTitre" | "pointEtapeOuvrir" | "pointEtapeReplier" | "annonceRetenu",
     string
   >;
   memoire: Record<"titre" | "boutonMobile" | "vide" | "extraits" | "notes" | "jauges" | "replier" | "deplier" | "fermer", string>;

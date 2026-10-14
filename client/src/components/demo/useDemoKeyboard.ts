@@ -1,13 +1,13 @@
 /**
  * Raccourcis de la démonstration : Entrée ou Espace avancent selon la phase, les flèches gauche/droite
- * changent d’étape. Ils sont ignorés quand le focus est dans un champ, sur un bouton ou un lien (le
+ * changent d’étape. Ils sont ignorés quand le focus est dans un champ, sur un bouton, un lien ou une aide repliable (le
  * navigateur les active déjà), dans un tiroir ouvert, ou avec une touche de modification.
  */
 import { useEffect, useRef } from "react";
 
 type Handlers = { onAdvance?: () => void; onNext?: () => void; onPrevious?: () => void };
 
-const INTERACTIVE = "input, textarea, select, button, a[href], [contenteditable='true'], [role='button'], [role='slider'], [role='dialog']";
+const INTERACTIVE = "input, textarea, select, button, summary, a[href], [contenteditable='true'], [role='button'], [role='slider'], [role='dialog']";
 
 export function useDemoKeyboard(handlers: Handlers) {
   const latest = useRef(handlers);

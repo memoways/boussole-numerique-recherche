@@ -1,11 +1,13 @@
 /**
- * Micro-démos après la restitution : trois animations courtes (5 à 10 s), lancées au clic.
- * Arborescence avant/après, fiche → dossiers, source unique. Avec `prefers-reduced-motion`,
+ * Micro-démos après la restitution : trois animations courtes (5 à 10 s), lancées au clic, centrées sur
+ * les données. Gabarits : convergence (une info à plusieurs endroits → une fiche qui fait foi), tri (où va
+ * quoi), validation (un document, une liste de validation, un historique), fiche (une source alimente
+ * plusieurs sorties) et source unique (des pièces éparses convergent). Avec `prefers-reduced-motion`,
  * le clic affiche directement l’état final.
  */
 import { useEffect, useState, type ReactNode } from "react";
 import { LayoutGroup, motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, FileText, Folder, Paperclip, Play, RotateCcw, Tag } from "lucide-react";
+import { ArrowRight, Check, Clock, Database, FileText, Folder, History, Mail, Paperclip, Play, RotateCcw, Tag } from "lucide-react";
 import { Link } from "wouter";
 import { DEMO_CONTENT, stepPath, type DemoMicro, type DemoPersona } from "@/lib/demoContent";
 import { DemoActions, demoPrimaryButton, demoSecondaryButton } from "./DemoShell";
@@ -51,34 +53,135 @@ function DemoCard({ demo, controls, children, status }: { demo: DemoMicro; contr
   );
 }
 
-function TreeDemo({ demo }: { demo: Extract<DemoMicro, { id: "arborescence" }> }) {
-  const controls = useStages(2, 2600);
-  const renamed = controls.stage >= 1;
-  const sorted = controls.stage >= 2;
-  const folders = demo.fichiers.map((file) => file.dossier).filter((folder, index, all) => all.indexOf(folder) === index);
-  const transition = { duration: controls.reducedMotion ? 0 : 0.7, ease: "easeInOut" as const };
-  const file = (item: (typeof demo.fichiers)[number], index: number) => (
-    <motion.li key={index} layoutId={`fichier-${index}`} layout transition={transition} className="flex min-w-0 items-center gap-2 rounded-md bg-white px-2 py-1.5 text-xs text-slate-800 shadow-sm">
-      <FileText className="h-3.5 w-3.5 shrink-0 text-slate-500" aria-hidden="true" />
-      <span className="truncate font-mono">{renamed ? item.apres : item.avant}</span>
+/** Une info, cinq endroits : des valeurs qui divergent, une fiche qui fait foi, puis des supports identiques. */
+function ConvergenceDemo({ demo }: { demo: Extract<DemoMicro, { id: "convergence" }> }) {
+  const controls = useStages(2, 2200);
+  const referenced = controls.stage >= 1;
+  const aligned = controls.stage >= 2;
+  const fade = { initial: controls.reducedMotion ? false : { opacity: 0, y: 4 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.4 } };
+  return (
+    <DemoCard demo={demo} controls={controls} status={aligned ? DEMO_CONTENT.demos.apres : DEMO_CONTENT.demos.avant}>
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_16rem]">
+        <ul className="grid min-w-0 grid-cols-1 gap-2 sm:grid-cols-2">
+          {demo.endroits.map((endroit) => (
+            <li key={endroit.nom} className={`min-w-0 rounded-lg border bg-white p-2.5 transition-colors duration-500 ${aligned ? "border-[#3aab8a]/60" : "border-slate-200"}`}>
+              <p className="flex items-center justify-between gap-2 text-xs font-bold text-slate-900">
+                <span className="truncate">{endroit.nom}</span>
+                {aligned && <motion.span {...fade} className="shrink-0 text-[#167A5E]"><Check className="h-3.5 w-3.5" aria-label="à jour" /></motion.span>}
+              </p>
+              <dl className="mt-1.5 space-y-0.5 text-xs">
+                {demo.champs.map((champ, index) => {
+                  const value = aligned ? demo.reference[index] : endroit.valeurs[index];
+                  const differs = !aligned && value !== demo.reference[index];
+                  return (
+                    <div key={champ} className="flex min-w-0 gap-1.5">
+                      <dt className="shrink-0 text-slate-600">{champ} :</dt>
+                      <dd className={`min-w-0 truncate font-semibold ${differs && referenced ? "text-[#A8440D] line-through decoration-1" : differs ? "text-[#A8440D]" : "text-slate-800"}`}>{value}</dd>
+                    </div>
+                  );
+                })}
+              </dl>
+            </li>
+          ))}
+        </ul>
+        <div className={`min-w-0 self-start rounded-lg border-2 p-3 transition-colors duration-500 ${referenced ? "border-[#515792] bg-white" : "border-dashed border-slate-300 bg-white"}`}>
+          <p className="flex items-center gap-1.5 text-sm font-bold text-[#515792]"><Database className="h-4 w-4" aria-hidden="true" />{demo.source}</p>
+          <dl className="mt-2 space-y-1 text-sm">
+            {demo.champs.map((champ, index) => (
+              <div key={champ} className="flex min-w-0 gap-1.5">
+                <dt className="shrink-0 text-slate-600">{champ} :</dt>
+                <dd className="min-w-0 font-semibold text-slate-900">{referenced ? <motion.span {...fade}>{demo.reference[index]}</motion.span> : "…"}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
+    </DemoCard>
+  );
+}
+
+/** Où va quoi : chaque nature d’information rejoint sa place, une à une. */
+function SortDemo({ demo }: { demo: Extract<DemoMicro, { id: "tri" }> }) {
+  // Pile de départ mélangée de façon fixe : un élément de chaque place à tour de rôle.
+  const longest = Math.max(...demo.places.map((place) => place.elements.length));
+  const pile = Array.from({ length: longest }, (_, row) => demo.places.flatMap((place) => (place.elements[row] ? [{ libelle: place.elements[row], place: place.nom }] : []))).flat();
+  const controls = useStages(pile.length, 450);
+  const moved = controls.stage;
+  const transition = { duration: controls.reducedMotion ? 0 : 0.5, ease: "easeInOut" as const };
+  const chip = (item: (typeof pile)[number], index: number) => (
+    <motion.li key={item.libelle} layoutId={`tri-${index}`} layout transition={transition} className="rounded-md bg-white px-2 py-1 text-xs font-semibold text-slate-800 shadow-sm">
+      {item.libelle}
     </motion.li>
   );
   return (
-    <DemoCard demo={demo} controls={controls} status={sorted ? DEMO_CONTENT.demos.apres : DEMO_CONTENT.demos.avant}>
+    <DemoCard demo={demo} controls={controls} status={controls.finished ? DEMO_CONTENT.demos.apres : DEMO_CONTENT.demos.avant}>
       <LayoutGroup>
-        {sorted ? (
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            {folders.map((folder) => (
-              <div key={folder} className="min-w-0">
-                <p className="mb-1.5 flex items-center gap-1.5 text-xs font-bold text-slate-800"><Folder className="h-4 w-4 text-[#515792]" aria-hidden="true" />{folder}</p>
-                <ul className="space-y-1.5 pl-3">{demo.fichiers.map((item, index) => (item.dossier === folder ? file(item, index) : null))}</ul>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <ul className="grid grid-cols-1 gap-1.5 sm:grid-cols-2">{demo.fichiers.map(file)}</ul>
-        )}
+        {/* La pile disparaît une fois vidée : l’état final ne garde que les places. */}
+        {!controls.finished && <ul className="mb-3 flex min-h-8 flex-wrap gap-1.5">{pile.map((item, index) => (index >= moved ? chip(item, index) : null))}</ul>}
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          {demo.places.map((place) => (
+            <div key={place.nom} className="min-w-0 rounded-lg border-2 border-[#515792]/30 bg-white p-3">
+              <p className="flex items-center gap-1.5 text-sm font-bold text-[#515792]"><Folder className="h-4 w-4" aria-hidden="true" />{place.nom}</p>
+              <ul className="mt-2 flex min-h-7 flex-wrap gap-1.5">
+                {pile.map((item, index) => (index < moved && item.place === place.nom ? chip(item, index) : null))}
+              </ul>
+            </div>
+          ))}
+        </div>
       </LayoutGroup>
+    </DemoCard>
+  );
+}
+
+/** Valider sans allers-retours : les mails deviennent un document unique, sa liste de validation et son historique. */
+function ValidationDemo({ demo }: { demo: Extract<DemoMicro, { id: "validation" }> }) {
+  const controls = useStages(1 + demo.validations.length, 1300);
+  const gathered = controls.stage >= 1;
+  const decided = Math.max(0, controls.stage - 1);
+  const history = demo.historique.slice(0, controls.stage);
+  const fade = { initial: controls.reducedMotion ? false : { opacity: 0, y: 4 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.35 } };
+  return (
+    <DemoCard demo={demo} controls={controls} status={controls.finished ? DEMO_CONTENT.demos.apres : DEMO_CONTENT.demos.avant}>
+      {!gathered ? (
+        <div>
+          <ul className="space-y-1.5">
+            {demo.avant.messages.map((message) => (
+              <li key={message} className="flex min-w-0 items-center gap-2 rounded-md bg-white px-2 py-1.5 text-xs text-slate-800 shadow-sm">
+                <Mail className="h-3.5 w-3.5 shrink-0 text-slate-500" aria-hidden="true" />
+                <span className="truncate">{message}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-2 text-xs font-semibold text-slate-700">{demo.avant.resume}</p>
+        </div>
+      ) : (
+        <motion.div {...fade} className="grid grid-cols-1 gap-3 md:grid-cols-2">
+          <div className="min-w-0 rounded-lg border-2 border-[#515792] bg-white p-3">
+            <p className="flex items-center gap-1.5 text-sm font-bold text-[#515792]"><FileText className="h-4 w-4" aria-hidden="true" />{demo.document}</p>
+            <ul className="mt-2 space-y-1.5 text-sm">
+              {demo.validations.map((validation, index) => {
+                const status = index < decided ? validation.statut : null;
+                return (
+                  <li key={validation.qui} className="flex items-center justify-between gap-2">
+                    <span className="text-slate-800">{validation.qui}</span>
+                    {status === "valide" && <motion.span {...fade} className="inline-flex items-center gap-1 font-semibold text-[#167A5E]"><Check className="h-4 w-4" aria-hidden="true" />{demo.libelles.valide}</motion.span>}
+                    {status === "attente" && <motion.span {...fade} className="inline-flex items-center gap-1 font-semibold text-[#A8440D]"><Clock className="h-4 w-4" aria-hidden="true" />{demo.libelles.attente}</motion.span>}
+                    {status === null && <span className="text-slate-500" aria-hidden="true">…</span>}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+          <ol className="min-w-0 space-y-1.5 border-l-2 border-slate-200 pl-3 text-xs text-slate-700">
+            {history.map((line) => (
+              <motion.li key={line} {...fade} className="flex items-center gap-1.5">
+                <History className="h-3.5 w-3.5 shrink-0 text-slate-500" aria-hidden="true" />
+                {line}
+              </motion.li>
+            ))}
+          </ol>
+        </motion.div>
+      )}
     </DemoCard>
   );
 }
@@ -163,9 +266,13 @@ export default function MicroDemos({ persona }: { persona: DemoPersona }) {
         <p className="mt-3 max-w-2xl leading-relaxed text-slate-700">{copy.intro}</p>
       </header>
       {(persona.demos ?? []).map((demo) => {
-        if (demo.id === "arborescence") return <TreeDemo key={demo.id} demo={demo} />;
-        if (demo.id === "fiche") return <SheetDemo key={demo.id} demo={demo} />;
-        return <SourceDemo key={demo.id} demo={demo} />;
+        switch (demo.id) {
+          case "convergence": return <ConvergenceDemo key={demo.id} demo={demo} />;
+          case "tri": return <SortDemo key={demo.id} demo={demo} />;
+          case "validation": return <ValidationDemo key={demo.id} demo={demo} />;
+          case "fiche": return <SheetDemo key={demo.id} demo={demo} />;
+          default: return <SourceDemo key={demo.id} demo={demo} />;
+        }
       })}
       <DemoActions>
         <Link href={stepPath(persona.id, "restitution")} className={demoSecondaryButton}>{DEMO_CONTENT.lecture.retour}</Link>

@@ -27,6 +27,9 @@ function withHighlight(text: string, highlight: string | undefined): ReactNode {
   );
 }
 
+/** Espace insécable : les guillemets restent collés au texte, jamais seuls en bout de ligne. */
+const NBSP = "\u00A0";
+
 export default function TypedTranscript({ text, wordsShown, typing, highlight, showHighlight, onAccelerate, hint }: Props) {
   const words = text.split(/\s+/).filter(Boolean);
   const complete = wordsShown >= words.length;
@@ -34,14 +37,14 @@ export default function TypedTranscript({ text, wordsShown, typing, highlight, s
 
   return (
     <div>
-      <p className="sr-only">« {text} »</p>
+      <p className="sr-only">«{NBSP}{text}{NBSP}»</p>
       {/* Le texte complet, invisible, réserve la hauteur finale : rien ne saute pendant l’écriture. */}
       <div aria-hidden="true" className={`grid text-lg leading-relaxed text-slate-900 ${typing ? "cursor-pointer" : ""}`} onClick={typing ? onAccelerate : undefined}>
-        <span className="invisible [grid-area:1/1]">« {text} »</span>
+        <span className="invisible [grid-area:1/1]">«{NBSP}{text}{NBSP}»</span>
         <span className="[grid-area:1/1]">
-          « {visible}
+          «{NBSP}{visible}
           {typing && <span className="ml-0.5 inline-block h-5 w-0.5 translate-y-1 animate-pulse bg-[#515792]" />}
-          {complete && " »"}
+          {complete && `${NBSP}»`}
         </span>
       </div>
       {typing && <p aria-hidden="true" className="mt-2 text-xs text-slate-600">{hint}</p>}
