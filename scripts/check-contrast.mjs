@@ -20,6 +20,7 @@ const colors = {
   surface: '#F8F9FC',
   gris_600: '#475569',
   surface_ardoise: '#F8FAFC',
+  teinte_bleue: '#EEEEF4',
 };
 
 function linear(value) {
@@ -62,6 +63,10 @@ const pairs = [
   ['gris_700', 'surface_ardoise'],
   ['gris_600', 'blanc'],
   ['gris_600', 'surface_ardoise'],
+  // Lot 3 : badge « Le parcours que tu as suivi » (bleu à 10 % sur blanc) ; contours des radars de la comparaison (UI, 3:1).
+  ['bleu_memoways', 'teinte_bleue'],
+  ['orange_accessible', 'blanc'],
+  ['vert_accessible', 'blanc'],
 ];
 
 console.table(pairs.map(([foreground, background]) => {

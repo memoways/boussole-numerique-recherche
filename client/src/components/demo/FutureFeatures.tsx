@@ -1,7 +1,7 @@
 /** Fonctions futures, grisées avec un badge « bientôt » : rien n’est cliquable, rien n’est promis comme livré. */
 import { ArrowRight } from "lucide-react";
 import { Link } from "wouter";
-import { DEMO_CONTENT, stepPath, type DemoPersona } from "@/lib/demoContent";
+import { DEMO_CONTENT, isComparisonReady, stepPath, type DemoPersona } from "@/lib/demoContent";
 import { DemoActions, demoPrimaryButton, demoSecondaryButton } from "./DemoShell";
 
 export default function FutureFeatures({ persona }: { persona: DemoPersona }) {
@@ -25,8 +25,9 @@ export default function FutureFeatures({ persona }: { persona: DemoPersona }) {
       </ul>
       <DemoActions>
         <Link href={stepPath(persona.id, "demos")} className={demoSecondaryButton}>{lecture.retour}</Link>
-        <Link href={stepPath(persona.id, "avis")} className={demoPrimaryButton}>
-          {futur.boutonSuite}
+        {/* Suite : la comparaison des trois parcours quand ils sont tous jouables, sinon l’avis. */}
+        <Link href={stepPath(persona.id, isComparisonReady() ? "comparaison" : "avis")} className={demoPrimaryButton}>
+          {isComparisonReady() ? futur.boutonSuite : DEMO_CONTENT.preparation.boutonAvis}
           <ArrowRight className="h-5 w-5" aria-hidden="true" />
         </Link>
       </DemoActions>

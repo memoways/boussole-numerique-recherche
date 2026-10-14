@@ -18,7 +18,7 @@ const AXIS_REVEAL_MS = 350;
 type TickProps = { x?: number; y?: number; cy?: number; textAnchor?: string; payload?: { value: string } };
 
 /** Libellé d’axe sur deux lignes (« Outils & / workflows ») pour tenir à 390 px. */
-function AxisTick({ x = 0, y = 0, cy = 150, textAnchor = "middle", payload }: TickProps) {
+export function AxisTick({ x = 0, y = 0, cy = 150, textAnchor = "middle", payload }: TickProps) {
   const [first, ...rest] = (payload?.value ?? "").split(" & ");
   const lines = rest.length ? [`${first} &`, rest.join(" & ")] : [first];
   // Au-dessus du centre, le libellé monte ; en dessous, il descend : il ne recouvre jamais le dessin.

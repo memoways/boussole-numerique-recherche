@@ -2,6 +2,25 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.4.3] — 2026-10-14 — Démo playback : Marc, Nadia et comparaison (lot 3)
+
+### Ajouté
+
+- Parcours de Marc (metteur en scène, 11 échanges) et de Nadia (plasticienne, 10 échanges) jouables de bout en bout, repris de l’annexe v2 du PRD : trame concret → général → ce qui pèse, premiers regards repliés, correction de curseur, deux rebonds, une question de numérique responsable, numérique idéal, restitution (lettre, radar, citations, trois pistes vers les pages Ressources existantes) et trois micro-démos chacun.
+- Gabarit de micro-démo `note` (« Une décision, une trace ») : trois phrases dictées deviennent une note de répétition structurée, puis partagée avec l’équipe.
+- Écran de comparaison des trois parcours, entre les fonctions futures et l’avis : la même dimension (Données & archivage) formulée par chaque persona, avec lien vers l’échange, et les trois radars côte à côte sur le même ordre d’axes. Le parcours suivi est signalé ; « Voir le parcours de… » mène aux deux autres.
+
+### Modifié
+
+- Le bouton de l’écran « futur » devient « Comparer les trois parcours » ; le choix du persona n’affiche plus de parcours « en préparation ».
+- `verify-demo-content` contrôle les trois personas, les gabarits `note`, `fiche` et `source-unique`, et les textes de la comparaison.
+- `check-demo-playback` rejoue les trois parcours à 1280 et 390 px avec des repères par persona, puis la comparaison (radars, formulations, liens, clavier, mouvement réduit) et les redirections des étapes absentes.
+- `check-contrast` couvre le badge de la comparaison et les contours des radars.
+
+### Vérifié
+
+- `pnpm verify`, `pnpm test:demo-feedback`, `scripts/check-contrast.mjs` et 330 contrôles Playwright sur le serveur de développement et sur le build servi par Nginx ; routes directes via Nginx. Avis de test réels reportés. Détail et contenu complété pour relecture : [`docs/ETAT_LOT3_DEMO_PLAYBACK_2026-10-14.md`](./docs/ETAT_LOT3_DEMO_PLAYBACK_2026-10-14.md).
+
 ## [1.4.2] — 2026-10-14 — Démo playback : refonte du parcours Claire (lot 2bis)
 
 ### Modifié

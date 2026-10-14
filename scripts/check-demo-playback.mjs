@@ -1,9 +1,9 @@
 /**
- * Contrôle Playwright de la démo playback (parcours Claire v2, lot 2bis), à lancer contre un serveur en marche :
+ * Contrôle Playwright de la démo playback (Claire, Marc et Nadia, comparaison ; lot 3), à lancer contre un serveur en marche :
  *   node scripts/check-demo-playback.mjs http://localhost:5173 /tmp/captures-demo
- * Couvre 1280 et 390 px, sauts de chapitre, rechargement direct, bouton retour, clavier, mouvement réduit,
- * tiroir mobile, « Un premier regard » replié et sa mesure d’ouverture, définitions des niveaux,
- * débordement horizontal et erreurs console. `CHROME_BIN` permet d’utiliser un Chromium déjà
+ * Couvre les trois parcours à 1280 et 390 px, la comparaison des trois parcours, sauts de chapitre,
+ * rechargement direct, bouton retour, clavier, mouvement réduit, tiroir mobile, « Un premier regard »
+ * replié et sa mesure d’ouverture, définitions des niveaux, débordement horizontal et erreurs console. `CHROME_BIN` permet d’utiliser un Chromium déjà
  * installé si la version attendue par Playwright manque. Sort en code 1 si au moins un contrôle échoue.
  */
 import { mkdirSync } from "node:fs";
@@ -35,9 +35,13 @@ const overflow = (page) => page.evaluate(() => {
   return Math.max(doc, Math.round(widest));
 });
 const path = (page) => new URL(page.url()).pathname;
-const MILESTONES = [2, 5, 7, 10, 12];
-const REBONDS = [7, 12];
-const CORRECTION = "Claire corrige « Sauvegarde des médias » : Improvisation → Organisé.";
+// Repères propres à chaque parcours (annexe v2) : premiers regards, rebonds, correction de curseur, tiroir mobile.
+const PERSONAS = {
+  cinema: { prenom: "Claire", steps: 12, milestones: [2, 5, 7, 10, 12], rebonds: [7, 12], correction: { step: 4, text: "Claire corrige « Sauvegarde des médias » : Improvisation → Organisé." }, drawer: { step: 7, note: "e-mail au centre" } },
+  scene: { prenom: "Marc", steps: 11, milestones: [3, 5, 7, 9, 11], rebonds: [5, 11], correction: { step: 7, text: "Marc corrige « Fiches techniques » : Improvisation → Organisé." }, drawer: { step: 6, note: "équipe qui se parle beaucoup" } },
+  "arts-visuels": { prenom: "Nadia", steps: 10, milestones: [2, 4, 6, 8, 10], rebonds: [4, 8], correction: { step: 6, text: "Nadia corrige « Présence en ligne » : Exploration → Improvisation." }, drawer: { step: 5, note: "inventaire numéroté depuis 1998" } },
+};
+const CORRECTION = PERSONAS.cinema.correction.text;
 const regardButton = (page) => page.getByRole("button", { name: /Un premier regard/ });
 // Libellés de l’échelle sous un curseur : aucun ne doit en chevaucher un autre (« Improvisation » à 390 px).
 const labelsOverlap = (page) => page.evaluate(() => [...document.querySelectorAll("main .grid-cols-4.hyphens-auto")].some((row) => {
@@ -45,13 +49,14 @@ const labelsOverlap = (page) => page.evaluate(() => [...document.querySelectorAl
   return boxes.some((box, index) => index > 0 && box.left < boxes[index - 1].right - 0.5 && box.top < boxes[index - 1].bottom && boxes[index - 1].top < box.bottom);
 }));
 
-async function playStep(page, { skip = false } = {}) {
-  await page.getByRole("button", { name: "Réponse de Claire" }).click();
+async function playStep(page, { skip = false, prenom = "Claire" } = {}) {
+  await page.getByRole("button", { name: `Réponse de ${prenom}` }).click();
   if (skip) await page.getByRole("button", { name: "Passer l’animation" }).click();
   await page.locator("main button").filter({ hasText: /^(Continuer|Voir la restitution)/ }).waitFor({ timeout: 15000 });
 }
 
-async function walk(label, viewport, { skip }) {
+async function walk(label, viewport, { skip, persona: id = "cinema" }) {
+  const P = PERSONAS[id];
   const { context, page } = await newPage(viewport);
   let maxOverflow = 0;
   const check = async (name) => { const o = await overflow(page); maxOverflow = Math.max(maxOverflow, o); if (o > 0) results.push(`FAIL ${label} débordement ${o}px sur ${name}`); };
@@ -64,34 +69,34 @@ async function walk(label, viewport, { skip }) {
   await page.getByRole("link", { name: /Voir une démonstration du parcours/ }).first().click();
   await page.waitForURL("**/experience/demo");
   await page.locator("main h1").waitFor();
-  ok((await page.getByText("En préparation", { exact: true }).count()) === 2, `${label} picker : Marc et Nadia « En préparation »`);
-  await page.getByRole("link", { name: /Suivre Claire/ }).click();
-  await page.waitForURL("**/cinema/accueil");
+  ok((await page.getByText("En préparation", { exact: true }).count()) === 0, `${label} picker : trois parcours jouables, aucun « En préparation »`);
+  await page.getByRole("link", { name: new RegExp(`Suivre ${P.prenom}`) }).click();
+  await page.waitForURL(`**/${id}/accueil`);
   await check("accueil");
   await page.screenshot({ path: `${OUT}/${label}-accueil.png`, fullPage: true });
   await page.getByRole("link", { name: /Commencer/ }).click();
 
-  for (let n = 1; n <= 12; n++) {
-    await page.waitForURL(`**/cinema/${n}`);
-    await playStep(page, { skip: skip && n % 2 === 0 });
+  for (let n = 1; n <= P.steps; n++) {
+    await page.waitForURL(`**/${id}/${n}`);
+    await playStep(page, { skip: skip && n % 2 === 0, prenom: P.prenom });
     await check(`étape ${n}`);
-    if ([2, 4, 7, 12].includes(n)) await page.screenshot({ path: `${OUT}/${label}-etape-${n}.png`, fullPage: true });
+    if ([P.correction.step, P.drawer.step, P.steps].includes(n)) await page.screenshot({ path: `${OUT}/${label}-etape-${n}.png`, fullPage: true });
     const regard = await regardButton(page).count();
-    ok((MILESTONES.includes(n) ? regard === 1 : regard === 0), `${label} étape ${n} : premier regard ${MILESTONES.includes(n) ? "présent" : "absent"}`);
+    ok((P.milestones.includes(n) ? regard === 1 : regard === 0), `${label} étape ${n} : premier regard ${P.milestones.includes(n) ? "présent" : "absent"}`);
     if (regard) {
       ok((await regardButton(page).getAttribute("aria-expanded")) === "false" && (await page.getByText("Ordre de grandeur illustratif", { exact: false }).count()) === 0, `${label} étape ${n} : premier regard replié par défaut`);
     }
-    if (n === 4) {
-      ok((await page.getByText(CORRECTION).count()) === 1, `${label} étape 4 : correction de curseur affichée`);
-      ok(!(await labelsOverlap(page)), `${label} étape 4 : libellés de l’échelle sans chevauchement`);
+    if (n === P.correction.step) {
+      ok((await page.getByText(P.correction.text).count()) === 1, `${label} étape ${n} : correction de curseur affichée`);
+      ok(!(await labelsOverlap(page)), `${label} étape ${n} : libellés de l’échelle sans chevauchement`);
     }
-    if (n === 12) {
+    if (n === P.steps) {
       await regardButton(page).click();
-      await check("étape 12, regard ouvert");
-      await page.screenshot({ path: `${OUT}/${label}-etape-12-regard-ouvert.png`, fullPage: true });
+      await check(`étape ${n}, regard ouvert`);
+      await page.screenshot({ path: `${OUT}/${label}-etape-${n}-regard-ouvert.png`, fullPage: true });
     }
-    if (REBONDS.includes(n)) ok((await page.getByText("Tu disais plus tôt").count()) === 1, `${label} étape ${n} : rebond mémoire`);
-    if (label.startsWith("mobile") && n === 7) {
+    ok((await page.getByText("Tu disais plus tôt").count()) === (P.rebonds.includes(n) ? 1 : 0), `${label} étape ${n} : rebond mémoire ${P.rebonds.includes(n) ? "présent" : "absent"}`);
+    if (label.startsWith("mobile") && n === P.drawer.step) {
       const trigger = page.getByRole("button", { name: /Ce que je retiens \(\d+\)/ });
       const text = await trigger.textContent();
       ok(/\((\d+)\)/.test(text) && Number(text.match(/\((\d+)\)/)[1]) > 5, `${label} bouton tiroir : ${text}`);
@@ -101,17 +106,17 @@ async function walk(label, viewport, { skip }) {
       await trigger.click();
       const dialog = page.getByRole("dialog");
       await dialog.waitFor();
-      ok(await dialog.getByText("e-mail au centre").isVisible(), `${label} tiroir : notes visibles`);
+      ok(await dialog.getByText(P.drawer.note).isVisible(), `${label} tiroir : notes visibles`);
       await page.screenshot({ path: `${OUT}/${label}-tiroir.png` });
       await dialog.getByRole("button", { name: "Fermer" }).click();
       await dialog.waitFor({ state: "detached" });
     }
     await page.locator("main button").filter({ hasText: /^Continuer/ }).click();
   }
-  await page.waitForURL("**/cinema/ideal");
-  await playStep(page, { skip });
+  await page.waitForURL(`**/${id}/ideal`);
+  await playStep(page, { skip, prenom: P.prenom });
   await page.locator("main button").filter({ hasText: /Voir la restitution/ }).click();
-  await page.waitForURL("**/cinema/restitution");
+  await page.waitForURL(`**/${id}/restitution`);
   await page.waitForTimeout(2500);
   await check("restitution");
   ok((await page.locator(".recharts-radar-polygon").count()) === 1, `${label} restitution : radar dessiné`);
@@ -123,26 +128,39 @@ async function walk(label, viewport, { skip }) {
   ok((await page.locator("figure dl dt").allInnerTexts()).join(" · ") === "Exploration · Improvisation · Organisé · Orchestré", `${label} restitution : définitions des 4 niveaux sous le radar`);
   await page.screenshot({ path: `${OUT}/${label}-restitution.png`, fullPage: true });
   await page.getByRole("link", { name: /Voir à quoi ça pourrait ressembler/ }).click();
-  await page.waitForURL("**/cinema/demos");
+  await page.waitForURL(`**/${id}/demos`);
   for (const button of await page.getByRole("button", { name: "Lancer l’animation" }).all()) await button.click();
-  await page.waitForTimeout(6500);
+  await page.waitForTimeout(8000);
   ok((await page.getByText("Après", { exact: true }).count()) === 3, `${label} micro-démos : 3 animations terminées`);
   await check("demos");
   await page.screenshot({ path: `${OUT}/${label}-demos.png`, fullPage: true });
   await page.getByRole("link", { name: /Et ensuite/ }).click();
-  await page.waitForURL("**/cinema/futur");
+  await page.waitForURL(`**/${id}/futur`);
   ok((await page.getByText("Bientôt", { exact: true }).count()) === 5, `${label} futur : 5 fonctions grisées`);
   await check("futur");
+  await page.getByRole("link", { name: /Comparer les trois parcours/ }).click();
+  await page.waitForURL(`**/${id}/comparaison`);
+  await page.waitForTimeout(500);
+  await check("comparaison");
+  ok((await page.locator(".recharts-radar-polygon").count()) === 3, `${label} comparaison : 3 radars`);
+  ok((await page.locator("main blockquote").count()) === 3, `${label} comparaison : la même dimension formulée 3 fois`);
+  ok(!/\d/.test((await page.locator("main figure").allInnerTexts()).join(" ")), `${label} comparaison : aucun chiffre dans les radars`);
+  ok((await page.getByText("Le parcours que tu as suivi").count()) === 1, `${label} comparaison : parcours suivi signalé`);
+  const others = Object.values(PERSONAS).filter((item) => item !== P).map((item) => item.prenom);
+  ok((await Promise.all(others.map((prenom) => page.getByRole("link", { name: `Voir le parcours de ${prenom}` }).count()))).every((count) => count === 1), `${label} comparaison : liens vers ${others.join(" et ")}`);
+  await page.screenshot({ path: `${OUT}/${label}-comparaison.png`, fullPage: true });
   await page.getByRole("link", { name: /Donner mon avis/ }).click();
-  await page.waitForURL("**/cinema/avis");
+  await page.waitForURL(`**/${id}/avis`);
   await check("avis");
   ok(page.errors.length === 0, `${label} parcours complet sans erreur console${page.errors.length ? ` : ${page.errors.join(" | ")}` : ""}`);
   ok(maxOverflow <= 0, `${label} aucun débordement horizontal`);
   await context.close();
 }
 
-await walk("desktop", { width: 1280, height: 900 }, { skip: false });
-await walk("mobile", { width: 390, height: 844 }, { skip: true });
+for (const id of Object.keys(PERSONAS)) {
+  await walk(`desktop-${id}`, { width: 1280, height: 900 }, { skip: false, persona: id });
+  await walk(`mobile-${id}`, { width: 390, height: 844 }, { skip: true, persona: id });
+}
 
 // Sauts de chapitre, rechargement direct, bouton retour, clavier.
 {
@@ -244,22 +262,56 @@ await walk("mobile", { width: 390, height: 844 }, { skip: true });
   await page.goto(`${BASE}/experience/demo/cinema/demos`);
   await page.getByRole("button", { name: "Lancer l’animation" }).first().click();
   ok((await page.getByText("Après", { exact: true }).count()) >= 1, "reduced-motion : micro-démo à l’état final");
+  await page.goto(`${BASE}/experience/demo/scene/demos`);
+  await page.getByRole("button", { name: "Lancer l’animation" }).first().click();
+  ok(await page.getByText("Note partagée avec l’équipe").isVisible(), "reduced-motion : note de répétition complète dès le clic");
+  await page.goto(`${BASE}/experience/demo/arts-visuels/comparaison`);
+  ok((await page.locator(".recharts-radar-polygon").count()) === 3, "reduced-motion : 3 radars de la comparaison");
   ok(page.errors.length === 0, "reduced-motion sans erreur console");
   await context.close();
 }
 
-// Redirections et personas en préparation.
+// Marc et Nadia : rechargement direct sur un rebond ; comparaison : liens vers les autres parcours et clavier.
+{
+  const { context, page } = await newPage({ width: 1280, height: 900 });
+  const panel = page.locator("aside[aria-labelledby='demo-memoire-titre']");
+  await page.goto(`${BASE}/experience/demo/scene/11`);
+  ok(await panel.getByText("équipe qui se parle beaucoup").isVisible() && await panel.getByText("Fiches techniques : Organisé").isVisible(), "Marc, rechargement direct étape 11 : panneau cumulé, curseur corrigé conservé");
+  ok((await panel.locator(".ring-2").count()) === 1, "Marc, rechargement direct étape 11 : élément cité mis en évidence");
+  await page.goto(`${BASE}/experience/demo/arts-visuels/8`);
+  ok(await panel.getByText("Présence en ligne : Improvisation").isVisible() && (await panel.locator(".ring-2").count()) === 1, "Nadia, rechargement direct étape 8 : curseur corrigé, élément cité mis en évidence");
+  await page.getByRole("navigation", { name: "Progression du parcours" }).getByRole("link", { name: "Publics & communication" }).click();
+  ok(path(page) === "/experience/demo/arts-visuels/5", `Nadia, saut de chapitre Publics → ${path(page)}`);
+
+  await page.goto(`${BASE}/experience/demo/scene/comparaison`);
+  ok((await page.locator(".recharts-radar-polygon").count()) === 3, "comparaison en accès direct : 3 radars");
+  await page.getByRole("link", { name: "Voir le parcours de Nadia" }).click();
+  ok(path(page) === "/experience/demo/arts-visuels/accueil", `comparaison : « Voir le parcours de Nadia » → ${path(page)}`);
+  await page.goto(`${BASE}/experience/demo/scene/comparaison`);
+  await page.locator("main").focus();
+  await page.keyboard.press("ArrowLeft");
+  await page.waitForURL("**/scene/futur");
+  await page.keyboard.press("ArrowRight");
+  await page.waitForURL("**/scene/comparaison");
+  await page.keyboard.press("ArrowRight");
+  await page.waitForURL("**/scene/avis");
+  ok(true, "clavier : futur ← comparaison → avis");
+  ok(page.errors.length === 0, `Marc, Nadia et comparaison sans erreur console${page.errors.length ? ` : ${page.errors.join(" | ")}` : ""}`);
+  await context.close();
+}
+
+// Redirections.
 {
   const { context, page } = await newPage({ width: 390, height: 844 });
   await page.goto(`${BASE}/experience/demo/cinema/13`);
   await page.waitForURL("**/experience/demo");
   ok(true, "étape hors parcours (13) → choix du persona");
-  await page.goto(`${BASE}/experience/demo/cinema/comparaison`);
-  ok(await page.getByText(/La comparaison des trois parcours arrive/).isVisible(), "comparaison : écran en préparation dédié");
-  await page.goto(`${BASE}/experience/demo/scene/3`);
-  ok(await page.getByText("Cette étape est en préparation").isVisible(), "Marc : étape en préparation");
-  await page.goto(`${BASE}/experience/demo/arts-visuels/accueil`);
-  ok(await page.getByText(/en cours de préparation/).isVisible(), "Nadia : accueil avec avertissement");
+  await page.goto(`${BASE}/experience/demo/scene/12`);
+  await page.waitForURL("**/scene/accueil");
+  ok(true, "Marc, étape 12 (absente) → accueil du parcours");
+  await page.goto(`${BASE}/experience/demo/arts-visuels/11`);
+  await page.waitForURL("**/arts-visuels/accueil");
+  ok(await page.getByRole("link", { name: /Commencer/ }).isVisible(), "Nadia, étape 11 (absente) → accueil jouable");
   await page.goto(`${BASE}/experience/demo/inconnu/1`);
   await page.waitForURL("**/experience/demo");
   ok(true, "persona inconnu → choix du persona");
