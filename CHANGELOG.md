@@ -2,6 +2,28 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.4.0] — 2026-10-14 — Démo playback : socle et avis réel (lot 1)
+
+### Ajouté
+
+- Route `/experience/demo` et `/experience/demo/:persona/:etape`, chargée en différé, en mode immersif : bandeau « Démonstration — parcours fictif », en-tête minimal avec « Quitter la démo », barre de progression à cinq segments dans l’ordre du persona plus la restitution. Aucun menu, fil d’Ariane ni pied de page du site.
+- Choix entre trois personas fictifs (Claire, Marc, Nadia), accueil avec message de confiance et écran « en préparation » pour les étapes du parcours qui seront livrées au lot 2.
+- Avis final réel : texte ou dictée (enregistrer, réécouter, transcrire, relire, envoyer), e-mail facultatif, champ caché anti-robots et confirmation « Merci, ton avis est bien arrivé. ». Le texte est conservé en cas d’échec d’envoi.
+- API : `POST /api/public/demo-feedback` écrit l’avis dans la base Notion « Retours démo Boussole » (aucune écriture PostgreSQL) et `POST /api/public/demo/transcribe` transcrit la dictée via Deepgram, sans stocker l’audio. Variables `NOTION_TOKEN` et `NOTION_FEEDBACK_DB_ID`.
+- Contenu de la démo dans `client/src/data/demo-parcours.json`, contrôlé par `scripts/verify-demo-content.mjs` (intégré à `pnpm verify`) ; test `pnpm test:demo-feedback`.
+- Mesure GrainQL de la démo via `window.GrainTag.track`, sans effet si le script est absent et sans adresse e-mail.
+
+### Modifié
+
+- La transcription Deepgram est extraite dans `services/partner-feedback-api/src/deepgram.ts` et partagée avec la route d’invitation ; une erreur réseau vers Deepgram répond désormais 502 au lieu d’une erreur serveur non gérée.
+- Nginx : règle dédiée au préfixe `/experience/demo/` avec repli vers sa page statique et `X-Robots-Tag: noindex`. Le reste du site garde ses vraies 404.
+- SEO : `/experience/demo` est une page `noindex`, hors sitemap et `llms.txt`.
+
+### Vérifié
+
+- `pnpm verify`, `pnpm test:demo-feedback`, rendus à 1280 px et 390 px sans débordement ni erreur console, et routes directes via Nginx (`/experience/demo/*`, `/projet`, `/timeline`, `/references`). `docker build` n’a pas pu être exécuté faute de Docker sur la machine. Détail dans [`docs/ETAT_LOT1_DEMO_PLAYBACK_2026-10-14.md`](./docs/ETAT_LOT1_DEMO_PLAYBACK_2026-10-14.md).
+- Non activé tant que `NOTION_TOKEN` et `NOTION_FEEDBACK_DB_ID` ne sont pas configurés sur Coolify : l’endpoint répond alors 503.
+
 ## [1.3.23] — 2026-09-14 — Accueil recentré sur la raison d’être du projet
 
 ### Modifié

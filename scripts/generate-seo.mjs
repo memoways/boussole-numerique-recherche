@@ -108,6 +108,16 @@ const pages = {
 };
 
 const nonIndexablePages = {
+  "/experience/demo": {
+    title: "Démonstration du parcours | Boussole Numérique Culture",
+    description: "Démonstration fictive de la future Boussole : trois parcours joués à l’écran, dont seul l’avis final est envoyé.",
+    h1: "Démonstration du parcours de la Boussole",
+    intro: "Cette démonstration fictive fait suivre trois personnes, une productrice de cinéma, un metteur en scène et une plasticienne. Rien n’est enregistré pendant le parcours ; seul l’avis final, si la personne choisit de l’envoyer, parvient à l’équipe.",
+    sections: [],
+    links: [{ label: "Revenir à l’expérience Boussole", path: "/experience" }],
+    index: false,
+    breadcrumbs: [{ label: "Accueil", path: "/" }, { label: "Expérience", path: "/experience" }, { label: "Démonstration", path: "/experience/demo" }],
+  },
   "/partenaires/questionnaire": {
     title: "Questionnaire partenaire | Boussole Numérique Culture",
     description: "Partagez besoins, priorités, idées et points de vigilance pour préparer l’atelier de co-conception de la Boussole Numérique Culture.",

@@ -9,14 +9,16 @@
     "generate:seo": "node scripts/generate-seo.mjs",
     "generate:seo:root": "node scripts/generate-seo.mjs",
     "verify:seo": "node scripts/verify-seo.mjs",
+    "verify:demo-content": "node scripts/verify-demo-content.mjs",
     "build": "vite build && pnpm generate:seo",
     "build:partner-api": "pnpm --filter @boussole/partner-feedback-api build",
+    "test:demo-feedback": "pnpm --filter @boussole/partner-feedback-api test:demo-feedback",
     "preview": "vite preview --host 0.0.0.0",
     "check": "tsc --noEmit",
     "check:partner-api": "pnpm --filter @boussole/partner-feedback-api check",
     "audit:mobile": "node scripts/audit-mobile.mjs",
     "audit:mobile:interactions": "node scripts/audit-mobile-interactions.mjs",
-    "verify": "pnpm check && pnpm check:partner-api && pnpm build && pnpm verify:seo && pnpm build:partner-api",
+    "verify": "pnpm check && pnpm check:partner-api && pnpm verify:demo-content && pnpm build && pnpm verify:seo && pnpm build:partner-api",
     "format": "prettier --write ."
   },
   "dependencies": {

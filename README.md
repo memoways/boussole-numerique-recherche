@@ -48,6 +48,7 @@ Le tutoriel de déploiement actuellement applicable est [`docs/TUTORIEL_CLOUDFLA
 | Accueil à deux profils | Lanceur réversible qui annonce le site compagnon, le statut de l’outil en préparation et les parcours Partenaire culturel et Artiste | `/?public=partenaire`, `/?public=artiste` |
 | FAQ par persona | Réponses contextualisées avec liens vers les pages de profondeur pertinentes | Déployée après la sélection d’un parcours sur l’accueil |
 | Expérience Boussole | Démonstration des cinq dimensions, radars et parcours | `/experience` |
+| Démonstration playback | Parcours fictifs Claire, Marc et Nadia en mode immersif, avis final envoyé vers Notion ; lot 1 : socle et avis, accès par URL directe, `noindex` | `/experience/demo`, `/experience/demo/:persona/:etape` |
 | Recherche | Méthode de recherche, références comparables et ressources | `/recherche`, `/references`, `/ressources` |
 | Présentation partenaire | Neuf slides avec détails dépliables, contexte conservé dans l’URL et navigation fixe | `/partenaires/presentation` |
 | Questionnaire partenaire | Demande d’invitation publique ou questionnaire privé par lien personnel | `/partenaires/questionnaire`, `/partenaires/questionnaire/:token` |
@@ -128,6 +129,10 @@ Le fonctionnement complet, les droits SQL minimaux et le workflow Dreamlit sont 
 
 La migration de l’outbox versionnée, la base dédiée `dreamlit_boussole`, les droits Dreamlit restreints et la séquence de validation avant publication sont détaillés dans [`docs/MIGRATION_OUTBOX_DREAMLIT_2026-09-04.md`](./docs/MIGRATION_OUTBOX_DREAMLIT_2026-09-04.md).
 
+### Démonstration playback
+
+`/experience/demo` est une démonstration fictive : rien n’est saisi pendant le parcours et seul l’avis final est envoyé. L’API écrit cet avis dans la base Notion « Retours démo Boussole » (`POST /api/public/demo-feedback`) et transcrit la dictée via Deepgram (`POST /api/public/demo/transcribe`) sans conserver l’audio ni utiliser PostgreSQL. Elle requiert `NOTION_TOKEN` et `NOTION_FEEDBACK_DB_ID` côté API (voir [`config/ENVIRONMENT.md`](./config/ENVIRONMENT.md)). Les textes viennent de `client/src/data/demo-parcours.json`, contrôlé par `pnpm verify:demo-content` ; `pnpm test:demo-feedback` vérifie la construction de la page Notion. Le plan en trois lots est dans [`docs/PLAN_DEMO_PLAYBACK_2026-10-14.md`](./docs/PLAN_DEMO_PLAYBACK_2026-10-14.md).
+
 ## Déploiement Coolify
 
 Le déploiement final utilise trois ressources : le portail Nginx, une base PostgreSQL privée et l’API partenaire. Un quatrième élément, le workflow Dreamlit, délivre les e-mails après connexion à la boîte d’envoi. La procédure pas à pas est documentée ; elle comprend les domaines, les variables, les droits PostgreSQL, les tests de pilote et les sauvegardes.
@@ -189,6 +194,8 @@ Toute modification effectivement livrée doit mettre à jour `CHANGELOG.md`, `ST
 | [`docs/DIAGNOSTIC_ECHEC_DEPLOIEMENT_COOLIFY_2026-08-28.md`](./docs/DIAGNOSTIC_ECHEC_DEPLOIEMENT_COOLIFY_2026-08-28.md) | Analyse du rollback 503, correction `/healthz`, redéploiement et commandes DNS macOS |
 | [`docs/DIAGNOSTIC_API_EXPRESS_COOLIFY_2026-08-29.md`](./docs/DIAGNOSTIC_API_EXPRESS_COOLIFY_2026-08-29.md) | Analyse des redémarrages Express, correctif CommonJS et étapes de redeploy de l’API |
 | [`docs/CONTROLE_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md`](./docs/CONTROLE_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md) | Contrôles de la clarification du statut, des parcours, de l’ancienne URL et des jalons visibles |
+| [`docs/PLAN_DEMO_PLAYBACK_2026-10-14.md`](./docs/PLAN_DEMO_PLAYBACK_2026-10-14.md) | Plan validé de la démo playback en trois lots |
+| [`docs/ETAT_LOT1_DEMO_PLAYBACK_2026-10-14.md`](./docs/ETAT_LOT1_DEMO_PLAYBACK_2026-10-14.md) | Socle, contrôles et activation Notion du lot 1 |
 | [`docs/PLAN_PREVISUALISATION_EXPERIENCE_2026-08-20.md`](./docs/PLAN_PREVISUALISATION_EXPERIENCE_2026-08-20.md) | Cadrage des quatre écrans illustratifs du futur prototype sur la page Expérience |
 | [`docs/CONTROLE_PREVISUALISATION_EXPERIENCE_2026-08-20.md`](./docs/CONTROLE_PREVISUALISATION_EXPERIENCE_2026-08-20.md) | Contrôle des écrans, interactions, garde-fous et tests restant sur mobile réel |
 | [`docs/CONTROLE_RESPONSIVE_SMARTPHONE_2026-08-20.md`](./docs/CONTROLE_RESPONSIVE_SMARTPHONE_2026-08-20.md) | Audit 320 px et 390 px, contrôles tactiles, interactions prioritaires, retour en haut global et limites de la simulation mobile |

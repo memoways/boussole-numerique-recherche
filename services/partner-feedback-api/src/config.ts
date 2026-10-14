@@ -10,6 +10,8 @@ const environmentSchema = z.object({
   ADMIN_EMAIL: z.string().email().default("ulrich.fischer@memoways.com"),
   ADMIN_PASSWORD: z.string().min(12, "ADMIN_PASSWORD doit contenir au moins 12 caractères"),
   DEEPGRAM_API_KEY: z.string().min(1).optional(),
+  NOTION_TOKEN: z.string().min(1).optional(),
+  NOTION_FEEDBACK_DB_ID: z.string().min(1).optional(),
   SMTP_HOST: z.string().min(1).optional(),
   SMTP_PORT: z.coerce.number().int().positive().default(587),
   SMTP_USER: z.string().min(1).optional(),

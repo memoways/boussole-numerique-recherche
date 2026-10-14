@@ -20,6 +20,12 @@
     "title": "Prévisualiser le futur prototype | Boussole Culture",
     "description": "Quatre écrans illustratifs pour discuter le futur prototype : se situer, décrire une situation, lire un panorama et choisir une première amélioration."
   },
+  "/experience/demo": {
+    "title": "Démonstration du parcours | Boussole Numérique Culture",
+    "description": "Démonstration fictive de la future Boussole : trois parcours joués à l’écran, dont seul l’avis final est envoyé.",
+    "index": false,
+    "breadcrumbs": [{ "label": "Accueil", "path": "/" }, { "label": "Expérience", "path": "/experience" }, { "label": "Démonstration", "path": "/experience/demo" }]
+  },
   "/methode": {
     "title": "Méthode de co-conception | Boussole Numérique Culture",
     "description": "Découvrez comment les partenaires, les artistes et l’équipe de projet définissent ensemble les questions, le prototype et les principes de la Boussole."

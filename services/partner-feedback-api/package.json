@@ -9,6 +9,7 @@
     "start": "node dist/index.cjs",
     "check": "tsc --noEmit",
     "test:recap": "tsx scripts/verify-response-recap.ts",
+    "test:demo-feedback": "tsx scripts/verify-demo-feedback.ts",
     "migrate": "tsx src/migrate.ts"
   },
   "dependencies": {
