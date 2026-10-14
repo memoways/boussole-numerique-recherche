@@ -11,6 +11,8 @@ import { DEMO_CONTENT, getProgressSegments, stepPath, type DemoPersona, type Ste
 type DemoShellProps = {
   persona?: DemoPersona;
   step?: StepRef;
+  /** Largeur étendue pour la conversation et son panneau « Ce que la Boussole retient ». */
+  wide?: boolean;
   children: ReactNode;
 };
 
@@ -61,7 +63,7 @@ function ProgressBar({ persona, step }: { persona: DemoPersona; step: StepRef })
   );
 }
 
-export default function DemoShell({ persona, step, children }: DemoShellProps) {
+export default function DemoShell({ persona, step, wide = false, children }: DemoShellProps) {
   const mainRef = useRef<HTMLElement>(null);
   const firstRender = useRef(true);
   const stepKey = step ? (step.kind === "named" ? step.name : String(step.index)) : "";
@@ -88,17 +90,21 @@ export default function DemoShell({ persona, step, children }: DemoShellProps) {
         </div>
       </header>
       {persona && step && <ProgressBar persona={persona} step={step} />}
-      <main id="contenu-principal" ref={mainRef} tabIndex={-1} className="mx-auto w-full max-w-3xl flex-1 px-4 py-8 sm:py-12">
+      <main id="contenu-principal" ref={mainRef} tabIndex={-1} className={`mx-auto w-full flex-1 px-4 py-8 sm:py-12 ${wide ? "max-w-6xl" : "max-w-3xl"}`}>
         {children}
       </main>
     </div>
   );
 }
 
-/** Zone de commandes : en bas de l’écran sur smartphone, dans le flux sur ordinateur. */
-export function DemoActions({ children }: { children: ReactNode }) {
+/**
+ * Zone de commandes : en bas de l’écran sur smartphone, dans le flux sur ordinateur.
+ * `compact` garde les boutons sur une ligne sur smartphone (lecture du parcours, où chaque pixel compte)
+ * et laisse au-dessus la place du bouton « Ce que je retiens », ancré à la barre pour ne jamais la recouvrir.
+ */
+export function DemoActions({ children, compact = false }: { children: ReactNode; compact?: boolean }) {
   return (
-    <div className="sticky bottom-0 -mx-4 mt-8 flex flex-col-reverse gap-3 border-t border-slate-200 bg-[#F8F9FC]/95 px-4 py-4 backdrop-blur sm:static sm:mx-0 sm:flex-row sm:justify-between sm:border-0 sm:bg-transparent sm:px-0 sm:py-0">
+    <div className={`sticky bottom-0 z-20 -mx-4 flex gap-3 border-t border-slate-200 bg-[#F8F9FC]/95 px-4 py-4 backdrop-blur sm:relative sm:mx-0 sm:flex-row sm:justify-between sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 ${compact ? "mt-16 flex-row lg:mt-8" : "mt-8 flex-col-reverse"}`}>
       {children}
     </div>
   );

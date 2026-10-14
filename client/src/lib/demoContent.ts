@@ -8,13 +8,44 @@ export type DimensionId = "outils" | "competences" | "donnees" | "publics" | "pa
 export type PersonaId = "cinema" | "scene" | "arts-visuels";
 export type PersonaStatus = "en-preparation" | "pret";
 
-/** Une interaction du parcours. Le détail des types de réponse est précisé avec le lot 2. */
+export type RadarLevel = "Exploration" | "Bricolage" | "Structuré" | "Fluide";
+export type StepType = "cases" | "question" | "scenario" | "curseurs" | "relance";
+
+/** Curseur qualitatif induit : position proposée par la Boussole, puis éventuelle correction par la personne. */
+export type DemoSlider = { libelle: string; valeur: RadarLevel; corrigeA: RadarLevel | null };
+
+export type DemoRetained = {
+  /** Passage de la transcription surligné (niveau 1 du panneau). */
+  extrait?: string;
+  /** Notes taguées par la dimension de l’étape (niveau 2). */
+  tags?: string[];
+  curseurs?: DemoSlider[];
+};
+
+/** Une interaction du parcours, jouée selon la grammaire du PRD (question, réponse, réception). */
 export type DemoStep = {
   id: number;
   dimension: DimensionId;
-  type: string;
+  type: StepType;
   question: string;
+  /** Pour les curseurs proposés avant la réponse : la fin de la question, affichée après les curseurs. */
+  questionSuite?: string;
+  options?: string[];
+  reponse: { choix?: string[]; transcription: string };
+  retenu?: DemoRetained;
+  /** Rebond mémoire : l’élément retenu plus tôt que la Boussole cite. */
+  rebond?: { etape: number; rappel: string };
+  numeriqueResponsable?: boolean;
+  pointEtape?: { texte: string; ordreDeGrandeur: string | null };
 };
+
+export type DemoCitation = { texte: string; etape: number; citation: string; ordreDeGrandeur?: string };
+export type DemoPiste = { horizon: string; texte: string; lien: string; libelleLien: string };
+
+export type DemoMicro =
+  | { id: "arborescence"; titre: string; texte: string; fichiers: { avant: string; apres: string; dossier: string }[] }
+  | { id: "fiche"; titre: string; texte: string; source: string; elements: { libelle: string; cibles: string[] }[]; sorties: string[] }
+  | { id: "source-unique"; titre: string; texte: string; pieces: string[]; destination: string };
 
 export type DemoPersona = {
   id: PersonaId;
@@ -25,6 +56,15 @@ export type DemoPersona = {
   accroche: string;
   ordreDimensions: DimensionId[];
   etapes: DemoStep[];
+  ideal?: { question: string; transcription: string };
+  restitution?: {
+    lettre: string;
+    radar: Record<DimensionId, RadarLevel>;
+    fonctionne: DemoCitation[];
+    ameliorer: DemoCitation[];
+    pistes: DemoPiste[];
+  };
+  demos?: DemoMicro[];
 };
 
 export type DemoContent = {
@@ -33,14 +73,28 @@ export type DemoContent = {
   quitter: string;
   dimensions: Record<DimensionId, string>;
   restitutionLibelle: string;
-  niveauxRadar: string[];
-  choixPersona: { titre: string; intro: string; bouton: string };
+  niveauxRadar: RadarLevel[];
+  choixPersona: { titre: string; intro: string; bouton: string; badgePreparation: string };
   confiance: {
     debut: { titre: string; texte: string; engagementsTitre: string; engagements: string[] };
     fin: { texte: string };
   };
-  accueil: { texte: string; avertissementPreparation: string; boutonAvis: string; boutonChangerPersona: string };
-  preparation: { titre: string; texte: string; boutonAccueil: string; boutonAvis: string };
+  accueil: { texte: string; avertissementPreparation: string; boutonCommencer: string; aideLecture: string; boutonAvis: string; boutonChangerPersona: string };
+  preparation: { titre: string; texte: string; comparaisonTexte: string; boutonAccueil: string; boutonAvis: string };
+  lecture: Record<
+    | "boussole" | "echange" | "reponseDe" | "passerAnimation" | "continuer" | "retour" | "allerRestitution"
+    | "selectionCases" | "selectionScenario" | "ecoute" | "accelerer" | "digestion" | "retenuTitre" | "induction"
+    | "valide" | "corrige" | "rebondTitre" | "rebondEchange" | "pointEtapeTitre" | "annonceRetenu",
+    string
+  >;
+  memoire: Record<"titre" | "boutonMobile" | "vide" | "extraits" | "notes" | "jauges" | "replier" | "deplier" | "fermer", string>;
+  ideal: { libelle: string; boutonSuite: string };
+  restitution: Record<
+    "surtitre" | "titre" | "lettreTitre" | "radarTitre" | "radarPhrase" | "fonctionneTitre" | "ameliorerTitre" | "citationLien" | "pistesTitre" | "pistesIntro" | "boutonSuite",
+    string
+  >;
+  demos: Record<"titre" | "intro" | "lancer" | "rejouer" | "avant" | "apres" | "boutonSuite", string>;
+  futur: { titre: string; intro: string; badge: string; fonctions: { titre: string; texte: string }[]; boutonSuite: string };
   avis: {
     titre: string;
     intro: string;
@@ -72,7 +126,7 @@ export type DemoContent = {
   personas: DemoPersona[];
 };
 
-export const DEMO_CONTENT = rawContent as DemoContent;
+export const DEMO_CONTENT = rawContent as unknown as DemoContent;
 
 export const DEMO_ROOT = "/experience/demo";
 
@@ -131,4 +185,76 @@ export function getProgressSegments(persona: DemoPersona, step: StepRef): Progre
 
 export function fillTemplate(template: string, values: Record<string, string>) {
   return template.replace(/\{(\w+)\}/g, (_, key: string) => values[key] ?? "");
+}
+
+/** Valeur interne (1 à 4) d’un niveau qualitatif, pour le dessin seulement : aucun chiffre n’est affiché. */
+export function levelValue(level: RadarLevel) {
+  return DEMO_CONTENT.niveauxRadar.indexOf(level) + 1;
+}
+
+/**
+ * Ordre de lecture d’un parcours jouable. La comparaison (lot 3) s’insérera entre `futur` et `avis`.
+ */
+export function getStepSequence(persona: DemoPersona): (NamedStep | number)[] {
+  return ["accueil", ...persona.etapes.map((step) => step.id), "ideal", "restitution", "demos", "futur", "avis"];
+}
+
+export function stepKey(step: StepRef): NamedStep | number {
+  return step.kind === "named" ? step.name : step.index;
+}
+
+/** Étapes voisines dans l’ordre de lecture, ou `null` en bout de parcours. */
+export function getNeighbours(persona: DemoPersona, step: StepRef) {
+  const sequence = getStepSequence(persona);
+  const index = sequence.indexOf(stepKey(step));
+  if (index === -1) return { previous: null, next: null };
+  return { previous: sequence[index - 1] ?? null, next: sequence[index + 1] ?? null };
+}
+
+export type RetainedItem = {
+  key: string;
+  kind: "extrait" | "tag" | "curseur";
+  dimension: DimensionId;
+  etape: number;
+  texte: string;
+  /** Niveau final d’un curseur, après correction éventuelle. */
+  niveau?: RadarLevel;
+};
+
+/** Éléments retenus par une étape, dans l’ordre d’apparition dans le panneau. */
+export function getRetainedItems(step: DemoStep): RetainedItem[] {
+  const retenu = step.retenu;
+  if (!retenu) return [];
+  const base = { dimension: step.dimension, etape: step.id };
+  return [
+    ...(retenu.extrait ? [{ ...base, key: `${step.id}-extrait`, kind: "extrait" as const, texte: retenu.extrait }] : []),
+    ...(retenu.tags ?? []).map((tag, index) => ({ ...base, key: `${step.id}-tag-${index}`, kind: "tag" as const, texte: tag })),
+    ...(retenu.curseurs ?? []).map((slider, index) => ({
+      ...base,
+      key: `${step.id}-curseur-${index}`,
+      kind: "curseur" as const,
+      texte: slider.libelle,
+      niveau: slider.corrigeA ?? slider.valeur,
+    })),
+  ];
+}
+
+/**
+ * Cumul de ce que la Boussole a retenu : toutes les étapes avant `beforeStep`, plus l’étape courante
+ * si sa réception est jouée. Déduit du JSON seul, une URL rechargée affiche donc le même panneau.
+ */
+export function getRetainedUntil(persona: DemoPersona, beforeStep: number, includeCurrent: boolean): RetainedItem[] {
+  return persona.etapes
+    .filter((step) => step.id < beforeStep || (includeCurrent && step.id === beforeStep))
+    .flatMap(getRetainedItems);
+}
+
+/** Jauges qualitatives : une dimension est renseignée dès que son point d’étape est passé. */
+export function getGauges(persona: DemoPersona, beforeStep: number, includeCurrent: boolean) {
+  return persona.ordreDimensions.flatMap((dimension) => {
+    const milestone = persona.etapes.filter((step) => step.dimension === dimension && step.pointEtape).at(-1);
+    const reached = milestone && (milestone.id < beforeStep || (includeCurrent && milestone.id === beforeStep));
+    const level = persona.restitution?.radar[dimension];
+    return reached && level ? [{ dimension, level }] : [];
+  });
 }

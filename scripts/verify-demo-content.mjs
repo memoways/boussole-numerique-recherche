@@ -2,7 +2,7 @@
  * Contrôle du contenu de la démonstration playback (`client/src/data/demo-parcours.json`).
  * Les règles de structure s’appliquent à tous les personas ; les règles de contenu (interactions,
  * curseurs, rebonds, numérique responsable, radar, pistes) ne s’appliquent qu’aux personas au statut « pret ».
- * Le lot 1 livre les trois fiches en préparation ; chaque parcours rédigé sera contrôlé dès qu’il passe à « pret ».
+ * Lot 2 : le parcours de Claire est « pret » ; Marc et Nadia seront contrôlés dès qu’ils passeront à « pret » (lot 3).
  */
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
@@ -70,6 +70,35 @@ for (const persona of personas) {
   assert(steps.filter((step) => step.type === "rebond").length + steps.filter((step) => step.rebond).length >= 2, `${where} : au moins 2 rebonds mémoire sont attendus.`);
   assert(steps.filter((step) => step.numeriqueResponsable).length === 1, `${where} : exactement une question sur le numérique responsable est attendue.`);
 
+  // Grammaire des interactions : chaque étape doit pouvoir être jouée sans texte codé en dur.
+  const STEP_TYPES = new Set(["cases", "question", "scenario", "curseurs", "relance"]);
+  const levelsOk = (value) => content.niveauxRadar.includes(value);
+  for (const step of steps) {
+    const at = `${where}, étape ${step.id}`;
+    assert(STEP_TYPES.has(step.type), `${at} : type « ${step.type} » inconnu.`);
+    assert(step.question && step.reponse?.transcription, `${at} : question et transcription sont requises.`);
+    if (step.type === "cases" || step.type === "scenario") {
+      assert(Array.isArray(step.options) && step.options.length >= 2, `${at} : options attendues.`);
+      assert((step.reponse.choix ?? []).length > 0 && step.reponse.choix.every((choice) => step.options.includes(choice)), `${at} : les choix doivent figurer parmi les options.`);
+      if (step.type === "scenario") assert(step.reponse.choix.length === 1 && step.options.length === 4, `${at} : un micro-scénario a 4 options et un seul choix.`);
+    }
+    if (step.type === "curseurs") assert((step.retenu?.curseurs ?? []).length > 0, `${at} : une étape « curseurs » doit proposer des curseurs.`);
+    for (const slider of step.retenu?.curseurs ?? []) {
+      assert(levelsOk(slider.valeur), `${at} : niveau de curseur « ${slider.valeur} » inconnu.`);
+      assert(slider.corrigeA === null || levelsOk(slider.corrigeA), `${at} : correction « ${slider.corrigeA} » inconnue.`);
+    }
+    if (step.retenu?.extrait) assert(step.reponse.transcription.includes(step.retenu.extrait), `${at} : l’extrait retenu doit être un passage exact de la transcription.`);
+    if (step.rebond) {
+      const source = steps.find((item) => item.id === step.rebond.etape);
+      assert(source && source.id < step.id, `${at} : le rebond doit citer une étape antérieure.`);
+      const remembered = [source?.retenu?.extrait, ...(source?.retenu?.tags ?? [])];
+      assert(remembered.includes(step.rebond.rappel), `${at} : le rappel du rebond doit être un élément retenu à l’étape ${step.rebond.etape}.`);
+    }
+  }
+  const retainedSteps = steps.filter((step) => step.retenu).length;
+  assert(retainedSteps * 2 >= steps.length && retainedSteps < steps.length, `${where} : le panneau doit s’animer au moins une étape sur deux, sans s’animer à chaque étape.`);
+  assert(persona.ideal?.question && persona.ideal?.transcription, `${where} : la question du numérique idéal est requise.`);
+
   const restitution = persona.restitution;
   assert(Boolean(restitution), `${where} : la restitution est requise.`);
   const levels = Object.values(restitution?.radar ?? {});
@@ -77,8 +106,24 @@ for (const persona of personas) {
   for (const piste of restitution?.pistes ?? []) {
     assert(existingRoutes.has(piste.lien), `${where} : le lien de piste ${piste.lien} ne correspond à aucune route existante.`);
   }
-  assert((restitution?.pistes ?? []).length === 3, `${where} : trois pistes (2 semaines, 1 mois, 3–6 mois) sont attendues.`);
+  assert(JSON.stringify((restitution?.pistes ?? []).map((piste) => piste.horizon)) === JSON.stringify(["2 semaines", "1 mois", "3–6 mois"]), `${where} : trois pistes (2 semaines, 1 mois, 3–6 mois) sont attendues.`);
+  for (const key of ["fonctionne", "ameliorer"]) {
+    const items = restitution?.[key] ?? [];
+    assert(items.length === 3, `${where} : trois éléments « ${key} » sont attendus.`);
+    for (const item of items) {
+      const said = steps.find((step) => step.id === item.etape)?.reponse.transcription ?? "";
+      assert(said.includes(item.citation), `${where} : « ${item.texte} » doit citer une phrase dite à l’étape ${item.etape}.`);
+      if (item.ordreDeGrandeur) assert(/illustratif/i.test(item.ordreDeGrandeur), `${where} : ordre de grandeur sans mention « illustratif » (${item.texte}).`);
+    }
+  }
+  assert([...(restitution?.fonctionne ?? []), ...(restitution?.ameliorer ?? [])].some((item) => item.ordreDeGrandeur), `${where} : au moins une métrique concrète (ordre de grandeur illustratif) est attendue dans la restitution.`);
+  assert(/Ce qu’on peut évaluer, on peut l’améliorer\./.test(restitution?.lettre ?? ""), `${where} : la lettre doit rappeler le fil rouge « Ce qu’on peut évaluer, on peut l’améliorer. ».`);
+  const demoIds = (persona.demos ?? []).map((demo) => demo.id);
+  assert(demoIds.length >= 2 && demoIds.length <= 3 && demoIds.every((id) => ["arborescence", "fiche", "source-unique"].includes(id)), `${where} : 2 à 3 micro-démos connues sont attendues.`);
 }
+
+assert(content.restitution?.radarPhrase === "Ce n’est ni bien ni mal : c’est ton point de départ.", "La phrase sous le radar doit être « Ce n’est ni bien ni mal : c’est ton point de départ. ».");
+assert((content.futur?.fonctions ?? []).length === 5, "Les cinq fonctions futures du PRD sont attendues.");
 
 // Les étapes nommées acceptées par le routeur doivent rester alignées avec le contrat d’URL.
 const contentSource = await readFile(resolve("client/src/lib/demoContent.ts"), "utf8");

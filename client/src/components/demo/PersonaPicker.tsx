@@ -31,7 +31,10 @@ export default function PersonaPicker() {
                 <span className="flex h-12 w-12 items-center justify-center rounded-xl" style={{ backgroundColor: `${style.tint}1f` }}>
                   <Icon className="h-6 w-6" style={{ color: style.color }} aria-hidden="true" />
                 </span>
-                <span className="mt-4 text-xl font-bold text-slate-950">{persona.prenom}</span>
+                <span className="mt-4 flex flex-wrap items-center gap-2">
+                  <span className="text-xl font-bold text-slate-950">{persona.prenom}</span>
+                  {persona.statut !== "pret" && <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-semibold text-slate-700">{choixPersona.badgePreparation}</span>}
+                </span>
                 <span className="text-sm font-semibold text-slate-700">{persona.metier}</span>
                 <span className="mt-3 flex-1 text-sm leading-relaxed text-slate-700">{persona.accroche}</span>
                 <span className="mt-5 text-sm font-bold text-[#515792] underline-offset-4 group-hover:underline">

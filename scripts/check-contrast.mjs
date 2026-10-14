@@ -8,6 +8,9 @@ const colors = {
   vert_accessible: '#167A5E',
   vert_olive: '#7AB648',
   vert_olive_accessible: '#4C741B',
+  bleu_accessible: '#2B619D',
+  gris_700: '#334155',
+  surface_neutre: '#F1F5F9',
   violet: '#9B59B6',
   violet_accessible: '#7A3F95',
   gris_300: '#D1D5DB',
@@ -48,6 +51,10 @@ const pairs = [
   ['gris_400', 'blanc'],
   ['gris_500', 'blanc'],
   ['gris_500', 'surface'],
+  // Démo playback : texte de la dimension « Publics », libellés du radar et cartes grisées des fonctions futures.
+  ['bleu_accessible', 'blanc'],
+  ['gris_700', 'blanc'],
+  ['gris_700', 'surface_neutre'],
 ];
 
 console.table(pairs.map(([foreground, background]) => {

@@ -132,6 +132,10 @@ Le premier démarrage réel de Boussole API a révélé une incompatibilité du 
 
 Pour répondre au PRD « prototype démo playback », le site accueille `/experience/demo` : une démonstration fictive de la future Boussole, jouée à l’écran à partir de trois personnes (Claire, Marc, Nadia), sans saisie ni appel d’IA. Le lot 1 livre le socle : routage par URL, mode immersif, choix du persona, message de confiance et avis final, qui est le seul envoi réel. Les conversations des trois personas arrivent aux lots 2 et 3 ; d’ici là, leurs étapes affichent un écran « en préparation » et la démo reste accessible uniquement par son URL directe. L’avis est écrit dans la base Notion « Retours démo Boussole » par l’API partenaire, sans PostgreSQL ; la dictée est transcrite, relue puis envoyée sous forme de texte, et l’audio n’est jamais conservé. Voir [`docs/PLAN_DEMO_PLAYBACK_2026-10-14.md`](docs/PLAN_DEMO_PLAYBACK_2026-10-14.md) et [`docs/ETAT_LOT1_DEMO_PLAYBACK_2026-10-14.md`](docs/ETAT_LOT1_DEMO_PLAYBACK_2026-10-14.md).
 
+### Démonstration playback (lot 2, octobre 2026)
+
+Le lot 2 rend la démo vivante avec un premier parcours complet, celui de Claire, productrice cinéma. Chaque échange suit la même grammaire : la Boussole pose une question très concrète, Claire répond (cases, scénario ou voix), la Boussole prend note, puis le panneau « Ce que la Boussole retient » condense la parole en extraits, en notes et en repères. Ce panneau ne s’anime pas à chaque étape, pour montrer la condensation sans lasser. La restitution commence par ce qui fonctionne, relie chaque constat à une phrase dite et n’affiche aucun chiffre : seuls des niveaux qualitatifs (Exploration, Bricolage, Structuré, Fluide). Tout l’état vient de l’URL et du JSON, si bien qu’une étape partagée ou rechargée s’affiche à l’identique. La démo est désormais annoncée depuis `/experience` ; Marc et Nadia suivront au lot 3. Voir [`docs/ETAT_LOT2_DEMO_PLAYBACK_2026-10-14.md`](docs/ETAT_LOT2_DEMO_PLAYBACK_2026-10-14.md).
+
 ## 5. Décisions structurantes
 
 | Décision | Raison | Effet pratique |
@@ -266,7 +270,7 @@ Le portail statique et le flux de base du module partenaire sont actifs en produ
 | Console `/admin` | Accessible et testée | Contrôler export, révocation et régénération avant la clôture du pilote |
 | Transcription Deepgram | Configurée et testée | Contrôler ponctuellement transcription, correction manuelle et absence de conservation de l’audio |
 | E-mails Dreamlit | Boîte d’envoi livrée, workflow non publié | Le transport PostgreSQL public répond en TLS ; résoudre la confiance du certificat Coolify côté Dreamlit avant de connecter puis publier le workflow |
-| Démo playback `/experience/demo` | Socle et avis livrés (v1.4.0) ; parcours Claire au lot 2 | Variables Notion configurées côté API et premier avis de test reçu ; tester un avis vocal et un avis avec e-mail |
+| Démo playback `/experience/demo` | Socle et avis (v1.4.0) puis parcours Claire complet et accès depuis `/experience` (v1.4.1) ; Marc, Nadia et comparaison au lot 3 | Relecture du parcours Claire en ligne ; tester un avis vocal et un avis avec e-mail |
 | Manifestations d’intérêt | Frontend et API livrés | Contrôler une première soumission artiste de test et l’export dans `/admin` ; il ne s’agit pas encore d’un questionnaire artiste individuel |
 
 Le domaine public de référence est **https://boussole-culture-recherche.memoways.com**. Cette valeur est le défaut du Dockerfile et doit aussi être renseignée comme variables de build `SITE_URL` et `VITE_SITE_URL` dans Coolify afin que les URL canoniques, Open Graph, le sitemap, `robots.txt`, `llms.txt` et les données structurées restent cohérents lors du déploiement. Les deux FQDN publics utilisent des CNAME DNS only vers `lime.1024b.net` ; la procédure de contrôle actualisée est documentée dans [`docs/TUTORIEL_CLOUDFLARE_CNAME_COOLIFY_QUESTIONNAIRE_2026-08-27.md`](docs/TUTORIEL_CLOUDFLARE_CNAME_COOLIFY_QUESTIONNAIRE_2026-08-27.md).
