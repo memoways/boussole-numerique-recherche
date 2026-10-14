@@ -66,6 +66,8 @@ Dans la ressource `boussole-partner-api`, ouvrez **Environment Variables**. Util
 | `ADMIN_PASSWORD` | Mot de passe unique de 16 caractères ou plus | Oui | Runtime | Mot de passe de connexion à `/admin`. |
 | `RUN_MIGRATIONS` | `true` uniquement lors d’une initialisation ou migration contrôlée | Non | Runtime | Crée ou complète le schéma et la version initiale du questionnaire. |
 | `DEEPGRAM_API_KEY` | Clé Deepgram | Oui | Runtime | Active les transcriptions vocales. |
+| `NOTION_TOKEN` | Jeton de l’intégration Notion « Boussole démo » | Oui | Runtime | Écrit l’avis final de la démo `/experience/demo` dans Notion. Optionnel : sans lui, l’avis n’est pas reçu (503). |
+| `NOTION_FEEDBACK_DB_ID` | `b706f947bc904ab9827b2cca81af8b09` | Non | Runtime | Base Notion « Retours démo Boussole ». |
 | `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `MAIL_FROM` | Selon le prestataire choisi | Partiellement | Runtime | Reste facultatif pour les invitations personnelles pendant la transition. Les récapitulatifs de réponses sont préparés pour Dreamlit. |
 
 Coolify permet de marquer distinctement une variable comme disponible au build ou au runtime ; les deux options sont activées par défaut.[2] Pour toutes les variables de l’API, désactivez **Build Variable** et laissez **Runtime Variable** activé. Si un mot de passe contient le caractère `$`, activez l’option **Literal** afin que Coolify ne tente pas d’interpoler la valeur.[2]
@@ -159,6 +161,12 @@ Dreamlit renseigne `sent`, `failed`, les horodatages et l’identifiant fourniss
 Sans `DEEPGRAM_API_KEY`, les questions ouvertes restent disponibles à l’écrit. Lorsqu’elle est configurée, l’audio est transmis temporairement à l’API puis à Deepgram ; le fichier audio n’est pas écrit dans PostgreSQL et seule la transcription corrigée est enregistrée. Testez la lecture, la correction et la soumission avant d’inviter un partenaire.
 
 Sans SMTP, l’administration génère toujours les liens personnels et les copie dans le presse-papiers. Configurez SMTP seulement après avoir choisi un prestataire compatible avec la politique d’envoi de l’équipe de projet. Dreamlit prend en charge les récapitulatifs de réponses ; l’envoi des invitations peut rester temporairement sur SMTP ou être transféré ultérieurement dans une seconde boîte d’envoi dédiée.
+
+### Avis final de la démonstration `/experience/demo`
+
+La démonstration playback n’utilise ni PostgreSQL ni invitation : seul l’avis final est envoyé, par `POST /api/public/demo-feedback`, puis écrit par l’API dans la base Notion « 💬 Retours démo Boussole ». La dictée passe par `POST /api/public/demo/transcribe`, qui réutilise Deepgram : l’audio ne transite qu’en mémoire, n’est ni journalisé ni stocké, et seul le texte relu par la personne est envoyé.
+
+Pour l’activer : créer l’intégration interne Notion « Boussole démo » avec la seule capacité « Insérer du contenu », la connecter à la base (••• → Connexions), puis ajouter `NOTION_TOKEN` et `NOTION_FEEDBACK_DB_ID` au service API dans Coolify (Runtime uniquement, jamais `VITE_`) et redéployer. Protections : champ caché anti-robots (réponse 202 sans écriture), 5 envois par heure et par IP pour l’avis, 10 transcriptions par heure et par IP, audio limité à 10 Mo, CORS limité à `ALLOWED_ORIGIN`. Les erreurs Notion et Deepgram ne journalisent que le code HTTP.
 
 ## 11. Contrôle pilote et exploitation régulière
 

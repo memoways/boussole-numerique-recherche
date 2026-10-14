@@ -1,0 +1,106 @@
+{
+  "version": 1,
+  "bandeau": "Démonstration — parcours fictif",
+  "quitter": "Quitter la démo",
+  "dimensions": {
+    "outils": "Outils & workflows",
+    "competences": "Compétences & IA",
+    "donnees": "Données & archivage",
+    "publics": "Publics & communication",
+    "partage": "Partage & cohérence"
+  },
+  "restitutionLibelle": "Restitution",
+  "niveauxRadar": ["Exploration", "Bricolage", "Structuré", "Fluide"],
+  "choixPersona": {
+    "titre": "Choisis une situation à suivre",
+    "intro": "Trois personnes fictives, trois métiers. Tu les accompagnes pendant quelques minutes pour voir comment la future Boussole pourrait mener la conversation. Rien ne t’est demandé : tout est joué à l’écran.",
+    "bouton": "Suivre"
+  },
+  "confiance": {
+    "debut": {
+      "titre": "Avant de commencer",
+      "texte": "Ce parcours est fictif : rien de ce que tu vois n’est enregistré. Seul ton avis final, si tu choisis de l’envoyer, nous parvient.",
+      "engagementsTitre": "Ce que la future Boussole prévoit de respecter",
+      "engagements": [
+        "Hébergement en Suisse.",
+        "Aucune revente de données.",
+        "Anonyme tant que tu ne laisses pas ton e-mail."
+      ]
+    },
+    "fin": {
+      "texte": "Ton parcours était fictif et rien n’a été enregistré. Seul cet avis, si tu l’envoies, nous parvient. Ton enregistrement audio n’est pas conservé : seule sa transcription l’est."
+    }
+  },
+  "accueil": {
+    "texte": "On va parler de ton quotidien de travail, très concrètement : tes outils, tes fichiers, ta façon de faire. Pas de bonne ou de mauvaise réponse. À la fin, tu auras une photo de tes pratiques et quelques pistes.",
+    "avertissementPreparation": "Le déroulé de la conversation de {prenom} est en cours de préparation. Tu peux déjà donner ton avis sur cette démonstration.",
+    "boutonAvis": "Donner mon avis",
+    "boutonChangerPersona": "Choisir une autre personne"
+  },
+  "preparation": {
+    "titre": "Cette étape est en préparation",
+    "texte": "Le parcours de {prenom} n’est pas encore jouable. Tu peux revenir à l’accueil du parcours ou donner ton avis dès maintenant.",
+    "boutonAccueil": "Revenir à l’accueil du parcours",
+    "boutonAvis": "Donner mon avis"
+  },
+  "avis": {
+    "titre": "Et toi, qu’en penses-tu\u00a0?",
+    "intro": "Écris ton avis, ou dicte-le : tu pourras réécouter l’enregistrement et corriger le texte avant de l’envoyer.",
+    "libelleCommentaire": "Ton avis",
+    "placeholderCommentaire": "Ce qui t’a parlé, ce qui t’a manqué, ce que tu changerais…",
+    "libelleEmail": "Ton e-mail (facultatif)",
+    "aideEmail": "Laisse ton e-mail si tu veux être tenu·e au courant (atelier, prochaines versions).",
+    "micro": {
+      "titre": "Dicter mon avis",
+      "demarrer": "Enregistrer",
+      "arreter": "Arrêter l’enregistrement",
+      "transcrire": "Transcrire l’enregistrement",
+      "transcriptionEnCours": "Transcription en cours…",
+      "recommencer": "Recommencer",
+      "reecoute": "Réécoute ton enregistrement",
+      "aide": "3 minutes au maximum. L’enregistrement est transcrit puis supprimé : tu relis le texte avant de l’envoyer.",
+      "indisponible": "Le micro n’est pas disponible ici. Tu peux écrire ton avis.",
+      "transcriptionVide": "Aucune parole n’a été reconnue. Tu peux réessayer ou écrire ton avis.",
+      "transcriptionErreur": "La transcription n’a pas abouti. Tu peux réessayer ou écrire ton avis."
+    },
+    "envoyer": "Envoyer mon avis",
+    "envoiEnCours": "Envoi en cours…",
+    "erreurEnvoi": "L’envoi n’a pas abouti, tu peux réessayer.",
+    "confirmation": "Merci, ton avis est bien arrivé.",
+    "confirmationSuite": "Tu peux fermer cette page ou revenir au site.",
+    "retourSite": "Quitter la démo",
+    "indisponible": "L’envoi d’avis n’est pas disponible dans cet environnement."
+  },
+  "personas": [
+    {
+      "id": "cinema",
+      "statut": "en-preparation",
+      "prenom": "Claire",
+      "age": 46,
+      "metier": "Productrice cinéma",
+      "accroche": "Deux films en parallèle, et des pièces jointes partout.",
+      "ordreDimensions": ["outils", "donnees", "partage", "competences", "publics"],
+      "etapes": []
+    },
+    {
+      "id": "scene",
+      "statut": "en-preparation",
+      "prenom": "Marc",
+      "age": 39,
+      "metier": "Metteur en scène",
+      "accroche": "Une création en répétitions, une tournée à organiser.",
+      "ordreDimensions": ["partage", "publics", "donnees", "outils", "competences"],
+      "etapes": []
+    },
+    {
+      "id": "arts-visuels",
+      "statut": "en-preparation",
+      "prenom": "Nadia",
+      "age": 58,
+      "metier": "Plasticienne",
+      "accroche": "Un inventaire rigoureux, et des portfolios refaits à la main.",
+      "ordreDimensions": ["donnees", "outils", "publics", "competences", "partage"],
+      "etapes": []
+    }
+  ]
+}

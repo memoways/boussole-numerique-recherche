@@ -128,6 +128,10 @@ Le point de création des ressources Coolify a été détaillé le 29 août 2026
 
 Le premier démarrage réel de Boussole API a révélé une incompatibilité du bundle ESM avec les dépendances CommonJS d’Express : la ressource redémarrait avec `Dynamic require of "tty" is not supported`. Une seconde erreur a montré qu’une surcharge pnpm globale imposait `path-to-regexp` 0.1.13 au routeur d’Express 5, qui attend son API moderne. L’API est maintenant compilée en CommonJS avec les paquets Node externalisés, son runtime contient les dépendances de production et la surcharge est limitée à `router>path-to-regexp: 8.3.0`. Le démarrage de l’artefact runtime a été validé localement. Le redéploiement Coolify doit maintenant faire apparaître `Partner feedback API listening on 3001` puis permettre l’émission du certificat du FQDN API.
 
+### Démonstration playback (lot 1, octobre 2026)
+
+Pour répondre au PRD « prototype démo playback », le site accueille `/experience/demo` : une démonstration fictive de la future Boussole, jouée à l’écran à partir de trois personnes (Claire, Marc, Nadia), sans saisie ni appel d’IA. Le lot 1 livre le socle : routage par URL, mode immersif, choix du persona, message de confiance et avis final, qui est le seul envoi réel. Les conversations des trois personas arrivent aux lots 2 et 3 ; d’ici là, leurs étapes affichent un écran « en préparation » et la démo reste accessible uniquement par son URL directe. L’avis est écrit dans la base Notion « Retours démo Boussole » par l’API partenaire, sans PostgreSQL ; la dictée est transcrite, relue puis envoyée sous forme de texte, et l’audio n’est jamais conservé. Voir [`docs/PLAN_DEMO_PLAYBACK_2026-10-14.md`](docs/PLAN_DEMO_PLAYBACK_2026-10-14.md) et [`docs/ETAT_LOT1_DEMO_PLAYBACK_2026-10-14.md`](docs/ETAT_LOT1_DEMO_PLAYBACK_2026-10-14.md).
+
 ## 5. Décisions structurantes
 
 | Décision | Raison | Effet pratique |
@@ -262,6 +266,7 @@ Le portail statique et le flux de base du module partenaire sont actifs en produ
 | Console `/admin` | Accessible et testée | Contrôler export, révocation et régénération avant la clôture du pilote |
 | Transcription Deepgram | Configurée et testée | Contrôler ponctuellement transcription, correction manuelle et absence de conservation de l’audio |
 | E-mails Dreamlit | Boîte d’envoi livrée, workflow non publié | Le transport PostgreSQL public répond en TLS ; résoudre la confiance du certificat Coolify côté Dreamlit avant de connecter puis publier le workflow |
+| Démo playback `/experience/demo` | Socle et avis livrés (v1.4.0) ; parcours Claire au lot 2 | Configurer `NOTION_TOKEN` et `NOTION_FEEDBACK_DB_ID` sur Coolify, puis envoyer un avis de test |
 | Manifestations d’intérêt | Frontend et API livrés | Contrôler une première soumission artiste de test et l’export dans `/admin` ; il ne s’agit pas encore d’un questionnaire artiste individuel |
 
 Le domaine public de référence est **https://boussole-culture-recherche.memoways.com**. Cette valeur est le défaut du Dockerfile et doit aussi être renseignée comme variables de build `SITE_URL` et `VITE_SITE_URL` dans Coolify afin que les URL canoniques, Open Graph, le sitemap, `robots.txt`, `llms.txt` et les données structurées restent cohérents lors du déploiement. Les deux FQDN publics utilisent des CNAME DNS only vers `lime.1024b.net` ; la procédure de contrôle actualisée est documentée dans [`docs/TUTORIEL_CLOUDFLARE_CNAME_COOLIFY_QUESTIONNAIRE_2026-08-27.md`](docs/TUTORIEL_CLOUDFLARE_CNAME_COOLIFY_QUESTIONNAIRE_2026-08-27.md).

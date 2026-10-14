@@ -12,6 +12,8 @@ import { SignJWT, jwtVerify } from "jose";
 import { z } from "zod";
 import { getConfig } from "./config.js";
 import { closePool, getPool } from "./db.js";
+import { TranscriptionError, transcribeAudio } from "./deepgram.js";
+import { buildNotionFeedbackPage, createNotionPage, demoFeedbackSchema } from "./demo-feedback.js";
 import { sendOptionalMail } from "./mail.js";
 import { PARTNER_QUESTIONNAIRE_V1 } from "./questionnaire.js";
 import { createResponseRecap } from "./response-recap.js";
@@ -356,18 +358,45 @@ app.post("/api/public/invitations/:token/transcribe", express.raw({ type: ["audi
   if (!config.DEEPGRAM_API_KEY) return res.status(503).json({ error: "La réponse vocale n’est pas encore activée." });
   if (!Buffer.isBuffer(req.body) || !req.body.length) return res.status(400).json({ error: "Aucun enregistrement audio reçu." });
   const contentType = req.headers["content-type"] ?? "audio/webm";
-  const deepgramResponse = await fetch("https://api.deepgram.com/v1/listen?model=nova-3&smart_format=true&language=fr", {
-    method: "POST",
-    headers: { Authorization: `Token ${config.DEEPGRAM_API_KEY}`, "Content-Type": contentType },
-    body: req.body,
-  });
-  if (!deepgramResponse.ok) {
-    console.error("Deepgram transcription failed", deepgramResponse.status);
-    return res.status(502).json({ error: "La transcription n’a pas pu être réalisée. Vous pouvez répondre par écrit." });
+  try {
+    res.json({ transcript: await transcribeAudio(config.DEEPGRAM_API_KEY, req.body, contentType) });
+  } catch (error) {
+    console.error("Deepgram transcription failed", error instanceof TranscriptionError ? error.status : "network");
+    res.status(502).json({ error: "La transcription n’a pas pu être réalisée. Vous pouvez répondre par écrit." });
   }
-  const payload = await deepgramResponse.json() as { results?: { channels?: Array<{ alternatives?: Array<{ transcript?: string }> }> } };
-  const transcript = payload.results?.channels?.[0]?.alternatives?.[0]?.transcript?.trim() ?? "";
-  res.json({ transcript });
+});
+
+// Démo playback : seul l’avis final est réellement envoyé. Ni l’audio ni le commentaire ne sont journalisés.
+app.post("/api/public/demo/transcribe", express.raw({ type: ["audio/*", "application/octet-stream"], limit: "10mb" }), async (req, res) => {
+  if (!consumeRateLimit(req, res, "demo-transcribe", 10, 60 * 60 * 1000)) return;
+  if (!config.DEEPGRAM_API_KEY) return res.status(503).json({ error: "La transcription n’est pas disponible pour le moment. Tu peux écrire ton avis." });
+  if (!Buffer.isBuffer(req.body) || !req.body.length) return res.status(400).json({ error: "Aucun enregistrement audio reçu." });
+  const contentType = req.headers["content-type"] ?? "audio/webm";
+  try {
+    res.json({ transcript: await transcribeAudio(config.DEEPGRAM_API_KEY, req.body, contentType) });
+  } catch (error) {
+    console.error("Demo transcription failed", error instanceof TranscriptionError ? error.status : "network");
+    res.status(502).json({ error: "La transcription n’a pas abouti. Tu peux écrire ton avis." });
+  }
+});
+
+app.post("/api/public/demo-feedback", async (req, res) => {
+  if (!consumeRateLimit(req, res, "demo-feedback", 5, 60 * 60 * 1000)) return;
+  const parsed = demoFeedbackSchema.safeParse(req.body);
+  if (!parsed.success) return res.status(400).json({ error: "L’avis est incomplet ou trop long." });
+  const { website, ...feedback } = parsed.data;
+  // Champ caché anti-robots : une réponse neutre, sans rien écrire.
+  if (website?.trim()) return res.status(202).json({ message: "Merci, ton avis est bien arrivé." });
+  if (!config.NOTION_TOKEN || !config.NOTION_FEEDBACK_DB_ID) {
+    return res.status(503).json({ error: "La réception des avis n’est pas encore activée." });
+  }
+  try {
+    await createNotionPage(config.NOTION_TOKEN, buildNotionFeedbackPage(feedback, config.NOTION_FEEDBACK_DB_ID));
+  } catch (error) {
+    console.error("Demo feedback write failed", error instanceof Error ? error.message : "unknown");
+    return res.status(502).json({ error: "L’envoi n’a pas abouti, tu peux réessayer." });
+  }
+  res.json({ message: "Merci, ton avis est bien arrivé." });
 });
 
 app.post("/api/admin/login", async (req, res) => {

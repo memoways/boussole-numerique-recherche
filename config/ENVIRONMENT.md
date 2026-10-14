@@ -34,6 +34,8 @@ Le questionnaire partenaire et le formulaire public de manifestation d’intér�
 | `ADMIN_EMAIL` | Configuration | E-mail administrateur initial : `ulrich.fischer@memoways.com`. |
 | `ADMIN_PASSWORD` | Secret | Mot de passe long, unique et stocké uniquement dans Coolify. |
 | `DEEPGRAM_API_KEY` | Secret optionnel | Active la transcription des réponses vocales ; absente, la réponse écrite reste disponible. |
+| `NOTION_TOKEN` | Secret optionnel | Jeton de l’intégration interne Notion « Boussole démo » (capacité « insérer du contenu » uniquement). Active l’envoi de l’avis final de la démonstration `/experience/demo` ; absent, l’endpoint répond 503. |
+| `NOTION_FEEDBACK_DB_ID` | Configuration optionnelle | Identifiant de la base Notion « 💬 Retours démo Boussole » (`b706f947bc904ab9827b2cca81af8b09`). |
 | `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `MAIL_FROM` | Secrets et configuration optionnels | Activent l’envoi facultatif des invitations personnelles ; les récapitulatifs sont placés dans une boîte d’envoi PostgreSQL pour Dreamlit. |
 | `RUN_MIGRATIONS` | Configuration | `true` au premier déploiement ou après une migration contrôlée. |
 

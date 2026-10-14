@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
@@ -25,6 +25,12 @@ import PartnerPresentation from "./pages/PartnerPresentation";
 import PartnerQuestionnaire from "./pages/PartnerQuestionnaire";
 import PartnerAdmin from "./pages/PartnerAdmin";
 import Ressources from "./pages/Ressources";
+
+// La démonstration playback est chargée à la demande : ses écrans n’alourdissent pas le reste du site.
+const ExperienceDemo = lazy(() => import("./pages/ExperienceDemo"));
+
+const DEMO_ROOT = "/experience/demo";
+const isDemoPath = (pathname: string) => pathname === DEMO_ROOT || pathname.startsWith(`${DEMO_ROOT}/`);
 
 type HistoricalDocumentProps = {
   title: string;
@@ -62,6 +68,21 @@ function LegacyRedirect({ to, label }: { to: string; label: string }) {
 
 function Router() {
   const [location] = useLocation();
+
+  // Mode immersif : la démonstration n’affiche ni menu, ni fil d’Ariane, ni pied de page du site.
+  // Toutes ses étapes partagent la même entrée SEO (noindex).
+  if (isDemoPath(location)) {
+    return (
+      <>
+        <SeoMeta pathname={DEMO_ROOT} />
+        <a href="#contenu-principal" className="skip-link">Aller au contenu principal</a>
+        <ScrollToTop />
+        <Suspense fallback={<p role="status" className="px-4 py-20 text-center text-slate-700">Chargement de la démonstration…</p>}>
+          <ExperienceDemo />
+        </Suspense>
+      </>
+    );
+  }
 
   return (
     <>

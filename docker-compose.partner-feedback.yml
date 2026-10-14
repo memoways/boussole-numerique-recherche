@@ -27,6 +27,8 @@ services:
       ADMIN_EMAIL: ${ADMIN_EMAIL:-ulrich.fischer@memoways.com}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD}
       DEEPGRAM_API_KEY: ${DEEPGRAM_API_KEY:-}
+      NOTION_TOKEN: ${NOTION_TOKEN:-}
+      NOTION_FEEDBACK_DB_ID: ${NOTION_FEEDBACK_DB_ID:-}
       SMTP_HOST: ${SMTP_HOST:-}
       SMTP_PORT: ${SMTP_PORT:-587}
       SMTP_USER: ${SMTP_USER:-}

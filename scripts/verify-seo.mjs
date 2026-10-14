@@ -75,7 +75,7 @@ for (const url of indexedUrls) {
   }
 }
 
-for (const path of ["/partenaires/questionnaire", "/partenaires/admin", "/admin"]) {
+for (const path of ["/partenaires/questionnaire", "/partenaires/admin", "/admin", "/experience/demo"]) {
   const htmlPath = resolve(distDir, path.slice(1), "index.html");
   const html = await readFile(htmlPath, "utf8");
   assert(/<meta name="robots" content="noindex,follow"\s*\/>/.test(html), `${path} doit être explicitement non indexable.`);
@@ -92,4 +92,4 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log(`Vérification SEO-GEO réussie : ${indexedUrls.length} pages indexables et 3 parcours privés contrôlés.`);
+console.log(`Vérification SEO-GEO réussie : ${indexedUrls.length} pages indexables et 4 parcours privés contrôlés.`);
