@@ -136,6 +136,8 @@ Pour répondre au PRD « prototype démo playback », le site accueille `/experi
 
 Le lot 2 rend la démo vivante avec un premier parcours complet, celui de Claire, productrice cinéma. Chaque échange suit la même grammaire : la Boussole pose une question très concrète, Claire répond (cases, scénario ou voix), la Boussole prend note, puis le panneau « Ce que la Boussole retient » condense la parole en extraits, en notes et en repères. Ce panneau ne s’anime pas à chaque étape, pour montrer la condensation sans lasser. La restitution commence par ce qui fonctionne, relie chaque constat à une phrase dite et n’affiche aucun chiffre : seuls des niveaux qualitatifs (Exploration, Bricolage, Structuré, Fluide). Tout l’état vient de l’URL et du JSON, si bien qu’une étape partagée ou rechargée s’affiche à l’identique. La démo est désormais annoncée depuis `/experience` ; Marc et Nadia suivront au lot 3. Voir [`docs/ETAT_LOT2_DEMO_PLAYBACK_2026-10-14.md`](docs/ETAT_LOT2_DEMO_PLAYBACK_2026-10-14.md).
 
+La relecture du parcours Claire a recentré le propos : photographier des pratiques plutôt que des anecdotes, ne jamais juger, écouter ce qui pèse, et parler de redondance des informations, de source de vérité, de transmission des processus et d’IA nourrie de contexte plutôt que de nommage de fichiers. L’échelle devient Exploration · Improvisation · Organisé · Orchestré (« Bricolage » était perçu comme négatif) et les points d’étape passent dans un bloc replié. Les trois scripts ont été réécrits dans une annexe v2 du PRD, à valider avant la refonte de Claire (lot 2bis) puis Marc et Nadia (lot 3).
+
 ## 5. Décisions structurantes
 
 | Décision | Raison | Effet pratique |
