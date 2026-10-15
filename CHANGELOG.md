@@ -2,6 +2,15 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.6.2] — 2026-10-15 — Démo : échanges découpés en pages, écriture plus rapide
+
+### Modifié
+
+- Un échange chargé n’est plus affiché sur un seul écran. Pour les échanges « outils » (ex. échange 1 de Claire), la page 1 montre la question, la réponse et les outils repérés ; la page 2 le classement du plus au moins important et l’approfondissement. Une page « Ce que la Boussole retient » s’ajoute quand la réception compte au moins deux blocs (curseurs à valider, « D’autres regards », point d’étape). Les échanges légers restent sur une seule page.
+- Un bouton orange « Voir la suite » passe d’une page à l’autre ; « Passer l’animation » affiche la fin de la page en cours. « Partie n sur N » s’affiche à côté du numéro d’échange, et chaque page repart du haut.
+- Transcription écrite environ 2,4 fois plus vite (55 ms par mot au lieu de 130, durée bornée entre 0,9 et 2,8 s) ; pauses de l’approfondissement raccourcies.
+- `scripts/check-demo-playback.mjs` suit les nouvelles pages ; le sélecteur de l’onde est corrigé.
+
 ## [1.6.1] — 2026-10-15 — Boutons d’appel lisibles et hero de la démo plus engageant
 
 ### Modifié

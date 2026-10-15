@@ -53,6 +53,8 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
   const sliders = step.retenu?.curseurs ?? [];
   const hasCorrection = sliders.some((slider) => slider.corrigeA);
   const tools = step.type === "cases" ? step.outils : undefined;
+  // Une réception chargée (plusieurs blocs : curseurs à valider, ressources, point d’étape) a sa propre page.
+  const receptionBlocks = (sliders.length > 0 && step.type !== "curseurs" ? 1 : 0) + ((step.ressources ?? []).length > 0 ? 1 : 0) + (step.pointEtape ? 1 : 0);
   const playback = useStepPlayback({
     // Un échange « outils » commence par la parole : rien n’est coché d’avance.
     choices: !tools && (step.type === "cases" || step.type === "scenario") ? choix.length : 0,
@@ -60,8 +62,14 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
     transcription: step.reponse.transcription,
     hasRetained: retainedItems.length > 0,
     hasCorrection,
+    splitReception: receptionBlocks >= 2 && step.type !== "curseurs",
   });
-  const { phase, reducedMotion, reached } = playback;
+  const { phase, reducedMotion, reached, page, pageCount } = playback;
+  const isFirstPage = page === 1;
+  const isToolsPage = Boolean(tools) && page === 2;
+  // Page « ce que la Boussole retient » : la dernière, sauf pour les outils sans page de réception dédiée.
+  const isLastPage = page === pageCount && pageCount > 1 && !(tools && pageCount === 2);
+  const pageRef = useRef(1);
 
   const answerRef = useRef<HTMLDivElement>(null);
   const toolsRef = useRef<HTMLDivElement>(null);
@@ -76,8 +84,15 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
     target?.scrollIntoView({ block: "nearest", behavior: reducedMotion ? "auto" : "smooth" });
   }, [phase, reducedMotion, step.pointEtape]);
 
+  // À chaque nouvelle page, on repart du haut : l’écran n’est jamais plus long que ce qu’il montre.
+  useEffect(() => {
+    if (pageRef.current === page) return;
+    pageRef.current = page;
+    window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" });
+  }, [page, reducedMotion]);
+
   const go = (target: NamedStep | number | null) => { if (target !== null) navigate(stepPath(persona.id, target)); };
-  const primaryAction = playback.isWaiting ? playback.start : playback.isPlaying ? playback.skip : () => go(next);
+  const primaryAction = playback.isWaiting ? playback.start : playback.isPlaying ? playback.skip : playback.isPaused ? playback.resume : () => go(next);
   useDemoKeyboard({ onAdvance: primaryAction, onNext: () => go(next), onPrevious: () => go(previous) });
 
   const receptionPlayed = reached("retained");
@@ -107,13 +122,21 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
         <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-sm">
           <p className="font-semibold" style={{ color: color.text }}>
             {step.id === null ? DEMO_CONTENT.ideal.libelle : `${fillTemplate(lecture.echange, { n: String(step.id), total: String(persona.etapes.length) })} · ${dimensions[step.dimension!]}`}
+            {pageCount > 1 && <span className="font-normal text-slate-700"> · {fillTemplate(lecture.partie, { n: String(page), total: String(pageCount) })}</span>}
           </p>
           <Link href={stepPath(persona.id, "restitution")} className="font-semibold text-slate-700 underline underline-offset-4 hover:text-[#515792]">{lecture.allerRestitution}</Link>
         </div>
 
-        {step.rebond && <MemoryEcho etape={step.rebond.etape} rappel={step.rebond.rappel} reducedMotion={reducedMotion} />}
+        {!isFirstPage && (
+          <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-700">{isLastPage && step.retenu?.extrait ? fillTemplate(lecture.rappelDit, { prenom: persona.prenom }) : lecture.boussole}</p>
+            <h1 id="demo-question" className="mt-1 text-base font-normal leading-snug text-slate-900">{isLastPage && step.retenu?.extrait ? `« ${step.retenu.extrait} »` : step.question}</h1>
+          </div>
+        )}
 
-        <motion.div {...fade()} className="rounded-2xl border border-slate-200 border-l-4 bg-white p-3.5 [border-left-color:var(--dim)] sm:p-5" style={dimensionVar(color.base)}>
+        {isFirstPage && step.rebond && <MemoryEcho etape={step.rebond.etape} rappel={step.rebond.rappel} reducedMotion={reducedMotion} />}
+
+        {isFirstPage && <motion.div {...fade()} className="rounded-2xl border border-slate-200 border-l-4 bg-white p-3.5 [border-left-color:var(--dim)] sm:p-5" style={dimensionVar(color.base)}>
           <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#515792]">
             <Compass className="h-4 w-4" aria-hidden="true" />
             {lecture.boussole}
@@ -127,9 +150,9 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
               {step.questionSuite && <p className="mt-3 text-lg font-normal text-slate-950 sm:text-xl">{step.questionSuite}</p>}
             </div>
           )}
-        </motion.div>
+        </motion.div>}
 
-        {showChoices && step.options && (
+        {isFirstPage && showChoices && step.options && (
           <motion.div {...fade(0.15)}>
             {step.type === "cases"
               ? <ChecklistAnswer options={step.options} choix={choix} selecting={phase === "selecting"} finished={voiceStarted} prenom={persona.prenom} />
@@ -137,7 +160,7 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
           </motion.div>
         )}
 
-        {voiceStarted && (
+        {isFirstPage && voiceStarted && (
           <motion.div ref={answerRef} {...fade()} className="scroll-mb-32 rounded-2xl bg-[#515792]/[0.06] p-3.5 sm:ml-8 sm:p-5">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-700">{persona.prenom}</p>
@@ -157,9 +180,9 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
           </motion.div>
         )}
 
-        {tools && step.options && phaseReached(phase, "detecting") && (
+        {tools && step.options && phaseReached(phase, "detecting") && (isFirstPage || isToolsPage) && (
           <div ref={toolsRef} className="scroll-mb-32">
-            <ToolsAnswer tools={tools} options={step.options} prenom={persona.prenom} phase={phase} reducedMotion={reducedMotion} />
+            <ToolsAnswer tools={tools} options={step.options} prenom={persona.prenom} phase={phase} reducedMotion={reducedMotion} part={isToolsPage ? 2 : 1} />
           </div>
         )}
 
@@ -194,7 +217,7 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
         )}
         <p className="sr-only" aria-live="polite">{announce}</p>
 
-        {playback.isWaiting && step.id === 1 && (
+        {playback.isWaiting && step.id === 1 && isFirstPage && (
           <p data-demo-consigne className="flex items-start gap-2 rounded-xl border border-[#E07428]/50 bg-[#E07428]/10 px-3 py-2 text-sm font-semibold leading-snug text-slate-900">
             <MousePointerClick className="mt-0.5 h-4 w-4 shrink-0 text-[#A8440D]" aria-hidden="true" />
             {lecture.consigne}
@@ -224,8 +247,8 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
           <button type="button" onClick={primaryAction} disabled={playback.isDone && next === null} className={`${playback.isPlaying ? demoSecondaryButton : demoPrimaryButton} flex-1 sm:flex-none`}>
             {playback.isWaiting && <Mic className="h-5 w-5" aria-hidden="true" />}
             {playback.isPlaying && <FastForward className="h-4 w-4" aria-hidden="true" />}
-            {playback.isWaiting ? fillTemplate(lecture.reponseDe, { prenom: persona.prenom }) : playback.isPlaying ? lecture.passerAnimation : continueLabel ?? lecture.continuer}
-            {playback.isDone && <ArrowRight className="h-5 w-5" aria-hidden="true" />}
+            {playback.isWaiting ? fillTemplate(lecture.reponseDe, { prenom: persona.prenom }) : playback.isPlaying ? lecture.passerAnimation : playback.isPaused ? lecture.suite : continueLabel ?? lecture.continuer}
+            {(playback.isDone || playback.isPaused) && <ArrowRight className="h-5 w-5" aria-hidden="true" />}
           </button>
           <MemoryDrawer {...panelProps} />
         </DemoActions>

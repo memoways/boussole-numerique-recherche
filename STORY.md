@@ -321,3 +321,5 @@ Les contenus éditoriaux restent principalement dans les composants React. Une s
 | [`docs/PLAN_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md`](docs/PLAN_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md) | Décisions validées sur le statut du site compagnon, les deux profils et les jalons de co-conception |
 
 Le 15 octobre 2026, à la suite d’une relecture de l’accueil et de `/experience`, les boutons orange passent tous en texte blanc, les labels orange sans action sont retirés, et le bouton vers la démonstration monte tout en haut de la page Expérience, dans un hero réécrit pour donner envie d’essayer. Le hero de l’accueil est agrandi dans le même but.
+
+Le 15 octobre 2026, la démo est allégée : la première page de l’échange 1 de Claire mêlait question, réponse, outils repérés, classement et approfondissement. Les échanges chargés sont désormais coupés en deux ou trois pages reliées par un bouton « Voir la suite », et la transcription s’écrit plus de deux fois plus vite pour ne pas gêner la lecture.

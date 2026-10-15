@@ -59,8 +59,14 @@ const labelsOverlap = (page) => page.evaluate(() => [...document.querySelectorAl
 
 async function playStep(page, { skip = false, prenom = "Claire" } = {}) {
   await page.getByRole("button", { name: `Réponse de ${prenom}` }).click();
-  if (skip) await page.getByRole("button", { name: "Passer l’animation" }).click();
-  await page.locator("main button").filter({ hasText: /^(Continuer|Voir la restitution)/ }).waitFor({ timeout: 45000 });
+  // Un échange peut avoir plusieurs pages : on enchaîne les « Voir la suite » jusqu’au bouton de sortie.
+  const exit = page.locator("main button").filter({ hasText: /^(Continuer|Voir la restitution|Voir la suite)/ });
+  for (let guard = 0; guard < 4; guard += 1) {
+    if (skip) await page.getByRole("button", { name: "Passer l’animation" }).click({ timeout: 2000 }).catch(() => {});
+    await exit.waitFor({ timeout: 45000 });
+    if (!/^Voir la suite/.test((await exit.textContent()) ?? "")) return;
+    await exit.click();
+  }
 }
 
 async function walk(label, viewport, { skip, persona: id = "cinema" }) {
@@ -70,7 +76,7 @@ async function walk(label, viewport, { skip, persona: id = "cinema" }) {
   const check = async (name) => { const o = await overflow(page); maxOverflow = Math.max(maxOverflow, o); if (o > 0) results.push(`FAIL ${label} débordement ${o}px sur ${name}`); };
 
   await page.goto(`${BASE}/experience`);
-  ok((await page.getByRole("link", { name: /Voir une démonstration du parcours/ }).count()) === 1, `${label} /experience : bouton d’appel en haut de page`);
+  ok((await page.getByRole("link", { name: /Voir une démonstration du parcours/ }).count()) === 2, `${label} /experience : bouton d’appel en haut de page et sous les écrans`);
   await check("/experience");
   const siteErrors = page.errors.splice(0);
   if (siteErrors.length) results.push(`NOTE ${label} /experience (hors démo, préexistant) : ${siteErrors.length} erreur(s) console : ${siteErrors[0].slice(0, 90)}`);
@@ -86,6 +92,8 @@ async function walk(label, viewport, { skip, persona: id = "cinema" }) {
 
   for (let n = 1; n <= P.steps; n++) {
     await page.waitForURL(`**/${id}/${n}`);
+    // Le rappel « Tu disais plus tôt » est sur la première page de l’échange : on le mesure avant de jouer la suite.
+    const rebondCount = await page.getByText("Tu disais plus tôt").count();
     await playStep(page, { skip: skip && n % 2 === 0, prenom: P.prenom });
     await check(`étape ${n}`);
     if ([P.correction.step, P.drawer.step, P.steps].includes(n)) await page.screenshot({ path: `${OUT}/${label}-etape-${n}.png`, fullPage: true });
@@ -103,7 +111,7 @@ async function walk(label, viewport, { skip, persona: id = "cinema" }) {
       await check(`étape ${n}, regard ouvert`);
       await page.screenshot({ path: `${OUT}/${label}-etape-${n}-regard-ouvert.png`, fullPage: true });
     }
-    ok((await page.getByText("Tu disais plus tôt").count()) === (P.rebonds.includes(n) ? 1 : 0), `${label} étape ${n} : rebond mémoire ${P.rebonds.includes(n) ? "présent" : "absent"}`);
+    ok(rebondCount === (P.rebonds.includes(n) ? 1 : 0), `${label} étape ${n} : rebond mémoire ${P.rebonds.includes(n) ? "présent" : "absent"}`);
     // Lot 4 : l’ancien bloc sous la réponse a disparu ; la validation humaine et « D’autres regards » restent.
     ok((await page.locator("main").getByText("La Boussole retient", { exact: true }).count()) === 0, `${label} étape ${n} : ancien bloc « La Boussole retient » absent`);
     // Curseurs en contexte : un résumé de ce qui a été dit et, sous chaque curseur, les mots qui le justifient.
@@ -218,7 +226,11 @@ for (const id of Object.keys(PERSONAS)) {
   await page.waitForTimeout(200);
   ok((await page.getByRole("button", { name: "Passer l’animation" }).count()) === 1, "clavier : Entrée lance la réponse");
   await page.keyboard.press(" ");
-  ok((await page.locator("main button").filter({ hasText: /^Continuer/ }).count()) === 1, "clavier : Espace passe l’animation");
+  ok((await page.locator("main button").filter({ hasText: /^Voir la suite/ }).count()) === 1, "clavier : Espace passe l’animation et s’arrête à la fin de la page 1");
+  // L’échange 1 (outils) compte deux pages : réponse, puis classement et approfondissement.
+  await page.keyboard.press("Enter");
+  await page.keyboard.press(" ");
+  ok((await page.locator("main button").filter({ hasText: /^Continuer/ }).count()) === 1, "clavier : page 2 (classement) jouée, Continuer disponible");
   await page.keyboard.press("Enter");
   await page.waitForURL("**/cinema/2");
   ok(true, "clavier : Entrée continue vers l’étape 2");
@@ -285,8 +297,8 @@ for (const id of Object.keys(PERSONAS)) {
   });
   ok(typed > 3 && (await page.getByText("Marc parle…").count()) === 0, `parole : le texte s’écrit pendant l’onde, sans attente préalable (${typed} caractères à 0,7 s)`);
   ok((await page.getByRole("button", { name: "Passer l’animation" }).count()) === 1, "parole : la lecture est encore en cours pendant l’écriture");
-  await page.locator("main button").filter({ hasText: /^Continuer/ }).waitFor({ timeout: 45000 });
-  const amplitude = await page.evaluate(() => document.querySelector("main .h-10[aria-hidden='true']")?.style.transform ?? "");
+  await page.locator("main button").filter({ hasText: /^(Continuer|Voir la suite)/ }).waitFor({ timeout: 45000 });
+  const amplitude = await page.evaluate(() => document.querySelector("main .h-8[aria-hidden='true']")?.style.transform ?? "");
   ok(/scaleY\(0\.45\)/.test(amplitude), `parole : l’onde est au repos quand le texte est terminé (${amplitude})`);
   ok(page.errors.length === 0, `parole et transcription sans erreur console${page.errors.length ? ` : ${page.errors.join(" | ")}` : ""}`);
   await context.close();
@@ -321,7 +333,7 @@ for (const id of Object.keys(PERSONAS)) {
   const { context, page } = await newPage({ width: 1280, height: 900 }, { reducedMotion: "reduce" });
   await page.goto(`${BASE}/experience/demo/cinema/4`);
   await page.getByRole("button", { name: "Réponse de Claire" }).click();
-  ok((await page.locator("main button").filter({ hasText: /^Continuer/ }).count()) === 1, "reduced-motion : réponse complète dès le clic");
+  ok((await page.locator("main button").filter({ hasText: /^(Continuer|Voir la suite)/ }).count()) === 1, "reduced-motion : réponse complète dès le clic");
   ok(await page.getByText(CORRECTION).isVisible(), "reduced-motion : correction affichée");
   ok((await regardButton(page).count()) === 0, "reduced-motion : pas de premier regard à l’étape 4");
   await page.goto(`${BASE}/experience/demo/cinema/8`);
