@@ -220,6 +220,83 @@ Contenu :
 - l'envoi réel de 2 avis de test ;
 - la clôture : documentation finale et mise à jour de la tâche Notion liée.
 
+### Lot 4 — Ressources liées et finitions (v1.5.0) · ajouté le 15 octobre 2026
+
+**Origine** : retour d’Ulrich du 15 octobre 2026 sur l’échange 1 de Marc (capture annotée). Le bloc « La Boussole retient » sous la réponse répète le panneau de droite. Il faut le remplacer par des ressources liées : la conversation ne doit pas « tomber du ciel ». Ce qui est dit s’ancre dans un corpus de recherche traçable, la veille curée par Ulrich depuis un an. Le but est d’apporter de la nuance, d’ouvrir et de donner envie d’en savoir plus, y compris par des pistes de réflexion à creuser.
+
+**Source** : base Notion « Ressources web MW » (`collection://2be51168-2fc3-81f1-89a4-000b12cbfbb4`), relation `Projets Memoways` vers le projet « Boussole Numérique Culture » (`302511682fc38000a31cf63089c76477`). État au 15 octobre 2026 : 321 ressources liées, dont 34 « En ligne », 41 « Interne MW » et 246 « À définir ».
+
+Champs utiles :
+- `Titre de la ressource` et `Auteur` ;
+- `URL`, la source publique ;
+- `Description courte` et `AI summary` ;
+- `Labels`, par exemple Philosophie, Société, Artistique, Bonnes pratiques ;
+- le corps de la page, qui contient en général le texte de l’article et permet de vérifier une citation exacte.
+
+Les ressources mêlent français et anglais. Beaucoup sont techniques (RAG, agents, Claude Code), et plusieurs URL portent des traceurs de newsletter (`utm_*`, redirections de type `sp1-brevo`).
+
+#### Ce qui change à l’écran
+
+1. **Retrait du bloc « La Boussole retient »** sous la réponse : notes et extrait sont déjà dans le panneau « Ce que la Boussole retient » et surlignés dans la transcription.
+   - **On garde, hors de ce bloc**, les curseurs induits avec « {prénom} valide » et la correction animée : c’est la validation humaine (*human in the loop*) du parcours, pas une redite. Ils passent dans un encadré compact « D’après ce que tu dis… », sous la réponse.
+   - Sur smartphone, le panneau est dans un tiroir : le bouton « Ce que je retiens (n) » doit signaler visiblement l’ajout (pulsation brève, désactivée en mouvement réduit). L’annonce `aria-live` existante reste.
+2. **Nouveau bloc de ressources liées**, sous la réponse, après la réception et avant « Un premier regard ».
+   - Libellé à valider : « Pour aller plus loin », « Ressources liées » ou « D’autres regards ».
+   - Une ou deux citations courtes, chacune avec son auteur, le titre de la ressource, le média et un lien cliquable « Lire l’article », qui s’ouvre dans un nouvel onglet avec `rel="noopener noreferrer"` et la mention « (nouvel onglet) » pour les lecteurs d’écran.
+   - Quand il y a deux citations, elles se répondent : un regard pratique ou factuel, puis une ouverture (philosophique, éthique, sociétale ou artistique) ou un contrepoint qui nuance.
+   - Exemple donné par Ulrich : le travail en équipe n’est pas toujours efficace, mais exister ensemble est presque un but en soi, indépendamment du résultat.
+3. **Pas à chaque échange** : seulement quand ça fait sens. Proposition : quatre à sept échanges par parcours, jamais deux échanges de suite, au moins une ouverture par parcours.
+4. **Restitution** (proposition) : une ligne discrète sous les pistes, « Les citations de ce parcours viennent du corpus de veille du projet », avec un lien vers la page Ressources du site. Les liens des pistes restent limités aux pages Ressources existantes : décision inchangée.
+
+#### Données et contrôles
+
+- **Aucun appel à Notion au runtime** : la démo reste 100 % playback, sans jeton côté client.
+- **Catalogue** : un fichier `client/src/data/demo-ressources.json` contient, pour chaque ressource retenue :
+  - `id` (identifiant de la page Notion, pour la traçabilité) ;
+  - `titre`, `auteur`, `media` ;
+  - `url` publique et nettoyée ;
+  - `langue`.
+- **Étapes** : chaque étape concernée reçoit `ressources: [{ ref, citation, citationOriginale?, role: "pratique" | "ouverture" | "contrepoint" }]`.
+- **Citations** :
+  - courtes (30 mots au plus), exactes, attribuées et liées à leur source : droit de citation ;
+  - une citation d’une source anglaise s’affiche en français avec la mention « traduit de l’anglais », et l’original est conservé dans `citationOriginale` pour vérification.
+- **`verify-demo-content`** contrôle :
+  - les références existantes ;
+  - les URL en `https` sans paramètres de suivi ni redirection de newsletter ;
+  - la longueur des citations et `citationOriginale` pour toute langue autre que le français ;
+  - au plus deux citations par échange et au plus une ressource par échange ;
+  - quatre à sept échanges avec des ressources par parcours, jamais deux de suite, au moins une ouverture ;
+  - aucune ressource répétée dans un même parcours.
+- **Mesure** : `demo_ressource_ouverte` (persona, échange, ressource), sans donnée personnelle.
+- **Playwright** :
+  - ancien bloc absent ;
+  - curseurs et correction toujours visibles ;
+  - ressources aux bons échanges, liens avec `target` et `rel` ;
+  - signal du tiroir sur smartphone ;
+  - débordement et contraste du nouveau bloc à 1280 et 390 px.
+
+#### Méthode (comme pour l’annexe v2 : contenu validé avant le code)
+
+1. **Présélection par l’agent** avec le connecteur Notion. Pour chaque échange des trois parcours, chercher dans les ressources liées au projet celles qui touchent son enjeu :
+   - redondance et source de vérité ;
+   - transmission des processus et collaboration ;
+   - place de chaque information ;
+   - IA utile avec du contexte ;
+   - numérique responsable et souveraineté ;
+   - médiation et publics ;
+   - création artistique.
+   
+   Puis lire la page pour en extraire une citation exacte, et préférer les sources accessibles (sans paywall).
+2. **Sous-page Notion « Annexe v3 — ressources liées par échange »**, sous le PRD : un tableau par parcours avec l’échange, la ressource (lien vers la page Notion et vers la source), la citation, sa traduction, le rôle et la raison du choix, plus deux ou trois candidates de réserve par dimension.
+3. **Validation par Ulrich**, qui tranche aussi :
+   - les statuts éligibles (proposition : toute ressource liée au projet, la sélection valant validation ; passage de la ressource en « En ligne » dans Notion seulement avec son accord) ;
+   - la traduction des citations ;
+   - le libellé du bloc ;
+   - la ligne de la restitution.
+4. **Code**, puis contrôles et livraison.
+
+Le lot 4 intègre aussi les retours d’Ulrich sur Marc, Nadia et la comparaison, et les deux avis de test réels (avec accord). Prompt de reprise dans `HANDOFF.md`.
+
 ### Prompt de démarrage du lot 1, à coller dans une session fraîche (Sonnet 5.5, Worktree)
 
 ```
@@ -244,6 +321,7 @@ aucune écriture PostgreSQL pour les avis.
 | 1 Socle et avis | **Sonnet 5.5** | medium | Infrastructure et API bien spécifiées, motifs existants à recopier. |
 | 2 Claire | **Opus 5.5** | high | Machine à états, animations, accessibilité, fidélité au ton du PRD : c'est là que la qualité se joue. |
 | 3 Marc, Nadia, finitions | **Sonnet 5.5** | medium | Surtout du contenu JSON repris de l'annexe et la réutilisation du moteur. Repasser sur Opus seulement si la relecture du lot 2 demande des refontes du moteur. |
+| 4 Ressources liées et finitions | **Opus 5.5** | high | Curation éditoriale (choisir, citer, traduire, nuancer) dans un corpus de 321 ressources, puis retouche du moteur de lecture : le jugement compte plus que le volume de code. |
 
 Mode : session Claude Code en **Worktree**, avec permissions **Accepter les modifications automatiquement** (acceptEdits). Pas de mode Plan, puisque le plan est déjà validé et versionné. Fast mode inutile.
 
