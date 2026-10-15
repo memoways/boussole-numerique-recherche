@@ -48,13 +48,19 @@ fait sens, par 1 ou 2 citations courtes tirées des « Ressources web MW » lié
 avec auteur, média et lien cliquable vers la source. But : ancrer la conversation dans un corpus de recherche traçable,
 apporter de la nuance (un regard pratique et une ouverture philosophique, éthique, sociétale ou artistique, ou un
 contrepoint), titiller la curiosité. Exemple d'Ulrich : le travail en équipe n'est pas toujours efficace, mais exister
-ensemble est presque un but en soi. Pour les trois parcours.
+ensemble est presque un but en soi (ressource de référence : « Le travail intellectuel est-il en train de devenir vain ? »,
+Hubert Guillaud, page Notion 1d8ef8246ef94b25a583bbacfe7c9e08). Pour les trois parcours.
+Critères (Ulrich, 15.10.2026) : toutes les ressources liées au projet sont éligibles, quel que soit leur statut éditorial ;
+aucune ressource technique (RAG, agents, Claude Code, développement) ; au plus des tutoriels, méthodes ou bonnes pratiques
+accessibles aux non-techniciens (notamment sur l'IA) ; toujours présentées comme inspiration, ouverture et curiosité,
+jamais comme preuve ou prescription. Voir « Critères de sélection » dans la section « Lot 4 » du plan.
 Retours d'Ulrich sur Marc, Nadia et la comparaison : [COLLER ICI LES RETOURS].
 1) Présélection : pour chaque échange des 3 parcours, cherche les ressources liées pertinentes, lis la page pour une
-   citation exacte (≤ 30 mots), préfère les sources accessibles, nettoie les URL (sans utm ni redirection de newsletter).
+   citation exacte (≤ 30 mots) dans le bon article, préfère les sources accessibles, prends l'URL publique et l'auteur
+   dans le corps de la page quand le champ URL est une redirection de newsletter ou que le champ Auteur est vide.
    Rédige la sous-page Notion « Annexe v3 — ressources liées par échange » sous le PRD 87b186ac43774c24b787c5f24738dbc6
    (tableau par parcours : échange, ressource, citation, traduction si anglais, rôle, raison ; candidates de réserve).
-   ARRÊTE-TOI et demande-moi de la valider avant d'écrire du code (statuts éligibles, traduction, libellé du bloc).
+   ARRÊTE-TOI et demande-moi de la valider avant d'écrire du code (sélection, traduction, libellé du bloc).
 2) Après validation : demo-ressources.json (catalogue), champ ressources des étapes, bloc dans StepPlayer, curseurs
    gardés hors du bloc retiré, signal du tiroir mobile, événement demo_ressource_ouverte, verify-demo-content et
    check-demo-playback étendus (règles de la section « Lot 4 » du plan), puis les retours sur Marc, Nadia et la comparaison.
