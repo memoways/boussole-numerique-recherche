@@ -141,6 +141,11 @@ export default function Restitution({ persona }: { persona: DemoPersona }) {
             </li>
           ))}
         </ol>
+        {/* Les citations de « D’autres regards » viennent du corpus de veille ; les pistes restent liées aux seules pages Ressources. */}
+        <p className="mt-4 text-sm text-slate-700">
+          {copy.corpus}{" "}
+          <Link href="/ressources" className="font-semibold text-[#515792] underline underline-offset-4">{copy.corpusLien}</Link>
+        </p>
       </section>
 
       <DemoActions>

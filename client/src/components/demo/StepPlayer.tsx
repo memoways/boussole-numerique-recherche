@@ -2,6 +2,8 @@
  * Une interaction jouée de bout en bout, selon la grammaire du PRD : la Boussole pose la question,
  * la personne répond (cases, scénario ou voix), la Boussole prend note puis retient. Le panneau
  * « Ce que la Boussole retient » est la somme des étapes précédentes, plus celle-ci une fois reçue.
+ * Sous la réponse ne restent que la validation humaine (curseurs induits, correction) et, quand ça
+ * fait sens, « D’autres regards » : notes et extraits ne sont plus répétés hors du panneau (lot 4).
  */
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
@@ -23,6 +25,7 @@ import { DemoActions, demoPrimaryButton, demoSecondaryButton } from "./DemoShell
 import { DIMENSION_COLORS, dimensionVar } from "./demoTheme";
 import { MemoryColumn, MemoryDrawer } from "./MemoryPanel";
 import MilestoneCard from "./MilestoneCard";
+import RelatedResources from "./RelatedResources";
 import TypedTranscript from "./TypedTranscript";
 import { useDemoKeyboard } from "./useDemoKeyboard";
 import { useStepPlayback } from "./useStepPlayback";
@@ -57,12 +60,14 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
   const { phase, reducedMotion, reached } = playback;
 
   const answerRef = useRef<HTMLDivElement>(null);
-  const retainedRef = useRef<HTMLDivElement>(null);
+  const inducedRef = useRef<HTMLDivElement>(null);
+  const resourcesRef = useRef<HTMLElement>(null);
   const milestoneRef = useRef<HTMLDivElement>(null);
 
   // Le dernier bloc apparu reste visible, y compris sous la barre de commandes du smartphone.
   useEffect(() => {
-    const target = phase === "done" && step.pointEtape ? milestoneRef.current : phase === "retained" ? retainedRef.current : phase === "speaking" || phase === "selecting" ? answerRef.current : null;
+    const doneTarget = step.pointEtape ? milestoneRef.current : resourcesRef.current;
+    const target = phase === "done" ? doneTarget : phase === "retained" ? inducedRef.current : phase === "speaking" || phase === "selecting" ? answerRef.current : null;
     target?.scrollIntoView({ block: "nearest", behavior: reducedMotion ? "auto" : "smooth" });
   }, [phase, reducedMotion, step.pointEtape]);
 
@@ -160,35 +165,27 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
           </p>
         )}
 
-        {receptionPlayed && retainedItems.length > 0 && (
-          <motion.div ref={retainedRef} {...fade()} className="scroll-mb-32 rounded-2xl border border-dashed border-[#515792]/50 bg-white p-5">
-            <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#515792]">{lecture.retenuTitre}</p>
-            {sliders.length > 0 && !isSliderQuestion && (
-              <div className="mt-3">
-                <p className="mb-3 text-sm font-semibold text-slate-800">{lecture.induction}</p>
-                <InducedSliders sliders={sliders} corrected={false} reducedMotion={reducedMotion} />
-                <p className="mt-3 text-sm text-slate-700">{fillTemplate(lecture.valide, { prenom: persona.prenom })}</p>
-                <LevelHelp />
-              </div>
-            )}
-            {isSliderQuestion && correction && (
-              <p className="mt-2 text-sm font-semibold text-[#A8440D]">
-                {fillTemplate(lecture.corrige, { prenom: persona.prenom, libelle: correction.libelle, avant: correction.valeur, apres: correction.corrigeA! })}
-              </p>
-            )}
-            {(step.retenu?.tags ?? []).length > 0 && (
-              <ul className="mt-3 flex flex-wrap gap-2">
-                {step.retenu!.tags!.map((tag) => (
-                  <li key={tag} className="rounded-full border px-3 py-1 text-sm font-semibold text-slate-800" style={{ borderColor: `${color.base}80`, backgroundColor: `${color.base}14` }}>{tag}</li>
-                ))}
-              </ul>
-            )}
-            {!step.retenu?.tags?.length && !sliders.length && step.retenu?.extrait && (
-              <p className="mt-2 text-sm text-slate-800"><mark className="bg-[#E07428]/15 text-inherit">« {step.retenu.extrait} »</mark></p>
-            )}
+        {/* Validation humaine : la Boussole propose des niveaux d’après la réponse, la personne valide ou corrige. */}
+        {receptionPlayed && sliders.length > 0 && !isSliderQuestion && (
+          <motion.div ref={inducedRef} {...fade()} data-demo-induction className="scroll-mb-32 rounded-2xl border border-[#515792]/25 bg-white p-4 sm:ml-8 sm:p-5">
+            <p className="mb-3 text-sm font-semibold text-slate-800">{lecture.induction}</p>
+            <InducedSliders sliders={sliders} corrected={false} reducedMotion={reducedMotion} />
+            <p className="mt-3 text-sm text-slate-700">{fillTemplate(lecture.valide, { prenom: persona.prenom })}</p>
+            <LevelHelp />
+          </motion.div>
+        )}
+        {receptionPlayed && isSliderQuestion && correction && (
+          <motion.div ref={inducedRef} {...fade()} className="scroll-mb-32 sm:ml-8">
+            <p className="text-sm font-semibold text-[#A8440D]">
+              {fillTemplate(lecture.corrige, { prenom: persona.prenom, libelle: correction.libelle, avant: correction.valeur, apres: correction.corrigeA! })}
+            </p>
           </motion.div>
         )}
         <p className="sr-only" aria-live="polite">{announce}</p>
+
+        {playback.isDone && step.id !== null && (step.ressources ?? []).length > 0 && (
+          <RelatedResources ref={resourcesRef} personaId={persona.id} etape={step.id} ressources={step.ressources!} reducedMotion={reducedMotion} />
+        )}
 
         {playback.isDone && step.pointEtape && step.dimension && step.id !== null && (
           <div ref={milestoneRef}>

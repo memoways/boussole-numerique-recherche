@@ -8,6 +8,7 @@ export type DemoEventName =
   | "demo_etape_vue"
   | "demo_saut_chapitre"
   | "demo_regard_ouvert"
+  | "demo_ressource_ouverte"
   | "demo_restitution_vue"
   | "demo_comparaison_vue"
   | "demo_avis_commence"

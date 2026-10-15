@@ -3,7 +3,8 @@
  * qualitatives. Colonne droite rétractable sur ordinateur, tiroir du bas ouvert par un bouton flottant
  * sur smartphone. Seuls les éléments ajoutés à l’étape courante s’animent.
  */
-import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useAnimationControls } from "framer-motion";
 import { NotebookPen, PanelRightClose, PanelRightOpen, X } from "lucide-react";
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
 import { DEMO_CONTENT, fillTemplate, type DemoPersona, type DimensionId, type RadarLevel, type RetainedItem } from "@/lib/demoContent";
@@ -143,16 +144,44 @@ export function MemoryColumn({ open, onToggle, ...props }: MemoryPanelProps) {
   );
 }
 
+/**
+ * Le panneau est caché dans un tiroir sur smartphone : quand la réponse y ajoute des éléments, le bouton
+ * pulse brièvement (sauf en mouvement réduit). L’annonce `aria-live` de l’étape reste la voie accessible.
+ */
+function useAddedPulse(count: number, reducedMotion: boolean) {
+  const previous = useRef(count);
+  const [pulses, setPulses] = useState(0);
+  useEffect(() => {
+    if (count > previous.current && !reducedMotion) setPulses((value) => value + 1);
+    previous.current = count;
+  }, [count, reducedMotion]);
+  return pulses;
+}
+
 /** Bouton flottant (ancré au-dessus de la barre de commandes) et tiroir du bas sur smartphone et tablette (< lg). */
 export function MemoryDrawer(props: PanelProps) {
   const { memoire } = DEMO_CONTENT;
+  const pulses = useAddedPulse(props.items.length, props.reducedMotion);
+  const controls = useAnimationControls();
+  useEffect(() => {
+    if (pulses === 0) return;
+    controls.start({
+      scale: [1, 1.15, 1, 1.1, 1],
+      transition: { duration: 1.2, ease: "easeOut" },
+    });
+  }, [pulses, controls]);
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <button type="button" className="absolute -top-14 right-4 z-30 inline-flex min-h-11 items-center gap-2 rounded-full bg-[#515792] px-4 text-sm font-bold text-white shadow-lg sm:right-0 lg:hidden">
+        <motion.button
+          type="button"
+          data-pulses={pulses}
+          animate={controls}
+          className="absolute -top-14 right-4 z-30 inline-flex min-h-11 items-center gap-2 rounded-full bg-[#515792] px-4 text-sm font-bold text-white shadow-lg sm:right-0 lg:hidden"
+        >
           <NotebookPen className="h-4 w-4" aria-hidden="true" />
           {fillTemplate(memoire.boutonMobile, { n: String(props.items.length) })}
-        </button>
+        </motion.button>
       </DrawerTrigger>
       <DrawerContent className="bg-[#F8F9FC]">
         <div className="flex items-center justify-between gap-3 px-5 pt-4">

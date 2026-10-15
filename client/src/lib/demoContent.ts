@@ -3,6 +3,7 @@
  * Tous les textes des parcours viennent de `data/demo-parcours.json` ; ce module ne contient que des types et des fonctions dérivées.
  */
 import rawContent from "@/data/demo-parcours.json";
+import rawResources from "@/data/demo-ressources.json";
 
 export type DimensionId = "outils" | "competences" | "donnees" | "publics" | "partage";
 export type PersonaId = "cinema" | "scene" | "arts-visuels";
@@ -41,6 +42,26 @@ export type DemoStep = {
   pese?: boolean;
   /** « Un premier regard », replié par défaut sous l’échange de fin de dimension. */
   pointEtape?: { texte: string; ordreDeGrandeur: string | null };
+  /** « D’autres regards » : une ou deux citations du corpus de veille, présentées comme inspiration (annexe v3). */
+  ressources?: DemoStepResource[];
+};
+
+export type ResourceRole = "pratique" | "ouverture" | "contrepoint";
+
+/** Citation d’une ressource du catalogue ; une source anglaise s’affiche traduite, l’original reste pour vérification. */
+export type DemoStepResource = { ref: string; citation: string; citationOriginale?: string; role: ResourceRole };
+
+/** Ressource du corpus « Ressources web MW » lié au projet ; `notionId` garde la trace de la page Notion. */
+export type DemoResource = {
+  id: string;
+  notionId: string;
+  titre: string;
+  auteur: string;
+  media: string;
+  url: string;
+  langue: "fr" | "en";
+  /** Pour mémoire, sans effet sur l’affichage. */
+  statutEditorial: string;
 };
 
 export type DemoCitation = { texte: string; etape: number; citation: string; ordreDeGrandeur?: string };
@@ -121,14 +142,16 @@ export type DemoContent = {
   preparation: { titre: string; texte: string; comparaisonTexte: string; boutonAccueil: string; boutonAvis: string };
   lecture: Record<
     | "boussole" | "echange" | "reponseDe" | "passerAnimation" | "continuer" | "retour" | "allerRestitution"
-    | "selectionCases" | "selectionScenario" | "ecoute" | "accelerer" | "digestion" | "retenuTitre" | "induction"
-    | "valide" | "corrige" | "rebondTitre" | "rebondEchange" | "pointEtapeTitre" | "pointEtapeOuvrir" | "pointEtapeReplier" | "annonceRetenu",
+    | "selectionCases" | "selectionScenario" | "ecoute" | "accelerer" | "digestion" | "induction"
+    | "valide" | "corrige" | "rebondTitre" | "rebondEchange" | "pointEtapeTitre" | "pointEtapeOuvrir" | "pointEtapeReplier" | "annonceRetenu"
+    | "ressourcesTitre" | "ressourceLire" | "nouvelOnglet" | "traduitAnglais",
     string
   >;
   memoire: Record<"titre" | "boutonMobile" | "vide" | "extraits" | "notes" | "jauges" | "replier" | "deplier" | "fermer", string>;
   ideal: { libelle: string; boutonSuite: string };
   restitution: Record<
-    "surtitre" | "titre" | "lettreTitre" | "radarTitre" | "radarPhrase" | "fonctionneTitre" | "ameliorerTitre" | "citationLien" | "pistesTitre" | "pistesIntro" | "boutonSuite",
+    | "surtitre" | "titre" | "lettreTitre" | "radarTitre" | "radarPhrase" | "fonctionneTitre" | "ameliorerTitre" | "citationLien" | "pistesTitre" | "pistesIntro" | "boutonSuite"
+    | "corpus" | "corpusLien",
     string
   >;
   demos: Record<"titre" | "intro" | "lancer" | "rejouer" | "avant" | "apres" | "boutonSuite", string>;
@@ -178,6 +201,13 @@ export type DemoContent = {
 };
 
 export const DEMO_CONTENT = rawContent as unknown as DemoContent;
+
+/** Catalogue des ressources citées : aucun appel à Notion au runtime, la démo reste en playback. */
+export const DEMO_RESOURCES = (rawResources as unknown as { ressources: DemoResource[] }).ressources;
+
+export function getResource(id: string): DemoResource | null {
+  return DEMO_RESOURCES.find((resource) => resource.id === id) ?? null;
+}
 
 export const DEMO_ROOT = "/experience/demo";
 

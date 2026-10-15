@@ -2,6 +2,31 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.5.0] — 2026-10-15 — Démo playback : ressources liées et finitions (lot 4)
+
+### Ajouté
+
+- « D’autres regards » : sous 13 échanges des trois parcours, une ou deux citations courtes tirées des « Ressources web MW » liées au projet, avec auteur, média, titre et lien « Lire l’article » (nouvel onglet, `rel="noopener noreferrer"`, mention lue par les lecteurs d’écran). Une citation d’une source anglaise s’affiche traduite, avec la mention « traduit de l’anglais ». Sélection, traductions et libellé validés par Ulrich dans l’annexe v3 du PRD.
+- Catalogue `client/src/data/demo-ressources.json` (12 ressources : identifiant de page Notion, auteur, média, URL publique nettoyée, langue, statut éditorial pour mémoire) et champ `ressources` des étapes. Aucun appel à Notion au runtime.
+- Événement de mesure `demo_ressource_ouverte` (persona, échange, ressource), sans donnée personnelle.
+- Restitution : ligne « Les citations de ce parcours viennent du corpus de veille du projet. », avec un lien vers `/ressources`.
+- Tiroir mobile : le bouton « Ce que je retiens (n) » pulse brièvement quand la réponse ajoute des éléments (désactivé en mouvement réduit).
+
+### Modifié
+
+- Le bloc « La Boussole retient » sous la réponse est retiré : notes et extrait restent dans le panneau et surlignés dans la transcription. Les curseurs induits et « {prénom} valide. » passent dans un encadré « D’après ce que tu dis… » ; la correction de curseur reste affichée sous la réponse.
+- Écriture de Marc, de Nadia et de la comparaison reprise d’après les retours d’Ulrich : phrases plus courtes, sans le mot « concret » ni la tournure « ce n’est pas X, c’est Y » (premiers regards, lettres, pistes, textes des micro-démos, titre et texte de la comparaison). Les mêmes tournures sont retirées du reste de la démo (accueil, deux premiers regards et une réplique de Claire). La phrase sous les radars devient « Ni bien ni mal. Un point de départ. ».
+- Micro-démo « Où va quoi » de Nadia : la légende courte reste dans l’inventaire, les textes longs vont dans des documents liés aux numéros.
+- `verify-demo-content` contrôle les ressources liées (catalogue, URL en `https` sans traceur ni redirection de newsletter, 30 mots au plus, original pour une source anglaise, deux citations au plus par échange qui se répondent, quatre à sept échanges par parcours jamais consécutifs, au moins une ouverture, aucune ressource répétée) et bannit les tournures ci-dessus.
+- `check-demo-playback` vérifie l’absence de l’ancien bloc, les curseurs induits, « D’autres regards » aux bons échanges, les liens, la mesure d’ouverture, le signal du tiroir et l’origine des citations dans la restitution.
+- `check-contrast` couvre les couleurs du nouveau bloc.
+
+### Vérifié
+
+- `pnpm verify`, `pnpm test:demo-feedback`, `scripts/check-contrast.mjs`, 17 mutations de `verify-demo-content` refusées, contrôles Playwright sur le serveur de développement (628) et sur le build servi par Nginx (622), sans échec ; routes directes via Nginx.
+- Deux avis de test réels, un vocal et un avec e-mail, reçus dans « Retours démo Boussole ».
+- Détail : [`docs/ETAT_LOT4_DEMO_PLAYBACK_2026-10-15.md`](./docs/ETAT_LOT4_DEMO_PLAYBACK_2026-10-15.md).
+
 ## [1.4.3] — 2026-10-14 — Démo playback : Marc, Nadia et comparaison (lot 3)
 
 ### Ajouté
