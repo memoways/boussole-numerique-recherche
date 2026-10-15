@@ -11,6 +11,7 @@ import helmet from "helmet";
 import { SignJWT, jwtVerify } from "jose";
 import { z } from "zod";
 import { getConfig } from "./config.js";
+import { AteliersError, createAteliersService, inscriptionSchema, isAtelierId } from "./ateliers.js";
 import { closePool, getPool } from "./db.js";
 import { TranscriptionError, transcribeAudio } from "./deepgram.js";
 import { buildNotionFeedbackPage, createNotionPage, demoFeedbackSchema } from "./demo-feedback.js";
@@ -26,6 +27,13 @@ const schemaPath = process.env.NODE_ENV === "production"
   ? join(process.cwd(), "dist", "schema.sql")
   : join(process.cwd(), "src", "schema.sql");
 const rateLimits = new Map<string, { count: number; resetAt: number }>();
+const ateliers = config.NOTION_TOKEN && config.NOTION_ATELIERS_DS_ID && config.NOTION_INSCRIPTIONS_DS_ID
+  ? createAteliersService({
+    token: config.NOTION_TOKEN,
+    ateliersDataSourceId: config.NOTION_ATELIERS_DS_ID,
+    inscriptionsDataSourceId: config.NOTION_INSCRIPTIONS_DS_ID,
+  })
+  : null;
 
 type InvitationContext = {
   invitationId: string;
@@ -397,6 +405,45 @@ app.post("/api/public/demo-feedback", async (req, res) => {
     return res.status(502).json({ error: "L’envoi n’a pas abouti, tu peux réessayer." });
   }
   res.json({ message: "Merci, ton avis est bien arrivé." });
+});
+
+app.get("/api/ateliers", async (_req, res) => {
+  if (!ateliers) return res.status(503).json({ error: "Les ateliers ne sont pas encore disponibles.", code: "unavailable" });
+  try {
+    res.setHeader("Cache-Control", "no-store");
+    res.json({ ateliers: await ateliers.list() });
+  } catch (error) {
+    console.error("Ateliers read failed", error instanceof Error ? error.message : "unknown");
+    res.status(502).json({ error: "Les ateliers ne peuvent pas être affichés pour le moment.", code: "unavailable" });
+  }
+});
+
+app.post("/api/ateliers/:id/inscriptions", async (req, res) => {
+  if (!consumeRateLimit(req, res, "atelier-inscription", 10, 60 * 60 * 1000)) return;
+  const parsed = inscriptionSchema.safeParse(req.body);
+  if (!parsed.success) return res.status(400).json({ error: "Les informations d’inscription sont incomplètes ou invalides.", code: "invalid" });
+  const { website, ...inscription } = parsed.data;
+  // Champ caché anti-robots : une réponse neutre, sans rien écrire.
+  if (website?.trim()) return res.status(201).json({ message: "Inscription enregistrée" });
+  if (!ateliers) return res.status(503).json({ error: "Les inscriptions ne sont pas encore ouvertes.", code: "unavailable" });
+  if (!isAtelierId(req.params.id)) return res.status(404).json({ error: "Cet atelier est introuvable.", code: "not_found" });
+  try {
+    const { placesRestantes } = await ateliers.register(req.params.id, inscription);
+    res.status(201).json({ message: "Inscription enregistrée", placesRestantes });
+  } catch (error) {
+    if (error instanceof AteliersError) {
+      const failures = {
+        not_found: [404, "Cet atelier est introuvable ou n’est plus ouvert."],
+        closed: [409, "Les inscriptions à cet atelier sont closes."],
+        full: [409, "Cet atelier est complet."],
+        duplicate: [409, "Cette adresse e-mail est déjà inscrite à cet atelier."],
+      } as const;
+      const [status, message] = failures[error.reason];
+      return res.status(status).json({ error: message, code: error.reason });
+    }
+    console.error("Atelier registration failed", error instanceof Error ? error.message : "unknown");
+    res.status(502).json({ error: "L’inscription n’a pas abouti. Vous pouvez réessayer.", code: "unavailable" });
+  }
 });
 
 app.post("/api/admin/login", async (req, res) => {

@@ -25,6 +25,7 @@ const BREADCRUMB_LABELS: Record<string, string> = {
   "/experience/demo": "Démonstration",
   "/methode": "Méthode",
   "/partenaires": "Partenaires",
+  "/ateliers": "Ateliers",
   "/partenaires/presentation": "Découvrir la Boussole",
   "/partenaires/questionnaire": "Questionnaire",
   "/partenaires/admin": "Administration",

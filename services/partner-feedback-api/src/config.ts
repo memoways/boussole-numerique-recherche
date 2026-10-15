@@ -12,6 +12,8 @@ const environmentSchema = z.object({
   DEEPGRAM_API_KEY: z.string().min(1).optional(),
   NOTION_TOKEN: z.string().min(1).optional(),
   NOTION_FEEDBACK_DB_ID: z.string().min(1).optional(),
+  NOTION_ATELIERS_DS_ID: z.string().min(1).optional(),
+  NOTION_INSCRIPTIONS_DS_ID: z.string().min(1).optional(),
   SMTP_HOST: z.string().min(1).optional(),
   SMTP_PORT: z.coerce.number().int().positive().default(587),
   SMTP_USER: z.string().min(1).optional(),

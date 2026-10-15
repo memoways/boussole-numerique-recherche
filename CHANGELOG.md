@@ -2,6 +2,25 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.8.0] — 2026-10-15 — Page Ateliers et inscription en ligne (source Notion)
+
+### Ajouté
+
+- Page publique `/ateliers` : cartes des ateliers à venir (titre, date et horaires en fr-CH, lieu, adresse, type, public, objectifs), programme et informations pratiques dépliables, places restantes, badges « Complet » et « Inscriptions closes », ancre `/ateliers#<slug>`. État vide « Dates en cours de confirmation » avec lien vers `/partenaires`, état d’erreur avec « Réessayer ».
+- Inscription en dialog (prénom, nom, e-mail, structure, remarque facultative, consentement) avec validation, focus sur le premier champ en erreur et états chargement, succès (« Inscription enregistrée », sans promesse d’e-mail), erreur, doublon, complet et clos.
+- API : `GET /api/ateliers` (Statut Publié ou Complet, début à partir d’aujourd’hui en heure de Zurich, `placesRestantes`, `inscriptionsOuvertes`, cache de 5 minutes) et `POST /api/ateliers/:id/inscriptions` (Zod, champ caché anti-robots, limite de 10 demandes par heure et par IP, revérification de l’ouverture et des places, doublon e-mail + atelier refusé en 409, verrou par atelier). Données dans les bases Notion « Ateliers Boussole » et « Inscriptions ateliers Boussole » via les data sources (version d’API `2025-09-03`), avec le jeton `NOTION_TOKEN` déjà utilisé pour les retours du démonstrateur ; aucun PostgreSQL, aucun e-mail.
+- Variables d’environnement `NOTION_ATELIERS_DS_ID` et `NOTION_INSCRIPTIONS_DS_ID` (API, `docker-compose.partner-feedback.yml`, `config/ENVIRONMENT.md`).
+- Entrée « Ateliers » dans la navigation principale et le footer ; bloc d’appel vers `/ateliers` sur l’accueil et sur `/partenaires`.
+- SEO : titre, description, canonique et Open Graph, page statique pré-rendue, sitemap, `llms.txt`, fil d’Ariane, redirection Nginx `/ateliers/` → `/ateliers`.
+- `pnpm test:ateliers`, inclus dans `pnpm verify`, avec un Notion simulé ; `/ateliers` ajouté à `pnpm audit:mobile`.
+
+### À savoir
+
+- L’intégration « Boussole démo » doit pouvoir lire le contenu des deux bases (elle n’avait que « insérer du contenu ») et ces bases doivent lui être partagées ; sans cela, `/ateliers` affiche son message d’erreur.
+- Non vérifié : requêtes contre les vraies bases Notion (jeton uniquement dans Coolify), `docker build`, appareils réels.
+
+Voir [`docs/ETAT_ATELIERS_INSCRIPTION_2026-10-15.md`](docs/ETAT_ATELIERS_INSCRIPTION_2026-10-15.md).
+
 ## [1.7.0] — 2026-10-15 — Démo : Marc recentré sur la préparation, la médiation et la tournée ; Nadia part de ses outils
 
 ### Modifié
