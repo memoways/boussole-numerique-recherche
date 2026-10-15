@@ -34,12 +34,18 @@ Le questionnaire partenaire et le formulaire public de manifestation d’intér�
 | `ADMIN_EMAIL` | Configuration | E-mail administrateur initial : `ulrich.fischer@memoways.com`. |
 | `ADMIN_PASSWORD` | Secret | Mot de passe long, unique et stocké uniquement dans Coolify. |
 | `DEEPGRAM_API_KEY` | Secret optionnel | Active la transcription des réponses vocales ; absente, la réponse écrite reste disponible. |
-| `NOTION_TOKEN` | Secret optionnel | Jeton de l’intégration interne Notion « Boussole démo » (capacité « insérer du contenu » uniquement). Active l’envoi de l’avis final de la démonstration `/experience/demo` ; absent, l’endpoint répond 503. |
+| `NOTION_TOKEN` | Secret optionnel | Jeton de l’intégration interne Notion « Boussole démo » (capacité « insérer du contenu » uniquement). Active l’envoi de l’avis final de la démonstration `/experience/demo` et, avec les deux variables ci-dessous, la page `/ateliers` (lecture et insertion de contenu) ; absent, ces endpoints répondent 503. |
 | `NOTION_FEEDBACK_DB_ID` | Configuration optionnelle | Identifiant de la base Notion « 💬 Retours démo Boussole » (`b706f947bc904ab9827b2cca81af8b09`). |
+| `NOTION_ATELIERS_DS_ID` | Configuration optionnelle | Identifiant de la data source Notion « 🗓️ Ateliers Boussole » (`070a5d73-0636-4c77-b3bc-8ba2ac05cd6c`). Avec les deux autres variables Notion, active `GET /api/ateliers` ; absente, l’endpoint répond 503 et `/ateliers` affiche un message d’erreur. |
+| `NOTION_INSCRIPTIONS_DS_ID` | Configuration optionnelle | Identifiant de la data source Notion « ✍️ Inscriptions ateliers Boussole » (`793208d0-7dc2-4946-b5e4-5b0a98bf8b59`). Active `POST /api/ateliers/:id/inscriptions` ; absente, l’endpoint répond 503. |
 | `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, `MAIL_FROM` | Secrets et configuration optionnels | Activent l’envoi facultatif des invitations personnelles ; les récapitulatifs sont placés dans une boîte d’envoi PostgreSQL pour Dreamlit. |
 | `RUN_MIGRATIONS` | Configuration | `true` au premier déploiement ou après une migration contrôlée. |
 
 Dreamlit ne requiert aucune clé dans l’API : sa connexion PostgreSQL et son mot de passe dédié sont configurés dans Dreamlit. La base expose à Dreamlit uniquement `notifications.partner_response_recap_outbox`, avec un utilisateur distinct et des droits minimaux. Ne créez jamais ces secrets dans le frontend ni dans un fichier d’environnement commité. La liste complète et la procédure d’activation figurent dans [le tutoriel partenaire](../docs/PARTNER_FEEDBACK_OPERATIONS.md).
+
+## Ateliers et inscriptions
+
+`/ateliers` lit la liste des ateliers et écrit les inscriptions dans Notion, via l’API partenaire, avec **le même `NOTION_TOKEN`** que les retours du démonstrateur. Les deux bases (Ateliers Boussole, Inscriptions ateliers Boussole) doivent être partagées avec l’intégration « Boussole démo », qui doit pouvoir **lire et insérer du contenu** (la lecture est nécessaire à la liste et au décompte des places). Les identifiants sont ceux des data sources (`NOTION_ATELIERS_DS_ID`, `NOTION_INSCRIPTIONS_DS_ID`). Aucun PostgreSQL, aucune migration, aucun e-mail. Détail : [`docs/ETAT_ATELIERS_INSCRIPTION_2026-10-15.md`](../docs/ETAT_ATELIERS_INSCRIPTION_2026-10-15.md).
 
 ## Manifestations d’intérêt
 

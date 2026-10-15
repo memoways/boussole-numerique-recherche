@@ -10,6 +10,7 @@
     "check": "tsc --noEmit",
     "test:recap": "tsx scripts/verify-response-recap.ts",
     "test:demo-feedback": "tsx scripts/verify-demo-feedback.ts",
+    "test:ateliers": "tsx scripts/verify-ateliers.ts",
     "migrate": "tsx src/migrate.ts"
   },
   "dependencies": {

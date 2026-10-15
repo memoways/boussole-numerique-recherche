@@ -2,6 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Users, Building2, TestTube, Heart, MessageSquare, ChevronRight, Compass, MessagesSquare } from "lucide-react";
 import { Link } from "wouter";
+import AteliersCallout from "@/components/AteliersCallout";
 
 /**
  * Page /partenaires — entrée d’engagement des organisations relais et contributeurs individuels.
@@ -172,6 +173,8 @@ export default function Partenaires() {
           </div>
         </div>
       </section>
+
+      <AteliersCallout id="partenaires-ateliers-title" width="max-w-4xl" />
 
       {/* Partenaires confirmés */}
       <section className="py-14 px-4 bg-white">

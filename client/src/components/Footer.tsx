@@ -29,6 +29,7 @@ const NAV_COLUMNS = [
     title: "Engagement",
     links: [
       { href: "/partenaires", label: "Partenaires & pilotes" },
+      { href: "/ateliers", label: "Ateliers" },
       { href: "/methode", label: "Données & gouvernance" },
     ],
   },
