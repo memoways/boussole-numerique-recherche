@@ -54,7 +54,7 @@ export default function MilestoneCard({ personaId, etape, dimension, texte, ordr
           onClick={toggle}
           className="flex min-h-12 w-full items-center justify-between gap-3 rounded-2xl px-5 py-3 text-left sm:px-6"
         >
-          <span className="flex min-w-0 items-center gap-2 text-xs font-bold uppercase tracking-[0.12em]" style={{ color: color.text }}>
+          <span className="flex min-w-0 items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em]" style={{ color: color.text }}>
             <Eye className="h-4 w-4 shrink-0" aria-hidden="true" />
             <span>{lecture.pointEtapeTitre} · {dimensions[dimension]}</span>
           </span>

@@ -33,11 +33,11 @@ function PersonaColumn({ persona, current }: { persona: DemoPersona; current: bo
             <Icon className="h-5 w-5" style={{ color: style.color }} aria-hidden="true" />
           </span>
           <div className="min-w-0">
-            <h2 className="text-lg font-bold text-slate-950">{persona.prenom}</h2>
+            <h2 className="text-xl font-normal text-slate-950">{persona.prenom}</h2>
             <p className="text-sm font-semibold text-slate-700">{persona.metier}</p>
           </div>
         </div>
-        {current && <p className="mt-3 inline-block rounded-full bg-[#515792]/10 px-3 py-1 text-xs font-bold text-[#515792]">{copy.parcoursSuivi}</p>}
+        {current && <p className="mt-3 inline-block rounded-full bg-[#515792]/10 px-3 py-1 text-xs font-semibold text-[#515792]">{copy.parcoursSuivi}</p>}
       </div>
 
       <blockquote className="self-start border-l-2 pl-3 leading-relaxed text-slate-900" style={{ borderColor: style.color }}>
@@ -50,7 +50,7 @@ function PersonaColumn({ persona, current }: { persona: DemoPersona; current: bo
       </blockquote>
 
       <figure>
-        <figcaption className="text-sm font-bold text-slate-900">{copy.radarTitre}</figcaption>
+        <figcaption className="text-sm font-semibold text-slate-900">{copy.radarTitre}</figcaption>
         <div aria-hidden="true" className="h-[260px] w-full">
           <ResponsiveContainer width="100%" height="100%">
             <RadarChart data={data} outerRadius="56%" margin={{ top: 24, right: 44, bottom: 24, left: 44 }}>
@@ -65,7 +65,7 @@ function PersonaColumn({ persona, current }: { persona: DemoPersona; current: bo
           {AXES.map((dimension) => (
             <div key={dimension} className="flex items-baseline justify-between gap-3 border-b border-slate-100 pb-1.5">
               <dt className="text-slate-800">{DEMO_CONTENT.dimensions[dimension]}</dt>
-              <dd className="font-bold" style={{ color: DIMENSION_COLORS[dimension].text }}>{radar[dimension]}</dd>
+              <dd className="font-semibold" style={{ color: DIMENSION_COLORS[dimension].text }}>{radar[dimension]}</dd>
             </div>
           ))}
         </dl>
@@ -85,10 +85,10 @@ export default function ComparisonView({ persona }: { persona: DemoPersona }) {
   return (
     <div className="space-y-8">
       <header>
-        <p className="text-sm font-bold uppercase tracking-[0.14em] text-[#515792]">{copy.surtitre}</p>
-        <h1 className="mt-2 text-3xl font-extrabold leading-tight text-slate-950 sm:text-4xl">{copy.titre}</h1>
+        <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#515792]">{copy.surtitre}</p>
+        <h1 className="mt-2 text-3xl font-normal leading-tight text-slate-950 sm:text-[2.6rem]">{copy.titre}</h1>
         <p className="mt-4 max-w-2xl text-lg leading-relaxed text-slate-800">{copy.texte}</p>
-        <p className="mt-6 text-sm font-bold text-slate-900">{fillTemplate(copy.questionTitre, { dimension: DEMO_CONTENT.dimensions[copy.dimension] })}</p>
+        <p className="mt-6 text-sm font-semibold text-slate-900">{fillTemplate(copy.questionTitre, { dimension: DEMO_CONTENT.dimensions[copy.dimension] })}</p>
       </header>
       <ul className="grid gap-5 lg:grid-cols-3">
         {DEMO_CONTENT.personas.map((item) => <PersonaColumn key={item.id} persona={item} current={item.id === persona.id} />)}

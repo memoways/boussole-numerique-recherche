@@ -68,7 +68,7 @@ export function ScenarioAnswer({ options, choix, selecting, finished, prenom }: 
               key={option}
               className={`flex items-start gap-3 rounded-xl border px-3 py-2.5 text-sm leading-snug transition-colors duration-300 ${isChosen ? "border-[#E07428] bg-[#E07428]/10 font-semibold text-slate-900" : "border-slate-200 bg-white text-slate-700"}`}
             >
-              <span aria-hidden="true" className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold ${isChosen ? "bg-[#E07428] text-[#1F2937]" : "bg-slate-100 text-slate-700"}`}>{LETTERS[index]}</span>
+              <span aria-hidden="true" className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold ${isChosen ? "bg-[#E07428] text-[#1F2937]" : "bg-slate-100 text-slate-700"}`}>{LETTERS[index]}</span>
               <span>
                 <span className="sr-only">{LETTERS[index]} : </span>
                 {option}
@@ -100,10 +100,16 @@ export function InducedSliders({ sliders, corrected, reducedMotion }: SlidersPro
         const isCorrection = corrected && Boolean(slider.corrigeA);
         return (
           <li key={slider.libelle} className={`rounded-xl border bg-white px-4 py-3 transition-colors duration-500 ${isCorrection ? "border-[#E07428]" : "border-slate-200"}`}>
-            <p className="flex flex-wrap items-baseline justify-between gap-x-3 text-sm">
-              <span className="font-semibold text-slate-900">{slider.libelle}</span>
-              <span className={`font-bold ${isCorrection ? "text-[#A8440D]" : "text-[#515792]"}`}>{level}</span>
+            <p className="flex flex-wrap items-baseline justify-between gap-x-3 text-base">
+              <span className="text-slate-900">{slider.libelle}</span>
+              <span className={`font-semibold ${isCorrection ? "text-[#A8440D]" : "text-[#515792]"}`}>{level}</span>
             </p>
+            {/* Ce qui justifie le niveau : les mots de la personne, ou le fait qu’elle n’en a pas encore parlé. */}
+            {(slider.dit || slider.nonAborde) && (
+              <p data-demo-indice className="mt-1 text-sm text-slate-700">
+                {slider.dit ? <>{DEMO_CONTENT.lecture.indiceDit}{"\u00a0: «\u00a0"}<span className="italic">{slider.dit}</span>{"\u00a0»"}</> : DEMO_CONTENT.lecture.indiceNonAborde}
+              </p>
+            )}
             <div aria-hidden="true" className="mt-3">
               <div className="relative mx-2 h-1.5 rounded-full bg-slate-200">
                 {levels.map((item, index) => (
@@ -137,7 +143,7 @@ export function LevelDefinitions({ className = "" }: { className?: string }) {
     <dl className={`grid gap-2 text-sm sm:grid-cols-2 ${className}`}>
       {niveauxRadar.map((level) => (
         <div key={level} className="rounded-lg bg-slate-50 px-3 py-2">
-          <dt className="font-bold text-[#515792]">{level}</dt>
+          <dt className="font-semibold text-[#515792]">{level}</dt>
           <dd className="mt-0.5 leading-snug text-slate-700">{niveauxDefinitions[level]}</dd>
         </div>
       ))}
@@ -170,7 +176,7 @@ export function MemoryEcho({ etape, rappel, reducedMotion }: { etape: number; ra
     >
       <History className="mt-0.5 h-4 w-4 shrink-0 text-[#A8440D]" aria-hidden="true" />
       <p className="text-sm leading-relaxed text-slate-800">
-        <span className="font-bold text-[#A8440D]">{lecture.rebondTitre}</span>
+        <span className="font-semibold text-[#A8440D]">{lecture.rebondTitre}</span>
         <span className="text-slate-600"> ({fillTemplate(lecture.rebondEchange, { n: String(etape) })})</span> : « {rappel} »
       </p>
     </motion.div>

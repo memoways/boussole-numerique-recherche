@@ -1,13 +1,14 @@
 /**
- * Machine à états d’une interaction jouée : question → prêt → (sélection) → parole → transcription
- * → digestion → retenu → terminé. Chaque phase avance seule après sa durée ; « Passer l’animation » va
- * directement à la fin. Avec `prefers-reduced-motion`, la question s’affiche d’un coup et la réponse
- * complète apparaît dès le clic, sans onde animée ni écriture mot par mot.
+ * Machine à états d’une interaction jouée : question → prêt → (sélection) → parole transcrite
+ * → digestion → retenu → terminé. La parole et sa transcription sont simultanées : l’onde s’anime dès que
+ * le texte commence à s’écrire et s’apaise quand il se termine. Chaque phase avance seule après sa durée ;
+ * « Passer l’animation » va directement à la fin. Avec `prefers-reduced-motion`, la question s’affiche
+ * d’un coup et la réponse complète apparaît dès le clic, sans onde animée ni écriture mot par mot.
  */
 import { useCallback, useEffect, useMemo, useReducer } from "react";
 import { useReducedMotion } from "framer-motion";
 
-export const PLAYBACK_PHASES = ["question", "ready", "selecting", "speaking", "transcribing", "digesting", "retained", "done"] as const;
+export const PLAYBACK_PHASES = ["question", "ready", "selecting", "transcribing", "digesting", "retained", "done"] as const;
 export type PlaybackPhase = (typeof PLAYBACK_PHASES)[number];
 
 export type PlaybackScript = {
@@ -20,7 +21,10 @@ export type PlaybackScript = {
   hasCorrection: boolean;
 };
 
-const WORDS_PER_SECOND = 30;
+/** Rythme d’une parole transcrite en direct : la durée suit la longueur de la réponse, dans des bornes lisibles. */
+const MS_PER_WORD = 130;
+const SPEECH_MIN_MS = 1800;
+const SPEECH_MAX_MS = 5500;
 const QUESTION_FADE_MS = 700;
 const SELECTION_STEP_MS = 420;
 const DIGEST_MS = 800;
@@ -48,7 +52,7 @@ export function useStepPlayback(script: PlaybackScript) {
   const { phase, wordsShown } = state;
 
   const afterTranscription: PlaybackPhase = script.hasRetained ? "digesting" : "done";
-  const speakingMs = Math.min(3000, Math.max(1500, totalWords * 120));
+  const wordMs = totalWords > 0 ? Math.min(SPEECH_MAX_MS, Math.max(SPEECH_MIN_MS, totalWords * MS_PER_WORD)) / totalWords : 0;
   const retainedMs = script.hasCorrection ? 1800 : 900;
 
   // Durée propre à chaque phase automatique ; les phases « ready » et « done » attendent un clic.
@@ -56,30 +60,29 @@ export function useStepPlayback(script: PlaybackScript) {
     let next: PlaybackPhase | null = null;
     let delay = 0;
     if (phase === "question") { next = "ready"; delay = QUESTION_FADE_MS; }
-    if (phase === "selecting") { next = totalWords > 0 ? "speaking" : afterTranscription; delay = script.choices * SELECTION_STEP_MS + 400; }
-    if (phase === "speaking") { next = "transcribing"; delay = speakingMs; }
+    if (phase === "selecting") { next = totalWords > 0 ? "transcribing" : afterTranscription; delay = script.choices * SELECTION_STEP_MS + 400; }
     if (phase === "digesting") { next = "retained"; delay = DIGEST_MS; }
     if (phase === "retained") { next = "done"; delay = retainedMs; }
     if (!next) return;
     const timer = window.setTimeout(() => dispatch({ type: "goto", phase: next }), delay);
     return () => window.clearTimeout(timer);
-  }, [phase, afterTranscription, script.choices, speakingMs, retainedMs, totalWords]);
+  }, [phase, afterTranscription, script.choices, retainedMs, totalWords]);
 
-  // Écriture mot par mot, environ 30 mots par seconde.
+  // Écriture mot par mot, au rythme de la parole.
   useEffect(() => {
     if (phase !== "transcribing") return;
     if (wordsShown >= totalWords) {
       dispatch({ type: "goto", phase: afterTranscription });
       return;
     }
-    const timer = window.setTimeout(() => dispatch({ type: "word" }), 1000 / WORDS_PER_SECOND);
+    const timer = window.setTimeout(() => dispatch({ type: "word" }), wordMs);
     return () => window.clearTimeout(timer);
-  }, [phase, wordsShown, totalWords, afterTranscription]);
+  }, [phase, wordsShown, totalWords, afterTranscription, wordMs]);
 
   const start = useCallback(() => {
     if (phase !== "question" && phase !== "ready") return;
     if (reducedMotion) { dispatch({ type: "finish" }); return; }
-    dispatch({ type: "goto", phase: script.choices > 0 ? "selecting" : "speaking" });
+    dispatch({ type: "goto", phase: script.choices > 0 ? "selecting" : "transcribing" });
   }, [phase, reducedMotion, script.choices]);
 
   const skip = useCallback(() => dispatch({ type: "finish" }), []);

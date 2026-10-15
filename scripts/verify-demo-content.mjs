@@ -106,6 +106,16 @@ for (const persona of personas) {
     for (const slider of step.retenu?.curseurs ?? []) {
       assert(levelsOk(slider.valeur), `${at} : niveau de curseur « ${slider.valeur} » inconnu.`);
       assert(slider.corrigeA === null || levelsOk(slider.corrigeA), `${at} : correction « ${slider.corrigeA} » inconnue.`);
+      // Contexte des curseurs (Ulrich, 15 octobre 2026) : chaque niveau se rattache à des mots vraiment dits, ou dit qu’il n’en a pas encore été question.
+      assert(Boolean(slider.dit) !== Boolean(slider.nonAborde), `${at} : le curseur « ${slider.libelle} » doit citer ce qui a été dit (dit) ou être marqué nonAborde.`);
+      if (slider.dit) {
+        const saidSoFar = steps.filter((item) => item.id <= step.id).map((item) => item.reponse.transcription).join(" ");
+        assert(saidSoFar.includes(slider.dit), `${at} : « ${slider.dit} » (curseur « ${slider.libelle} ») doit être un passage exact d’une réponse déjà donnée.`);
+      }
+    }
+    if ((step.retenu?.curseurs ?? []).length > 0) {
+      const resume = step.retenu.resume ?? "";
+      assert(resume.length > 0 && resume.split(/\s+/).length <= 25, `${at} : des curseurs sans résumé de ce qui a été dit (resume, 25 mots au plus) arrivent hors contexte.`);
     }
     if (step.retenu?.extrait) assert(step.reponse.transcription.includes(step.retenu.extrait), `${at} : l’extrait retenu doit être un passage exact de la transcription.`);
     if (step.rebond) {
@@ -213,6 +223,8 @@ for (const resource of catalog) {
   assert(url && [...url.searchParams.keys()].every((key) => !/^(utm_|mc_|fbclid|gclid|ref$|r$|publication_id|post_id|triedRedirect|isFreemail)/.test(key)), `${at} : l’URL ne doit porter aucun paramètre de suivi.`);
   assert(url && !/(brevo|sendinblue|mailchimp|list-manage|substack\.com\/redirect|beehiiv\.com\/redirect|r\.sp1)/.test(url.hostname + url.pathname), `${at} : l’URL ne doit pas être une redirection de newsletter.`);
 }
+assert(content.lecture?.boussole === "La question de la Boussole", "Le libellé au-dessus de la question doit être « La question de la Boussole ».");
+assert(content.lecture?.indiceDit && content.lecture?.indiceNonAborde && !("ecoute" in content.lecture), "Libellés des indices de curseurs requis ; « {prénom} parle… » disparaît, la transcription s’écrit pendant la parole.");
 assert(content.lecture?.ressourcesTitre === "D’autres regards", "Le bloc des ressources liées doit s’intituler « D’autres regards ».");
 assert(content.lecture?.ressourceLire && content.lecture?.nouvelOnglet && content.lecture?.traduitAnglais, "Les libellés du lien, du nouvel onglet et de la traduction sont requis.");
 assert(!("retenuTitre" in (content.lecture ?? {})), "L’ancien bloc « La Boussole retient » sous la réponse est retiré : le libellé retenuTitre ne doit plus exister.");

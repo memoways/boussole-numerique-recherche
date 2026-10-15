@@ -40,7 +40,7 @@ function DemoCard({ demo, controls, children, status }: { demo: DemoMicro; contr
     <section aria-labelledby={`demo-micro-${demo.id}`} className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="max-w-xl">
-          <h2 id={`demo-micro-${demo.id}`} className="text-lg font-bold text-slate-950">{demo.titre}</h2>
+          <h2 id={`demo-micro-${demo.id}`} className="text-xl font-normal text-slate-950">{demo.titre}</h2>
           <p className="mt-1 text-sm leading-relaxed text-slate-700">{demo.texte}</p>
         </div>
         <button type="button" onClick={controls.running ? undefined : controls.play} aria-disabled={controls.running} className={`${demoSecondaryButton} min-h-11 px-4 text-sm aria-disabled:opacity-60`}>
@@ -48,7 +48,7 @@ function DemoCard({ demo, controls, children, status }: { demo: DemoMicro; contr
           {controls.played ? copy.rejouer : copy.lancer}
         </button>
       </div>
-      <p className="mt-4 text-xs font-bold uppercase tracking-[0.12em] text-slate-600" aria-live="polite">{status}</p>
+      <p className="mt-4 text-xs font-semibold uppercase tracking-[0.12em] text-slate-600" aria-live="polite">{status}</p>
       <div className="mt-2 min-w-0 rounded-xl bg-slate-50 p-3 sm:p-4">{children}</div>
     </section>
   );
@@ -66,7 +66,7 @@ function ConvergenceDemo({ demo }: { demo: Extract<DemoMicro, { id: "convergence
         <ul className="grid min-w-0 grid-cols-1 gap-2 sm:grid-cols-2">
           {demo.endroits.map((endroit) => (
             <li key={endroit.nom} className={`min-w-0 rounded-lg border bg-white p-2.5 transition-colors duration-500 ${aligned ? "border-[#3aab8a]/60" : "border-slate-200"}`}>
-              <p className="flex items-center justify-between gap-2 text-xs font-bold text-slate-900">
+              <p className="flex items-center justify-between gap-2 text-xs font-semibold text-slate-900">
                 <span className="truncate">{endroit.nom}</span>
                 {aligned && <motion.span {...fade} className="shrink-0 text-[#167A5E]"><Check className="h-3.5 w-3.5" aria-label="à jour" /></motion.span>}
               </p>
@@ -86,7 +86,7 @@ function ConvergenceDemo({ demo }: { demo: Extract<DemoMicro, { id: "convergence
           ))}
         </ul>
         <div className={`min-w-0 self-start rounded-lg border-2 p-3 transition-colors duration-500 ${referenced ? "border-[#515792] bg-white" : "border-dashed border-slate-300 bg-white"}`}>
-          <p className="flex items-center gap-1.5 text-sm font-bold text-[#515792]"><Database className="h-4 w-4" aria-hidden="true" />{demo.source}</p>
+          <p className="flex items-center gap-1.5 text-sm font-semibold text-[#515792]"><Database className="h-4 w-4" aria-hidden="true" />{demo.source}</p>
           <dl className="mt-2 space-y-1 text-sm">
             {demo.champs.map((champ, index) => (
               <div key={champ} className="flex min-w-0 gap-1.5">
@@ -122,7 +122,7 @@ function SortDemo({ demo }: { demo: Extract<DemoMicro, { id: "tri" }> }) {
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {demo.places.map((place) => (
             <div key={place.nom} className="min-w-0 rounded-lg border-2 border-[#515792]/30 bg-white p-3">
-              <p className="flex items-center gap-1.5 text-sm font-bold text-[#515792]"><Folder className="h-4 w-4" aria-hidden="true" />{place.nom}</p>
+              <p className="flex items-center gap-1.5 text-sm font-semibold text-[#515792]"><Folder className="h-4 w-4" aria-hidden="true" />{place.nom}</p>
               <ul className="mt-2 flex min-h-7 flex-wrap gap-1.5">
                 {pile.map((item, index) => (index < moved && item.place === place.nom ? chip(item, index) : null))}
               </ul>
@@ -158,7 +158,7 @@ function ValidationDemo({ demo }: { demo: Extract<DemoMicro, { id: "validation" 
       ) : (
         <motion.div {...fade} className="grid grid-cols-1 gap-3 md:grid-cols-2">
           <div className="min-w-0 rounded-lg border-2 border-[#515792] bg-white p-3">
-            <p className="flex items-center gap-1.5 text-sm font-bold text-[#515792]"><FileText className="h-4 w-4" aria-hidden="true" />{demo.document}</p>
+            <p className="flex items-center gap-1.5 text-sm font-semibold text-[#515792]"><FileText className="h-4 w-4" aria-hidden="true" />{demo.document}</p>
             <ul className="mt-2 space-y-1.5 text-sm">
               {demo.validations.map((validation, index) => {
                 const status = index < decided ? validation.statut : null;
@@ -197,7 +197,7 @@ function SheetDemo({ demo }: { demo: Extract<DemoMicro, { id: "fiche" }> }) {
     <DemoCard demo={demo} controls={controls} status={controls.finished ? DEMO_CONTENT.demos.apres : DEMO_CONTENT.demos.avant}>
       <div className="grid grid-cols-1 items-start gap-4 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]">
         <div className="rounded-lg border border-slate-200 bg-white p-3">
-          <p className="text-sm font-bold text-slate-900">{demo.source}</p>
+          <p className="text-sm font-semibold text-slate-900">{demo.source}</p>
           <ul className="mt-2 space-y-2">
             {demo.elements.map((element, index) => (
               <li key={element.libelle} className="text-sm text-slate-800">
@@ -219,7 +219,7 @@ function SheetDemo({ demo }: { demo: Extract<DemoMicro, { id: "fiche" }> }) {
         <div className="grid gap-3">
           {demo.sorties.map((sortie) => (
             <div key={sortie} className="rounded-lg border border-dashed border-slate-300 bg-white p-3">
-              <p className="text-sm font-bold text-slate-900">{sortie}</p>
+              <p className="text-sm font-semibold text-slate-900">{sortie}</p>
               <ul className="mt-1.5 flex flex-wrap gap-1.5">
                 {demo.elements.slice(0, delivered).filter((element) => element.cibles.includes(sortie)).map((element) => (
                   <motion.li key={element.libelle} {...fade} className="rounded-md bg-[#3aab8a]/15 px-2 py-0.5 text-xs font-semibold text-[#167A5E]">{element.libelle}</motion.li>
@@ -249,7 +249,7 @@ function SourceDemo({ demo }: { demo: Extract<DemoMicro, { id: "source-unique" }
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <ul className="min-h-12 min-w-0 space-y-1.5">{demo.pieces.map((label, index) => (index >= moved ? piece(label, index) : null))}</ul>
           <div className="min-w-0 rounded-lg border-2 border-[#515792]/40 bg-white p-3">
-            <p className="flex items-center gap-1.5 text-sm font-bold text-[#515792]"><Folder className="h-4 w-4" aria-hidden="true" />{demo.destination}</p>
+            <p className="flex items-center gap-1.5 text-sm font-semibold text-[#515792]"><Folder className="h-4 w-4" aria-hidden="true" />{demo.destination}</p>
             <ul className="mt-2 space-y-1.5">{demo.pieces.map((label, index) => (index < moved ? piece(label, index) : null))}</ul>
           </div>
         </div>
@@ -271,7 +271,7 @@ function NoteDemo({ demo }: { demo: Extract<DemoMicro, { id: "note" }> }) {
     <DemoCard demo={demo} controls={controls} status={shared ? DEMO_CONTENT.demos.apres : DEMO_CONTENT.demos.avant}>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div className="min-w-0">
-          <p className="flex items-center gap-1.5 text-xs font-bold text-slate-700"><Mic className="h-3.5 w-3.5 text-slate-500" aria-hidden="true" />{demo.dicteeTitre}</p>
+          <p className="flex items-center gap-1.5 text-xs font-semibold text-slate-700"><Mic className="h-3.5 w-3.5 text-slate-500" aria-hidden="true" />{demo.dicteeTitre}</p>
           <ol className="mt-2 min-h-12 space-y-1.5">
             {demo.dictee.slice(0, said).map((phrase) => (
               <motion.li key={phrase} {...fade} className="rounded-md bg-white px-2.5 py-1.5 text-sm italic leading-relaxed text-slate-800 shadow-sm">« {phrase} »</motion.li>
@@ -279,7 +279,7 @@ function NoteDemo({ demo }: { demo: Extract<DemoMicro, { id: "note" }> }) {
           </ol>
         </div>
         <div className={`min-w-0 self-start rounded-lg border-2 p-3 transition-colors duration-500 ${filled > 0 ? "border-[#515792] bg-white" : "border-dashed border-slate-300 bg-white"}`}>
-          <p className="flex items-center gap-1.5 text-sm font-bold text-[#515792]"><NotebookPen className="h-4 w-4" aria-hidden="true" />{demo.note.titre}</p>
+          <p className="flex items-center gap-1.5 text-sm font-semibold text-[#515792]"><NotebookPen className="h-4 w-4" aria-hidden="true" />{demo.note.titre}</p>
           <dl className="mt-2 space-y-1.5 text-sm">
             {demo.note.champs.map((champ, index) => (
               <div key={champ.libelle} className="min-w-0">
@@ -304,7 +304,7 @@ export default function MicroDemos({ persona }: { persona: DemoPersona }) {
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="text-3xl font-extrabold leading-tight text-slate-950 sm:text-4xl">{copy.titre}</h1>
+        <h1 className="text-3xl font-normal leading-tight text-slate-950 sm:text-[2.6rem]">{copy.titre}</h1>
         <p className="mt-3 max-w-2xl leading-relaxed text-slate-700">{copy.intro}</p>
       </header>
       {(persona.demos ?? []).map((demo) => {

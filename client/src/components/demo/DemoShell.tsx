@@ -34,7 +34,7 @@ function ProgressBar({ persona, step }: { persona: DemoPersona; step: StepRef })
                 aria-hidden="true"
               />
             );
-            const label = <span className={`mt-1.5 hidden text-[11px] leading-tight sm:block ${segment.current ? "font-bold text-slate-900" : "text-slate-600"}`}>{segment.label}</span>;
+            const label = <span className={`mt-1.5 hidden text-[11px] leading-tight sm:block ${segment.current ? "font-semibold text-slate-900" : "text-slate-600"}`}>{segment.label}</span>;
             return (
               <li key={segment.key} aria-current={segment.current ? "step" : undefined}>
                 {segment.target === null ? (
@@ -82,7 +82,7 @@ export default function DemoShell({ persona, step, wide = false, children }: Dem
       <div className="bg-[#515792] px-4 py-1.5 text-center text-xs font-semibold tracking-wide text-white">{DEMO_CONTENT.bandeau}</div>
       <header className="border-b border-slate-200 bg-white">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3">
-          <span className="text-sm font-bold text-[#515792]">Boussole Numérique Culture</span>
+          <span className="text-sm font-semibold text-[#515792]">Boussole Numérique Culture</span>
           <Link href="/experience" className="inline-flex min-h-11 items-center gap-2 rounded-md px-2 text-sm font-semibold text-slate-700 underline-offset-4 hover:underline">
             <LogOut className="h-4 w-4" aria-hidden="true" />
             {DEMO_CONTENT.quitter}
@@ -110,5 +110,5 @@ export function DemoActions({ children, compact = false }: { children: ReactNode
   );
 }
 
-export const demoPrimaryButton = "inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#E07428] px-6 text-base font-bold text-[#1F2937] transition-colors hover:bg-[#d06a22] disabled:pointer-events-none disabled:opacity-50";
+export const demoPrimaryButton = "inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#E07428] px-6 text-base font-semibold text-[#1F2937] transition-colors hover:bg-[#d06a22] disabled:pointer-events-none disabled:opacity-50";
 export const demoSecondaryButton = "inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-6 text-base font-semibold text-slate-800 transition-colors hover:border-[#515792]";

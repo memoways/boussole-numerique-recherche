@@ -16,7 +16,7 @@ export default function PersonaPicker() {
 
   return (
     <section aria-labelledby="demo-choix-titre">
-      <h1 id="demo-choix-titre" className="text-3xl font-extrabold leading-tight text-slate-950 sm:text-4xl">{choixPersona.titre}</h1>
+      <h1 id="demo-choix-titre" className="text-3xl font-normal leading-tight text-slate-950 sm:text-[2.6rem]">{choixPersona.titre}</h1>
       <p className="mt-4 max-w-2xl leading-relaxed text-slate-700">{choixPersona.intro}</p>
       <ul className="mt-8 grid gap-4 sm:grid-cols-3">
         {personas.map((persona) => {
@@ -33,12 +33,12 @@ export default function PersonaPicker() {
                   <Icon className="h-6 w-6" style={{ color: style.color }} aria-hidden="true" />
                 </span>
                 <span className="mt-4 flex flex-wrap items-center gap-2">
-                  <span className="text-xl font-bold text-slate-950">{persona.prenom}</span>
+                  <span className="text-2xl font-normal text-slate-950">{persona.prenom}</span>
                   {persona.statut !== "pret" && <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-semibold text-slate-700">{choixPersona.badgePreparation}</span>}
                 </span>
                 <span className="text-sm font-semibold text-slate-700">{persona.metier}</span>
                 <span className="mt-3 flex-1 text-sm leading-relaxed text-slate-700">{persona.accroche}</span>
-                <span className="mt-5 text-sm font-bold text-[#515792] underline-offset-4 group-hover:underline">
+                <span className="mt-5 text-sm font-semibold text-[#515792] underline-offset-4 group-hover:underline">
                   {choixPersona.bouton} {persona.prenom} →
                 </span>
               </Link>

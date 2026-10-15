@@ -201,7 +201,7 @@ export default function FeedbackForm({ persona }: { persona: PersonaId }) {
     return (
       <section role="status" className="rounded-3xl border border-emerald-200 bg-emerald-50 p-8 text-center">
         <Check className="mx-auto h-10 w-10 text-emerald-700" aria-hidden="true" />
-        <h2 className="mt-4 text-2xl font-extrabold text-slate-950">{copy.confirmation}</h2>
+        <h2 className="mt-4 text-3xl font-normal text-slate-950">{copy.confirmation}</h2>
         <p className="mt-3 leading-relaxed text-slate-700">{copy.confirmationSuite}</p>
         <Link href="/experience" className={`${demoSecondaryButton} mt-6`}>{copy.retourSite}</Link>
       </section>
@@ -213,7 +213,7 @@ export default function FeedbackForm({ persona }: { persona: PersonaId }) {
   return (
     <form onSubmit={submit} className="space-y-6" noValidate>
       <div>
-        <label htmlFor="demo-avis-commentaire" className="block text-base font-bold text-slate-900">{copy.libelleCommentaire}</label>
+        <label htmlFor="demo-avis-commentaire" className="block text-lg font-normal text-slate-900">{copy.libelleCommentaire}</label>
         <textarea
           id="demo-avis-commentaire"
           value={comment}
@@ -227,7 +227,7 @@ export default function FeedbackForm({ persona }: { persona: PersonaId }) {
       </div>
 
       <fieldset className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
-        <legend className="px-1 text-sm font-bold text-slate-900">{copy.micro.titre}</legend>
+        <legend className="px-1 text-sm font-semibold text-slate-900">{copy.micro.titre}</legend>
         <p className="text-sm leading-relaxed text-slate-700">{copy.micro.aide}</p>
         <div className="mt-4 flex flex-wrap items-center gap-3">
           {recorderState === "recording" ? (
@@ -264,7 +264,7 @@ export default function FeedbackForm({ persona }: { persona: PersonaId }) {
       </fieldset>
 
       <div>
-        <label htmlFor="demo-avis-email" className="block text-base font-bold text-slate-900">{copy.libelleEmail}</label>
+        <label htmlFor="demo-avis-email" className="block text-lg font-normal text-slate-900">{copy.libelleEmail}</label>
         <p id="demo-avis-email-aide" className="mt-1 text-sm leading-relaxed text-slate-700">{copy.aideEmail}</p>
         <input
           id="demo-avis-email"

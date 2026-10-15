@@ -64,6 +64,27 @@ Consigne : bannir « concret » et les tournures « ce n’est pas X, c’est Y 
   - Les deux commentaires commencent par « TEST — » et peuvent être supprimés.
 - Sources : chaque citation retrouvée mot pour mot sur la page publique le 15 octobre 2026 ; les quatre articles Medium et UX Collective refusent `curl` (protection anti-robots) mais s’ouvrent dans un navigateur, sans réserve aux membres.
 
+## Retouches du 15 octobre 2026 (v1.5.1)
+
+Retours d’Ulrich sur la v1.5.0 en ligne :
+
+| Retour | Réalisation |
+|---|---|
+| L’onde puis le texte : ce doit être simultané | `useStepPlayback` fusionne la parole et la transcription en une phase `transcribing`. Le texte s’écrit au rythme de la parole (130 ms par mot, entre 1,8 et 5,5 s) ; `Waveform` reçoit un niveau qui apaise l’amplitude sur le dernier quart du texte et la ramène au repos à la fin. Le libellé « {prénom} parle… » est supprimé. |
+| Remettre le résumé de ce qui a été dit avant une échelle | Chaque échange à curseurs a un `retenu.resume` d’une phrase, affiché sous « D’après ce que tu dis… » (ou sous la question pour les étapes `curseurs`). Chaque curseur affiche « Tu as dit : « … » » avec les mots exacts de la personne (`dit`, vérifié contre les réponses déjà données) ou « Tu n’en as pas encore parlé. » (`nonAborde` : Sauvegarde des médias chez Claire, Présence en ligne chez Nadia, deux curseurs que la personne corrige). |
+| Moins de gras, plus grand | Question en `text-2xl`/`sm:text-3xl` graisse normale ; titres de page et de section en graisse normale, plus grands ; autres gras en demi-gras. |
+| Clarifier que le texte est une question | Libellé « La question de la Boussole ». |
+| Claire : retirer la première citation (Nadia Okafor) | Retirée ; Claire garde quatre échanges avec ressources (6, 8, 10, 12). Okafor reste chez Marc (échange 1). |
+
+Contrôles de la v1.5.1 : `pnpm verify` et `pnpm test:demo-feedback` au vert ; 5 mutations du contenu refusées (indice inventé, indice manquant, résumé manquant, `dit` et `nonAborde` ensemble, ancien libellé) ; Playwright 687 contrôles sur le build servi par Nginx et 693 sur le serveur de développement, 0 échec, dont l’écriture pendant l’onde (27 caractères écrits à 0,7 s) et l’onde au repos en fin de texte ; contraste inchangé ; routes directes Nginx en 200 et 404 attendus.
+
+Annoncé par Ulrich, à intégrer quand il les transmet : deux liens vers ses propres billets sur les enjeux de la création culturelle, à placer dans les parcours. Préférence générale pour des sources en français, sans changer les autres citations anglaises pour le moment.
+
+Résumés ajoutés (à relire) :
+- Claire : « Ton organisation change avec chaque équipe, et les fichiers circulent par mail. » (2) ; « Les informations du film vivent dans plusieurs documents qui ne disent pas la même chose. » (4) ; « Les validations passent par mail, parfois sur des versions différentes. » (7) ; « Le montage du dossier repose sur ce que tu as en tête, sans trace écrite. » (9).
+- Marc : « L’équipe se transmet beaucoup de choses à l’oral ; l’écrit se limite à la fiche technique. » (2) ; « La fiche technique existe en plusieurs versions, et la captation n’a pas de place fixe. » (7) ; « La tournée se coordonne dans un groupe WhatsApp où les informations se perdent. » (9) ; « Chaque semaine, tu réécris des mails dont les informations existent déjà. » (11).
+- Nadia : « L’inventaire et les photos tiennent par le numéro ; les textes sont dispersés. » (2) ; « Chaque portfolio se refait à la main, à partir du tableur. » (6) ; « Tu découvres qu’une IA peut travailler sans rien envoyer, et tu poses une condition. » (8).
+
 ## Écarts et points connus
 
 - Le contrôle Playwright ne charge pas les sources externes : il intercepte leurs domaines et vérifie l’ouverture de l’onglet. La disponibilité des URL publiques est vérifiée à la main lors de la sélection.

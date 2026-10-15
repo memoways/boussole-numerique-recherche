@@ -55,7 +55,7 @@
     "boutonAvis": "Donner mon avis"
   },
   "lecture": {
-    "boussole": "La Boussole",
+    "boussole": "La question de la Boussole",
     "echange": "Échange {n} sur {total}",
     "reponseDe": "Réponse de {prenom}",
     "passerAnimation": "Passer l’animation",
@@ -64,10 +64,11 @@
     "allerRestitution": "Aller à la restitution",
     "selectionCases": "{prenom} coche",
     "selectionScenario": "{prenom} choisit",
-    "ecoute": "{prenom} parle…",
     "accelerer": "Clique sur le texte pour l’afficher en entier.",
     "digestion": "La Boussole prend note…",
     "induction": "D’après ce que tu dis…",
+    "indiceDit": "Tu as dit",
+    "indiceNonAborde": "Tu n’en as pas encore parlé.",
     "valide": "{prenom} valide.",
     "corrige": "{prenom} corrige « {libelle} » : {avant} → {apres}.",
     "rebondTitre": "Tu disais plus tôt",
@@ -208,19 +209,17 @@
             "transcription": "Non, jamais vraiment. Sur le court, on avait un dossier partagé bien rangé, parce que le monteur est très carré. Sur le documentaire, c’est plus éclaté. Ce qui me pèse, c’est de ne jamais savoir si j’ai la dernière version de quelque chose, parce que les fichiers voyagent par mail et que chacun les modifie de son côté."
           },
           "retenu": {
+            "resume": "Ton organisation change avec chaque équipe, et les fichiers circulent par mail.",
             "tags": ["organisation variable selon l’équipe"],
             "curseurs": [
-              { "libelle": "Outils de production", "valeur": "Organisé", "corrigeA": null },
-              { "libelle": "Circulation des versions", "valeur": "Improvisation", "corrigeA": null }
+              { "libelle": "Outils de production", "valeur": "Organisé", "corrigeA": null, "dit": "on avait un dossier partagé bien rangé" },
+              { "libelle": "Circulation des versions", "valeur": "Improvisation", "corrigeA": null, "dit": "les fichiers voyagent par mail" }
             ]
           },
           "pointEtape": {
             "texte": "Tes outils suffisent pour produire. Ce qui varie, c’est l’organisation autour, qui dépend de chaque équipe. La difficulté tient aux copies qui circulent.",
             "ordreDeGrandeur": "Ordre de grandeur illustratif : 1 à 2 h par semaine à vérifier quelle version est la bonne."
-          },
-          "ressources": [
-            { "ref": "okafor-second-brain", "citation": "C’est là que j’ai compris que je m’accusais moi-même d’un problème de conception.", "citationOriginale": "This is the part where I realised I’d been blaming myself for a design problem.", "role": "ouverture" }
-          ]
+          }
         },
         {
           "id": 3,
@@ -247,10 +246,11 @@
             "transcription": "Pour les médias, quand même, je suis plutôt rigoureuse : tout est en double, sur deux disques, et je sais ce qu’il y a dessus. C’est pour les informations que c’est le flou."
           },
           "retenu": {
+            "resume": "Les informations du film vivent dans plusieurs documents qui ne disent pas la même chose.",
             "curseurs": [
-              { "libelle": "Retrouver une information", "valeur": "Improvisation", "corrigeA": null },
-              { "libelle": "Source de référence", "valeur": "Exploration", "corrigeA": null },
-              { "libelle": "Sauvegarde des médias", "valeur": "Improvisation", "corrigeA": "Organisé" }
+              { "libelle": "Retrouver une information", "valeur": "Improvisation", "corrigeA": null, "dit": "Je reprends le dernier dossier, celui de la télé, et je corrige." },
+              { "libelle": "Source de référence", "valeur": "Exploration", "corrigeA": null, "dit": "elles ne disent pas toutes la même chose" },
+              { "libelle": "Sauvegarde des médias", "valeur": "Improvisation", "corrigeA": "Organisé", "nonAborde": true }
             ]
           }
         },
@@ -302,10 +302,11 @@
             "transcription": "Par mail. J’envoie, chacun répond avec ses corrections, parfois sur des versions différentes, et je fusionne à la main. Pour un dossier de coproduction, ça peut faire quinze allers-retours. Le plus pénible, c’est de reconstituer qui a validé quoi."
           },
           "retenu": {
+            "resume": "Les validations passent par mail, parfois sur des versions différentes.",
             "tags": ["validations dispersées dans les mails"],
             "curseurs": [
-              { "libelle": "Circulation des décisions", "valeur": "Improvisation", "corrigeA": null },
-              { "libelle": "Accueil d’une nouvelle personne", "valeur": "Exploration", "corrigeA": null }
+              { "libelle": "Circulation des décisions", "valeur": "Improvisation", "corrigeA": null, "dit": "je fusionne à la main" },
+              { "libelle": "Accueil d’une nouvelle personne", "valeur": "Exploration", "corrigeA": null, "dit": "l’essentiel est dans ma tête" }
             ]
           },
           "pointEtape": {
@@ -342,9 +343,10 @@
             "transcription": "Tout ce qui est dans ma tête : l’ordre des étapes, qui je relance, où sont les bonnes pièces, ce que chaque fonds attend vraiment. Je ne l’ai jamais écrit. Du coup je ne délègue pas, ou je délègue et je refais derrière."
           },
           "retenu": {
+            "resume": "Le montage du dossier repose sur ce que tu as en tête, sans trace écrite.",
             "tags": ["savoir-faire non transmis", "l’IA manque de contexte"],
             "curseurs": [
-              { "libelle": "Décrire tes processus", "valeur": "Exploration", "corrigeA": null }
+              { "libelle": "Décrire tes processus", "valeur": "Exploration", "corrigeA": null, "dit": "Je ne l’ai jamais écrit." }
             ]
           }
         },
@@ -540,9 +542,10 @@
             "transcription": "Il y a la fiche technique de la régisseuse, qui est impeccable. Pour le reste, il nous suit deux dates et il apprend sur le tas. Ça dépend beaucoup de qui l’accueille."
           },
           "retenu": {
+            "resume": "L’équipe se transmet beaucoup de choses à l’oral ; l’écrit se limite à la fiche technique.",
             "curseurs": [
-              { "libelle": "Échanges dans l’équipe", "valeur": "Organisé", "corrigeA": null },
-              { "libelle": "Traces écrites", "valeur": "Exploration", "corrigeA": null }
+              { "libelle": "Échanges dans l’équipe", "valeur": "Organisé", "corrigeA": null, "dit": "on se parle beaucoup" },
+              { "libelle": "Traces écrites", "valeur": "Exploration", "corrigeA": null, "dit": "il apprend sur le tas" }
             ]
           }
         },
@@ -630,10 +633,11 @@
             "transcription": "Ah non, la fiche de la régisseuse, elle est tenue. C’est la référence. Le problème, ce sont les copies qui ne la suivent pas."
           },
           "retenu": {
+            "resume": "La fiche technique existe en plusieurs versions, et la captation n’a pas de place fixe.",
             "curseurs": [
-              { "libelle": "Captations", "valeur": "Exploration", "corrigeA": null },
-              { "libelle": "Fiches techniques", "valeur": "Improvisation", "corrigeA": "Organisé" },
-              { "libelle": "Informations de tournée", "valeur": "Improvisation", "corrigeA": null }
+              { "libelle": "Captations", "valeur": "Exploration", "corrigeA": null, "dit": "sur une clé USB, je crois" },
+              { "libelle": "Fiches techniques", "valeur": "Improvisation", "corrigeA": "Organisé", "dit": "elles ne sont pas toujours d’accord" },
+              { "libelle": "Informations de tournée", "valeur": "Improvisation", "corrigeA": null, "dit": "une autre que j’envoie aux lieux" }
             ]
           },
           "pointEtape": {
@@ -665,10 +669,11 @@
             "transcription": "Principal, oui, parce que tout le monde l’a. On sait que c’est Meta, on n’aime pas ça. Mais ce qui me pèse le plus, c’est qu’une info importante se noie entre deux blagues."
           },
           "retenu": {
+            "resume": "La tournée se coordonne dans un groupe WhatsApp où les informations se perdent.",
             "extrait": "une info importante se noie entre deux blagues",
             "tags": ["tension entre valeurs et pratique"],
             "curseurs": [
-              { "libelle": "Coordination de tournée", "valeur": "Improvisation", "corrigeA": null }
+              { "libelle": "Coordination de tournée", "valeur": "Improvisation", "corrigeA": null, "dit": "une info importante se noie entre deux blagues" }
             ]
           },
           "pointEtape": {
@@ -709,10 +714,11 @@
             "transcription": "Les mails aux lieux d’accueil. Toujours les mêmes infos : horaires, besoins techniques, nombre de personnes. Je les réécris à la main, alors que tout est dans le Sheets et dans la fiche de la régisseuse."
           },
           "retenu": {
+            "resume": "Chaque semaine, tu réécris des mails dont les informations existent déjà.",
             "extrait": "alors que tout est dans le Sheets",
             "tags": ["tâche répétitive", "informations déjà structurées ailleurs"],
             "curseurs": [
-              { "libelle": "Décrire tes processus", "valeur": "Exploration", "corrigeA": null }
+              { "libelle": "Décrire tes processus", "valeur": "Exploration", "corrigeA": null, "dit": "Je les réécris à la main" }
             ]
           },
           "pointEtape": {
@@ -852,10 +858,11 @@
             "transcription": "Les photos, oui, le nom du fichier commence par le numéro. Sur un disque, et sur kDrive. Par contre les textes, les légendes, les prix, ils sont un peu partout : dans d’anciens dossiers, dans des mails aux galeries."
           },
           "retenu": {
+            "resume": "L’inventaire et les photos tiennent par le numéro ; les textes sont dispersés.",
             "curseurs": [
-              { "libelle": "Inventaire", "valeur": "Orchestré", "corrigeA": null },
-              { "libelle": "Photos des œuvres", "valeur": "Organisé", "corrigeA": null },
-              { "libelle": "Textes et légendes", "valeur": "Improvisation", "corrigeA": null }
+              { "libelle": "Inventaire", "valeur": "Orchestré", "corrigeA": null, "dit": "Chaque œuvre a son numéro." },
+              { "libelle": "Photos des œuvres", "valeur": "Organisé", "corrigeA": null, "dit": "le nom du fichier commence par le numéro" },
+              { "libelle": "Textes et légendes", "valeur": "Improvisation", "corrigeA": null, "dit": "ils sont un peu partout" }
             ]
           },
           "pointEtape": {
@@ -928,10 +935,11 @@
             "transcription": "J’ai un site, quand même. Fait main, mais il existe. Instagram, non, je refuse. Mais je sais que je perds des choses. Ce qui me pèse, c’est de refaire toujours la même chose à la main."
           },
           "retenu": {
+            "resume": "Chaque portfolio se refait à la main, à partir du tableur.",
             "extrait": "refaire toujours la même chose à la main",
             "curseurs": [
-              { "libelle": "Portfolio", "valeur": "Improvisation", "corrigeA": null },
-              { "libelle": "Présence en ligne", "valeur": "Exploration", "corrigeA": "Improvisation" }
+              { "libelle": "Portfolio", "valeur": "Improvisation", "corrigeA": null, "dit": "je recopie les légendes depuis le tableur" },
+              { "libelle": "Présence en ligne", "valeur": "Exploration", "corrigeA": "Improvisation", "nonAborde": true }
             ]
           },
           "pointEtape": {
@@ -971,10 +979,11 @@
             "transcription": "Non… je ne savais pas. Ça, ça m’intéresse, si tout reste chez moi. Mais il faudrait que mes textes soient au même endroit que l’inventaire."
           },
           "retenu": {
+            "resume": "Tu découvres qu’une IA peut travailler sans rien envoyer, et tu poses une condition.",
             "extrait": "il faudrait que mes textes soient au même endroit que l’inventaire",
             "tags": ["ouverte à l’IA, si tout reste chez elle"],
             "curseurs": [
-              { "libelle": "Compétences IA", "valeur": "Exploration", "corrigeA": null }
+              { "libelle": "Compétences IA", "valeur": "Exploration", "corrigeA": null, "dit": "je ne savais pas" }
             ]
           },
           "pointEtape": {

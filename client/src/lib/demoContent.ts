@@ -13,10 +13,16 @@ export type PersonaStatus = "en-preparation" | "pret";
 export type RadarLevel = "Exploration" | "Improvisation" | "Organisé" | "Orchestré";
 export type StepType = "cases" | "question" | "scenario" | "curseurs" | "relance";
 
-/** Curseur qualitatif induit : position proposée par la Boussole, puis éventuelle correction par la personne. */
-export type DemoSlider = { libelle: string; valeur: RadarLevel; corrigeA: RadarLevel | null };
+/**
+ * Curseur qualitatif induit : position proposée par la Boussole, puis éventuelle correction par la personne.
+ * `dit` rappelle les mots exacts qui justifient le niveau ; `nonAborde` signale un niveau proposé sans que la
+ * personne en ait encore parlé (c’est souvent là qu’elle corrige).
+ */
+export type DemoSlider = { libelle: string; valeur: RadarLevel; corrigeA: RadarLevel | null; dit?: string; nonAborde?: boolean };
 
 export type DemoRetained = {
+  /** Résumé d’une phrase de ce qui a été dit, affiché avec les curseurs pour qu’ils ne tombent pas hors contexte. */
+  resume?: string;
   /** Passage de la transcription surligné (niveau 1 du panneau). */
   extrait?: string;
   /** Notes taguées par la dimension de l’étape (niveau 2). */
@@ -142,7 +148,7 @@ export type DemoContent = {
   preparation: { titre: string; texte: string; comparaisonTexte: string; boutonAccueil: string; boutonAvis: string };
   lecture: Record<
     | "boussole" | "echange" | "reponseDe" | "passerAnimation" | "continuer" | "retour" | "allerRestitution"
-    | "selectionCases" | "selectionScenario" | "ecoute" | "accelerer" | "digestion" | "induction"
+    | "selectionCases" | "selectionScenario" | "accelerer" | "digestion" | "induction" | "indiceDit" | "indiceNonAborde"
     | "valide" | "corrige" | "rebondTitre" | "rebondEchange" | "pointEtapeTitre" | "pointEtapeOuvrir" | "pointEtapeReplier" | "annonceRetenu"
     | "ressourcesTitre" | "ressourceLire" | "nouvelOnglet" | "traduitAnglais",
     string
