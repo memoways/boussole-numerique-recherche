@@ -160,6 +160,10 @@ La conversation s’appuie désormais sur la veille du projet. Sous treize écha
 
 Le jour même, après une première lecture en ligne, Ulrich a demandé que la parole se voie en direct : le texte s’écrit désormais pendant que l’onde bouge, et l’onde se tait avec la dernière phrase. Les curseurs ne tombent plus du ciel : une phrase résume ce que la personne vient de dire, et chaque niveau cite ses propres mots, ou dit qu’elle n’en a pas encore parlé, ce qui rend la correction naturelle. La question est annoncée comme telle, en plus grand et sans gras.
 
+### Calendriers alignés sur trois jalons (15 octobre 2026)
+
+Le calendrier public est désormais le même sur l’accueil, `/partenaires`, `/timeline` et le pré-rendu SEO-GEO : octobre 2026, un démonstrateur (prototype léger avec 3 persona, pour itérer avec les participants et intégrer les retours dans un outil testable) ; fin 2026 – début 2027, des échanges et ateliers avec les professionnels de la culture et la mise en place de partenariats de co-conception et de dissémination ; février–mars 2027, la publication d’une première version de la Boussole, fondée sur les enseignements du terrain. Le hero de l’accueil perd son libellé « Description du projet » et reçoit un titre en dégradé multicolore.
+
 ## 5. Décisions structurantes
 
 | Décision | Raison | Effet pratique |

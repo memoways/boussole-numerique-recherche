@@ -31,9 +31,9 @@ const QUI_PEUT_CONTRIBUER = [
 
 const PARCOURS_PARTENAIRE = [
   { num: "01", titre: "Je réponds", desc: "Je partage besoins, idées et situations à comprendre, ou je demande une invitation personnelle.", ...SPECTRE_PARTENAIRES[0] },
-  { num: "02", titre: "Je co-conçois", desc: "Je participe à l’atelier et au cadrage prévus entre septembre et octobre 2026.", ...SPECTRE_PARTENAIRES[1] },
-  { num: "03", titre: "Je teste", desc: "Je confronte le prototype visé fin 2026 aux pratiques que je connais.", ...SPECTRE_PARTENAIRES[2] },
-  { num: "04", titre: "Je deviens relais", desc: "Je contribue aux ajustements avant l’ouverture publique visée début 2027.", ...SPECTRE_PARTENAIRES[3] },
+  { num: "02", titre: "Je co-conçois", desc: "Je teste le démonstrateur dès octobre 2026, puis je participe aux échanges et ateliers de fin 2026 – début 2027.", ...SPECTRE_PARTENAIRES[1] },
+  { num: "03", titre: "Je teste", desc: "Je confronte le démonstrateur, puis les versions suivantes, aux pratiques que je connais.", ...SPECTRE_PARTENAIRES[2] },
+  { num: "04", titre: "Je deviens relais", desc: "Je contribue à la dissémination et à la première version de la Boussole, visée en février–mars 2027.", ...SPECTRE_PARTENAIRES[3] },
 ];
 
 export default function Partenaires() {
@@ -53,9 +53,9 @@ export default function Partenaires() {
           <div className="mb-5 grid max-w-2xl gap-2 sm:grid-cols-2 lg:grid-cols-4">
             {[
               ["Aujourd’hui", "Informer et recueillir les retours"],
-              ["Sept.–oct. 2026", "Atelier et cadrage"],
-              ["Fin 2026", "Prototype à tester visé"],
-              ["Début 2027", "Ouverture publique visée"],
+              ["Octobre 2026", "Démonstrateur à tester"],
+              ["Fin 2026 – début 2027", "Échanges, ateliers et partenariats"],
+              ["Février–mars 2027", "Première version de la Boussole"],
             ].map(([moment, detail], index) => <div key={moment} className="border border-slate-200 bg-white px-3 py-3"><p className="text-[10px] font-bold uppercase tracking-[0.11em]" style={{ color: SPECTRE_PARTENAIRES[index].couleur }}>{moment}</p><p className="mt-1 text-xs font-semibold leading-snug text-slate-700">{detail}</p></div>)}
           </div>
           <div className="mb-5 flex max-w-2xl items-center gap-3 rounded-xl border border-slate-200 bg-white px-3 py-3 sm:gap-4 sm:px-4 sm:py-3.5">
@@ -90,7 +90,7 @@ export default function Partenaires() {
               <span className="mt-2 block text-sm leading-relaxed text-white/90">Partager besoins, priorités, idées et points de vigilance avant l’atelier de co-conception.</span>
             </Link>
           </div>
-          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-500"><span className="font-semibold text-slate-700">Étape actuelle : informer et recueillir les retours.</span> Si vous n’avez pas encore reçu d’invitation, le parcours vous permet d’en demander une avant l’atelier et le cadrage de l’automne.</p>
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-500"><span className="font-semibold text-slate-700">Étape actuelle : informer et recueillir les retours.</span> Si vous n’avez pas encore reçu d’invitation, le parcours vous permet d’en demander une avant les échanges et ateliers de fin 2026 – début 2027.</p>
         </div>
       </section>
 
@@ -136,7 +136,7 @@ export default function Partenaires() {
       <section className="py-14 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold text-gray-900 mb-3">Du questionnaire à l’ouverture publique : un parcours en quatre étapes</h2>
-          <p className="text-gray-500 mb-10">Le site sert aujourd’hui à écouter et à préparer le travail collectif. L’atelier et le cadrage précèdent le prototype à tester, puis les ajustements avant une ouverture publique visée début 2027.</p>
+          <p className="text-gray-500 mb-10">Le site sert aujourd’hui à écouter et à préparer le travail collectif. Le démonstrateur d’octobre 2026 précède les échanges et ateliers, puis la publication d’une première version de la Boussole en février–mars 2027.</p>
 
           {/* Desktop */}
           <div className="hidden md:flex items-start gap-2">

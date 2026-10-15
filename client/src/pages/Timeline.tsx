@@ -13,53 +13,48 @@ import { Link } from "wouter";
 const PHASES = [
   {
     num: "01",
-    titre: "Atelier et cadrage de co-conception",
-    duree: "Sept.–oct. 2026",
-    icon: Users,
+    titre: "Démonstrateur à tester",
+    duree: "Octobre 2026",
+    icon: TestTube,
     couleur: "#515792",
-    statut: "À engager",
+    statut: "Disponible",
     items: [
-      "Restitution des premiers retours et demandes d’invitation",
-      "Atelier avec les partenaires et les artistes volontaires",
-      "Séance de cadrage pour définir le prototype à développer",
-      "Validation des situations à comprendre, des objectifs et des critères de réussite",
-      "Premières maquettes des parcours et restitutions",
-      "Validation des formulations et des références locales",
+      "Prototype fonctionnel, en mode prototype léger, qui peut évoluer facilement",
+      "Parcours conversationnel avec 3 persona fictifs",
+      "Itérations avec les participants",
+      "Retours implémentés directement dans un outil testable",
     ],
-    detail: "Le site compagnon informe et recueille les retours avant le démarrage. L’atelier puis la séance de cadrage doivent décider quel outil construire, pour quelles situations et avec quels premiers critères d’utilité.",
+    detail: "Un prototype fonctionnel permet d’itérer avec les participants et d’implémenter leurs retours directement dans un outil testable. Léger, il peut évoluer facilement. C’est le démonstrateur de l’accueil, avec ses 3 persona fictifs.",
   },
   {
     num: "02",
-    titre: "Développer un prototype à tester",
-    duree: "Fin 2026",
-    icon: TestTube,
+    titre: "Échanges, ateliers et partenariats",
+    duree: "Fin 2026 – début 2027",
+    icon: Users,
     couleur: "#E27227",
     statut: "Visé",
     items: [
-      "Restitution synthétique des décisions d’atelier et de cadrage",
-      "Première version du prototype à tester",
-      "État des lieux et conseils d’optimisation actionnables à éprouver",
-      "Ajustements des parcours, formulations et priorités de conception",
-      "Vérification des principes de données et de consentement",
+      "Échanges avec les professionnels de la culture",
+      "Ateliers de co-conception",
+      "Mise en place de partenariats pour la co-conception",
+      "Partenariats pour la dissémination",
     ],
-    detail: "Les décisions de l’atelier deviennent un prototype. Il devra aider à comprendre des pratiques, à repérer une amélioration et à formuler des conseils utiles. Sa mise à l’épreuve déterminera ce qui doit être conservé, modifié ou laissé de côté.",
+    detail: "Des échanges et des ateliers avec les professionnels de la culture nourrissent la co-conception. Des partenariats se mettent en place, pour co-concevoir puis disséminer la Boussole.",
   },
   {
     num: "03",
-    titre: "Tester et préparer l’ouverture publique",
-    duree: "Début 2027",
+    titre: "Première version de la Boussole",
+    duree: "Février–mars 2027",
     icon: Globe,
     couleur: "#3aab8a",
     statut: "Visé",
     items: [
-      "Tests avec des artistes et des structures volontaires",
-      "Ouverture publique visée après les premiers ajustements",
-      "Activation du mécanisme de retour continu (questionnaire de satisfaction)",
+      "Publication d’une première version de la Boussole",
+      "Prise en compte des enseignements du terrain",
+      "Intégration des apports de la co-conception",
       "Suivi des premiers usages et des retours",
-      "Rapport d'évaluation intermédiaire (fin de phase pilote)",
-      "Ajustements prioritaires basés sur les retours",
     ],
-    detail: "Les premiers tests reconnectent le prototype aux personnes qui en auront l’usage. L’ouverture publique est visée après les ajustements nécessaires ; le site compagnon rendra visibles les apprentissages et les décisions prises.",
+    detail: "Une première version de la Boussole est publiée, sur la base des enseignements et des apports de co-conception du terrain. Le site compagnon rendra visibles les apprentissages et les décisions prises.",
   },
   {
     num: "04",
@@ -94,7 +89,7 @@ export default function Timeline() {
             Du site compagnon à l’ouverture de la Boussole
           </h1>
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl leading-relaxed mb-6">
-            La Boussole n’existe pas encore. Ce site compagnon informe et recueille les retours avant l’atelier et le cadrage de l’automne 2026. Le prototype à tester est visé fin 2026, puis une ouverture publique au début de 2027.
+            La Boussole n’existe pas encore. Un démonstrateur est à tester dès octobre 2026. Des échanges et ateliers avec les professionnels de la culture suivent fin 2026 – début 2027, puis une première version de la Boussole est visée en février–mars 2027.
           </p>
           <div className="flex items-center gap-2 text-sm text-gray-500 bg-gray-100 rounded-full px-4 py-2 w-fit">
             <Calendar className="h-4 w-4" />
