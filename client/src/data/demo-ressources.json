@@ -1,0 +1,125 @@
+{
+  "source": "Ressources web MW (Notion), liées au projet Boussole Numérique Culture. Sélection validée par Ulrich le 15 octobre 2026 : annexe v3, page Notion 3fa511682fc381de8faefae21f4bc741.",
+  "ressources": [
+    {
+      "id": "guillaud-travail-intellectuel",
+      "notionId": "1d8ef8246ef94b25a583bbacfe7c9e08",
+      "titre": "Le travail intellectuel est-il en train de devenir vain ?",
+      "auteur": "Hubert Guillaud",
+      "media": "Dans les algorithmes",
+      "url": "https://danslesalgorithmes.net/2026/10/08/le-travail-intellectuel-est-il-en-train-de-devenir-vain/",
+      "langue": "fr",
+      "statutEditorial": "En ligne"
+    },
+    {
+      "id": "okafor-second-brain",
+      "notionId": "b8bcc1df3a2f4fb5bcf4dc72784955d0",
+      "titre": "I Tried Every “Second Brain” App. The Concept Is the Problem, Not the Tools.",
+      "auteur": "Nadia Okafor",
+      "media": "Medium",
+      "url": "https://justtalkingtech.medium.com/i-tried-every-second-brain-app-the-concept-is-the-problem-not-the-tools-5015de4c8812",
+      "langue": "en",
+      "statutEditorial": "À définir"
+    },
+    {
+      "id": "maccarone-jugement",
+      "notionId": "8411333829e642ee9816a11d102b5792",
+      "titre": "Bottle your judgment and make it outlive you",
+      "auteur": "Dan Maccarone",
+      "media": "UX Collective",
+      "url": "https://uxdesign.cc/bottle-your-judgment-and-make-it-outlive-you-14f422772262",
+      "langue": "en",
+      "statutEditorial": "Interne MW"
+    },
+    {
+      "id": "neeman-problemes-humains",
+      "notionId": "1c7a9ace1f7846b8a431c73d6b356758",
+      "titre": "Most AI problems are really human problems",
+      "auteur": "Patrick Neeman",
+      "media": "UX Collective",
+      "url": "https://uxdesign.cc/most-ai-problems-are-really-human-problems-this-is-how-you-can-fix-it-ab64843f845e",
+      "langue": "en",
+      "statutEditorial": "En ligne"
+    },
+    {
+      "id": "girardin-machines-probabilistes",
+      "notionId": "f2f9fbb5c0e64a1ab01fdf3ad3aedc0c",
+      "titre": "Écrire avec des machines probabilistes",
+      "auteur": "Fabien Girardin",
+      "media": "Medium",
+      "url": "https://girardin.medium.com/%C3%A9crire-avec-des-machines-probabilistes-08fb737ea12b",
+      "langue": "fr",
+      "statutEditorial": "À définir"
+    },
+    {
+      "id": "sevengold-ia-act",
+      "notionId": "a9ac500a1c3a4e46b41bb1c95824f88e",
+      "titre": "IA Act : comment encadrer les usages IA dans une PME",
+      "auteur": "7 Gold Agency",
+      "media": "Substack",
+      "url": "https://sevengoldagency.substack.com/p/votre-pme-utilise-deja-lia-mais-savez",
+      "langue": "fr",
+      "statutEditorial": "Interne MW"
+    },
+    {
+      "id": "fischer-cinema-web",
+      "notionId": "c96faee6c1be44f0a3886282768936ea",
+      "titre": "Et si… le cinéma embrassait le web ?",
+      "auteur": "Ulrich Fischer",
+      "media": "ulrichfischer.net",
+      "url": "https://ulrichfischer.net/2019/02/28/et-si-le-cinema-embrassait-le-web/",
+      "langue": "fr",
+      "statutEditorial": "En ligne"
+    },
+    {
+      "id": "cavazza-pedagogie",
+      "notionId": "1eec8aa7d4e0446aa95bf97dde2f898f",
+      "titre": "Seule une meilleure pédagogie peut faciliter l’adoption de l’IA",
+      "auteur": "Fred Cavazza",
+      "media": "FredCavazza.net",
+      "url": "https://fredcavazza.net/2026/04/15/seule-une-meilleure-pedagogie-peut-faciliter-ladoption-de-lia/",
+      "langue": "fr",
+      "statutEditorial": "À définir"
+    },
+    {
+      "id": "dolle-plus-libres",
+      "notionId": "e6c973939b5c4c59afb93312b3ed0eb1",
+      "titre": "Et si l’IA nous rendait plus libres ?",
+      "auteur": "Marie Dollé",
+      "media": "Substack",
+      "url": "https://mariedolle.substack.com/p/et-si-lia-nous-rendait-plus-libres",
+      "langue": "fr",
+      "statutEditorial": "En ligne"
+    },
+    {
+      "id": "dolle-acculturation",
+      "notionId": "55266ddcd37843dbaa4eba94deb4f7cf",
+      "titre": "L’Acculturation à l’IA ou l’ensauvagement de l’esprit ?",
+      "auteur": "Marie Dollé",
+      "media": "Substack",
+      "url": "https://mariedolle.substack.com/p/lacculturation-a-lia-ou-lensauvagement",
+      "langue": "fr",
+      "statutEditorial": "À définir"
+    },
+    {
+      "id": "raphael-competence",
+      "notionId": "f64dd5f9fb864610a95b96cd101a236e",
+      "titre": "La compétence la plus sous-évaluée pour maîtriser l’IA en 2026",
+      "auteur": "Benoît Raphaël",
+      "media": "Génération IA (Flint)",
+      "url": "https://generationia.flint.media/p/la-competence-la-plus-sous-evaluee-pour-maitriser-l-ia-en-2026-second-cerveau-prompt",
+      "langue": "fr",
+      "statutEditorial": "À définir"
+    },
+    {
+      "id": "kelly-better-than-free",
+      "notionId": "357ad1892d42492d80a8141e9b61967f",
+      "titre": "Better Than Free",
+      "auteur": "Kevin Kelly",
+      "media": "The Technium",
+      "url": "https://kevinkelly.substack.com/p/better-than-free",
+      "langue": "en",
+      "statutEditorial": "En ligne"
+    }
+  ]
+}

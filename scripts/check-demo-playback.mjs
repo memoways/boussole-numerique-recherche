@@ -1,12 +1,14 @@
 /**
- * Contrôle Playwright de la démo playback (Claire, Marc et Nadia, comparaison ; lot 3), à lancer contre un serveur en marche :
+ * Contrôle Playwright de la démo playback (Claire, Marc et Nadia, comparaison ; lots 3 et 4), à lancer contre un serveur en marche :
  *   node scripts/check-demo-playback.mjs http://localhost:5173 /tmp/captures-demo
  * Couvre les trois parcours à 1280 et 390 px, la comparaison des trois parcours, sauts de chapitre,
  * rechargement direct, bouton retour, clavier, mouvement réduit, tiroir mobile, « Un premier regard »
- * replié et sa mesure d’ouverture, définitions des niveaux, débordement horizontal et erreurs console. `CHROME_BIN` permet d’utiliser un Chromium déjà
+ * replié et sa mesure d’ouverture, définitions des niveaux, débordement horizontal et erreurs console. Lot 4 : ancien bloc
+ * « La Boussole retient » absent, curseurs induits et correction toujours visibles, « D’autres regards » aux bons échanges
+ * (liens en nouvel onglet, mesure `demo_ressource_ouverte`), signal du tiroir mobile. `CHROME_BIN` permet d’utiliser un Chromium déjà
  * installé si la version attendue par Playwright manque. Sort en code 1 si au moins un contrôle échoue.
  */
-import { mkdirSync } from "node:fs";
+import { mkdirSync, readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { chromium } from "playwright";
@@ -35,6 +37,12 @@ const overflow = (page) => page.evaluate(() => {
   return Math.max(doc, Math.round(widest));
 });
 const path = (page) => new URL(page.url()).pathname;
+// Repères du lot 4 tirés du contenu lui-même : échanges avec des ressources liées et curseurs induits sous la réponse.
+const CONTENT = JSON.parse(readFileSync(new URL("../client/src/data/demo-parcours.json", import.meta.url), "utf8"));
+const contentSteps = (id) => CONTENT.personas.find((persona) => persona.id === id).etapes;
+const resourceSteps = (id) => new Map(contentSteps(id).filter((step) => step.ressources?.length).map((step) => [step.id, step.ressources.length]));
+const inducedSteps = (id) => new Set(contentSteps(id).filter((step) => step.type !== "curseurs" && step.retenu?.curseurs?.length).map((step) => step.id));
+const RESOURCE_HOSTS = ["danslesalgorithmes.net", "medium.com", "uxdesign.cc", "substack.com", "ulrichfischer.net", "fredcavazza.net", "flint.media"];
 // Repères propres à chaque parcours (annexe v2) : premiers regards, rebonds, correction de curseur, tiroir mobile.
 const PERSONAS = {
   cinema: { prenom: "Claire", steps: 12, milestones: [2, 5, 7, 10, 12], rebonds: [7, 12], correction: { step: 4, text: "Claire corrige « Sauvegarde des médias » : Improvisation → Organisé." }, drawer: { step: 7, note: "e-mail au centre" } },
@@ -96,9 +104,24 @@ async function walk(label, viewport, { skip, persona: id = "cinema" }) {
       await page.screenshot({ path: `${OUT}/${label}-etape-${n}-regard-ouvert.png`, fullPage: true });
     }
     ok((await page.getByText("Tu disais plus tôt").count()) === (P.rebonds.includes(n) ? 1 : 0), `${label} étape ${n} : rebond mémoire ${P.rebonds.includes(n) ? "présent" : "absent"}`);
+    // Lot 4 : l’ancien bloc sous la réponse a disparu ; la validation humaine et « D’autres regards » restent.
+    ok((await page.locator("main").getByText("La Boussole retient", { exact: true }).count()) === 0, `${label} étape ${n} : ancien bloc « La Boussole retient » absent`);
+    const induced = inducedSteps(id).has(n);
+    ok((await page.locator("[data-demo-induction]").count()) === (induced ? 1 : 0) && (!induced || (await page.getByText(`${P.prenom} valide.`).isVisible())), `${label} étape ${n} : curseurs induits ${induced ? "et validation visibles" : "absents"}`);
+    const expected = resourceSteps(id).get(n) ?? 0;
+    const block = page.locator("[data-demo-ressources]");
+    ok((await block.count()) === (expected ? 1 : 0), `${label} étape ${n} : « D’autres regards » ${expected ? "présent" : "absent"}`);
+    if (expected) {
+      const links = block.getByRole("link", { name: /Lire l’article/ });
+      ok((await block.locator("blockquote").count()) === expected && (await links.count()) === expected, `${label} étape ${n} : ${expected} citation(s) et autant de liens`);
+      const attrs = await links.evaluateAll((items) => items.map((a) => [a.target, a.rel, a.href.startsWith("https://"), a.textContent.includes("(nouvel onglet)")]));
+      ok(attrs.every(([target, rel, https, mention]) => target === "_blank" && rel.includes("noopener") && rel.includes("noreferrer") && https && mention), `${label} étape ${n} : liens en nouvel onglet (target, rel, https, mention)`);
+      ok(await block.getByRole("heading", { name: "D’autres regards" }).isVisible(), `${label} étape ${n} : titre « D’autres regards »`);
+    }
     if (label.startsWith("mobile") && n === P.drawer.step) {
       const trigger = page.getByRole("button", { name: /Ce que je retiens \(\d+\)/ });
       const text = await trigger.textContent();
+      ok(Number(await trigger.getAttribute("data-pulses")) > 0, `${label} bouton tiroir : signal d’ajout joué (${await trigger.getAttribute("data-pulses")})`);
       ok(/\((\d+)\)/.test(text) && Number(text.match(/\((\d+)\)/)[1]) > 5, `${label} bouton tiroir : ${text}`);
       const bar = await page.locator("main button").filter({ hasText: /Continuer/ }).boundingBox();
       const pill = await trigger.boundingBox();
@@ -122,7 +145,8 @@ async function walk(label, viewport, { skip, persona: id = "cinema" }) {
   ok((await page.locator(".recharts-radar-polygon").count()) === 1, `${label} restitution : radar dessiné`);
   const radarText = await page.locator("figure").innerText();
   ok(!/\d/.test(radarText), `${label} restitution : aucun chiffre dans le radar`);
-  ok(await page.getByText("Ce n’est ni bien ni mal : c’est ton point de départ.").isVisible(), `${label} restitution : phrase sous le radar`);
+  ok(await page.getByText("Ni bien ni mal. Un point de départ.").first().isVisible(), `${label} restitution : phrase sous le radar`);
+  ok(await page.getByText("Les citations de ce parcours viennent du corpus de veille du projet.").isVisible() && (await page.getByRole("link", { name: "Voir les ressources" }).getAttribute("href")) === "/ressources", `${label} restitution : origine des citations, lien vers les ressources`);
   ok((await page.locator("#demo-pistes ~ ol li").count()) === 3, `${label} restitution : 3 pistes`);
   ok(await page.getByRole("heading", { name: "Ce qui pourrait être plus léger" }).isVisible(), `${label} restitution : « Ce qui pourrait être plus léger »`);
   ok((await page.locator("figure dl dt").allInnerTexts()).join(" · ") === "Exploration · Improvisation · Organisé · Orchestré", `${label} restitution : définitions des 4 niveaux sous le radar`);
@@ -245,6 +269,30 @@ for (const id of Object.keys(PERSONAS)) {
   await context.close();
 }
 
+// « D’autres regards » : un lien ouvre la source dans un nouvel onglet et l’ouverture est mesurée (`demo_ressource_ouverte`).
+{
+  const { context, page } = await newPage({ width: 1280, height: 900 });
+  await context.route("https://tag.grainql.com/**", (route) => route.fulfill({
+    contentType: "application/javascript",
+    body: "window.__demoEvents = []; window.GrainTag = { track: (name, props) => window.__demoEvents.push({ name, props }) };",
+  }));
+  // Les sources externes ne sont pas chargées pendant le contrôle : seule l’ouverture de l’onglet compte.
+  await context.route((url) => RESOURCE_HOSTS.some((host) => url.hostname.endsWith(host)), (route) => route.fulfill({ contentType: "text/html", body: "<title>source</title>" }));
+  await page.goto(`${BASE}/experience/demo/scene/1`);
+  await playStep(page, { skip: true, prenom: "Marc" });
+  const block = page.locator("[data-demo-ressources]");
+  const before = await page.evaluate(() => window.scrollY);
+  const [popup] = await Promise.all([context.waitForEvent("page"), block.getByRole("link", { name: /Lire l’article/ }).nth(1).click()]);
+  await popup.waitForLoadState();
+  ok(new URL(popup.url()).hostname === "danslesalgorithmes.net" && path(page) === "/experience/demo/scene/1", `ressource : la source s’ouvre dans un nouvel onglet, la démo reste sur l’échange (${popup.url()})`);
+  await popup.close();
+  const opened = (await page.evaluate(() => window.__demoEvents ?? [])).filter((event) => event.name === "demo_ressource_ouverte");
+  ok(opened.length === 1 && opened[0].props.persona === "scene" && opened[0].props.etape === "1" && opened[0].props.ressource === "guillaud-travail-intellectuel" && Object.keys(opened[0].props).length === 3, `ressource : ouverture mesurée sans donnée personnelle (${JSON.stringify(opened)})`);
+  ok(Math.abs((await page.evaluate(() => window.scrollY)) - before) < 400, "ressource : la page de la démo ne saute pas au clic");
+  ok(page.errors.length === 0, `ressources liées sans erreur console${page.errors.length ? ` : ${page.errors.join(" | ")}` : ""}`);
+  await context.close();
+}
+
 // Mouvement réduit.
 {
   const { context, page } = await newPage({ width: 1280, height: 900 }, { reducedMotion: "reduce" });
@@ -253,6 +301,9 @@ for (const id of Object.keys(PERSONAS)) {
   ok((await page.locator("main button").filter({ hasText: /^Continuer/ }).count()) === 1, "reduced-motion : réponse complète dès le clic");
   ok(await page.getByText(CORRECTION).isVisible(), "reduced-motion : correction affichée");
   ok((await regardButton(page).count()) === 0, "reduced-motion : pas de premier regard à l’étape 4");
+  await page.goto(`${BASE}/experience/demo/cinema/8`);
+  await page.getByRole("button", { name: "Réponse de Claire" }).click();
+  ok((await page.locator("[data-demo-ressources] blockquote").count()) === 2, "reduced-motion : « D’autres regards » affiché dès la fin de la réponse");
   await page.goto(`${BASE}/experience/demo/cinema/5`);
   await page.getByRole("button", { name: "Réponse de Claire" }).click();
   await regardButton(page).click();
@@ -297,6 +348,19 @@ for (const id of Object.keys(PERSONAS)) {
   await page.waitForURL("**/scene/avis");
   ok(true, "clavier : futur ← comparaison → avis");
   ok(page.errors.length === 0, `Marc, Nadia et comparaison sans erreur console${page.errors.length ? ` : ${page.errors.join(" | ")}` : ""}`);
+  await context.close();
+}
+
+// Tiroir mobile en mouvement réduit : pas de pulsation, le compteur suffit.
+{
+  const { context, page } = await newPage({ width: 390, height: 844 }, { reducedMotion: "reduce" });
+  await page.goto(`${BASE}/experience/demo/arts-visuels/5`);
+  const trigger = page.getByRole("button", { name: /Ce que je retiens \(\d+\)/ });
+  const countBefore = Number((await trigger.textContent()).match(/\((\d+)\)/)[1]);
+  await page.getByRole("button", { name: "Réponse de Nadia" }).click();
+  const countAfter = Number((await trigger.textContent()).match(/\((\d+)\)/)[1]);
+  ok(countAfter > countBefore && (await trigger.getAttribute("data-pulses")) === "0", `reduced-motion mobile : compteur du tiroir mis à jour (${countBefore} → ${countAfter}) sans pulsation`);
+  ok(page.errors.length === 0, "tiroir en mouvement réduit sans erreur console");
   await context.close();
 }
 

@@ -21,6 +21,8 @@ const colors = {
   gris_600: '#475569',
   surface_ardoise: '#F8FAFC',
   teinte_bleue: '#EEEEF4',
+  bleu_survol: '#3F4475',
+  ardoise_900: '#0F172A',
 };
 
 function linear(value) {
@@ -67,6 +69,12 @@ const pairs = [
   ['bleu_memoways', 'teinte_bleue'],
   ['orange_accessible', 'blanc'],
   ['vert_accessible', 'blanc'],
+  // Lot 4 : « D’autres regards » sur blanc (titre et lien, lien survolé, citation, auteur et titre de la source).
+  ['bleu_memoways', 'blanc'],
+  ['bleu_survol', 'blanc'],
+  ['ardoise_900', 'blanc'],
+  ['gris_700', 'blanc'],
+  ['gris_600', 'blanc'],
 ];
 
 console.table(pairs.map(([foreground, background]) => {

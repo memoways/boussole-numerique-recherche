@@ -222,6 +222,8 @@ Contenu :
 
 ### Lot 4 — Ressources liées et finitions (v1.5.0) · ajouté le 15 octobre 2026
 
+> **Livré le 15 octobre 2026 en v1.5.0.** Sélection validée dans l’annexe v3 (Notion `3fa511682fc381de8faefae21f4bc741`), libellé « D’autres regards ». Une précision appliquée : « au plus une ressource par échange » se lit « deux citations au plus, chacune d’une ressource différente ». Le catalogue garde l’identifiant Notion dans `notionId` ; `id` est un identifiant lisible. État : [`ETAT_LOT4_DEMO_PLAYBACK_2026-10-15.md`](./ETAT_LOT4_DEMO_PLAYBACK_2026-10-15.md).
+
 **Origine** : retour d’Ulrich du 15 octobre 2026 sur l’échange 1 de Marc (capture annotée). Le bloc « La Boussole retient » sous la réponse répète le panneau de droite. Il faut le remplacer par des ressources liées : la conversation ne doit pas « tomber du ciel ». Ce qui est dit s’ancre dans un corpus de recherche traçable, la veille curée par Ulrich depuis un an. Le but est d’apporter de la nuance, d’ouvrir et de donner envie d’en savoir plus, y compris par des pistes de réflexion à creuser.
 
 **Source** : base Notion « Ressources web MW » (`collection://2be51168-2fc3-81f1-89a4-000b12cbfbb4`), relation `Projets Memoways` vers le projet « Boussole Numérique Culture » (`302511682fc38000a31cf63089c76477`). État au 15 octobre 2026 : 321 ressources liées, dont 34 « En ligne », 41 « Interne MW » et 246 « À définir ».

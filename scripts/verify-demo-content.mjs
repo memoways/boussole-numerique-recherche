@@ -171,8 +171,81 @@ if (personas.every((persona) => persona.statut === "pret")) {
   assert(content.futur?.boutonSuite && !/avis/i.test(content.futur.boutonSuite), "Comparaison : depuis l’écran « futur », le bouton mène à la comparaison, pas encore à l’avis.");
 }
 
-assert(content.restitution?.radarPhrase === "Ce n’est ni bien ni mal : c’est ton point de départ.", "La phrase sous le radar doit être « Ce n’est ni bien ni mal : c’est ton point de départ. ».");
+assert(content.restitution?.radarPhrase === "Ni bien ni mal. Un point de départ.", "La phrase sous le radar doit être « Ni bien ni mal. Un point de départ. ».");
+
+// --- Écriture (retours d’Ulrich, 15 octobre 2026) --------------------------------------------------------
+// Phrases courtes, sans tics d’écriture générée : ni « concret », ni « ce n’est pas X, c’est Y ».
+// Les citations de « D’autres regards » restent celles de leurs auteurs et ne sont pas contrôlées ici.
+const ownTexts = [];
+const collectTexts = (value, where) => {
+  if (typeof value === "string") { ownTexts.push({ where, text: value }); return; }
+  if (Array.isArray(value)) { value.forEach((item, index) => collectTexts(item, `${where}[${index}]`)); return; }
+  if (value && typeof value === "object") for (const [key, item] of Object.entries(value)) if (key !== "ressources") collectTexts(item, `${where}.${key}`);
+};
+collectTexts(content, "contenu");
+const BANNED_STYLE = [
+  { pattern: /concr[eè]t/i, label: "le mot « concret »" },
+  { pattern: /(n’est|ne sont|n’était|n’étaient)( même)? pas [^.!?]{0,60}?[:,;]\s*(mais )?(c’est|ce sont|c’était)/i, label: "la tournure « ce n’est pas X, c’est Y »" },
+  { pattern: /\bnon (pas )?par [^,.]{1,40}, mais\b/i, label: "la tournure « non par X, mais par Y »" },
+];
+for (const { where, text } of ownTexts) {
+  for (const { pattern, label } of BANNED_STYLE) assert(!pattern.test(text), `${where} : ${label} est à bannir (« ${text.slice(0, 80)}… »).`);
+}
 assert((content.futur?.fonctions ?? []).length === 5, "Les cinq fonctions futures du PRD sont attendues.");
+
+// --- « D’autres regards » : ressources liées (lot 4, annexe v3) ------------------------------------------
+// Citations courtes, exactes et attribuées, tirées du corpus « Ressources web MW » : inspiration, jamais preuve.
+const catalog = JSON.parse(await readFile(resolve("client/src/data/demo-ressources.json"), "utf8")).ressources ?? [];
+const catalogById = new Map(catalog.map((resource) => [resource.id, resource]));
+const ROLES = new Set(["pratique", "ouverture", "contrepoint"]);
+const STATUSES = new Set(["À définir", "Interne MW", "En ligne"]);
+const wordCount = (text) => text.split(/\s+/).filter((token) => /[\p{L}\p{N}]/u.test(token)).length;
+assert(catalogById.size === catalog.length, "Ressources : chaque identifiant du catalogue doit être unique.");
+for (const resource of catalog) {
+  const at = `Ressource ${resource.id}`;
+  assert(/^[0-9a-f]{32}$/.test(resource.notionId ?? ""), `${at} : identifiant de page Notion (32 caractères hexadécimaux) requis pour la traçabilité.`);
+  assert(resource.titre && resource.auteur && resource.media, `${at} : titre, auteur et média sont requis.`);
+  assert(["fr", "en"].includes(resource.langue), `${at} : langue « fr » ou « en » attendue.`);
+  assert(STATUSES.has(resource.statutEditorial), `${at} : statut éditorial Notion inconnu (« ${resource.statutEditorial} »).`);
+  let url = null;
+  try { url = new URL(resource.url); } catch { /* signalé ci-dessous */ }
+  assert(url?.protocol === "https:", `${at} : URL publique en https requise.`);
+  assert(url && [...url.searchParams.keys()].every((key) => !/^(utm_|mc_|fbclid|gclid|ref$|r$|publication_id|post_id|triedRedirect|isFreemail)/.test(key)), `${at} : l’URL ne doit porter aucun paramètre de suivi.`);
+  assert(url && !/(brevo|sendinblue|mailchimp|list-manage|substack\.com\/redirect|beehiiv\.com\/redirect|r\.sp1)/.test(url.hostname + url.pathname), `${at} : l’URL ne doit pas être une redirection de newsletter.`);
+}
+assert(content.lecture?.ressourcesTitre === "D’autres regards", "Le bloc des ressources liées doit s’intituler « D’autres regards ».");
+assert(content.lecture?.ressourceLire && content.lecture?.nouvelOnglet && content.lecture?.traduitAnglais, "Les libellés du lien, du nouvel onglet et de la traduction sont requis.");
+assert(!("retenuTitre" in (content.lecture ?? {})), "L’ancien bloc « La Boussole retient » sous la réponse est retiré : le libellé retenuTitre ne doit plus exister.");
+assert(content.restitution?.corpus === "Les citations de ce parcours viennent du corpus de veille du projet." && content.restitution?.corpusLien, "La restitution doit rappeler l’origine des citations, avec un lien vers les ressources.");
+const usedResources = new Set();
+for (const persona of personas.filter((item) => item.statut === "pret")) {
+  const where = `Persona ${persona.id}`;
+  const withResources = persona.etapes.filter((step) => (step.ressources ?? []).length > 0);
+  assert(withResources.length >= 4 && withResources.length <= 7, `${where} : quatre à sept échanges avec des ressources liées sont attendus (${withResources.length} trouvés).`);
+  assert(withResources.every((step, index) => index === 0 || step.id - withResources[index - 1].id > 1), `${where} : jamais deux échanges de suite avec des ressources liées.`);
+  const refs = withResources.flatMap((step) => step.ressources.map((item) => item.ref));
+  assert(new Set(refs).size === refs.length, `${where} : une ressource ne doit apparaître qu’une fois par parcours.`);
+  assert(withResources.some((step) => step.ressources.some((item) => item.role === "ouverture")), `${where} : au moins une ouverture est attendue dans le parcours.`);
+  for (const step of withResources) {
+    const at = `${where}, étape ${step.id}`;
+    const items = step.ressources;
+    assert(items.length <= 2, `${at} : deux citations au plus par échange.`);
+    if (items.length === 2) assert(items[0].role === "pratique" && ["ouverture", "contrepoint"].includes(items[1].role), `${at} : deux citations se répondent, un regard pratique puis une ouverture ou un contrepoint.`);
+    for (const item of items) {
+      const resource = catalogById.get(item.ref);
+      usedResources.add(item.ref);
+      assert(Boolean(resource), `${at} : la ressource « ${item.ref} » n’existe pas dans le catalogue.`);
+      assert(ROLES.has(item.role), `${at} : rôle « ${item.role} » inconnu (pratique, ouverture ou contrepoint).`);
+      assert(item.citation && wordCount(item.citation) <= 30, `${at} : la citation de « ${item.ref} » doit compter 30 mots au plus (${wordCount(item.citation ?? "")}).`);
+      if (resource && resource.langue !== "fr") {
+        assert(item.citationOriginale && wordCount(item.citationOriginale) <= 30, `${at} : une source qui n’est pas en français garde sa citation originale (30 mots au plus) pour vérification.`);
+      } else {
+        assert(!item.citationOriginale, `${at} : une source en français est citée telle quelle, sans citationOriginale.`);
+      }
+    }
+  }
+}
+assert(catalog.every((resource) => usedResources.has(resource.id)), `Ressources : chaque ressource du catalogue doit être citée au moins une fois (orphelines : ${catalog.filter((resource) => !usedResources.has(resource.id)).map((resource) => resource.id).join(", ")}).`);
 
 // Les étapes nommées acceptées par le routeur doivent rester alignées avec le contrat d’URL.
 const contentSource = await readFile(resolve("client/src/lib/demoContent.ts"), "utf8");
