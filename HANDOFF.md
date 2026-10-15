@@ -6,6 +6,7 @@
 
 - **Lots 1 à 3 : livrés** (v1.4.0 à v1.4.3). Les trois parcours et la comparaison sont jouables.
 - **Retouches v1.5.1 (15 octobre)** : parole et transcription simultanées, curseurs avec résumé et indices tirés des mots de la personne, « La question de la Boussole », typographie allégée, citation d’Okafor retirée chez Claire. **En attente d’Ulrich** : deux liens vers ses billets sur les enjeux de la création culturelle, à placer dans « D’autres regards ».
+- **Retouches v1.7.0 (15 octobre)** : Okafor retiré du catalogue ; Marc recentré sur préparation, médiation et tournée (création hors écran) ; Nadia part de ses outils puis de ses besoins (11 échanges, ordre outils → données → publics → compétences → partage). Détail : [`docs/ETAT_RETOUCHES_MARC_NADIA_2026-10-15.md`](./docs/ETAT_RETOUCHES_MARC_NADIA_2026-10-15.md).
 - **Lot 4 (ressources liées et finitions) : livré en v1.5.0.**
   - « D’autres regards » sous 13 échanges : 17 citations tirées de 12 ressources du corpus « Ressources web MW », selon l’annexe v3 validée par Ulrich (Notion `3fa511682fc381de8faefae21f4bc741`).
   - Le bloc « La Boussole retient » sous la réponse est retiré. Les curseurs induits et la validation passent dans « D’après ce que tu dis… ».

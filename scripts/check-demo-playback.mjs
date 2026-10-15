@@ -46,8 +46,8 @@ const RESOURCE_HOSTS = ["danslesalgorithmes.net", "medium.com", "uxdesign.cc", "
 // Repères propres à chaque parcours (annexe v2) : premiers regards, rebonds, correction de curseur, tiroir mobile.
 const PERSONAS = {
   cinema: { prenom: "Claire", steps: 12, milestones: [2, 5, 7, 10, 12], rebonds: [7, 12], correction: { step: 4, text: "Claire corrige « Sauvegarde des médias » : Improvisation → Organisé." }, drawer: { step: 7, note: "e-mail au centre" } },
-  scene: { prenom: "Marc", steps: 11, milestones: [3, 5, 7, 9, 11], rebonds: [5, 11], correction: { step: 7, text: "Marc corrige « Fiches techniques » : Improvisation → Organisé." }, drawer: { step: 6, note: "équipe qui se parle beaucoup" } },
-  "arts-visuels": { prenom: "Nadia", steps: 10, milestones: [2, 4, 6, 8, 10], rebonds: [4, 8], correction: { step: 6, text: "Nadia corrige « Présence en ligne » : Exploration → Improvisation." }, drawer: { step: 5, note: "inventaire numéroté depuis 1998" } },
+  scene: { prenom: "Marc", steps: 11, milestones: [3, 5, 7, 9, 11], rebonds: [5, 11], correction: { step: 7, text: "Marc corrige « Fiches techniques » : Improvisation → Organisé." }, drawer: { step: 6, note: "références difficiles à retrouver" } },
+  "arts-visuels": { prenom: "Nadia", steps: 11, milestones: [2, 4, 7, 9, 11], rebonds: [2, 9], correction: { step: 6, text: "Nadia corrige « Présence en ligne » : Exploration → Improvisation." }, drawer: { step: 5, note: "inventaire numéroté depuis 1998" } },
 };
 const CORRECTION = PERSONAS.cinema.correction.text;
 const regardButton = (page) => page.getByRole("button", { name: /Un premier regard/ });
@@ -317,7 +317,7 @@ for (const id of Object.keys(PERSONAS)) {
   await playStep(page, { skip: true, prenom: "Marc" });
   const block = page.locator("[data-demo-ressources]");
   const before = await page.evaluate(() => window.scrollY);
-  const [popup] = await Promise.all([context.waitForEvent("page"), block.getByRole("link", { name: /Lire l’article/ }).nth(1).click()]);
+  const [popup] = await Promise.all([context.waitForEvent("page"), block.getByRole("link", { name: /Lire l’article/ }).first().click()]);
   await popup.waitForLoadState();
   ok(new URL(popup.url()).hostname === "danslesalgorithmes.net" && path(page) === "/experience/demo/scene/1", `ressource : la source s’ouvre dans un nouvel onglet, la démo reste sur l’échange (${popup.url()})`);
   await popup.close();
@@ -398,7 +398,7 @@ for (const id of Object.keys(PERSONAS)) {
   ok((await page.getByText("Après", { exact: true }).count()) >= 1, "reduced-motion : micro-démo à l’état final");
   await page.goto(`${BASE}/experience/demo/scene/demos`);
   await page.getByRole("button", { name: "Lancer l’animation" }).first().click();
-  ok(await page.getByText("Note partagée avec l’équipe").isVisible(), "reduced-motion : note de répétition complète dès le clic");
+  ok(await page.getByText("Après", { exact: true }).count() >= 1 && await page.getByText("Plan de la salle en PDF").isVisible(), "reduced-motion : références réunies dans le dossier du spectacle dès le clic");
   await page.goto(`${BASE}/experience/demo/arts-visuels/comparaison`);
   ok((await page.locator(".recharts-radar-polygon").count()) === 3, "reduced-motion : 3 radars de la comparaison");
   ok(page.errors.length === 0, "reduced-motion sans erreur console");
@@ -410,10 +410,10 @@ for (const id of Object.keys(PERSONAS)) {
   const { context, page } = await newPage({ width: 1280, height: 900 });
   const panel = page.locator("aside[aria-labelledby='demo-memoire-titre']");
   await page.goto(`${BASE}/experience/demo/scene/11`);
-  ok(await panel.getByText("équipe qui se parle beaucoup").isVisible() && await panel.getByText("Fiches techniques : Organisé").isVisible(), "Marc, rechargement direct étape 11 : panneau cumulé, curseur corrigé conservé");
+  ok(await panel.getByText("références difficiles à retrouver").isVisible() && await panel.getByText("Fiches techniques : Organisé").isVisible(), "Marc, rechargement direct étape 11 : panneau cumulé, curseur corrigé conservé");
   ok((await panel.locator(".ring-2").count()) === 1, "Marc, rechargement direct étape 11 : élément cité mis en évidence");
-  await page.goto(`${BASE}/experience/demo/arts-visuels/8`);
-  ok(await panel.getByText("Présence en ligne : Improvisation").isVisible() && (await panel.locator(".ring-2").count()) === 1, "Nadia, rechargement direct étape 8 : curseur corrigé, élément cité mis en évidence");
+  await page.goto(`${BASE}/experience/demo/arts-visuels/9`);
+  ok(await panel.getByText("Présence en ligne : Improvisation").isVisible() && (await panel.locator(".ring-2").count()) === 1, "Nadia, rechargement direct étape 9 : curseur corrigé, élément cité mis en évidence");
   await page.getByRole("navigation", { name: "Progression du parcours" }).getByRole("link", { name: "Publics & communication" }).click();
   ok(path(page) === "/experience/demo/arts-visuels/5", `Nadia, saut de chapitre Publics → ${path(page)}`);
 
@@ -456,9 +456,9 @@ for (const id of Object.keys(PERSONAS)) {
   await page.goto(`${BASE}/experience/demo/scene/12`);
   await page.waitForURL("**/scene/accueil");
   ok(true, "Marc, étape 12 (absente) → accueil du parcours");
-  await page.goto(`${BASE}/experience/demo/arts-visuels/11`);
+  await page.goto(`${BASE}/experience/demo/arts-visuels/12`);
   await page.waitForURL("**/arts-visuels/accueil");
-  ok(await page.getByRole("link", { name: /Commencer/ }).isVisible(), "Nadia, étape 11 (absente) → accueil jouable");
+  ok(await page.getByRole("link", { name: /Commencer/ }).isVisible(), "Nadia, étape 12 (absente) → accueil jouable");
   await page.goto(`${BASE}/experience/demo/inconnu/1`);
   await page.waitForURL("**/experience/demo");
   ok(true, "persona inconnu → choix du persona");
