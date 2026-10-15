@@ -110,5 +110,5 @@ export function DemoActions({ children, compact = false }: { children: ReactNode
   );
 }
 
-export const demoPrimaryButton = "inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-[#E07428] px-6 text-base font-semibold text-[#1F2937] transition-colors hover:bg-[#d06a22] disabled:pointer-events-none disabled:opacity-50";
+export const demoPrimaryButton = "inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-[#E07428] px-6 text-base font-semibold text-white transition-colors hover:bg-[#c95f18] disabled:pointer-events-none disabled:opacity-50";
 export const demoSecondaryButton = "inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-6 text-base font-semibold text-slate-800 transition-colors hover:border-[#515792]";

@@ -68,7 +68,7 @@ export function ScenarioAnswer({ options, choix, selecting, finished, prenom }: 
               key={option}
               className={`flex items-start gap-3 rounded-xl border px-3 py-2 text-sm leading-snug transition-colors duration-300 ${isChosen ? "border-[#E07428] bg-[#E07428]/10 font-semibold text-slate-900" : "border-slate-200 bg-white text-slate-700"}`}
             >
-              <span aria-hidden="true" className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold ${isChosen ? "bg-[#E07428] text-[#1F2937]" : "bg-slate-100 text-slate-700"}`}>{LETTERS[index]}</span>
+              <span aria-hidden="true" className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold ${isChosen ? "bg-[#E07428] text-white" : "bg-slate-100 text-slate-700"}`}>{LETTERS[index]}</span>
               <span>
                 <span className="sr-only">{LETTERS[index]} : </span>
                 {option}

@@ -19,7 +19,6 @@ import {
   Users,
   Wrench,
 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { AnimatedRadarGraphic, type RadarDimension } from "@/components/AnimatedRadarGraphic";
 
@@ -144,7 +143,7 @@ function DemoCallout({ id }: { id: string }) {
         <h3 id={id} className="text-lg font-extrabold text-slate-950">Voir la conversation se dérouler</h3>
         <p className="mt-1 max-w-2xl text-sm leading-relaxed text-slate-700">Un parcours fictif, joué à l’écran en quelques minutes : les questions, les réponses, ce que la Boussole retient et la restitution. Rien n’est enregistré.</p>
       </div>
-      <Link href="/experience/demo" aria-describedby={id} className="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-xl bg-[#E07428] px-5 text-base font-bold text-[#1F2937] transition-colors hover:bg-[#d06a22]">
+      <Link href="/experience/demo" aria-describedby={id} className="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-xl bg-[#E07428] px-5 text-base font-bold text-white transition-colors hover:bg-[#c95f18]">
         Voir une démonstration du parcours <ArrowRight className="h-5 w-5" aria-hidden="true" />
       </Link>
     </div>
@@ -164,12 +163,28 @@ export default function Experience() {
 
   return (
     <div className="bg-white">
-      <section className="bg-gradient-to-b from-slate-50 to-white px-4 pb-12 pt-20 sm:pt-24">
-        <div className="mx-auto max-w-5xl">
-          <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: "#E07428", color: "#fff" }}>Prévisualisation du futur prototype</Badge>
-          <h1 className="max-w-4xl text-3xl font-extrabold leading-tight text-slate-950 sm:text-4xl lg:text-5xl">Imaginer l’expérience Boussole, écran par écran</h1>
-          <p className="mt-4 max-w-3xl text-lg leading-relaxed text-slate-600 sm:text-xl">Cette page rend tangible le futur parcours : se situer, décrire une situation, lire un panorama, puis choisir une première amélioration. <strong>La Boussole n’existe pas encore et cette démonstration ne collecte aucune donnée.</strong></p>
-          <div className="mt-7 flex flex-wrap gap-3 text-sm"><span className="rounded-full bg-[#515792]/10 px-4 py-2 font-bold text-[#515792]">4 écrans à discuter</span><span className="rounded-full bg-[#3aab8a]/10 px-4 py-2 font-bold text-[#18755e]">État des lieux non jugeant</span><span className="rounded-full bg-[#E07428]/10 px-4 py-2 font-bold text-[#a94d14]">Pistes actionnables à co-concevoir</span></div>
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#f4f5fb] via-[#fdf8f3] to-[#f5fbf9] px-4 pb-16 pt-24 sm:pb-24 sm:pt-32 lg:pb-28" aria-labelledby="experience-title">
+        <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]">
+          <div>
+            <h1 id="experience-title" className="text-4xl font-extrabold leading-[1.05] tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">Essayez la Boussole avant qu’elle existe</h1>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-700 sm:text-xl">Suivez en quelques minutes une conversation fictive : une personne décrit sa situation, la Boussole en retient l’essentiel, propose un panorama à discuter, puis une première amélioration à tester. Vous voyez le futur outil à l’œuvre et vous nous dites ce qui sonne juste.</p>
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
+              <Link href="/experience/demo" className="inline-flex min-h-14 items-center justify-center gap-2 rounded-xl bg-[#E07428] px-8 text-center text-lg sm:whitespace-nowrap font-bold text-white shadow-lg shadow-[#E07428]/30 transition-colors hover:bg-[#c95f18] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E07428]">
+                Voir une démonstration du parcours <ArrowRight className="h-5 w-5" aria-hidden="true" />
+              </Link>
+              <p className="text-sm leading-snug text-slate-600 sm:max-w-[16rem]">Environ 3 minutes. Rien n’est enregistré : la Boussole n’existe pas encore.</p>
+            </div>
+          </div>
+          <div className="relative hidden lg:block" aria-hidden="true">
+            <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_24px_60px_rgba(81,87,146,0.18)]">
+              <div className="flex items-center gap-2 text-sm font-bold text-[#515792]"><span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#515792] text-white"><Compass className="h-4 w-4" /></span>Boussole Numérique Culture</div>
+              <div className="mt-5 rounded-2xl rounded-tl-sm bg-slate-100 p-4 text-sm leading-relaxed text-slate-700">Qu’est-ce qui rend votre travail numérique plus difficile aujourd’hui ?</div>
+              <div className="ml-8 mt-3 rounded-2xl rounded-tr-sm bg-[#515792] p-4 text-sm leading-relaxed text-white">On ne retrouve jamais la bonne version des fichiers…</div>
+              <div className="mt-3 space-y-2.5 rounded-2xl border border-slate-200 p-4">
+                {PREVIEW_BARS.slice(0, 3).map((bar) => <div key={bar.label}><div className="flex justify-between text-xs font-bold text-slate-700"><span>{bar.label}</span><span style={{ color: bar.color }}>{bar.note}</span></div><div className="mt-1 h-2 overflow-hidden rounded-full bg-slate-200"><div className="h-full rounded-full" style={{ width: bar.width, backgroundColor: bar.color }} /></div></div>)}
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -190,8 +205,6 @@ export default function Experience() {
       <section className="bg-slate-50 px-4 py-12 sm:py-16"><div className="mx-auto max-w-6xl"><div className="grid gap-5 md:grid-cols-3"><div className="border-t-4 bg-white p-6 shadow-sm" style={{ borderColor: "#515792" }}><User className="h-7 w-7 text-[#515792]" /><h2 className="mt-4 text-lg font-extrabold text-slate-950">Pour les artistes</h2><p className="mt-2 text-sm leading-relaxed text-slate-600">Partir d’une pratique vécue et choisir une amélioration qui ne demande pas de devenir spécialiste du numérique.</p></div><div className="border-t-4 bg-white p-6 shadow-sm" style={{ borderColor: "#3aab8a" }}><Users className="h-7 w-7 text-[#18755e]" /><h2 className="mt-4 text-lg font-extrabold text-slate-950">Pour les structures</h2><p className="mt-2 text-sm leading-relaxed text-slate-600">Faire émerger des regards croisés, des priorités communes et les conditions d’un changement collaboratif.</p></div><div className="border-t-4 bg-white p-6 shadow-sm" style={{ borderColor: "#E07428" }}><FileText className="h-7 w-7 text-[#a94d14]" /><h2 className="mt-4 text-lg font-extrabold text-slate-950">Pour le prototype</h2><p className="mt-2 text-sm leading-relaxed text-slate-600">Tester les mots, les écrans, les restitutions et les pistes d’action avant de proposer une ouverture publique.</p></div></div></div></section>
 
       <section className="px-4 py-10"><div className="mx-auto max-w-5xl rounded-2xl border border-slate-200 bg-white p-6 sm:p-8"><div className="flex items-start gap-4"><FileText className="mt-0.5 h-6 w-6 shrink-0 text-[#515792]" /><div><h2 className="font-extrabold text-slate-950">Ce que ces écrans ne font pas encore</h2><p className="mt-2 text-sm leading-relaxed text-slate-600">Ils ne lancent pas de diagnostic, ne calculent pas de score, ne sauvegardent pas de réponse et ne recommandent pas automatiquement un outil. Ils rendent simplement discutables les écrans et les gestes que le prototype devra confirmer avec les partenaires et les artistes.</p></div></div></div></section>
-
-      <section className="px-4 pb-4"><div className="mx-auto max-w-5xl"><DemoCallout id="experience-demo-callout-bas" /></div></section>
 
       <section className="bg-white px-4 pb-16 pt-8 text-center"><div className="mx-auto max-w-4xl"><h2 className="text-2xl font-extrabold text-slate-950">Votre réaction peut aider à définir ces écrans</h2><p className="mx-auto mt-3 max-w-2xl text-slate-600">Les partenaires peuvent partager ce qui semble juste, ce qui manque et ce qui devrait rester simple avant l’atelier et le cadrage du prototype.</p><div className="mt-7 flex flex-wrap justify-center gap-3"><Button className="text-white" style={{ backgroundColor: "#E07428" }} asChild><Link href="/partenaires/questionnaire">Répondre au questionnaire partenaire <ArrowRight className="ml-2 h-4 w-4" /></Link></Button><Button variant="outline" className="border-[#515792] text-[#515792]" asChild><Link href="/partenaires">Comprendre la co-conception <ChevronRight className="ml-1 h-4 w-4" /></Link></Button></div></div></section>
     </div>

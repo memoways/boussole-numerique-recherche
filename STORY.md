@@ -319,3 +319,5 @@ Les contenus éditoriaux restent principalement dans les composants React. Une s
 | [`docs/DIAGNOSTIC_REECRITURE_ACCUEIL_PROFILS_2026-08-16.md`](docs/DIAGNOSTIC_REECRITURE_ACCUEIL_PROFILS_2026-08-16.md) | Diagnostic des formulations et textes de référence appliqués aux trois parcours |
 | [`docs/CONTROLE_REECRITURE_ACCUEIL_2026-08-16.md`](docs/CONTROLE_REECRITURE_ACCUEIL_2026-08-16.md) | Contrôle de cohérence éditoriale, SEO-GEO et point de test restant sur appareil mobile réel |
 | [`docs/PLAN_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md`](docs/PLAN_CLARIFICATION_SITE_COMPAGNON_2026-08-16.md) | Décisions validées sur le statut du site compagnon, les deux profils et les jalons de co-conception |
+
+Le 15 octobre 2026, à la suite d’une relecture de l’accueil et de `/experience`, les boutons orange passent tous en texte blanc, les labels orange sans action sont retirés, et le bouton vers la démonstration monte tout en haut de la page Expérience, dans un hero réécrit pour donner envie d’essayer. Le hero de l’accueil est agrandi dans le même but.

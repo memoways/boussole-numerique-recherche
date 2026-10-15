@@ -70,7 +70,7 @@ async function walk(label, viewport, { skip, persona: id = "cinema" }) {
   const check = async (name) => { const o = await overflow(page); maxOverflow = Math.max(maxOverflow, o); if (o > 0) results.push(`FAIL ${label} débordement ${o}px sur ${name}`); };
 
   await page.goto(`${BASE}/experience`);
-  ok((await page.getByRole("link", { name: /Voir une démonstration du parcours/ }).count()) === 2, `${label} /experience : 2 blocs d’appel`);
+  ok((await page.getByRole("link", { name: /Voir une démonstration du parcours/ }).count()) === 1, `${label} /experience : bouton d’appel en haut de page`);
   await check("/experience");
   const siteErrors = page.errors.splice(0);
   if (siteErrors.length) results.push(`NOTE ${label} /experience (hors démo, préexistant) : ${siteErrors.length} erreur(s) console : ${siteErrors[0].slice(0, 90)}`);
