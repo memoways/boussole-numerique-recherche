@@ -20,7 +20,7 @@
   "niveauxTitre": "Ce que veulent dire les niveaux",
   "choixPersona": {
     "titre": "Choisis une situation à suivre",
-    "intro": "Trois personnes fictives, trois métiers. Tu les accompagnes pendant quelques minutes pour voir comment la future Boussole pourrait mener la conversation. Rien ne t’est demandé : tout est joué à l’écran.",
+    "intro": "Trois personnes fictives, trois métiers. Tu les accompagnes quelques minutes pour voir comment la future Boussole pourrait mener la conversation. Rien ne t’est demandé : tu fais avancer le playback en cliquant sur le bouton orange.",
     "bouton": "Suivre",
     "badgePreparation": "En préparation"
   },
@@ -43,7 +43,8 @@
     "texte": "On va parler de ton quotidien de travail : tes outils, tes fichiers, ta façon de faire. Pas de bonne ou de mauvaise réponse. À la fin, tu auras une photo de tes pratiques et quelques pistes.",
     "avertissementPreparation": "Le déroulé de la conversation de {prenom} est en cours de préparation. Tu peux déjà donner ton avis sur cette démonstration.",
     "boutonCommencer": "Commencer",
-    "aideLecture": "Clique pour avancer : chaque échange se joue sous tes yeux. Au clavier, Entrée ou Espace fait avancer, les flèches changent d’étape.",
+    "aideTitre": "Tu fais avancer la conversation",
+    "aideLecture": "C’est un playback : la conversation est écrite d’avance, mais c’est toi qui la fais avancer. À chaque échange, clique sur le bouton orange pour lancer la réponse, puis pour passer à la suite. Au clavier : Entrée ou Espace.",
     "boutonAvis": "Donner mon avis",
     "boutonChangerPersona": "Choisir une autre personne"
   },
@@ -60,6 +61,7 @@
     "reponseDe": "Réponse de {prenom}",
     "passerAnimation": "Passer l’animation",
     "continuer": "Continuer",
+    "consigne": "Clique sur le bouton orange pour lancer la réponse, puis pour continuer.",
     "retour": "Retour",
     "allerRestitution": "Aller à la restitution",
     "selectionCases": "{prenom} coche",

@@ -11,6 +11,7 @@ import {
   CalendarDays,
   Check,
   Compass,
+  Play,
   RotateCcw,
   Send,
   Users,
@@ -430,14 +431,21 @@ export default function Home() {
 
   return (
     <div className="bg-white">
-      <section className="border-b border-[#515792]/15 bg-gradient-to-br from-[#f4f5fb] via-[#fdf8f3] to-[#f5fbf9] px-4 pb-14 pt-24 sm:pb-20 sm:pt-32" aria-labelledby="home-title">
+      <section className="border-b border-[#515792]/15 bg-gradient-to-br from-[#f4f5fb] via-[#fdf8f3] to-[#f5fbf9] px-4 pb-8 pt-20 sm:pb-12 sm:pt-28" aria-labelledby="home-title">
         <div className="mx-auto max-w-6xl">
-          <p className="text-2xl font-medium tracking-tight text-slate-500 sm:text-3xl">Description du projet</p>
-          <h1 id="home-title" className="mt-3 max-w-5xl text-4xl font-extrabold leading-[1.04] tracking-tight sm:text-5xl lg:text-6xl">
+          <p className="text-lg font-medium tracking-tight text-slate-500 sm:text-2xl">Description du projet</p>
+          <h1 id="home-title" className="mt-1 max-w-5xl text-3xl font-extrabold leading-[1.05] tracking-tight sm:mt-2 sm:text-5xl lg:text-6xl">
             <span className="bg-gradient-to-r from-[#515792] via-[#3a7fc1] via-45% to-[#E07428] bg-clip-text text-transparent">Boussole Numérique Culture</span>
           </h1>
-          <p className="mt-7 max-w-5xl text-xl leading-relaxed text-slate-700 sm:text-2xl">Un outil en co-conception, accompagné par ce site, pour aider les artistes et les structures qui les accompagnent à situer leurs pratiques numériques, à formuler leurs priorités et à choisir des améliorations utiles.</p>
-          <p className="mt-4 max-w-4xl text-base leading-relaxed text-slate-600 sm:text-lg"><strong className="font-bold text-slate-900">La Boussole n’existe pas encore.</strong> Ce site est son compagnon de préparation : il explique la démarche, rassemble les retours et ouvre la co-conception avec les partenaires et les futurs utilisateurs.</p>
+          <p className="mt-3 max-w-4xl text-base leading-relaxed text-slate-700 sm:mt-5 sm:text-xl">Un outil en co-conception pour aider les artistes et les structures qui les accompagnent à situer leurs pratiques numériques, formuler leurs priorités et choisir des améliorations utiles.</p>
+          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600 sm:text-base"><strong className="font-bold text-slate-900">La Boussole n’existe pas encore.</strong> Ce site est son compagnon de préparation : il explique la démarche et ouvre la co-conception.</p>
+          <div className="mt-5 flex flex-col gap-2 sm:mt-6 sm:flex-row sm:items-center sm:gap-4">
+            <Link href="/experience/demo" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#E07428] px-6 text-base font-bold text-[#1F2937] shadow-sm transition-colors hover:bg-[#d06a22] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E07428]">
+              <Play className="h-5 w-5" aria-hidden="true" />
+              Essayer l’expérience Boussole
+            </Link>
+            <p className="text-sm leading-snug text-slate-700 sm:max-w-sm">Une conversation fictive en playback : <strong className="font-semibold text-slate-900">cliquez sur le bouton orange</strong> à chaque échange pour la faire avancer.</p>
+          </div>
         </div>
       </section>
 

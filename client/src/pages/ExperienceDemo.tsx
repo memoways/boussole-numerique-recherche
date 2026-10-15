@@ -4,7 +4,7 @@
  * Lot 3 : les trois parcours (annexe v2) sont jouables de bout en bout, suivis de la comparaison des trois parcours.
  */
 import { useEffect, useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MousePointerClick } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import ComparisonView from "@/components/demo/ComparisonView";
 import FeedbackForm from "@/components/demo/FeedbackForm";
@@ -44,13 +44,20 @@ function Welcome({ persona }: { persona: DemoPersona }) {
     <>
       <section aria-labelledby="demo-accueil-titre">
         <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#515792]">{persona.prenom} · {persona.metier}</p>
-        <h1 id="demo-accueil-titre" className="mt-2 text-3xl font-normal leading-tight text-slate-950 sm:text-[2.6rem]">{persona.accroche}</h1>
-        <p className="mt-5 max-w-2xl text-lg leading-relaxed text-slate-800">{accueil.texte}</p>
-        <div className="mt-8"><TrustNotice variant="debut" /></div>
-        {ready ? (
-          <p className="mt-6 text-sm leading-relaxed text-slate-700">{accueil.aideLecture}</p>
-        ) : (
-          <p role="note" className="mt-6 rounded-2xl border border-[#E07428]/40 bg-white p-4 text-sm leading-relaxed text-slate-800">
+        <h1 id="demo-accueil-titre" className="mt-2 text-2xl font-normal leading-tight text-slate-950 sm:text-4xl">{persona.accroche}</h1>
+        <p className="mt-3 max-w-2xl text-base leading-relaxed text-slate-800 sm:mt-4 sm:text-lg">{accueil.texte}</p>
+        {ready && (
+          <div data-demo-aide className="mt-4 flex items-start gap-3 rounded-2xl border border-[#E07428]/50 bg-[#E07428]/10 p-3.5 sm:p-4">
+            <MousePointerClick className="mt-0.5 h-5 w-5 shrink-0 text-[#A8440D]" aria-hidden="true" />
+            <div>
+              <p className="text-sm font-semibold text-slate-950 sm:text-base">{accueil.aideTitre}</p>
+              <p className="mt-0.5 text-sm leading-relaxed text-slate-800">{accueil.aideLecture}</p>
+            </div>
+          </div>
+        )}
+        <div className="mt-3 sm:mt-5"><TrustNotice variant="debut" /></div>
+        {!ready && (
+          <p role="note" className="mt-4 rounded-2xl border border-[#E07428]/40 bg-white p-4 text-sm leading-relaxed text-slate-800">
             {fillTemplate(accueil.avertissementPreparation, { prenom: persona.prenom })}
           </p>
         )}
@@ -75,7 +82,7 @@ function Opinion({ persona }: { persona: DemoPersona }) {
   return (
     <section aria-labelledby="demo-avis-titre" className="space-y-6">
       <div>
-        <h1 id="demo-avis-titre" className="text-3xl font-normal leading-tight text-slate-950 sm:text-[2.6rem]">{avis.titre}</h1>
+        <h1 id="demo-avis-titre" className="text-2xl font-normal leading-tight text-slate-950 sm:text-4xl">{avis.titre}</h1>
         <p className="mt-4 max-w-2xl leading-relaxed text-slate-800">{avis.intro}</p>
       </div>
       <TrustNotice variant="fin" />

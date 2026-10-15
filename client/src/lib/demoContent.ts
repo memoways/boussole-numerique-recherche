@@ -165,10 +165,10 @@ export type DemoContent = {
     debut: { titre: string; texte: string; engagementsTitre: string; engagements: string[] };
     fin: { texte: string };
   };
-  accueil: { texte: string; avertissementPreparation: string; boutonCommencer: string; aideLecture: string; boutonAvis: string; boutonChangerPersona: string };
+  accueil: { texte: string; avertissementPreparation: string; boutonCommencer: string; aideTitre: string; aideLecture: string; boutonAvis: string; boutonChangerPersona: string };
   preparation: { titre: string; texte: string; comparaisonTexte: string; boutonAccueil: string; boutonAvis: string };
   lecture: Record<
-    | "boussole" | "echange" | "reponseDe" | "passerAnimation" | "continuer" | "retour" | "allerRestitution"
+    | "boussole" | "echange" | "reponseDe" | "passerAnimation" | "continuer" | "consigne" | "retour" | "allerRestitution"
     | "selectionCases" | "selectionScenario"
     | "outilsReperes" | "outilsPropositions" | "outilsAjoutes" | "outilsAjoute" | "outilsClassement" | "outilsApprofondir" | "outilsFonctionne" | "outilsPese"
     | "accelerer" | "digestion" | "induction" | "indiceDit" | "indiceNonAborde"
