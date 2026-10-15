@@ -12,6 +12,8 @@ import { ArrowRight, Check, Clock, Database, FileText, Folder, History, Mail, Mi
 import { Link } from "wouter";
 import { DEMO_CONTENT, stepPath, type DemoMicro, type DemoPersona } from "@/lib/demoContent";
 import { DemoActions, demoPrimaryButton, demoSecondaryButton } from "./DemoShell";
+import { useTypedSpeech } from "./useTypedSpeech";
+import Waveform from "./Waveform";
 
 /** Avancement d’une animation : 0 = état initial, puis une étape toutes les `interval` ms jusqu’à `last`. */
 function useStages(last: number, interval: number) {
@@ -258,7 +260,18 @@ function SourceDemo({ demo }: { demo: Extract<DemoMicro, { id: "source-unique" }
   );
 }
 
-/** Une décision, une trace : les phrases dictées apparaissent, puis la note se remplit champ par champ et se partage. */
+/** Phrase dictée : elle s’écrit mot à mot pendant qu’elle est « dite », puis reste affichée en entier. */
+function DictatedPhrase({ phrase, speaking, reducedMotion }: { phrase: string; speaking: boolean; reducedMotion: boolean }) {
+  const speech = useTypedSpeech(phrase, { active: speaking, finished: !speaking, reducedMotion, introMs: 0, wordMs: 45 });
+  return (
+    <li className="rounded-md bg-white px-2.5 py-1.5 text-sm italic leading-relaxed text-slate-800 shadow-sm">
+      <span className="sr-only">« {phrase} »</span>
+      <span aria-hidden="true">« {speech.wordsShown >= speech.total ? phrase : speech.heard}{speech.complete ? " »" : ""}</span>
+    </li>
+  );
+}
+
+/** Une décision, une trace : les phrases dictées s’écrivent, puis la note se remplit champ par champ et se partage. */
 function NoteDemo({ demo }: { demo: Extract<DemoMicro, { id: "note" }> }) {
   const spoken = demo.dictee.length;
   const fields = demo.note.champs.length;
@@ -266,15 +279,20 @@ function NoteDemo({ demo }: { demo: Extract<DemoMicro, { id: "note" }> }) {
   const said = Math.min(spoken, controls.stage);
   const filled = Math.max(0, Math.min(fields, controls.stage - spoken));
   const shared = controls.finished;
+  // L’onde s’anime tant qu’une phrase se dicte, puis s’apaise.
+  const dictating = controls.running && controls.stage >= 1 && controls.stage <= spoken;
   const fade = { initial: controls.reducedMotion ? false : { opacity: 0, y: 4 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.35 } };
   return (
     <DemoCard demo={demo} controls={controls} status={shared ? DEMO_CONTENT.demos.apres : DEMO_CONTENT.demos.avant}>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <div className="min-w-0">
-          <p className="flex items-center gap-1.5 text-xs font-semibold text-slate-700"><Mic className="h-3.5 w-3.5 text-slate-500" aria-hidden="true" />{demo.dicteeTitre}</p>
+          <div className="flex items-center justify-between gap-3">
+            <p className="flex items-center gap-1.5 text-xs font-semibold text-slate-700"><Mic className="h-3.5 w-3.5 text-slate-500" aria-hidden="true" />{demo.dicteeTitre}</p>
+            <Waveform active={dictating} level={1} reducedMotion={controls.reducedMotion} />
+          </div>
           <ol className="mt-2 min-h-12 space-y-1.5">
-            {demo.dictee.slice(0, said).map((phrase) => (
-              <motion.li key={phrase} {...fade} className="rounded-md bg-white px-2.5 py-1.5 text-sm italic leading-relaxed text-slate-800 shadow-sm">« {phrase} »</motion.li>
+            {demo.dictee.slice(0, said).map((phrase, index) => (
+              <DictatedPhrase key={phrase} phrase={phrase} speaking={dictating && index === said - 1} reducedMotion={controls.reducedMotion} />
             ))}
           </ol>
         </div>

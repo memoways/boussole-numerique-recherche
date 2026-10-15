@@ -132,6 +132,12 @@ for (const persona of personas) {
         const focus = tools.approfondissement;
         if (focus) {
           assert(focus.question && focus.transcription && focus.outils.length > 0, `${at} : l’approfondissement demande une question, une réponse et des outils.`);
+          let probeCursor = -1;
+          for (const item of focus.outils) {
+            const at3 = focus.transcription.toLowerCase().indexOf(item.dit?.toLowerCase() ?? "\u0000");
+            assert(at3 > probeCursor, `${at} : « ${item.dit} » (capsule de « ${item.outil} ») doit figurer dans la réponse d’approfondissement, après la capsule précédente.`);
+            probeCursor = at3;
+          }
           assert(focus.outils.every((item) => ranked.slice(0, 3).includes(item.outil) && item.fonctionne && item.pese), `${at} : l’approfondissement porte sur les outils en tête du classement, avec ce qui fonctionne et ce qui pèse.`);
         }
       }

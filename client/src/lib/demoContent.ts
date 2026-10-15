@@ -32,7 +32,8 @@ export type DemoRetained = {
 
 /** Outil repéré dans la parole : `dit` reprend les mots exacts de la transcription qui le justifient. */
 export type DemoToolMention = { outil: string; dit: string };
-export type DemoToolFocus = { outil: string; fonctionne: string; pese: string };
+/** `dit` : les mots de la réponse qui font apparaître la capsule de l’outil. */
+export type DemoToolFocus = { outil: string; dit: string; fonctionne: string; pese: string };
 
 /**
  * Réponse d’un échange « cases » jouée dans l’ordre inverse d’une liste cochée : la personne parle, la Boussole repère

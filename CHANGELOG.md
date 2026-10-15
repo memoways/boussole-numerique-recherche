@@ -2,6 +2,19 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.6.6] — 2026-10-15 — Démo : toute parole a son onde et s’écrit mot à mot
+
+### Modifié
+
+- Les paroles secondaires d’un échange (réponse à la relance sur d’autres outils, classement, approfondissement) s’écrivent comme la première : onde animée, curseur, texte mot à mot, clic pour l’afficher en entier (`SpokenBubble`, `useTypedSpeech`). Elles apparaissaient jusque-là d’un bloc.
+- Approfondissement (Claire, échange 1) : les trois capsules « Ce qui marche / Ce qui pèse » arrivent l’une après l’autre, quand la fin du passage qui les concerne est dite (`outils.approfondissement.outils[].dit`).
+- Micro-démo « Une décision, une trace » (Marc) : les phrases dictées s’écrivent mot à mot avec l’onde, au lieu d’apparaître d’un bloc.
+- `verify-demo-content` contrôle que les mots des capsules figurent dans la réponse d’approfondissement, dans l’ordre ; `check-demo-playback` vérifie l’arrivée progressive des capsules et la présence de l’onde.
+
+### Vérifié
+
+- `tsc`, `verify:demo-content`, Playwright (710 contrôles, sans échec) et lecture visuelle de la page 1 et de la page 2 de l’échange 1 de Claire et de la dictée de Marc.
+
 ## [1.6.5] — 2026-10-15 — Démo : le classement des outils se fait au fil de la parole
 
 ### Modifié

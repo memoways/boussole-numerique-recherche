@@ -337,7 +337,7 @@ for (const id of Object.keys(PERSONAS)) {
   await chip("Logiciel de montage").waitFor({ timeout: 15000 });
   ok((await chip("WhatsApp").getAttribute("aria-pressed")) === "false", "outils : avant la réponse, aucun bouton n’est activé");
   ok((await chip("Signal").count()) === 0, "outils : les boutons de suite n’existent pas encore");
-  await page.getByText("Ah oui, j’ai oublié WhatsApp, Word et Dropbox.").waitFor({ timeout: 15000 });
+  await page.waitForFunction(() => [...document.querySelectorAll("main section button[aria-pressed]")].filter((button) => button.getAttribute("aria-pressed") === "true").length >= 3, null, { timeout: 15000 });
   await page.waitForTimeout(500);
   ok((await chip("WhatsApp").getAttribute("aria-pressed")) === "true" && (await chip("Dropbox").getAttribute("aria-pressed")) === "true", "outils : la réponse à la voix active WhatsApp, Word et Dropbox");
   ok((await chip("Signal").count()) === 1 && (await chip("OneDrive").count()) === 1, "outils : de nouveaux boutons arrivent selon ce qui a été dit");
@@ -363,8 +363,14 @@ for (const id of Object.keys(PERSONAS)) {
   const expected = CONTENT.personas.find((persona) => persona.id === "cinema").etapes[0].outils.ordre.map((item) => item.outil);
   ok(JSON.stringify(start) !== JSON.stringify(expected), "classement : les outils démarrent dans un ordre qui n’est pas le classement final");
   ok((await page.locator("main ol li span.text-transparent").count()) === expected.length, "classement : aucun numéro tant que la parole n’est pas finie");
+  // Approfondissement : onde et écriture mot à mot, les capsules arrivent l’une après l’autre au fil de la parole.
+  const capsules = page.locator("main section[aria-label] ul.lg\\:grid-cols-3 > li");
+  await page.waitForFunction(() => document.querySelectorAll("main ul.lg\\:grid-cols-3 > li").length >= 1, null, { timeout: 45000 });
+  ok((await capsules.count()) < 3, "approfondissement : la première capsule arrive avant les deux autres");
+  ok((await page.locator("main [aria-hidden='true'].flex.h-8").count()) >= 2, "approfondissement : l’onde accompagne chaque parole de la page");
   await page.locator("main button").filter({ hasText: /^Continuer/ }).waitFor({ timeout: 45000 });
   ok(JSON.stringify(await names()) === JSON.stringify(expected), "classement : à la fin, les outils sont dans l’ordre dit par Claire");
+  ok((await capsules.count()) === 3, "approfondissement : les trois capsules sont là à la fin");
   ok((await page.locator("main ol li span.text-transparent").count()) === 0, "classement : les numéros s’affichent à la fin");
   ok(page.errors.length === 0, `classement sans erreur console${page.errors.length ? ` : ${page.errors.join(" | ")}` : ""}`);
   await context.close();
