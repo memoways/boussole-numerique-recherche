@@ -16,7 +16,7 @@ export type PlaybackScript = {
   choices: number;
   transcription: string;
   /** Échange « outils » : nombre d’outils repérés, ajoutés, classés et d’outils creusés (0 hors approfondissement). */
-  tools?: { detected: number; added: number; ranked: number; probed: number };
+  tools?: { detected: number; spokenWords: number; ranked: number; probed: number };
   /** La réception (« La Boussole retient ») est jouée seulement si l’étape retient quelque chose. */
   hasRetained: boolean;
   /** Une correction de curseur prolonge la phase « retenu » pour que le glissement reste visible. */
@@ -33,7 +33,9 @@ const QUESTION_FADE_MS = 700;
 const SELECTION_STEP_MS = 420;
 const DIGEST_MS = 800;
 const TOOL_STEP_MS = 380;
-const TOOL_ADD_MS = 650;
+/** Relance sur d’autres outils : la question se pose, puis la réponse s’égrène mot à mot et active les boutons. */
+export const TOOL_INTRO_MS = 900;
+export const TOOL_WORD_MS = 230;
 const PROBE_MS = 1500;
 
 type State = { phase: PlaybackPhase; wordsShown: number };
@@ -61,7 +63,7 @@ export function useStepPlayback(script: PlaybackScript) {
 
   // Valeurs simples : l’objet `tools` change à chaque rendu et relancerait les minuteurs.
   const hasTools = Boolean(script.tools);
-  const { detected = 0, added = 0, ranked = 0, probed = 0 } = script.tools ?? {};
+  const { detected = 0, spokenWords = 0, ranked = 0, probed = 0 } = script.tools ?? {};
   const afterTools: PlaybackPhase = script.hasRetained ? "digesting" : "done";
   // Pages : 1 = réponse (et repérage des outils), 2 = classement et approfondissement (outils), dernière = ce que la Boussole retient.
   const splitReception = !hasTools && script.splitReception && script.hasRetained;
@@ -78,7 +80,7 @@ export function useStepPlayback(script: PlaybackScript) {
     if (phase === "question") { next = "ready"; delay = QUESTION_FADE_MS; }
     if (phase === "selecting") { next = totalWords > 0 ? "transcribing" : afterTranscription; delay = script.choices * SELECTION_STEP_MS + 400; }
     if (hasTools && phase === "detecting") { next = "proposing"; delay = detected * TOOL_STEP_MS + 900; }
-    if (hasTools && phase === "proposing") { next = "pauseA"; delay = added * TOOL_ADD_MS + 1600; }
+    if (hasTools && phase === "proposing") { next = "pauseA"; delay = TOOL_INTRO_MS + spokenWords * TOOL_WORD_MS + 1800; }
     if (hasTools && phase === "ranking") { next = probed > 0 ? "probing" : hasPauseB ? "pauseB" : afterTools; delay = ranked * TOOL_STEP_MS + 1800; }
     if (hasTools && phase === "probing") { next = hasPauseB ? "pauseB" : afterTools; delay = PROBE_MS; }
     if (phase === "digesting") { next = "retained"; delay = DIGEST_MS; }
@@ -86,7 +88,7 @@ export function useStepPlayback(script: PlaybackScript) {
     if (!next) return;
     const timer = window.setTimeout(() => dispatch({ type: "goto", phase: next }), delay);
     return () => window.clearTimeout(timer);
-  }, [phase, afterTranscription, afterTools, hasTools, hasPauseB, detected, added, ranked, probed, script.choices, retainedMs, totalWords]);
+  }, [phase, afterTranscription, afterTools, hasTools, hasPauseB, detected, spokenWords, ranked, probed, script.choices, retainedMs, totalWords]);
 
   // Écriture mot par mot, au rythme de la parole.
   useEffect(() => {

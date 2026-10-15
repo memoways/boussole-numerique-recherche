@@ -58,7 +58,7 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
   const playback = useStepPlayback({
     // Un échange « outils » commence par la parole : rien n’est coché d’avance.
     choices: !tools && (step.type === "cases" || step.type === "scenario") ? choix.length : 0,
-    tools: tools ? { detected: tools.cites.length, added: tools.ajoutes.length, ranked: tools.ordre.length, probed: tools.approfondissement?.outils.length ?? 0 } : undefined,
+    tools: tools ? { detected: tools.cites.length, spokenWords: tools.complement.split(/\s+/).filter(Boolean).length, ranked: tools.ordre.length, probed: tools.approfondissement?.outils.length ?? 0 } : undefined,
     transcription: step.reponse.transcription,
     hasRetained: retainedItems.length > 0,
     hasCorrection,
