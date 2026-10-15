@@ -560,23 +560,22 @@
       "prenom": "Marc",
       "age": 39,
       "metier": "Metteur en scène",
-      "accroche": "Une création en répétitions, une tournée à organiser.",
+      "accroche": "Un spectacle à préparer, à raconter, à faire tourner.",
       "ordreDimensions": ["partage", "publics", "donnees", "outils", "competences"],
       "etapes": [
         {
           "id": 1,
           "dimension": "partage",
           "type": "question",
-          "question": "Pendant les répétitions, une décision de mise en scène change. Comment le reste de l’équipe l’apprend ?",
+          "question": "Ton spectacle, de la première idée à la dernière date : comment ça se déroule ?",
           "reponse": {
-            "transcription": "On le dit en fin de journée, on se parle beaucoup. Ceux qui étaient là le savent. Les autres l’apprennent en jouant, parfois. Et trois semaines après, plus personne ne sait pourquoi on a changé la scène."
+            "transcription": "Il y a d’abord un long temps de lectures, de recherches, d’images, avec la scénographe. Puis les répétitions : là, la création est vivante, on essaie, on se trompe, et je ne veux aucun écran. Ensuite il faut raconter le spectacle aux programmateurs et aux médiateurs. Et puis la tournée, qui est surtout de la logistique."
           },
           "retenu": {
-            "extrait": "plus personne ne sait pourquoi on a changé la scène",
-            "tags": ["équipe qui se parle beaucoup", "décisions sans trace"]
+            "extrait": "je ne veux aucun écran",
+            "tags": ["création vivante, hors numérique", "préparation, médiation et tournée à outiller"]
           },
           "ressources": [
-            { "ref": "okafor-second-brain", "citation": "L’information arrive au moment précis où je suis le moins en mesure de la noter.", "citationOriginale": "The information arrives at the exact moment when I have the least capacity to capture it.", "role": "pratique" },
             { "ref": "guillaud-travail-intellectuel", "citation": "L’illusion était portée ensemble. Ici, l’inefficacité est bien souvent un atout et non un défaut.", "role": "ouverture" }
           ]
         },
@@ -584,17 +583,17 @@
           "id": 2,
           "dimension": "partage",
           "type": "scenario",
-          "question": "Un nouvel éclairagiste rejoint la tournée. En général, comment il découvre le spectacle ?",
-          "options": ["Rien de formalisé, ça passe par l’oral", "Quelques documents, pas toujours à jour", "Un espace partagé avec l’essentiel", "Tout est clair et documenté"],
+          "question": "Une costumière rejoint le projet en cours de route. Comment elle découvre ce que tu as réuni sur le spectacle ?",
+          "options": ["Rien de réuni, ça passe par l’oral", "Quelques documents et liens, pas toujours à jour", "Un espace partagé avec l’essentiel", "Tout est clair et documenté"],
           "reponse": {
-            "choix": ["Quelques documents, pas toujours à jour"],
-            "transcription": "Il y a la fiche technique de la régisseuse, qui est impeccable. Pour le reste, il nous suit deux dates et il apprend sur le tas. Ça dépend beaucoup de qui l’accueille."
+            "choix": ["Quelques documents et liens, pas toujours à jour"],
+            "transcription": "Je lui envoie ce que je retrouve : un PDF, deux liens, des photos prises sur mon téléphone. La scénographe a ses plans et ses croquis de son côté. On se parle beaucoup, donc ça tient, mais ça dépend de qui fouille."
           },
           "retenu": {
-            "resume": "L’équipe se transmet beaucoup de choses à l’oral ; l’écrit se limite à la fiche technique.",
+            "resume": "L’équipe se parle beaucoup ; les références et les plans circulent par envois séparés.",
             "curseurs": [
-              { "libelle": "Échanges dans l’équipe", "valeur": "Organisé", "corrigeA": null, "dit": "on se parle beaucoup" },
-              { "libelle": "Traces écrites", "valeur": "Exploration", "corrigeA": null, "dit": "il apprend sur le tas" }
+              { "libelle": "Échanges dans l’équipe", "valeur": "Organisé", "corrigeA": null, "dit": "On se parle beaucoup" },
+              { "libelle": "Références et plans", "valeur": "Improvisation", "corrigeA": null, "dit": "ce que je retrouve" }
             ]
           }
         },
@@ -603,17 +602,17 @@
           "dimension": "partage",
           "type": "question",
           "pese": true,
-          "question": "Qu’est-ce qui te pèse le plus dans cette façon de travailler ?",
+          "question": "Qu’est-ce qui te pèse le plus dans cette façon de préparer ?",
           "reponse": {
-            "transcription": "De tout répéter. À chaque nouvelle personne, à chaque reprise, je raconte la même chose. Et je sens qu’on perd ce qui se passe pendant la création : les essais, les raisons des choix."
+            "transcription": "Retrouver. Je sais que j’ai vu une image ou reçu un croquis, mais je ne sais plus où. Et à chaque nouvelle personne, je raconte le projet depuis le début. En salle, par contre, je ne veux rien changer : c’est la partie qui marche."
           },
           "retenu": {
-            "extrait": "je raconte la même chose",
-            "tags": ["transmission à refaire à chaque arrivée", "processus de création non raconté"]
+            "extrait": "je ne sais plus où",
+            "tags": ["références difficiles à retrouver", "projet raconté depuis le début à chaque arrivée"]
           },
           "pointEtape": {
-            "texte": "Ton équipe se parle beaucoup, et ça marche. Il manque des traces pour les absents. Aujourd’hui, toute la transmission repose sur toi.",
-            "ordreDeGrandeur": "Ordre de grandeur illustratif : deux dates de tournée pour intégrer une nouvelle personne."
+            "texte": "Ta préparation vit dans plusieurs endroits, et c’est toi qui fais le lien. La salle de répétition reste telle quelle, hors du numérique. Ce qui l’entoure peut s’alléger : retrouver, transmettre, raconter.",
+            "ordreDeGrandeur": null
           },
           "ressources": [
             { "ref": "maccarone-jugement", "citation": "Les documents seuls ne transmettent pas l’essentiel. L’apprentissage aux côtés de quelqu’un, seul, ne le diffuse pas assez loin. Il faut les deux.", "citationOriginale": "You can’t transfer the good stuff through documents alone, and you can’t scale it through apprenticeship alone. You need both.", "role": "pratique" }
@@ -623,7 +622,7 @@
           "id": 4,
           "dimension": "publics",
           "type": "cases",
-          "question": "Pour informer les programmateurs et le public, tu utilises quoi ?",
+          "question": "Pour présenter le spectacle aux programmateurs, aux médiateurs et au public, tu utilises quoi ?",
           "options": ["E-mails personnels", "Dossier de diffusion PDF", "Site", "Instagram", "Facebook", "Newsletter", "Teaser vidéo"],
           "reponse": {
             "choix": ["E-mails personnels", "Dossier de diffusion PDF", "Instagram", "Teaser vidéo"],
@@ -635,10 +634,21 @@
               { "outil": "E-mails personnels", "dit": "je leur écris directement" }
             ],
             "question": "Voici d’autres moyens d’informer les programmateurs et le public. En utilises-tu d’autres ?",
-            "ajoutes": [{"outil": "Instagram", "dit": "Instagram"}, {"outil": "Teaser vidéo", "dit": "un teaser vidéo"}],
+            "ajoutes": [
+              { "outil": "Instagram", "dit": "Instagram" },
+              { "outil": "Teaser vidéo", "dit": "un teaser vidéo" }
+            ],
             "complement": "Ah oui, il y a aussi Instagram, et un teaser vidéo.",
-            "suites": [{"apres": "Instagram", "propositions": ["TikTok"]}, {"apres": "Teaser vidéo", "propositions": ["YouTube", "Vimeo"]}],
-            "ordre": [{"outil": "E-mails personnels", "dit": "Les mails"}, {"outil": "Dossier de diffusion PDF", "dit": "le dossier"}, {"outil": "Teaser vidéo", "dit": "le teaser"}, {"outil": "Instagram", "dit": "Instagram"}],
+            "suites": [
+              { "apres": "Instagram", "propositions": ["TikTok"] },
+              { "apres": "Teaser vidéo", "propositions": ["YouTube", "Vimeo"] }
+            ],
+            "ordre": [
+              { "outil": "E-mails personnels", "dit": "Les mails" },
+              { "outil": "Dossier de diffusion PDF", "dit": "le dossier" },
+              { "outil": "Teaser vidéo", "dit": "le teaser" },
+              { "outil": "Instagram", "dit": "Instagram" }
+            ],
             "classement": "Les mails aux programmateurs, c’est ce qui compte. Ensuite le dossier, puis le teaser. Instagram, en dernier."
           },
           "retenu": {
@@ -650,21 +660,21 @@
           "dimension": "publics",
           "type": "question",
           "pese": true,
-          "question": "Tu disais qu’on perd ce qui se passe pendant la création. Après la dernière représentation, qu’est-ce qui reste du travail pour ceux qui ne l’ont pas vu ?",
+          "question": "Tu racontes le projet depuis le début à chaque arrivée. Quand un médiateur ou un programmateur veut parler du spectacle à son public, tu as quoi sous la main ?",
           "rebond": {
             "etape": 3,
-            "rappel": "processus de création non raconté"
+            "rappel": "projet raconté depuis le début à chaque arrivée"
           },
           "reponse": {
-            "transcription": "Une captation, quelques photos. Le processus, les répétitions : rien. Pourtant c’est souvent le plus beau, et c’est justement ce que les médiateurs et les programmateurs nous demandent."
+            "transcription": "Une captation, quelques photos, le dossier de diffusion. Mais ce qu’ils demandent, c’est de quoi en parler : une note d’intention, un dossier pour les scolaires, des visuels. Je n’ai rien de prêt, je le refais à chaque demande, en reprenant des bouts de l’ancien."
           },
           "retenu": {
-            "extrait": "c’est souvent le plus beau",
-            "tags": ["processus de création, matière de médiation"]
+            "extrait": "je le refais à chaque demande",
+            "tags": ["médiation à reconstruire à chaque demande"]
           },
           "pointEtape": {
-            "texte": "Tes programmateurs, tu les connais et tu leur écris. Les répétitions, les essais et les choix, eux, ne laissent aucune trace. Or c’est ce qu’on te demande de raconter.",
-            "ordreDeGrandeur": null
+            "texte": "Tes programmateurs, tu les connais et tu leur écris. Ce que les médiateurs te demandent (note d’intention, dossier pour les scolaires, visuels) se refait à chaque fois. Un même socle de textes et d’images pourrait les nourrir tous.",
+            "ordreDeGrandeur": "Ordre de grandeur illustratif : une demi-journée pour remonter un dossier de médiation."
           },
           "ressources": [
             { "ref": "fischer-cinema-web", "citation": "Sur le web, le contexte d’interaction (qui est forcément vivant, évolutif, partagé) prend plus de valeur que le contenu (qui est foncièrement statique, figé, attribué).", "role": "ouverture" }
@@ -717,20 +727,34 @@
             "transcription": "Dans un Google Sheets, partagé avec l’administratrice. Et dans un groupe WhatsApp où tout se dit : horaires, hôtels, changements. Si tu rates deux cents messages, tu es perdu."
           },
           "outils": {
-            "cites": [{"outil": "Google Sheets", "dit": "un Google Sheets"}, {"outil": "WhatsApp", "dit": "un groupe WhatsApp"}],
+            "cites": [
+              { "outil": "Google Sheets", "dit": "un Google Sheets" },
+              { "outil": "WhatsApp", "dit": "un groupe WhatsApp" }
+            ],
             "question": "Voici d’autres outils de tournée. En utilises-tu d’autres, même pour une seule chose ?",
-            "ajoutes": [{"outil": "E-mails", "dit": "les mails aux lieux d’accueil"}, {"outil": "Fiche technique (PDF)", "dit": "la fiche de la régisseuse"}],
+            "ajoutes": [
+              { "outil": "E-mails", "dit": "les mails aux lieux d’accueil" },
+              { "outil": "Fiche technique (PDF)", "dit": "la fiche de la régisseuse" }
+            ],
             "complement": "Ah oui, j’oubliais : les mails aux lieux d’accueil, et la fiche de la régisseuse, qui part en PDF.",
-            "suites": [{"apres": "E-mails", "propositions": ["Outlook"]}, {"apres": "Fiche technique (PDF)", "propositions": ["Dropbox"]}],
-            "ordre": [{"outil": "Google Sheets", "dit": "Le Sheets"}, {"outil": "WhatsApp", "dit": "WhatsApp"}, {"outil": "E-mails", "dit": "Les mails"}, {"outil": "Fiche technique (PDF)", "dit": "la fiche"}],
+            "suites": [
+              { "apres": "E-mails", "propositions": ["Outlook"] },
+              { "apres": "Fiche technique (PDF)", "propositions": ["Dropbox"] }
+            ],
+            "ordre": [
+              { "outil": "Google Sheets", "dit": "Le Sheets" },
+              { "outil": "WhatsApp", "dit": "WhatsApp" },
+              { "outil": "E-mails", "dit": "Les mails" },
+              { "outil": "Fiche technique (PDF)", "dit": "la fiche" }
+            ],
             "classement": "Le Sheets, c’est la base. WhatsApp, tout le monde y est, donc on y passe. Les mails, pour les lieux. La fiche, seulement quand on me la demande.",
             "approfondissement": {
               "question": "Sur le Sheets, WhatsApp et les mails, qu’est-ce qui tient la route, et qu’est-ce qui te pèse ?",
               "transcription": "Le Sheets, ça tient : tout le monde y retrouve les dates, et l’administratrice y a la main. Mais les besoins techniques n’y sont pas, ils sont dans la fiche de la régisseuse. WhatsApp, c’est vivant, tout le monde répond vite. Mais quand on cherche l’heure d’arrivée d’il y a trois semaines, il n’y a rien. Les mails, c’est propre pour les lieux. Mais je réécris toujours les mêmes informations à la main.",
               "outils": [
-                {"outil": "Google Sheets", "dit": "dans la fiche de la régisseuse", "fonctionne": "Tout le monde y retrouve les dates, et l’administratrice y a la main.", "pese": "Les besoins techniques n’y sont pas : ils vivent dans la fiche de la régisseuse."},
-                {"outil": "WhatsApp", "dit": "il n’y a rien", "fonctionne": "Tout le monde y est et répond vite.", "pese": "Une information d’il y a trois semaines ne se retrouve pas."},
-                {"outil": "E-mails", "dit": "à la main", "fonctionne": "C’est propre, et c’est ce qu’attendent les lieux d’accueil.", "pese": "Les mêmes informations sont réécrites à la main."}
+                { "outil": "Google Sheets", "dit": "dans la fiche de la régisseuse", "fonctionne": "Tout le monde y retrouve les dates, et l’administratrice y a la main.", "pese": "Les besoins techniques n’y sont pas : ils vivent dans la fiche de la régisseuse." },
+                { "outil": "WhatsApp", "dit": "il n’y a rien", "fonctionne": "Tout le monde y est et répond vite.", "pese": "Une information d’il y a trois semaines ne se retrouve pas." },
+                { "outil": "E-mails", "dit": "à la main", "fonctionne": "C’est propre, et c’est ce qu’attendent les lieux d’accueil.", "pese": "Les mêmes informations sont réécrites à la main." }
               ]
             }
           },
@@ -810,10 +834,10 @@
       ],
       "ideal": {
         "question": "Pour finir : au mieux, ça ressemblerait à quoi, ton rapport à l’informatique ?",
-        "transcription": "Qu’à la fin d’une répétition, je dise trois phrases et que toute l’équipe ait une trace claire : ce qu’on a décidé, pour qui, pour quelle scène. Et que les infos de tournée soient au même endroit pour tout le monde."
+        "transcription": "Que tout ce que je réunis pour un spectacle soit au même endroit, pour moi et pour l’équipe. Que les dossiers pour les programmateurs et les médiateurs se composent à partir de là, sans repartir de zéro. Que les infos de tournée soient au même endroit pour tout le monde. Et qu’en salle, il n’y ait que nous."
       },
       "restitution": {
-        "lettre": "Marc, ta compagnie vit de la parole. On se dit les choses, tu connais tes programmateurs, ta régisseuse tient une fiche technique qui fait référence. Chaque création change l’équipe et la manière de travailler. Ce qui se perd, ce sont les traces : les décisions prises en répétition, les raisons des choix, les captations. La même information circule en plusieurs copies qui divergent. La tournée se coordonne dans un fil de messages qui oublie tout. Tu voudrais dire trois phrases en fin de répétition et que l’équipe en garde une trace. La voix le permet, si ces traces arrivent au même endroit. Réunies, ces données rendraient aussi l’IA utile pour les tâches qui reviennent. Ce qu’on peut évaluer, on peut l’améliorer.",
+        "lettre": "Marc, ta compagnie vit de la parole. On se dit les choses, tu connais tes programmateurs, ta régisseuse tient une fiche technique qui fait référence. Les répétitions restent un moment à part, sans écran, et la Boussole les laisse tels quels. Autour d’elles, ça s’éparpille : les références et les croquis de la préparation, les documents de médiation refaits à chaque demande, les copies de la fiche technique qui divergent. La tournée se coordonne dans un fil de messages qui oublie tout. Tu voudrais tout réunir au même endroit, pour toi et pour l’équipe. Réunies, ces données rendraient aussi l’IA utile pour les tâches qui reviennent. Ce qu’on peut évaluer, on peut l’améliorer.",
         "radar": {
           "partage": "Organisé",
           "publics": "Improvisation",
@@ -822,75 +846,42 @@
           "competences": "Exploration"
         },
         "fonctionne": [
-          { "texte": "Une équipe qui se parle", "etape": 1, "citation": "on se parle beaucoup" },
+          { "texte": "Une création vivante, gardée hors écran", "etape": 1, "citation": "je ne veux aucun écran" },
           { "texte": "Un réseau direct de programmateurs", "etape": 4, "citation": "je les connais, je leur écris directement" },
           { "texte": "Une fiche technique de référence", "etape": 7, "citation": "la fiche de la régisseuse, elle est tenue" }
         ],
         "ameliorer": [
-          {
-            "texte": "Des décisions sans trace",
-            "etape": 1,
-            "citation": "plus personne ne sait pourquoi on a changé la scène",
-            "ordreDeGrandeur": "Ordre de grandeur illustratif : deux dates de tournée pour intégrer une nouvelle personne."
-          },
-          { "texte": "Des copies de fiche qui divergent", "etape": 6, "citation": "elles ne sont pas toujours d’accord" },
-          { "texte": "Des mails répétitifs écrits à la main", "etape": 11, "citation": "Je les réécris à la main" }
+          { "texte": "Des références difficiles à retrouver", "etape": 3, "citation": "je ne sais plus où" },
+          { "texte": "Une médiation refaite à chaque demande", "etape": 5, "citation": "je le refais à chaque demande", "ordreDeGrandeur": "Ordre de grandeur illustratif : une demi-journée pour remonter un dossier de médiation." },
+          { "texte": "Des copies de fiche qui divergent", "etape": 6, "citation": "elles ne sont pas toujours d’accord" }
         ],
         "pistes": [
-          {
-            "horizon": "2 semaines",
-            "texte": "Faire de la fiche de la régisseuse la seule référence, vers laquelle renvoient les autres documents. Ouvrir un dossier Captations par création.",
-            "lien": "/ressources",
-            "libelleLien": "Ressources du projet"
-          },
-          {
-            "horizon": "1 mois",
-            "texte": "Tenir un seul tableau de tournée (dates, lieux, horaires, besoins, contacts) d’où partent les mails aux lieux. Puis essayer une IA pour les préremplir.",
-            "lien": "/ressources/etude-complete",
-            "libelleLien": "Étude complète : repères sur l’IA dans la culture"
-          },
-          {
-            "horizon": "3–6 mois",
-            "texte": "Dicter un journal de création, qui devient notes d’équipe et matière de médiation.",
-            "lien": "/ressources/references-inspirantes",
-            "libelleLien": "Références inspirantes"
-          }
+          { "horizon": "2 semaines", "texte": "Ouvrir un dossier par spectacle où rassembler références, plans de scénographie et captations. Faire de la fiche de la régisseuse la seule référence technique, vers laquelle renvoient les autres documents.", "lien": "/ressources", "libelleLien": "Ressources du projet" },
+          { "horizon": "1 mois", "texte": "Tenir un seul tableau de tournée (dates, lieux, horaires, besoins, contacts) d’où partent les mails aux lieux. Puis essayer une IA pour les préremplir.", "lien": "/ressources/etude-complete", "libelleLien": "Étude complète : repères sur l’IA dans la culture" },
+          { "horizon": "3–6 mois", "texte": "Composer le dossier de diffusion, la note d’intention et le dossier pour les scolaires à partir d’un même socle de textes et de visuels.", "lien": "/ressources/references-inspirantes", "libelleLien": "Références inspirantes" }
         ]
       },
       "demos": [
         {
-          "id": "note",
-          "titre": "Une décision, une trace",
-          "texte": "Trois phrases dictées en fin de répétition deviennent une note : la décision, les personnes concernées, la scène. L’équipe la retrouve au même endroit.",
-          "dicteeTitre": "Dicté en fin de répétition",
-          "dictee": [
-            "Scène quatre : on coupe la fin du monologue, la scène tient mieux sans.",
-            "Le noir tombe juste après la dernière réplique.",
-            "Il faut prévenir l’éclairagiste et la régisseuse avant la prochaine date."
-          ],
-          "note": {
-            "titre": "Note de répétition",
-            "champs": [
-              { "libelle": "Décision", "valeur": "Fin du monologue coupée, noir juste après la dernière réplique" },
-              { "libelle": "Pour qui", "valeur": "Éclairagiste, régisseuse" },
-              { "libelle": "Scène", "valeur": "Scène 4" }
-            ]
-          },
-          "partage": "Note partagée avec l’équipe"
+          "id": "source-unique",
+          "titre": "Les références rejoignent le dossier du spectacle",
+          "texte": "Les croquis, les liens et les photos dispersés dans les messages et les mails se rangent dans un seul dossier de préparation. La scénographe, la costumière et toi y retrouvez tout.",
+          "pieces": ["Croquis de scénographie reçu par WhatsApp", "Lien vers un spectacle envoyé par mail", "Photos de repérage dans le téléphone", "Plan de la salle en PDF"],
+          "destination": "Dossier du spectacle · préparation"
         },
         {
           "id": "fiche",
-          "titre": "Une source pour la tournée",
-          "texte": "Le tableau de tournée fait foi. Il nourrit les mails aux lieux d’accueil et le planning de l’équipe. Personne ne recopie.",
-          "source": "Tableau de tournée",
+          "titre": "Un socle, plusieurs documents",
+          "texte": "Le socle du spectacle fait foi. Il nourrit le dossier de diffusion, le dossier pour les scolaires et le mail aux programmateurs. Personne ne recopie.",
+          "source": "Socle du spectacle",
           "elements": [
-            { "libelle": "Dates et lieux", "cibles": ["Mails aux lieux", "Planning de l’équipe"] },
-            { "libelle": "Horaires d’arrivée", "cibles": ["Mails aux lieux", "Planning de l’équipe"] },
-            { "libelle": "Besoins techniques", "cibles": ["Mails aux lieux"] },
-            { "libelle": "Nombre de personnes", "cibles": ["Mails aux lieux"] },
-            { "libelle": "Hôtels", "cibles": ["Planning de l’équipe"] }
+            { "libelle": "Note d’intention", "cibles": ["Dossier de diffusion", "Dossier pour les scolaires", "Mail aux programmateurs"] },
+            { "libelle": "Distribution et équipe", "cibles": ["Dossier de diffusion", "Mail aux programmateurs"] },
+            { "libelle": "Visuels", "cibles": ["Dossier de diffusion", "Dossier pour les scolaires", "Mail aux programmateurs"] },
+            { "libelle": "Extrait vidéo", "cibles": ["Dossier de diffusion", "Mail aux programmateurs"] },
+            { "libelle": "Pistes d’atelier", "cibles": ["Dossier pour les scolaires"] }
           ],
-          "sorties": ["Mails aux lieux", "Planning de l’équipe"]
+          "sorties": ["Dossier de diffusion", "Dossier pour les scolaires", "Mail aux programmateurs"]
         },
         {
           "id": "convergence",
@@ -913,49 +904,14 @@
       "prenom": "Nadia",
       "age": 58,
       "metier": "Plasticienne",
-      "accroche": "Un inventaire rigoureux, et des portfolios refaits à la main.",
-      "ordreDimensions": ["donnees", "outils", "publics", "competences", "partage"],
+      "accroche": "Des outils choisis avec soin, et un travail qui mérite mieux qu’un PDF.",
+      "ordreDimensions": ["outils", "donnees", "publics", "competences", "partage"],
       "etapes": [
         {
           "id": 1,
-          "dimension": "donnees",
-          "type": "question",
-          "question": "Ton inventaire d’œuvres, il est tenu comment ?",
-          "reponse": {
-            "transcription": "Un tableur LibreOffice, depuis 1998. Titre, année, technique, dimensions, lieu, statut. Chaque œuvre a son numéro. C’est la seule chose que je tiens vraiment ; le reste dépend des périodes."
-          },
-          "retenu": {
-            "extrait": "Chaque œuvre a son numéro.",
-            "tags": ["inventaire numéroté depuis 1998"]
-          }
-        },
-        {
-          "id": 2,
-          "dimension": "donnees",
-          "type": "relance",
-          "pese": true,
-          "question": "Juste pour que la photo soit juste : les photos HD, elles sont reliées à ces numéros ? Et les textes qui accompagnent les œuvres ?",
-          "reponse": {
-            "transcription": "Les photos, oui, le nom du fichier commence par le numéro. Sur un disque, et sur kDrive. Par contre les textes, les légendes, les prix, ils sont un peu partout : dans d’anciens dossiers, dans des mails aux galeries."
-          },
-          "retenu": {
-            "resume": "L’inventaire et les photos tiennent par le numéro ; les textes sont dispersés.",
-            "curseurs": [
-              { "libelle": "Inventaire", "valeur": "Orchestré", "corrigeA": null, "dit": "Chaque œuvre a son numéro." },
-              { "libelle": "Photos des œuvres", "valeur": "Organisé", "corrigeA": null, "dit": "le nom du fichier commence par le numéro" },
-              { "libelle": "Textes et légendes", "valeur": "Improvisation", "corrigeA": null, "dit": "ils sont un peu partout" }
-            ]
-          },
-          "pointEtape": {
-            "texte": "Ton inventaire fait référence. Bien des institutions n’en ont pas d’aussi rigoureux. Il lui manque les textes qui accompagnent les œuvres.",
-            "ordreDeGrandeur": null
-          }
-        },
-        {
-          "id": 3,
           "dimension": "outils",
           "type": "cases",
-          "question": "Tes outils de tous les jours ?",
+          "question": "Pour commencer : tes outils de tous les jours ?",
           "options": ["LibreOffice", "Proton Mail", "Gmail", "kDrive", "Google Drive", "GIMP / Photoshop", "SwissTransfer / WeTransfer", "Site personnel", "Instagram"],
           "reponse": {
             "choix": ["LibreOffice", "Proton Mail", "kDrive", "GIMP / Photoshop", "SwissTransfer / WeTransfer", "Site personnel"],
@@ -969,18 +925,31 @@
               { "outil": "GIMP / Photoshop", "dit": "GIMP" }
             ],
             "question": "Voici d’autres outils du même genre. En utilises-tu d’autres, même rarement ?",
-            "ajoutes": [{"outil": "SwissTransfer / WeTransfer", "dit": "SwissTransfer"}, {"outil": "Site personnel", "dit": "mon site"}],
+            "ajoutes": [
+              { "outil": "SwissTransfer / WeTransfer", "dit": "SwissTransfer" },
+              { "outil": "Site personnel", "dit": "mon site" }
+            ],
             "complement": "Ah oui, SwissTransfer pour envoyer les fichiers, et mon site.",
-            "suites": [{"apres": "SwissTransfer / WeTransfer", "propositions": ["Proton Drive"]}, {"apres": "Site personnel", "propositions": ["Infomaniak"]}],
-            "ordre": [{"outil": "Proton Mail", "dit": "Le mail"}, {"outil": "kDrive", "dit": "le drive"}, {"outil": "LibreOffice", "dit": "LibreOffice"}, {"outil": "GIMP / Photoshop", "dit": "GIMP"}, {"outil": "SwissTransfer / WeTransfer", "dit": "SwissTransfer"}, {"outil": "Site personnel", "dit": "mon site"}],
+            "suites": [
+              { "apres": "SwissTransfer / WeTransfer", "propositions": ["Proton Drive"] },
+              { "apres": "Site personnel", "propositions": ["Infomaniak"] }
+            ],
+            "ordre": [
+              { "outil": "Proton Mail", "dit": "Le mail" },
+              { "outil": "kDrive", "dit": "le drive" },
+              { "outil": "LibreOffice", "dit": "LibreOffice" },
+              { "outil": "GIMP / Photoshop", "dit": "GIMP" },
+              { "outil": "SwissTransfer / WeTransfer", "dit": "SwissTransfer" },
+              { "outil": "Site personnel", "dit": "mon site" }
+            ],
             "classement": "Le mail et le drive, tous les jours. Puis LibreOffice et GIMP. SwissTransfer et mon site, plus rarement.",
             "approfondissement": {
               "question": "Sur Proton Mail, kDrive et LibreOffice, qu’est-ce qui tient la route, et qu’est-ce qui te pèse ?",
-              "transcription": "Proton Mail, je sais où sont mes messages. Mais les galeries m’envoient des liens Google et des fichiers Word, et je convertis à chaque fois. kDrive, mes images y sont rangées comme mon inventaire. Mais mes partenaires ne savent pas l’ouvrir, alors j’envoie des copies, et elles circulent. LibreOffice, mon inventaire y tient depuis toujours. Mais quand une galerie l’ouvre dans Word, la mise en page s’abîme.",
+              "transcription": "Proton Mail, je sais où sont mes messages. Mais les galeries m’envoient des liens Google et des fichiers Word, et je convertis à chaque fois. kDrive, mes images y sont rangées, œuvre par œuvre. Mais mes partenaires ne savent pas l’ouvrir, alors j’envoie des copies, et elles circulent. LibreOffice, mon tableur d’inventaire y tient depuis toujours. Mais quand une galerie l’ouvre dans Word, la mise en page s’abîme.",
               "outils": [
-                {"outil": "Proton Mail", "dit": "je convertis à chaque fois", "fonctionne": "Je sais où sont mes messages.", "pese": "Les galeries envoient des liens Google et des fichiers Word : il faut convertir à chaque fois."},
-                {"outil": "kDrive", "dit": "et elles circulent", "fonctionne": "Mes images y sont rangées comme mon inventaire.", "pese": "Mes partenaires ne savent pas l’ouvrir : j’envoie des copies, et elles circulent."},
-                {"outil": "LibreOffice", "dit": "la mise en page s’abîme", "fonctionne": "Mon inventaire y tient depuis toujours.", "pese": "Ouvert dans Word par une galerie, la mise en page s’abîme."}
+                { "outil": "Proton Mail", "dit": "je convertis à chaque fois", "fonctionne": "Je sais où sont mes messages.", "pese": "Les galeries envoient des liens Google et des fichiers Word : il faut convertir à chaque fois." },
+                { "outil": "kDrive", "dit": "et elles circulent", "fonctionne": "Mes images y sont rangées, œuvre par œuvre.", "pese": "Mes partenaires ne savent pas l’ouvrir : j’envoie des copies, et elles circulent." },
+                { "outil": "LibreOffice", "dit": "la mise en page s’abîme", "fonctionne": "Mon tableur d’inventaire y tient depuis toujours.", "pese": "Ouvert dans Word par une galerie, la mise en page s’abîme." }
               ]
             }
           },
@@ -990,13 +959,13 @@
           }
         },
         {
-          "id": 4,
+          "id": 2,
           "dimension": "outils",
           "type": "question",
           "pese": true,
           "question": "Tu dis que c’est politique. Un numérique responsable, pour toi, ça veut dire quoi ?",
           "rebond": {
-            "etape": 3,
+            "etape": 1,
             "rappel": "C’est politique."
           },
           "numeriqueResponsable": true,
@@ -1008,12 +977,48 @@
             "tags": ["posture claire et assumée", "question ouverte sur l’effet réel des choix"]
           },
           "pointEtape": {
-            "texte": "Tes choix sont cohérents, et tu sais où sont tes données. Peu de gens peuvent en dire autant. Ta question sur leur effet réel reste ouverte, et il existe des façons d’y répondre.",
+            "texte": "Tes choix sont cohérents, et tu sais où vont tes fichiers. Peu de gens peuvent en dire autant. Ta question sur leur effet réel reste ouverte, et il existe des façons d’y répondre.",
             "ordreDeGrandeur": null
           },
           "ressources": [
             { "ref": "dolle-plus-libres", "citation": "Le mot « dépendance » entretient donc une confusion. Il peut désigner le simple fait d’avoir besoin d’une ressource extérieure.", "role": "contrepoint" }
           ]
+        },
+        {
+          "id": 3,
+          "dimension": "donnees",
+          "type": "question",
+          "question": "Dans ces outils, qu’est-ce que tu gardes sur ton travail ? Et comment tu t’y retrouves ?",
+          "reponse": {
+            "transcription": "Un tableur LibreOffice, depuis 1998. Titre, année, technique, dimensions, lieu, statut. Chaque œuvre a son numéro. Les photos sont sur kDrive, et le nom du fichier commence par le numéro. C’est la seule chose que je tiens vraiment ; le reste dépend des périodes."
+          },
+          "retenu": {
+            "extrait": "Chaque œuvre a son numéro.",
+            "tags": ["inventaire numéroté depuis 1998"]
+          }
+        },
+        {
+          "id": 4,
+          "dimension": "donnees",
+          "type": "relance",
+          "pese": true,
+          "question": "Juste pour que la photo soit juste : les textes, les légendes, les prix, et le reste de ton atelier, carnets, croquis, photos d’expositions, ça vit où ?",
+          "reponse": {
+            "transcription": "Les textes, les légendes, les prix, ils sont un peu partout : dans d’anciens dossiers, dans des mails aux galeries. Les carnets, les croquis, les photos d’expositions, c’est dans des boîtes et sur un vieux disque. Trente ans de travail, et je ne les rouvre presque jamais."
+          },
+          "retenu": {
+            "resume": "L’inventaire et les photos tiennent par le numéro ; les textes sont dispersés, les archives dorment.",
+            "curseurs": [
+              { "libelle": "Inventaire", "valeur": "Orchestré", "corrigeA": null, "dit": "Chaque œuvre a son numéro." },
+              { "libelle": "Photos des œuvres", "valeur": "Organisé", "corrigeA": null, "dit": "le nom du fichier commence par le numéro" },
+              { "libelle": "Textes et légendes", "valeur": "Improvisation", "corrigeA": null, "dit": "ils sont un peu partout" },
+              { "libelle": "Archives d’atelier", "valeur": "Exploration", "corrigeA": null, "dit": "dans des boîtes et sur un vieux disque" }
+            ]
+          },
+          "pointEtape": {
+            "texte": "Ton inventaire fait référence. Bien des institutions n’en ont pas d’aussi rigoureux. Il manque les textes qui accompagnent les œuvres, et trente ans d’archives attendent d’être rouvertes.",
+            "ordreDeGrandeur": null
+          }
         },
         {
           "id": 5,
@@ -1045,17 +1050,30 @@
               { "libelle": "Portfolio", "valeur": "Improvisation", "corrigeA": null, "dit": "je recopie les légendes depuis le tableur" },
               { "libelle": "Présence en ligne", "valeur": "Exploration", "corrigeA": "Improvisation", "nonAborde": true }
             ]
-          },
-          "pointEtape": {
-            "texte": "Ton inventaire contient déjà tout ce qu’il faut pour un portfolio. Ce qui te coûte, c’est de le recopier à chaque demande.",
-            "ordreDeGrandeur": "Ordre de grandeur illustratif : une soirée par portfolio, qui pourrait devenir quelques minutes."
-          },
-          "ressources": [
-            { "ref": "kelly-better-than-free", "citation": "Quel que soit son prix, une œuvre n’a de valeur que si elle est vue. Les chefs-d’œuvre que personne ne trouve ne valent rien pour le monde.", "citationOriginale": "But no matter what its price, a work has no value unless it is seen. Unfound masterpieces are worthless to the world.", "role": "contrepoint" }
-          ]
+          }
         },
         {
           "id": 7,
+          "dimension": "publics",
+          "type": "question",
+          "question": "Si tu avais le temps, comment aimerais-tu montrer ton travail, au-delà d’un portfolio ou d’un site de galerie ?",
+          "reponse": {
+            "transcription": "Je voudrais qu’on puisse s’y promener : par séries, par périodes, avec les carnets et les croquis à côté des œuvres. Et pouvoir expliquer à une classe ou à un visiteur comment une série est née. Un site sobre, je sais faire. Mais ça, je n’ai ni le temps ni les outils."
+          },
+          "retenu": {
+            "extrait": "comment une série est née",
+            "tags": ["un travail à parcourir, avec ses séries et ses archives", "médiation autour des séries"]
+          },
+          "pointEtape": {
+            "texte": "Ton inventaire contient déjà tout ce qu’il faut pour un portfolio. Ce qui te coûte, c’est de le recopier à chaque demande. Ce que tu décris, un travail qu’on parcourt avec ses séries et ses carnets, demande les mêmes données, mieux reliées.",
+            "ordreDeGrandeur": "Ordre de grandeur illustratif : une soirée par portfolio, qui pourrait devenir quelques minutes."
+          },
+          "ressources": [
+            { "ref": "kelly-better-than-free", "citation": "Quel que soit son prix, une œuvre n’a de valeur que si elle est vue. Les chefs-d’œuvre que personne ne trouve ne valent rien pour le monde.", "citationOriginale": "But no matter what its price, a work has no value unless it is seen. Unfound masterpieces are worthless to the world.", "role": "ouverture" }
+          ]
+        },
+        {
+          "id": 8,
           "dimension": "competences",
           "type": "scenario",
           "question": "Quelqu’un te montre une IA qui décrit et classe des photos d’œuvres. Ta première réaction ?",
@@ -1070,17 +1088,17 @@
           }
         },
         {
-          "id": 8,
+          "id": 9,
           "dimension": "competences",
           "type": "question",
           "pese": true,
-          "question": "Tu parlais de ne pas dépendre. Certaines IA tournent entièrement sur ton propre ordinateur, sans rien envoyer nulle part. Avec ton inventaire, elles pourraient préparer une première version de légendes ou de dossier. Ça te parlerait ?",
+          "question": "Tu parlais de ne pas dépendre. Certaines IA tournent entièrement sur ton ordinateur, sans rien envoyer. Elles pourraient préparer des légendes, ou t’aider à retrouver des liens entre tes œuvres. Ça te parlerait ?",
           "rebond": {
-            "etape": 4,
+            "etape": 2,
             "rappel": "Ne pas dépendre."
           },
           "reponse": {
-            "transcription": "Non… je ne savais pas. Ça, ça m’intéresse, si tout reste chez moi. Mais il faudrait que mes textes soient au même endroit que l’inventaire."
+            "transcription": "Non… je ne savais pas. Ça, ça m’intéresse, si tout reste chez moi. Retrouver des liens que je ne vois plus, ça me plairait. Mais il faudrait que mes textes soient au même endroit que l’inventaire."
           },
           "retenu": {
             "resume": "Tu découvres qu’une IA peut travailler sans rien envoyer, et tu poses une condition.",
@@ -1091,7 +1109,7 @@
             ]
           },
           "pointEtape": {
-            "texte": "Ta prudence se comprend. Certaines solutions respectent tes critères, et ton inventaire leur donnerait le contexte qui leur manque.",
+            "texte": "Ta prudence se comprend. Certaines solutions respectent tes critères, et ton inventaire leur donnerait le contexte qui leur manque. Elles pourraient aussi t’aider à explorer ce que tu as déjà fait.",
             "ordreDeGrandeur": null
           },
           "ressources": [
@@ -1100,7 +1118,7 @@
           ]
         },
         {
-          "id": 9,
+          "id": 10,
           "dimension": "partage",
           "type": "question",
           "question": "Si une résidence te demande ton dossier et que tu es indisponible une semaine, qui peut le préparer ?",
@@ -1113,7 +1131,7 @@
           }
         },
         {
-          "id": 10,
+          "id": 11,
           "dimension": "partage",
           "type": "scenario",
           "pese": true,
@@ -1121,7 +1139,7 @@
           "options": ["Pas de décalage", "Un petit décalage", "Des envies claires, mais les contraintes l’emportent", "Je ne sais pas trop ce que je voudrais"],
           "reponse": {
             "choix": ["Des envies claires, mais les contraintes l’emportent"],
-            "transcription": "Je voudrais montrer mon travail autrement que sur Instagram. Mais je n’ai pas le temps de refaire un site, ni de tout recopier encore une fois."
+            "transcription": "Je voudrais montrer mon travail autrement que sur Instagram, et le faire vivre au-delà d’un PDF. Mais je n’ai pas le temps de refaire un site, ni de tout recopier encore une fois."
           },
           "retenu": {
             "extrait": "je n’ai pas le temps de refaire un site, ni de tout recopier encore une fois",
@@ -1138,51 +1156,31 @@
       ],
       "ideal": {
         "question": "Pour finir : au mieux, ça ressemblerait à quoi, ton rapport à l’informatique ?",
-        "transcription": "Que mon tableur devienne mon site, mon portfolio et mes dossiers. Sans tout refaire à chaque fois. Et que tout reste chez moi."
+        "transcription": "Que mon tableur devienne mon portfolio et mes dossiers, sans tout refaire à chaque fois. Qu’on puisse se promener dans mon travail, par séries, avec mes archives. Et que tout reste chez moi."
       },
       "restitution": {
-        "lettre": "Nadia, ton inventaire tient depuis 1998. Chaque œuvre a son numéro, ses images y sont reliées, et tes outils suivent tes valeurs. Pour les œuvres, tu as déjà une source qui fait foi. Les textes, les légendes et les prix dorment dans d’anciens dossiers et des mails. Tu les recopies à la main pour chaque portfolio et chaque candidature. Ta diffusion attend, faute de temps pour tout refaire. Tu voudrais que ton tableur devienne ton site et tes dossiers, sans que rien ne quitte ton ordinateur. La moitié du chemin est faite. Les mêmes données permettraient une IA locale. Ce qu’on peut évaluer, on peut l’améliorer.",
+        "lettre": "Nadia, tu choisis tes outils, suisses ou libres, et tu sais où vont tes fichiers. Ton inventaire tient depuis 1998 : chaque œuvre a son numéro et ses images. Pour les œuvres, tu as déjà une source qui fait foi. Les textes, les légendes et les prix dorment dans d’anciens dossiers et des mails. Tu les recopies à la main pour chaque portfolio et chaque candidature. Trente ans de carnets, de croquis et de photos d’expositions attendent dans des boîtes. Tu voudrais que ton travail se parcoure, avec ses séries et ses archives, bien au-delà d’un PDF ou d’un site de galerie, sans que rien ne quitte ton ordinateur. La moitié du chemin est faite. Les mêmes données permettraient aussi une IA locale. Ce qu’on peut évaluer, on peut l’améliorer.",
         "radar": {
-          "donnees": "Organisé",
           "outils": "Organisé",
+          "donnees": "Organisé",
           "publics": "Improvisation",
           "competences": "Exploration",
           "partage": "Organisé"
         },
         "fonctionne": [
-          { "texte": "Un inventaire rigoureux depuis 1998", "etape": 1, "citation": "Un tableur LibreOffice, depuis 1998." },
-          { "texte": "Des images reliées aux numéros", "etape": 2, "citation": "le nom du fichier commence par le numéro" },
-          { "texte": "Des outils choisis et cohérents", "etape": 3, "citation": "Je choisis mes outils. Suisses ou libres." }
+          { "texte": "Des outils choisis et cohérents", "etape": 1, "citation": "Je choisis mes outils. Suisses ou libres." },
+          { "texte": "Un inventaire rigoureux depuis 1998", "etape": 3, "citation": "Un tableur LibreOffice, depuis 1998." },
+          { "texte": "Des images reliées aux numéros", "etape": 3, "citation": "le nom du fichier commence par le numéro" }
         ],
         "ameliorer": [
-          { "texte": "Des textes et légendes dispersés", "etape": 2, "citation": "les textes, les légendes, les prix, ils sont un peu partout" },
-          {
-            "texte": "Des portfolios refaits à la main",
-            "etape": 5,
-            "citation": "je recopie les légendes depuis le tableur",
-            "ordreDeGrandeur": "Ordre de grandeur illustratif : une soirée par portfolio."
-          },
-          { "texte": "Une IA écartée faute de solution qui respecte tes critères", "etape": 7, "citation": "Et mes images partent où ?" }
+          { "texte": "Des textes et légendes dispersés", "etape": 4, "citation": "les légendes, les prix, ils sont un peu partout" },
+          { "texte": "Des portfolios refaits à la main", "etape": 5, "citation": "je recopie les légendes depuis le tableur", "ordreDeGrandeur": "Ordre de grandeur illustratif : une soirée par portfolio." },
+          { "texte": "Trente ans d’archives qu’on ne rouvre pas", "etape": 4, "citation": "je ne les rouvre presque jamais" }
         ],
         "pistes": [
-          {
-            "horizon": "2 semaines",
-            "texte": "Ajouter à l’inventaire les colonnes Texte de présentation, Légende et Prix, pour que tout parte du même endroit.",
-            "lien": "/ressources",
-            "libelleLien": "Ressources du projet"
-          },
-          {
-            "horizon": "1 mois",
-            "texte": "Générer le portfolio PDF depuis le tableur, avec un outil libre.",
-            "lien": "/ressources/analyse-outils",
-            "libelleLien": "Analyse des outils"
-          },
-          {
-            "horizon": "3–6 mois",
-            "texte": "Explorer une IA locale pour préparer les légendes, ou un site qui se nourrit directement de l’inventaire.",
-            "lien": "/ressources/etude-complete",
-            "libelleLien": "Étude complète : repères sur l’IA dans la culture"
-          }
+          { "horizon": "2 semaines", "texte": "Ajouter à l’inventaire les colonnes Texte de présentation, Légende et Prix, pour que tout parte du même endroit.", "lien": "/ressources", "libelleLien": "Ressources du projet" },
+          { "horizon": "1 mois", "texte": "Générer le portfolio PDF depuis le tableur, avec un outil libre.", "lien": "/ressources/analyse-outils", "libelleLien": "Analyse des outils" },
+          { "horizon": "3–6 mois", "texte": "Faire vivre l’existant : un site qui se nourrit de l’inventaire et ouvre les séries, les carnets et les archives, ou une IA locale qui aide à retrouver des liens entre les œuvres.", "lien": "/ressources/references-inspirantes", "libelleLien": "Références inspirantes" }
         ]
       },
       "demos": [
@@ -1203,10 +1201,11 @@
         {
           "id": "tri",
           "titre": "Où va quoi",
-          "texte": "Chaque information a sa place. L’inventaire garde les œuvres, les prix et la légende courte. Les textes longs vont dans des documents liés aux numéros, les candidatures et les échéances dans un suivi.",
+          "texte": "Chaque information a sa place. L’inventaire garde les œuvres, les prix et la légende courte. Les textes longs vont dans des documents liés aux numéros, les carnets et les croquis dans les archives d’atelier, les candidatures et les échéances dans un suivi.",
           "places": [
             { "nom": "Inventaire", "elements": ["Œuvres", "Prix", "Légendes courtes"] },
             { "nom": "Documents liés aux numéros", "elements": ["Textes de présentation", "Textes de dossier"] },
+            { "nom": "Archives d’atelier", "elements": ["Carnets", "Croquis", "Photos d’expositions"] },
             { "nom": "Suivi", "elements": ["Candidatures", "Échéances"] }
           ]
         },

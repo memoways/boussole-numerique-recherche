@@ -2,6 +2,19 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.7.0] — 2026-10-15 — Démo : Marc recentré sur la préparation, la médiation et la tournée ; Nadia part de ses outils
+
+### Modifié
+
+- Okafor : la ressource « I Tried Every “Second Brain” App… » quitte le catalogue de « D’autres regards » et l’échange 1 de Marc. Onze ressources restent, chacune citée au moins une fois.
+- Marc : la création en répétition reste humaine et hors écran, et la Boussole le retient. Le parcours porte sur la préparation (références, scénographie, arrivée d’une costumière), la médiation et la communication (programmateurs, médiateurs, dossier pour les scolaires), puis la logistique de tournée. Échanges 1 à 5 réécrits ; 6 à 11 inchangés.
+- Marc, micro-démos : « Une décision, une trace » (`note`) est remplacée par « Les références rejoignent le dossier du spectacle » (`source-unique`) ; « Un socle, plusieurs documents » (`fiche`) montre la médiation ; « Une info, plusieurs copies » est conservée. Lettre, pistes et idéal reprennent ce cadre.
+- Nadia : le parcours commence par ses outils de tous les jours (échange 1, approfondissement conservé) et le numérique responsable (2), puis l’inventaire vient comme besoin précis (3). Ordre des dimensions : outils, données, publics, compétences, partage. Onze échanges au lieu de dix.
+- Nadia, ouverture : archives d’atelier qui dorment (échange 4, quatrième curseur), envie de montrer le travail par séries et de l’expliquer à une classe (7), IA locale pour retrouver des liens entre les œuvres (9). « Où va quoi » gagne une place « Archives d’atelier ».
+- `verify-demo-content` : ordre des dimensions de Nadia mis à jour. `check-demo-playback` : repères de Marc et de Nadia alignés (11 échanges, premiers regards 2, 4, 7, 9 et 11, rebonds 2 et 9).
+
+Voir [`docs/ETAT_RETOUCHES_MARC_NADIA_2026-10-15.md`](docs/ETAT_RETOUCHES_MARC_NADIA_2026-10-15.md).
+
 ## [1.6.8] — 2026-10-15 — Démo : Nadia, approfondissement sur ses outils choisis
 
 ### Modifié

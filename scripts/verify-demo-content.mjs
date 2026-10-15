@@ -25,7 +25,7 @@ const PERSONA_IDS = ["cinema", "scene", "arts-visuels"];
 const EXPECTED_ORDER = {
   cinema: ["outils", "donnees", "partage", "competences", "publics"],
   scene: ["partage", "publics", "donnees", "outils", "competences"],
-  "arts-visuels": ["donnees", "outils", "publics", "competences", "partage"],
+  "arts-visuels": ["outils", "donnees", "publics", "competences", "partage"],
 };
 const LEVELS = ["Exploration", "Improvisation", "Organisé", "Orchestré"];
 const MICRO_DEMOS = new Set(["convergence", "tri", "validation", "fiche", "source-unique", "note"]);
