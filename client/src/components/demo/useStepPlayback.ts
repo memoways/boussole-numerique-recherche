@@ -8,7 +8,7 @@
 import { useCallback, useEffect, useMemo, useReducer } from "react";
 import { useReducedMotion } from "framer-motion";
 
-export const PLAYBACK_PHASES = ["question", "ready", "selecting", "transcribing", "detecting", "proposing", "ranking", "probing", "digesting", "retained", "done"] as const;
+export const PLAYBACK_PHASES = ["question", "ready", "selecting", "transcribing", "detecting", "proposing", "pauseA", "ranking", "probing", "pauseB", "digesting", "retained", "done"] as const;
 export type PlaybackPhase = (typeof PLAYBACK_PHASES)[number];
 
 export type PlaybackScript = {
@@ -21,21 +21,23 @@ export type PlaybackScript = {
   hasRetained: boolean;
   /** Une correction de curseur prolonge la phase « retenu » pour que le glissement reste visible. */
   hasCorrection: boolean;
+  /** Hors outils : l’échange est coupé en deux pages (réponse, puis ce que la Boussole retient) quand la réception est chargée. */
+  splitReception: boolean;
 };
 
 /** Rythme d’une parole transcrite en direct : la durée suit la longueur de la réponse, dans des bornes lisibles. */
-const MS_PER_WORD = 130;
-const SPEECH_MIN_MS = 1800;
-const SPEECH_MAX_MS = 5500;
+const MS_PER_WORD = 55;
+const SPEECH_MIN_MS = 900;
+const SPEECH_MAX_MS = 2800;
 const QUESTION_FADE_MS = 700;
 const SELECTION_STEP_MS = 420;
 const DIGEST_MS = 800;
 const TOOL_STEP_MS = 380;
 const TOOL_ADD_MS = 650;
-const PROBE_MS = 4200;
+const PROBE_MS = 1500;
 
 type State = { phase: PlaybackPhase; wordsShown: number };
-type Action = { type: "goto"; phase: PlaybackPhase } | { type: "word" } | { type: "finish" };
+type Action = { type: "goto"; phase: PlaybackPhase } | { type: "jump"; phase: PlaybackPhase } | { type: "word" } | { type: "finish" };
 
 export function phaseReached(current: PlaybackPhase, target: PlaybackPhase) {
   return PLAYBACK_PHASES.indexOf(current) >= PLAYBACK_PHASES.indexOf(target);
@@ -49,6 +51,7 @@ export function useStepPlayback(script: PlaybackScript) {
   const [state, dispatch] = useReducer(
     (current: State, action: Action): State => {
       if (action.type === "goto") return { ...current, phase: action.phase };
+      if (action.type === "jump") return { phase: action.phase, wordsShown: totalWords };
       if (action.type === "finish") return { phase: "done", wordsShown: totalWords };
       return { ...current, wordsShown: Math.min(totalWords, current.wordsShown + 1) };
     },
@@ -60,7 +63,11 @@ export function useStepPlayback(script: PlaybackScript) {
   const hasTools = Boolean(script.tools);
   const { detected = 0, added = 0, ranked = 0, probed = 0 } = script.tools ?? {};
   const afterTools: PlaybackPhase = script.hasRetained ? "digesting" : "done";
-  const afterTranscription: PlaybackPhase = hasTools ? "detecting" : afterTools;
+  // Pages : 1 = réponse (et repérage des outils), 2 = classement et approfondissement (outils), dernière = ce que la Boussole retient.
+  const splitReception = !hasTools && script.splitReception && script.hasRetained;
+  // Outils : la réception a sa propre page seulement quand elle est chargée ; sinon elle suit le classement.
+  const hasPauseB = hasTools && script.splitReception && script.hasRetained;
+  const afterTranscription: PlaybackPhase = hasTools ? "detecting" : splitReception ? "pauseA" : afterTools;
   const wordMs = totalWords > 0 ? Math.min(SPEECH_MAX_MS, Math.max(SPEECH_MIN_MS, totalWords * MS_PER_WORD)) / totalWords : 0;
   const retainedMs = script.hasCorrection ? 1800 : 900;
 
@@ -71,15 +78,15 @@ export function useStepPlayback(script: PlaybackScript) {
     if (phase === "question") { next = "ready"; delay = QUESTION_FADE_MS; }
     if (phase === "selecting") { next = totalWords > 0 ? "transcribing" : afterTranscription; delay = script.choices * SELECTION_STEP_MS + 400; }
     if (hasTools && phase === "detecting") { next = "proposing"; delay = detected * TOOL_STEP_MS + 900; }
-    if (hasTools && phase === "proposing") { next = "ranking"; delay = added * TOOL_ADD_MS + 2200; }
-    if (hasTools && phase === "ranking") { next = probed > 0 ? "probing" : afterTools; delay = ranked * TOOL_STEP_MS + 2600; }
-    if (hasTools && phase === "probing") { next = afterTools; delay = PROBE_MS; }
+    if (hasTools && phase === "proposing") { next = "pauseA"; delay = added * TOOL_ADD_MS + 1600; }
+    if (hasTools && phase === "ranking") { next = probed > 0 ? "probing" : hasPauseB ? "pauseB" : afterTools; delay = ranked * TOOL_STEP_MS + 1800; }
+    if (hasTools && phase === "probing") { next = hasPauseB ? "pauseB" : afterTools; delay = PROBE_MS; }
     if (phase === "digesting") { next = "retained"; delay = DIGEST_MS; }
     if (phase === "retained") { next = "done"; delay = retainedMs; }
     if (!next) return;
     const timer = window.setTimeout(() => dispatch({ type: "goto", phase: next }), delay);
     return () => window.clearTimeout(timer);
-  }, [phase, afterTranscription, afterTools, hasTools, detected, added, ranked, probed, script.choices, retainedMs, totalWords]);
+  }, [phase, afterTranscription, afterTools, hasTools, hasPauseB, detected, added, ranked, probed, script.choices, retainedMs, totalWords]);
 
   // Écriture mot par mot, au rythme de la parole.
   useEffect(() => {
@@ -92,13 +99,29 @@ export function useStepPlayback(script: PlaybackScript) {
     return () => window.clearTimeout(timer);
   }, [phase, wordsShown, totalWords, afterTranscription, wordMs]);
 
+  /** Prochain arrêt (pause ou fin) à partir d’une phase : la fin de la page en cours. */
+  const nextStop = useCallback((from: PlaybackPhase): PlaybackPhase => {
+    const before = (target: PlaybackPhase) => PLAYBACK_PHASES.indexOf(from) < PLAYBACK_PHASES.indexOf(target);
+    if ((hasTools || splitReception) && before("pauseA")) return "pauseA";
+    if (hasPauseB && before("pauseB")) return "pauseB";
+    return "done";
+  }, [hasTools, hasPauseB, splitReception]);
+
   const start = useCallback(() => {
     if (phase !== "question" && phase !== "ready") return;
-    if (reducedMotion) { dispatch({ type: "finish" }); return; }
+    if (reducedMotion) { dispatch({ type: "jump", phase: nextStop(phase) }); return; }
     dispatch({ type: "goto", phase: script.choices > 0 ? "selecting" : "transcribing" });
-  }, [phase, reducedMotion, script.choices]);
+  }, [phase, reducedMotion, script.choices, nextStop]);
 
-  const skip = useCallback(() => dispatch({ type: "finish" }), []);
+  /** « Passer l’animation » : la page en cours s’affiche en entier, sans sauter les pages suivantes. */
+  const skip = useCallback(() => dispatch({ type: "jump", phase: nextStop(phase) }), [phase, nextStop]);
+
+  /** Page suivante, depuis une pause. */
+  const resume = useCallback(() => {
+    if (phase !== "pauseA" && phase !== "pauseB") return;
+    if (reducedMotion) { dispatch({ type: "jump", phase: nextStop(phase) }); return; }
+    dispatch({ type: "goto", phase: phase === "pauseA" && hasTools ? "ranking" : afterTools });
+  }, [phase, reducedMotion, hasTools, afterTools, nextStop]);
 
   /** Un clic sur la transcription en cours l’affiche en entier. */
   const accelerate = useCallback(() => {
@@ -107,7 +130,12 @@ export function useStepPlayback(script: PlaybackScript) {
   }, [phase, afterTranscription]);
 
   const isWaiting = phase === "question" || phase === "ready";
-  const isPlaying = !isWaiting && phase !== "done";
+  const isPaused = phase === "pauseA" || phase === "pauseB";
+  const isPlaying = !isWaiting && !isPaused && phase !== "done";
+  const pageCount = hasTools ? (hasPauseB ? 3 : 2) : splitReception ? 2 : 1;
+  const afterA = PLAYBACK_PHASES.indexOf(phase) > PLAYBACK_PHASES.indexOf("pauseA");
+  const afterB = PLAYBACK_PHASES.indexOf(phase) > PLAYBACK_PHASES.indexOf("pauseB");
+  const page = pageCount === 1 ? 1 : hasTools ? (afterB && hasPauseB ? 3 : afterA ? 2 : 1) : afterA ? 2 : 1;
 
   return {
     phase,
@@ -115,7 +143,11 @@ export function useStepPlayback(script: PlaybackScript) {
     wordsShown: phaseReached(phase, "detecting") ? totalWords : wordsShown,
     totalWords,
     isWaiting,
+    isPaused,
     isPlaying,
+    page,
+    pageCount,
+    resume,
     isDone: phase === "done",
     reached: (target: PlaybackPhase) => phaseReached(phase, target),
     start,

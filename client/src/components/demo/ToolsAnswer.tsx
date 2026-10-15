@@ -21,6 +21,8 @@ type Props = {
   prenom: string;
   phase: PlaybackPhase;
   reducedMotion: boolean;
+  /** Page de l’échange : 1 = repérage et propositions, 2 = classement et approfondissement. */
+  part: 1 | 2;
 };
 
 /** Parole de la personne, sous la forme d’une citation courte rattachée à son prénom. */
@@ -42,7 +44,7 @@ function SectionTitle({ children }: { children: string }) {
   );
 }
 
-export default function ToolsAnswer({ tools, options, prenom, phase, reducedMotion }: Props) {
+export default function ToolsAnswer({ tools, options, prenom, phase, reducedMotion, part }: Props) {
   const { lecture } = DEMO_CONTENT;
   const reached = (target: PlaybackPhase) => phaseReached(phase, target);
   const mentioned = new Set(tools.cites.map((item) => item.outil));
@@ -50,14 +52,14 @@ export default function ToolsAnswer({ tools, options, prenom, phase, reducedMoti
   const approfondissement = tools.approfondissement;
 
   const detectedCount = useSelectionProgress(tools.cites.length, phase === "detecting", reached("proposing"), DETECT_STEP_MS);
-  const addedCount = useSelectionProgress(tools.ajoutes.length, phase === "proposing", reached("ranking"), ADD_STEP_MS);
+  const addedCount = useSelectionProgress(tools.ajoutes.length, phase === "proposing", reached("pauseA"), ADD_STEP_MS);
   const rankedCount = useSelectionProgress(tools.ordre.length, phase === "ranking", reached("probing"), RANK_STEP_MS);
   const added = new Set(tools.ajoutes.slice(0, addedCount));
   const fade = reducedMotion ? { initial: false as const } : { initial: { opacity: 0, y: 8 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.4 } };
 
   return (
     <div className="space-y-8">
-      {reached("detecting") && (
+      {part === 1 && reached("detecting") && (
         <motion.section {...fade} aria-label={fillTemplate(lecture.outilsReperes, { prenom })}>
           <SectionTitle>{fillTemplate(lecture.outilsReperes, { prenom })}</SectionTitle>
           <ul className="flex flex-wrap gap-2">
@@ -74,7 +76,7 @@ export default function ToolsAnswer({ tools, options, prenom, phase, reducedMoti
         </motion.section>
       )}
 
-      {reached("proposing") && (
+      {part === 1 && reached("proposing") && (
         <motion.section {...fade} aria-label={fillTemplate(lecture.outilsPropositions, { prenom })}>
           <SectionTitle>{fillTemplate(lecture.outilsPropositions, { prenom })}</SectionTitle>
           <ul className="flex flex-wrap gap-2">
@@ -100,10 +102,10 @@ export default function ToolsAnswer({ tools, options, prenom, phase, reducedMoti
         </motion.section>
       )}
 
-      {reached("ranking") && (
+      {part === 2 && reached("ranking") && (
         <motion.section {...fade} aria-label={lecture.outilsClassement}>
           <SectionTitle>{lecture.outilsClassement}</SectionTitle>
-          <ol className="space-y-2">
+          <ol className="grid gap-2 sm:grid-cols-2">
             {tools.ordre.slice(0, rankedCount).map((outil, index) => (
               <motion.li key={outil} {...fade} className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900">
                 <span aria-hidden="true" className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#515792] text-xs font-semibold text-white">{index + 1}</span>
@@ -119,7 +121,7 @@ export default function ToolsAnswer({ tools, options, prenom, phase, reducedMoti
         </motion.section>
       )}
 
-      {approfondissement && reached("probing") && (
+      {part === 2 && approfondissement && reached("probing") && (
         <motion.section {...fade} aria-label={lecture.outilsApprofondir}>
           <SectionTitle>{lecture.outilsApprofondir}</SectionTitle>
           <p className="mb-3 text-lg leading-snug text-slate-950">{approfondissement.question}</p>
