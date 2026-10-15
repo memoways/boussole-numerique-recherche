@@ -102,6 +102,27 @@ for (const persona of personas) {
       assert((step.reponse.choix ?? []).length > 0 && step.reponse.choix.every((choice) => step.options.includes(choice)), `${at} : les choix doivent figurer parmi les options.`);
       if (step.type === "scenario") assert(step.reponse.choix.length === 1 && step.options.length === 4, `${at} : un micro-scénario a 4 options et un seul choix.`);
     }
+    // Échanges « outils » (Ulrich, 15 octobre 2026) : la personne parle d’abord, la Boussole repère, propose, la personne ajoute et classe.
+    if (step.type === "cases") {
+      const tools = step.outils;
+      assert(Boolean(tools), `${at} : un échange « cases » doit déclarer ses outils (outils : cites, ajoutes, ordre…).`);
+      if (tools) {
+        const cited = tools.cites.map((item) => item.outil);
+        assert(cited.length > 0, `${at} : au moins un outil doit être cité à la voix.`);
+        for (const item of tools.cites) assert(step.reponse.transcription.includes(item.dit), `${at} : « ${item.dit} » (outil « ${item.outil} ») doit être un passage exact de la transcription.`);
+        assert([...cited, ...tools.ajoutes].every((tool) => step.options.includes(tool)), `${at} : outils cités et ajoutés doivent figurer parmi les options.`);
+        assert(tools.ajoutes.length > 0 && tools.ajoutes.every((tool) => !cited.includes(tool)), `${at} : les ajouts doivent compléter les outils cités, sans les répéter.`);
+        assert(tools.complement && tools.classement, `${at} : la parole d’ajout (complement) et de classement (classement) sont requises.`);
+        const everything = [...cited, ...tools.ajoutes];
+        assert(tools.ordre.length === everything.length && everything.every((tool) => tools.ordre.includes(tool)), `${at} : le classement doit contenir chaque outil cité ou ajouté, une fois.`);
+        assert(new Set(step.reponse.choix).size === everything.length && everything.every((tool) => step.reponse.choix.includes(tool)), `${at} : reponse.choix doit être la somme des outils cités et ajoutés.`);
+        const focus = tools.approfondissement;
+        if (focus) {
+          assert(focus.question && focus.transcription && focus.outils.length > 0, `${at} : l’approfondissement demande une question, une réponse et des outils.`);
+          assert(focus.outils.every((item) => tools.ordre.slice(0, 3).includes(item.outil) && item.fonctionne && item.pese), `${at} : l’approfondissement porte sur les outils en tête du classement, avec ce qui fonctionne et ce qui pèse.`);
+        }
+      }
+    }
     if (step.type === "curseurs") assert((step.retenu?.curseurs ?? []).length > 0, `${at} : une étape « curseurs » doit proposer des curseurs.`);
     for (const slider of step.retenu?.curseurs ?? []) {
       assert(levelsOk(slider.valeur), `${at} : niveau de curseur « ${slider.valeur} » inconnu.`);

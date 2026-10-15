@@ -2,6 +2,20 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.5.2] — 2026-10-15 — Démo playback : les outils d’abord à la voix, la liste ensuite
+
+### Modifié
+
+- Les quatre échanges « cases » (Claire 1 et 11, Marc 4, Nadia 3) ne montrent plus une liste d’outils cochée d’avance. La personne parle ; la Boussole repère les outils nommés, avec les mots exacts qui les justifient (`outils.cites[].dit`) ; elle propose des outils du même registre ; la personne en ajoute à la voix, souvent un oubli (`ajoutes`, `complement`) ; puis elle les classe du plus au moins important (`ordre`, `classement`).
+- Claire, échange 1 : approfondissement sur les trois outils en tête (Gmail / Outlook, Excel / Sheets, WeTransfer) : « Ce qui fonctionne » et « Ce qui pèse » (`outils.approfondissement`), pour montrer qu’une liste permet d’aller en profondeur. Une note de plus est retenue : « validations en allers-retours de mails ». Les deux autres parcours n’ont pas cet approfondissement.
+- Nadia, échange 3 : la réponse nomme désormais ses outils (LibreOffice, Proton Mail, kDrive, GIMP) ; la phrase citée en restitution est conservée.
+- Machine de lecture : nouvelles phases `detecting`, `proposing`, `ranking`, `probing` entre la parole et la prise de note. « Passer l’animation » et le mouvement réduit affichent tout d’un coup.
+- `verify-demo-content` contrôle chaque échange « cases » (outils cités = passages exacts de la transcription, ajouts distincts, classement complet, approfondissement sur les outils en tête). `check-demo-playback` attend jusqu’à 45 s la fin d’un échange.
+
+### Vérifié
+
+- `pnpm verify`, `pnpm verify:demo-content`, `check-demo-playback` (voir [`docs/ETAT_OUTILS_VOIX_D_ABORD_2026-10-15.md`](./docs/ETAT_OUTILS_VOIX_D_ABORD_2026-10-15.md)).
+
 ## [1.5.1] — 2026-10-15 — Démo playback : parole en direct, curseurs en contexte, typographie
 
 ### Modifié

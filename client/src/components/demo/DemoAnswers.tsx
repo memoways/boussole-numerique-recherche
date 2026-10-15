@@ -11,15 +11,15 @@ import { DEMO_CONTENT, fillTemplate, type DemoSlider, type RadarLevel } from "@/
 const SELECTION_STEP_MS = 420;
 
 /** Nombre d’éléments déjà « choisis » : progresse pendant la sélection, tout est choisi ensuite. */
-function useSelectionProgress(total: number, selecting: boolean, finished: boolean) {
+export function useSelectionProgress(total: number, selecting: boolean, finished: boolean, stepMs = SELECTION_STEP_MS) {
   const [count, setCount] = useState(finished ? total : 0);
   useEffect(() => {
     if (finished) { setCount(total); return; }
     if (!selecting) { setCount(0); return; }
     setCount(0);
-    const timer = window.setInterval(() => setCount((value) => Math.min(total, value + 1)), SELECTION_STEP_MS);
+    const timer = window.setInterval(() => setCount((value) => Math.min(total, value + 1)), stepMs);
     return () => window.clearInterval(timer);
-  }, [total, selecting, finished]);
+  }, [total, selecting, finished, stepMs]);
   return count;
 }
 
