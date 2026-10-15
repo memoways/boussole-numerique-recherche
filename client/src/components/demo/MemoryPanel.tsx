@@ -36,7 +36,7 @@ function PanelBody({ persona, items, gauges, currentStep, highlight, reducedMoti
   return (
     <div className="space-y-6">
       <section>
-        <h3 className="text-xs font-bold uppercase tracking-[0.12em] text-slate-600">{memoire.extraits}</h3>
+        <h3 className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-600">{memoire.extraits}</h3>
         <ul className="mt-2 space-y-2">
           <AnimatePresence initial={false}>
             {extracts.map((item) => (
@@ -50,7 +50,7 @@ function PanelBody({ persona, items, gauges, currentStep, highlight, reducedMoti
 
       {notes.length > 0 && (
         <section>
-          <h3 className="text-xs font-bold uppercase tracking-[0.12em] text-slate-600">{memoire.notes}</h3>
+          <h3 className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-600">{memoire.notes}</h3>
           <div className="mt-2 space-y-3">
             {persona.ordreDimensions.map((dimension) => {
               const inDimension = notes.filter((item) => item.dimension === dimension);
@@ -58,7 +58,7 @@ function PanelBody({ persona, items, gauges, currentStep, highlight, reducedMoti
               const color = DIMENSION_COLORS[dimension];
               return (
                 <div key={dimension}>
-                  <p className="text-xs font-bold" style={{ color: color.text }}>{dimensions[dimension]}</p>
+                  <p className="text-xs font-semibold" style={{ color: color.text }}>{dimensions[dimension]}</p>
                   <ul className="mt-1.5 flex flex-wrap gap-1.5">
                     <AnimatePresence initial={false}>
                       {inDimension.map((item) => (
@@ -77,7 +77,7 @@ function PanelBody({ persona, items, gauges, currentStep, highlight, reducedMoti
 
       {gauges.length > 0 && (
         <section>
-          <h3 className="text-xs font-bold uppercase tracking-[0.12em] text-slate-600">{memoire.jauges}</h3>
+          <h3 className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-600">{memoire.jauges}</h3>
           <ul className="mt-2 space-y-2.5">
             {gauges.map(({ dimension, level }) => {
               const filled = niveauxRadar.indexOf(level) + 1;
@@ -86,7 +86,7 @@ function PanelBody({ persona, items, gauges, currentStep, highlight, reducedMoti
                 <li key={dimension}>
                   <p className="flex justify-between gap-2 text-xs">
                     <span className="font-semibold text-slate-800">{dimensions[dimension]}</span>
-                    <span className="font-bold" style={{ color: color.text }} title={DEMO_CONTENT.niveauxDefinitions[level]}>{level}</span>
+                    <span className="font-semibold" style={{ color: color.text }} title={DEMO_CONTENT.niveauxDefinitions[level]}>{level}</span>
                   </p>
                   <span aria-hidden="true" className="mt-1 grid grid-cols-4 gap-1">
                     {niveauxRadar.map((name, index) => (
@@ -129,7 +129,7 @@ export function MemoryColumn({ open, onToggle, ...props }: MemoryPanelProps) {
     <aside aria-labelledby="demo-memoire-titre" className="hidden lg:block">
       <div className="sticky top-6 max-h-[calc(100vh-3rem)] overflow-y-auto rounded-2xl border border-slate-200 bg-slate-50 p-5">
         <div className="mb-4 flex items-start justify-between gap-3">
-          <h2 id="demo-memoire-titre" className="flex items-center gap-2 text-base font-bold text-slate-950">
+          <h2 id="demo-memoire-titre" className="flex items-center gap-2 text-lg font-normal text-slate-950">
             <NotebookPen className="h-4 w-4 text-[#515792]" aria-hidden="true" />
             {memoire.titre}
           </h2>
@@ -177,7 +177,7 @@ export function MemoryDrawer(props: PanelProps) {
           type="button"
           data-pulses={pulses}
           animate={controls}
-          className="absolute -top-14 right-4 z-30 inline-flex min-h-11 items-center gap-2 rounded-full bg-[#515792] px-4 text-sm font-bold text-white shadow-lg sm:right-0 lg:hidden"
+          className="absolute -top-14 right-4 z-30 inline-flex min-h-11 items-center gap-2 rounded-full bg-[#515792] px-4 text-sm font-semibold text-white shadow-lg sm:right-0 lg:hidden"
         >
           <NotebookPen className="h-4 w-4" aria-hidden="true" />
           {fillTemplate(memoire.boutonMobile, { n: String(props.items.length) })}
@@ -185,7 +185,7 @@ export function MemoryDrawer(props: PanelProps) {
       </DrawerTrigger>
       <DrawerContent className="bg-[#F8F9FC]">
         <div className="flex items-center justify-between gap-3 px-5 pt-4">
-          <DrawerTitle className="flex items-center gap-2 text-base font-bold text-slate-950">
+          <DrawerTitle className="flex items-center gap-2 text-lg font-normal text-slate-950">
             <NotebookPen className="h-4 w-4 text-[#515792]" aria-hidden="true" />
             {memoire.titre}
           </DrawerTitle>

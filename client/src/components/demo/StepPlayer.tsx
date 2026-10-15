@@ -67,7 +67,7 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
   // Le dernier bloc apparu reste visible, y compris sous la barre de commandes du smartphone.
   useEffect(() => {
     const doneTarget = step.pointEtape ? milestoneRef.current : resourcesRef.current;
-    const target = phase === "done" ? doneTarget : phase === "retained" ? inducedRef.current : phase === "speaking" || phase === "selecting" ? answerRef.current : null;
+    const target = phase === "done" ? doneTarget : phase === "retained" ? inducedRef.current : phase === "transcribing" || phase === "selecting" ? answerRef.current : null;
     target?.scrollIntoView({ block: "nearest", behavior: reducedMotion ? "auto" : "smooth" });
   }, [phase, reducedMotion, step.pointEtape]);
 
@@ -89,7 +89,9 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
   const color = step.dimension ? DIMENSION_COLORS[step.dimension] : DIMENSION_COLORS.outils;
   const isSliderQuestion = step.type === "curseurs";
   const showChoices = step.type === "cases" || step.type === "scenario";
-  const voiceStarted = reached("speaking");
+  const voiceStarted = reached("transcribing");
+  // L’onde s’apaise sur le dernier quart de la transcription et s’arrête avec elle.
+  const speechLevel = playback.totalWords > 0 ? Math.min(1, (1 - playback.wordsShown / playback.totalWords) * 4) : 0;
   const fade = (delay = 0) => (reducedMotion ? { initial: false as const } : { initial: { opacity: 0, y: 8 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.45, delay } });
   const correction = sliders.find((slider) => slider.corrigeA);
   const announce = receptionPlayed && retainedItems.length > 0 ? fillTemplate(lecture.annonceRetenu, { elements: retainedItems.map((item) => (item.kind === "curseur" ? `${item.texte} : ${item.niveau}` : item.texte)).join(", ") }) : "";
@@ -98,7 +100,7 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
     <div className={`lg:grid lg:gap-8 ${panelOpen ? "lg:grid-cols-[minmax(0,1fr)_20rem]" : "lg:grid-cols-[minmax(0,1fr)_auto]"}`}>
       <section aria-labelledby="demo-question" className="min-w-0 space-y-6">
         <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 text-sm">
-          <p className="font-bold" style={{ color: color.text }}>
+          <p className="font-semibold" style={{ color: color.text }}>
             {step.id === null ? DEMO_CONTENT.ideal.libelle : `${fillTemplate(lecture.echange, { n: String(step.id), total: String(persona.etapes.length) })} · ${dimensions[step.dimension!]}`}
           </p>
           <Link href={stepPath(persona.id, "restitution")} className="font-semibold text-slate-700 underline underline-offset-4 hover:text-[#515792]">{lecture.allerRestitution}</Link>
@@ -107,16 +109,17 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
         {step.rebond && <MemoryEcho etape={step.rebond.etape} rappel={step.rebond.rappel} reducedMotion={reducedMotion} />}
 
         <motion.div {...fade()} className="rounded-2xl border border-slate-200 border-l-4 bg-white p-5 [border-left-color:var(--dim)] sm:p-6" style={dimensionVar(color.base)}>
-          <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-[#515792]">
+          <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#515792]">
             <Compass className="h-4 w-4" aria-hidden="true" />
             {lecture.boussole}
           </p>
-          <h1 id="demo-question" className="mt-2 text-xl font-extrabold leading-snug text-slate-950 sm:text-2xl">{step.question}</h1>
+          <h1 id="demo-question" className="mt-2 text-2xl font-normal leading-snug text-slate-950 sm:text-3xl">{step.question}</h1>
           {isSliderQuestion && (
             <div className="mt-5">
+              {step.retenu?.resume && <p data-demo-resume className="mb-4 text-lg leading-relaxed text-slate-800">{step.retenu.resume}</p>}
               <InducedSliders sliders={sliders} corrected={receptionPlayed} reducedMotion={reducedMotion} />
               <LevelHelp />
-              {step.questionSuite && <p className="mt-4 text-lg font-extrabold text-slate-950 sm:text-xl">{step.questionSuite}</p>}
+              {step.questionSuite && <p className="mt-4 text-xl font-normal text-slate-950 sm:text-2xl">{step.questionSuite}</p>}
             </div>
           )}
         </motion.div>
@@ -132,24 +135,20 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
         {voiceStarted && (
           <motion.div ref={answerRef} {...fade()} className="scroll-mb-32 rounded-2xl bg-[#515792]/[0.06] p-5 sm:ml-8 sm:p-6">
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <p className="text-xs font-bold uppercase tracking-[0.12em] text-slate-700">{persona.prenom}</p>
-              <Waveform active={phase === "speaking"} reducedMotion={reducedMotion} />
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-700">{persona.prenom}</p>
+              <Waveform active={phase === "transcribing"} level={speechLevel} reducedMotion={reducedMotion} />
             </div>
-            {phase === "speaking" ? (
-              <p className="mt-3 text-sm text-slate-700">{fillTemplate(lecture.ecoute, { prenom: persona.prenom })}</p>
-            ) : (
-              <div className="mt-3">
-                <TypedTranscript
-                  text={step.reponse.transcription}
-                  wordsShown={playback.wordsShown}
-                  typing={phase === "transcribing"}
-                  highlight={step.retenu?.extrait}
-                  showHighlight={receptionPlayed}
-                  onAccelerate={playback.accelerate}
-                  hint={lecture.accelerer}
-                />
-              </div>
-            )}
+            <div className="mt-3">
+              <TypedTranscript
+                text={step.reponse.transcription}
+                wordsShown={playback.wordsShown}
+                typing={phase === "transcribing"}
+                highlight={step.retenu?.extrait}
+                showHighlight={receptionPlayed}
+                onAccelerate={playback.accelerate}
+                hint={lecture.accelerer}
+              />
+            </div>
           </motion.div>
         )}
 
@@ -168,7 +167,8 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
         {/* Validation humaine : la Boussole propose des niveaux d’après la réponse, la personne valide ou corrige. */}
         {receptionPlayed && sliders.length > 0 && !isSliderQuestion && (
           <motion.div ref={inducedRef} {...fade()} data-demo-induction className="scroll-mb-32 rounded-2xl border border-[#515792]/25 bg-white p-4 sm:ml-8 sm:p-5">
-            <p className="mb-3 text-sm font-semibold text-slate-800">{lecture.induction}</p>
+            <p className="text-sm font-semibold uppercase tracking-[0.08em] text-[#515792]">{lecture.induction}</p>
+            {step.retenu?.resume && <p data-demo-resume className="mb-4 mt-1 text-lg leading-relaxed text-slate-800">{step.retenu.resume}</p>}
             <InducedSliders sliders={sliders} corrected={false} reducedMotion={reducedMotion} />
             <p className="mt-3 text-sm text-slate-700">{fillTemplate(lecture.valide, { prenom: persona.prenom })}</p>
             <LevelHelp />
@@ -193,6 +193,8 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
           </div>
         )}
 
+        {/* Sur smartphone, le bouton flottant du tiroir ne recouvre jamais le dernier bloc de l’échange. */}
+        <div aria-hidden="true" className="h-12 lg:hidden" />
         <DemoActions compact>
           {previous !== null ? (
             <Link href={stepPath(persona.id, previous)} className={`${demoSecondaryButton} px-4 sm:px-6`}>

@@ -5,6 +5,7 @@
 ## État
 
 - **Lots 1 à 3 : livrés** (v1.4.0 à v1.4.3). Les trois parcours et la comparaison sont jouables.
+- **Retouches v1.5.1 (15 octobre)** : parole et transcription simultanées, curseurs avec résumé et indices tirés des mots de la personne, « La question de la Boussole », typographie allégée, citation d’Okafor retirée chez Claire. **En attente d’Ulrich** : deux liens vers ses billets sur les enjeux de la création culturelle, à placer dans « D’autres regards ».
 - **Lot 4 (ressources liées et finitions) : livré en v1.5.0.**
   - « D’autres regards » sous 13 échanges : 17 citations tirées de 12 ressources du corpus « Ressources web MW », selon l’annexe v3 validée par Ulrich (Notion `3fa511682fc381de8faefae21f4bc741`).
   - Le bloc « La Boussole retient » sous la réponse est retiré. Les curseurs induits et la validation passent dans « D’après ce que tu dis… ».
@@ -28,7 +29,7 @@
 
 ## Points d’appui pour la suite
 
-- **Contenu** : `client/src/data/demo-parcours.json` (champ `ressources` des étapes) et `client/src/data/demo-ressources.json` (catalogue). Toute retouche passe par `pnpm verify:demo-content`.
+- **Contenu** : `client/src/data/demo-parcours.json` (champ `ressources` des étapes ; `retenu.resume` et, par curseur, `dit` ou `nonAborde`) et `client/src/data/demo-ressources.json` (catalogue). Toute retouche passe par `pnpm verify:demo-content`.
 - **Ajouter une citation** :
   1. Choisir la ressource dans Notion et lire la page pour une citation exacte (30 mots au plus).
   2. Prendre l’URL publique dans le corps de la page si le champ URL est une redirection de newsletter.

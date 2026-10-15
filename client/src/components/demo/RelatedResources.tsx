@@ -24,7 +24,7 @@ const RelatedResources = forwardRef<HTMLElement, Props>(function RelatedResource
 
   return (
     <motion.aside ref={ref} {...motionProps} aria-labelledby={titleId} data-demo-ressources className="scroll-mb-32 rounded-2xl border border-slate-200 bg-white p-5 sm:p-6">
-      <h2 id={titleId} className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-[#515792]">
+      <h2 id={titleId} className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#515792]">
         <Quote className="h-4 w-4" aria-hidden="true" />
         {lecture.ressourcesTitre}
       </h2>

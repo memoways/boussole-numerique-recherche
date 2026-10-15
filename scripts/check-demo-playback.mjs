@@ -106,6 +106,9 @@ async function walk(label, viewport, { skip, persona: id = "cinema" }) {
     ok((await page.getByText("Tu disais plus tôt").count()) === (P.rebonds.includes(n) ? 1 : 0), `${label} étape ${n} : rebond mémoire ${P.rebonds.includes(n) ? "présent" : "absent"}`);
     // Lot 4 : l’ancien bloc sous la réponse a disparu ; la validation humaine et « D’autres regards » restent.
     ok((await page.locator("main").getByText("La Boussole retient", { exact: true }).count()) === 0, `${label} étape ${n} : ancien bloc « La Boussole retient » absent`);
+    // Curseurs en contexte : un résumé de ce qui a été dit et, sous chaque curseur, les mots qui le justifient.
+    const sliderCount = contentSteps(id).find((step) => step.id === n).retenu?.curseurs?.length ?? 0;
+    ok((await page.locator("[data-demo-indice]").count()) === sliderCount && (sliderCount === 0 || (await page.locator("[data-demo-resume]").count()) === 1), `${label} étape ${n} : ${sliderCount} curseur(s), chacun avec son indice, et un résumé`);
     const induced = inducedSteps(id).has(n);
     ok((await page.locator("[data-demo-induction]").count()) === (induced ? 1 : 0) && (!induced || (await page.getByText(`${P.prenom} valide.`).isVisible())), `${label} étape ${n} : curseurs induits ${induced ? "et validation visibles" : "absents"}`);
     const expected = resourceSteps(id).get(n) ?? 0;
@@ -266,6 +269,26 @@ for (const id of Object.keys(PERSONAS)) {
   ok(await page.getByText("Une source fait foi", { exact: false }).isVisible() && path(page) === "/experience/demo/cinema/4", "aide des niveaux : ouverte au clavier sans lancer la réponse");
   ok((await page.getByRole("button", { name: "Réponse de Claire" }).count()) === 1, "aide des niveaux : la réponse attend toujours le clic");
   ok(page.errors.length === 0, `premier regard et aide sans erreur console${page.errors.length ? ` : ${page.errors.join(" | ")}` : ""}`);
+  await context.close();
+}
+
+// Parole et transcription simultanées : le texte s’écrit dès que l’onde s’anime, l’onde s’apaise quand il se termine.
+{
+  const { context, page } = await newPage({ width: 1280, height: 900 });
+  await page.goto(`${BASE}/experience/demo/scene/3`);
+  ok(await page.getByText("La question de la Boussole", { exact: true }).isVisible(), "libellé « La question de la Boussole » au-dessus de la question");
+  await page.getByRole("button", { name: "Réponse de Marc" }).click();
+  await page.waitForTimeout(700);
+  const typed = await page.evaluate(() => {
+    const span = document.querySelector("main [aria-hidden='true'].grid > span:last-child");
+    return span ? span.textContent.replace(/\s+/g, " ").trim().length : 0;
+  });
+  ok(typed > 3 && (await page.getByText("Marc parle…").count()) === 0, `parole : le texte s’écrit pendant l’onde, sans attente préalable (${typed} caractères à 0,7 s)`);
+  ok((await page.getByRole("button", { name: "Passer l’animation" }).count()) === 1, "parole : la lecture est encore en cours pendant l’écriture");
+  await page.locator("main button").filter({ hasText: /^Continuer/ }).waitFor({ timeout: 15000 });
+  const amplitude = await page.evaluate(() => document.querySelector("main .h-10[aria-hidden='true']")?.style.transform ?? "");
+  ok(/scaleY\(0\.45\)/.test(amplitude), `parole : l’onde est au repos quand le texte est terminé (${amplitude})`);
+  ok(page.errors.length === 0, `parole et transcription sans erreur console${page.errors.length ? ` : ${page.errors.join(" | ")}` : ""}`);
   await context.close();
 }
 

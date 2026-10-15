@@ -43,8 +43,8 @@ function Welcome({ persona }: { persona: DemoPersona }) {
   return (
     <>
       <section aria-labelledby="demo-accueil-titre">
-        <p className="text-sm font-bold uppercase tracking-[0.14em] text-[#515792]">{persona.prenom} · {persona.metier}</p>
-        <h1 id="demo-accueil-titre" className="mt-2 text-3xl font-extrabold leading-tight text-slate-950 sm:text-4xl">{persona.accroche}</h1>
+        <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#515792]">{persona.prenom} · {persona.metier}</p>
+        <h1 id="demo-accueil-titre" className="mt-2 text-3xl font-normal leading-tight text-slate-950 sm:text-[2.6rem]">{persona.accroche}</h1>
         <p className="mt-5 max-w-2xl text-lg leading-relaxed text-slate-800">{accueil.texte}</p>
         <div className="mt-8"><TrustNotice variant="debut" /></div>
         {ready ? (
@@ -75,7 +75,7 @@ function Opinion({ persona }: { persona: DemoPersona }) {
   return (
     <section aria-labelledby="demo-avis-titre" className="space-y-6">
       <div>
-        <h1 id="demo-avis-titre" className="text-3xl font-extrabold leading-tight text-slate-950 sm:text-4xl">{avis.titre}</h1>
+        <h1 id="demo-avis-titre" className="text-3xl font-normal leading-tight text-slate-950 sm:text-[2.6rem]">{avis.titre}</h1>
         <p className="mt-4 max-w-2xl leading-relaxed text-slate-800">{avis.intro}</p>
       </div>
       <TrustNotice variant="fin" />

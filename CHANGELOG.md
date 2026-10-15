@@ -2,6 +2,22 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.5.1] — 2026-10-15 — Démo playback : parole en direct, curseurs en contexte, typographie
+
+### Modifié
+
+- La réponse vocale et sa transcription sont simultanées : le texte s’écrit dès que l’onde s’anime, au rythme de la parole (de 1,8 à 5,5 s selon la longueur), et l’onde s’apaise sur le dernier quart du texte jusqu’à s’arrêter avec lui. « {prénom} parle… » disparaît.
+- Les curseurs induits ne tombent plus hors contexte : une phrase résume ce qui a été dit (`retenu.resume`), et chaque curseur rappelle les mots exacts qui justifient son niveau (« Tu as dit : « … » », champ `dit`) ou indique « Tu n’en as pas encore parlé. » (`nonAborde`), souvent là où la personne corrige.
+- Le libellé au-dessus de la question devient « La question de la Boussole ».
+- Typographie allégée dans toute la démo : la question et les titres passent en graisse normale, en plus grand ; les autres textes en gras passent en demi-gras.
+- Claire : la citation de Nadia Okafor sous l’échange 2 est retirée (quatre échanges avec ressources).
+- Sur smartphone, une marge sous l’échange évite que le bouton du tiroir recouvre la dernière ligne.
+- `verify-demo-content` contrôle le résumé et l’indice de chaque curseur (passage exact d’une réponse déjà donnée) et les nouveaux libellés ; `check-demo-playback` vérifie l’écriture pendant l’onde, l’onde au repos en fin de texte, les indices et le résumé à chaque échange.
+
+### Vérifié
+
+- `pnpm verify`, `pnpm test:demo-feedback`, Playwright (687 contrôles sur le build servi par Nginx, 693 sur le serveur de développement, sans échec). Détail : [`docs/ETAT_LOT4_DEMO_PLAYBACK_2026-10-15.md`](./docs/ETAT_LOT4_DEMO_PLAYBACK_2026-10-15.md#retouches-du-15-octobre-2026-v151).
+
 ## [1.5.0] — 2026-10-15 — Démo playback : ressources liées et finitions (lot 4)
 
 ### Ajouté
