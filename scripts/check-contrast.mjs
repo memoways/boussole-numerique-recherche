@@ -3,7 +3,6 @@ const colors = {
   orange_marque: '#E27227',
   orange_cta: '#E07428',
   orange_accessible: '#A8440D',
-  texte_cta: '#1F2937',
   vert_marque: '#3AAB8A',
   vert_accessible: '#167A5E',
   vert_olive: '#7AB648',
@@ -44,7 +43,8 @@ function contrast(a, b) {
 const pairs = [
   ['bleu_memoways', 'blanc'],
   ['orange_marque', 'blanc'],
-  ['orange_cta', 'texte_cta'],
+  // Boutons d’appel à l’action : texte blanc en gras sur orange (3:1, seuil grand texte / composant UI).
+  ['blanc', 'orange_cta'],
   ['orange_accessible', 'blanc'],
   ['vert_marque', 'blanc'],
   ['vert_accessible', 'blanc'],

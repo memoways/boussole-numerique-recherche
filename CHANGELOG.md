@@ -2,6 +2,19 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.6.1] — 2026-10-15 — Boutons d’appel lisibles et hero de la démo plus engageant
+
+### Modifié
+
+- Tous les boutons orange d’appel à l’action (accueil, `/experience`, démo) ont désormais un **texte blanc** ; le survol passe à un orange plus foncé. Le contrôle de contraste (`scripts/check-contrast.mjs`) vérifie le couple blanc sur orange (3:1, seuil grand texte).
+- Hero de l’accueil agrandi (titre, texte, bouton plus haut et plus large, ombre orange) pour donner envie d’essayer l’expérience.
+- Hero de `/experience` réécrit : titre « Essayez la Boussole avant qu’elle existe », texte de vente, bouton **« Voir une démonstration du parcours »** tout en haut, et aperçu visuel d’une conversation.
+
+### Supprimé
+
+- Le label orange « Prévisualisation du futur prototype » et les trois pastilles du hero de `/experience`. Les pastilles orange et blanc sont réservées aux boutons d’appel.
+- Le bloc d’appel « Voir la conversation se dérouler » en bas de `/experience` : il ne reste que le bouton du hero et le bloc sous les quatre écrans.
+
 ## [1.6.0] — 2026-10-15 — Accueil : bouton vers la démo, démo plus compacte
 
 ### Ajouté
