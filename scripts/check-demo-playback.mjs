@@ -350,6 +350,26 @@ for (const id of Object.keys(PERSONAS)) {
   await context.close();
 }
 
+// Classement (Claire, échange 1, page 2) : la parole s’écrit en haut, les outils démarrent en désordre puis se placent au fil des mots, les numéros arrivent à la fin.
+{
+  const { context, page } = await newPage({ width: 1280, height: 900 });
+  await page.goto(`${BASE}/experience/demo/cinema/1`);
+  await page.getByRole("button", { name: "Réponse de Claire" }).click();
+  await page.locator("main button").filter({ hasText: /^Voir la suite/ }).waitFor({ timeout: 45000 });
+  await page.locator("main button").filter({ hasText: /^Voir la suite/ }).click();
+  const names = () => page.locator("main ol li").evaluateAll((items) => items.map((item) => item.textContent?.replace(/^\d+/, "").trim()));
+  await page.locator("main ol li").first().waitFor({ timeout: 10000 });
+  const start = await names();
+  const expected = CONTENT.personas.find((persona) => persona.id === "cinema").etapes[0].outils.ordre.map((item) => item.outil);
+  ok(JSON.stringify(start) !== JSON.stringify(expected), "classement : les outils démarrent dans un ordre qui n’est pas le classement final");
+  ok((await page.locator("main ol li span.text-transparent").count()) === expected.length, "classement : aucun numéro tant que la parole n’est pas finie");
+  await page.locator("main button").filter({ hasText: /^Continuer/ }).waitFor({ timeout: 45000 });
+  ok(JSON.stringify(await names()) === JSON.stringify(expected), "classement : à la fin, les outils sont dans l’ordre dit par Claire");
+  ok((await page.locator("main ol li span.text-transparent").count()) === 0, "classement : les numéros s’affichent à la fin");
+  ok(page.errors.length === 0, `classement sans erreur console${page.errors.length ? ` : ${page.errors.join(" | ")}` : ""}`);
+  await context.close();
+}
+
 // Mouvement réduit.
 {
   const { context, page } = await newPage({ width: 1280, height: 900 }, { reducedMotion: "reduce" });

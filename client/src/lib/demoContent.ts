@@ -49,7 +49,8 @@ export type DemoTools = {
   complement: string;
   /** Nouveaux boutons qui arrivent quand un outil est activé : des outils proches, restant à choisir. */
   suites?: { apres: string; propositions: string[] }[];
-  ordre: string[];
+  /** Classement du plus au moins important ; `dit` reprend les mots de `classement` qui placent l’outil. */
+  ordre: DemoToolMention[];
   classement: string;
   approfondissement?: { question: string; transcription: string; outils: DemoToolFocus[] };
 };
