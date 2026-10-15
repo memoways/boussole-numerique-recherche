@@ -48,12 +48,21 @@ Propriétés écrites dans **Inscriptions ateliers Boussole** : Nom complet (`Pr
 - `pnpm audit:mobile` à 320 et 390 px sur 21 routes dont `/ateliers` : 0 échec, 0 débordement. Les 3 cases de 13 px signalées sur l’accueil sont celles du formulaire d’intérêt existant.
 - Lecture visuelle sur desktop, 1024 px et 320 px avec une API simulée : liste, carte « Complet », date sans heure, ancre, dialog (validation, doublon, succès), état vide, état d’erreur, blocs d’appel, navigation à six entrées.
 
+## Activation en production (15 octobre 2026)
+
+Activée et contrôlée le jour de la livraison :
+
+- `NOTION_ATELIERS_DS_ID` et `NOTION_INSCRIPTIONS_DS_ID` ajoutées à l’API dans Coolify, API redéployée.
+- Premier appel : `502`, journal `Notion request failed (403 restricted_resource)`. Cause : l’intégration « Boussole démo » n’avait que la capacité « Insérer du contenu ». Après activation de « Lire le contenu », `GET /api/ateliers` répond `200`.
+- Test sur un atelier de test (capacité 2, passé en Publié pendant environ une minute puis supprimé) : deux inscriptions créées (`201`), doublon avec une casse différente refusé (`409 duplicate`), troisième inscription refusée (`409 full`), consentement absent (`400`), atelier inconnu (`404`). Le décompte est passé de 2 places à 0 et `inscriptionsOuvertes` à `false`. Les lignes créées dans Notion portent le statut « Inscrit », le consentement coché, la relation vers l’atelier, la remarque et le nom complet « Prénom Nom ». Une heure saisie sans fuseau dans Notion s’affiche à l’heure de Zurich. L’atelier de test et ses deux inscriptions sont à la corbeille Notion.
+- La base contenait déjà deux ateliers Publié (Cinéma, 11 et 14 janvier 2027) : ils sont affichés avec leurs horaires corrects et n’ont pas été modifiés.
+
 ## Non vérifié
 
-- Aucune requête n’a été envoyée aux vraies bases Notion : le jeton n’est disponible que dans Coolify. Le test d’intégration réel reste à faire après activation (voir ci-dessous).
 - `docker build` (Docker absent de cette machine) ; appareils iOS et Android réels.
+- Le parcours dans un navigateur sur le site en ligne (dialog et état « Complet » côté interface) : seuls les endpoints de l’API ont été testés en production ; l’interface l’a été avec une API simulée.
 
-## Activation
+## Procédure d’activation (référence)
 
 1. Dans Notion, partager les deux bases avec l’intégration « Boussole démo ». L’intégration doit aussi pouvoir **lire le contenu** : jusqu’ici elle n’avait que « insérer du contenu », ce qui suffit aux retours du démonstrateur mais pas à la liste des ateliers ni au comptage des places.
 2. Dans Coolify, sur l’API : ajouter `NOTION_ATELIERS_DS_ID` et `NOTION_INSCRIPTIONS_DS_ID`, puis redéployer l’API. `NOTION_TOKEN` et `VITE_PARTNER_API_URL` sont déjà en place.
