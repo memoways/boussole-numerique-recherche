@@ -328,6 +328,28 @@ for (const id of Object.keys(PERSONAS)) {
   await context.close();
 }
 
+// Outils (Claire, échange 1) : la relance propose des boutons, la réponse à la voix les active, de nouveaux boutons arrivent, les autres restent à cliquer.
+{
+  const { context, page } = await newPage({ width: 1280, height: 900 });
+  await page.goto(`${BASE}/experience/demo/cinema/1`);
+  await page.getByRole("button", { name: "Réponse de Claire" }).click();
+  const chip = (name) => page.locator("main section button[aria-pressed]").filter({ hasText: name });
+  await chip("Logiciel de montage").waitFor({ timeout: 15000 });
+  ok((await chip("WhatsApp").getAttribute("aria-pressed")) === "false", "outils : avant la réponse, aucun bouton n’est activé");
+  ok((await chip("Signal").count()) === 0, "outils : les boutons de suite n’existent pas encore");
+  await page.getByText("Ah oui, j’ai oublié WhatsApp, Word et Dropbox.").waitFor({ timeout: 15000 });
+  await page.waitForTimeout(500);
+  ok((await chip("WhatsApp").getAttribute("aria-pressed")) === "true" && (await chip("Dropbox").getAttribute("aria-pressed")) === "true", "outils : la réponse à la voix active WhatsApp, Word et Dropbox");
+  ok((await chip("Signal").count()) === 1 && (await chip("OneDrive").count()) === 1, "outils : de nouveaux boutons arrivent selon ce qui a été dit");
+  ok((await chip("Signal").getAttribute("aria-pressed")) === "false" && (await chip("Logiciel de montage").getAttribute("aria-pressed")) === "false", "outils : les outils proposés restent non sélectionnés");
+  await chip("Signal").click();
+  ok((await chip("Signal").getAttribute("aria-pressed")) === "true", "outils : un bouton non sélectionné s’active au clic");
+  await chip("Signal").click();
+  ok((await chip("Signal").getAttribute("aria-pressed")) === "false", "outils : un second clic le désactive");
+  ok(page.errors.length === 0, `outils sans erreur console${page.errors.length ? ` : ${page.errors.join(" | ")}` : ""}`);
+  await context.close();
+}
+
 // Mouvement réduit.
 {
   const { context, page } = await newPage({ width: 1280, height: 900 }, { reducedMotion: "reduce" });

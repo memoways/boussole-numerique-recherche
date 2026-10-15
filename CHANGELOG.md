@@ -2,6 +2,19 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.6.4] — 2026-10-15 — Démo : relance sur d’autres outils, boutons activés par la parole
+
+### Modifié
+
+- Échanges « outils » (Claire 1 et 11, Marc 4, Nadia 3), page 1 : après la première liste, la Boussole pose une question de relance (`outils.question`) avec des boutons d’outils du même registre. La personne répond à la voix : la réponse s’écrit mot à mot et chaque bouton s’active quand les mots qui le désignent sont dits (`ajoutes[].dit`). De nouveaux boutons arrivent selon ce qui vient d’être dit (`suites`, par exemple Signal et Telegram après WhatsApp). Les boutons proposés qui ne sont pas cités restent non sélectionnés.
+- Les boutons sont de vrais boutons (`aria-pressed`) : un clic ajoute ou retire un outil non cité. Le choix n’est pas enregistré et ne change pas le classement joué ; la mention « Tu peux aussi cliquer… » le dit.
+- Le bouton « Autre » n’est plus proposé : la voix le remplace.
+- `ajoutes` devient une liste `{ outil, dit }`. `verify-demo-content` contrôle la question, les mots déclencheurs dans la réponse et que les suites n’existent pas déjà parmi les options ; `check-demo-playback` vérifie l’activation, l’arrivée des nouveaux boutons et le clic.
+
+### Vérifié
+
+- `tsc`, `verify:demo-content`, Playwright (702 contrôles, desktop et mobile, sans échec) et lecture visuelle de l’échange 1 de Claire.
+
 ## [1.6.3] — 2026-10-15 — Calendriers alignés sur trois jalons, titre d’accueil multicolore
 
 ### Modifié

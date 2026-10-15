@@ -37,13 +37,18 @@ export type DemoToolFocus = { outil: string; fonctionne: string; pese: string };
 /**
  * Réponse d’un échange « cases » jouée dans l’ordre inverse d’une liste cochée : la personne parle, la Boussole repère
  * les outils cités (`cites`), propose des outils du même registre parmi `options`, la personne en ajoute (`ajoutes`,
- * souvent un oubli), puis classe l’ensemble du plus au moins important (`ordre`). `approfondissement` (facultatif,
+ * souvent un oubli, avec de nouveaux boutons `suites`), puis classe l’ensemble du plus au moins important (`ordre`). `approfondissement` (facultatif,
  * un seul parcours) creuse ce qui fonctionne et ce qui pèse sur les outils en tête.
  */
 export type DemoTools = {
   cites: DemoToolMention[];
-  ajoutes: string[];
+  /** Relance de la Boussole : des boutons d’outils du même registre, que la personne active à la voix. */
+  question: string;
+  /** Outils activés par la réponse ; `dit` reprend les mots de `complement` qui déclenchent l’activation. */
+  ajoutes: DemoToolMention[];
   complement: string;
+  /** Nouveaux boutons qui arrivent quand un outil est activé : des outils proches, restant à choisir. */
+  suites?: { apres: string; propositions: string[] }[];
   ordre: string[];
   classement: string;
   approfondissement?: { question: string; transcription: string; outils: DemoToolFocus[] };
@@ -170,7 +175,7 @@ export type DemoContent = {
   lecture: Record<
     | "boussole" | "echange" | "reponseDe" | "passerAnimation" | "continuer" | "suite" | "partie" | "rappelDit" | "consigne" | "retour" | "allerRestitution"
     | "selectionCases" | "selectionScenario"
-    | "outilsReperes" | "outilsPropositions" | "outilsAjoutes" | "outilsAjoute" | "outilsClassement" | "outilsApprofondir" | "outilsFonctionne" | "outilsPese"
+    | "outilsReperes" | "outilsPropositions" | "outilsAjoutes" | "outilsAjoute" | "outilsManuel" | "outilsClassement" | "outilsApprofondir" | "outilsFonctionne" | "outilsPese"
     | "accelerer" | "digestion" | "induction" | "indiceDit" | "indiceNonAborde"
     | "valide" | "corrige" | "rebondTitre" | "rebondEchange" | "pointEtapeTitre" | "pointEtapeOuvrir" | "pointEtapeReplier" | "annonceRetenu"
     | "ressourcesTitre" | "ressourceLire" | "nouvelOnglet" | "traduitAnglais",
