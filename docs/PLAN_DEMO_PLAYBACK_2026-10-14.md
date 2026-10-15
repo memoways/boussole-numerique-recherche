@@ -235,6 +235,20 @@ Champs utiles :
 
 Les ressources mêlent français et anglais. Beaucoup sont techniques (RAG, agents, Claude Code), et plusieurs URL portent des traceurs de newsletter (`utm_*`, redirections de type `sp1-brevo`).
 
+#### Critères de sélection (précisés par Ulrich le 15 octobre 2026)
+
+- **Toutes les ressources liées au projet sont éligibles, quel que soit leur `Statut éditorial`** (« En ligne », « Interne MW », « À définir »). Ce qui compte, c’est l’intérêt de la ressource pour les enjeux et les questions de l’échange, pas son statut de publication. Aucun changement de statut dans Notion n’est nécessaire.
+- **Aucune ressource technique** : RAG, architectures et développement d’agents, Claude Code, vibe coding, outillage de développeurs, modèles et benchmarks. Ces ressources servent à Ulrich, pas au public de la démo.
+- **Admises au plus** : des ressources de type tutoriel, méthode ou bonnes pratiques, accessibles à une personne non technicienne du secteur culturel, notamment sur l’usage de l’IA (bien formuler une demande, donner du contexte, écrire avec l’IA).
+- **Toujours présentées comme inspiration** : ouverture, stimulation de la curiosité, nuance. Jamais comme une preuve, une prescription ou une réponse « vraie ».
+- **Préférer** les regards philosophiques, éthiques, sociétaux, artistiques et les témoignages de pratique, en français quand c’est possible.
+- **Exemple de référence** (choisi par Ulrich) : « Le travail intellectuel est-il en train de devenir vain ? » d’Hubert Guillaud, *Dans les algorithmes*, le 8 octobre 2026 (page Notion `1d8ef8246ef94b25a583bbacfe7c9e08`). Il porte l’idée que la collaboration a une dimension communautaire où « l’inefficacité est bien souvent un atout et non un défaut », d’après la tribune d’Aaron Horwath dans *Noema*. Il convient à un échange sur le travail en équipe, par exemple l’échange 1 ou 3 de Marc, en contrepoint d’un constat d’efficacité.
+- **Pièges vus sur cet exemple** :
+  - Une page Notion peut contenir une lettre d’information entière, avec plusieurs articles : citer le bon article.
+  - Le champ `URL` peut être une redirection de newsletter : prendre l’URL publique donnée dans le corps de la page, ici `https://danslesalgorithmes.net/2026/10/08/le-travail-intellectuel-est-il-en-train-de-devenir-vain/`.
+  - Le champ `Auteur` peut être vide : le relever dans le texte.
+  - Vérifier que l’URL retenue répond publiquement, avec un en-tête de navigateur : cet article répond 403 à `curl` sans `User-Agent`, mais 200 avec celui d’un navigateur.
+
 #### Ce qui change à l’écran
 
 1. **Retrait du bloc « La Boussole retient »** sous la réponse : notes et extrait sont déjà dans le panneau « Ce que la Boussole retient » et surlignés dans la transcription.
@@ -267,6 +281,7 @@ Les ressources mêlent français et anglais. Beaucoup sont techniques (RAG, agen
   - au plus deux citations par échange et au plus une ressource par échange ;
   - quatre à sept échanges avec des ressources par parcours, jamais deux de suite, au moins une ouverture ;
   - aucune ressource répétée dans un même parcours.
+- **Catalogue** : chaque ressource garde aussi son `Statut éditorial` Notion pour mémoire, sans effet sur l’affichage.
 - **Mesure** : `demo_ressource_ouverte` (persona, échange, ressource), sans donnée personnelle.
 - **Playwright** :
   - ancien bloc absent ;
@@ -286,10 +301,9 @@ Les ressources mêlent français et anglais. Beaucoup sont techniques (RAG, agen
    - médiation et publics ;
    - création artistique.
    
-   Puis lire la page pour en extraire une citation exacte, et préférer les sources accessibles (sans paywall).
+   Le faire sans filtrer sur le statut éditorial et en écartant les ressources techniques (voir « Critères de sélection »). Puis lire la page pour en extraire une citation exacte, et préférer les sources accessibles (sans paywall).
 2. **Sous-page Notion « Annexe v3 — ressources liées par échange »**, sous le PRD : un tableau par parcours avec l’échange, la ressource (lien vers la page Notion et vers la source), la citation, sa traduction, le rôle et la raison du choix, plus deux ou trois candidates de réserve par dimension.
 3. **Validation par Ulrich**, qui tranche aussi :
-   - les statuts éligibles (proposition : toute ressource liée au projet, la sélection valant validation ; passage de la ressource en « En ligne » dans Notion seulement avec son accord) ;
    - la traduction des citations ;
    - le libellé du bloc ;
    - la ligne de la restitution.
