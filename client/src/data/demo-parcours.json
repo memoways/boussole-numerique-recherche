@@ -219,7 +219,7 @@
             "ajoutes": [{"outil": "WhatsApp", "dit": "WhatsApp"}, {"outil": "Word", "dit": "Word"}, {"outil": "Dropbox", "dit": "Dropbox"}],
             "complement": "Ah oui, j’ai oublié WhatsApp, Word et Dropbox.",
             "suites": [{"apres": "WhatsApp", "propositions": ["Signal", "Telegram"]}, {"apres": "Word", "propositions": ["Google Docs"]}, {"apres": "Dropbox", "propositions": ["OneDrive"]}],
-            "ordre": ["Gmail / Outlook", "Excel / Sheets", "WeTransfer", "Google Drive", "WhatsApp", "Word", "Dropbox"],
+            "ordre": [{"outil": "Gmail / Outlook", "dit": "Le mail"}, {"outil": "Excel / Sheets", "dit": "Excel"}, {"outil": "WeTransfer", "dit": "WeTransfer"}, {"outil": "Google Drive", "dit": "le Drive"}, {"outil": "WhatsApp", "dit": "WhatsApp"}, {"outil": "Word", "dit": "Word"}, {"outil": "Dropbox", "dit": "Dropbox"}],
             "classement": "Le mail d’abord, puis Excel, puis WeTransfer et le Drive, parce que les autres m’y obligent. WhatsApp, Word et Dropbox, beaucoup moins.",
             "approfondissement": {
               "question": "Sur les trois premiers, qu’est-ce qui marche, et qu’est-ce qui te pèse ?",
@@ -426,7 +426,7 @@
             "ajoutes": [{"outil": "Dossier de presse PDF", "dit": "le dossier de presse"}, {"outil": "Festivals et marchés", "dit": "les festivals"}],
             "complement": "Ah oui, le dossier de presse, et les festivals.",
             "suites": [{"apres": "Festivals et marchés", "propositions": ["Vimeo"]}],
-            "ordre": ["Festivals et marchés", "Dossier de presse PDF", "Site", "Instagram"],
+            "ordre": [{"outil": "Festivals et marchés", "dit": "Les festivals"}, {"outil": "Dossier de presse PDF", "dit": "le dossier de presse"}, {"outil": "Site", "dit": "Le site"}, {"outil": "Instagram", "dit": "Instagram"}],
             "classement": "Les festivals d’abord, puis le dossier de presse. Le site et Instagram, après."
           },
           "retenu": {
@@ -638,7 +638,7 @@
             "ajoutes": [{"outil": "Instagram", "dit": "Instagram"}, {"outil": "Teaser vidéo", "dit": "un teaser vidéo"}],
             "complement": "Ah oui, il y a aussi Instagram, et un teaser vidéo.",
             "suites": [{"apres": "Instagram", "propositions": ["TikTok"]}, {"apres": "Teaser vidéo", "propositions": ["YouTube", "Vimeo"]}],
-            "ordre": ["E-mails personnels", "Dossier de diffusion PDF", "Teaser vidéo", "Instagram"],
+            "ordre": [{"outil": "E-mails personnels", "dit": "Les mails"}, {"outil": "Dossier de diffusion PDF", "dit": "le dossier"}, {"outil": "Teaser vidéo", "dit": "le teaser"}, {"outil": "Instagram", "dit": "Instagram"}],
             "classement": "Les mails aux programmateurs, c’est ce qui compte. Ensuite le dossier, puis le teaser. Instagram, en dernier."
           },
           "retenu": {
@@ -952,8 +952,8 @@
             "ajoutes": [{"outil": "SwissTransfer / WeTransfer", "dit": "SwissTransfer"}, {"outil": "Site personnel", "dit": "mon site"}],
             "complement": "Ah oui, SwissTransfer pour envoyer les fichiers, et mon site.",
             "suites": [{"apres": "SwissTransfer / WeTransfer", "propositions": ["Proton Drive"]}, {"apres": "Site personnel", "propositions": ["Infomaniak"]}],
-            "ordre": ["Proton Mail", "kDrive", "LibreOffice", "GIMP / Photoshop", "SwissTransfer / WeTransfer", "Site personnel"],
-            "classement": "Le mail et le drive, tous les jours. Puis LibreOffice et GIMP. Le reste, plus rarement."
+            "ordre": [{"outil": "Proton Mail", "dit": "Le mail"}, {"outil": "kDrive", "dit": "le drive"}, {"outil": "LibreOffice", "dit": "LibreOffice"}, {"outil": "GIMP / Photoshop", "dit": "GIMP"}, {"outil": "SwissTransfer / WeTransfer", "dit": "SwissTransfer"}, {"outil": "Site personnel", "dit": "mon site"}],
+            "classement": "Le mail et le drive, tous les jours. Puis LibreOffice et GIMP. SwissTransfer et mon site, plus rarement."
           },
           "retenu": {
             "extrait": "C’est politique.",

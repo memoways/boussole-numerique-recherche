@@ -11,10 +11,9 @@ import { motion } from "framer-motion";
 import { Check, Plus, Sparkles } from "lucide-react";
 import { DEMO_CONTENT, fillTemplate, type DemoTools } from "@/lib/demoContent";
 import { useSelectionProgress } from "./DemoAnswers";
-import { phaseReached, TOOL_INTRO_MS, TOOL_WORD_MS, type PlaybackPhase } from "./useStepPlayback";
+import { phaseReached, TOOL_INTRO_MS, TOOL_RANK_INTRO_MS, TOOL_RANK_WORD_MS, TOOL_WORD_MS, type PlaybackPhase } from "./useStepPlayback";
 
 const DETECT_STEP_MS = 380;
-const RANK_STEP_MS = 380;
 
 type Props = {
   tools: DemoTools;
@@ -80,7 +79,29 @@ export default function ToolsAnswer({ tools, options, prenom, phase, reducedMoti
   });
 
   const detectedCount = useSelectionProgress(tools.cites.length, phase === "detecting", reached("proposing"), DETECT_STEP_MS);
-  const rankedCount = useSelectionProgress(tools.ordre.length, phase === "ranking", reached("probing"), RANK_STEP_MS);
+
+  // Classement : la parole s’écrit en haut, chaque outil prend sa place quand les mots qui le désignent sont dits.
+  const rankWords = tools.classement.split(/\s+/).filter(Boolean);
+  const [rankSpoken, setRankSpoken] = useState(0);
+  const ranking = phase === "ranking" && !reducedMotion;
+  useEffect(() => {
+    if (!ranking) return;
+    let count = 0;
+    let timer = 0;
+    const tick = () => {
+      count += 1;
+      setRankSpoken(count);
+      if (count < rankWords.length) timer = window.setTimeout(tick, TOOL_RANK_WORD_MS);
+    };
+    timer = window.setTimeout(tick, TOOL_RANK_INTRO_MS);
+    return () => window.clearTimeout(timer);
+  }, [ranking, rankWords.length]);
+  const rankingDone = reducedMotion || reached("probing");
+  const rankHeard = rankingDone ? tools.classement : rankWords.slice(0, rankSpoken).join(" ");
+  const placed = tools.ordre.filter((item) => rankHeard.toLowerCase().includes(item.dit.toLowerCase())).map((item) => item.outil);
+  // Au départ rien n’est classé : l’ordre alphabétique ne dit rien, puis les outils montent à leur rang.
+  const unplaced = tools.ordre.map((item) => item.outil).filter((outil) => !placed.includes(outil)).sort((a, b) => a.localeCompare(b, "fr"));
+  const shown = [...placed, ...unplaced];
   const fade = reducedMotion ? { initial: false as const } : { initial: { opacity: 0, y: 8 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.4 } };
 
   return (
@@ -138,19 +159,27 @@ export default function ToolsAnswer({ tools, options, prenom, phase, reducedMoti
       {part === 2 && reached("ranking") && (
         <motion.section {...fade} aria-label={lecture.outilsClassement}>
           <SectionTitle>{lecture.outilsClassement}</SectionTitle>
-          <ol className="grid gap-2 sm:grid-cols-2">
-            {tools.ordre.slice(0, rankedCount).map((outil, index) => (
-              <motion.li key={outil} {...fade} className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900">
-                <span aria-hidden="true" className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#515792] text-xs font-semibold text-white">{index + 1}</span>
-                <span className={index < 3 ? "font-semibold" : ""}>{outil}</span>
-              </motion.li>
-            ))}
-          </ol>
-          {rankedCount > 0 && (
-            <motion.div {...fade} className="mt-3">
-              <Said prenom={prenom}>{tools.classement}</Said>
+          {rankHeard && (
+            <motion.div {...fade} className="mb-4">
+              <Said prenom={prenom}>{rankHeard}</Said>
             </motion.div>
           )}
+          <ol className="grid gap-2 sm:grid-cols-2">
+            {shown.map((outil, index) => {
+              const isPlaced = placed.includes(outil);
+              return (
+                <motion.li
+                  key={outil}
+                  layout={reducedMotion ? false : "position"}
+                  transition={{ type: "spring", stiffness: 260, damping: 28 }}
+                  className={`flex items-center gap-3 rounded-xl border px-3 py-2 text-sm transition-colors duration-300 ${isPlaced ? "border-[#515792] bg-[#515792]/10 text-slate-900" : "border-slate-200 bg-white text-slate-800"}`}
+                >
+                  <span aria-hidden="true" className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold transition-colors duration-300 ${rankingDone ? "bg-[#515792] text-white" : "bg-slate-100 text-transparent"}`}>{index + 1}</span>
+                  <span className={isPlaced && index < 3 ? "font-semibold" : ""}>{outil}</span>
+                </motion.li>
+              );
+            })}
+          </ol>
         </motion.section>
       )}
 

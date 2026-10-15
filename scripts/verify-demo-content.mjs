@@ -119,12 +119,20 @@ for (const persona of personas) {
         assert((tools.suites ?? []).length > 0 && (tools.suites ?? []).every((suite) => added.includes(suite.apres) && suite.propositions.length > 0), `${at} : de nouveaux boutons (suites) arrivent après au moins un outil activé.`);
         assert(suiteTools.every((tool) => !step.options.includes(tool)) && new Set(suiteTools).size === suiteTools.length, `${at} : les boutons qui arrivent ne répètent ni les options ni les autres suites.`);
         const everything = [...cited, ...added];
-        assert(tools.ordre.length === everything.length && everything.every((tool) => tools.ordre.includes(tool)), `${at} : le classement doit contenir chaque outil cité ou ajouté, une fois.`);
+        const ranked = tools.ordre.map((item) => item.outil);
+        assert(ranked.length === everything.length && everything.every((tool) => ranked.includes(tool)), `${at} : le classement doit contenir chaque outil cité ou ajouté, une fois.`);
         assert(new Set(step.reponse.choix).size === everything.length && everything.every((tool) => step.reponse.choix.includes(tool)), `${at} : reponse.choix doit être la somme des outils cités et ajoutés.`);
+        // Les mots qui placent chaque outil se suivent dans l’ordre du classement : l’outil prend sa place quand ils sont dits.
+        let cursor = -1;
+        for (const item of tools.ordre) {
+          const at2 = tools.classement.toLowerCase().indexOf(item.dit.toLowerCase());
+          assert(at2 > cursor, `${at} : « ${item.dit} » (classement de « ${item.outil} ») doit figurer dans la parole de classement, après l’outil précédent.`);
+          cursor = at2;
+        }
         const focus = tools.approfondissement;
         if (focus) {
           assert(focus.question && focus.transcription && focus.outils.length > 0, `${at} : l’approfondissement demande une question, une réponse et des outils.`);
-          assert(focus.outils.every((item) => tools.ordre.slice(0, 3).includes(item.outil) && item.fonctionne && item.pese), `${at} : l’approfondissement porte sur les outils en tête du classement, avec ce qui fonctionne et ce qui pèse.`);
+          assert(focus.outils.every((item) => ranked.slice(0, 3).includes(item.outil) && item.fonctionne && item.pese), `${at} : l’approfondissement porte sur les outils en tête du classement, avec ce qui fonctionne et ce qui pèse.`);
         }
       }
     }

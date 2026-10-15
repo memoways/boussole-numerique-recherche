@@ -2,6 +2,18 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.6.5] — 2026-10-15 — Démo : le classement des outils se fait au fil de la parole
+
+### Modifié
+
+- Échanges « outils », page 2 : la parole de classement s’écrit en haut, mot à mot. Les outils démarrent en ordre alphabétique (rien n’est classé) et montent à leur rang au moment où les mots qui les désignent sont dits. Les numéros n’apparaissent qu’à la fin.
+- `outils.ordre` devient une liste `{ outil, dit }` : `dit` reprend les mots de `classement` qui placent l’outil. Nadia : la phrase de classement nomme désormais SwissTransfer et son site au lieu de « le reste ».
+- `verify-demo-content` contrôle que ces mots figurent dans la parole de classement, dans l’ordre du classement ; `check-demo-playback` vérifie le départ en désordre, l’absence de numéros pendant la parole et l’ordre final.
+
+### Vérifié
+
+- `tsc`, `verify:demo-content`, Playwright (707 contrôles, sans échec) et lecture visuelle de la page 2 de l’échange 1 de Claire.
+
 ## [1.6.4] — 2026-10-15 — Démo : relance sur d’autres outils, boutons activés par la parole
 
 ### Modifié
