@@ -16,8 +16,8 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 
 ### À savoir
 
-- L’intégration « Boussole démo » doit pouvoir lire le contenu des deux bases (elle n’avait que « insérer du contenu ») et ces bases doivent lui être partagées ; sans cela, `/ateliers` affiche son message d’erreur.
-- Non vérifié : requêtes contre les vraies bases Notion (jeton uniquement dans Coolify), `docker build`, appareils réels.
+- L’intégration « Boussole démo » doit pouvoir lire le contenu des deux bases (elle n’avait que « insérer du contenu ») et ces bases doivent lui être partagées ; sans cela, l’API répond 502 (`403 restricted_resource` dans les journaux) et `/ateliers` affiche son message d’erreur.
+- Activé en production le 15 octobre 2026 et contrôlé contre les vraies bases : liste, inscription, doublon, complet, consentement absent et atelier inconnu, avec un atelier de test ensuite supprimé. Non vérifié : `docker build`, appareils réels, interface testée seulement avec une API simulée.
 
 Voir [`docs/ETAT_ATELIERS_INSCRIPTION_2026-10-15.md`](docs/ETAT_ATELIERS_INSCRIPTION_2026-10-15.md).
 
