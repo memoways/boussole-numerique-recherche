@@ -2,6 +2,17 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.6.8] — 2026-10-15 — Démo : Nadia, approfondissement sur ses outils choisis
+
+### Modifié
+
+- Nadia, échange 3 : après le classement, la Boussole creuse ses trois outils en tête (Proton Mail, kDrive, LibreOffice) : ce qui tient la route (savoir où sont ses messages, ses images rangées comme son inventaire) et ce qui pèse, côté pratique (liens Google et fichiers Word des galeries à convertir, partenaires qui ne savent pas ouvrir le kDrive et copies qui circulent, mise en page abîmée quand une galerie ouvre son fichier dans Word). Les capsules arrivent l’une après l’autre. La question de fond sur le numérique responsable reste à l’échange 4.
+- Deux notes de plus retenues : « formats des galeries à convertir » et « copies qui circulent hors du kDrive ». La phrase retenue « C’est politique. », reprise par le rebond de l’échange 4, est conservée.
+
+### Vérifié
+
+- `tsc`, `verify:demo-content`, Playwright (710 contrôles, sans échec) et lecture visuelle de la page 2 de l’échange 3. Les trois parcours ont maintenant leur approfondissement sur les outils.
+
 ## [1.6.7] — 2026-10-15 — Démo : Marc, outils de tournée en liste et approfondissement
 
 ### Modifié

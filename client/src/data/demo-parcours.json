@@ -973,11 +973,20 @@
             "complement": "Ah oui, SwissTransfer pour envoyer les fichiers, et mon site.",
             "suites": [{"apres": "SwissTransfer / WeTransfer", "propositions": ["Proton Drive"]}, {"apres": "Site personnel", "propositions": ["Infomaniak"]}],
             "ordre": [{"outil": "Proton Mail", "dit": "Le mail"}, {"outil": "kDrive", "dit": "le drive"}, {"outil": "LibreOffice", "dit": "LibreOffice"}, {"outil": "GIMP / Photoshop", "dit": "GIMP"}, {"outil": "SwissTransfer / WeTransfer", "dit": "SwissTransfer"}, {"outil": "Site personnel", "dit": "mon site"}],
-            "classement": "Le mail et le drive, tous les jours. Puis LibreOffice et GIMP. SwissTransfer et mon site, plus rarement."
+            "classement": "Le mail et le drive, tous les jours. Puis LibreOffice et GIMP. SwissTransfer et mon site, plus rarement.",
+            "approfondissement": {
+              "question": "Sur Proton Mail, kDrive et LibreOffice, qu’est-ce qui tient la route, et qu’est-ce qui te pèse ?",
+              "transcription": "Proton Mail, je sais où sont mes messages. Mais les galeries m’envoient des liens Google et des fichiers Word, et je convertis à chaque fois. kDrive, mes images y sont rangées comme mon inventaire. Mais mes partenaires ne savent pas l’ouvrir, alors j’envoie des copies, et elles circulent. LibreOffice, mon inventaire y tient depuis toujours. Mais quand une galerie l’ouvre dans Word, la mise en page s’abîme.",
+              "outils": [
+                {"outil": "Proton Mail", "dit": "je convertis à chaque fois", "fonctionne": "Je sais où sont mes messages.", "pese": "Les galeries envoient des liens Google et des fichiers Word : il faut convertir à chaque fois."},
+                {"outil": "kDrive", "dit": "et elles circulent", "fonctionne": "Mes images y sont rangées comme mon inventaire.", "pese": "Mes partenaires ne savent pas l’ouvrir : j’envoie des copies, et elles circulent."},
+                {"outil": "LibreOffice", "dit": "la mise en page s’abîme", "fonctionne": "Mon inventaire y tient depuis toujours.", "pese": "Ouvert dans Word par une galerie, la mise en page s’abîme."}
+              ]
+            }
           },
           "retenu": {
             "extrait": "C’est politique.",
-            "tags": ["outils choisis selon ses valeurs"]
+            "tags": ["outils choisis selon ses valeurs", "formats des galeries à convertir", "copies qui circulent hors du kDrive"]
           }
         },
         {
