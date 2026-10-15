@@ -2,6 +2,18 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.6.7] — 2026-10-15 — Démo : Marc, outils de tournée en liste et approfondissement
+
+### Modifié
+
+- Marc, échange 8 : « Le planning de tournée, il vit où ? » devient une liste d’outils de tournée, jouée comme celle de Claire : repérage à la voix (Google Sheets, WhatsApp), relance avec boutons (e-mails, fiche technique en PDF activés par la réponse, Outlook et Dropbox qui arrivent ensuite), classement qui se construit au fil de la parole.
+- Approfondissement propre à Marc : sur le Sheets, WhatsApp et les mails, ce qui tient la route et ce qui pèse (besoins techniques absents du Sheets, information de tournée introuvable trois semaines plus tard, mails réécrits à la main). Les capsules arrivent l’une après l’autre. L’échange 9 (WhatsApp, Meta) reste tel quel.
+- Deux notes de plus retenues : « besoins techniques absents du Sheets » et « mails de tournée réécrits à la main ». La phrase retenue de l’échange 8, reprise par le rebond de l’échange 11, est conservée.
+
+### Vérifié
+
+- `tsc`, `verify:demo-content`, Playwright (710 contrôles, sans échec) et lecture visuelle des pages 1 et 2 de l’échange 8.
+
 ## [1.6.6] — 2026-10-15 — Démo : toute parole a son onde et s’écrit mot à mot
 
 ### Modifié

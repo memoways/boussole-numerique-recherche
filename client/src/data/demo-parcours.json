@@ -709,14 +709,34 @@
         {
           "id": 8,
           "dimension": "outils",
-          "type": "question",
-          "question": "Le planning de tournée, il vit où ?",
+          "type": "cases",
+          "question": "Pour organiser la tournée, tu utilises quoi ?",
+          "options": ["Google Sheets", "WhatsApp", "E-mails", "Fiche technique (PDF)", "Google Drive", "Google Agenda", "Signal", "Notion / Trello"],
           "reponse": {
+            "choix": ["Google Sheets", "WhatsApp", "E-mails", "Fiche technique (PDF)"],
             "transcription": "Dans un Google Sheets, partagé avec l’administratrice. Et dans un groupe WhatsApp où tout se dit : horaires, hôtels, changements. Si tu rates deux cents messages, tu es perdu."
+          },
+          "outils": {
+            "cites": [{"outil": "Google Sheets", "dit": "un Google Sheets"}, {"outil": "WhatsApp", "dit": "un groupe WhatsApp"}],
+            "question": "Voici d’autres outils de tournée. En utilises-tu d’autres, même pour une seule chose ?",
+            "ajoutes": [{"outil": "E-mails", "dit": "les mails aux lieux d’accueil"}, {"outil": "Fiche technique (PDF)", "dit": "la fiche de la régisseuse"}],
+            "complement": "Ah oui, j’oubliais : les mails aux lieux d’accueil, et la fiche de la régisseuse, qui part en PDF.",
+            "suites": [{"apres": "E-mails", "propositions": ["Outlook"]}, {"apres": "Fiche technique (PDF)", "propositions": ["Dropbox"]}],
+            "ordre": [{"outil": "Google Sheets", "dit": "Le Sheets"}, {"outil": "WhatsApp", "dit": "WhatsApp"}, {"outil": "E-mails", "dit": "Les mails"}, {"outil": "Fiche technique (PDF)", "dit": "la fiche"}],
+            "classement": "Le Sheets, c’est la base. WhatsApp, tout le monde y est, donc on y passe. Les mails, pour les lieux. La fiche, seulement quand on me la demande.",
+            "approfondissement": {
+              "question": "Sur le Sheets, WhatsApp et les mails, qu’est-ce qui tient la route, et qu’est-ce qui te pèse ?",
+              "transcription": "Le Sheets, ça tient : tout le monde y retrouve les dates, et l’administratrice y a la main. Mais les besoins techniques n’y sont pas, ils sont dans la fiche de la régisseuse. WhatsApp, c’est vivant, tout le monde répond vite. Mais quand on cherche l’heure d’arrivée d’il y a trois semaines, il n’y a rien. Les mails, c’est propre pour les lieux. Mais je réécris toujours les mêmes informations à la main.",
+              "outils": [
+                {"outil": "Google Sheets", "dit": "dans la fiche de la régisseuse", "fonctionne": "Tout le monde y retrouve les dates, et l’administratrice y a la main.", "pese": "Les besoins techniques n’y sont pas : ils vivent dans la fiche de la régisseuse."},
+                {"outil": "WhatsApp", "dit": "il n’y a rien", "fonctionne": "Tout le monde y est et répond vite.", "pese": "Une information d’il y a trois semaines ne se retrouve pas."},
+                {"outil": "E-mails", "dit": "à la main", "fonctionne": "C’est propre, et c’est ce qu’attendent les lieux d’accueil.", "pese": "Les mêmes informations sont réécrites à la main."}
+              ]
+            }
           },
           "retenu": {
             "extrait": "un Google Sheets, partagé avec l’administratrice",
-            "tags": ["Sheets partagé ✓", "WhatsApp, une coordination sans mémoire"]
+            "tags": ["Sheets partagé ✓", "WhatsApp, une coordination sans mémoire", "besoins techniques absents du Sheets", "mails de tournée réécrits à la main"]
           }
         },
         {
