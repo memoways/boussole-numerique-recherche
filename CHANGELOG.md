@@ -2,6 +2,22 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.6.0] — 2026-10-15 — Accueil : bouton vers la démo, démo plus compacte
+
+### Ajouté
+
+- Hero de l’accueil : bouton orange **« Essayer l’expérience Boussole »** vers `/experience/demo`, avec la mention « Une conversation fictive en playback : cliquez sur le bouton orange à chaque échange pour la faire avancer ».
+- Démo : encadré orange « Tu fais avancer la conversation » sur l’écran d’accueil de chaque parcours, et rappel « Clique sur le bouton orange… » au premier échange, tant que la réponse n’est pas lancée. Ils expliquent que le playback demande de cliquer à chaque étape.
+
+### Modifié
+
+- Hero de l’accueil resserré (marges, tailles, textes raccourcis) pour que le bouton soit visible sans défiler, sur ordinateur comme sur smartphone.
+- Démo : gain de hauteur partout (bandeau, en-tête, progression, marges, question, réponse, curseurs, barre de commandes, cartes des personas, encadré de confiance), sur ordinateur et smartphone.
+
+### Vérifié
+
+- `pnpm verify`, `verify-demo-content`, captures Playwright de l’accueil et de la démo en 1280 × 720 et 390 × 780.
+
 ## [1.5.1] — 2026-10-15 — Démo playback : parole en direct, curseurs en contexte, typographie
 
 ### Modifié

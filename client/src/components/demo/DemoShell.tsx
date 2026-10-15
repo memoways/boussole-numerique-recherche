@@ -22,8 +22,8 @@ function ProgressBar({ persona, step }: { persona: DemoPersona; step: StepRef })
 
   return (
     <nav aria-label="Progression du parcours" className="border-b border-slate-200 bg-white">
-      <div className="mx-auto max-w-5xl px-4 py-3">
-        <p className="mb-2 text-xs font-semibold text-slate-700 sm:hidden" aria-hidden="true">
+      <div className="mx-auto max-w-5xl px-4 py-2 sm:py-3">
+        <p className="mb-1 text-xs font-semibold text-slate-700 sm:hidden" aria-hidden="true">
           {current ? current.label : `Parcours de ${persona.prenom}`}
         </p>
         <ol className="grid grid-cols-6 gap-1.5 sm:gap-2">
@@ -79,18 +79,18 @@ export default function DemoShell({ persona, step, wide = false, children }: Dem
 
   return (
     <div className="flex min-h-screen flex-col bg-[#F8F9FC]">
-      <div className="bg-[#515792] px-4 py-1.5 text-center text-xs font-semibold tracking-wide text-white">{DEMO_CONTENT.bandeau}</div>
+      <div className="bg-[#515792] px-4 py-1 text-center text-[11px] font-semibold tracking-wide sm:text-xs text-white">{DEMO_CONTENT.bandeau}</div>
       <header className="border-b border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3">
+        <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-1 sm:py-2">
           <span className="text-sm font-semibold text-[#515792]">Boussole Numérique Culture</span>
-          <Link href="/experience" className="inline-flex min-h-11 items-center gap-2 rounded-md px-2 text-sm font-semibold text-slate-700 underline-offset-4 hover:underline">
+          <Link href="/experience" className="inline-flex min-h-10 items-center gap-2 rounded-md px-2 text-sm font-semibold text-slate-700 underline-offset-4 hover:underline">
             <LogOut className="h-4 w-4" aria-hidden="true" />
             {DEMO_CONTENT.quitter}
           </Link>
         </div>
       </header>
       {persona && step && <ProgressBar persona={persona} step={step} />}
-      <main id="contenu-principal" ref={mainRef} tabIndex={-1} className={`mx-auto w-full flex-1 px-4 py-8 sm:py-12 ${wide ? "max-w-6xl" : "max-w-3xl"}`}>
+      <main id="contenu-principal" ref={mainRef} tabIndex={-1} className={`mx-auto w-full flex-1 px-4 py-4 sm:py-10 ${wide ? "max-w-6xl" : "max-w-3xl"}`}>
         {children}
       </main>
     </div>
@@ -104,11 +104,11 @@ export default function DemoShell({ persona, step, wide = false, children }: Dem
  */
 export function DemoActions({ children, compact = false }: { children: ReactNode; compact?: boolean }) {
   return (
-    <div className={`sticky bottom-0 z-20 -mx-4 flex gap-3 border-t border-slate-200 bg-[#F8F9FC]/95 px-4 py-4 backdrop-blur sm:relative sm:mx-0 sm:flex-row sm:justify-between sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 ${compact ? "mt-16 flex-row lg:mt-8" : "mt-8 flex-col-reverse"}`}>
+    <div className={`sticky bottom-0 z-20 -mx-4 flex gap-3 border-t border-slate-200 bg-[#F8F9FC]/95 px-4 py-2.5 backdrop-blur sm:relative sm:mx-0 sm:flex-row sm:justify-between sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 ${compact ? "mt-12 flex-row lg:mt-6" : "mt-6 flex-col-reverse"}`}>
       {children}
     </div>
   );
 }
 
-export const demoPrimaryButton = "inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#E07428] px-6 text-base font-semibold text-[#1F2937] transition-colors hover:bg-[#d06a22] disabled:pointer-events-none disabled:opacity-50";
-export const demoSecondaryButton = "inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-6 text-base font-semibold text-slate-800 transition-colors hover:border-[#515792]";
+export const demoPrimaryButton = "inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-[#E07428] px-6 text-base font-semibold text-[#1F2937] transition-colors hover:bg-[#d06a22] disabled:pointer-events-none disabled:opacity-50";
+export const demoSecondaryButton = "inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-6 text-base font-semibold text-slate-800 transition-colors hover:border-[#515792]";

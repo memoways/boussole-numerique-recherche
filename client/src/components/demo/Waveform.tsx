@@ -10,7 +10,7 @@ export default function Waveform({ active, level = 1, reducedMotion }: { active:
   const animate = active && !reducedMotion;
   const amplitude = active ? 0.25 + 0.75 * Math.max(0, Math.min(1, level)) : 0.45;
   return (
-    <div aria-hidden="true" className="flex h-10 items-center gap-[3px] transition-transform duration-300 ease-out" style={{ transform: `scaleY(${amplitude})` }}>
+    <div aria-hidden="true" className="flex h-8 items-center gap-[3px] transition-transform duration-300 ease-out" style={{ transform: `scaleY(${amplitude})` }}>
       {BARS.map((height, index) => (
         <motion.span
           key={index}
