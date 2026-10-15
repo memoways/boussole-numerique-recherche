@@ -225,9 +225,9 @@
               "question": "Sur les trois premiers, qu’est-ce qui marche, et qu’est-ce qui te pèse ?",
               "transcription": "Le mail, tout le monde en a un, rien à expliquer. Mais les validations se font en allers-retours, et je ne sais plus quelle version est la bonne. Excel, mes budgets sont solides, mais je recopie les crédits ailleurs à la main. WeTransfer, ça passe les gros fichiers sans rien demander, mais c’est l’outil de l’autre : je ne sais plus où j’ai rangé ce que j’ai reçu.",
               "outils": [
-                { "outil": "Gmail / Outlook", "fonctionne": "Tout le monde en a un, rien à expliquer.", "pese": "Les validations se font en allers-retours ; on ne sait plus quelle version est la bonne." },
-                { "outil": "Excel / Sheets", "fonctionne": "Les budgets sont solides.", "pese": "Les crédits sont recopiés ailleurs à la main." },
-                { "outil": "WeTransfer", "fonctionne": "Les gros fichiers passent sans rien demander.", "pese": "C’est l’outil de l’autre : difficile de retrouver ce qui a été reçu." }
+                { "outil": "Gmail / Outlook", "dit": "quelle version est la bonne", "fonctionne": "Tout le monde en a un, rien à expliquer.", "pese": "Les validations se font en allers-retours ; on ne sait plus quelle version est la bonne." },
+                { "outil": "Excel / Sheets", "dit": "les crédits ailleurs à la main", "fonctionne": "Les budgets sont solides.", "pese": "Les crédits sont recopiés ailleurs à la main." },
+                { "outil": "WeTransfer", "dit": "ce que j’ai reçu", "fonctionne": "Les gros fichiers passent sans rien demander.", "pese": "C’est l’outil de l’autre : difficile de retrouver ce qui a été reçu." }
               ]
             }
           },

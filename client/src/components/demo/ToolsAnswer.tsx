@@ -6,11 +6,13 @@
  * plus au moins important. Sur un seul parcours, la Boussole creuse ce qui fonctionne et ce qui pèse sur les outils
  * en tête. Les boutons répondent au clic, sans rien enregistrer : le parcours joué reste celui de la personne fictive.
  */
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Check, Plus, Sparkles } from "lucide-react";
 import { DEMO_CONTENT, fillTemplate, type DemoTools } from "@/lib/demoContent";
 import { useSelectionProgress } from "./DemoAnswers";
+import SpokenBubble from "./SpokenBubble";
+import { useTypedSpeech } from "./useTypedSpeech";
 import { phaseReached, TOOL_INTRO_MS, TOOL_RANK_INTRO_MS, TOOL_RANK_WORD_MS, TOOL_WORD_MS, type PlaybackPhase } from "./useStepPlayback";
 
 const DETECT_STEP_MS = 380;
@@ -24,16 +26,6 @@ type Props = {
   /** Page de l’échange : 1 = repérage et propositions, 2 = classement et approfondissement. */
   part: 1 | 2;
 };
-
-/** Parole de la personne, sous la forme d’une citation courte rattachée à son prénom. */
-function Said({ prenom, children }: { prenom: string; children: string }) {
-  return (
-    <p className="rounded-2xl bg-[#515792]/[0.06] px-4 py-3 text-base leading-relaxed text-slate-900 sm:ml-8">
-      <span className="mb-1 block text-xs font-semibold uppercase tracking-[0.12em] text-slate-700">{prenom}</span>
-      {"« "}{children}{" »"}
-    </p>
-  );
-}
 
 function SectionTitle({ children }: { children: string }) {
   return (
@@ -49,25 +41,11 @@ export default function ToolsAnswer({ tools, options, prenom, phase, reducedMoti
   const reached = (target: PlaybackPhase) => phaseReached(phase, target);
   const mentioned = new Set(tools.cites.map((item) => item.outil));
   const approfondissement = tools.approfondissement;
-  const words = tools.complement.split(/\s+/).filter(Boolean);
 
-  // La réponse s’égrène mot à mot : un bouton s’active quand les mots qui le désignent ont été dits.
-  const [spoken, setSpoken] = useState(0);
+  // La réponse s’écrit mot à mot, avec l’onde : un bouton s’active quand les mots qui le désignent ont été dits.
+  const addSpeech = useTypedSpeech(tools.complement, { active: phase === "proposing", finished: reached("pauseA"), reducedMotion, introMs: TOOL_INTRO_MS, wordMs: TOOL_WORD_MS });
+  const heard = addSpeech.heard;
   const [manual, setManual] = useState<Set<string>>(new Set());
-  const speaking = phase === "proposing" && !reducedMotion;
-  useEffect(() => {
-    if (!speaking) return;
-    let count = 0;
-    let timer = 0;
-    const tick = () => {
-      count += 1;
-      setSpoken(count);
-      if (count < words.length) timer = window.setTimeout(tick, TOOL_WORD_MS);
-    };
-    timer = window.setTimeout(tick, TOOL_INTRO_MS);
-    return () => window.clearTimeout(timer);
-  }, [speaking, words.length]);
-  const heard = reducedMotion || reached("pauseA") ? tools.complement : words.slice(0, spoken).join(" ");
   const active = new Set(tools.ajoutes.filter((item) => heard.toLowerCase().includes(item.dit.toLowerCase())).map((item) => item.outil));
   // Propositions de départ, puis celles qui arrivent après chaque outil activé, en rapport avec ce qui vient d’être dit.
   const arrivals = (tools.suites ?? []).filter((suite) => active.has(suite.apres)).flatMap((suite) => suite.propositions);
@@ -81,23 +59,11 @@ export default function ToolsAnswer({ tools, options, prenom, phase, reducedMoti
   const detectedCount = useSelectionProgress(tools.cites.length, phase === "detecting", reached("proposing"), DETECT_STEP_MS);
 
   // Classement : la parole s’écrit en haut, chaque outil prend sa place quand les mots qui le désignent sont dits.
-  const rankWords = tools.classement.split(/\s+/).filter(Boolean);
-  const [rankSpoken, setRankSpoken] = useState(0);
-  const ranking = phase === "ranking" && !reducedMotion;
-  useEffect(() => {
-    if (!ranking) return;
-    let count = 0;
-    let timer = 0;
-    const tick = () => {
-      count += 1;
-      setRankSpoken(count);
-      if (count < rankWords.length) timer = window.setTimeout(tick, TOOL_RANK_WORD_MS);
-    };
-    timer = window.setTimeout(tick, TOOL_RANK_INTRO_MS);
-    return () => window.clearTimeout(timer);
-  }, [ranking, rankWords.length]);
-  const rankingDone = reducedMotion || reached("probing");
-  const rankHeard = rankingDone ? tools.classement : rankWords.slice(0, rankSpoken).join(" ");
+  const rankSpeech = useTypedSpeech(tools.classement, { active: phase === "ranking", finished: reached("probing"), reducedMotion, introMs: TOOL_RANK_INTRO_MS, wordMs: TOOL_RANK_WORD_MS });
+  const rankingDone = rankSpeech.complete;
+  const rankHeard = rankSpeech.heard;
+  // Approfondissement : chaque capsule apparaît quand les mots qui la concernent sont dits.
+  const probeSpeech = useTypedSpeech(approfondissement?.transcription ?? "", { active: phase === "probing", finished: reached("pauseB"), reducedMotion, introMs: TOOL_RANK_INTRO_MS, wordMs: TOOL_RANK_WORD_MS });
   const placed = tools.ordre.filter((item) => rankHeard.toLowerCase().includes(item.dit.toLowerCase())).map((item) => item.outil);
   // Au départ rien n’est classé : l’ordre alphabétique ne dit rien, puis les outils montent à leur rang.
   const unplaced = tools.ordre.map((item) => item.outil).filter((outil) => !placed.includes(outil)).sort((a, b) => a.localeCompare(b, "fr"));
@@ -147,11 +113,9 @@ export default function ToolsAnswer({ tools, options, prenom, phase, reducedMoti
               );
             })}
           </ul>
-          {heard && (
-            <motion.div {...fade} className="mt-3">
-              <Said prenom={prenom}>{heard}</Said>
-            </motion.div>
-          )}
+          <div className="mt-3">
+            <SpokenBubble prenom={prenom} text={tools.complement} speech={addSpeech} reducedMotion={reducedMotion} />
+          </div>
           {reached("pauseA") && <p className="mt-3 text-sm text-slate-700">{lecture.outilsManuel}</p>}
         </motion.section>
       )}
@@ -159,11 +123,9 @@ export default function ToolsAnswer({ tools, options, prenom, phase, reducedMoti
       {part === 2 && reached("ranking") && (
         <motion.section {...fade} aria-label={lecture.outilsClassement}>
           <SectionTitle>{lecture.outilsClassement}</SectionTitle>
-          {rankHeard && (
-            <motion.div {...fade} className="mb-4">
-              <Said prenom={prenom}>{rankHeard}</Said>
-            </motion.div>
-          )}
+          <div className="mb-4">
+            <SpokenBubble prenom={prenom} text={tools.classement} speech={rankSpeech} reducedMotion={reducedMotion} />
+          </div>
           <ol className="grid gap-2 sm:grid-cols-2">
             {shown.map((outil, index) => {
               const isPlaced = placed.includes(outil);
@@ -187,16 +149,16 @@ export default function ToolsAnswer({ tools, options, prenom, phase, reducedMoti
         <motion.section {...fade} aria-label={lecture.outilsApprofondir}>
           <SectionTitle>{lecture.outilsApprofondir}</SectionTitle>
           <p className="mb-3 text-lg leading-snug text-slate-950">{approfondissement.question}</p>
-          <Said prenom={prenom}>{approfondissement.transcription}</Said>
+          <SpokenBubble prenom={prenom} text={approfondissement.transcription} speech={probeSpeech} reducedMotion={reducedMotion} />
           <ul className="mt-4 grid gap-3 lg:grid-cols-3">
-            {approfondissement.outils.map((item) => (
-              <li key={item.outil} className="rounded-xl border border-slate-200 bg-white p-4 text-sm leading-snug">
+            {approfondissement.outils.filter((item) => probeSpeech.heard.toLowerCase().includes(item.dit.toLowerCase())).map((item) => (
+              <motion.li key={item.outil} {...fade} className="rounded-xl border border-slate-200 bg-white p-4 text-sm leading-snug">
                 <p className="font-semibold text-slate-950">{item.outil}</p>
                 <p className="mt-2 text-xs font-semibold uppercase tracking-[0.08em] text-[#167A5E]">{lecture.outilsFonctionne}</p>
                 <p className="mt-0.5 text-slate-800">{item.fonctionne}</p>
                 <p className="mt-2 text-xs font-semibold uppercase tracking-[0.08em] text-[#A8440D]">{lecture.outilsPese}</p>
                 <p className="mt-0.5 text-slate-800">{item.pese}</p>
-              </li>
+              </motion.li>
             ))}
           </ul>
         </motion.section>
