@@ -66,6 +66,14 @@
     "allerRestitution": "Aller à la restitution",
     "selectionCases": "{prenom} coche",
     "selectionScenario": "{prenom} choisit",
+    "outilsReperes": "La Boussole repère ce que {prenom} utilise",
+    "outilsPropositions": "Dans le même registre, {prenom} utilise peut-être aussi…",
+    "outilsAjoutes": "{prenom} ajoute",
+    "outilsAjoute": "ajouté",
+    "outilsClassement": "Du plus important au moins important",
+    "outilsApprofondir": "Pour aller plus loin, sur les outils en tête",
+    "outilsFonctionne": "Ce qui fonctionne",
+    "outilsPese": "Ce qui pèse",
     "accelerer": "Clique sur le texte pour l’afficher en entier.",
     "digestion": "La Boussole prend note…",
     "induction": "D’après ce que tu dis…",
@@ -193,12 +201,33 @@
           "question": "Pour ton travail de tous les jours, qu’est-ce que tu ouvres le plus souvent ?",
           "options": ["Gmail / Outlook", "WhatsApp", "Word", "Excel / Sheets", "Google Drive", "Dropbox", "WeTransfer", "Logiciel de montage", "Notion / Trello", "Autre"],
           "reponse": {
-            "choix": ["Gmail / Outlook", "WhatsApp", "Word", "Excel / Sheets", "Dropbox", "WeTransfer"],
+            "choix": ["Gmail / Outlook", "WhatsApp", "Word", "Excel / Sheets", "Google Drive", "Dropbox", "WeTransfer"],
             "transcription": "Le mail, c’est la colonne vertébrale. Et Excel pour les budgets. Le reste, ça dépend des projets et des gens avec qui je travaille : un coproducteur veut du Drive, un autre m’envoie tout par WeTransfer."
+          },
+          "outils": {
+            "cites": [
+              { "outil": "Gmail / Outlook", "dit": "Le mail" },
+              { "outil": "Excel / Sheets", "dit": "Excel pour les budgets" },
+              { "outil": "Google Drive", "dit": "du Drive" },
+              { "outil": "WeTransfer", "dit": "WeTransfer" }
+            ],
+            "ajoutes": ["WhatsApp", "Word", "Dropbox"],
+            "complement": "Ah oui, j’ai oublié WhatsApp, Word et Dropbox.",
+            "ordre": ["Gmail / Outlook", "Excel / Sheets", "WeTransfer", "Google Drive", "WhatsApp", "Word", "Dropbox"],
+            "classement": "Le mail d’abord, puis Excel, puis WeTransfer et le Drive, parce que les autres m’y obligent. WhatsApp, Word et Dropbox, beaucoup moins.",
+            "approfondissement": {
+              "question": "Sur les trois premiers, qu’est-ce qui marche, et qu’est-ce qui te pèse ?",
+              "transcription": "Le mail, tout le monde en a un, rien à expliquer. Mais les validations se font en allers-retours, et je ne sais plus quelle version est la bonne. Excel, mes budgets sont solides, mais je recopie les crédits ailleurs à la main. WeTransfer, ça passe les gros fichiers sans rien demander, mais c’est l’outil de l’autre : je ne sais plus où j’ai rangé ce que j’ai reçu.",
+              "outils": [
+                { "outil": "Gmail / Outlook", "fonctionne": "Tout le monde en a un, rien à expliquer.", "pese": "Les validations se font en allers-retours ; on ne sait plus quelle version est la bonne." },
+                { "outil": "Excel / Sheets", "fonctionne": "Les budgets sont solides.", "pese": "Les crédits sont recopiés ailleurs à la main." },
+                { "outil": "WeTransfer", "fonctionne": "Les gros fichiers passent sans rien demander.", "pese": "C’est l’outil de l’autre : difficile de retrouver ce qui a été reçu." }
+              ]
+            }
           },
           "retenu": {
             "extrait": "ça dépend des projets et des gens avec qui je travaille",
-            "tags": ["e-mail au centre", "outils imposés par les partenaires", "tableur pour les budgets"]
+            "tags": ["e-mail au centre", "outils imposés par les partenaires", "tableur pour les budgets", "validations en allers-retours de mails"]
           }
         },
         {
@@ -381,6 +410,16 @@
           "reponse": {
             "choix": ["Site", "Instagram", "Dossier de presse PDF", "Festivals et marchés"],
             "transcription": "Le site, c’est un ami qui le met à jour quand il a le temps. Instagram, je le fais parce qu’il faut. Je déteste."
+          },
+          "outils": {
+            "cites": [
+              { "outil": "Site", "dit": "Le site" },
+              { "outil": "Instagram", "dit": "Instagram" }
+            ],
+            "ajoutes": ["Dossier de presse PDF", "Festivals et marchés"],
+            "complement": "Ah oui, le dossier de presse, et les festivals.",
+            "ordre": ["Festivals et marchés", "Dossier de presse PDF", "Site", "Instagram"],
+            "classement": "Les festivals d’abord, puis le dossier de presse. Le site et Instagram, après."
           },
           "retenu": {
             "tags": ["site mis à jour par un tiers", "Instagram par obligation"]
@@ -581,6 +620,16 @@
           "reponse": {
             "choix": ["E-mails personnels", "Dossier de diffusion PDF", "Instagram", "Teaser vidéo"],
             "transcription": "Le dossier de diffusion, on le refait à chaque création, en reprenant des bouts de l’ancien. Les programmateurs, je les connais, je leur écris directement."
+          },
+          "outils": {
+            "cites": [
+              { "outil": "Dossier de diffusion PDF", "dit": "Le dossier de diffusion" },
+              { "outil": "E-mails personnels", "dit": "je leur écris directement" }
+            ],
+            "ajoutes": ["Instagram", "Teaser vidéo"],
+            "complement": "Ah oui, il y a aussi Instagram, et un teaser vidéo.",
+            "ordre": ["E-mails personnels", "Dossier de diffusion PDF", "Teaser vidéo", "Instagram"],
+            "classement": "Les mails aux programmateurs, c’est ce qui compte. Ensuite le dossier, puis le teaser. Instagram, en dernier."
           },
           "retenu": {
             "tags": ["réseau direct de programmateurs", "dossier refait à chaque création"]
@@ -880,7 +929,19 @@
           "options": ["LibreOffice", "Proton Mail", "Gmail", "kDrive", "Google Drive", "GIMP / Photoshop", "SwissTransfer / WeTransfer", "Site personnel", "Instagram"],
           "reponse": {
             "choix": ["LibreOffice", "Proton Mail", "kDrive", "GIMP / Photoshop", "SwissTransfer / WeTransfer", "Site personnel"],
-            "transcription": "Je choisis mes outils. Suisses ou libres. C’est politique."
+            "transcription": "Je choisis mes outils. Suisses ou libres. LibreOffice, Proton Mail, kDrive, et GIMP pour les images. C’est politique."
+          },
+          "outils": {
+            "cites": [
+              { "outil": "LibreOffice", "dit": "LibreOffice" },
+              { "outil": "Proton Mail", "dit": "Proton Mail" },
+              { "outil": "kDrive", "dit": "kDrive" },
+              { "outil": "GIMP / Photoshop", "dit": "GIMP" }
+            ],
+            "ajoutes": ["SwissTransfer / WeTransfer", "Site personnel"],
+            "complement": "Ah oui, SwissTransfer pour envoyer les fichiers, et mon site.",
+            "ordre": ["Proton Mail", "kDrive", "LibreOffice", "GIMP / Photoshop", "SwissTransfer / WeTransfer", "Site personnel"],
+            "classement": "Le mail et le drive, tous les jours. Puis LibreOffice et GIMP. Le reste, plus rarement."
           },
           "retenu": {
             "extrait": "C’est politique.",

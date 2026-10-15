@@ -26,9 +26,10 @@ import { DIMENSION_COLORS, dimensionVar } from "./demoTheme";
 import { MemoryColumn, MemoryDrawer } from "./MemoryPanel";
 import MilestoneCard from "./MilestoneCard";
 import RelatedResources from "./RelatedResources";
+import ToolsAnswer from "./ToolsAnswer";
 import TypedTranscript from "./TypedTranscript";
 import { useDemoKeyboard } from "./useDemoKeyboard";
-import { useStepPlayback } from "./useStepPlayback";
+import { phaseReached, useStepPlayback } from "./useStepPlayback";
 import Waveform from "./Waveform";
 
 /** Une étape numérotée, ou l’écran « numérique idéal » (sans dimension ni numéro). */
@@ -51,8 +52,11 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
   const retainedItems = step.id === null ? [] : getRetainedItems(step as DemoStep);
   const sliders = step.retenu?.curseurs ?? [];
   const hasCorrection = sliders.some((slider) => slider.corrigeA);
+  const tools = step.type === "cases" ? step.outils : undefined;
   const playback = useStepPlayback({
-    choices: step.type === "cases" || step.type === "scenario" ? choix.length : 0,
+    // Un échange « outils » commence par la parole : rien n’est coché d’avance.
+    choices: !tools && (step.type === "cases" || step.type === "scenario") ? choix.length : 0,
+    tools: tools ? { detected: tools.cites.length, added: tools.ajoutes.length, ranked: tools.ordre.length, probed: tools.approfondissement?.outils.length ?? 0 } : undefined,
     transcription: step.reponse.transcription,
     hasRetained: retainedItems.length > 0,
     hasCorrection,
@@ -60,6 +64,7 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
   const { phase, reducedMotion, reached } = playback;
 
   const answerRef = useRef<HTMLDivElement>(null);
+  const toolsRef = useRef<HTMLDivElement>(null);
   const inducedRef = useRef<HTMLDivElement>(null);
   const resourcesRef = useRef<HTMLElement>(null);
   const milestoneRef = useRef<HTMLDivElement>(null);
@@ -67,7 +72,7 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
   // Le dernier bloc apparu reste visible, y compris sous la barre de commandes du smartphone.
   useEffect(() => {
     const doneTarget = step.pointEtape ? milestoneRef.current : resourcesRef.current;
-    const target = phase === "done" ? doneTarget : phase === "retained" ? inducedRef.current : phase === "transcribing" || phase === "selecting" ? answerRef.current : null;
+    const target = phase === "done" ? doneTarget : phase === "retained" ? inducedRef.current : phase === "detecting" || phase === "proposing" || phase === "ranking" || phase === "probing" ? toolsRef.current : phase === "transcribing" || phase === "selecting" ? answerRef.current : null;
     target?.scrollIntoView({ block: "nearest", behavior: reducedMotion ? "auto" : "smooth" });
   }, [phase, reducedMotion, step.pointEtape]);
 
@@ -88,7 +93,7 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
 
   const color = step.dimension ? DIMENSION_COLORS[step.dimension] : DIMENSION_COLORS.outils;
   const isSliderQuestion = step.type === "curseurs";
-  const showChoices = step.type === "cases" || step.type === "scenario";
+  const showChoices = !tools && (step.type === "cases" || step.type === "scenario");
   const voiceStarted = reached("transcribing");
   // L’onde s’apaise sur le dernier quart de la transcription et s’arrête avec elle.
   const speechLevel = playback.totalWords > 0 ? Math.min(1, (1 - playback.wordsShown / playback.totalWords) * 4) : 0;
@@ -150,6 +155,12 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
               />
             </div>
           </motion.div>
+        )}
+
+        {tools && step.options && phaseReached(phase, "detecting") && (
+          <div ref={toolsRef} className="scroll-mb-32">
+            <ToolsAnswer tools={tools} options={step.options} prenom={persona.prenom} phase={phase} reducedMotion={reducedMotion} />
+          </div>
         )}
 
         {phase === "digesting" && (

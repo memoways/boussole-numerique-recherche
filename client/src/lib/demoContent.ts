@@ -30,6 +30,25 @@ export type DemoRetained = {
   curseurs?: DemoSlider[];
 };
 
+/** Outil repéré dans la parole : `dit` reprend les mots exacts de la transcription qui le justifient. */
+export type DemoToolMention = { outil: string; dit: string };
+export type DemoToolFocus = { outil: string; fonctionne: string; pese: string };
+
+/**
+ * Réponse d’un échange « cases » jouée dans l’ordre inverse d’une liste cochée : la personne parle, la Boussole repère
+ * les outils cités (`cites`), propose des outils du même registre parmi `options`, la personne en ajoute (`ajoutes`,
+ * souvent un oubli), puis classe l’ensemble du plus au moins important (`ordre`). `approfondissement` (facultatif,
+ * un seul parcours) creuse ce qui fonctionne et ce qui pèse sur les outils en tête.
+ */
+export type DemoTools = {
+  cites: DemoToolMention[];
+  ajoutes: string[];
+  complement: string;
+  ordre: string[];
+  classement: string;
+  approfondissement?: { question: string; transcription: string; outils: DemoToolFocus[] };
+};
+
 /** Une interaction du parcours, jouée selon la grammaire du PRD (question, réponse, réception). */
 export type DemoStep = {
   id: number;
@@ -40,6 +59,8 @@ export type DemoStep = {
   questionSuite?: string;
   options?: string[];
   reponse: { choix?: string[]; transcription: string };
+  /** Pour une étape « cases » : outils repérés dans la parole, ajouts, classement et approfondissement. */
+  outils?: DemoTools;
   retenu?: DemoRetained;
   /** Rebond mémoire : l’élément retenu plus tôt que la Boussole cite. */
   rebond?: { etape: number; rappel: string };
@@ -148,7 +169,9 @@ export type DemoContent = {
   preparation: { titre: string; texte: string; comparaisonTexte: string; boutonAccueil: string; boutonAvis: string };
   lecture: Record<
     | "boussole" | "echange" | "reponseDe" | "passerAnimation" | "continuer" | "consigne" | "retour" | "allerRestitution"
-    | "selectionCases" | "selectionScenario" | "accelerer" | "digestion" | "induction" | "indiceDit" | "indiceNonAborde"
+    | "selectionCases" | "selectionScenario"
+    | "outilsReperes" | "outilsPropositions" | "outilsAjoutes" | "outilsAjoute" | "outilsClassement" | "outilsApprofondir" | "outilsFonctionne" | "outilsPese"
+    | "accelerer" | "digestion" | "induction" | "indiceDit" | "indiceNonAborde"
     | "valide" | "corrige" | "rebondTitre" | "rebondEchange" | "pointEtapeTitre" | "pointEtapeOuvrir" | "pointEtapeReplier" | "annonceRetenu"
     | "ressourcesTitre" | "ressourceLire" | "nouvelOnglet" | "traduitAnglais",
     string
