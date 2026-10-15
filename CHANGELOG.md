@@ -2,6 +2,13 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.6.3] — 2026-10-15 — Calendriers alignés sur trois jalons, titre d’accueil multicolore
+
+### Modifié
+
+- Calendriers de l’accueil, de `/partenaires` et de `/timeline` (ainsi que les descriptions SEO, `llms.txt` et pages pré-rendues) alignés sur trois jalons : **octobre 2026** (démonstrateur, prototype léger avec 3 persona, retours implémentés directement) ; **fin 2026 – début 2027** (échanges et ateliers avec les professionnels de la culture, partenariats de co-conception et de dissémination) ; **février–mars 2027** (publication d’une première version de la Boussole). La phase 04 « Diffuser et accompagner » de `/timeline` est conservée.
+- Hero de l’accueil : libellé « Description du projet » retiré, titre en dégradé multicolore (bleu Memoways → vert → jaune → orange), sous-titre plus petit, phrase du démonstrateur remplacée par « Pour tester l’outil en mode conversationnel, via 3 persona fictifs ».
+
 ## [1.6.2] — 2026-10-15 — Démo : échanges découpés en pages, écriture plus rapide
 
 ### Modifié
