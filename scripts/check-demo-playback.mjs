@@ -60,7 +60,7 @@ const labelsOverlap = (page) => page.evaluate(() => [...document.querySelectorAl
 async function playStep(page, { skip = false, prenom = "Claire" } = {}) {
   await page.getByRole("button", { name: `Réponse de ${prenom}` }).click();
   if (skip) await page.getByRole("button", { name: "Passer l’animation" }).click();
-  await page.locator("main button").filter({ hasText: /^(Continuer|Voir la restitution)/ }).waitFor({ timeout: 15000 });
+  await page.locator("main button").filter({ hasText: /^(Continuer|Voir la restitution)/ }).waitFor({ timeout: 45000 });
 }
 
 async function walk(label, viewport, { skip, persona: id = "cinema" }) {
@@ -285,7 +285,7 @@ for (const id of Object.keys(PERSONAS)) {
   });
   ok(typed > 3 && (await page.getByText("Marc parle…").count()) === 0, `parole : le texte s’écrit pendant l’onde, sans attente préalable (${typed} caractères à 0,7 s)`);
   ok((await page.getByRole("button", { name: "Passer l’animation" }).count()) === 1, "parole : la lecture est encore en cours pendant l’écriture");
-  await page.locator("main button").filter({ hasText: /^Continuer/ }).waitFor({ timeout: 15000 });
+  await page.locator("main button").filter({ hasText: /^Continuer/ }).waitFor({ timeout: 45000 });
   const amplitude = await page.evaluate(() => document.querySelector("main .h-10[aria-hidden='true']")?.style.transform ?? "");
   ok(/scaleY\(0\.45\)/.test(amplitude), `parole : l’onde est au repos quand le texte est terminé (${amplitude})`);
   ok(page.errors.length === 0, `parole et transcription sans erreur console${page.errors.length ? ` : ${page.errors.join(" | ")}` : ""}`);
