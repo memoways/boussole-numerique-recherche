@@ -5,18 +5,16 @@ import { Link, useLocation } from "wouter";
 
 /**
  * Navigation — Boussole Numérique Culture
- * 6 entrées : Projet | Calendrier | Expérience | Méthode | Partenaires | Ateliers
- * (Recherche et Ressources accessibles depuis les pages internes)
+ * 4 entrées : Projet | Expérience | Partenaires | Calendrier, puis le bouton « Participer au projet » (/participer).
+ * Méthode et Ateliers sont dans le pied de page ; Recherche et Ressources s’ouvrent depuis les pages internes.
  * Couleurs Memoways : bleu #515792, orange #E27227
 */
 
 const NAV_ITEMS = [
   { href: "/projet", label: "Projet" },
-  { href: "/timeline", label: "Calendrier" },
   { href: "/experience", label: "Expérience" },
-  { href: "/methode", label: "Méthode" },
   { href: "/partenaires", label: "Partenaires" },
-  { href: "/ateliers", label: "Ateliers" },
+  { href: "/timeline", label: "Calendrier" },
 ];
 
 export default function Navigation() {
@@ -87,13 +85,13 @@ export default function Navigation() {
               style={{ backgroundColor: '#E07428', borderColor: '#E07428', color: '#fff' }}
               asChild
             >
-              <Link href="/partenaires">Participer au projet</Link>
+              <Link href="/participer">Participer au projet</Link>
             </Button>
           </div>
 
           {/* Tablet Navigation (md) — version compacte */}
           <div className="hidden md:flex lg:hidden items-center gap-0.5">
-            {NAV_ITEMS.slice(0, 4).map((item) => (
+            {NAV_ITEMS.map((item) => (
               <Button
                 key={item.href}
                 variant="ghost"
@@ -115,7 +113,7 @@ export default function Navigation() {
               style={{ backgroundColor: '#E07428', borderColor: '#E07428', color: '#fff' }}
               asChild
             >
-              <Link href="/partenaires">Participer</Link>
+              <Link href="/participer">Participer</Link>
             </Button>
             <Button
               variant="ghost"
@@ -173,7 +171,7 @@ export default function Navigation() {
                   style={{ backgroundColor: '#E07428', borderColor: '#E07428', color: '#fff' }}
                   asChild
                 >
-                  <Link href="/partenaires">
+                  <Link href="/participer">
                     <Compass className="h-4 w-4 mr-2" />
                     Participer au projet
                   </Link>

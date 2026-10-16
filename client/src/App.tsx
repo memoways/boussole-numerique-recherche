@@ -21,7 +21,7 @@ import Timeline from "./pages/Timeline";
 import Recherche from "./pages/Recherche";
 import References from "./pages/References";
 import Partenaires from "./pages/Partenaires";
-import Ateliers from "./pages/Ateliers";
+import Participer from "./pages/Participer";
 import PartnerPresentation from "./pages/PartnerPresentation";
 import PartnerQuestionnaire from "./pages/PartnerQuestionnaire";
 import PartnerAdmin from "./pages/PartnerAdmin";
@@ -67,6 +67,11 @@ function LegacyRedirect({ to, label }: { to: string; label: string }) {
   );
 }
 
+/** /ateliers est regroupée dans /participer ; le fragment (/ateliers#<slug>) est conservé pour atteindre la bonne carte. */
+function AteliersRedirect() {
+  return <LegacyRedirect to={`/participer${window.location.hash}`} label="la page Participer au projet" />;
+}
+
 function Router() {
   const [location] = useLocation();
 
@@ -106,7 +111,7 @@ function Router() {
         <Route path={"/recherche"} component={Recherche} />
         <Route path={"/references"} component={References} />
         <Route path={"/partenaires"} component={Partenaires} />
-        <Route path={"/ateliers"} component={Ateliers} />
+        <Route path={"/participer"} component={Participer} />
         <Route path={"/partenaires/presentation"} component={PartnerPresentation} />
         <Route path={"/partenaires/questionnaire/:token"} component={PartnerQuestionnaire} />
         <Route path={"/partenaires/questionnaire"} component={PartnerQuestionnaire} />
@@ -168,6 +173,7 @@ function Router() {
         )}</Route>
 
         {/* Anciennes URLs : leurs contenus sont disponibles aux destinations canoniques. */}
+        <Route path={"/ateliers"} component={AteliersRedirect} />
         <Route path={"/description-projet"}>{() => <LegacyRedirect to="/projet" label="la page Projet" />}</Route>
         <Route path={"/gouvernance"}>{() => <LegacyRedirect to="/methode" label="la page Méthode" />}</Route>
         <Route path={"/references-inspirantes"}>{() => <LegacyRedirect to="/ressources/references-inspirantes" label="les documents historiques" />}</Route>

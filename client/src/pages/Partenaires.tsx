@@ -1,12 +1,12 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Users, Building2, TestTube, Heart, MessageSquare, ChevronRight, Compass, MessagesSquare } from "lucide-react";
+import { ArrowRight, Users, Building2, TestTube, Heart, CalendarDays, Compass } from "lucide-react";
 import { Link } from "wouter";
-import AteliersCallout from "@/components/AteliersCallout";
 
 /**
- * Page /partenaires — entrée d’engagement des organisations relais et contributeurs individuels.
- * CTA primaire : questionnaire partenaire ; parcours d’invitation conservé pour les personnes non invitées.
+ * Page /partenaires — présentation des partenaires : rôle, public concerné, partenaires confirmés.
+ * Les appels à l’action concrets (ateliers, questionnaire, demande d’invitation) vivent sur /participer ;
+ * le calendrier n’a qu’un bouton, en bas de page.
  * Direction visuelle : progression bleu → cyan → vert → orange, CTA orange #E07428.
  */
 
@@ -30,13 +30,6 @@ const QUI_PEUT_CONTRIBUER = [
   { titre: "Réseaux et collectifs qui relient des artistes", desc: "Vous connaissez les besoins de membres, de communautés ou de publics et pouvez aider à les traduire dans la conception de l’outil.", icon: Users, couleur: "#3a7fc1", couleurTexte: "#ffffff" },
 ];
 
-const PARCOURS_PARTENAIRE = [
-  { num: "01", titre: "Je réponds", desc: "Je partage besoins, idées et situations à comprendre, ou je demande une invitation personnelle.", ...SPECTRE_PARTENAIRES[0] },
-  { num: "02", titre: "Je co-conçois", desc: "Je teste le démonstrateur dès octobre 2026, puis je participe aux échanges et ateliers de fin 2026 – début 2027.", ...SPECTRE_PARTENAIRES[1] },
-  { num: "03", titre: "Je teste", desc: "Je confronte le démonstrateur, puis les versions suivantes, aux pratiques que je connais.", ...SPECTRE_PARTENAIRES[2] },
-  { num: "04", titre: "Je deviens relais", desc: "Je contribue à la dissémination et à la première version de la Boussole, visée en février–mars 2027.", ...SPECTRE_PARTENAIRES[3] },
-];
-
 export default function Partenaires() {
   return (
     <div className="bg-white">
@@ -51,14 +44,6 @@ export default function Partenaires() {
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl leading-relaxed mb-5">
             La Boussole n’existe pas encore. Ce site compagnon rassemble les retours des institutions, structures, associations, réseaux et collectifs qui peuvent aider à la co-concevoir avec les artistes. Votre contribution servira à cadrer puis développer un prototype utile et actionnable.
           </p>
-          <div className="mb-5 grid max-w-2xl gap-2 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              ["Aujourd’hui", "Informer et recueillir les retours"],
-              ["Octobre 2026", "Démonstrateur à tester"],
-              ["Fin 2026 – début 2027", "Échanges, ateliers et partenariats"],
-              ["Février–mars 2027", "Première version de la Boussole"],
-            ].map(([moment, detail], index) => <div key={moment} className="border border-slate-200 bg-white px-3 py-3"><p className="text-[10px] font-bold uppercase tracking-[0.11em]" style={{ color: SPECTRE_PARTENAIRES[index].couleur }}>{moment}</p><p className="mt-1 text-xs font-semibold leading-snug text-slate-700">{detail}</p></div>)}
-          </div>
           <div className="mb-5 flex max-w-2xl items-center gap-3 rounded-xl border border-slate-200 bg-white px-3 py-3 sm:gap-4 sm:px-4 sm:py-3.5">
             <a
               href="https://www.geneve.ch/demarches/subvention-projets-ponctuels-culturels-scientifiques"
@@ -86,12 +71,11 @@ export default function Partenaires() {
               <span className="flex items-center gap-2 font-semibold text-slate-950"><Compass className="h-4 w-4 text-[#515792]" /> Comprendre la co-conception <ArrowRight className="ml-auto h-4 w-4 text-[#515792] transition-transform group-hover:translate-x-0.5" /></span>
               <span className="mt-2 block text-sm leading-relaxed text-slate-600">Voir le problème, les rôles des partenaires et le prototype à décider avant son développement.</span>
             </Link>
-            <Link href="/partenaires/questionnaire" className="group rounded-xl bg-[#E07428] p-4 text-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
-              <span className="flex items-center gap-2 font-semibold"><MessagesSquare className="h-4 w-4" /> Répondre au questionnaire partenaire <ArrowRight className="ml-auto h-4 w-4 transition-transform group-hover:translate-x-0.5" /></span>
-              <span className="mt-2 block text-sm leading-relaxed text-white/90">Partager besoins, priorités, idées et points de vigilance avant l’atelier de co-conception.</span>
+            <Link href="/participer" className="group rounded-xl bg-[#E07428] p-4 text-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
+              <span className="flex items-center gap-2 font-semibold"><CalendarDays className="h-4 w-4" /> Participer au projet <ArrowRight className="ml-auto h-4 w-4 transition-transform group-hover:translate-x-0.5" /></span>
+              <span className="mt-2 block text-sm leading-relaxed text-white/90">S’inscrire à un atelier ou répondre au questionnaire partenaire.</span>
             </Link>
           </div>
-          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-500"><span className="font-semibold text-slate-700">Étape actuelle : informer et recueillir les retours.</span> Si vous n’avez pas encore reçu d’invitation, le parcours vous permet d’en demander une avant les échanges et ateliers de fin 2026 – début 2027.</p>
         </div>
       </section>
 
@@ -132,49 +116,6 @@ export default function Partenaires() {
           </div>
         </div>
       </section>
-
-      {/* Parcours partenaire */}
-      <section className="py-14 px-4 bg-white">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-gray-900 mb-3">Du questionnaire à l’ouverture publique : un parcours en quatre étapes</h2>
-          <p className="text-gray-500 mb-10">Le site sert aujourd’hui à écouter et à préparer le travail collectif. Le démonstrateur d’octobre 2026 précède les échanges et ateliers, puis la publication d’une première version de la Boussole en février–mars 2027.</p>
-
-          {/* Desktop */}
-          <div className="hidden md:flex items-start gap-2">
-            {PARCOURS_PARTENAIRE.map(({ num, titre, desc, couleur, texte }, i) => (
-              <div key={num} className="flex items-start flex-1">
-                <div className="flex flex-col items-center flex-1">
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm mb-3" style={{ backgroundColor: couleur, color: texte }}>
-                    {num}
-                  </div>
-                  <h3 className="font-bold text-gray-900 text-center text-sm mb-1">{titre}</h3>
-                  <p className="text-xs text-gray-500 text-center leading-relaxed">{desc}</p>
-                </div>
-                {i < PARCOURS_PARTENAIRE.length - 1 && (
-                  <ChevronRight className="h-5 w-5 text-gray-300 mt-2.5 flex-shrink-0" />
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* Mobile */}
-          <div className="md:hidden space-y-3">
-            {PARCOURS_PARTENAIRE.map(({ num, titre, desc, couleur, texte }) => (
-              <div key={num} className="flex gap-4 items-start p-4 rounded-xl" style={{ backgroundColor: couleur + '10' }}>
-                  <div className="w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0" style={{ backgroundColor: couleur, color: texte }}>
-                  {num}
-                </div>
-                <div>
-                  <h3 className="font-bold text-gray-900">{titre}</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <AteliersCallout id="partenaires-ateliers-title" width="max-w-4xl" />
 
       {/* Partenaires confirmés */}
       <section className="py-14 px-4 bg-white">
@@ -257,36 +198,19 @@ export default function Partenaires() {
         </div>
       </section>
 
-      {/* Comment le portail pourra évoluer */}
-      <section className="py-14 px-4 bg-white">
-        <div className="max-w-4xl mx-auto">
-          <div className="rounded-2xl p-8" style={{ background: 'linear-gradient(135deg, #515792 0%, #3a7fc1 32%, #3aab8a 62%, #E07428 100%)' }}>
-            <h2 className="text-2xl font-bold text-white mb-4">Un site compagnon qui évolue avec l’outil</h2>
-            <p className="text-white/80 leading-relaxed">Après la mobilisation et le questionnaire, ce site accompagnera l’atelier, la définition du prototype, les tests avec les artistes et les premiers relais. Chaque étape rendra visibles les apprentissages et les décisions réellement prises.</p>
-          </div>
-        </div>
-      </section>
-
       {/* CTA */}
-      <section className="py-14 px-4" style={{ backgroundColor: '#f8f9fc' }}>
+      <section className="py-14 px-4 bg-white">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Contribuer à la première étape</h2>
-          <p className="text-gray-500 mb-8 max-w-xl mx-auto">Le questionnaire permet de recueillir les pratiques, les attentes et les questions qui prépareront le travail collectif. Si vous n’avez pas d’invitation, vous pourrez en demander une depuis ce parcours.</p>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Prêt à contribuer ?</h2>
+          <p className="text-gray-500 mb-8 max-w-xl mx-auto">Les ateliers et le questionnaire partenaire sont réunis sur une seule page. Le calendrier montre où en est le projet.</p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Button size="lg" style={{ backgroundColor: '#E07428', color: '#fff' }} asChild>
-              <a href="mailto:ulrich.fischer@memoways.com?subject=Boussole Numérique Culture — Je souhaite participer">
-                <MessageSquare className="mr-2 h-4 w-4" />
-                Demander une invitation
-              </a>
+              <Link href="/participer">Participer au projet <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
             <Button size="lg" variant="outline" style={{ borderColor: '#E07428', color: '#1f2937' }} asChild>
-              <Link href="/timeline">Voir les phases de l’outil <ArrowRight className="ml-2 h-4 w-4" /></Link>
+              <Link href="/timeline">Voir le calendrier</Link>
             </Button>
           </div>
-          <p className="mt-4 text-xs text-gray-400">
-            Ou écrire directement à{" "}
-            <a href="mailto:ulrich.fischer@memoways.com" className="underline hover:text-gray-600">ulrich.fischer@memoways.com</a>
-          </p>
         </div>
       </section>
     </div>

@@ -16,7 +16,7 @@ const routes = [
   "/partenaires",
   "/partenaires/presentation",
   "/partenaires/questionnaire",
-  "/ateliers",
+  "/participer",
   "/ressources",
   "/ressources/etude-complete",
   "/ressources/etat-des-lieux",
@@ -40,7 +40,7 @@ const screenshotRoutes = new Set([
   "/references",
   "/partenaires",
   "/partenaires/presentation",
-  "/ateliers",
+  "/participer",
   "/ressources",
 ]);
 

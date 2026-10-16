@@ -4,6 +4,8 @@
 
 ## État
 
+- **Navigation v1.10.0 (16 octobre)** : menu du haut réduit (Projet, Expérience, Partenaires, Calendrier + « Participer au projet »), page `/participer` (ateliers puis questionnaire), `/partenaires` simplifiée, cartes d’atelier réécrites, `/ateliers` redirigé. Détail : [`docs/ETAT_NAVIGATION_PARTICIPER_2026-10-16.md`](./docs/ETAT_NAVIGATION_PARTICIPER_2026-10-16.md). **À faire côté Notion** : raccourcir « Infos pratiques » (doublons avec la date et les places) et corriger l’option « Professionel du cinéma ».
+
 - **Lots 1 à 3 : livrés** (v1.4.0 à v1.4.3). Les trois parcours et la comparaison sont jouables.
 - **Retouches v1.5.1 (15 octobre)** : parole et transcription simultanées, curseurs avec résumé et indices tirés des mots de la personne, « La question de la Boussole », typographie allégée, citation d’Okafor retirée chez Claire. **En attente d’Ulrich** : deux liens vers ses billets sur les enjeux de la création culturelle, à placer dans « D’autres regards ».
 - **Retouches v1.7.0 (15 octobre)** : Okafor retiré du catalogue ; Marc recentré sur préparation, médiation et tournée (création hors écran) ; Nadia part de ses outils puis de ses besoins (11 échanges, ordre outils → données → publics → compétences → partage). Détail : [`docs/ETAT_RETOUCHES_MARC_NADIA_2026-10-15.md`](./docs/ETAT_RETOUCHES_MARC_NADIA_2026-10-15.md).
