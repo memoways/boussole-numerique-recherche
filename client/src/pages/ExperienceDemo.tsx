@@ -11,7 +11,7 @@ import FeedbackForm from "@/components/demo/FeedbackForm";
 import DemoShell, { DemoActions, demoPrimaryButton, demoSecondaryButton } from "@/components/demo/DemoShell";
 import FutureFeatures from "@/components/demo/FutureFeatures";
 import MicroDemos from "@/components/demo/MicroDemos";
-import PersonaPicker from "@/components/demo/PersonaPicker";
+import PersonaPicker, { PERSONA_STYLE } from "@/components/demo/PersonaPicker";
 import Restitution from "@/components/demo/Restitution";
 import StepPlaceholder from "@/components/demo/StepPlaceholder";
 import StepPlayer from "@/components/demo/StepPlayer";
@@ -40,14 +40,26 @@ function Redirect({ to }: { to: string }) {
 function Welcome({ persona }: { persona: DemoPersona }) {
   const { accueil } = DEMO_CONTENT;
   const ready = persona.statut === "pret";
+  const style = PERSONA_STYLE[persona.id];
+  const Icon = style.icon;
+  // Aucun titre rédigé après coup : l’écran dit qui est la personne, ce que la Boussole fait et que le parcours est fictif.
+  const values = { prenom: persona.prenom, metier: persona.metier.toLowerCase(), age: String(persona.age), contexte: persona.contexte };
   return (
     <>
       <section aria-labelledby="demo-accueil-titre">
-        <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#515792]">{persona.prenom} · {persona.metier}</p>
-        <h1 id="demo-accueil-titre" className="mt-2 text-2xl font-normal leading-tight text-slate-950 sm:text-4xl">{persona.accroche}</h1>
-        <p className="mt-3 max-w-2xl text-base leading-relaxed text-slate-800 sm:mt-4 sm:text-lg">{accueil.texte}</p>
+        <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#515792]">{accueil.surtitre}</p>
+        <h1 id="demo-accueil-titre" className="mt-2 text-2xl font-normal leading-tight text-slate-950 sm:text-4xl">{fillTemplate(accueil.titre, values)}</h1>
+        <p className="mt-3 max-w-2xl text-base font-semibold leading-relaxed text-slate-900 sm:mt-4 sm:text-lg">{fillTemplate(accueil.situation, values)}</p>
+        <p className="mt-2 max-w-2xl text-base leading-relaxed text-slate-800 sm:mt-3 sm:text-lg">{fillTemplate(accueil.objectif, values)}</p>
+        <aside aria-labelledby="demo-fictif-titre" className="mt-4 flex items-start gap-3 rounded-2xl border border-[#515792]/40 bg-white p-3.5 sm:mt-5 sm:p-4">
+          <Icon className="mt-0.5 h-5 w-5 shrink-0" style={{ color: style.color }} aria-hidden="true" />
+          <div>
+            <h2 id="demo-fictif-titre" className="text-base font-semibold text-slate-950">{fillTemplate(accueil.fictifTitre, values)}</h2>
+            <p className="mt-0.5 text-sm leading-relaxed text-slate-800 sm:text-base">{fillTemplate(accueil.fictif, values)}</p>
+          </div>
+        </aside>
         {ready && (
-          <div data-demo-aide className="mt-4 flex items-start gap-3 rounded-2xl border border-[#E07428]/50 bg-[#E07428]/10 p-3.5 sm:p-4">
+          <div data-demo-aide className="mt-3 flex items-start gap-3 rounded-2xl border border-[#E07428]/50 bg-[#E07428]/10 p-3.5 sm:mt-4 sm:p-4">
             <MousePointerClick className="mt-0.5 h-5 w-5 shrink-0 text-[#A8440D]" aria-hidden="true" />
             <div>
               <p className="text-sm font-semibold text-slate-950 sm:text-base">{accueil.aideTitre}</p>
@@ -55,7 +67,7 @@ function Welcome({ persona }: { persona: DemoPersona }) {
             </div>
           </div>
         )}
-        <div className="mt-3 sm:mt-5"><TrustNotice variant="debut" /></div>
+        <div className="mt-3 sm:mt-4"><TrustNotice variant="debut" /></div>
         {!ready && (
           <p role="note" className="mt-4 rounded-2xl border border-[#E07428]/40 bg-white p-4 text-sm leading-relaxed text-slate-800">
             {fillTemplate(accueil.avertissementPreparation, { prenom: persona.prenom })}

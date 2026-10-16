@@ -2,6 +2,18 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.9.0] — 2026-10-16 — Démo : accueil sans titre, Marc et Nadia au niveau de Claire
+
+### Modifié
+
+- Accueil de chaque parcours : plus de titre d’accroche rédigé après coup. L’écran dit « Tu es Marc, metteur en scène », donne l’âge et un contexte factuel, rappelle que tu réponds à la place de la personne et que la Boussole sert à faire le point (outils, fichiers, façon de faire ; ce qui fonctionne, ce qui pèse), puis précise que c’est fictif, que pour toi ce serait différent et que le parcours donne une idée de la mécanique et des principes.
+- Le champ `accroche` du JSON devient `contexte` (phrase factuelle). Choix de la personne : « Choisis la personne dont tu prends la place », bouton « Être Claire », carte avec métier, âge et contexte.
+- Marc : 12 échanges. Nouvel échange 7 sur la reprise d’un ancien spectacle (archivage des spectacles passés), nouveau curseur, deux ordres de grandeur illustratifs, une copie de plus dans la micro-démo de convergence, lettre, idéal et piste complétés.
+- Nadia : 12 échanges. Nouvel échange 4 (curseurs) avec la sauvegarde des images proposée puis corrigée, réponses plus riches aux échanges 2, 9 et 11, un curseur induit à l’échange 11, un ordre de grandeur illustratif de plus, lettre et idéal complétés.
+- `verify-demo-content` : refuse toute `accroche`, vérifie les textes d’accueil et impose aux trois parcours 12 échanges, au moins quatre échanges à curseurs induits et trois premiers regards avec ordre de grandeur illustratif. `check-demo-playback` : repères de Marc et de Nadia mis à jour, contrôles de l’accueil ajoutés.
+
+Voir [`docs/ETAT_ACCUEIL_ET_PARITE_PARCOURS_2026-10-16.md`](docs/ETAT_ACCUEIL_ET_PARITE_PARCOURS_2026-10-16.md).
+
 ## [1.8.0] — 2026-10-15 — Page Ateliers et inscription en ligne (source Notion)
 
 ### Ajouté
