@@ -143,8 +143,6 @@ export type DemoPersona = {
   prenom: string;
   age: number;
   metier: string;
-  /** Une phrase factuelle sur ce que la personne fait, sans titre ni jugement sur ses pratiques. */
-  contexte: string;
   ordreDimensions: DimensionId[];
   etapes: DemoStep[];
   ideal?: { question: string; transcription: string };
@@ -173,7 +171,7 @@ export type DemoContent = {
     debut: { titre: string; texte: string; engagementsTitre: string; engagements: string[] };
     fin: { texte: string };
   };
-  accueil: { surtitre: string; titre: string; situation: string; objectif: string; fictifTitre: string; fictif: string; avertissementPreparation: string; boutonCommencer: string; aideTitre: string; aideLecture: string; boutonAvis: string; boutonChangerPersona: string };
+  accueil: { titre: string; fictifTitre: string; fictif: string; avertissementPreparation: string; boutonCommencer: string; aideTitre: string; aideLecture: string; boutonAvis: string; boutonChangerPersona: string };
   preparation: { titre: string; texte: string; comparaisonTexte: string; boutonAccueil: string; boutonAvis: string };
   lecture: Record<
     | "boussole" | "echange" | "reponseDe" | "passerAnimation" | "continuer" | "suite" | "partie" | "rappelDit" | "consigne" | "retour" | "allerRestitution"

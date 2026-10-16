@@ -51,11 +51,11 @@ assert(!/\d/.test((content.niveauxRadar ?? []).join("")), "Les niveaux du radar 
 
 // L’accueil dit qui est la personne, ce que la Boussole fait et que le parcours est fictif, sans titre rédigé après coup.
 const welcome = content.accueil ?? {};
-for (const key of ["surtitre", "titre", "situation", "objectif", "fictifTitre", "fictif"]) assert(typeof welcome[key] === "string" && welcome[key].length > 0, `Accueil : le texte « ${key} » est requis.`);
+for (const key of ["titre", "fictifTitre", "fictif"]) assert(typeof welcome[key] === "string" && welcome[key].length > 0, `Accueil : le texte « ${key} » est requis.`);
 assert(/^Tu es \{prenom\}, \{metier\}$/.test(welcome.titre ?? ""), "Accueil : le titre doit dire « Tu es {prenom}, {metier} », sans accroche.");
-assert(/\{prenom\}.*\{age\}.*\{contexte\}/.test(welcome.situation ?? ""), "Accueil : la situation donne le prénom, l’âge et le contexte de la personne.");
-assert(/à la place de \{prenom\}/.test(welcome.objectif ?? "") && /faire le point/.test(welcome.objectif ?? ""), "Accueil : l’objectif rappelle qu’on répond à la place de la personne et que la Boussole fait le point.");
-assert(/ce serait différent/.test(welcome.fictif ?? "") && /mécanique/.test(welcome.fictif ?? "") && /principes/.test(welcome.fictif ?? ""), "Accueil : le texte fictif dit que ce serait différent pour soi et que la démo montre la mécanique et les principes.");
+assert(!("situation" in welcome) && !("objectif" in welcome), "Accueil : ni âge, ni contexte, ni paragraphe d’objectif ; les blocs suffisent.");
+assert(/à sa place/.test(welcome.fictif ?? "") && /ce serait différent/.test(welcome.fictif ?? "") && /mécanique/.test(welcome.fictif ?? "") && /principes/.test(welcome.fictif ?? ""), "Accueil : le texte fictif dit qu’on répond à la place de la personne, que ce serait différent pour soi, et que la démo montre la mécanique et les principes.");
+assert((welcome.fictif ?? "").split(/\s+/).length <= 35, "Accueil : le bloc fictif reste court (35 mots au plus).");
 assert(!("texte" in welcome), "Accueil : l’ancien texte d’accueil est remplacé par la situation, l’objectif et le texte fictif.");
 
 // --- Personas -----------------------------------------------------------------------------------------
@@ -69,8 +69,8 @@ const existingRoutes = new Set([...appSource.matchAll(/<Route path=\{"([^"]+)"\}
 for (const persona of personas) {
   const where = `Persona ${persona.id}`;
   assert(["pret", "en-preparation"].includes(persona.statut), `${where} : statut « pret » ou « en-preparation » attendu.`);
-  assert(persona.prenom && persona.metier && persona.contexte && persona.age, `${where} : prénom, âge, métier et contexte sont requis.`);
-  assert(!("accroche" in persona), `${where} : aucune accroche ni titre ne précède le parcours ; le contexte reste factuel.`);
+  assert(persona.prenom && persona.metier, `${where} : prénom et métier sont requis.`);
+  assert(!("accroche" in persona), `${where} : aucune accroche ni contexte ne précède le parcours : la personne reste ouverte à la projection.`);
   const order = persona.ordreDimensions ?? [];
   assert(order.length === 5 && DIMENSIONS.every((dimension) => order.includes(dimension)), `${where} : les 5 dimensions doivent apparaître une fois chacune.`);
   assert(JSON.stringify(order) === JSON.stringify(EXPECTED_ORDER[persona.id]), `${where} : l’ordre des dimensions diffère de celui du PRD.`);

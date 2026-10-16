@@ -20,7 +20,7 @@
   "niveauxTitre": "Ce que veulent dire les niveaux",
   "choixPersona": {
     "titre": "Choisis la personne dont tu prends la place",
-    "intro": "Trois personnes fictives, trois métiers. Tu réponds aux questions de la Boussole à la place de l’une d’elles, pour voir comment la future Boussole pourrait mener la conversation. Pour toi-même, ce serait différent : c’est une façon d’expérimenter la mécanique et les principes. Tu fais avancer le playback en cliquant sur le bouton orange.",
+    "intro": "Trois personnes fictives. Tu réponds à la place de l’une d’elles, pour voir comment la future Boussole mènerait la conversation. Pour toi, ce serait différent.",
     "bouton": "Être",
     "badgePreparation": "En préparation"
   },
@@ -40,12 +40,9 @@
     }
   },
   "accueil": {
-    "surtitre": "Parcours fictif",
     "titre": "Tu es {prenom}, {metier}",
-    "situation": "{prenom} a {age} ans. {contexte}",
-    "objectif": "Tu vas répondre aux questions de la Boussole à la place de {prenom}. La Boussole sert à faire le point sur les pratiques numériques d’une personne : ses outils, ses fichiers, sa façon de faire. Elle repère où elle en est, ce qui fonctionne et ce qui pèse. Il n’y a pas de bonne ou de mauvaise réponse. À la fin, elle rend une photo de ces pratiques et quelques pistes.",
     "fictifTitre": "Imagine que tu es {prenom}",
-    "fictif": "Voici ce que {prenom} pourrait vivre. Pour toi, avec ta propre situation, ce serait différent. Ce parcours sert à donner une idée de la mécanique et des principes de la Boussole.",
+    "fictif": "Tu réponds à sa place : voici ce que {prenom} pourrait vivre. Pour toi, ce serait différent. Ce parcours montre la mécanique et les principes de la Boussole.",
     "avertissementPreparation": "Le déroulé de la conversation de {prenom} est en cours de préparation. Tu peux déjà donner ton avis sur cette démonstration.",
     "boutonCommencer": "Commencer",
     "aideTitre": "Tu fais avancer la conversation",
@@ -200,7 +197,6 @@
       "prenom": "Claire",
       "age": 46,
       "metier": "Productrice cinéma",
-      "contexte": "Elle produit en ce moment un court métrage et un documentaire.",
       "ordreDimensions": ["outils", "donnees", "partage", "competences", "publics"],
       "etapes": [
         {
@@ -565,7 +561,6 @@
       "prenom": "Marc",
       "age": 39,
       "metier": "Metteur en scène",
-      "contexte": "Il met en scène les spectacles de sa compagnie : il les prépare avec son équipe, les présente aux programmateurs et les fait tourner.",
       "ordreDimensions": ["partage", "publics", "donnees", "outils", "competences"],
       "etapes": [
         {
@@ -931,7 +926,6 @@
       "prenom": "Nadia",
       "age": 58,
       "metier": "Plasticienne",
-      "contexte": "Elle crée des œuvres qu’elle montre en galerie, en résidence et sur son site.",
       "ordreDimensions": ["outils", "donnees", "publics", "competences", "partage"],
       "etapes": [
         {

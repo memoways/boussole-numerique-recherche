@@ -90,8 +90,8 @@ async function walk(label, viewport, { skip, persona: id = "cinema" }) {
   // Accueil sans titre rédigé après coup : on dit qui est la personne, ce que fait la Boussole, et que c’est fictif.
   const persona = CONTENT.personas.find((item) => item.id === id);
   ok((await page.locator("main h1").textContent()) === `Tu es ${persona.prenom}, ${persona.metier.toLowerCase()}`, `${label} accueil : « Tu es ${persona.prenom}, ${persona.metier.toLowerCase()} », sans titre d’accroche`);
-  ok((await page.getByText(persona.contexte, { exact: true }).count()) === 0 && (await page.getByText(`${persona.prenom} a ${persona.age} ans. ${persona.contexte}`, { exact: true }).count()) === 1, `${label} accueil : âge et contexte factuels de la personne`);
-  ok((await page.getByText(`Imagine que tu es ${persona.prenom}`).count()) === 1 && (await page.getByText("ce serait différent", { exact: false }).count()) === 1 && (await page.getByText("à la place de", { exact: false }).count()) === 1, `${label} accueil : on répond à la place de la personne, c’est fictif, pour soi ce serait différent`);
+  ok((await page.locator("main").getByText(/\d+ ans/).count()) === 0, `${label} accueil : ni âge ni contexte`);
+  ok((await page.getByText(`Imagine que tu es ${persona.prenom}`).count()) === 1 && (await page.getByText("ce serait différent", { exact: false }).count()) === 1 && (await page.getByText("à sa place", { exact: false }).count()) === 1, `${label} accueil : on répond à la place de la personne, c’est fictif, pour soi ce serait différent`);
   await page.screenshot({ path: `${OUT}/${label}-accueil.png`, fullPage: true });
   await page.getByRole("link", { name: /Commencer/ }).click();
 

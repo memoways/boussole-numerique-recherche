@@ -1,4 +1,4 @@
-/** Choix du persona : trois cartes (pictogramme, prénom, métier et âge, contexte factuel), sans photo de personne ni titre. */
+/** Choix du persona : trois cartes (pictogramme, prénom, métier), sans photo, sans âge ni titre : la personne reste ouverte à la projection. */
 import { Clapperboard, Drama, Palette, type LucideIcon } from "lucide-react";
 import { Link } from "wouter";
 import { trackDemoEvent } from "@/lib/analytics";
@@ -36,8 +36,8 @@ export default function PersonaPicker() {
                   <span className="text-2xl font-normal text-slate-950">{persona.prenom}</span>
                   {persona.statut !== "pret" && <span className="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-semibold text-slate-700">{choixPersona.badgePreparation}</span>}
                 </span>
-                <span className="text-sm font-semibold text-slate-700">{persona.metier}, {persona.age} ans</span>
-                <span className="mt-1.5 flex-1 text-sm leading-snug sm:mt-3 sm:leading-relaxed text-slate-700">{persona.contexte}</span>
+                <span className="text-sm font-semibold text-slate-700">{persona.metier}</span>
+                <span className="flex-1" />
                 <span className="mt-2 text-sm font-semibold text-[#515792] sm:mt-5 underline-offset-4 group-hover:underline">
                   {choixPersona.bouton} {persona.prenom} →
                 </span>

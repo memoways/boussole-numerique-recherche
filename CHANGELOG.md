@@ -6,8 +6,8 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 
 ### Modifié
 
-- Accueil de chaque parcours : plus de titre d’accroche rédigé après coup. L’écran dit « Tu es Marc, metteur en scène », donne l’âge et un contexte factuel, rappelle que tu réponds à la place de la personne et que la Boussole sert à faire le point (outils, fichiers, façon de faire ; ce qui fonctionne, ce qui pèse), puis précise que c’est fictif, que pour toi ce serait différent et que le parcours donne une idée de la mécanique et des principes.
-- Le champ `accroche` du JSON devient `contexte` (phrase factuelle). Choix de la personne : « Choisis la personne dont tu prends la place », bouton « Être Claire », carte avec métier, âge et contexte.
+- Accueil de chaque parcours : plus de titre d’accroche rédigé après coup, ni âge ni contexte. L’écran dit « Tu es Marc, metteur en scène », puis trois blocs : « Imagine que tu es Marc » (tu réponds à sa place, pour toi ce serait différent, la démo montre la mécanique et les principes), la consigne du playback et le message de confiance.
+- Le champ `accroche` du JSON disparaît. Choix de la personne : « Choisis la personne dont tu prends la place », bouton « Être Claire », carte réduite au prénom et au métier.
 - Marc : 12 échanges. Nouvel échange 7 sur la reprise d’un ancien spectacle (archivage des spectacles passés), nouveau curseur, deux ordres de grandeur illustratifs, une copie de plus dans la micro-démo de convergence, lettre, idéal et piste complétés.
 - Nadia : 12 échanges. Nouvel échange 4 (curseurs) avec la sauvegarde des images proposée puis corrigée, réponses plus riches aux échanges 2, 9 et 11, un curseur induit à l’échange 11, un ordre de grandeur illustratif de plus, lettre et idéal complétés.
 - `verify-demo-content` : refuse toute `accroche`, vérifie les textes d’accueil et impose aux trois parcours 12 échanges, au moins quatre échanges à curseurs induits et trois premiers regards avec ordre de grandeur illustratif. `check-demo-playback` : repères de Marc et de Nadia mis à jour, contrôles de l’accueil ajoutés.

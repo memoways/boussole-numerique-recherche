@@ -6,10 +6,10 @@
 
 | Retour | Réalisation |
 |---|---|
-| Le titre donné à chaque personne perturbe : il juge les pratiques avant le questionnaire | Le champ `accroche` disparaît (JSON, type, carte de choix, accueil). Il est remplacé par `contexte`, une phrase factuelle sur ce que fait la personne, sans conclusion. Le contrôle refuse toute `accroche`. |
-| Redire clairement « tu es Marc » et l’enjeu : répondre à sa place | L’accueil s’ouvre sur « Tu es Marc, metteur en scène », puis « Marc a 39 ans » et son contexte. L’objectif rappelle que tu réponds à la place de Marc et que la Boussole sert à faire le point : outils, fichiers, façon de faire, ce qui fonctionne, ce qui pèse. |
-| Dire que c’est fictif et que ce serait différent pour soi | Encadré « Imagine que tu es Marc » : voici ce que Marc pourrait vivre ; pour toi, avec ta propre situation, ce serait différent ; le parcours donne une idée de la mécanique et des principes. Le bandeau permanent et le message de confiance restent. |
-| Choix de la personne | Titre « Choisis la personne dont tu prends la place », bouton « Être Claire / Marc / Nadia », carte avec métier, âge et contexte factuel. |
+| Le titre donné à chaque personne perturbe : il juge les pratiques avant le questionnaire | Le champ `accroche` disparaît (JSON, type, carte de choix, accueil), sans remplaçant. Le contrôle refuse toute `accroche`. |
+| Redire clairement « tu es Marc » et l’enjeu | L’accueil s’ouvre sur « Tu es Marc, metteur en scène ». Première version trop verbeuse (âge, contexte, paragraphe d’objectif qui répétait les blocs) : retirée le jour même sur retour d’Ulrich. |
+| Dire que c’est fictif et que ce serait différent pour soi | Accueil final : le titre et trois blocs. « Imagine que tu es Marc » (tu réponds à sa place ; pour toi, ce serait différent ; la démo montre la mécanique et les principes), « Tu fais avancer la conversation » (playback) et « Avant de commencer » (confiance). Ni âge, ni contexte, ni sur-titre : la personne reste ouverte à la projection. |
+| Choix de la personne | Titre « Choisis la personne dont tu prends la place », deux phrases d’introduction, bouton « Être Claire / Marc / Nadia ». Chaque carte ne montre que le prénom et le métier. |
 | Marc et Nadia manquent de richesse par rapport à Claire | Mêmes exigences que Claire, contrôlées désormais pour les trois parcours (voir ci-dessous). |
 
 ## Exigences communes aux trois parcours
@@ -37,13 +37,13 @@
 ## Contrôles
 
 - `pnpm verify` réussi (TypeScript, build, SEO, API, contenu de la démo).
-- `pnpm check:demo-playback http://127.0.0.1:4173` : 758 vérifications réussies, 0 échec, sur ordinateur (1280 px) et mobile (390 px), pour les trois parcours, la comparaison et les redirections. Nouveaux contrôles d’accueil : titre « Tu es {prénom}, {métier} », âge et contexte, encadré fictif, « à la place de ».
+- `pnpm check:demo-playback http://127.0.0.1:4173` : 758 vérifications réussies, 0 échec, sur ordinateur (1280 px) et mobile (390 px), pour les trois parcours, la comparaison et les redirections. Contrôles d’accueil : titre « Tu es {prénom}, {métier} », ni âge ni contexte, encadré fictif, « à sa place ».
 - Repères du script mis à jour : Marc 12 échanges (premiers regards 3, 5, 8, 10, 12 ; rebonds 5 et 12 ; correction à l’échange 8) ; Nadia 12 échanges (premiers regards 2, 5, 8, 10, 12 ; rebonds 2 et 10 ; correction à l’échange 7). Les redirections « étape 12 absente » deviennent « étape 13 absente ».
 - Non vérifié : `docker build` (Docker absent), appareils iOS et Android réels.
 
 ## À relire par Ulrich
 
-- Les contextes factuels des trois cartes et les textes d’accueil (`accueil` et `contexte` dans le JSON).
+- Le texte d’accueil allégé (`accueil` dans le JSON) et l’introduction du choix de la personne.
 - Les répliques nouvelles ou allongées de Marc (échange 7) et de Nadia (échanges 2, 4, 9, 11), qui sont des textes fictifs.
 - Les trois ordres de grandeur ajoutés pour Marc et Nadia, tous marqués « illustratif ».
 - Les « D’autres regards » de Marc et de Nadia sont inchangés : aucune citation nouvelle n’a été ajoutée sans lecture de la source.
