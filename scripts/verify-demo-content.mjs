@@ -49,6 +49,15 @@ assert(content.avis?.confirmation === "Merci, ton avis est bien arrivé.", "La c
 assert(content.avis?.erreurEnvoi === "L’envoi n’a pas abouti, tu peux réessayer.", "Le message d’erreur d’envoi doit être « L’envoi n’a pas abouti, tu peux réessayer. ».");
 assert(!/\d/.test((content.niveauxRadar ?? []).join("")), "Les niveaux du radar ne doivent contenir aucun chiffre.");
 
+// L’accueil dit qui est la personne, ce que la Boussole fait et que le parcours est fictif, sans titre rédigé après coup.
+const welcome = content.accueil ?? {};
+for (const key of ["surtitre", "titre", "situation", "objectif", "fictifTitre", "fictif"]) assert(typeof welcome[key] === "string" && welcome[key].length > 0, `Accueil : le texte « ${key} » est requis.`);
+assert(/^Tu es \{prenom\}, \{metier\}$/.test(welcome.titre ?? ""), "Accueil : le titre doit dire « Tu es {prenom}, {metier} », sans accroche.");
+assert(/\{prenom\}.*\{age\}.*\{contexte\}/.test(welcome.situation ?? ""), "Accueil : la situation donne le prénom, l’âge et le contexte de la personne.");
+assert(/à la place de \{prenom\}/.test(welcome.objectif ?? "") && /faire le point/.test(welcome.objectif ?? ""), "Accueil : l’objectif rappelle qu’on répond à la place de la personne et que la Boussole fait le point.");
+assert(/ce serait différent/.test(welcome.fictif ?? "") && /mécanique/.test(welcome.fictif ?? "") && /principes/.test(welcome.fictif ?? ""), "Accueil : le texte fictif dit que ce serait différent pour soi et que la démo montre la mécanique et les principes.");
+assert(!("texte" in welcome), "Accueil : l’ancien texte d’accueil est remplacé par la situation, l’objectif et le texte fictif.");
+
 // --- Personas -----------------------------------------------------------------------------------------
 const personas = content.personas ?? [];
 assert(JSON.stringify(personas.map((persona) => persona.id)) === JSON.stringify(PERSONA_IDS), "Les trois personas doivent être cinema, scene et arts-visuels, dans cet ordre.");
@@ -60,7 +69,8 @@ const existingRoutes = new Set([...appSource.matchAll(/<Route path=\{"([^"]+)"\}
 for (const persona of personas) {
   const where = `Persona ${persona.id}`;
   assert(["pret", "en-preparation"].includes(persona.statut), `${where} : statut « pret » ou « en-preparation » attendu.`);
-  assert(persona.prenom && persona.metier && persona.accroche, `${where} : prénom, métier et accroche sont requis.`);
+  assert(persona.prenom && persona.metier && persona.contexte && persona.age, `${where} : prénom, âge, métier et contexte sont requis.`);
+  assert(!("accroche" in persona), `${where} : aucune accroche ni titre ne précède le parcours ; le contexte reste factuel.`);
   const order = persona.ordreDimensions ?? [];
   assert(order.length === 5 && DIMENSIONS.every((dimension) => order.includes(dimension)), `${where} : les 5 dimensions doivent apparaître une fois chacune.`);
   assert(JSON.stringify(order) === JSON.stringify(EXPECTED_ORDER[persona.id]), `${where} : l’ordre des dimensions diffère de celui du PRD.`);
@@ -68,6 +78,10 @@ for (const persona of personas) {
 
   const steps = persona.etapes ?? [];
   assert(steps.length >= 10 && steps.length <= 12, `${where} : 10 à 12 interactions attendues (${steps.length} trouvées).`);
+  // Même exigence pour les trois parcours : Claire est la référence, Marc et Nadia la rejoignent (14 octobre 2026, retours d’Ulrich).
+  assert(steps.length === 12, `${where} : les trois parcours comptent 12 échanges (${steps.length} trouvés).`);
+  assert(steps.filter((step) => (step.retenu?.curseurs ?? []).length > 0).length >= 4, `${where} : au moins quatre échanges avec des curseurs induits sont attendus.`);
+  assert(steps.filter((step) => step.pointEtape?.ordreDeGrandeur).length >= 3, `${where} : au moins trois « premiers regards » avec un ordre de grandeur illustratif sont attendus.`);
   assert(steps.every((step, index) => step.id === index + 1), `${where} : les étapes doivent être numérotées de 1 à N sans trou.`);
   const stepDimensions = [...new Set(steps.map((step) => step.dimension))];
   assert(JSON.stringify(stepDimensions) === JSON.stringify(order), `${where} : les étapes doivent suivre l’ordre déclaré des dimensions.`);

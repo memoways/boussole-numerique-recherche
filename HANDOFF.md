@@ -1,12 +1,13 @@
 # HANDOFF — Démo playback `/experience/demo`
 
-> Mis à jour le 15 octobre 2026, après le lot 4 (v1.5.0). Plan complet : [`docs/PLAN_DEMO_PLAYBACK_2026-10-14.md`](./docs/PLAN_DEMO_PLAYBACK_2026-10-14.md). États détaillés : [lot 1](./docs/ETAT_LOT1_DEMO_PLAYBACK_2026-10-14.md), [lot 2](./docs/ETAT_LOT2_DEMO_PLAYBACK_2026-10-14.md), [lot 2bis](./docs/ETAT_LOT2BIS_DEMO_PLAYBACK_2026-10-14.md), [lot 3](./docs/ETAT_LOT3_DEMO_PLAYBACK_2026-10-14.md), [lot 4](./docs/ETAT_LOT4_DEMO_PLAYBACK_2026-10-15.md).
+> Mis à jour le 16 octobre 2026 (v1.9.0, accueil sans titre et trois parcours à égalité). Plan complet : [`docs/PLAN_DEMO_PLAYBACK_2026-10-14.md`](./docs/PLAN_DEMO_PLAYBACK_2026-10-14.md). États détaillés : [lot 1](./docs/ETAT_LOT1_DEMO_PLAYBACK_2026-10-14.md), [lot 2](./docs/ETAT_LOT2_DEMO_PLAYBACK_2026-10-14.md), [lot 2bis](./docs/ETAT_LOT2BIS_DEMO_PLAYBACK_2026-10-14.md), [lot 3](./docs/ETAT_LOT3_DEMO_PLAYBACK_2026-10-14.md), [lot 4](./docs/ETAT_LOT4_DEMO_PLAYBACK_2026-10-15.md).
 
 ## État
 
 - **Lots 1 à 3 : livrés** (v1.4.0 à v1.4.3). Les trois parcours et la comparaison sont jouables.
 - **Retouches v1.5.1 (15 octobre)** : parole et transcription simultanées, curseurs avec résumé et indices tirés des mots de la personne, « La question de la Boussole », typographie allégée, citation d’Okafor retirée chez Claire. **En attente d’Ulrich** : deux liens vers ses billets sur les enjeux de la création culturelle, à placer dans « D’autres regards ».
 - **Retouches v1.7.0 (15 octobre)** : Okafor retiré du catalogue ; Marc recentré sur préparation, médiation et tournée (création hors écran) ; Nadia part de ses outils puis de ses besoins (11 échanges, ordre outils → données → publics → compétences → partage). Détail : [`docs/ETAT_RETOUCHES_MARC_NADIA_2026-10-15.md`](./docs/ETAT_RETOUCHES_MARC_NADIA_2026-10-15.md).
+- **Retouches v1.9.0 (16 octobre)** : accueil sans titre d’accroche (« Tu es Marc, metteur en scène », contexte factuel, enjeu, rappel que c’est fictif) ; Marc et Nadia passent à 12 échanges avec les mêmes exigences que Claire (curseurs, ordres de grandeur illustratifs, restitutions plus fournies). Détail : [`docs/ETAT_ACCUEIL_ET_PARITE_PARCOURS_2026-10-16.md`](./docs/ETAT_ACCUEIL_ET_PARITE_PARCOURS_2026-10-16.md). À relire par Ulrich : textes d’accueil, contextes des cartes, répliques nouvelles.
 - **Lot 4 (ressources liées et finitions) : livré en v1.5.0.**
   - « D’autres regards » sous 13 échanges : 17 citations tirées de 12 ressources du corpus « Ressources web MW », selon l’annexe v3 validée par Ulrich (Notion `3fa511682fc381de8faefae21f4bc741`).
   - Le bloc « La Boussole retient » sous la réponse est retiré. Les curseurs induits et la validation passent dans « D’après ce que tu dis… ».
