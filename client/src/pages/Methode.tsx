@@ -292,7 +292,7 @@ export default function Methode() {
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Button style={{ backgroundColor: '#515792' }} asChild>
-              <Link href="/partenaires">Signaler mon intérêt <ArrowRight className="ml-2 h-4 w-4" /></Link>
+              <Link href="/participer">Signaler mon intérêt <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
             <Button variant="outline" style={{ borderColor: '#E27227', color: '#E27227' }} asChild>
               <a href="mailto:ulrich.fischer@memoways.com?subject=Question méthode ou gouvernance Boussole">

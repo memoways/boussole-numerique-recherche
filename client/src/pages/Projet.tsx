@@ -823,7 +823,7 @@ export default function Projet() {
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Button style={{ backgroundColor: '#E27227' }} asChild>
-              <Link href="/partenaires">Découvrir comment contribuer <ArrowRight className="ml-2 h-4 w-4" /></Link>
+              <Link href="/participer">Découvrir comment contribuer <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
             <Button variant="outline" style={{ borderColor: '#515792', color: '#515792' }} asChild>
               <Link href="/recherche">Consulter les constats documentés</Link>

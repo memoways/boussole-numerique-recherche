@@ -2,6 +2,21 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [1.10.0] — 2026-10-16 — Menu simplifié, page « Participer au projet », cartes d’atelier lisibles
+
+### Ajouté
+
+- Page `/participer` : les ateliers d’abord (format d’un atelier, cartes, inscription), puis le questionnaire partenaire et la demande d’invitation. Ancres `#ateliers`, `#questionnaire` et `#<slug>` d’un atelier.
+
+### Modifié
+
+- Menu du haut : Projet, Expérience, Partenaires, Calendrier, puis le bouton « Participer au projet » vers `/participer`. Méthode et Ateliers quittent le menu et restent dans le pied de page (colonne « Engagement » : Participer au projet, Ateliers, Partenaires, Données & gouvernance).
+- `/partenaires` simplifiée : plus de mini-chronologie, de parcours en quatre étapes, de bloc ateliers ni de bloc « site compagnon ». Un CTA vers `/participer` en haut et un seul bouton « Voir le calendrier » en bas.
+- Cartes d’atelier : public (« À qui s’adresse cet atelier ») et informations pratiques visibles sans clic, objectifs et programme en puces, ligne « Organisateur » retirée, libellé « Professionnel·les du cinéma ».
+- `/ateliers` redirige vers `/participer` (301 Nginx, redirection client qui conserve `#<slug>`) ; canonique et SEO mis à jour, `llms.txt` et pré-rendu inclus. Les CTA « contribuer » de Projet et Méthode et le bloc d’appel de l’accueil pointent vers `/participer`.
+
+Voir [`docs/ETAT_NAVIGATION_PARTICIPER_2026-10-16.md`](docs/ETAT_NAVIGATION_PARTICIPER_2026-10-16.md).
+
 ## [1.9.0] — 2026-10-16 — Démo : accueil sans titre, Marc et Nadia au niveau de Claire
 
 ### Modifié

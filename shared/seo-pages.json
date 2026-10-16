@@ -34,9 +34,15 @@
     "title": "Co-concevoir la Boussole en préparation | Partenaires",
     "description": "Le site compagnon rassemble les retours des partenaires culturels afin de cadrer puis tester une Boussole avec les artistes."
   },
+  "/participer": {
+    "title": "Participer au projet | Ateliers et questionnaire",
+    "description": "Participer à la co-conception de la Boussole Numérique Culture : s’inscrire à un atelier en ligne ou répondre au questionnaire partenaire."
+  },
   "/ateliers": {
-    "title": "Ateliers de la Boussole | Inscription en ligne",
-    "description": "Dates, lieux et programme des ateliers de co-conception de la Boussole Numérique Culture, avec inscription en ligne pour les partenaires culturels et les artistes."
+    "title": "Participer au projet | Ateliers et questionnaire",
+    "description": "Participer à la co-conception de la Boussole Numérique Culture : s’inscrire à un atelier en ligne ou répondre au questionnaire partenaire.",
+    "canonicalPath": "/participer",
+    "index": false
   },
   "/partenaires/presentation": {
     "title": "Découvrir la Boussole | Partenaires",

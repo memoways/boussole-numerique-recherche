@@ -28,8 +28,9 @@ const NAV_COLUMNS = [
   {
     title: "Engagement",
     links: [
+      { href: "/participer", label: "Participer au projet" },
+      { href: "/participer#ateliers", label: "Ateliers" },
       { href: "/partenaires", label: "Partenaires & pilotes" },
-      { href: "/ateliers", label: "Ateliers" },
       { href: "/methode", label: "Données & gouvernance" },
     ],
   },
@@ -128,7 +129,7 @@ export default function Footer() {
             </Link>
             <span className="text-gray-300">·</span>
             <Link
-              href="/partenaires"
+              href="/participer"
               className="inline-flex items-center gap-1 text-xs font-semibold transition-colors"
               style={{ color: "#E27227" }}
               onMouseEnter={e => (e.currentTarget.style.opacity = "0.8")}

@@ -15,7 +15,7 @@ export default function AteliersCallout({ id, width = "max-w-6xl" }: { id: strin
             <h2 id={id} className="mt-3 max-w-3xl text-2xl font-extrabold tracking-tight text-slate-950 sm:text-3xl">Participer à un atelier de la Boussole</h2>
             <p className="mt-3 max-w-2xl leading-relaxed text-slate-600">Les ateliers réunissent partenaires culturels et artistes pour co-concevoir l’outil. Consultez les dates confirmées et inscrivez-vous en ligne.</p>
           </div>
-          <Link href="/ateliers" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-[#E07428] px-6 text-sm font-bold text-white shadow-sm transition-colors hover:bg-[#c9651f] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E07428]">
+          <Link href="/participer#ateliers" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-[#E07428] px-6 text-sm font-bold text-white shadow-sm transition-colors hover:bg-[#c9651f] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E07428]">
             Voir les ateliers <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
         </div>

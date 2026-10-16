@@ -174,6 +174,10 @@ Le calendrier public est désormais le même sur l’accueil, `/partenaires`, `/
 
 Les échanges et ateliers de fin 2026 – début 2027 ont maintenant une page à eux : `/ateliers`. L’équipe y gère les dates dans Notion (base « Ateliers Boussole »), le site les affiche, et chaque personne peut s’inscrire depuis la carte de l’atelier ; l’inscription arrive dans la base « Inscriptions ateliers Boussole ». Le choix de ne rien stocker ailleurs qu’en Notion suit celui des retours du démonstrateur : l’équipe travaille déjà dans Notion, aucune base n’est ajoutée à exploiter, et l’API réutilise la même intégration « Boussole démo ». Aucun e-mail de confirmation n’est envoyé ; le message de succès le dit et invite à garder la date. Les places restantes sont calculées sur les inscriptions non annulées, avec une capacité de 15 par défaut, et l’API revérifie ouverture, places et doublon avant chaque écriture. L’accueil et `/partenaires` renvoient vers la page. Voir [`docs/ETAT_ATELIERS_INSCRIPTION_2026-10-15.md`](docs/ETAT_ATELIERS_INSCRIPTION_2026-10-15.md).
 
+### Menu simplifié et page « Participer au projet » (16 octobre 2026)
+
+Le menu du haut garde Projet, Expérience, Partenaires et Calendrier, plus le bouton orange « Participer au projet ». Méthode et Ateliers passent dans le pied de page. `/participer` réunit les actions concrètes : les ateliers en premier, puis le questionnaire partenaire et la demande d’invitation. `/partenaires` redevient une présentation des partenaires, avec un seul bouton vers le calendrier. Les cartes d’atelier montrent le public et les informations pratiques sans clic, puis objectifs et programme en puces ; la ligne « Organisateur » n’est plus affichée. `/ateliers` redirige vers `/participer`. Détail : [`docs/ETAT_NAVIGATION_PARTICIPER_2026-10-16.md`](docs/ETAT_NAVIGATION_PARTICIPER_2026-10-16.md).
+
 ## 5. Décisions structurantes
 
 | Décision | Raison | Effet pratique |
