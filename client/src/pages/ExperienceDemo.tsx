@@ -42,16 +42,13 @@ function Welcome({ persona }: { persona: DemoPersona }) {
   const ready = persona.statut === "pret";
   const style = PERSONA_STYLE[persona.id];
   const Icon = style.icon;
-  // Aucun titre rédigé après coup : l’écran dit qui est la personne, ce que la Boussole fait et que le parcours est fictif.
-  const values = { prenom: persona.prenom, metier: persona.metier.toLowerCase(), age: String(persona.age), contexte: persona.contexte };
+  // Aucun titre rédigé après coup, ni âge ni contexte : on dit seulement qui tu es et que c’est fictif.
+  const values = { prenom: persona.prenom, metier: persona.metier.toLowerCase() };
   return (
     <>
       <section aria-labelledby="demo-accueil-titre">
-        <p className="text-sm font-semibold uppercase tracking-[0.14em] text-[#515792]">{accueil.surtitre}</p>
-        <h1 id="demo-accueil-titre" className="mt-2 text-2xl font-normal leading-tight text-slate-950 sm:text-4xl">{fillTemplate(accueil.titre, values)}</h1>
-        <p className="mt-3 max-w-2xl text-base font-semibold leading-relaxed text-slate-900 sm:mt-4 sm:text-lg">{fillTemplate(accueil.situation, values)}</p>
-        <p className="mt-2 max-w-2xl text-base leading-relaxed text-slate-800 sm:mt-3 sm:text-lg">{fillTemplate(accueil.objectif, values)}</p>
-        <aside aria-labelledby="demo-fictif-titre" className="mt-4 flex items-start gap-3 rounded-2xl border border-[#515792]/40 bg-white p-3.5 sm:mt-5 sm:p-4">
+        <h1 id="demo-accueil-titre" className="text-2xl font-normal leading-tight text-slate-950 sm:text-4xl">{fillTemplate(accueil.titre, values)}</h1>
+        <aside aria-labelledby="demo-fictif-titre" className="mt-4 flex items-start gap-3 rounded-2xl border border-[#515792]/40 bg-white p-3.5 sm:mt-6 sm:p-4">
           <Icon className="mt-0.5 h-5 w-5 shrink-0" style={{ color: style.color }} aria-hidden="true" />
           <div>
             <h2 id="demo-fictif-titre" className="text-base font-semibold text-slate-950">{fillTemplate(accueil.fictifTitre, values)}</h2>
