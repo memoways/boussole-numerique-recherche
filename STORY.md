@@ -1,5 +1,10 @@
 # STORY.md — Boussole Numérique Culture
 
+## 14 novembre 2026 — Choisir les Nouvelles de la Boussole
+
+Le site compagnon propose un abonnement propre au projet. Le choix et sa confirmation restent indépendants de Memoways, des ateliers et de l’ouverture publique. Le retrait d’une seule newsletter garde l’autre abonnement. Les formulaires, confirmations et retraits ont été parcourus sur ordinateur et mobile avec des réponses API simulées ; aucun email réel envoyé. Le backend Memoways et son gate Staging restent nécessaires avant ouverture effective.
+
+
 ## 1. Raison d’être du projet
 
 **Boussole Numérique Culture** est un outil en co-conception et son site compagnon. La future version aidera les actrices, acteurs et structures culturelles à situer leurs pratiques numériques, à reconnaître leurs priorités et à choisir des pistes d’action compréhensibles. Le site rend l’outil, son contexte, ses références, ses principes de gouvernance et les manières de contribuer lisibles au fil de son développement.

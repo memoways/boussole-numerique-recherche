@@ -1,4 +1,7 @@
 {
+"/nouvelles": {"title": "Nouvelles de la Boussole | Boussole Numérique Culture", "description": "Les avancées du projet par email, avec un abonnement indépendant à confirmer."},
+"/nouvelles/confirmation": {"title": "Confirmer les Nouvelles de la Boussole", "description": "Confirmer uniquement cet abonnement.", "index": false},
+"/nouvelles/preferences": {"title": "Préférences des Nouvelles de la Boussole", "description": "Se désinscrire uniquement de cette newsletter.", "index": false},
   "/": {
     "title": "Boussole en préparation | Site compagnon pour la culture",
     "description": "Le site compagnon d’une Boussole Numérique Culture en préparation : démonstrateur dès octobre 2026, échanges et ateliers fin 2026 – début 2027, première version visée en février–mars 2027."

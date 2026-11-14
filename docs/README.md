@@ -4,6 +4,7 @@ Ce dossier réunit les documents nécessaires au développement, à l’exploita
 
 | Document | Contenu | Quand le consulter |
 |---|---|---|
+| [Nouvelles de la Boussole — 14 novembre 2026](./ETAT_NEWSLETTERS_2026-11-14.md) | Parcours, indépendance des choix, preuve de recette et gate du backend Memoways. | Avant activation ou diffusion newsletter. |
 | [Plan partenaire — présentation et questionnaire](./PLAN_PARTENAIRES_PRESENTATION_QUESTIONNAIRE.md) | Cadrage, parcours, données, sécurité, présentation enrichie et administration. | Avant toute évolution fonctionnelle du module partenaire. |
 | [Tutoriel Coolify — module partenaire](./PARTNER_FEEDBACK_OPERATIONS.md) | PostgreSQL privé, API, secrets, domaine, `/admin`, sauvegardes et contrôle pilote. | Pour activer ou maintenir la collecte partenaire. |
 | [Validation — présentation et administration](./VALIDATION_PRESENTATION_ADMIN.md) | Contrôles de l’interface locale et tests restant après déploiement. | Avant l’ouverture du pilote. |

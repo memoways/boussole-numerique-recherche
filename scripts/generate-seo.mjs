@@ -21,6 +21,14 @@ const navigation = [
 ];
 
 const pages = {
+  "/nouvelles": {
+    title: "Nouvelles de la Boussole | Boussole Numérique Culture",
+    description: "Choisir et confirmer l’abonnement aux Nouvelles de la Boussole, indépendamment des ateliers et de la newsletter Memoways.",
+    h1: "Nouvelles de la Boussole", intro: "Les avancées du projet et les ressources pour les pratiques numériques dans la culture. Un abonnement par email à confirmer séparément.",
+    sections: [{heading:"Un choix indépendant",text:"L’intérêt pour un atelier ou l’ouverture publique n’inscrit pas à cette newsletter. Chaque abonnement se confirme et se retire séparément."}],links:[{label:"Participer au projet",path:"/participer"}],
+  },
+  "/nouvelles/confirmation": {title:"Confirmer les Nouvelles de la Boussole",description:"Confirmer son choix de recevoir les Nouvelles de la Boussole.",h1:"Confirmer mon inscription",intro:"Ce choix concerne uniquement les Nouvelles de la Boussole.",index:false,sections:[],links:[]},
+  "/nouvelles/preferences": {title:"Préférences des Nouvelles de la Boussole",description:"Retirer uniquement son abonnement aux Nouvelles de la Boussole.",h1:"Me désinscrire",intro:"Vos autres abonnements restent inchangés.",index:false,sections:[],links:[]},
   "/": {
     title: "Boussole en préparation | Site compagnon pour la culture",
     description: "Le site compagnon d’une Boussole Numérique Culture en préparation : démonstrateur dès octobre 2026, échanges et ateliers fin 2026 – début 2027, première version visée en février–mars 2027.",
@@ -366,7 +374,7 @@ async function generate() {
   }
   await writeTextFile("404.html", withStaticPage(template, "/404", { ...notFoundPage, ...(seoMetadata["/404"] ?? {}) }));
 
-  const sitemapEntries = Object.keys(pages).map((path) => {
+  const sitemapEntries = Object.keys(pages).filter(path=>pages[path].index !== false).map((path) => {
     const priority = path === "/" ? "1.0" : path === "/projet" || path === "/partenaires" ? "0.9" : "0.7";
     return `  <url>\n    <loc>${escapeHtml(canonicalUrl(path))}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
   }).join("\n");
