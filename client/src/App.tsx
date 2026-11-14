@@ -21,6 +21,7 @@ import Timeline from "./pages/Timeline";
 import Recherche from "./pages/Recherche";
 import References from "./pages/References";
 import Partenaires from "./pages/Partenaires";
+import Nouvelles from "./pages/Nouvelles";
 import Participer from "./pages/Participer";
 import PartnerPresentation from "./pages/PartnerPresentation";
 import PartnerQuestionnaire from "./pages/PartnerQuestionnaire";
@@ -111,6 +112,9 @@ function Router() {
         <Route path={"/recherche"} component={Recherche} />
         <Route path={"/references"} component={References} />
         <Route path={"/partenaires"} component={Partenaires} />
+        <Route path="/nouvelles/confirmation"><Nouvelles mode="confirm" /></Route>
+        <Route path="/nouvelles/preferences"><Nouvelles mode="unsubscribe" /></Route>
+        <Route path="/nouvelles"><Nouvelles /></Route>
         <Route path={"/participer"} component={Participer} />
         <Route path={"/partenaires/presentation"} component={PartnerPresentation} />
         <Route path={"/partenaires/questionnaire/:token"} component={PartnerQuestionnaire} />

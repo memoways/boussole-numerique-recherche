@@ -2,6 +2,12 @@
 
 Ce journal consolide les modifications **effectivement livrées** dans le dépôt. Il suit l’esprit de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) : chaque version décrit les fonctions, corrections et décisions qui ont modifié le portail ou son exploitation.
 
+## [Unreleased]
+
+- `/nouvelles`, `/nouvelles/confirmation`, `/nouvelles/preferences` : formulaire Boussole dédié, accord décoché, confirmation explicite et retrait du seul abonnement Boussole. Identité du projet, état indisponible honnête, fragments de jetons effacés ; aucune clé privée côté client.
+- CTA newsletter dans l’accueil, Participer et le pied de page ; liens distincts vers Memoways. Collecte d’intérêt existante inchangée, aucun import ou envoi d’email.
+- Routes HTML générées pour Nginx, confirmation et préférences non indexables. Backend partagé Memoways soumis au gate Staging ; livraison du code distincte de l’activation et de la Production.
+
 ## [1.10.0] — 2026-10-16 — Menu simplifié, page « Participer au projet », cartes d’atelier lisibles
 
 ### Ajouté

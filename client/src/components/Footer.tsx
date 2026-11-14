@@ -30,6 +30,7 @@ const NAV_COLUMNS = [
     links: [
       { href: "/participer", label: "Participer au projet" },
       { href: "/participer#ateliers", label: "Ateliers" },
+      { href: "/nouvelles", label: "Nouvelles de la Boussole" },
       { href: "/partenaires", label: "Partenaires & pilotes" },
       { href: "/methode", label: "Données & gouvernance" },
     ],

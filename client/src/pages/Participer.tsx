@@ -29,6 +29,7 @@ export default function Participer() {
           <p className="max-w-2xl text-lg leading-relaxed text-gray-600 sm:text-xl">
             Deux façons de contribuer à la Boussole : venir à un atelier, ou répondre au questionnaire partenaire.
           </p>
+          <p className="mt-4 text-slate-600">Pour suivre les avancées par email : <Link href="/nouvelles" className="font-semibold text-[#515792] underline">Nouvelles de la Boussole</Link>, un abonnement distinct à confirmer.</p>
           <nav aria-label="Sur cette page" className="mt-6 flex flex-wrap gap-3">
             <a href="#ateliers" className={primaryButton}><CalendarDays className="h-4 w-4" aria-hidden="true" />Voir les ateliers</a>
             <a href="#questionnaire" className={secondaryButton}><MessagesSquare className="h-4 w-4" aria-hidden="true" />Répondre au questionnaire</a>

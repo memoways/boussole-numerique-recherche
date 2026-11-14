@@ -52,3 +52,8 @@ Dreamlit ne requiert aucune clé dans l’API : sa connexion PostgreSQL et son m
 Le formulaire de l’accueil ne transmet une adresse e-mail que lorsque `VITE_PARTNER_API_URL` est configurée et que l’API partenaire est déployée. Les données sont alors stockées dans `public_interest_submissions` : public déclaré, intérêt pour un atelier, intérêt pour une notification, date de consentement et page d’origine. La table est créée par `schema.sql` lors d’un déploiement avec `RUN_MIGRATIONS=true`.
 
 Le formulaire reste sur un lien `mailto:` honnête tant que l’API n’est pas disponible. Une adresse enregistrée peut être mise à jour par une nouvelle soumission ; le retrait de consentement est traité par l’équipe de projet depuis la console d’administration. Les exports dédiés sont protégés par la session administrateur et ne doivent pas être partagés hors du cadre de la co-conception.
+
+
+## Nouvelles de la Boussole
+
+`VITE_NEWSLETTER_API_ORIGIN` est une origine publique de build, facultative, défaut `https://memoways.com`. Aucune clé Plunk/Supabase/Notion côté client. Le backend partagé expose seulement les API newsletter ; l’origine Boussole canonique est autorisée par CORS. Pour une recette Staging autorisée, construire avec l’origine Staging activée. L’API partenaire et sa collecte `public_interest_submissions` ne sont pas utilisées pour cet abonnement. Les confirmations et retraits utilisent un fragment retiré de l’URL avant interaction ; GET ne modifie aucun abonnement. Voir `docs/ETAT_NEWSLETTERS_2026-11-14.md`.
