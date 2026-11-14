@@ -1,5 +1,9 @@
 # STORY.md — Boussole Numérique Culture
 
+## 14 novembre 2026 — Une confirmation centrée sur le projet
+
+La confirmation nomme le projet « Boussole Numérique Culture » et ne parle plus des autres abonnements. Cette retouche éditoriale demandée sur capture ne modifie ni le retrait ni le consentement.
+
 ## 14 novembre 2026 — Choisir les Nouvelles de la Boussole
 
 Le site compagnon propose un abonnement propre au projet. Le choix et sa confirmation restent indépendants de Memoways, des ateliers et de l’ouverture publique. Le retrait d’une seule newsletter garde l’autre abonnement. Les formulaires, confirmations et retraits ont été parcourus sur ordinateur et mobile avec des réponses API simulées ; aucun email réel envoyé. Le backend Memoways et son gate Staging restent nécessaires avant ouverture effective.

@@ -2,6 +2,8 @@
 
 ## Aperçu
 
+**14 novembre 2026 — Confirmation Boussole** : la page de confirmation indique `Ce choix concerne uniquement le projet « Boussole Numérique Culture ».` ; la phrase sur les autres abonnements y est retirée, conformément au retour d’Ulrich sur capture. La page de retrait et les règles de consentement restent inchangées.
+
 **14 novembre 2026 — Nouvelles de la Boussole** : parcours distinct `/nouvelles`, confirmation explicite et retrait limité à cet abonnement. CTA accueil, Participer et pied de page. Le formulaire d’intérêt ateliers/ouverture publique reste séparé. Le backend partagé Memoways et sa migration Staging attendent leur activation ; aucun email réel envoyé. [État et recette](docs/ETAT_NEWSLETTERS_2026-11-14.md).
 
 **Boussole Numérique Culture** est le dépôt du site compagnon et du module partenaire qui préparent un outil en co-conception destiné aux actrices, acteurs et structures culturelles. La Boussole n’existe pas encore comme outil utilisable : l’accueil distingue explicitement le portail existant du futur prototype et oriente vers deux parcours, Partenaire culturel et Artiste. Le portail explique le projet, ses jalons, l’expérience illustrative, la méthode, la recherche et les modalités de co-construction. Le module partenaire ajoute une présentation dédiée, des invitations personnelles, un questionnaire qualitatif, une collecte d’intérêt consentie, une console d’administration et l’envoi de récapitulatifs contrôlés.
