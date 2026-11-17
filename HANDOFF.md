@@ -1,3 +1,14 @@
+# HANDOFF — Refonte visuelle « spectre » (en cours de planification)
+
+> Mis à jour le 17 novembre 2026. Plan validé : [`docs/PLAN_REFONTE_VISUELLE_SPECTRE_2026-11-17.md`](./docs/PLAN_REFONTE_VISUELLE_SPECTRE_2026-11-17.md).
+
+- **État** : plan validé par Ulrich, aucun lot réalisé. Prochain lot : **lot 0** (contraste AA des boutons orange, radar animé sans fin, chiffres non validés de `/projet`, graisses de police). Prompt prêt à copier : section 6 du plan.
+- **Décisions** : nouvelle identité, filiation Memoways par les couleurs de memoways.com, spectre arc-en-ciel vif comme engagement de marque, blocs bruts et hiérarchie contrastée, grotesque libre auto-hébergée, chiffres non validés étiquetés « objectifs visés » puis déplacés vers une page Dossier, aucune image inventée.
+- **Ouvert** : origine des chiffres « 1 500 tests » / « 600 utilisateurs » (lot 0), choix de direction (lot 1), « tu » ou « vous » et parcours « Raconter une situation » (lot 4).
+- `PRODUCT.md` et la règle de palette d’`AGENTS.md` décrivent encore l’identité actuelle ; leur mise à jour fait partie du lot 1.
+
+---
+
 # HANDOFF — Démo playback `/experience/demo`
 
 > Mis à jour le 16 octobre 2026 (v1.9.0, accueil sans titre et trois parcours à égalité). Plan complet : [`docs/PLAN_DEMO_PLAYBACK_2026-10-14.md`](./docs/PLAN_DEMO_PLAYBACK_2026-10-14.md). États détaillés : [lot 1](./docs/ETAT_LOT1_DEMO_PLAYBACK_2026-10-14.md), [lot 2](./docs/ETAT_LOT2_DEMO_PLAYBACK_2026-10-14.md), [lot 2bis](./docs/ETAT_LOT2BIS_DEMO_PLAYBACK_2026-10-14.md), [lot 3](./docs/ETAT_LOT3_DEMO_PLAYBACK_2026-10-14.md), [lot 4](./docs/ETAT_LOT4_DEMO_PLAYBACK_2026-10-15.md).

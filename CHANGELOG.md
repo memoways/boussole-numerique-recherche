@@ -4,6 +4,8 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 
 ## [Unreleased]
 
+- `docs/PLAN_REFONTE_VISUELLE_SPECTRE_2026-11-17.md` : critique Impeccable du site (24/40), décisions d’Ulrich pour une nouvelle identité (couleurs Memoways, spectre arc-en-ciel, blocs bruts, grotesque libre auto-hébergée) et plan en sept lots avec le prompt du lot 0. Référencé dans `docs/README.md` et `HANDOFF.md`. Aucun changement de code ni de rendu.
+
 - `PRODUCT.md` : contexte produit durable (public, objectif, positionnement, contraintes, accessibilité) créé via `/impeccable init`, à la racine, pour guider les futurs travaux de design. Aucun changement de code ni de rendu.
 
 - `/nouvelles/confirmation` : texte remplacé par `Ce choix concerne uniquement le projet « Boussole Numérique Culture ».` ; phrase sur les autres abonnements retirée sur cette seule page (retour d’Ulrich sur capture).
