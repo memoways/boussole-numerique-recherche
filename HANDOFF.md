@@ -1,13 +1,14 @@
-# HANDOFF — Refonte visuelle « spectre » (lot 1 non terminé)
+# HANDOFF — Refonte visuelle « spectre » (direction non choisie, concept en réflexion dans Notion)
 
-> Mis à jour le 17 novembre 2026. Plan validé : [`docs/PLAN_REFONTE_VISUELLE_SPECTRE_2026-11-17.md`](./docs/PLAN_REFONTE_VISUELLE_SPECTRE_2026-11-17.md). États : [lot 0](./docs/ETAT_REFONTE_VISUELLE_LOT0_2026-11-17.md), [lot 1](./docs/ETAT_REFONTE_VISUELLE_LOT1_2026-11-17.md).
+> Mis à jour le 17 novembre 2026. Plan validé : [`docs/PLAN_REFONTE_VISUELLE_SPECTRE_2026-11-17.md`](./docs/PLAN_REFONTE_VISUELLE_SPECTRE_2026-11-17.md). États : [lot 0](./docs/ETAT_REFONTE_VISUELLE_LOT0_2026-11-17.md), [lot 1](./docs/ETAT_REFONTE_VISUELLE_LOT1_2026-11-17.md), [lot 1 bis](./docs/ETAT_REFONTE_VISUELLE_LOT1BIS_2026-11-17.md).
 
 - **État** : lot 0 livré (PR #33). **Lot 1 non terminé : aucune direction visuelle n'est choisie.** `PRODUCT.md` (« Brand Commitments ») et la règle de palette d'`AGENTS.md` décrivent désormais la nouvelle identité. Deux mains d'esquisses ont été jugées **inutilisables** par Ulrich (bonnes idées, exécution insuffisante, pas d'histoire). Aucun « Direction contract » dans le surface brief. Production non publiée.
-- **Prochain pas** : lot 1 bis avec un modèle plus fort (Opus ou Fable) ou un autre outil, en commençant par l'histoire, validée par Ulrich avant tout dessin. Prompt prêt à copier : [`docs/PROMPT_REPRISE_REFONTE_LOT1BIS_2026-11-17.md`](./docs/PROMPT_REPRISE_REFONTE_LOT1BIS_2026-11-17.md). Matériel sauvegardé : [`docs/refonte-visuelle-lot1-esquisses/`](./docs/refonte-visuelle-lot1-esquisses/README.md) (ne rien copier dans `client/`).
+- **Lot 1 bis (17 novembre)** : histoire A « Le panneau au départ » retenue, noms des cinq chemins fixés (Outils & workflows, Compétences & IA, Données & archivage, Publics & communication, Partage & collaboration), nord posé à la fin. Les trois esquisses dessinées sur cette histoire sont **écartées** (« ce n'est toujours pas ça »).
+- **Prochain pas** : Ulrich poursuit le concept, l'UI/UX et le storytelling dans la tâche Notion [Boussole : concept design UI/UX et storytelling](https://app.notion.com/p/41b511682fc380d99d1dd33383f8bca1), qui rassemble toutes les pistes, prototypes et captures. Le lot 1 ter part de ce qu'il y décide. Matériel : [`docs/refonte-visuelle-lot1bis/`](./docs/refonte-visuelle-lot1bis/) et [`docs/refonte-visuelle-lot1-esquisses/`](./docs/refonte-visuelle-lot1-esquisses/README.md) (ne rien copier dans `client/`).
 - **Règles épinglées par Ulrich** : titre « Boussole » jamais coupé ; rien de rétro ; éléments de boussole (rondeurs, directions) sans effet de cible ; cohérence réelle ; une histoire de bout en bout.
 - **Décisions du plan** : couleurs de memoways.com, spectre arc-en-ciel vif comme engagement de marque, blocs bruts et hiérarchie contrastée, grotesque libre auto-hébergée, chiffres non validés étiquetés « objectifs visés » dans une page Dossier (lot 5).
 - **Tranché au lot 0** : « 1 500 tests » et « 600 utilisateurs… 30 % » retirés de `/projet` (origine non confirmée). À rétablir au lot 5 seulement si l'origine est établie.
-- **Ouvert** : direction visuelle (lot 1 bis), « tu » ou « vous » et parcours « Raconter une situation » (lot 4). `DescriptionProjet.tsx` (non routée) contient encore des chiffres à nettoyer.
+- **Ouvert** : concept et direction visuelle (lot 1 ter, après la réflexion dans Notion), « tu » ou « vous » et parcours « Raconter une situation » (lot 4). `DescriptionProjet.tsx` (non routée) contient encore des chiffres à nettoyer.
 - **Contraste** : blanc sur `autumn` (3,15) et sur `pizazz` (2,72) interdits ; cyan `#3a7fc1` seulement en grand texte ou à ajuster (lot 2).
 
 ---

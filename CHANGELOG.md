@@ -4,6 +4,12 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 
 ## [Unreleased]
 
+- Refonte visuelle « spectre », **lot 1 bis** (direction visuelle) — **arrêté, aucune direction choisie** :
+  - trois histoires et une grammaire commune (G1–G8) ; histoire A « Le panneau au départ » retenue, noms des cinq chemins fixés (« Partage & collaboration »), nord posé à la fin ;
+  - tirage Impeccable et trois esquisses HTML (signalétique de quai, balisage de randonnée, plans coulissants), vérifiées à 1440 et 390 px, toutes écartées par Ulrich ;
+  - matériel sauvegardé dans `docs/refonte-visuelle-lot1bis/` ; pistes, prototypes et captures rassemblés dans la tâche Notion « Boussole : concept design UI/UX et storytelling » à la demande d'Ulrich.
+  - Voir [`docs/ETAT_REFONTE_VISUELLE_LOT1BIS_2026-11-17.md`](docs/ETAT_REFONTE_VISUELLE_LOT1BIS_2026-11-17.md). Documentaire seulement : aucun fichier de `client/` modifié ; production non publiée.
+
 - Refonte visuelle « spectre », **lot 1** (direction visuelle) — **non terminé, aucune direction choisie** :
   - `PRODUCT.md` : section « Brand Commitments » réécrite (jetons Memoways, spectre arc-en-ciel comme engagement, multiplicité lisible, blocs bruts, grotesque libre auto-hébergée, aucune image inventée, paires de contraste AA mesurées) ; « l'identité actuelle est l'incumbent » retiré ;
   - `AGENTS.md` : règle de palette « bleu-cyan-vert-orange » remplacée par la nouvelle identité ;
