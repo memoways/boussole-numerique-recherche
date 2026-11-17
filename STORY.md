@@ -1,5 +1,9 @@
 # STORY.md — Boussole Numérique Culture
 
+## 17 novembre 2026 — Une identité plus artistique, en spectre
+
+Une critique de design (24/40) constate un site honnête et accessible mais visuellement interchangeable : polices et cartes de gabarit, dégradé décoratif, couleurs sans rôle. Ulrich choisit une nouvelle identité : mêmes couleurs que Memoways, un spectre arc-en-ciel vif pour dire la multiplicité des pratiques sans fourre-tout, des blocs bruts et une hiérarchie contrastée, une grotesque libre hébergée par le projet. Les chiffres non validés deviendront des objectifs visés réservés à un dossier pour les financeurs. Le plan en sept lots est archivé dans `docs/PLAN_REFONTE_VISUELLE_SPECTRE_2026-11-17.md` ; aucun écran n’a encore changé.
+
 ## 14 novembre 2026 — Une confirmation centrée sur le projet
 
 La confirmation nomme le projet « Boussole Numérique Culture » et ne parle plus des autres abonnements. Cette retouche éditoriale demandée sur capture ne modifie ni le retrait ni le consentement.

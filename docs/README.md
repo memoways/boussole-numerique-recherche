@@ -4,6 +4,7 @@ Ce dossier réunit les documents nécessaires au développement, à l’exploita
 
 | Document | Contenu | Quand le consulter |
 |---|---|---|
+| [Plan de refonte visuelle « spectre » — 17 novembre 2026](./PLAN_REFONTE_VISUELLE_SPECTRE_2026-11-17.md) | Critique Impeccable (24/40), décisions d’Ulrich (couleurs Memoways, spectre arc-en-ciel, blocs bruts, grotesque libre), sept lots et prompt du lot 0. | Avant tout lot de refonte visuelle ou toute modification de palette, police ou layout. |
 | [Nouvelles de la Boussole — 14 novembre 2026](./ETAT_NEWSLETTERS_2026-11-14.md) | Parcours, indépendance des choix, preuve de recette et gate du backend Memoways. | Avant activation ou diffusion newsletter. |
 | [Plan partenaire — présentation et questionnaire](./PLAN_PARTENAIRES_PRESENTATION_QUESTIONNAIRE.md) | Cadrage, parcours, données, sécurité, présentation enrichie et administration. | Avant toute évolution fonctionnelle du module partenaire. |
 | [Tutoriel Coolify — module partenaire](./PARTNER_FEEDBACK_OPERATIONS.md) | PostgreSQL privé, API, secrets, domaine, `/admin`, sauvegardes et contrôle pilote. | Pour activer ou maintenir la collecte partenaire. |
