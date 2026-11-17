@@ -1,5 +1,9 @@
 # STORY.md — Boussole Numérique Culture
 
+## 17 novembre 2026 — La direction visuelle n'est pas trouvée
+
+Les couleurs de Memoways, le spectre arc-en-ciel, les blocs bruts et la grotesque libre sont inscrits dans `PRODUCT.md` et `AGENTS.md`. Mais deux mains d'esquisses d'accueil n'ont pas convaincu Ulrich : les idées étaient bonnes (une carte avec « vous êtes ici », un poteau de randonnée, un horizon et une graduation de boussole), l'exécution ne l'était pas, et aucune n'avait d'histoire. Il a posé des règles : le titre « Boussole » n'est jamais coupé, rien de rétro, des éléments de boussole sans effet de cible, une cohérence réelle. Le travail est sauvegardé et la reprise se fera avec un modèle plus fort, en écrivant d'abord l'histoire. Le site visible n'a pas changé.
+
 ## 17 novembre 2026 — Premiers correctifs avant la nouvelle identité
 
 Avant de changer d'identité, le site corrige ce que la critique a mesuré : des boutons orange lisibles (4,89:1), un radar qui joue une fois et s'arrête pour qui préfère le mouvement réduit, et plus de chiffres que le dossier de soutien ne garantit pas. Ulrich n'a pas pu confirmer l'origine de « 1 500 tests » et « 600 utilisateurs » : ils quittent `/projet` en attendant. Le comparatif dit « à tester » ou « prévu » au lieu de cocher des fonctions qui n'existent pas encore.

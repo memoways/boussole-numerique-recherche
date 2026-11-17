@@ -4,6 +4,14 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 
 ## [Unreleased]
 
+- Refonte visuelle « spectre », **lot 1** (direction visuelle) — **non terminé, aucune direction choisie** :
+  - `PRODUCT.md` : section « Brand Commitments » réécrite (jetons Memoways, spectre arc-en-ciel comme engagement, multiplicité lisible, blocs bruts, grotesque libre auto-hébergée, aucune image inventée, paires de contraste AA mesurées) ; « l'identité actuelle est l'incumbent » retiré ;
+  - `AGENTS.md` : règle de palette « bleu-cyan-vert-orange » remplacée par la nouvelle identité ;
+  - deux mains d'esquisses de direction présentées à Ulrich, jugées **inutilisables** (bonnes idées, exécution insuffisante, pas d'histoire) ; huit esquisses HTML, captures, données du tirage et scripts sauvegardés dans `docs/refonte-visuelle-lot1-esquisses/` ;
+  - règles épinglées par Ulrich consignées (titre jamais coupé, rien de rétro, boussole sans effet de cible, cohérence, storytelling) ;
+  - prompt de reprise pour un modèle plus fort : `docs/PROMPT_REPRISE_REFONTE_LOT1BIS_2026-11-17.md`.
+  - Voir [`docs/ETAT_REFONTE_VISUELLE_LOT1_2026-11-17.md`](docs/ETAT_REFONTE_VISUELLE_LOT1_2026-11-17.md). Documentaire seulement : aucun fichier de `client/` modifié ; production non publiée.
+
 - Refonte visuelle « spectre », **lot 0** (correctifs immédiats, aucune nouvelle identité) :
   - boutons orange : fond `#B8531A` et texte blanc (4,89:1 au lieu de 3,14:1) pour tous les CTA, y compris le « Participer » du menu, les ateliers, la démo et le questionnaire ; surcharge CSS unique à la place des anciennes règles ;
   - radar (`AnimatedRadarGraphic`) : une seule lecture de 4 s au lieu d'une boucle, statique sous `prefers-reduced-motion` (préférence écoutée en direct) ;

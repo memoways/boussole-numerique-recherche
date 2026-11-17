@@ -42,10 +42,33 @@ Une ressource de repérage et de dialogue pour le secteur culturel : elle ne pro
 
 ## Brand Commitments
 
-- Ton sobre et institutionnel ; aucune promesse chiffrée non validée.
-- Palette de marque bleu-cyan-vert-orange (bleu Memoways `#515792`, orange de marque `#E27227`) ; les variantes d'accent portant du texte ou une fonction interactive doivent rester conformes AA (documentées dans `accessibility-audit.md`).
+Décisions d'Ulrich du 17 novembre 2026 (plan : `docs/PLAN_REFONTE_VISUELLE_SPECTRE_2026-11-17.md`). La nouvelle identité remplace l'ancienne : l'ancien look (Poppins et Open Sans, dégradé pastel, pilules à halo, pastilles d'icônes) est une preuve de ce qu'il faut quitter, pas un point de départ.
+
+- **Ton sobre et institutionnel** ; aucune promesse chiffrée non validée. La sobriété tient au ton et à la lisibilité, pas à la pâleur.
+- **Filiation Memoways.** Les couleurs principales sont celles de memoways.com :
+
+  | Jeton | Valeur | Rôle |
+  |---|---|---|
+  | `whale-skin` | `#515792` | primaire, structure, liens |
+  | `dark-knight` | `#171a2f` | encre |
+  | `royal-curtsy` | `#262845` | encre secondaire, fonds sombres |
+  | `autumn` | `#e27227` | accent, action principale |
+  | `pizazz` | `#e58441` | accent doux |
+  | `skyline` | `#989ab8` | atténué |
+  | `desert-field` | `#efcfb7` | sable, bordure |
+  | `coast-cream` | `#f7e7db` | fond chaud |
+  | vert | `#447b66` | positif |
+  | ocre | `#d8b544` | attention |
+  | rayon | 2 px | coins quasi droits |
+
+- **Le spectre arc-en-ciel est un engagement de marque.** Palette vive en spectre, avec un dégradé arc-en-ciel là où il a du sens, pour montrer la multiplicité (multi, trans, hétéroclite). Il n'est pas un décor : il sert de matière structurelle (blocs de couleur pleine, bandes, un champ de couleur par dimension, une signature en dégradé assumée). Jamais de dégradé pastel posé sur un titre, jamais d'arc-en-ciel sur du petit texte.
+- **Multiplicité lisible.** Plusieurs couleurs, plusieurs voix, mais une juxtaposition ordonnée : chaque teinte a un rôle nommé, une seule teinte est active à la fois dans un même geste de navigation, aucun fourre-tout.
+- **Blocs bruts et hiérarchie contrastée.** Aplats bord à bord, filets d'encre, forts écarts d'échelle typographique, rayon de 2 px ou 0, ni ombres portées, ni verre, ni pastilles d'icônes. Rien à plat au sens de « tout au même niveau ».
+- **Typographie.** Grotesque libre et auto-hébergée (aucun service de polices tiers). Le choix de la famille est mesuré au lot 2.
+- **Aucune image inventée.** Matériel typographique et diagrammatique seulement (aplats, filets, chiffres, schémas) ; de vraies photos pourront s'ajouter plus tard. Pas d'emoji ni de drapeaux décoratifs.
+- **Lisibilité AA non négociable.** Texte posé sur un bloc : encre `#171a2f` sur les teintes claires, blanc sur les teintes foncées. Paires mesurées (rapport de contraste) : encre sur blanc 17,14 ; encre sur `coast-cream` 14,21 ; encre sur `autumn` 5,44 ; encre sur `pizazz` 6,29 ; encre sur ocre 8,66 ; encre sur `skyline` 6,24 ; blanc sur `whale-skin` 6,71 ; blanc sur `royal-curtsy` 14,27 ; blanc sur vert `#447b66` 4,92 ; blanc sur orange de bouton `#b8531a` 4,89. Interdits : blanc sur `autumn` (3,15), blanc sur `pizazz` (2,72). Le cyan `#3a7fc1` n'atteint 4,5 ni avec l'encre (4,07) ni avec le blanc (4,21) : grand texte seulement, ou teinte à ajuster au lot 2. Les teintes ajoutées au spectre (rouge-magenta, violet) reçoivent leur paire AA mesurée au lot 2.
 - Logo Memoways et mention de soutien institutionnel (ville de Genève) comme assets existants.
-- Les évolutions visuelles restent alignées avec les règles documentées dans les composants concernés ; l'identité actuelle est l'incumbent, pas un point de départ à remplacer.
+- **Direction visuelle de l'accueil** : choisie par Ulrich au lot 1 et consignée dans le surface brief Impeccable (`Direction contract`), pas dans ce fichier.
 
 ## Evidence on Hand
 
