@@ -1,5 +1,9 @@
 # STORY.md — Boussole Numérique Culture
 
+## 17 novembre 2026 — Premiers correctifs avant la nouvelle identité
+
+Avant de changer d'identité, le site corrige ce que la critique a mesuré : des boutons orange lisibles (4,89:1), un radar qui joue une fois et s'arrête pour qui préfère le mouvement réduit, et plus de chiffres que le dossier de soutien ne garantit pas. Ulrich n'a pas pu confirmer l'origine de « 1 500 tests » et « 600 utilisateurs » : ils quittent `/projet` en attendant. Le comparatif dit « à tester » ou « prévu » au lieu de cocher des fonctions qui n'existent pas encore.
+
 ## 17 novembre 2026 — Une identité plus artistique, en spectre
 
 Une critique de design (24/40) constate un site honnête et accessible mais visuellement interchangeable : polices et cartes de gabarit, dégradé décoratif, couleurs sans rôle. Ulrich choisit une nouvelle identité : mêmes couleurs que Memoways, un spectre arc-en-ciel vif pour dire la multiplicité des pratiques sans fourre-tout, des blocs bruts et une hiérarchie contrastée, une grotesque libre hébergée par le projet. Les chiffres non validés deviendront des objectifs visés réservés à un dossier pour les financeurs. Le plan en sept lots est archivé dans `docs/PLAN_REFONTE_VISUELLE_SPECTRE_2026-11-17.md` ; aucun écran n’a encore changé.

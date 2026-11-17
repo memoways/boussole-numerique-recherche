@@ -209,7 +209,7 @@ function InscriptionForm({ atelier, onClose, onChanged }: { atelier: Atelier; on
         <button type="button" onClick={onClose} disabled={busy} className="inline-flex min-h-11 items-center justify-center rounded-lg border border-slate-300 bg-white px-5 text-sm font-semibold text-slate-800 transition-colors hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#515792] disabled:opacity-60">
           Annuler
         </button>
-        <button type="submit" disabled={busy} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-[#E07428] px-5 text-sm font-bold text-white shadow-sm transition-colors hover:bg-[#c9651f] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E07428] disabled:opacity-70">
+        <button type="submit" disabled={busy} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-[#B8531A] px-5 text-sm font-bold text-white shadow-sm transition-colors hover:bg-[#9A4414] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B8531A] disabled:opacity-70">
           {busy ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> : <Send className="h-4 w-4" aria-hidden="true" />}
           {busy ? "Envoi en cours…" : "Valider mon inscription"}
         </button>

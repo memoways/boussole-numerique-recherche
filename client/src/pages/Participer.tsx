@@ -16,7 +16,7 @@ const FORMAT_ATELIER = [
   "Chacun repart avec des pistes utiles pour son travail.",
 ];
 
-const primaryButton = "inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-[#E07428] px-6 text-sm font-bold text-white shadow-sm transition-colors hover:bg-[#c9651f] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E07428]";
+const primaryButton = "inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-[#B8531A] px-6 text-sm font-bold text-white shadow-sm transition-colors hover:bg-[#9A4414] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B8531A]";
 const secondaryButton = "inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-[#515792] bg-white px-6 text-sm font-bold text-[#515792] transition-colors hover:bg-[#515792]/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#515792]";
 
 export default function Participer() {

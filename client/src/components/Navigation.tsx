@@ -82,7 +82,7 @@ export default function Navigation() {
             <Button
               size="sm"
               className="ml-3 text-xs xl:text-sm font-semibold"
-              style={{ backgroundColor: '#E07428', borderColor: '#E07428', color: '#fff' }}
+              style={{ backgroundColor: '#B8531A', borderColor: '#B8531A', color: '#fff' }}
               asChild
             >
               <Link href="/participer">Participer au projet</Link>
@@ -110,7 +110,7 @@ export default function Navigation() {
             <Button
               size="sm"
               className="ml-2 text-xs font-semibold"
-              style={{ backgroundColor: '#E07428', borderColor: '#E07428', color: '#fff' }}
+              style={{ backgroundColor: '#B8531A', borderColor: '#B8531A', color: '#fff' }}
               asChild
             >
               <Link href="/participer">Participer</Link>
@@ -168,7 +168,7 @@ export default function Navigation() {
               <div className="pt-2 border-t border-gray-100 mt-1">
                 <Button
                   className="w-full font-semibold"
-                  style={{ backgroundColor: '#E07428', borderColor: '#E07428', color: '#fff' }}
+                  style={{ backgroundColor: '#B8531A', borderColor: '#B8531A', color: '#fff' }}
                   asChild
                 >
                   <Link href="/participer">

@@ -254,7 +254,7 @@ export default function Timeline() {
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Contribuer à la phase en cours</h2>
           <p className="text-gray-500 mb-8">Le site compagnon sera mis à jour au fil des apprentissages. Aujourd’hui, le questionnaire partenaire permet de préparer la suite du travail collectif.</p>
           <div className="flex flex-wrap gap-3 justify-center">
-            <Button style={{ backgroundColor: '#E07428', color: '#fff' }} asChild>
+            <Button style={{ backgroundColor: '#B8531A', color: '#fff' }} asChild>
               <Link href="/partenaires/questionnaire">Répondre au questionnaire partenaire <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
             <Button variant="outline" style={{ borderColor: '#515792', color: '#515792' }} asChild>

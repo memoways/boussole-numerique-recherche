@@ -20,7 +20,6 @@ const PROBLEMATIQUES = [
   { probleme: "Processus manuels répétitifs et fastidieux", solution: "Automatisations qui font le travail répétitif à votre place" },
   { probleme: "Communication interne fragmentée, informations perdues", solution: "Un espace de travail commun, discussions liées aux projets" },
   { probleme: "Difficulté à savoir par où commencer la transformation", solution: "Un diagnostic personnalisé qui identifie les priorités concrètes" },
-  { probleme: "3 à 7 heures par semaine perdues en coordination inefficace", solution: "Ces heures rendues à la création et à la collaboration" },
 ];
 
 const DIMENSIONS = [
@@ -56,13 +55,13 @@ const ETAPES_EXPERIENCE = [
 ];
 
 const COMPARATIF_CRITERES = [
-  { label: "Prise en compte du secteur culturel", chatgpt: false as const, audit: "partial" as const, formation: false as const, boussole: "Piste à tester avec les partenaires" },
-  { label: "Accessibilité sans expertise technique", chatgpt: false as const, audit: "partial" as const, formation: "partial" as const, boussole: "Simplicité visée" },
-  { label: "Gratuité", chatgpt: false as const, audit: false as const, formation: false as const, boussole: "Engagement du projet" },
-  { label: "Hébergement suisse", chatgpt: false as const, audit: "partial" as const, formation: "partial" as const, boussole: "Principe à confirmer au déploiement" },
-  { label: "Restitution visuelle", chatgpt: false as const, audit: "partial" as const, formation: false as const, boussole: "Radar et synthèse à tester" },
-  { label: "Lecture collective", chatgpt: false as const, audit: false as const, formation: false as const, boussole: "Fonction à co-concevoir" },
-  { label: "Ressources locales", chatgpt: false as const, audit: false as const, formation: false as const, boussole: "Pistes à documenter" },
+  { label: "Prise en compte du secteur culturel", chatgpt: false as const, audit: "partial" as const, formation: false as const, boussole: "Piste à tester avec les partenaires", statut: "à tester" as const },
+  { label: "Accessibilité sans expertise technique", chatgpt: false as const, audit: "partial" as const, formation: "partial" as const, boussole: "Simplicité visée", statut: "à tester" as const },
+  { label: "Gratuité", chatgpt: false as const, audit: false as const, formation: false as const, boussole: "Engagement du projet", statut: "prévu" as const },
+  { label: "Hébergement suisse", chatgpt: false as const, audit: "partial" as const, formation: "partial" as const, boussole: "Principe à confirmer au déploiement", statut: "prévu" as const },
+  { label: "Restitution visuelle", chatgpt: false as const, audit: "partial" as const, formation: false as const, boussole: "Radar et synthèse à tester", statut: "à tester" as const },
+  { label: "Lecture collective", chatgpt: false as const, audit: false as const, formation: false as const, boussole: "Fonction à co-concevoir", statut: "prévu" as const },
+  { label: "Ressources locales", chatgpt: false as const, audit: false as const, formation: false as const, boussole: "Pistes à documenter", statut: "prévu" as const },
 ];
 
 const PRINCIPES = [
@@ -77,8 +76,6 @@ const PRINCIPES = [
 
 
 const OBJECTIFS = [
-  "1 500 tests réalisés",
-  "600 utilisateurs inscrits, dont 30 % utilisant l'outil de manière régulière",
   "Un relai actif par les partenaires institutionnels genevois",
   "Une base de connaissances enrichie par la communauté et les retours d'usage",
   "Des données anonymisées permettant de mesurer l'état réel des pratiques numériques du secteur culturel genevois",
@@ -588,9 +585,9 @@ export default function Projet() {
                         <td className="px-4 py-3 text-center"><CellIcon val={c.audit} /></td>
                         <td className="px-4 py-3 text-center"><CellIcon val={c.formation} /></td>
                         <td className="px-4 py-3 text-center" style={{ backgroundColor: '#51579208' }}>
-                          <div className="flex flex-col items-center gap-0.5">
-                            <CheckCircle className="h-4 w-4" style={{ color: '#3aab8a' }} />
-                            <span className="text-xs text-gray-400">{c.boussole}</span>
+                          <div className="flex flex-col items-center gap-1">
+                            <span className="inline-block border border-gray-400 px-1.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-gray-700">{c.statut}</span>
+                            <span className="text-xs text-gray-500">{c.boussole}</span>
                           </div>
                         </td>
                       </tr>
@@ -788,13 +785,13 @@ export default function Projet() {
           {/* ── 9. OBJECTIFS À 2 ANS ────────────────────────────────────────── */}
           <section id="objectifs" style={{ scrollMarginTop: '80px' }}>
             <Badge className="mb-4 text-xs font-bold uppercase tracking-widest" style={{ backgroundColor: '#E27227' }}>Impact</Badge>
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Objectifs à deux ans</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Objectifs visés à deux ans</h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div className="rounded-2xl p-6" style={{ backgroundColor: '#f0f1f8' }}>
                 <ul className="space-y-3">
                   {OBJECTIFS.map((obj, i) => (
                     <li key={i} className="flex items-start gap-3 text-sm text-gray-700">
-                      <CheckCircle className="h-4 w-4 mt-0.5 flex-shrink-0" style={{ color: '#515792' }} />
+                      <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full" style={{ backgroundColor: '#515792' }} aria-hidden="true" />
                       {obj}
                     </li>
                   ))}

@@ -98,7 +98,7 @@ export default function NotFound() {
             <Compass className="h-9 w-9 text-white" aria-hidden="true" />
             <h2 className="mt-5 text-2xl font-bold">Retrouver son chemin</h2>
             <p className="mt-3 text-sm leading-relaxed text-white/85">La page d’accueil présente le projet, le parcours et les accès utiles pour contribuer à la réflexion.</p>
-            <Link href="/" className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#E07428] px-4 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-[#c95f18] focus:outline-none focus:ring-4 focus:ring-white/30">
+            <Link href="/" className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#B8531A] px-4 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-[#9A4414] focus:outline-none focus:ring-4 focus:ring-white/30">
               <Home className="h-4 w-4" aria-hidden="true" />
               Revenir à l’accueil
             </Link>
