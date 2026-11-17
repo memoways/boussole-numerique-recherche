@@ -1,6 +1,6 @@
 # Lot 1 bis — Trois histoires avant tout dessin (17 novembre 2026)
 
-> **Statut : histoire A retenue par Ulrich le 17 novembre 2026** (voir « Décisions d'Ulrich » en fin de document). Les histoires B et C sont gardées comme trace. Ce document part du récit qu'Ulrich a donné le 17 novembre 2026 et de la démonstration existante (`client/src/data/demo-parcours.json`). Il propose une grammaire commune, puis trois façons distinctes de la raconter sur l'accueil.
+> **Statut : histoire A retenue par Ulrich le 17 novembre 2026** (voir « Décisions d'Ulrich » en fin de document). Les trois directions dessinées sur cette histoire ont ensuite été écartées ; la réflexion continue dans Notion (voir [l'état du lot 1 bis](../ETAT_REFONTE_VISUELLE_LOT1BIS_2026-11-17.md)). Les histoires B et C sont gardées comme trace. Ce document part du récit qu'Ulrich a donné le 17 novembre 2026 et de la démonstration existante (`client/src/data/demo-parcours.json`). Il propose une grammaire commune, puis trois façons distinctes de la raconter sur l'accueil.
 
 ## Le récit d'Ulrich, résumé
 

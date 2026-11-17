@@ -1,0 +1,62 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "tight-leading",
+        "value": "*",
+        "files": [
+          "docs/refonte-visuelle-lot1bis/esquisses/a-signaletique-quai.html"
+        ],
+        "createdAt": "2026-11-17T18:46:36.944Z",
+        "reason": "Claude triage: decision sketch; flagged leading is the one-line display title (.86/1.05), body text is 1.5"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "docs/refonte-visuelle-lot1bis/esquisses/a-signaletique-quai.html"
+        ],
+        "createdAt": "2026-11-17T18:46:36.965Z",
+        "reason": "Claude triage: decision sketch; flush elements are the sign's pictogram square, painted tip and colour edge by design; labels keep 14-20px inset"
+      },
+      {
+        "rule": "tight-leading",
+        "value": "*",
+        "files": [
+          "docs/refonte-visuelle-lot1bis/esquisses/b-balisage.html"
+        ],
+        "createdAt": "2026-11-17T18:46:36.987Z",
+        "reason": "Claude triage: decision sketch; flagged leading is the one-line display title (.86/1.05), body text is 1.5"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "docs/refonte-visuelle-lot1bis/esquisses/b-balisage.html"
+        ],
+        "createdAt": "2026-11-17T18:46:37.014Z",
+        "reason": "Claude triage: decision sketch; flush elements are the sign's pictogram square, painted tip and colour edge by design; labels keep 14-20px inset"
+      },
+      {
+        "rule": "tight-leading",
+        "value": "*",
+        "files": [
+          "docs/refonte-visuelle-lot1bis/esquisses/c-plans-coulissants.html"
+        ],
+        "createdAt": "2026-11-17T18:46:37.036Z",
+        "reason": "Claude triage: decision sketch; flagged leading is the one-line display title (.86/1.05), body text is 1.5"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "docs/refonte-visuelle-lot1bis/esquisses/c-plans-coulissants.html"
+        ],
+        "createdAt": "2026-11-17T18:46:37.060Z",
+        "reason": "Claude triage: decision sketch; flush elements are the sign's pictogram square, painted tip and colour edge by design; labels keep 14-20px inset"
+      }
+    ]
+  }
+}

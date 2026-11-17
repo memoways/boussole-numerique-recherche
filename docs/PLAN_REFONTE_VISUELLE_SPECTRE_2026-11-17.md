@@ -89,7 +89,9 @@ La fusion ne vaut pas publication : la production Coolify reste une étape disti
 
 ### Lot 1 — Direction visuelle (Impeccable new-work, remplacement de l'identité)
 
-> **Statut (17 novembre 2026) : non terminé.** Brand commitments et règle de palette réécrits ; deux mains d'esquisses jugées inutilisables par Ulrich, aucune direction choisie. Voir [`ETAT_REFONTE_VISUELLE_LOT1_2026-11-17.md`](./ETAT_REFONTE_VISUELLE_LOT1_2026-11-17.md) et le prompt de reprise [`PROMPT_REPRISE_REFONTE_LOT1BIS_2026-11-17.md`](./PROMPT_REPRISE_REFONTE_LOT1BIS_2026-11-17.md). Les lots 2 à 6 restent bloqués.
+> **Statut (17 novembre 2026, lot 1 bis) : arrêté, aucune direction choisie.** Histoire A retenue, trois esquisses écartées ; concept en réflexion dans Notion. Voir [`ETAT_REFONTE_VISUELLE_LOT1BIS_2026-11-17.md`](./ETAT_REFONTE_VISUELLE_LOT1BIS_2026-11-17.md).
+>
+> **Lot 1 (17 novembre 2026) : non terminé.** Brand commitments et règle de palette réécrits ; deux mains d'esquisses jugées inutilisables par Ulrich, aucune direction choisie. Voir [`ETAT_REFONTE_VISUELLE_LOT1_2026-11-17.md`](./ETAT_REFONTE_VISUELLE_LOT1_2026-11-17.md) et le prompt de reprise [`PROMPT_REPRISE_REFONTE_LOT1BIS_2026-11-17.md`](./PROMPT_REPRISE_REFONTE_LOT1BIS_2026-11-17.md). Les lots 2 à 6 restent bloqués.
 
 - **Mises à jour préalables.**
   - Réécrire la section « Brand Commitments » de `PRODUCT.md` : couleurs Memoways ci-dessus, spectre arc-en-ciel vif comme engagement, multiplicité lisible, blocs bruts et hiérarchie contrastée, grotesque libre auto-hébergée, aucune image inventée. Retirer « l'identité actuelle est l'incumbent ».

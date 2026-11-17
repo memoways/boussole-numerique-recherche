@@ -1,5 +1,9 @@
 # STORY.md — Boussole Numérique Culture
 
+## 17 novembre 2026 — L'histoire d'abord, le concept dans Notion
+
+Avant de redessiner, Ulrich a raconté l'expérience : on répond à des questions en conversation, chaque dimension est un chemin et tous comptent, Memoways fournit la boussole qui garde le cap, et l'on arrive à une carte personnelle (radar et enjeux) puis à un chemin proposé. Trois histoires ont été écrites sur cette base ; il a retenu « Le panneau au départ », fixé les noms des cinq chemins (dont « Partage & collaboration ») et décidé que le nord, ce qui compte pour la personne, se pose à la fin. Trois directions visuelles dessinées sur cette histoire ne l'ont pas convaincu : « ce n'est toujours pas ça ». Il reprend le concept lui-même dans Notion, où toutes les pistes, prototypes et captures sont rassemblés. Le site visible n'a pas changé. Voir [`docs/ETAT_REFONTE_VISUELLE_LOT1BIS_2026-11-17.md`](docs/ETAT_REFONTE_VISUELLE_LOT1BIS_2026-11-17.md).
+
 ## 17 novembre 2026 — La direction visuelle n'est pas trouvée
 
 Les couleurs de Memoways, le spectre arc-en-ciel, les blocs bruts et la grotesque libre sont inscrits dans `PRODUCT.md` et `AGENTS.md`. Mais deux mains d'esquisses d'accueil n'ont pas convaincu Ulrich : les idées étaient bonnes (une carte avec « vous êtes ici », un poteau de randonnée, un horizon et une graduation de boussole), l'exécution ne l'était pas, et aucune n'avait d'histoire. Il a posé des règles : le titre « Boussole » n'est jamais coupé, rien de rétro, des éléments de boussole sans effet de cible, une cohérence réelle. Le travail est sauvegardé et la reprise se fera avec un modèle plus fort, en écrivant d'abord l'histoire. Le site visible n'a pas changé.
