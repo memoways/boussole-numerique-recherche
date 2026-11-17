@@ -1,0 +1,157 @@
+DIRECTION CONCEPT SEED (key: b8e7f33cca8a85c12ac26975a1034a76; mode: persuade; source: api; approved pool: c3b204a1eed6; 306/564 human-approved; rerun with --scope direction --mode persuade --from b8e7f33cca8a85c12ac26975a1034a76 --reroll 1 --candidate-count 7 to reproduce this roll against this catalog revision)
+RE-ROLL ROUND 1: every candidate presented in earlier rounds, grounded
+  and challenger alike, is eliminated and may not return reworded. Derive
+  genuinely new grounded candidates from unexplored angles before judging
+  these fresh challengers.
+ASSIGNED INDEX: 3
+  After ordering the grounded directions by resonance, build candidate
+  3 of your own grounded list; the assignment never points at a
+  challenger. The assignment is the roll, not a suggestion: your top-ranked
+  direction is what every run would ship, so the script decides which grounded
+  direction gets built. Each direction joins a durable visual system to a
+  concrete expression for the requested first surface, decided as one. It must
+  survive the current task plus navigation, quiet and dense content,
+  interaction and state, and a substantially different future surface. In an
+  attended run, present the assigned direction fully committed and offer
+  re-roll. You may add ONE card for your top-ranked grounded candidate when
+  it is not the assigned direction, kicker IMPECCABLE’S PICK, with an honest risk line
+  naming its familiarity; one pick card, never a ranked lineup, and the pick
+  never takes the lead position. When the assignment IS your top candidate,
+  there is no pick card. Re-roll yourself only
+  on named factual grounds, when the assignment cannot carry the product's
+  truth or task; taste is never grounds.
+  The assignment exists to refuse the model's ranking rut, never to outrank
+  the user or the brief. Never expose assignment metadata in user-facing labels.
+CHALLENGERS:
+  1. a hand-processed strip of 16mm film carrying scratches, uneven chemistry, and light leaks, where the emulsion itself joins the photographed event
+     SOURCE ID: cinema-cinematography-editing-hand-processed-film-bloom
+     CREATIVE SPARK: A runner crosses a gray field; orange light floods the perforations, scratches flash white, and the figure briefly dissolves into boiling grain.
+     SYSTEM GRAMMAR:
+       - Palette/material: silver-gray emulsion over near-black leader as ground, orange light-leak flare reserved for the active frame, chemical sepia stains as wear
+       - Type/composition: stamped edge-code caps and grease-pencil frame numerals along the sprocket margin, content banded in strict frame-by-frame rows
+       - Topology/navigation: Move between frame, strip, perforation, processing event, and photographed subject.
+       - Controls/state: Expose, process, scratch, splice, and compare with latent, developing, fogged, damaged, and projected states.
+       - Responsive/motion: Use selected frames and a user-controlled strip while providing transcript and visual descriptions.
+     WEB LEVERAGE: Procedural film artifacts can be tied to exact frames and processing events rather than applied as a generic filter.
+     QUALITY BAR: board https://impeccable.style/worlds/cards/cinema-cinematography-editing-hand-processed-film-bloom.webp · hero https://impeccable.style/worlds/cards/cinema-cinematography-editing-hand-processed-film-bloom-hero.webp
+  2. an indoor weather sun, a monofrequency semicircle doubled to a full disc by a mirrored ceiling, mist haze filling a vast hall where crowds lie inside their own silhouettes
+     SOURCE ID: light-shadow-caustics-indoor-weather-sun
+     CREATIVE SPARK: You lie on the concrete floor of a vast hall, haze thick with amber; far above, the mirrored ceiling shows your tiny silhouette waving back beside a hundred strangers, and the half sun on the wall completes itself into a disc.
+     SYSTEM GRAMMAR:
+       - Palette/material: monofrequency sodium amber flattening every color, hazed amber as ground, silhouette black for body ink, the mirror's doubled sun as the accent
+       - Type/composition: silhouette-black grotesk set low against a long horizon line, one vast horizontal band, captions small and scattered like lying figures
+       - Topology/navigation: one hall with a half sun at its far wall, the mirrored ceiling doubling everything; you navigate by walking the long axis toward the light
+       - Controls/state: your pointer is a silhouette, hover deepens a figure to full black, selection appears twice, once on the floor and once in the ceiling mirror
+       - Responsive/motion: the semicircle scales with the wall and its mirror half collapses first on short screens; motion is drifting mist
+     WEB LEVERAGE: backdrop-filter haze over a css scaleY(-1) reflection building the mirrored ceiling, blend mode flattening all color to amber duotone
+     QUALITY BAR: board https://impeccable.style/worlds/cards/light-shadow-caustics-indoor-weather-sun.webp · hero https://impeccable.style/worlds/cards/light-shadow-caustics-indoor-weather-sun-hero.webp
+  3. an old treasure map on salt-stiffened vellum, where a compass rose, missing corner, tide marks, coded marginalia, false trails, and a hand-drawn coastline turn navigation into inference
+     SOURCE ID: wayfinding-cartography-signage-salt-stiffened-treasure-map
+     CREATIVE SPARK: Oblique light raises a nearly erased red route beneath the ink; the torn corner aligns with a crescent island, and a tide stain suddenly becomes the boundary of a hidden harbor.
+     SYSTEM GRAMMAR:
+       - Palette/material: salt-stiffened vellum tan with iron-gall sepia ink, tide-stain gray blooms, one faded red route rising under oblique light as the active trail
+       - Type/composition: cramped manuscript hand with a flourished compass rose, coded marginalia crowding the edges, the coastline drawn first and words fit after
+       - Topology/navigation: Move from map edge to landmark, bearing, marginal clue, damaged gap, candidate route, hidden harbor, and final cache hypothesis.
+       - Controls/state: Rotate, measure, reveal, annotate, combine clues, and compare sealed, weathered, suspected, disproved, aligned, and solved states.
+       - Responsive/motion: Center one clue chain on phones while preserving the whole parchment as context
+     WEB LEVERAGE: Deep image zoom, oblique-light layers, URL-addressable annotations, collaborative hypothesis history, and accessible transcription let groups solve the artifact while every inference retains provenance.
+     QUALITY BAR: board https://impeccable.style/worlds/cards/wayfinding-cartography-signage-salt-stiffened-treasure-map.webp · hero https://impeccable.style/worlds/cards/wayfinding-cartography-signage-salt-stiffened-treasure-map-hero.webp
+  4. a well-traveled passport, where visa plates, entry stamps, and security paper accumulate into an involuntary autobiography of borders
+     SOURCE ID: vernacular-ephemera-well-traveled-passport
+     CREATIVE SPARK: No two stamps align: purple ovals, faded dates, a full-page visa with a hologram bird, and your face getting older near the front.
+     SYSTEM GRAMMAR:
+       - Palette/material: burgundy cover with a gold-blocked crest, guilloché-tinted security pages in rose and pale green, each border's stamp ink accumulating as the record
+       - Type/composition: OCR-B machine lines anchoring the data page, engraved capitals on the cover, stamps landing at any angle over a ruled page grid that stays official
+       - Topology/navigation: chronological pages hold accumulated records; the document itself is identity plus history.
+       - Controls/state: each grant occupies real page space with an official mark; renewals open a fresh booklet that references the old.
+       - Responsive/motion: spreads become single pages on phones; new stamps land with one press, then stay still forever.
+     WEB LEVERAGE: Verifiable stamp permalinks and printable pages make the record portable, with offline access to the booklet.
+     QUALITY BAR: board https://impeccable.style/worlds/cards/vernacular-ephemera-well-traveled-passport.webp · hero https://impeccable.style/worlds/cards/vernacular-ephemera-well-traveled-passport-hero.webp
+  5. an algorave floor, where projected live code edits the music mid-dance and every thrown bracket changes what a hundred bodies do next
+     SOURCE ID: medium-native-algorave-source-floor
+     CREATIVE SPARK: The coder deletes half a line and the kick drops out; the crowd howls, the line comes back wrong on purpose, and the room lifts.
+     SYSTEM GRAMMAR:
+       - Palette/material: phosphor green and magenta syntax on projector black, the code buffer as ground; the pattern about to change flashes amber before it sounds
+       - Type/composition: monospaced terminal type at stage scale with hard line breaks as musical bars, the composition one code buffer whose cursor line is the downbeat
+       - Topology/navigation: the source is the stage; sections of code map to audible layers you can follow live.
+       - Controls/state: edits apply on the next cycle boundary; upcoming changes are visible before they sound.
+       - Responsive/motion: code and visuals share one clock; small screens follow a single highlighted pattern lane.
+     WEB LEVERAGE: Web Audio scheduling ties editable patterns to a shared clock with live evaluation in the page.
+     QUALITY BAR: board https://impeccable.style/worlds/cards/medium-native-algorave-source-floor.webp · hero https://impeccable.style/worlds/cards/medium-native-algorave-source-floor-hero.webp
+  6. A film cutting bench flattened into a sheet: a perforated select rail crossing a grain-orange field, each step a punched frame held between two pins, the place you stopped marked by a folded tape flag, and everything set aside still hanging on pins below the rail.
+     SOURCE ID: operate-a-cutting-bench-select-rail
+     CREATIVE SPARK: A work print strung between two pins under a bench lamp, white grease crosses struck across three frames, a folded orange tape flag doubled over the perforation where the editor stopped, and a dozen trims hanging on pins in the bin below.
+     SYSTEM GRAMMAR:
+       - Palette/material: one ink, flag orange in coarse film grain on true black; orange holds a third of any screen. Running copy and foreign images sit only in punched white windows.
+       - Type/composition: one size of condensed grotesk throughout, caps for labels; rank is cell count not size, a window may span twelve frame cells while edge ticks stay hairline.
+       - Topology/navigation: a perforated rail crosses every sheet at a fixed height; sections string along it as frames, and anything set aside hangs below on pins in an open bin.
+       - Controls/state: state is a mark, not a hue: grease cross done, punched corner unavailable, tape band committed, folded flag where you stopped, hung on a pin deferred.
+       - Responsive/motion: the strip scrubs with inertia and settles on perforation pitch, never between frames; hung trims swing and damp. Narrow screens drop frame count, not size.
+     WEB LEVERAGE: The rail is one virtual strip whose scrub snaps to a fixed frame pitch; the frame you left is persisted and re-flagged on return, and every discarded frame stays reachable on a pin below the rail.
+     QUALITY BAR: board https://impeccable.style/worlds/cards/operate-a-cutting-bench-select-rail.webp · hero https://impeccable.style/worlds/cards/operate-a-cutting-bench-select-rail-hero.webp
+Fuse each challenger before judging it: the challenger supplies the form
+  and its system grammar, the product supplies every fact, and clarity wins
+  conflicts. Weigh the fused result against the assigned direction on exactly
+  two axes, audience identification and product clarity. Losing to strong
+  grounded material is a valid outcome; beating a thin or tool-monoculture
+  list is the point. A fused challenger that wins both axes becomes the build.
+  Close the weighing with a verdict per challenger, decided before any
+  borrowing is considered: wins (beats the assigned direction on both axes),
+  competitive (holds one axis), or declined (loses both). A declined
+  challenger is not spent: name the one discipline of its system the assigned
+  direction lacks, and raise the assigned direction to match before
+  presenting it. A donation transfers ambition and system discipline, never
+  the challenger's clothes. A component treatment, such as a button's shadow
+  or a display face, is clothes, not discipline; one world owns the page.
+  Write each raise as its own named line on the presented direction, and
+  carry every verdict, kept line, and raise into the decision page payload.
+When you can view images, open the QUALITY BAR board and hero for any
+challenger you weigh seriously and for the world you build. They exist as a
+craft bar, the finish level and commitment the build is expected to reach,
+never as a mockup to copy; your surface serves this product, not that render.
+PRODUCT.md and explicit incumbent brand commitments constrain every direction.
+The seed never chooses exact colors, fonts, tokens, or a user preference, and
+it never permits the world and first surface to be selected independently.
+The CREATIVE SPARK is a complete visual system, not a theme or decorative
+reference. Translate every supplied system rule into the product: palette and
+material, type and composition, topology, controls and states, and adaptation.
+Keep the source's visible character, scale, rhythm, and interaction instead of
+reducing vivid grammar to generic nouns. Keep a literal carrier only when it
+becomes functional.
+Ambitious motion, spatial media, or interaction is welcome when it strengthens
+the product without weakening semantics, performance, or fallback behavior.
+MODE RULES (persuade, from /Users/ulrich/.claude/skills/impeccable/reference/mode-persuade.md). They govern this surface's directions and every comp you write or judge for it, the decision comps included; where shared guidance conflicts, these win.
+DIRECTIONS
+When a catalog world's source is itself an interface language, the surface may carry its native grammar across navigation, content, controls, and states, within the platform conventions a native app keeps.
+
+For **Persuade**, the opening must make the offer intelligible and desirable, expose a clear action, and demonstrate something only this product can prove. The action is the one the category's visitors came to take, in its working form: an airline's route-and-dates search, a clinic's open appointment slots, a store's add to cart. A decorative link pointing at it elsewhere does not count. Conversion lives inside the form's own vocabulary: a hook that lands in one line, a visible primary action, a legible reading order. A committed form that hides the offer or the action has not finished translating. For **Experience**, the work itself leads from the first viewport.
+COMPS
+The world may be the carrier of the page, never a picture of it: a facade, a shutter or a book can be what the page is built on, while a viewport painted whole as a facade, a book cover or a travel poster, with no working parts in it, is a picture of the world, not its website. Material coverage is wanted: the world's material is the ground and the major surfaces, its type sets the headlines, and a world reduced to an accent on a neutral template is the category default with a sticker on it. Coverage is not performance: how many regions act out the concept is limited by the depth rule in visualize.md, and the rest stay in the world's material without performing it. Both ends erase the direction: the painted poster, and the generic product page (a headline over subcopy and a button, a row of equal cards below). The dealt composition sets the skeleton, and the compositions you write for comps two and three answer to the same test: a split hero (copy on one side, the product on the other, a badge row under it) or a centred headline over a row of cards is the template whatever world paints it.
+
+The world carries the page's parts and never absorbs them, so wherever it puts one, the page still works as a page: navigation set into a facade reads as links, copy on a shutter as set text a visitor reads, an action on a door plaque as plainly clickable, text reads against whatever sits behind it, the sections keep a steady vertical rhythm, the primary action is unmistakable, and the section below starts as a section rather than more painting. Fix a poster by making its parts work where the world put them, never by moving them into a standard layout on the world's colour: a cover that becomes copy beside a device on marigold has lost the cover.
+
+When the world is an object, the page is that one object seen once, at one scale and from one point of view, and the object keeps its real form: a book opens to two pages on one gutter, never a third panel, and a spine that carries the navigation belongs to the book on the page, never a second book beside it. More content goes on the object's own surfaces or on the next spread below, never on extra copies or impossible folds.
+
+Comps two and three each go further than the first, never cleaner: a bolder use of the same world, where the world's material carries more of the page's structure (still one dominant move, per the depth rule), a larger or stranger focal move, or a composition the category would not attempt.
+TELEMETRY: once the round resolves, rerun this script once with
+  --from b8e7f33cca8a85c12ac26975a1034a76 --scope direction --mode persuade --reroll 1 plus what the user did:
+  - chose a card: --kind <assigned|pick|challenger|grounded|canon>, the kind the
+    card declares, adding --chosen <SOURCE ID> when a dealt challenger won (its
+    catalogId, never your card's id) and keeping --register <safer|bolder>
+    when the round came from a steered hand;
+  - asked for another hand instead of choosing: --kind reroll, adding
+    --register <safer|bolder> when they steered it.
+  One ping per attended round the user resolved; when the decision page
+  already sent it, the rerun prints `choice already recorded`. The ping is anonymous, the card kind plus the catalog id when one
+  won; your grounded candidates' names never leave the machine, and the ping
+  is skipped automatically when DO_NOT_TRACK or IMPECCABLE_NO_TELEMETRY is set.
+A user- or brief-pinned decision beats the roll, always.
+ASSIGNED INDEX (restated for truncated readers): 3. Build candidate
+3 of your own grounded list; seed key b8e7f33cca8a85c12ac26975a1034a76.
+SEED REFERENCE: seed:3b1755551a240509. Write this, never the key, wherever the seed is recorded (the surface brief's FORM line, build-phase start --direction); on this machine --from accepts it in place of the key.
+PRESENTATION (the decision round, condensed from new-work.md; follow it even when your read of that file came back cut):
+- Re-roll round: while the page is open on a key, deliver this hand to it with `/Users/ulrich/.claude/skills/impeccable/scripts/impeccable serve-question --update --key <same key> --payload <file>` and never --start a second server. A re-roll made before any page opened starts one with `/Users/ulrich/.claude/skills/impeccable/scripts/impeccable serve-question --start --payload <file>`; a round already on the structured-tool fallback stays there.
+- With image generation, every card declares a comp under .impeccable/mocks/decision/, canon included, declined challengers excepted. Serve first, then generate each comp in reading order (assigned, pick, full-card hand, canon), writing its prompt sidecar as it lands (a.png gets a.png.json).
+- After the last comp or sketch lands (at once when this round makes none), hold `/Users/ulrich/.claude/skills/impeccable/scripts/impeccable serve-question --wait --key <key>`. If your shell hands back a session before --wait exits, keep polling that session until it exits; rerun --wait only after it exits 3 with no answer.
+- Build path: none recorded in .impeccable/config.json or .impeccable/config.local.json, so comp-led whenever image generation exists. Then put "buildPath": {"value": "comp", "toggle": true} in the payload; without image generation there is no toggle and the build is code-led. Never ask about the build path during the round; only when the ANSWER returns buildPathFlipped: true, offer once afterwards to keep the flipped value as the default.
+- The structured question tool is the fallback, never the first channel: take it when --start exits 2, when --wait exits 4 after the page closed unanswered, or when your harness cannot hold a blocking --wait at all (say so in your first reply). It carries the same options and asks nothing about the build path.

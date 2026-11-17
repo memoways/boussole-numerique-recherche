@@ -1,12 +1,14 @@
-# HANDOFF — Refonte visuelle « spectre » (lot 0 livré)
+# HANDOFF — Refonte visuelle « spectre » (lot 1 non terminé)
 
-> Mis à jour le 17 novembre 2026. Plan validé : [`docs/PLAN_REFONTE_VISUELLE_SPECTRE_2026-11-17.md`](./docs/PLAN_REFONTE_VISUELLE_SPECTRE_2026-11-17.md). État du lot 0 : [`docs/ETAT_REFONTE_VISUELLE_LOT0_2026-11-17.md`](./docs/ETAT_REFONTE_VISUELLE_LOT0_2026-11-17.md).
+> Mis à jour le 17 novembre 2026. Plan validé : [`docs/PLAN_REFONTE_VISUELLE_SPECTRE_2026-11-17.md`](./docs/PLAN_REFONTE_VISUELLE_SPECTRE_2026-11-17.md). États : [lot 0](./docs/ETAT_REFONTE_VISUELLE_LOT0_2026-11-17.md), [lot 1](./docs/ETAT_REFONTE_VISUELLE_LOT1_2026-11-17.md).
 
-- **État** : lot 0 livré (boutons orange AA à 4,89:1, radar à lecture unique et statique sous mouvement réduit, chiffres non validés retirés ou étiquetés, graisses alignées). Prochain lot : **lot 1** (direction visuelle, avec mise à jour de `PRODUCT.md` et de la règle de palette d’`AGENTS.md`). Production non publiée.
-- **Décisions** : nouvelle identité, filiation Memoways par les couleurs de memoways.com, spectre arc-en-ciel vif comme engagement de marque, blocs bruts et hiérarchie contrastée, grotesque libre auto-hébergée, chiffres non validés étiquetés « objectifs visés » dans une page Dossier (lot 5).
-- **Tranché au lot 0** : Ulrich n'a pas confirmé l'origine de « 1 500 tests » et « 600 utilisateurs… 30 % » ; ils sont retirés de `/projet`. À rétablir au lot 5 seulement si l'origine est établie.
-- **Ouvert** : choix de direction (lot 1), « tu » ou « vous » et parcours « Raconter une situation » (lot 4). `DescriptionProjet.tsx` (non routée) contient encore des chiffres à nettoyer.
-- `PRODUCT.md` et la règle de palette d’`AGENTS.md` décrivent encore l’identité actuelle ; leur mise à jour fait partie du lot 1.
+- **État** : lot 0 livré (PR #33). **Lot 1 non terminé : aucune direction visuelle n'est choisie.** `PRODUCT.md` (« Brand Commitments ») et la règle de palette d'`AGENTS.md` décrivent désormais la nouvelle identité. Deux mains d'esquisses ont été jugées **inutilisables** par Ulrich (bonnes idées, exécution insuffisante, pas d'histoire). Aucun « Direction contract » dans le surface brief. Production non publiée.
+- **Prochain pas** : lot 1 bis avec un modèle plus fort (Opus ou Fable) ou un autre outil, en commençant par l'histoire, validée par Ulrich avant tout dessin. Prompt prêt à copier : [`docs/PROMPT_REPRISE_REFONTE_LOT1BIS_2026-11-17.md`](./docs/PROMPT_REPRISE_REFONTE_LOT1BIS_2026-11-17.md). Matériel sauvegardé : [`docs/refonte-visuelle-lot1-esquisses/`](./docs/refonte-visuelle-lot1-esquisses/README.md) (ne rien copier dans `client/`).
+- **Règles épinglées par Ulrich** : titre « Boussole » jamais coupé ; rien de rétro ; éléments de boussole (rondeurs, directions) sans effet de cible ; cohérence réelle ; une histoire de bout en bout.
+- **Décisions du plan** : couleurs de memoways.com, spectre arc-en-ciel vif comme engagement de marque, blocs bruts et hiérarchie contrastée, grotesque libre auto-hébergée, chiffres non validés étiquetés « objectifs visés » dans une page Dossier (lot 5).
+- **Tranché au lot 0** : « 1 500 tests » et « 600 utilisateurs… 30 % » retirés de `/projet` (origine non confirmée). À rétablir au lot 5 seulement si l'origine est établie.
+- **Ouvert** : direction visuelle (lot 1 bis), « tu » ou « vous » et parcours « Raconter une situation » (lot 4). `DescriptionProjet.tsx` (non routée) contient encore des chiffres à nettoyer.
+- **Contraste** : blanc sur `autumn` (3,15) et sur `pizazz` (2,72) interdits ; cyan `#3a7fc1` seulement en grand texte ou à ajuster (lot 2).
 
 ---
 

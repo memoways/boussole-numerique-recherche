@@ -1,0 +1,234 @@
+{
+ "title": "Direction visuelle de la Boussole — accueil",
+ "question": "Le tirage a assigné le nuancier d'imprimeur. Gardez-le, prenez une alternative ou relancez.",
+ "options": [
+  {
+   "id": "assigned-nuancier",
+   "kind": "assigned",
+   "label": "Le nuancier d'imprimeur",
+   "kicker": "THE ROLL",
+   "lineage": "nuanciers et chartes d'imprimeur, gammes de contrôle de couleur en marge des feuilles imprimées",
+   "thesis": "Le spectre devient un nuancier : cinq encres numérotées, chacune une dimension, posées comme des échantillons bord à bord.",
+   "palette": [
+    "#515792",
+    "#e27227",
+    "#3aab8a",
+    "#3a7fc1",
+    "#7ab648",
+    "#171a2f",
+    "#f7e7db"
+   ],
+   "materials": [
+    "aplats d'encre pleins",
+    "filets d'encre épais",
+    "bande de gamme de contrôle",
+    "grotesque lourde"
+   ],
+   "viewport": "Mot-symbole « Boussole » à 150 px sur fond coast-cream, bande de neuf encres en tête, puis cinq échantillons de hauteurs échelonnées (Outils, Compétences, Données, Diffusion, Collaboration) ; entrée artiste en premier, bloc encre plein.",
+   "risk": "Peut ressembler à un tableau de bord coloré si les échantillons n'ont pas des écarts d'échelle francs et un nom en gros.",
+   "raised": [
+    {
+     "from": "Catalogue de circles (doujin)",
+     "raise": "Chaque échantillon porte un code (01 à 05) qui est aussi son adresse : même code dans le nuancier, le menu et le pied de page."
+    },
+    {
+     "from": "Plancton lumineux",
+     "raise": "Au repos, tout le spectre est visible ; dans un geste de navigation, une seule encre s'allume et les autres passent en teinte, pour que la multiplicité reste lisible."
+    },
+    {
+     "from": "Chambre minihompy",
+     "raise": "Le profil choisi (artiste ou partenaire) reste marqué d'une épingle sur chaque page, sans compteur ni chiffre."
+    },
+    {
+     "from": "Grue orizuru",
+     "raise": "Chaque choix du visiteur est récupérable : lien partageable, retour possible, aucune étape sans issue."
+    }
+   ],
+   "html": ".impeccable/mocks/decision/assigned-nuancier.html"
+  },
+  {
+   "id": "model-pick-affiche",
+   "kind": "pick",
+   "kicker": "IMPECCABLE’S PICK",
+   "label": "L'affiche suisse en aplats",
+   "lineage": "style typographique international, affiches de Kunsthalle et de théâtre en champs de couleur",
+   "thesis": "Le mot « Boussole » à 300 px traverse quatre grands aplats Memoways ; un compas tracé au filet fait la signature.",
+   "palette": [
+    "#515792",
+    "#e27227",
+    "#d8b544",
+    "#3aab8a",
+    "#f7e7db",
+    "#171a2f"
+   ],
+   "materials": [
+    "aplats bord à bord",
+    "filets d'encre",
+    "grotesque 900",
+    "grille asymétrique"
+   ],
+   "viewport": "Une affiche : trois blocs de couleur, titre géant qui chevauche deux blocs, compas au filet, deux entrées en blocs pleins sous l'affiche.",
+   "risk": "C'est la direction où la plupart des refontes « suisses » atterrissent ; elle demande une exécution typographique exacte.",
+   "html": ".impeccable/mocks/decision/pick-affiche.html"
+  },
+  {
+   "id": "challenger-teletext",
+   "kind": "challenger",
+   "catalogId": "broadcast-programming-teletext-service",
+   "label": "Le magazine télétexte",
+   "verdict": "competitive",
+   "lineage": "pages télétexte à trois chiffres, grille de 40 colonnes",
+   "thesis": "Chaque entrée du site est une page à trois chiffres sur une grille stricte, avec les huit couleurs pleines du télétexte.",
+   "palette": [
+    "#000000",
+    "#ff0000",
+    "#00ff00",
+    "#ffff00",
+    "#0000ff",
+    "#00ffff",
+    "#ffffff"
+   ],
+   "materials": [
+    "mosaïque de blocs",
+    "grille fixe 40 colonnes",
+    "fond noir plat"
+   ],
+   "viewport": "Page P100 : mot-symbole en double hauteur, 101 artiste, 102 partenaire, 201 à 205 les cinq dimensions, une couleur pleine par rangée.",
+   "case": "Tient la clarté produit : adresses à trois chiffres et couleurs pleines rendent les cinq dimensions et les entrées lisibles d'un coup. Perd l'identification : ce n'est pas la culture de ce public.",
+   "risk": "Retro-nouveauté si la grille n'est pas stricte ; la police bitmap contredit la grotesque libre épinglée (traduction : garder les adresses et la grille, pas l'habillage).",
+   "html": ".impeccable/mocks/decision/challenger-teletext.html"
+  },
+  {
+   "id": "challenger-labanotation",
+   "kind": "challenger",
+   "catalogId": "notation-diagram-systems-labanotation",
+   "label": "La partition de danse",
+   "verdict": "competitive",
+   "lineage": "notation Laban, portée verticale centrale lue vers le haut",
+   "thesis": "L'accueil est une partition : une portée centrale, le parcours artiste à gauche, le partenaire à droite, le temps qui monte.",
+   "palette": [
+    "#171a2f",
+    "#7ab648",
+    "#3aab8a",
+    "#e27227",
+    "#515792",
+    "#d8b544"
+   ],
+   "materials": [
+    "portée centrale",
+    "blocs de hauteurs variables",
+    "papier blanc"
+   ],
+   "viewport": "Mot-symbole en bas (le présent), jalons non datés qui montent le long de la portée, blocs de spectre de part et d'autre, deux entrées en barre basse.",
+   "case": "Tient l'identification : les artistes de scène lisent des partitions et la symétrie met artiste et partenaire à égalité. Perd en clarté si la hauteur des blocs suggère une durée ou un niveau chiffré.",
+   "risk": "Une hauteur de bloc peut se lire comme une note ; il faudrait des hauteurs purement rythmiques et jamais de niveau.",
+   "html": ".impeccable/mocks/decision/challenger-labanotation.html"
+  },
+  {
+   "id": "challenger-cyworld",
+   "kind": "challenger",
+   "catalogId": "cyworld-minihompy-room",
+   "label": "La chambre minihompy",
+   "verdict": "declined",
+   "lineage": "pièce isométrique meublable, compteur de visiteurs",
+   "palette": [
+    "#f6d6e4",
+    "#cfe8f6",
+    "#fff4c2"
+   ],
+   "materials": [
+    "pastel isométrique",
+    "vignettes autocollantes"
+   ],
+   "case": "Perd l'identification : la décoration d'un profil n'est pas le geste de la Boussole, et le compteur de visiteurs serait un chiffre inventé.",
+   "kept": "Le profil choisi reste visible partout comme un état marqué, sans compteur."
+  },
+  {
+   "id": "challenger-doujin",
+   "kind": "challenger",
+   "catalogId": "pop-culture-shelf-doujin-event-catalog",
+   "label": "Le catalogue de circles",
+   "verdict": "declined",
+   "lineage": "catalogue sur papier journal, plan de halle",
+   "palette": [
+    "#1b1b1b",
+    "#d9d3c3",
+    "#e27227"
+   ],
+   "materials": [
+    "papier journal",
+    "grille de vignettes"
+   ],
+   "case": "Perd les deux axes : des centaines de vignettes sont le fourre-tout à éviter, et il n'y a aucune image à y mettre.",
+   "kept": "Un code identique nomme une chose et la retrouve : le numéro 01 à 05 est aussi l'adresse."
+  },
+  {
+   "id": "challenger-orizuru",
+   "kind": "challenger",
+   "catalogId": "paper-folds-pleats-deployable-orizuru-crane-sequence",
+   "label": "La grue orizuru",
+   "verdict": "declined",
+   "lineage": "pliage japonais en trente-deux étapes",
+   "palette": [
+    "#c8321e",
+    "#e9d9a8",
+    "#171a2f"
+   ],
+   "materials": [
+    "washi vermillon",
+    "plis numérotés"
+   ],
+   "case": "Perd l'identification, et trente-deux plis suggèrent une procédure ou une évaluation, alors que la Boussole repère sans noter.",
+   "kept": "Chaque choix du visiteur est récupérable et partageable."
+  },
+  {
+   "id": "challenger-plankton",
+   "kind": "challenger",
+   "catalogId": "reefs-bioluminescent-nocturnal-plankton-wake-stars",
+   "label": "La mer de plancton",
+   "verdict": "declined",
+   "lineage": "mer nocturne, sillages lumineux",
+   "palette": [
+    "#02060f",
+    "#1e6bff",
+    "#6be9ff"
+   ],
+   "materials": [
+    "fond noir",
+    "particules lumineuses"
+   ],
+   "case": "Perd les deux axes : néon sur noir est le ton « IA » à éviter, et il n'a aucun lien avec la culture genevoise.",
+   "kept": "Une seule teinte vive à la fois dans un geste de navigation."
+  }
+ ],
+ "reroll": {
+  "registers": [
+   "safer",
+   "bolder"
+  ]
+ },
+ "buildPath": {
+  "value": "code",
+  "toggle": false
+ },
+ "canon": true,
+ "canonCard": {
+  "kind": "canon",
+  "label": "Le standard de la catégorie",
+  "thesis": "Un site institutionnel culturel sobre, joué droit : fond blanc, titre bleu Memoways, bouton orange AA, cinq cartes.",
+  "palette": [
+   "#ffffff",
+   "#515792",
+   "#b8531a",
+   "#f0f1f8"
+  ],
+  "materials": [
+   "grille nette",
+   "cartes arrondies"
+  ],
+  "viewport": "Titre, une phrase, un bouton, radar illustratif à droite, cinq cartes de dimensions en rangée.",
+  "risk": "Indiscernable de n'importe quel site civic-tech, ce que la critique du 17 novembre reproche à l'identité actuelle.",
+  "html": ".impeccable/mocks/decision/canon.html"
+ },
+ "steer": true
+}

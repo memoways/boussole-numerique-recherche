@@ -1,0 +1,230 @@
+{
+ "title": "Direction visuelle de la Boussole — accueil (2e main)",
+ "question": "Reprise après vos retours : titre « Boussole » jamais coupé, rien de rétro, des éléments de boussole sans effet de cible. Gardez, prenez une alternative ou relancez.",
+ "options": [
+  {
+   "id": "assigned-carte",
+   "kind": "assigned",
+   "kicker": "THE ROLL",
+   "label": "La carte et sa légende",
+   "lineage": "cartes swisstopo, plans « vous êtes ici » et signalétique CFF",
+   "thesis": "L'accueil est une feuille de carte : cinq territoires colorés, une légende numérotée, un « vous êtes ici » et un cap vers la prochaine étape.",
+   "palette": [
+    "#515792",
+    "#e27227",
+    "#3aab8a",
+    "#3a7fc1",
+    "#7ab648",
+    "#171a2f",
+    "#f7e7db"
+   ],
+   "materials": [
+    "aplats cartographiques",
+    "filets d'encre",
+    "rose des vents graduée en spectre",
+    "grotesque 900"
+   ],
+   "viewport": "Mot-symbole « Boussole » à 176 px sur une ligne, sous-titre « numérique culture » dessous, rose des vents à huit pointes aux huit couleurs du spectre avec sa graduation ; en dessous, la carte des cinq territoires avec le trajet pointillé, la légende 01 à 05 et les deux entrées (artiste en premier).",
+   "risk": "Peut se lire comme un tableau de bord si les territoires ressemblent à des cartes de chiffres ; la carte doit rester un plan, jamais un classement.",
+   "raised": [
+    {
+     "from": "Établi de montage",
+     "raise": "Le drapeau marque l'endroit où l'on s'est arrêté : le visiteur retrouve sa place à son retour."
+    },
+    {
+     "from": "Carte au trésor",
+     "raise": "La rose des vents graduée et la légende codée donnent sa lecture à la carte, sans parchemin ni fausses pistes."
+    },
+    {
+     "from": "Passeport",
+     "raise": "Le trajet appartient à la personne : la carte garde la trace de ses choix, jamais pour la comparer."
+    },
+    {
+     "from": "Bande de film",
+     "raise": "Une seule zone est allumée à la fois ; les autres restent posées, pour que la multiplicité reste lisible."
+    },
+    {
+     "from": "Algorave",
+     "raise": "Ce que le visiteur change se voit tout de suite sur la carte."
+    }
+   ],
+   "html": ".impeccable/mocks/decision/r2-assigned-carte.html"
+  },
+  {
+   "id": "model-pick-poteau",
+   "kind": "pick",
+   "kicker": "IMPECCABLE’S PICK",
+   "label": "Le poteau de randonnée",
+   "lineage": "poteaux indicateurs de randonnée suisses, flèches par destination",
+   "thesis": "Cinq flèches sur un poteau : chaque dimension est une direction, pas un niveau, et la prochaine étape est une destination.",
+   "palette": [
+    "#515792",
+    "#e27227",
+    "#3aab8a",
+    "#3a7fc1",
+    "#7ab648",
+    "#171a2f",
+    "#f7e7db"
+   ],
+   "materials": [
+    "flèches d'aplat",
+    "poteau d'encre",
+    "grotesque 900",
+    "grille asymétrique"
+   ],
+   "viewport": "« Boussole » à 196 px sur une ligne, sous-titre dessous ; à droite un poteau et cinq flèches 01 à 05 qui pointent à gauche ou à droite ; deux entrées en barre pleine en bas.",
+   "risk": "C'est la direction la plus évidente pour une boussole suisse ; elle devient un gadget si les flèches ne portent pas la navigation réelle.",
+   "html": ".impeccable/mocks/decision/r2-pick-poteau.html"
+  },
+  {
+   "id": "challenger-disque",
+   "kind": "challenger",
+   "catalogId": "light-shadow-caustics-indoor-weather-sun",
+   "label": "Le disque doublé",
+   "verdict": "competitive",
+   "lineage": "soleil d'intérieur reflété par un plafond miroir",
+   "thesis": "Un disque coupé par un horizon : artiste en haut, partenaire en bas, chaque choix visible des deux côtés.",
+   "palette": [
+    "#262845",
+    "#e27227",
+    "#515792",
+    "#ffffff"
+   ],
+   "materials": [
+    "aplats pleins",
+    "graduation de boussole",
+    "fond royal-curtsy"
+   ],
+   "viewport": "« Boussole » à 170 px sur fond sombre, un grand disque à droite coupé par une ligne d'horizon et entouré d'une graduation ; les deux moitiés sont les deux entrées.",
+   "case": "Tient l'identification : le public d'art contemporain connaît cette installation, et le doublement met artiste et partenaire à égalité. Perd en clarté : le spectre y est sous-employé.",
+   "risk": "Un disque seul peut se lire comme un bouton ou une cible ; l'ambre monofréquence du modèle est écarté pour garder les couleurs.",
+   "html": ".impeccable/mocks/decision/r2-challenger-disque.html"
+  },
+  {
+   "id": "challenger-film",
+   "kind": "challenger",
+   "catalogId": "cinema-cinematography-editing-hand-processed-film-bloom",
+   "label": "La bande de film",
+   "verdict": "declined",
+   "lineage": "pellicule 16 mm développée à la main",
+   "palette": [
+    "#9aa0a6",
+    "#111111",
+    "#e27227"
+   ],
+   "materials": [
+    "émulsion",
+    "grain",
+    "fuites de lumière"
+   ],
+   "case": "Perd les deux axes : l'argentique est une nostalgie, et rien n'y montre cinq dimensions.",
+   "kept": "Une seule zone allumée à la fois."
+  },
+  {
+   "id": "challenger-treasure",
+   "kind": "challenger",
+   "catalogId": "wayfinding-cartography-signage-salt-stiffened-treasure-map",
+   "label": "La carte au trésor",
+   "verdict": "declined",
+   "lineage": "carte sur vélin, rose des vents, marginalia codés",
+   "palette": [
+    "#c9b48a",
+    "#5a3b1e",
+    "#a33327"
+   ],
+   "materials": [
+    "vélin",
+    "encre ferro-gallique"
+   ],
+   "case": "Perd les deux axes : un pastiche de pirate est le rétro écarté, et ses fausses pistes contredisent « dire l'état réel ».",
+   "kept": "La rose des vents graduée et la légende codée."
+  },
+  {
+   "id": "challenger-passport",
+   "kind": "challenger",
+   "catalogId": "vernacular-ephemera-well-traveled-passport",
+   "label": "Le passeport",
+   "verdict": "declined",
+   "lineage": "passeport rempli de visas et de tampons",
+   "palette": [
+    "#1f3a5f",
+    "#c9b48a",
+    "#b03a2e"
+   ],
+   "materials": [
+    "papier sécurisé",
+    "tampons"
+   ],
+   "case": "Perd les deux axes : l'accumulation de tampons est le fourre-tout à éviter et évoque les frontières.",
+   "kept": "Le trajet appartient à la personne."
+  },
+  {
+   "id": "challenger-algorave",
+   "kind": "challenger",
+   "catalogId": "medium-native-algorave-source-floor",
+   "label": "La piste d'algorave",
+   "verdict": "declined",
+   "lineage": "code projeté sur une piste de danse",
+   "palette": [
+    "#05070a",
+    "#39ff88",
+    "#ff3ea5"
+   ],
+   "materials": [
+    "code projeté",
+    "néon"
+   ],
+   "case": "Perd les deux axes : néon sur noir est le ton « IA » à éviter, et il n'a aucun lien avec ce public.",
+   "kept": "Ce que le visiteur change se voit tout de suite."
+  },
+  {
+   "id": "challenger-bench",
+   "kind": "challenger",
+   "catalogId": "operate-a-cutting-bench-select-rail",
+   "label": "L'établi de montage",
+   "verdict": "declined",
+   "lineage": "rail de sélection d'un établi de montage",
+   "palette": [
+    "#000000",
+    "#e27227",
+    "#ffffff"
+   ],
+   "materials": [
+    "perforations",
+    "grain orange"
+   ],
+   "case": "Perd l'identification : c'est un outil de monteur, pas la culture de ce public.",
+   "kept": "Un drapeau marque la reprise."
+  }
+ ],
+ "reroll": {
+  "registers": [
+   "safer",
+   "bolder"
+  ]
+ },
+ "buildPath": {
+  "value": "code",
+  "toggle": false
+ },
+ "canon": true,
+ "canonCard": {
+  "kind": "canon",
+  "label": "Le standard de la catégorie",
+  "thesis": "Un site institutionnel culturel sobre, joué droit : fond blanc, titre bleu Memoways, bouton orange AA, cinq cartes.",
+  "palette": [
+   "#ffffff",
+   "#515792",
+   "#b8531a",
+   "#f0f1f8"
+  ],
+  "materials": [
+   "grille nette",
+   "cartes arrondies"
+  ],
+  "viewport": "Titre, une phrase, un bouton, radar illustratif à droite, cinq cartes de dimensions en rangée.",
+  "risk": "Indiscernable de n'importe quel site civic-tech, ce que la critique du 17 novembre reproche à l'identité actuelle.",
+  "html": ".impeccable/mocks/decision/canon.html"
+ },
+ "steer": true
+}
