@@ -117,13 +117,13 @@ export function InteractiveNarrativeIllustration({ kind, accent, plainSummary = 
     outlineColor: accent,
   });
 
-  const SignalGraphic = () => <div className="space-y-5">
+  // Représentation sans valeur chiffrée : trois signaux à relier, sans longueur ni pourcentage suggérant une mesure.
+  const SignalGraphic = () => <div className="space-y-3">
     {story.steps.map((step, index) => {
-      const value = [72, 54, 38][index];
       const selected = activeIndex === index;
-      return <button key={step.label} type="button" {...interaction(index)} className="group block w-full text-left outline-none" aria-label={`Explorer le signal : ${step.label}`}>
-        <span className="mb-2 flex items-baseline justify-between gap-3 text-sm font-bold" style={{ color: selected ? accent : "#475569" }}><span>{step.label}</span><span className="text-xs" style={{ color: accent }}>{value}%</span></span>
-        <span className="block h-3 overflow-hidden rounded-full bg-slate-100"><span className="block h-full origin-left rounded-full transition-[transform,background-color] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-y-125 group-focus-visible:scale-y-125 motion-reduce:transition-none" style={{ width: `${value}%`, backgroundColor: selected ? accent : soft }} /></span>
+      return <button key={step.label} type="button" {...interaction(index)} className="group flex min-h-11 w-full items-center gap-3 border-b-2 px-1 py-2 text-left outline-none focus-visible:outline-2 focus-visible:outline-offset-2" style={{ borderColor: selected ? accent : soft, outlineColor: accent }} aria-label={`Explorer le signal : ${step.label}`}>
+        <span className="grid h-6 min-w-6 place-items-center rounded-full text-[11px] font-bold" style={{ backgroundColor: selected ? accent : soft, color: selected ? "#fff" : accent }}>{String(index + 1).padStart(2, "0")}</span>
+        <span className="text-sm font-bold" style={{ color: selected ? accent : "#475569" }}>{step.label}</span>
       </button>;
     })}
   </div>;

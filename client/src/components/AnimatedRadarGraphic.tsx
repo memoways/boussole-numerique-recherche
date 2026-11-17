@@ -1,8 +1,9 @@
 /**
- * Radar animé — même langage visuel et interactions que le radar de la page d’accueil.
+ * Radar illustratif — même langage visuel et interactions que le radar de la page d’accueil.
+ * Il joue une seule lecture de 4 s et reste statique sous « mouvement réduit ».
  * Il peut devenir exploratoire dans le deck partenaire, sans panneau décoratif intermédiaire.
  */
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 export type RadarDimension = {
   label: string;
@@ -20,46 +21,57 @@ type AnimatedRadarGraphicProps = {
 
 const PROFILE_A = [0.72, 0.5, 0.83, 0.45, 0.68];
 const PROFILE_B = [0.4, 0.78, 0.55, 0.82, 0.35];
+const READING_DURATION_MS = 4000;
+const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
+
+/** Préférence système de mouvement réduit, suivie en direct (WCAG 2.2.2 et 2.3.3). */
+function usePrefersReducedMotion() {
+  const [reduced, setReduced] = useState(() => typeof window !== "undefined" && typeof window.matchMedia === "function" && window.matchMedia(REDUCED_MOTION_QUERY).matches);
+  useEffect(() => {
+    if (typeof window.matchMedia !== "function") return;
+    const query = window.matchMedia(REDUCED_MOTION_QUERY);
+    const update = () => setReduced(query.matches);
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
+  return reduced;
+}
 
 export function AnimatedRadarGraphic({
   dimensions,
   className = "h-56 w-56 sm:h-64 sm:w-64",
-  ariaLabel = "Radar animé des cinq dimensions",
+  ariaLabel = "Radar illustratif des cinq dimensions",
   interactive = false,
 }: AnimatedRadarGraphicProps) {
+  const reducedMotion = usePrefersReducedMotion();
   const [values, setValues] = useState(PROFILE_A);
   const [activeIndex, setActiveIndex] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const rafRef = useRef<number | null>(null);
-  const phaseRef = useRef(0);
-  const progressRef = useRef(0);
-  const lastTimeRef = useRef(0);
   const cx = 150;
   const cy = 150;
   const radius = 100;
   const controlRadius = 138;
 
+  // Une seule lecture de 4 s (profil A vers profil B), puis le radar reste immobile.
+  // Sous « mouvement réduit », il reste statique sur le profil A et s'arrête si la préférence change en cours de lecture.
   useEffect(() => {
-    const duration = 4000;
+    if (reducedMotion) {
+      setValues(PROFILE_A);
+      return;
+    }
+    let frame = 0;
+    let start: number | null = null;
     const tick = (timestamp: number) => {
-      const delta = timestamp - (lastTimeRef.current || timestamp);
-      lastTimeRef.current = timestamp;
-      progressRef.current = Math.min(progressRef.current + delta / duration, 1);
-      const ease = (1 - Math.cos(progressRef.current * Math.PI)) / 2;
-      const from = phaseRef.current === 0 ? PROFILE_A : PROFILE_B;
-      const to = phaseRef.current === 0 ? PROFILE_B : PROFILE_A;
-      setValues(from.map((value, index) => value + (to[index] - value) * ease));
-      if (progressRef.current >= 1) {
-        progressRef.current = 0;
-        phaseRef.current ^= 1;
-      }
-      rafRef.current = requestAnimationFrame(tick);
+      start ??= timestamp;
+      const progress = Math.min((timestamp - start) / READING_DURATION_MS, 1);
+      const ease = (1 - Math.cos(progress * Math.PI)) / 2;
+      setValues(PROFILE_A.map((value, index) => value + (PROFILE_B[index] - value) * ease));
+      if (progress < 1) frame = requestAnimationFrame(tick);
     };
-    rafRef.current = requestAnimationFrame(tick);
-    return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
-  }, []);
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [reducedMotion]);
 
   const points = dimensions.map((_, index) => {
     const angle = (index * 72 - 90) * Math.PI / 180;

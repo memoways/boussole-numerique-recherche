@@ -4,6 +4,14 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 
 ## [Unreleased]
 
+- Refonte visuelle « spectre », **lot 0** (correctifs immédiats, aucune nouvelle identité) :
+  - boutons orange : fond `#B8531A` et texte blanc (4,89:1 au lieu de 3,14:1) pour tous les CTA, y compris le « Participer » du menu, les ateliers, la démo et le questionnaire ; surcharge CSS unique à la place des anciennes règles ;
+  - radar (`AnimatedRadarGraphic`) : une seule lecture de 4 s au lieu d'une boucle, statique sous `prefers-reduced-motion` (préférence écoutée en direct) ;
+  - `/projet` : « 1 500 tests » et « 600 utilisateurs… 30 % » retirés (origine non confirmée), « 3 à 7 heures par semaine » retiré, coches de la colonne « Piste Boussole » remplacées par « prévu » ou « à tester », objectifs restants en puces neutres sous « Objectifs visés à deux ans » ;
+  - visuel « signaux » de la présentation partenaire : pourcentages 72/54/38 remplacés par trois lignes numérotées ;
+  - graisses : `font-extrabold` et `font-black` alignés sur 700 ; Open Sans chargé en 400/500/600/700 et Roboto Mono en 500/700.
+  - Voir [`docs/ETAT_REFONTE_VISUELLE_LOT0_2026-11-17.md`](docs/ETAT_REFONTE_VISUELLE_LOT0_2026-11-17.md). Fusion sur `main` ; production non publiée.
+
 - `docs/PLAN_REFONTE_VISUELLE_SPECTRE_2026-11-17.md` : critique Impeccable du site (24/40), décisions d’Ulrich pour une nouvelle identité (couleurs Memoways, spectre arc-en-ciel, blocs bruts, grotesque libre auto-hébergée) et plan en sept lots avec le prompt du lot 0. Référencé dans `docs/README.md` et `HANDOFF.md`. Aucun changement de code ni de rendu.
 
 - `PRODUCT.md` : contexte produit durable (public, objectif, positionnement, contraintes, accessibilité) créé via `/impeccable init`, à la racine, pour guider les futurs travaux de design. Aucun changement de code ni de rendu.

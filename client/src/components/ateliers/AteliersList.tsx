@@ -27,7 +27,7 @@ const PUBLIC_LABELS: Record<string, string> = {
   "Artiste": "Artistes",
 };
 
-const primaryButton = "inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-[#E07428] px-5 text-sm font-bold text-white shadow-sm transition-colors hover:bg-[#c9651f] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E07428]";
+const primaryButton = "inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-[#B8531A] px-5 text-sm font-bold text-white shadow-sm transition-colors hover:bg-[#9A4414] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B8531A]";
 
 const placesLabel = (places: number) => (places === 1 ? "1 place restante" : `${places} places restantes`);
 

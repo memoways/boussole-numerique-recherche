@@ -143,7 +143,7 @@ function DemoCallout({ id }: { id: string }) {
         <h3 id={id} className="text-lg font-extrabold text-slate-950">Voir la conversation se dérouler</h3>
         <p className="mt-1 max-w-2xl text-sm leading-relaxed text-slate-700">Un parcours fictif, joué à l’écran en quelques minutes : les questions, les réponses, ce que la Boussole retient et la restitution. Rien n’est enregistré.</p>
       </div>
-      <Link href="/experience/demo" aria-describedby={id} className="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-xl bg-[#E07428] px-5 text-base font-bold text-white transition-colors hover:bg-[#c95f18]">
+      <Link href="/experience/demo" aria-describedby={id} className="inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-xl bg-[#B8531A] px-5 text-base font-bold text-white transition-colors hover:bg-[#9A4414]">
         Voir une démonstration du parcours <ArrowRight className="h-5 w-5" aria-hidden="true" />
       </Link>
     </div>
@@ -169,7 +169,7 @@ export default function Experience() {
             <h1 id="experience-title" className="text-4xl font-extrabold leading-[1.05] tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">Essayez la Boussole avant qu’elle existe</h1>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-700 sm:text-xl">Suivez en quelques minutes une conversation fictive : une personne décrit sa situation, la Boussole en retient l’essentiel, propose un panorama à discuter, puis une première amélioration à tester. Vous voyez le futur outil à l’œuvre et vous nous dites ce qui sonne juste.</p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
-              <Link href="/experience/demo" className="inline-flex min-h-14 items-center justify-center gap-2 rounded-xl bg-[#E07428] px-8 text-center text-lg sm:whitespace-nowrap font-bold text-white shadow-lg shadow-[#E07428]/30 transition-colors hover:bg-[#c95f18] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#E07428]">
+              <Link href="/experience/demo" className="inline-flex min-h-14 items-center justify-center gap-2 rounded-xl bg-[#B8531A] px-8 text-center text-lg sm:whitespace-nowrap font-bold text-white shadow-lg shadow-[#B8531A]/30 transition-colors hover:bg-[#9A4414] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#B8531A]">
                 Voir une démonstration du parcours <ArrowRight className="h-5 w-5" aria-hidden="true" />
               </Link>
               <p className="text-sm leading-snug text-slate-600 sm:max-w-[16rem]">Environ 3 minutes. Rien n’est enregistré : la Boussole n’existe pas encore.</p>
@@ -206,7 +206,7 @@ export default function Experience() {
 
       <section className="px-4 py-10"><div className="mx-auto max-w-5xl rounded-2xl border border-slate-200 bg-white p-6 sm:p-8"><div className="flex items-start gap-4"><FileText className="mt-0.5 h-6 w-6 shrink-0 text-[#515792]" /><div><h2 className="font-extrabold text-slate-950">Ce que ces écrans ne font pas encore</h2><p className="mt-2 text-sm leading-relaxed text-slate-600">Ils ne lancent pas de diagnostic, ne calculent pas de score, ne sauvegardent pas de réponse et ne recommandent pas automatiquement un outil. Ils rendent simplement discutables les écrans et les gestes que le prototype devra confirmer avec les partenaires et les artistes.</p></div></div></div></section>
 
-      <section className="bg-white px-4 pb-16 pt-8 text-center"><div className="mx-auto max-w-4xl"><h2 className="text-2xl font-extrabold text-slate-950">Votre réaction peut aider à définir ces écrans</h2><p className="mx-auto mt-3 max-w-2xl text-slate-600">Les partenaires peuvent partager ce qui semble juste, ce qui manque et ce qui devrait rester simple avant l’atelier et le cadrage du prototype.</p><div className="mt-7 flex flex-wrap justify-center gap-3"><Button className="text-white" style={{ backgroundColor: "#E07428" }} asChild><Link href="/partenaires/questionnaire">Répondre au questionnaire partenaire <ArrowRight className="ml-2 h-4 w-4" /></Link></Button><Button variant="outline" className="border-[#515792] text-[#515792]" asChild><Link href="/partenaires">Comprendre la co-conception <ChevronRight className="ml-1 h-4 w-4" /></Link></Button></div></div></section>
+      <section className="bg-white px-4 pb-16 pt-8 text-center"><div className="mx-auto max-w-4xl"><h2 className="text-2xl font-extrabold text-slate-950">Votre réaction peut aider à définir ces écrans</h2><p className="mx-auto mt-3 max-w-2xl text-slate-600">Les partenaires peuvent partager ce qui semble juste, ce qui manque et ce qui devrait rester simple avant l’atelier et le cadrage du prototype.</p><div className="mt-7 flex flex-wrap justify-center gap-3"><Button className="text-white" style={{ backgroundColor: "#B8531A" }} asChild><Link href="/partenaires/questionnaire">Répondre au questionnaire partenaire <ArrowRight className="ml-2 h-4 w-4" /></Link></Button><Button variant="outline" className="border-[#515792] text-[#515792]" asChild><Link href="/partenaires">Comprendre la co-conception <ChevronRight className="ml-1 h-4 w-4" /></Link></Button></div></div></section>
     </div>
   );
 }

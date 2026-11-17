@@ -458,7 +458,7 @@ export default function PartnerPresentation() {
                 <span className="shrink-0 text-xs font-semibold tabular-nums text-slate-500" aria-live="polite">{currentIndex + 1} / {SLIDES.length}</span>
               </div>
               {isLast ? (
-                <Button asChild style={{ backgroundColor: "#E07428", color: "#fff" }}>
+                <Button asChild style={{ backgroundColor: "#B8531A", color: "#fff" }}>
                   <Link href="/partenaires/questionnaire">Partager mes idées et feedbacks <ArrowRight className="ml-2 h-4 w-4" /></Link>
                 </Button>
               ) : (

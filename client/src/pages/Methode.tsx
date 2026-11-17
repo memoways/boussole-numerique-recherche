@@ -92,7 +92,7 @@ export default function Methode() {
             La Boussole sera construite avec des partenaires qui relient l’outil aux artistes, aux équipes et aux communautés culturelles. Le site compagnon rendra les étapes et les choix de cette co-conception discutables.
           </p>
           <div className="flex flex-wrap gap-3">
-            <Button style={{ backgroundColor: '#E07428', color: '#fff' }} asChild>
+            <Button style={{ backgroundColor: '#B8531A', color: '#fff' }} asChild>
               <Link href="/partenaires/questionnaire">Répondre au questionnaire partenaire <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
             <Button variant="outline" style={{ borderColor: '#515792', color: '#515792' }} asChild>

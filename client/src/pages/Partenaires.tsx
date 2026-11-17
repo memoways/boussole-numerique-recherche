@@ -71,7 +71,7 @@ export default function Partenaires() {
               <span className="flex items-center gap-2 font-semibold text-slate-950"><Compass className="h-4 w-4 text-[#515792]" /> Comprendre la co-conception <ArrowRight className="ml-auto h-4 w-4 text-[#515792] transition-transform group-hover:translate-x-0.5" /></span>
               <span className="mt-2 block text-sm leading-relaxed text-slate-600">Voir le problème, les rôles des partenaires et le prototype à décider avant son développement.</span>
             </Link>
-            <Link href="/participer" className="group rounded-xl bg-[#E07428] p-4 text-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
+            <Link href="/participer" className="group rounded-xl bg-[#B8531A] p-4 text-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md">
               <span className="flex items-center gap-2 font-semibold"><CalendarDays className="h-4 w-4" /> Participer au projet <ArrowRight className="ml-auto h-4 w-4 transition-transform group-hover:translate-x-0.5" /></span>
               <span className="mt-2 block text-sm leading-relaxed text-white/90">S’inscrire à un atelier ou répondre au questionnaire partenaire.</span>
             </Link>
@@ -204,7 +204,7 @@ export default function Partenaires() {
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Prêt à contribuer ?</h2>
           <p className="text-gray-500 mb-8 max-w-xl mx-auto">Les ateliers et le questionnaire partenaire sont réunis sur une seule page. Le calendrier montre où en est le projet.</p>
           <div className="flex flex-wrap gap-3 justify-center">
-            <Button size="lg" style={{ backgroundColor: '#E07428', color: '#fff' }} asChild>
+            <Button size="lg" style={{ backgroundColor: '#B8531A', color: '#fff' }} asChild>
               <Link href="/participer">Participer au projet <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
             <Button size="lg" variant="outline" style={{ borderColor: '#E07428', color: '#1f2937' }} asChild>

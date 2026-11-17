@@ -19,3 +19,27 @@ Un contrôle visuel complémentaire a confirmé que le CTA « Suivre le projet �
 La teinte des CTA a ensuite été harmonisée avec la demande visuelle `#E07428`. Le texte est rendu en `#1F2937`, ce qui atteint un contraste de 4,68:1 et conserve donc la conformité AA pour le texte normal. Les CTA de la page d'accueil, de navigation et de la page Partenaires ont été contrôlés visuellement après cette évolution.
 
 La boussole interactive de la page d'accueil a été simplifiée : les cercles pointillés et les lignes cardinales internes sont retirés. Le contour, l'aiguille, les cinq repères et leurs interactions restent présents.
+
+## Boutons orange — lot 0 de la refonte visuelle (17 novembre 2026)
+
+Le texte blanc forcé sur `#E07428` n'atteignait que 3,14:1, sous le seuil AA de 4,5:1 pour le texte normal (le paragraphe précédent sur `#1F2937` ne correspondait plus au code, qui forçait du blanc). Le fond des CTA orange devient `#B8531A` : blanc sur `#B8531A` = **4,89:1** (encre `#171a2f` sur `#E07428` = 5,47:1, variante non retenue). Survol : `#9A4414`.
+
+Mesures dans le navigateur (styles calculés Playwright, 1440 et 390 px). « Avant » : valeur calculée à partir des feuilles de style de `main` (blanc sur `#E07428`).
+
+| Bouton | Page | Taille/graisse | Avant | Après |
+|---|---|---|---|---|
+| Participer au projet (menu) | toutes | 14 px / 600 | 3,14:1 | 4,89:1 |
+| Voir les ateliers | `/` | 14 px / 700 | 3,14:1 | 4,89:1 |
+| Contacter l'équipe de projet, Contacter l'équipe | `/` | 14 px / 600 | 3,14:1 | 4,89:1 |
+| Essayer l'expérience Boussole | `/` | 20 px / 700 | 3,14:1 | 4,89:1 |
+| Signaler mon intérêt pour le projet | `/?public=artiste` | 14 px / 600 | 3,14:1 | 4,89:1 |
+| Voir une démonstration du parcours | `/experience` | 18 px / 700 | 3,14:1 | 4,89:1 |
+| Répondre au questionnaire partenaire | `/experience` | 14 px / 500 | 3,14:1 | 4,89:1 |
+| Répondre au questionnaire | `/participer` | 14 px / 700 | 3,14:1 | 4,89:1 |
+| Participer au projet (carte) | `/partenaires` | 16 px / 400 | 3,14:1 | 4,89:1 |
+| Demander une invitation | `/partenaires/questionnaire` | 14 px / 500 | 3,14:1 | 4,89:1 |
+| Commencer (démo, bouton principal) | `/experience/demo/scene` | 16 px / 600 | 3,14:1 | 4,89:1 |
+| Badges « Le contexte », « Impact », pastilles numérotées | `/projet` | 12–14 px / 700 | 3,15:1 | 4,89:1 |
+
+Restent hors de ce lot : l'en-tête « Situation actuelle fréquente » de `/projet` (blanc sur `#ef4444`, 3,76:1) et les badges sur `#A8440D`, déjà conformes. L'animation du radar s'arrête sous `prefers-reduced-motion` et ne joue qu'une fois (4 s).
+
