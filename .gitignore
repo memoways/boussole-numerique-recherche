@@ -112,3 +112,6 @@ temp/
 .webdev/
 .project-config.json
 .manus-logs/
+
+# Playwright MCP session captures
+.playwright-mcp/

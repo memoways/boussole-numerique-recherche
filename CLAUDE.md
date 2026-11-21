@@ -1,5 +1,5 @@
-# Instructions Claude Code
+@AGENTS.md
 
-Lisez et appliquez intégralement [`AGENTS.md`](./AGENTS.md) avant toute modification. Ce fichier est la source de vérité pour l'architecture, le workflow, la sécurité des variables et les contrôles obligatoires du projet.
+## Claude Code
 
-Pour le déploiement autonome, consultez ensuite [`docs/COOLIFY_MIGRATION.md`](./docs/COOLIFY_MIGRATION.md). Ne remplacez pas la configuration Docker/Nginx sans vérifier les routes directes `/projet`, `/timeline` et `/references`.
+Pour le déploiement autonome, lire ensuite [`docs/COOLIFY_MIGRATION.md`](./docs/COOLIFY_MIGRATION.md). Ne pas remplacer la configuration Docker/Nginx sans vérifier les routes directes `/projet`, `/timeline` et `/references`.
