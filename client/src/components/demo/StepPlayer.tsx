@@ -1,20 +1,22 @@
 /**
- * Une interaction jouée de bout en bout, selon la grammaire du PRD : la Boussole pose la question,
- * la personne répond (cases, scénario ou voix), la Boussole prend note puis retient. Le panneau
- * « Ce que la Boussole retient » est la somme des étapes précédentes, plus celle-ci une fois reçue.
- * Sous la réponse ne restent que la validation humaine (curseurs induits, correction) et, quand ça
- * fait sens, « D’autres regards » : notes et extraits ne sont plus répétés hors du panneau (lot 4).
+ * Une interaction jouée de bout en bout, selon la grammaire du PRD : la Boussole pose la question (en grand),
+ * la personne répond (cases, scénario ou voix, toujours en playback), puis la Boussole en tire une synthèse étiquetée
+ * (extraction puis transformation : comment c’est lu, ce qui est retenu, à quoi ça sert), parfois une précision
+ * (relance à la voix). Les niveaux qualitatifs se valident une seule fois, à la fin de chaque dimension, sur leur propre page :
+ * la personne valide ou corrige à la voix. « D’autres regards » et « Un premier regard » viennent en dernier.
  */
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, Compass, FastForward, Mic, MousePointerClick } from "lucide-react";
+import { ArrowLeft, ArrowRight, FastForward, Mic, MousePointerClick, Plus } from "lucide-react";
 import { Link, useLocation } from "wouter";
 import {
   DEMO_CONTENT,
   fillTemplate,
+  getDimensionSliders,
   getGauges,
   getRetainedItems,
   getRetainedUntil,
+  isDimensionEnd,
   stepPath,
   type DemoPersona,
   type DemoStep,
@@ -22,14 +24,18 @@ import {
 } from "@/lib/demoContent";
 import { ChecklistAnswer, InducedSliders, LevelHelp, MemoryEcho, ScenarioAnswer } from "./DemoAnswers";
 import { DemoActions, demoPrimaryButton, demoSecondaryButton } from "./DemoShell";
-import { DIMENSION_COLORS, dimensionVar } from "./demoTheme";
+import { DIMENSION_COLORS } from "./demoTheme";
 import { MemoryColumn, MemoryDrawer } from "./MemoryPanel";
 import MilestoneCard from "./MilestoneCard";
+import QuestionCard from "./QuestionCard";
 import RelatedResources from "./RelatedResources";
-import ToolsAnswer from "./ToolsAnswer";
+import SpokenBubble from "./SpokenBubble";
+import SyntheseCard from "./SyntheseCard";
+import ToolsAnswer, { ToolFocusCards } from "./ToolsAnswer";
 import TypedTranscript from "./TypedTranscript";
 import { useDemoKeyboard } from "./useDemoKeyboard";
-import { phaseReached, useStepPlayback } from "./useStepPlayback";
+import { phaseReached, useStepPlayback, VOICE_INTRO_MS, VOICE_WORD_MS } from "./useStepPlayback";
+import { useTypedSpeech } from "./useTypedSpeech";
 import Waveform from "./Waveform";
 
 /** Une étape numérotée, ou l’écran « numérique idéal » (sans dimension ni numéro). */
@@ -45,44 +51,75 @@ type Props = {
   onTogglePanel: () => void;
 };
 
+const wordCount = (text: string | undefined) => (text ?? "").split(/\s+/).filter(Boolean).length;
+
 export default function StepPlayer({ persona, step, previous, next, continueLabel, panelOpen, onTogglePanel }: Props) {
   const { lecture, dimensions } = DEMO_CONTENT;
   const [, navigate] = useLocation();
   const choix = step.reponse.choix ?? [];
-  const retainedItems = step.id === null ? [] : getRetainedItems(step as DemoStep);
-  const sliders = step.retenu?.curseurs ?? [];
-  const hasCorrection = sliders.some((slider) => slider.corrigeA);
+  const retenu = step.retenu;
+  const precision = retenu?.precision;
   const tools = step.type === "cases" ? step.outils : undefined;
-  // Une réception chargée (plusieurs blocs : curseurs à valider, ressources, point d’étape) a sa propre page.
-  const receptionBlocks = (sliders.length > 0 && step.type !== "curseurs" ? 1 : 0) + ((step.ressources ?? []).length > 0 ? 1 : 0) + (step.pointEtape ? 1 : 0);
+  // La validation des niveaux appartient au dernier échange de chaque dimension : un seul moment, une seule page.
+  const validation = step.id !== null && isDimensionEnd(persona, step as DemoStep) ? step.validation : undefined;
+  const validationSliders = validation ? getDimensionSliders(persona, step as DemoStep) : [];
+  const hasCorrection = validationSliders.some((slider) => slider.corrigeA);
   const playback = useStepPlayback({
     // Un échange « outils » commence par la parole : rien n’est coché d’avance.
     choices: !tools && (step.type === "cases" || step.type === "scenario") ? choix.length : 0,
-    tools: tools ? { detected: tools.cites.length, spokenWords: tools.complement.split(/\s+/).filter(Boolean).length, rankWords: tools.classement.split(/\s+/).filter(Boolean).length, probeWords: tools.approfondissement?.transcription.split(/\s+/).filter(Boolean).length ?? 0 } : undefined,
+    tools: tools ? { detected: tools.cites.length, spokenWords: wordCount(tools.complement), rankWords: wordCount(tools.classement), probeWords: wordCount(tools.approfondissement?.transcription) } : undefined,
     transcription: step.reponse.transcription,
-    hasRetained: retainedItems.length > 0,
-    hasCorrection,
-    splitReception: receptionBlocks >= 2 && step.type !== "curseurs",
+    hasSynthesis: Boolean(retenu),
+    precisionWords: wordCount(precision?.transcription),
+    validation: validation ? { words: wordCount(validation.voix), hasCorrection } : undefined,
   });
   const { phase, reducedMotion, reached, page, pageCount } = playback;
   const isFirstPage = page === 1;
   const isToolsPage = Boolean(tools) && page === 2;
-  // Page « ce que la Boussole retient » : la dernière, sauf pour les outils sans page de réception dédiée.
-  const isLastPage = page === pageCount && pageCount > 1 && !(tools && pageCount === 2);
+  const isValidationPage = Boolean(validation) && page === pageCount;
+  // Page où la synthèse arrive : la première, ou la deuxième après un échange « outils » (classement et approfondissement d’abord).
+  const isSynthesisPage = page === (tools ? 2 : 1);
   const pageRef = useRef(1);
 
   const answerRef = useRef<HTMLDivElement>(null);
   const toolsRef = useRef<HTMLDivElement>(null);
-  const inducedRef = useRef<HTMLDivElement>(null);
+  const synthesisRef = useRef<HTMLDivElement>(null);
+  const precisionRef = useRef<HTMLDivElement>(null);
+  const validationRef = useRef<HTMLDivElement>(null);
   const resourcesRef = useRef<HTMLElement>(null);
   const milestoneRef = useRef<HTMLDivElement>(null);
 
+  const color = step.dimension ? DIMENSION_COLORS[step.dimension] : DIMENSION_COLORS.outils;
+  const showChoices = !tools && (step.type === "cases" || step.type === "scenario");
+  const voiceStarted = reached("transcribing");
+  // L’onde s’apaise sur le dernier quart de la transcription et s’arrête avec elle.
+  const speechLevel = playback.totalWords > 0 ? Math.min(1, (1 - playback.wordsShown / playback.totalWords) * 4) : 0;
+  const fade = (delay = 0) => (reducedMotion ? { initial: false as const } : { initial: { opacity: 0, y: 8 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.45, delay } });
+
+  // Précision et validation : des réponses à la voix, écrites mot à mot comme la première.
+  const precisionSpeech = useTypedSpeech(precision?.transcription ?? "", { active: phase === "precising", finished: reached("pauseB"), reducedMotion, introMs: VOICE_INTRO_MS, wordMs: VOICE_WORD_MS });
+  const validationSpeech = useTypedSpeech(validation?.voix ?? "", { active: phase === "validating", finished: phase === "done", reducedMotion, introMs: VOICE_INTRO_MS, wordMs: VOICE_WORD_MS });
+
+  // Ce qui est déjà joué : le panneau « Ce que la Boussole retient » ne s’enrichit qu’à ces moments-là.
+  const extracted = reached("synthesizing");
+  const precised = !precision ? extracted : reached("pauseB") || (phase === "precising" && precisionSpeech.complete);
+  const validated = phase === "done" || (phase === "validating" && validationSpeech.complete);
+  const levelsMoved = validated && validation !== undefined;
+
   // Le dernier bloc apparu reste visible, y compris sous la barre de commandes du smartphone.
   useEffect(() => {
-    const doneTarget = step.pointEtape ? milestoneRef.current : resourcesRef.current;
-    const target = phase === "done" ? doneTarget : phase === "retained" ? inducedRef.current : phase === "detecting" || phase === "proposing" || phase === "ranking" || phase === "probing" ? toolsRef.current : phase === "transcribing" || phase === "selecting" ? answerRef.current : null;
+    const lastBlock = isValidationPage ? validationRef.current : precision ? precisionRef.current : synthesisRef.current;
+    const doneTarget = step.pointEtape ? milestoneRef.current : (step.ressources ?? []).length > 0 ? resourcesRef.current : lastBlock;
+    const target =
+      phase === "done" ? doneTarget
+      : phase === "validating" ? validationRef.current
+      : phase === "precising" ? precisionRef.current
+      : phase === "synthesizing" ? synthesisRef.current
+      : phase === "detecting" || phase === "proposing" || phase === "ranking" || phase === "probing" ? toolsRef.current
+      : phase === "transcribing" || phase === "selecting" ? answerRef.current
+      : null;
     target?.scrollIntoView({ block: "nearest", behavior: reducedMotion ? "auto" : "smooth" });
-  }, [phase, reducedMotion, step.pointEtape]);
+  }, [phase, reducedMotion, step.pointEtape, step.ressources, precision, isValidationPage]);
 
   // À chaque nouvelle page, on repart du haut : l’écran n’est jamais plus long que ce qu’il montre.
   useEffect(() => {
@@ -95,26 +132,22 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
   const primaryAction = playback.isWaiting ? playback.start : playback.isPlaying ? playback.skip : playback.isPaused ? playback.resume : () => go(next);
   useDemoKeyboard({ onAdvance: primaryAction, onNext: () => go(next), onPrevious: () => go(previous) });
 
-  const receptionPlayed = reached("retained");
   const panelStep = step.id ?? persona.etapes.length + 1;
   const panelProps = {
     persona,
-    items: getRetainedUntil(persona, panelStep, receptionPlayed),
-    gauges: getGauges(persona, panelStep, receptionPlayed),
-    currentStep: receptionPlayed ? step.id : null,
+    items: getRetainedUntil(persona, panelStep, { extracted, precised, validated }),
+    gauges: getGauges(persona, panelStep, validated),
+    currentStep: extracted ? step.id : null,
     highlight: step.rebond?.rappel,
     reducedMotion,
   };
 
-  const color = step.dimension ? DIMENSION_COLORS[step.dimension] : DIMENSION_COLORS.outils;
-  const isSliderQuestion = step.type === "curseurs";
-  const showChoices = !tools && (step.type === "cases" || step.type === "scenario");
-  const voiceStarted = reached("transcribing");
-  // L’onde s’apaise sur le dernier quart de la transcription et s’arrête avec elle.
-  const speechLevel = playback.totalWords > 0 ? Math.min(1, (1 - playback.wordsShown / playback.totalWords) * 4) : 0;
-  const fade = (delay = 0) => (reducedMotion ? { initial: false as const } : { initial: { opacity: 0, y: 8 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.45, delay } });
-  const correction = sliders.find((slider) => slider.corrigeA);
-  const announce = receptionPlayed && retainedItems.length > 0 ? fillTemplate(lecture.annonceRetenu, { elements: retainedItems.map((item) => (item.kind === "curseur" ? `${item.texte} : ${item.niveau}` : item.texte)).join(", ") }) : "";
+  const corrections = validationSliders.filter((slider) => slider.corrigeA);
+  const extractionItems = step.id !== null && extracted ? getRetainedItems(step as DemoStep, persona).filter((item) => item.stage === "extraction") : [];
+  const announce = [
+    extractionItems.length > 0 ? fillTemplate(lecture.annonceRetenu, { elements: extractionItems.map((item) => item.texte).join(", ") }) : "",
+    levelsMoved ? fillTemplate(lecture.annonceNiveaux, { niveaux: validationSliders.map((slider) => `${slider.libelle} : ${slider.corrigeA ?? slider.valeur}`).join(", ") }) : "",
+  ].filter(Boolean).join(" ");
 
   return (
     <div className={`lg:grid lg:gap-8 ${panelOpen ? "lg:grid-cols-[minmax(0,1fr)_20rem]" : "lg:grid-cols-[minmax(0,1fr)_auto]"}`}>
@@ -127,30 +160,12 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
           <Link href={stepPath(persona.id, "restitution")} className="font-semibold text-slate-700 underline underline-offset-4 hover:text-[#515792]">{lecture.allerRestitution}</Link>
         </div>
 
-        {!isFirstPage && (
-          <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-700">{isLastPage && step.retenu?.extrait ? fillTemplate(lecture.rappelDit, { prenom: persona.prenom }) : lecture.boussole}</p>
-            <h1 id="demo-question" className="mt-1 text-base font-normal leading-snug text-slate-900">{isLastPage && step.retenu?.extrait ? `« ${step.retenu.extrait} »` : step.question}</h1>
-          </div>
-        )}
-
         {isFirstPage && step.rebond && <MemoryEcho etape={step.rebond.etape} rappel={step.rebond.rappel} reducedMotion={reducedMotion} />}
 
-        {isFirstPage && <motion.div {...fade()} className="rounded-2xl border border-slate-200 border-l-4 bg-white p-3.5 [border-left-color:var(--dim)] sm:p-5" style={dimensionVar(color.base)}>
-          <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#515792]">
-            <Compass className="h-4 w-4" aria-hidden="true" />
-            {lecture.boussole}
-          </p>
-          <h1 id="demo-question" className="mt-1.5 text-xl font-normal leading-snug text-slate-950 sm:text-2xl">{step.question}</h1>
-          {isSliderQuestion && (
-            <div className="mt-5">
-              {step.retenu?.resume && <p data-demo-resume className="mb-3 text-base leading-relaxed text-slate-800">{step.retenu.resume}</p>}
-              <InducedSliders sliders={sliders} corrected={receptionPlayed} reducedMotion={reducedMotion} />
-              <LevelHelp />
-              {step.questionSuite && <p className="mt-3 text-lg font-normal text-slate-950 sm:text-xl">{step.questionSuite}</p>}
-            </div>
-          )}
-        </motion.div>}
+        {/* La question de la Boussole est toujours en grand : celle de l’échange, puis, sur les pages suivantes, la validation ou un rappel lisible. */}
+        {isValidationPage && step.dimension
+          ? <QuestionCard id="demo-question" variant="titre" label={lecture.validationTitre} text={fillTemplate(lecture.validationQuestion, { dimension: dimensions[step.dimension] })} color={color.base} reducedMotion={reducedMotion} />
+          : <QuestionCard id="demo-question" variant={isFirstPage ? "titre" : "rappel"} label={lecture.boussole} text={step.question} color={color.base} reducedMotion={isFirstPage ? reducedMotion : true} />}
 
         {isFirstPage && showChoices && step.options && (
           <motion.div {...fade(0.15)}>
@@ -161,7 +176,7 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
         )}
 
         {isFirstPage && voiceStarted && (
-          <motion.div ref={answerRef} {...fade()} className="scroll-mb-32 rounded-2xl bg-[#515792]/[0.06] p-3.5 sm:ml-8 sm:p-5">
+          <motion.div ref={answerRef} data-demo-reponse="main" {...fade()} className="scroll-mb-32 rounded-2xl bg-[#515792]/[0.06] p-3.5 sm:ml-8 sm:p-5">
             <div className="flex flex-wrap items-center justify-between gap-3">
               <p className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-700">{persona.prenom}</p>
               <Waveform active={phase === "transcribing"} level={speechLevel} reducedMotion={reducedMotion} />
@@ -171,8 +186,8 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
                 text={step.reponse.transcription}
                 wordsShown={playback.wordsShown}
                 typing={phase === "transcribing"}
-                highlight={step.retenu?.extrait}
-                showHighlight={receptionPlayed}
+                highlight={retenu?.extrait}
+                showHighlight={extracted}
                 onAccelerate={playback.accelerate}
                 hint={lecture.accelerer}
               />
@@ -182,11 +197,11 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
 
         {tools && step.options && phaseReached(phase, "detecting") && (isFirstPage || isToolsPage) && (
           <div ref={toolsRef} className="scroll-mb-32">
-            <ToolsAnswer tools={tools} options={step.options} prenom={persona.prenom} phase={phase} reducedMotion={reducedMotion} part={isToolsPage ? 2 : 1} />
+            <ToolsAnswer tools={tools} options={step.options} prenom={persona.prenom} phase={phase} reducedMotion={reducedMotion} color={color.base} part={isToolsPage ? 2 : 1} />
           </div>
         )}
 
-        {phase === "digesting" && (
+        {phase === "digesting" && isSynthesisPage && (
           <p role="status" className="flex items-center gap-3 text-sm font-semibold text-slate-700">
             <motion.span
               aria-hidden="true"
@@ -198,22 +213,48 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
           </p>
         )}
 
-        {/* Validation humaine : la Boussole propose des niveaux d’après la réponse, la personne valide ou corrige. */}
-        {receptionPlayed && sliders.length > 0 && !isSliderQuestion && (
-          <motion.div ref={inducedRef} {...fade()} data-demo-induction className="scroll-mb-32 rounded-2xl border border-[#515792]/25 bg-white p-3 sm:ml-8 sm:p-4">
-            <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#515792]">{lecture.induction}</p>
-            {step.retenu?.resume && <p data-demo-resume className="mb-3 mt-1 text-base leading-relaxed text-slate-800">{step.retenu.resume}</p>}
-            <InducedSliders sliders={sliders} corrected={false} reducedMotion={reducedMotion} />
-            <p className="mt-3 text-sm text-slate-700">{fillTemplate(lecture.valide, { prenom: persona.prenom })}</p>
-            <LevelHelp />
-          </motion.div>
+        {/* Synthèse : toujours après la réponse, étiquetée, avec comment c’est lu, ce qui est retenu et à quoi ça sert. */}
+        {retenu && step.dimension && extracted && isSynthesisPage && (
+          <div ref={synthesisRef} className="scroll-mb-32 sm:ml-8">
+            <SyntheseCard retenu={retenu} dimension={step.dimension} reducedMotion={reducedMotion}>
+              {tools?.approfondissement && <ToolFocusCards outils={tools.approfondissement.outils} />}
+            </SyntheseCard>
+          </div>
         )}
-        {receptionPlayed && isSliderQuestion && correction && (
-          <motion.div ref={inducedRef} {...fade()} className="scroll-mb-32 sm:ml-8">
-            <p className="text-sm font-semibold text-[#A8440D]">
-              {fillTemplate(lecture.corrige, { prenom: persona.prenom, libelle: correction.libelle, avant: correction.valeur, apres: correction.corrigeA! })}
-            </p>
-          </motion.div>
+
+        {/* Précision : quand un passage retenu reste ambigu, la Boussole relance et la personne répond à la voix. */}
+        {precision && reached("precising") && isSynthesisPage && (
+          <div ref={precisionRef} data-demo-precision className="scroll-mb-32 space-y-3 sm:ml-8">
+            <QuestionCard variant="relance" label={lecture.precisionTitre} text={precision.question} color={color.base} reducedMotion={reducedMotion} />
+            <SpokenBubble kind="precision" prenom={persona.prenom} text={precision.transcription} speech={precisionSpeech} reducedMotion={reducedMotion} />
+            {precisionSpeech.complete && (
+              <motion.p {...fade()} className="flex items-start gap-2 rounded-xl border border-[#515792]/25 bg-white px-3 py-2.5 text-base leading-snug text-slate-900">
+                <Plus className="mt-1 h-4 w-4 shrink-0 text-[#515792]" aria-hidden="true" />
+                <span><span className="font-semibold">{lecture.precisionAjoutee}{"\u00a0:"}</span> {precision.note}</span>
+              </motion.p>
+            )}
+          </div>
+        )}
+
+        {/* Validation de fin de dimension : les niveaux proposés, la voix de la personne, puis le curseur qui glisse si elle corrige. */}
+        {isValidationPage && validation && (
+          <div ref={validationRef} data-demo-validation className="scroll-mb-32 space-y-3">
+            <InducedSliders sliders={validationSliders} corrected={levelsMoved || validationSpeech.complete} reducedMotion={reducedMotion} />
+            <LevelHelp />
+            {reached("validating") && <SpokenBubble kind="validation" prenom={persona.prenom} text={validation.voix} speech={validationSpeech} reducedMotion={reducedMotion} />}
+            {(levelsMoved || validationSpeech.complete) && (
+              <motion.div {...fade()} data-demo-validation-result className="sm:ml-8">
+                {corrections.length > 0
+                  ? corrections.map((slider) => (
+                    <p key={slider.libelle} className="text-base font-semibold text-[#A8440D]">
+                      {fillTemplate(lecture.corrige, { prenom: persona.prenom, libelle: slider.libelle, avant: slider.valeur, apres: slider.corrigeA! })}
+                    </p>
+                  ))
+                  : <p className="text-base font-semibold text-slate-900">{fillTemplate(lecture.valide, { prenom: persona.prenom })}</p>}
+                {playback.isDone && <p className="mt-1 text-sm text-slate-700">{lecture.validationAide}</p>}
+              </motion.div>
+            )}
+          </div>
         )}
         <p className="sr-only" aria-live="polite">{announce}</p>
 

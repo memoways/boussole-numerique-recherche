@@ -1,6 +1,6 @@
 /**
- * « Ce que la Boussole retient » : extraits surlignés, puis notes taguées par dimension, puis jauges
- * qualitatives. Colonne droite rétractable sur ordinateur, tiroir du bas ouvert par un bouton flottant
+ * « Ce que la Boussole retient » : extraits surlignés (avec leur lecture et leur usage), puis notes taguées par dimension, puis jauges
+ * qualitatives dans la couleur du niveau. Colonne droite rétractable sur ordinateur, tiroir du bas ouvert par un bouton flottant
  * sur smartphone. Seuls les éléments ajoutés à l’étape courante s’animent.
  */
 import { useEffect, useRef, useState } from "react";
@@ -8,7 +8,7 @@ import { AnimatePresence, motion, useAnimationControls } from "framer-motion";
 import { NotebookPen, PanelRightClose, PanelRightOpen, X } from "lucide-react";
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerTitle, DrawerTrigger } from "@/components/ui/drawer";
 import { DEMO_CONTENT, fillTemplate, type DemoPersona, type DimensionId, type RadarLevel, type RetainedItem } from "@/lib/demoContent";
-import { DIMENSION_COLORS, dimensionVar } from "./demoTheme";
+import { DIMENSION_COLORS, LEVEL_COLORS, dimensionVar } from "./demoTheme";
 
 type PanelProps = {
   persona: DemoPersona;
@@ -42,6 +42,9 @@ function PanelBody({ persona, items, gauges, currentStep, highlight, reducedMoti
             {extracts.map((item) => (
               <motion.li key={item.key} {...itemMotion(item.etape === currentStep, reducedMotion)} className={`rounded-lg border-l-4 bg-white px-3 py-2 text-sm leading-snug text-slate-800 [border-left-color:var(--dim)] ${item.texte === highlight ? highlightClass : ""}`} style={dimensionVar(DIMENSION_COLORS[item.dimension].base)}>
                 <mark className="bg-[#E07428]/15 text-inherit">« {item.texte} »</mark>
+                {/* Un passage surligné dit comment il est lu et à quoi il sert : il ne reste jamais muet. */}
+                {item.lecture && <span className="mt-1.5 block text-xs leading-snug text-slate-700">{item.lecture}</span>}
+                {item.sert && <span className="mt-0.5 block text-xs leading-snug text-slate-600"><span aria-hidden="true">→ </span>{item.sert}</span>}
               </motion.li>
             ))}
           </AnimatePresence>
@@ -81,12 +84,11 @@ function PanelBody({ persona, items, gauges, currentStep, highlight, reducedMoti
           <ul className="mt-2 space-y-2.5">
             {gauges.map(({ dimension, level }) => {
               const filled = niveauxRadar.indexOf(level) + 1;
-              const color = DIMENSION_COLORS[dimension];
               return (
                 <li key={dimension}>
                   <p className="flex justify-between gap-2 text-xs">
                     <span className="font-semibold text-slate-800">{dimensions[dimension]}</span>
-                    <span className="font-semibold" style={{ color: color.text }} title={DEMO_CONTENT.niveauxDefinitions[level]}>{level}</span>
+                    <span className="font-semibold" style={{ color: LEVEL_COLORS[level] }} title={DEMO_CONTENT.niveauxDefinitions[level]}>{level}</span>
                   </p>
                   <span aria-hidden="true" className="mt-1 grid grid-cols-4 gap-1">
                     {niveauxRadar.map((name, index) => (
@@ -96,7 +98,7 @@ function PanelBody({ persona, items, gauges, currentStep, highlight, reducedMoti
                         animate={{ opacity: 1 }}
                         transition={{ delay: reducedMotion ? 0 : index * 0.15 }}
                         className={`h-1.5 rounded-full ${index < filled ? "bg-(--dim)" : "bg-slate-200"}`}
-                        style={dimensionVar(color.base)}
+                        style={dimensionVar(LEVEL_COLORS[level])}
                       />
                     ))}
                   </span>

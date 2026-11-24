@@ -1,12 +1,13 @@
 /**
  * Rendus de réponse selon le type d’interaction : cases cochées une à une, micro-scénario A/B/C/D,
- * curseurs qualitatifs induits (avec correction animée) et rebond mémoire. Aucun n’est interactif :
+ * curseurs qualitatifs (validation de fin de dimension, avec correction animée) et rebond mémoire. Aucun n’est interactif :
  * c’est la personne fictive qui répond, la page se contente de le montrer.
  */
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Check, History, Info } from "lucide-react";
 import { DEMO_CONTENT, fillTemplate, type DemoSlider, type RadarLevel } from "@/lib/demoContent";
+import { LEVEL_COLORS } from "./demoTheme";
 
 const SELECTION_STEP_MS = 420;
 
@@ -102,7 +103,7 @@ export function InducedSliders({ sliders, corrected, reducedMotion }: SlidersPro
           <li key={slider.libelle} className={`rounded-xl border bg-white px-3 py-2 transition-colors duration-500 ${isCorrection ? "border-[#E07428]" : "border-slate-200"}`}>
             <p className="flex flex-wrap items-baseline justify-between gap-x-3 text-base">
               <span className="text-slate-900">{slider.libelle}</span>
-              <span className={`font-semibold ${isCorrection ? "text-[#A8440D]" : "text-[#515792]"}`}>{level}</span>
+              <span className="font-semibold" style={{ color: LEVEL_COLORS[level] }}>{level}</span>
             </p>
             {/* Ce qui justifie le niveau : les mots de la personne, ou le fait qu’elle n’en a pas encore parlé. */}
             {(slider.dit || slider.nonAborde) && (
@@ -136,14 +137,17 @@ export function InducedSliders({ sliders, corrected, reducedMotion }: SlidersPro
   );
 }
 
-/** Définition de chaque niveau de l’échelle, pour que personne n’ait à deviner ce que veut dire un mot. */
+/** Légende des niveaux : chaque niveau garde sa couleur partout (radar, liste, jauges) et sa définition, pour que personne n’ait à deviner ce que veut dire un mot. */
 export function LevelDefinitions({ className = "" }: { className?: string }) {
   const { niveauxRadar, niveauxDefinitions } = DEMO_CONTENT;
   return (
     <dl className={`grid gap-2 text-sm sm:grid-cols-2 ${className}`}>
       {niveauxRadar.map((level) => (
         <div key={level} className="rounded-lg bg-slate-50 px-3 py-2">
-          <dt className="font-semibold text-[#515792]">{level}</dt>
+          <dt className="flex items-center gap-2 font-semibold" style={{ color: LEVEL_COLORS[level] }}>
+            <span aria-hidden="true" className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ backgroundColor: LEVEL_COLORS[level] }} />
+            {level}
+          </dt>
           <dd className="mt-0.5 leading-snug text-slate-700">{niveauxDefinitions[level]}</dd>
         </div>
       ))}

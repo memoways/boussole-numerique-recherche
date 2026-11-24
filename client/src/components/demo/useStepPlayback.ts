@@ -1,14 +1,17 @@
 /**
  * Machine à états d’une interaction jouée : question → prêt → (sélection) → parole transcrite
- * → (outils : repérage → propositions et ajouts → classement → approfondissement) → digestion → retenu → terminé. La parole et sa transcription sont simultanées : l’onde s’anime dès que
- * le texte commence à s’écrire et s’apaise quand il se termine. Chaque phase avance seule après sa durée ;
- * « Passer l’animation » va directement à la fin. Avec `prefers-reduced-motion`, la question s’affiche
- * d’un coup et la réponse complète apparaît dès le clic, sans onde animée ni écriture mot par mot.
+ * → (outils : repérage → propositions et ajouts → classement → approfondissement) → synthèse de la Boussole
+ * → (précision : question de relance et réponse à la voix) → (validation de fin de dimension : niveaux proposés,
+ * réponse à la voix, correction) → terminé. La parole et sa transcription sont simultanées : l’onde s’anime dès que
+ * le texte commence à s’écrire et s’apaise quand il se termine. Toute réponse se joue ainsi, y compris la précision et la validation.
+ * La synthèse ne vient jamais en même temps que la réponse : elle arrive après, étiquetée comme telle.
+ * Chaque phase avance seule après sa durée ; « Passer l’animation » va directement à la fin de la page. Avec `prefers-reduced-motion`,
+ * la question s’affiche d’un coup et la page complète apparaît dès le clic, sans onde animée ni écriture mot par mot.
  */
 import { useCallback, useEffect, useMemo, useReducer } from "react";
 import { useReducedMotion } from "framer-motion";
 
-export const PLAYBACK_PHASES = ["question", "ready", "selecting", "transcribing", "detecting", "proposing", "pauseA", "ranking", "probing", "pauseB", "digesting", "retained", "done"] as const;
+export const PLAYBACK_PHASES = ["question", "ready", "selecting", "transcribing", "detecting", "proposing", "pauseA", "ranking", "probing", "digesting", "synthesizing", "precising", "pauseB", "validating", "done"] as const;
 export type PlaybackPhase = (typeof PLAYBACK_PHASES)[number];
 
 export type PlaybackScript = {
@@ -17,12 +20,12 @@ export type PlaybackScript = {
   transcription: string;
   /** Échange « outils » : nombre d’outils repérés, ajoutés, classés et d’outils creusés (0 hors approfondissement). */
   tools?: { detected: number; spokenWords: number; rankWords: number; probeWords: number };
-  /** La réception (« La Boussole retient ») est jouée seulement si l’étape retient quelque chose. */
-  hasRetained: boolean;
-  /** Une correction de curseur prolonge la phase « retenu » pour que le glissement reste visible. */
-  hasCorrection: boolean;
-  /** Hors outils : l’échange est coupé en deux pages (réponse, puis ce que la Boussole retient) quand la réception est chargée. */
-  splitReception: boolean;
+  /** La synthèse de la Boussole est jouée seulement si l’échange retient quelque chose. */
+  hasSynthesis: boolean;
+  /** Nombre de mots de la réponse à la question de précision (0 s’il n’y en a pas). */
+  precisionWords: number;
+  /** Dernier échange d’une dimension : validation des niveaux à la voix (mots de la réponse, correction éventuelle). */
+  validation?: { words: number; hasCorrection: boolean };
 };
 
 /** Rythme d’une parole transcrite en direct : la durée suit la longueur de la réponse, dans des bornes lisibles. */
@@ -32,6 +35,7 @@ const SPEECH_MAX_MS = 2800;
 const QUESTION_FADE_MS = 700;
 const SELECTION_STEP_MS = 420;
 const DIGEST_MS = 800;
+const SYNTHESIS_MS = 1800;
 const TOOL_STEP_MS = 380;
 /** Relance sur d’autres outils : la question se pose, puis la réponse s’égrène mot à mot et active les boutons. */
 export const TOOL_INTRO_MS = 900;
@@ -39,12 +43,21 @@ export const TOOL_WORD_MS = 230;
 /** Classement : la parole s’écrit en haut et les outils se placent au fil des mots, les numéros arrivent à la fin. */
 export const TOOL_RANK_INTRO_MS = 500;
 export const TOOL_RANK_WORD_MS = 130;
+/** Précision et validation : la question se pose, puis la réponse s’écrit mot à mot. */
+export const VOICE_INTRO_MS = 500;
+export const VOICE_WORD_MS = 100;
+const PRECISION_TAIL_MS = 1400;
+const VALIDATION_TAIL_MS = 1400;
+/** Une correction de niveau a besoin de temps pour rester visible quand le curseur glisse. */
+const VALIDATION_CORRECTION_TAIL_MS = 2800;
 
 type State = { phase: PlaybackPhase; wordsShown: number };
 type Action = { type: "goto"; phase: PlaybackPhase } | { type: "jump"; phase: PlaybackPhase } | { type: "word" } | { type: "finish" };
 
+const indexOf = (phase: PlaybackPhase) => PLAYBACK_PHASES.indexOf(phase);
+
 export function phaseReached(current: PlaybackPhase, target: PlaybackPhase) {
-  return PLAYBACK_PHASES.indexOf(current) >= PLAYBACK_PHASES.indexOf(target);
+  return indexOf(current) >= indexOf(target);
 }
 
 export function useStepPlayback(script: PlaybackScript) {
@@ -63,19 +76,23 @@ export function useStepPlayback(script: PlaybackScript) {
   );
   const { phase, wordsShown } = state;
 
-  // Valeurs simples : l’objet `tools` change à chaque rendu et relancerait les minuteurs.
+  // Valeurs simples : les objets `tools` et `validation` changent à chaque rendu et relanceraient les minuteurs.
   const hasTools = Boolean(script.tools);
   const { detected = 0, spokenWords = 0, rankWords = 0, probeWords = 0 } = script.tools ?? {};
-  const afterTools: PlaybackPhase = script.hasRetained ? "digesting" : "done";
-  // Pages : 1 = réponse (et repérage des outils), 2 = classement et approfondissement (outils), dernière = ce que la Boussole retient.
-  const splitReception = !hasTools && script.splitReception && script.hasRetained;
-  // Outils : la réception a sa propre page seulement quand elle est chargée ; sinon elle suit le classement.
-  const hasPauseB = hasTools && script.splitReception && script.hasRetained;
-  const afterTranscription: PlaybackPhase = hasTools ? "detecting" : splitReception ? "pauseA" : afterTools;
-  const wordMs = totalWords > 0 ? Math.min(SPEECH_MAX_MS, Math.max(SPEECH_MIN_MS, totalWords * MS_PER_WORD)) / totalWords : 0;
-  const retainedMs = script.hasCorrection ? 1800 : 900;
+  const hasValidation = Boolean(script.validation);
+  const validationWords = script.validation?.words ?? 0;
+  const validationTail = script.validation?.hasCorrection ? VALIDATION_CORRECTION_TAIL_MS : VALIDATION_TAIL_MS;
+  const { precisionWords, hasSynthesis } = script;
 
-  // Durée propre à chaque phase automatique ; les phases « ready » et « done » attendent un clic.
+  /** Ce qui suit la réponse (ou les outils) : la synthèse quand l’échange retient quelque chose, sinon la fin. */
+  const afterAnswer: PlaybackPhase = hasSynthesis ? "digesting" : "done";
+  const afterTranscription: PlaybackPhase = hasTools ? "detecting" : afterAnswer;
+  /** Après la synthèse : la précision, puis la validation de fin de dimension (sur sa propre page), puis la fin. */
+  const afterSynthesis: PlaybackPhase = precisionWords > 0 ? "precising" : hasValidation ? "pauseB" : "done";
+  const afterPrecision: PlaybackPhase = hasValidation ? "pauseB" : "done";
+  const wordMs = totalWords > 0 ? Math.min(SPEECH_MAX_MS, Math.max(SPEECH_MIN_MS, totalWords * MS_PER_WORD)) / totalWords : 0;
+
+  // Durée propre à chaque phase automatique ; les phases « ready », « pauseA », « pauseB » et « done » attendent un clic.
   useEffect(() => {
     let next: PlaybackPhase | null = null;
     let delay = 0;
@@ -83,14 +100,16 @@ export function useStepPlayback(script: PlaybackScript) {
     if (phase === "selecting") { next = totalWords > 0 ? "transcribing" : afterTranscription; delay = script.choices * SELECTION_STEP_MS + 400; }
     if (hasTools && phase === "detecting") { next = "proposing"; delay = detected * TOOL_STEP_MS + 900; }
     if (hasTools && phase === "proposing") { next = "pauseA"; delay = TOOL_INTRO_MS + spokenWords * TOOL_WORD_MS + 1800; }
-    if (hasTools && phase === "ranking") { next = probeWords > 0 ? "probing" : hasPauseB ? "pauseB" : afterTools; delay = TOOL_RANK_INTRO_MS + rankWords * TOOL_RANK_WORD_MS + 1600; }
-    if (hasTools && phase === "probing") { next = hasPauseB ? "pauseB" : afterTools; delay = TOOL_RANK_INTRO_MS + probeWords * TOOL_RANK_WORD_MS + 1500; }
-    if (phase === "digesting") { next = "retained"; delay = DIGEST_MS; }
-    if (phase === "retained") { next = "done"; delay = retainedMs; }
+    if (hasTools && phase === "ranking") { next = probeWords > 0 ? "probing" : afterAnswer; delay = TOOL_RANK_INTRO_MS + rankWords * TOOL_RANK_WORD_MS + 1600; }
+    if (hasTools && phase === "probing") { next = afterAnswer; delay = TOOL_RANK_INTRO_MS + probeWords * TOOL_RANK_WORD_MS + 1500; }
+    if (phase === "digesting") { next = "synthesizing"; delay = DIGEST_MS; }
+    if (phase === "synthesizing") { next = afterSynthesis; delay = SYNTHESIS_MS; }
+    if (phase === "precising") { next = afterPrecision; delay = VOICE_INTRO_MS + precisionWords * VOICE_WORD_MS + PRECISION_TAIL_MS; }
+    if (phase === "validating") { next = "done"; delay = VOICE_INTRO_MS + validationWords * VOICE_WORD_MS + validationTail; }
     if (!next) return;
     const timer = window.setTimeout(() => dispatch({ type: "goto", phase: next }), delay);
     return () => window.clearTimeout(timer);
-  }, [phase, afterTranscription, afterTools, hasTools, hasPauseB, detected, spokenWords, rankWords, probeWords, script.choices, retainedMs, totalWords]);
+  }, [phase, afterTranscription, afterAnswer, afterSynthesis, afterPrecision, hasTools, detected, spokenWords, rankWords, probeWords, precisionWords, validationWords, validationTail, script.choices, totalWords]);
 
   // Écriture mot par mot, au rythme de la parole.
   useEffect(() => {
@@ -105,11 +124,11 @@ export function useStepPlayback(script: PlaybackScript) {
 
   /** Prochain arrêt (pause ou fin) à partir d’une phase : la fin de la page en cours. */
   const nextStop = useCallback((from: PlaybackPhase): PlaybackPhase => {
-    const before = (target: PlaybackPhase) => PLAYBACK_PHASES.indexOf(from) < PLAYBACK_PHASES.indexOf(target);
-    if ((hasTools || splitReception) && before("pauseA")) return "pauseA";
-    if (hasPauseB && before("pauseB")) return "pauseB";
+    const before = (target: PlaybackPhase) => indexOf(from) < indexOf(target);
+    if (hasTools && before("pauseA")) return "pauseA";
+    if (hasValidation && before("pauseB")) return "pauseB";
     return "done";
-  }, [hasTools, hasPauseB, splitReception]);
+  }, [hasTools, hasValidation]);
 
   const start = useCallback(() => {
     if (phase !== "question" && phase !== "ready") return;
@@ -124,8 +143,8 @@ export function useStepPlayback(script: PlaybackScript) {
   const resume = useCallback(() => {
     if (phase !== "pauseA" && phase !== "pauseB") return;
     if (reducedMotion) { dispatch({ type: "jump", phase: nextStop(phase) }); return; }
-    dispatch({ type: "goto", phase: phase === "pauseA" && hasTools ? "ranking" : afterTools });
-  }, [phase, reducedMotion, hasTools, afterTools, nextStop]);
+    dispatch({ type: "goto", phase: phase === "pauseA" ? "ranking" : "validating" });
+  }, [phase, reducedMotion, nextStop]);
 
   /** Un clic sur la transcription en cours l’affiche en entier. */
   const accelerate = useCallback(() => {
@@ -136,10 +155,9 @@ export function useStepPlayback(script: PlaybackScript) {
   const isWaiting = phase === "question" || phase === "ready";
   const isPaused = phase === "pauseA" || phase === "pauseB";
   const isPlaying = !isWaiting && !isPaused && phase !== "done";
-  const pageCount = hasTools ? (hasPauseB ? 3 : 2) : splitReception ? 2 : 1;
-  const afterA = PLAYBACK_PHASES.indexOf(phase) > PLAYBACK_PHASES.indexOf("pauseA");
-  const afterB = PLAYBACK_PHASES.indexOf(phase) > PLAYBACK_PHASES.indexOf("pauseB");
-  const page = pageCount === 1 ? 1 : hasTools ? (afterB && hasPauseB ? 3 : afterA ? 2 : 1) : afterA ? 2 : 1;
+  // Pages : outils = (voix et repérage) puis (classement, approfondissement, synthèse) ; sinon (réponse et synthèse) ; la validation a toujours la sienne.
+  const pageCount = (hasTools ? 2 : 1) + (hasValidation ? 1 : 0);
+  const page = 1 + (hasTools && indexOf(phase) > indexOf("pauseA") ? 1 : 0) + (hasValidation && indexOf(phase) > indexOf("pauseB") ? 1 : 0);
 
   return {
     phase,

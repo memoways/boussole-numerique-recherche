@@ -12,6 +12,7 @@ import { resolve } from "node:path";
 const content = JSON.parse(await readFile(resolve("client/src/data/demo-parcours.json"), "utf8"));
 const failures = [];
 const assert = (condition, message) => { if (!condition) failures.push(message); };
+const wordCount = (text) => String(text ?? "").split(/\s+/).filter((token) => /[\p{L}\p{N}]/u.test(token)).length;
 
 const DIMENSIONS = ["outils", "competences", "donnees", "publics", "partage"];
 const EXPECTED_LABELS = {
@@ -80,7 +81,7 @@ for (const persona of personas) {
   assert(steps.length >= 10 && steps.length <= 12, `${where} : 10 à 12 interactions attendues (${steps.length} trouvées).`);
   // Même exigence pour les trois parcours : Claire est la référence, Marc et Nadia la rejoignent (14 octobre 2026, retours d’Ulrich).
   assert(steps.length === 12, `${where} : les trois parcours comptent 12 échanges (${steps.length} trouvés).`);
-  assert(steps.filter((step) => (step.retenu?.curseurs ?? []).length > 0).length >= 4, `${where} : au moins quatre échanges avec des curseurs induits sont attendus.`);
+  assert(steps.every((step) => step.type !== "curseurs" && !("questionSuite" in step)), `${where} : plus d’échange « curseurs » : les niveaux se valident à la fin de chaque dimension, jamais en cours d’échange.`);
   assert(steps.filter((step) => step.pointEtape?.ordreDeGrandeur).length >= 3, `${where} : au moins trois « premiers regards » avec un ordre de grandeur illustratif sont attendus.`);
   assert(steps.every((step, index) => step.id === index + 1), `${where} : les étapes doivent être numérotées de 1 à N sans trou.`);
   const stepDimensions = [...new Set(steps.map((step) => step.dimension))];
@@ -96,6 +97,15 @@ for (const persona of personas) {
     assert(weighing.every((step) => step !== inDimension[0]), `${where} : dans la dimension ${dimension}, « ce qui pèse » vient après l’entrée concrète.`);
     assert(weighing.every((step) => step.retenu && (step.retenu.extrait || step.retenu.tags?.length || step.retenu.curseurs?.length)), `${where} : chaque échange « ce qui pèse » de la dimension ${dimension} doit être retenu.`);
   }
+  // Validation de fin de dimension (retours d’Ulrich, 24 novembre 2026) : une fois par dimension, sur son dernier échange, à la voix.
+  for (const dimension of order) {
+    const inDimension = steps.filter((step) => step.dimension === dimension);
+    const last = inDimension.at(-1);
+    const sliders = inDimension.flatMap((step) => step.retenu?.curseurs ?? []);
+    assert(sliders.length >= 1 && sliders.length <= 5, `${where} : la dimension ${dimension} doit proposer de 1 à 5 niveaux à valider (${sliders.length} trouvés).`);
+    assert(Boolean(last?.validation?.voix) && wordCount(last.validation.voix) >= 8 && wordCount(last.validation.voix) <= 45, `${where} : le dernier échange de la dimension ${dimension} doit porter la réponse à la voix de la validation (validation.voix, 8 à 45 mots).`);
+    assert(inDimension.filter((step) => step.validation).length === 1, `${where} : la validation de la dimension ${dimension} n’a lieu qu’une fois, sur son dernier échange.`);
+  }
   for (const step of steps.filter((item) => item.pointEtape)) {
     if (step.pointEtape.ordreDeGrandeur) assert(/illustratif/i.test(step.pointEtape.ordreDeGrandeur), `${where}, étape ${step.id} : ordre de grandeur sans mention « illustratif ».`);
   }
@@ -105,7 +115,7 @@ for (const persona of personas) {
   assert(steps.filter((step) => step.numeriqueResponsable).length === 1, `${where} : exactement une question sur le numérique responsable est attendue.`);
 
   // Grammaire des interactions : chaque étape doit pouvoir être jouée sans texte codé en dur.
-  const STEP_TYPES = new Set(["cases", "question", "scenario", "curseurs", "relance"]);
+  const STEP_TYPES = new Set(["cases", "question", "scenario", "relance"]);
   const levelsOk = (value) => content.niveauxRadar.includes(value);
   for (const step of steps) {
     const at = `${where}, étape ${step.id}`;
@@ -156,7 +166,6 @@ for (const persona of personas) {
         }
       }
     }
-    if (step.type === "curseurs") assert((step.retenu?.curseurs ?? []).length > 0, `${at} : une étape « curseurs » doit proposer des curseurs.`);
     for (const slider of step.retenu?.curseurs ?? []) {
       assert(levelsOk(slider.valeur), `${at} : niveau de curseur « ${slider.valeur} » inconnu.`);
       assert(slider.corrigeA === null || levelsOk(slider.corrigeA), `${at} : correction « ${slider.corrigeA} » inconnue.`);
@@ -167,9 +176,21 @@ for (const persona of personas) {
         assert(saidSoFar.includes(slider.dit), `${at} : « ${slider.dit} » (curseur « ${slider.libelle} ») doit être un passage exact d’une réponse déjà donnée.`);
       }
     }
-    if ((step.retenu?.curseurs ?? []).length > 0) {
-      const resume = step.retenu.resume ?? "";
-      assert(resume.length > 0 && resume.split(/\s+/).length <= 25, `${at} : des curseurs sans résumé de ce qui a été dit (resume, 25 mots au plus) arrivent hors contexte.`);
+    // Extraction puis transformation (retours d’Ulrich, 24 novembre 2026) : chaque réponse devient une synthèse lisible,
+    // qui dit comment elle est interprétée (lecture), ce qui est retenu (extrait, notes) et à quoi cela sert (sert).
+    const retenu = step.retenu;
+    assert(Boolean(retenu), `${at} : chaque échange retient quelque chose (retenu requis).`);
+    if (retenu) {
+      assert(retenu.lecture && wordCount(retenu.lecture) >= 6 && wordCount(retenu.lecture) <= 32, `${at} : la lecture (comment c’est interprété) tient en une phrase de 6 à 32 mots.`);
+      assert(retenu.sert && wordCount(retenu.sert) >= 5 && wordCount(retenu.sert) <= 28, `${at} : « à quoi ça sert » (sert) tient en une phrase de 5 à 28 mots.`);
+      assert(Boolean(retenu.extrait) || (retenu.tags ?? []).length > 0, `${at} : la synthèse montre au moins un passage retenu ou une note structurée.`);
+      assert(!("resume" in retenu), `${at} : l’ancien résumé (resume) est remplacé par la lecture.`);
+      if (retenu.precision) {
+        const precision = retenu.precision;
+        assert(precision.question && precision.transcription && precision.note, `${at} : la précision demande une question, une réponse et la note qui s’ajoute.`);
+        assert(wordCount(precision.transcription) >= 10 && wordCount(precision.transcription) <= 45 && wordCount(precision.note) <= 14, `${at} : réponse de précision de 10 à 45 mots, note de 14 mots au plus.`);
+        assert(Boolean(retenu.extrait), `${at} : une précision creuse un passage retenu (extrait requis).`);
+      }
     }
     if (step.retenu?.extrait) assert(step.reponse.transcription.includes(step.retenu.extrait), `${at} : l’extrait retenu doit être un passage exact de la transcription.`);
     if (step.rebond) {
@@ -179,6 +200,8 @@ for (const persona of personas) {
       assert(remembered.includes(step.rebond.rappel), `${at} : le rappel du rebond doit être un élément retenu à l’étape ${step.rebond.etape}.`);
     }
   }
+  const precisions = steps.filter((step) => step.retenu?.precision).length;
+  assert(precisions >= 1 && precisions <= 3, `${where} : une à trois questions de précision sont attendues (${precisions} trouvées).`);
   const retainedSteps = steps.filter((step) => step.retenu).length;
   // Annexe v2 : chaque échange peut retenir quelque chose ; le panneau doit au moins s’animer une étape sur deux.
   assert(retainedSteps * 2 >= steps.length, `${where} : le panneau doit s’animer au moins une étape sur deux.`);
@@ -196,13 +219,18 @@ for (const persona of personas) {
     const items = restitution?.[key] ?? [];
     assert(items.length === 3, `${where} : trois éléments « ${key} » sont attendus.`);
     for (const item of items) {
-      const said = steps.find((step) => step.id === item.etape)?.reponse.transcription ?? "";
+      const spoken = steps.find((step) => step.id === item.etape);
+      const said = `${spoken?.reponse.transcription ?? ""} ${spoken?.validation?.voix ?? ""}`;
       assert(said.includes(item.citation), `${where} : « ${item.texte} » doit citer une phrase dite à l’étape ${item.etape}.`);
       if (item.ordreDeGrandeur) assert(/illustratif/i.test(item.ordreDeGrandeur), `${where} : ordre de grandeur sans mention « illustratif » (${item.texte}).`);
     }
   }
   assert([...(restitution?.fonctionne ?? []), ...(restitution?.ameliorer ?? [])].some((item) => item.ordreDeGrandeur), `${where} : au moins une métrique concrète (ordre de grandeur illustratif) est attendue dans la restitution.`);
   assert(/Ce qu’on peut évaluer, on peut l’améliorer\./.test(restitution?.lettre ?? ""), `${where} : la lettre doit rappeler le fil rouge « Ce qu’on peut évaluer, on peut l’améliorer. ».`);
+  // Lettre courte et aérée (retours d’Ulrich, 24 novembre 2026) : trois ou quatre paragraphes, le dernier étant le fil rouge.
+  const paragraphs = (restitution?.lettre ?? "").split(/\n{2,}/).map((paragraph) => paragraph.trim()).filter(Boolean);
+  assert(paragraphs.length >= 3 && paragraphs.length <= 4 && paragraphs.at(-1) === "Ce qu’on peut évaluer, on peut l’améliorer.", `${where} : la lettre compte trois ou quatre paragraphes, le dernier étant « Ce qu’on peut évaluer, on peut l’améliorer. ».`);
+  assert(paragraphs.every((paragraph) => wordCount(paragraph) <= 50) && wordCount(restitution?.lettre) <= 130, `${where} : la lettre reste courte (130 mots au plus, 50 par paragraphe) : ${wordCount(restitution?.lettre)} mots.`);
   assert(!/nommage/i.test(JSON.stringify(restitution ?? {})), `${where} : le nommage de fichiers n’est plus un sujet de la restitution.`);
   const demos = persona.demos ?? [];
   const demoIds = demos.map((demo) => demo.id);
@@ -235,7 +263,11 @@ if (personas.every((persona) => persona.statut === "pret")) {
   assert(content.futur?.boutonSuite && !/avis/i.test(content.futur.boutonSuite), "Comparaison : depuis l’écran « futur », le bouton mène à la comparaison, pas encore à l’avis.");
 }
 
-assert(content.restitution?.radarPhrase === "Ni bien ni mal. Un point de départ.", "La phrase sous le radar doit être « Ni bien ni mal. Un point de départ. ».");
+assert(content.restitution?.radarPhrase === "Ni bien ni mal. Un point de départ.", "La phrase de la comparaison des trois radars doit être « Ni bien ni mal. Un point de départ. » (elle ne figure plus sous le radar de la restitution).");
+assert(content.restitution?.legendeTitre === "Légende : ce que veulent dire les niveaux", "La légende des niveaux, sous le radar, s’intitule « Légende : ce que veulent dire les niveaux ».");
+assert(content.lecture?.syntheseTitre === "Synthèse de la Boussole" && content.lecture?.syntheseExtrait && content.lecture?.syntheseNotes && content.lecture?.syntheseSert && content.lecture?.syntheseOutils, "La synthèse de la Boussole porte son étiquette et ses libellés (passage retenu, notes, à quoi ça sert, outil par outil).");
+assert(content.lecture?.precisionTitre && content.lecture?.precisionAjoutee && content.lecture?.validationTitre && /\{dimension\}/.test(content.lecture?.validationQuestion ?? "") && content.lecture?.validationAide && content.lecture?.annonceNiveaux, "Les libellés de la précision et de la validation de fin de dimension sont requis (validationQuestion nomme la dimension).");
+assert(!("induction" in (content.lecture ?? {})) && !("rappelDit" in (content.lecture ?? {})), "Les anciens libellés « D’après ce que tu dis… » et « Ce que {prénom} a dit » disparaissent : les niveaux se valident à la fin de la dimension.");
 
 // --- Écriture (retours d’Ulrich, 15 octobre 2026) --------------------------------------------------------
 // Phrases courtes, sans tics d’écriture générée : ni « concret », ni « ce n’est pas X, c’est Y ».
@@ -263,7 +295,6 @@ const catalog = JSON.parse(await readFile(resolve("client/src/data/demo-ressourc
 const catalogById = new Map(catalog.map((resource) => [resource.id, resource]));
 const ROLES = new Set(["pratique", "ouverture", "contrepoint"]);
 const STATUSES = new Set(["À définir", "Interne MW", "En ligne"]);
-const wordCount = (text) => text.split(/\s+/).filter((token) => /[\p{L}\p{N}]/u.test(token)).length;
 assert(catalogById.size === catalog.length, "Ressources : chaque identifiant du catalogue doit être unique.");
 for (const resource of catalog) {
   const at = `Ressource ${resource.id}`;

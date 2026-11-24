@@ -7,9 +7,8 @@
 import { ArrowRight } from "lucide-react";
 import { PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart, ResponsiveContainer } from "recharts";
 import { Link } from "wouter";
-import { DEMO_CONTENT, fillTemplate, firstStepOfDimension, levelValue, stepPath, type DemoPersona, type DimensionId } from "@/lib/demoContent";
+import { DEMO_CONTENT, fillTemplate, firstStepOfDimension, levelValue, stepPath, type DemoPersona, type DimensionId, type RadarLevel } from "@/lib/demoContent";
 import { DemoActions, demoPrimaryButton, demoSecondaryButton } from "./DemoShell";
-import { DIMENSION_COLORS } from "./demoTheme";
 import { PERSONA_STYLE } from "./PersonaPicker";
 import { AxisTick } from "./Restitution";
 
@@ -23,6 +22,8 @@ function PersonaColumn({ persona, current }: { persona: DemoPersona; current: bo
   const stepId = firstStepOfDimension(persona, copy.dimension);
   const question = persona.etapes.find((step) => step.id === stepId)?.question ?? "";
   const data = AXES.map((dimension) => ({ label: DEMO_CONTENT.dimensions[dimension], value: levelValue(radar[dimension]) }));
+  // Le niveau s’écrit sous chaque dimension, sur le radar, dans la couleur du niveau (la même que dans la restitution).
+  const levels = Object.fromEntries(AXES.map((dimension) => [DEMO_CONTENT.dimensions[dimension], radar[dimension]])) as Record<string, RadarLevel>;
 
   return (
     // Sur grand écran, les quatre blocs de chaque carte partagent les lignes de la grille (subgrid) : questions, radars et boutons s’alignent.
@@ -51,21 +52,21 @@ function PersonaColumn({ persona, current }: { persona: DemoPersona; current: bo
 
       <figure>
         <figcaption className="text-sm font-semibold text-slate-900">{copy.radarTitre}</figcaption>
-        <div aria-hidden="true" className="h-[260px] w-full">
+        <div aria-hidden="true" className="h-[300px] w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <RadarChart data={data} outerRadius="56%" margin={{ top: 24, right: 44, bottom: 24, left: 44 }}>
+            <RadarChart data={data} outerRadius="54%" margin={{ top: 36, right: 52, bottom: 36, left: 52 }}>
               <PolarGrid stroke="#CBD5E1" />
-              <PolarAngleAxis dataKey="label" tick={<AxisTick />} />
+              <PolarAngleAxis dataKey="label" tick={<AxisTick levels={levels} />} />
               <PolarRadiusAxis domain={[0, 4]} tickCount={5} tick={false} axisLine={false} />
               <Radar dataKey="value" stroke={style.color} strokeWidth={2} fill={style.tint} fillOpacity={0.25} isAnimationActive={false} />
             </RadarChart>
           </ResponsiveContainer>
         </div>
-        <dl className="space-y-1.5 text-sm">
+        <dl className="sr-only">
           {AXES.map((dimension) => (
-            <div key={dimension} className="flex items-baseline justify-between gap-3 border-b border-slate-100 pb-1.5">
-              <dt className="text-slate-800">{DEMO_CONTENT.dimensions[dimension]}</dt>
-              <dd className="font-semibold" style={{ color: DIMENSION_COLORS[dimension].text }}>{radar[dimension]}</dd>
+            <div key={dimension}>
+              <dt>{DEMO_CONTENT.dimensions[dimension]}</dt>
+              <dd>{radar[dimension]}</dd>
             </div>
           ))}
         </dl>

@@ -3,14 +3,17 @@
  * la Boussole repère ce qu’elle a nommé, puis relance avec des boutons d’outils du même registre. La personne répond à
  * la voix : les boutons s’activent au fil de ce qu’elle dit et de nouveaux boutons arrivent, en rapport avec ce qui vient
  * d’être dit. Les autres restent non sélectionnés, mais un clic suffit à les ajouter. Elle classe ensuite l’ensemble du
- * plus au moins important. Sur un seul parcours, la Boussole creuse ce qui fonctionne et ce qui pèse sur les outils
- * en tête. Les boutons répondent au clic, sans rien enregistrer : le parcours joué reste celui de la personne fictive.
+ * plus au moins important. Sur un seul parcours, la Boussole creuse les outils en tête ; ce qui fonctionne et ce qui pèse
+ * n’arrive qu’après la réponse, dans la synthèse (`ToolFocusCards`). Chaque question de la Boussole est un `QuestionCard`, et la
+ * parole de la personne se joue toujours au-dessus de ce qu’elle déclenche. Les boutons répondent au clic, sans rien enregistrer :
+ * le parcours joué reste celui de la personne fictive.
  */
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Check, Plus, Sparkles } from "lucide-react";
-import { DEMO_CONTENT, fillTemplate, type DemoTools } from "@/lib/demoContent";
+import { DEMO_CONTENT, fillTemplate, type DemoToolFocus, type DemoTools } from "@/lib/demoContent";
 import { useSelectionProgress } from "./DemoAnswers";
+import QuestionCard from "./QuestionCard";
 import SpokenBubble from "./SpokenBubble";
 import { useTypedSpeech } from "./useTypedSpeech";
 import { phaseReached, TOOL_INTRO_MS, TOOL_RANK_INTRO_MS, TOOL_RANK_WORD_MS, TOOL_WORD_MS, type PlaybackPhase } from "./useStepPlayback";
@@ -23,6 +26,8 @@ type Props = {
   prenom: string;
   phase: PlaybackPhase;
   reducedMotion: boolean;
+  /** Couleur de la dimension, portée par les cartes de question. */
+  color: string;
   /** Page de l’échange : 1 = repérage et propositions, 2 = classement et approfondissement. */
   part: 1 | 2;
 };
@@ -36,7 +41,7 @@ function SectionTitle({ children }: { children: string }) {
   );
 }
 
-export default function ToolsAnswer({ tools, options, prenom, phase, reducedMotion, part }: Props) {
+export default function ToolsAnswer({ tools, options, prenom, phase, reducedMotion, color, part }: Props) {
   const { lecture } = DEMO_CONTENT;
   const reached = (target: PlaybackPhase) => phaseReached(phase, target);
   const mentioned = new Set(tools.cites.map((item) => item.outil));
@@ -62,8 +67,8 @@ export default function ToolsAnswer({ tools, options, prenom, phase, reducedMoti
   const rankSpeech = useTypedSpeech(tools.classement, { active: phase === "ranking", finished: reached("probing"), reducedMotion, introMs: TOOL_RANK_INTRO_MS, wordMs: TOOL_RANK_WORD_MS });
   const rankingDone = rankSpeech.complete;
   const rankHeard = rankSpeech.heard;
-  // Approfondissement : chaque capsule apparaît quand les mots qui la concernent sont dits.
-  const probeSpeech = useTypedSpeech(approfondissement?.transcription ?? "", { active: phase === "probing", finished: reached("pauseB"), reducedMotion, introMs: TOOL_RANK_INTRO_MS, wordMs: TOOL_RANK_WORD_MS });
+  // Approfondissement : la réponse s’écrit comme les autres ; ses capsules n’arrivent qu’après, dans la synthèse.
+  const probeSpeech = useTypedSpeech(approfondissement?.transcription ?? "", { active: phase === "probing", finished: reached("digesting"), reducedMotion, introMs: TOOL_RANK_INTRO_MS, wordMs: TOOL_RANK_WORD_MS });
   const placed = tools.ordre.filter((item) => rankHeard.toLowerCase().includes(item.dit.toLowerCase())).map((item) => item.outil);
   // Au départ rien n’est classé : l’ordre alphabétique ne dit rien, puis les outils montent à leur rang.
   const unplaced = tools.ordre.map((item) => item.outil).filter((outil) => !placed.includes(outil)).sort((a, b) => a.localeCompare(b, "fr"));
@@ -90,9 +95,9 @@ export default function ToolsAnswer({ tools, options, prenom, phase, reducedMoti
       )}
 
       {part === 1 && reached("proposing") && (
-        <motion.section {...fade} aria-label={fillTemplate(lecture.outilsPropositions, { prenom })}>
-          <SectionTitle>{fillTemplate(lecture.outilsPropositions, { prenom })}</SectionTitle>
-          <p className="mb-3 text-lg leading-snug text-slate-950">{tools.question}</p>
+        <motion.section {...fade} aria-label={fillTemplate(lecture.outilsPropositions, { prenom })} className="space-y-3">
+          <QuestionCard variant="relance" label={fillTemplate(lecture.outilsPropositions, { prenom })} text={tools.question} color={color} reducedMotion={reducedMotion} />
+          <SpokenBubble prenom={prenom} text={tools.complement} speech={addSpeech} reducedMotion={reducedMotion} />
           <ul className="flex flex-wrap gap-2">
             {proposals.map((option) => {
               const byVoice = active.has(option);
@@ -113,19 +118,14 @@ export default function ToolsAnswer({ tools, options, prenom, phase, reducedMoti
               );
             })}
           </ul>
-          <div className="mt-3">
-            <SpokenBubble prenom={prenom} text={tools.complement} speech={addSpeech} reducedMotion={reducedMotion} />
-          </div>
-          {reached("pauseA") && <p className="mt-3 text-sm text-slate-700">{lecture.outilsManuel}</p>}
+          {reached("pauseA") && <p className="text-sm text-slate-700">{lecture.outilsManuel}</p>}
         </motion.section>
       )}
 
       {part === 2 && reached("ranking") && (
-        <motion.section {...fade} aria-label={lecture.outilsClassement}>
-          <SectionTitle>{lecture.outilsClassement}</SectionTitle>
-          <div className="mb-4">
-            <SpokenBubble prenom={prenom} text={tools.classement} speech={rankSpeech} reducedMotion={reducedMotion} />
-          </div>
+        <motion.section {...fade} aria-label={lecture.outilsClassement} className="space-y-3">
+          <QuestionCard variant="relance" label={lecture.boussole} text={lecture.outilsClassement} color={color} reducedMotion={reducedMotion} />
+          <SpokenBubble prenom={prenom} text={tools.classement} speech={rankSpeech} reducedMotion={reducedMotion} />
           <ol className="grid gap-2 sm:grid-cols-2">
             {shown.map((outil, index) => {
               const isPlaced = placed.includes(outil);
@@ -145,24 +145,34 @@ export default function ToolsAnswer({ tools, options, prenom, phase, reducedMoti
         </motion.section>
       )}
 
+      {/* La réponse d’abord : ce qui fonctionne et ce qui pèse n’apparaît pas ici, mais dans la synthèse qui suit. */}
       {part === 2 && approfondissement && reached("probing") && (
-        <motion.section {...fade} aria-label={lecture.outilsApprofondir}>
-          <SectionTitle>{lecture.outilsApprofondir}</SectionTitle>
-          <p className="mb-3 text-lg leading-snug text-slate-950">{approfondissement.question}</p>
+        <motion.section {...fade} aria-label={lecture.outilsApprofondir} className="space-y-3">
+          <QuestionCard variant="relance" label={lecture.outilsApprofondir} text={approfondissement.question} color={color} reducedMotion={reducedMotion} />
           <SpokenBubble prenom={prenom} text={approfondissement.transcription} speech={probeSpeech} reducedMotion={reducedMotion} />
-          <ul className="mt-4 grid gap-3 lg:grid-cols-3">
-            {approfondissement.outils.filter((item) => probeSpeech.heard.toLowerCase().includes(item.dit.toLowerCase())).map((item) => (
-              <motion.li key={item.outil} {...fade} className="rounded-xl border border-slate-200 bg-white p-4 text-sm leading-snug">
-                <p className="font-semibold text-slate-950">{item.outil}</p>
-                <p className="mt-2 text-xs font-semibold uppercase tracking-[0.08em] text-[#167A5E]">{lecture.outilsFonctionne}</p>
-                <p className="mt-0.5 text-slate-800">{item.fonctionne}</p>
-                <p className="mt-2 text-xs font-semibold uppercase tracking-[0.08em] text-[#A8440D]">{lecture.outilsPese}</p>
-                <p className="mt-0.5 text-slate-800">{item.pese}</p>
-              </motion.li>
-            ))}
-          </ul>
         </motion.section>
       )}
+    </div>
+  );
+}
+
+/** Ce qui fonctionne et ce qui pèse, outil par outil : donnée structurée tirée de la réponse d’approfondissement, montrée dans la synthèse. */
+export function ToolFocusCards({ outils }: { outils: DemoToolFocus[] }) {
+  const { lecture } = DEMO_CONTENT;
+  return (
+    <div>
+      <p className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-700">{lecture.syntheseOutils}</p>
+      <ul className="mt-1.5 grid gap-3 lg:grid-cols-3">
+        {outils.map((item) => (
+          <li key={item.outil} className="rounded-xl border border-slate-200 bg-white p-4 text-sm leading-snug">
+            <p className="font-semibold text-slate-950">{item.outil}</p>
+            <p className="mt-2 text-xs font-semibold uppercase tracking-[0.08em] text-[#167A5E]">{lecture.outilsFonctionne}</p>
+            <p className="mt-0.5 text-slate-800">{item.fonctionne}</p>
+            <p className="mt-2 text-xs font-semibold uppercase tracking-[0.08em] text-[#A8440D]">{lecture.outilsPese}</p>
+            <p className="mt-0.5 text-slate-800">{item.pese}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

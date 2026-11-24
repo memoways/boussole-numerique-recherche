@@ -1,0 +1,43 @@
+# État — Retours de démo du 24 novembre 2026 (principes valables pour les trois parcours)
+
+> Archive factuelle de ce qui a été livré dans la branche `claude/demo-multi-persona-improvements-6e3efa`. Ulrich a relu la démo `/experience/demo` sur captures annotées (Claire) et a demandé que chaque correction soit un **principe**, appliqué à Claire, Marc et Nadia.
+
+## Retours et traitement
+
+| Retour sur capture | Principe appliqué aux trois parcours |
+|---|---|
+| « Plus court, moins gros bloc pâté » (lettre de restitution) | Lettre de 101 à 120 mots (154 à 173 avant), en trois paragraphes courts, le fil rouge « Ce qu’on peut évaluer, on peut l’améliorer. » seul dans le dernier. Contrôlé : 3 à 4 paragraphes, 130 mots au plus. |
+| « Mettre les qualifications avec les dimensions sur le radar » | Le niveau s’écrit sous chaque dimension du radar (restitution et comparaison). La liste latérale disparaît du visuel ; une liste équivalente reste pour les lecteurs d’écran. |
+| « Mettre les mêmes couleurs » | Une couleur par niveau (`LEVEL_COLORS`, `demoTheme.ts`) : Exploration `#8A5A00`, Improvisation `#A8440D`, Organisé `#515792`, Orchestré `#167A5E` (5,3 à 6,7 de contraste sur blanc). Même teinte dans le radar, la légende, les curseurs et les jauges du panneau. La couleur de dimension reste pour l’en-tête d’échange et les notes. |
+| « : légende » | La section sous le radar s’intitule « Légende : ce que veulent dire les niveaux » (le lien repliable sous les curseurs garde « Ce que veulent dire les niveaux »). |
+| Phrase « Ni bien ni mal. Un point de départ. » barrée | Retirée sous le radar de la restitution. Conservée sous les trois radars de la comparaison. |
+| « Plus mettre en avant les questions » | `QuestionCard` : toute question de la Boussole a le même bloc, titre de 20 à 24 px. Le rappel de la question de l’échange sur la page 2 passe à 18-20 px. |
+| « Ce bloc n’a pas de playback… toutes les réponses en playback, par-dessus » | La parole se joue toujours avant ce qu’elle déclenche (bulle au-dessus des boutons d’outils). Précision et validation s’écrivent mot à mot avec l’onde, comme la première réponse. Le contrôle mesure l’onde et l’écriture progressive. |
+| « Cette synthèse doit venir après la réponse, en indiquant que c’est une synthèse » | « Ce qui fonctionne » et « ce qui pèse » (échanges « outils ») n’arrivent plus pendant la parole : ils entrent dans la « Synthèse de la Boussole », qui suit la réponse. |
+| « Il manque extraction → transformation » | Chaque échange (36 sur 36) a une synthèse étiquetée : `lecture` (comment c’est interprété), passage retenu, notes structurées, `sert` (à quoi ça sert : restitution, niveau, rappel plus loin). |
+| « Mettre ce bloc de validation intermédiaire à la fin d’une dimension, avec possibilité de corriger et préciser par la voix » | Plus aucun niveau sous une réponse. Le dernier échange de chaque dimension a une 2ᵉ ou 3ᵉ page « La Boussole vérifie » : tous les niveaux de la dimension, la réponse à la voix (`validation.voix`), puis le curseur glisse si la personne corrige. Le panneau et les jauges ne se remplissent qu’à ce moment. |
+| « Surligné et extrait, mais on ne sait pas pourquoi, à quoi ça sert, comment c’est interprété. Peut-être une question de relance » | Le passage surligné apparaît dans la synthèse avec sa lecture et son usage, et le panneau légende chaque extrait. Six questions de précision à la voix (Claire 3 et 6, Marc 3 et 5, Nadia 2 et 11) ajoutent une note quand un passage reste ambigu. |
+
+## Données et code
+
+- `client/src/data/demo-parcours.json` : `retenu.lecture`, `retenu.sert` (obligatoires), `retenu.precision` (`question`, `transcription`, `note`), `validation.voix` sur le dernier échange de chaque dimension. `retenu.resume`, le type d’étape `curseurs` et `questionSuite` disparaissent.
+- Quatre échanges « curseurs » deviennent des questions ordinaires, avec nouvelle question et réponse : Claire 4 (retrouver un ancien devis), Marc 8 (ce qui pèse dans le rangement des documents), Nadia 4 (statut d’une œuvre vendue ou prêtée) et Nadia 7 (ce qui pèse dans la présentation du travail). Leur ancienne réponse, qui portait la correction du curseur, devient la `validation.voix` de la dimension ; les citations « dit à l’échange » de la restitution suivent (Claire et Nadia : échange 5).
+- Trois dimensions n’avaient aucun niveau et en reçoivent : Claire et Marc (publics), Nadia (outils). Quelques niveaux sont ajoutés ailleurs (Claire 8, Marc 9 et 11, Nadia 11) pour que chaque validation en compte au moins deux quand le parcours s’y prête.
+- `client/src/components/demo/` : nouveaux `QuestionCard.tsx` et `SyntheseCard.tsx` ; `useStepPlayback.ts` (phases `synthesizing`, `precising`, `validating`, pages : voix et repérage → classement et synthèse → validation) ; `StepPlayer.tsx` ; `ToolsAnswer.tsx` (`ToolFocusCards`) ; `Restitution.tsx` ; `ComparisonView.tsx` ; `MemoryPanel.tsx` ; `DemoAnswers.tsx` ; `demoTheme.ts`.
+- `client/src/lib/demoContent.ts` : `isDimensionEnd`, `getDimensionSliders`, éléments retenus par étape de lecture (`extraction`, `precision`, `validation`).
+
+## Contrôles
+
+- `pnpm verify:demo-content` : lecture et `sert` sur chaque échange, 1 à 3 précisions par parcours, validation unique par dimension (8 à 45 mots), 1 à 5 niveaux par dimension, lettre courte, libellés de synthèse, de précision et de validation.
+- `pnpm check:demo-playback <url>` : sur chaque échange des trois parcours, à 1280 et 390 px, questions en grand, synthèse après la réponse et étiquetée, précision, niveaux seulement en fin de dimension (nombre et corrections affichés), capsules d’outils seulement dans la synthèse, niveaux sur le radar dans la couleur de la légende, lettre courte.
+
+## Questions ouvertes pour Ulrich
+
+1. **« D’où vient “Orchestré” ? »** Le mot vient de l’échelle de l’annexe v2 (Exploration · Improvisation · Organisé · Orchestré), validée le 14 octobre 2026 : l’orchestre figure une source unique (la partition) qui coordonne des outils et des personnes qui jouent chacun leur partie. Aucun texte de la démo ne l’explique ; seule la définition le décrit (« Une source fait foi… »). À décider : garder le mot, ajouter une image dans la définition, ou changer de mot.
+2. **Phrase barrée.** Le trait jaune sur « Ni bien ni mal. Un point de départ. » a été lu comme « supprimer ». Elle reste sous les radars de la comparaison. À confirmer ou à rétablir.
+3. **Légende.** Titre posé en « Légende : ce que veulent dire les niveaux ». L’annotation d’Ulrich (« : légende » placé après le titre) pouvait aussi se lire comme un suffixe.
+4. **Contenu écrit pour l’occasion.** Les 36 `lecture` et `sert`, les six précisions, les quatre échanges réécrits, les quinze réponses de validation et les trois lettres sont à relire : ce sont des textes de scénario fictifs, sans chiffre inventé.
+
+## Non vérifié
+
+Appareils iOS et Android réels, Docker, production (aucune publication).
