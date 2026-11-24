@@ -117,7 +117,19 @@ export type DemoResource = {
 };
 
 export type DemoCitation = { texte: string; etape: number; citation: string; ordreDeGrandeur?: string };
-export type DemoPiste = { horizon: string; texte: string; lien: string; libelleLien: string };
+/**
+ * Piste de la restitution : la dimension du radar qu’elle fait avancer, et un lien qui dit pourquoi il est là.
+ * Le lien renvoie soit à l’animation de la page « À quoi ça pourrait ressembler », soit à une ressource du corpus.
+ */
+export type DemoPiste = {
+  horizon: string;
+  dimension: DimensionId;
+  texte: string;
+  lien: { demo: string; raison: string } | { ressource: string; raison: string };
+};
+
+/** Critères d’une dimension : ce que la Boussole regarde, et l’échelle des quatre niveaux appliquée à cette dimension. */
+export type DemoCriteria = { regarde: string; echelle: Record<RadarLevel, string> };
 
 /** Gabarits de micro-démos, tous centrés sur les données : quelle information va où, quelle source fait foi, comment on valide. */
 export type DemoMicro =
@@ -172,6 +184,8 @@ export type DemoPersona = {
     /** Affiché sous le titre « Ce qui pourrait être plus léger ». */
     ameliorer: DemoCitation[];
     pistes: DemoPiste[];
+    /** Par dimension : pourquoi le parcours est à ce niveau, en une synthèse tirée de ce qui a été relevé. */
+    detail: Record<DimensionId, { pourquoi: string }>;
   };
   demos?: DemoMicro[];
 };
@@ -206,9 +220,10 @@ export type DemoContent = {
   ideal: { libelle: string; boutonSuite: string };
   restitution: Record<
     | "surtitre" | "titre" | "lettreTitre" | "radarTitre" | "radarPhrase" | "legendeTitre" | "fonctionneTitre" | "ameliorerTitre" | "citationLien" | "pistesTitre" | "pistesIntro" | "boutonSuite"
-    | "corpus" | "corpusLien",
+    | "radarAide" | "radarChoix" | "detailPourquoi" | "detailReleve" | "detailCriteres" | "detailLienEchange" | "detailTonNiveau" | "detailCorrige" | "detailNonAborde"
+    | "pisteVise" | "pisteLienTitre" | "pisteLireDemo" | "pisteLireRessource" | "pisteAnglais",
     string
-  >;
+  > & { criteres: Record<DimensionId, DemoCriteria> };
   demos: Record<"titre" | "intro" | "lancer" | "rejouer" | "avant" | "apres" | "boutonSuite", string>;
   futur: { titre: string; intro: string; badge: string; fonctions: { titre: string; texte: string }[]; boutonSuite: string };
   /** Comparaison des trois parcours : la même dimension, formulée par chaque persona, et les trois radars. */
@@ -373,6 +388,23 @@ export function isDimensionEnd(persona: DemoPersona, step: DemoStep) {
 /** Curseurs de toute la dimension, dans l’ordre des échanges : ils sont validés ensemble, à la fin. */
 export function getDimensionSliders(persona: DemoPersona, step: DemoStep): DemoSlider[] {
   return persona.etapes.filter((item) => item.dimension === step.dimension).flatMap((item) => item.retenu?.curseurs ?? []);
+}
+
+/** Un niveau relevé pendant le parcours : l’aspect, son niveau final, ce qui a été dit, et l’échange où la Boussole l’a relevé. */
+export type DimensionReading = { libelle: string; niveau: RadarLevel; propose: RadarLevel | null; dit?: string; nonAborde: boolean; etape: number };
+
+/** Tous les niveaux relevés dans une dimension, échange par échange : la matière du détail affiché au survol du radar. */
+export function getDimensionReadings(persona: DemoPersona, dimension: DimensionId): DimensionReading[] {
+  return persona.etapes
+    .filter((step) => step.dimension === dimension)
+    .flatMap((step) => (step.retenu?.curseurs ?? []).map((slider) => ({
+      libelle: slider.libelle,
+      niveau: slider.corrigeA ?? slider.valeur,
+      propose: slider.corrigeA ? slider.valeur : null,
+      dit: slider.dit,
+      nonAborde: Boolean(slider.nonAborde),
+      etape: step.id,
+    })));
 }
 
 /** Éléments retenus par un échange, dans l’ordre d’apparition dans le panneau (extrait, notes, précision, puis niveaux validés en fin de dimension). */

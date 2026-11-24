@@ -64,8 +64,8 @@ const personas = content.personas ?? [];
 assert(JSON.stringify(personas.map((persona) => persona.id)) === JSON.stringify(PERSONA_IDS), "Les trois personas doivent être cinema, scene et arts-visuels, dans cet ordre.");
 
 // Routes existantes pour les liens de pistes : déclarées dans App.tsx.
-const appSource = await readFile(resolve("client/src/App.tsx"), "utf8");
-const existingRoutes = new Set([...appSource.matchAll(/<Route path=\{"([^"]+)"\}/g)].map((match) => match[1]));
+const catalog = JSON.parse(await readFile(resolve("client/src/data/demo-ressources.json"), "utf8")).ressources ?? [];
+const catalogById = new Map(catalog.map((resource) => [resource.id, resource]));
 
 for (const persona of personas) {
   const where = `Persona ${persona.id}`;
@@ -217,8 +217,24 @@ for (const persona of personas) {
   assert(Boolean(restitution), `${where} : la restitution est requise.`);
   const levels = Object.values(restitution?.radar ?? {});
   assert(levels.length === 5 && levels.every((level) => content.niveauxRadar.includes(level)), `${where} : le radar doit utiliser les 4 niveaux qualitatifs, sans chiffre.`);
+  // Pistes : chacune fait avancer une dimension du radar (différente d’une piste à l’autre, pas déjà au dernier niveau) et son lien dit
+  // pourquoi il est là : une animation de la page « À quoi ça pourrait ressembler » du même parcours, ou une ressource citée dans la démo.
+  const pisteDimensions = (restitution?.pistes ?? []).map((piste) => piste.dimension);
+  assert(new Set(pisteDimensions).size === pisteDimensions.length, `${where} : chaque piste fait avancer une dimension différente.`);
   for (const piste of restitution?.pistes ?? []) {
-    assert(existingRoutes.has(piste.lien), `${where} : le lien de piste ${piste.lien} ne correspond à aucune route existante.`);
+    const at = `${where}, piste « ${piste.horizon} »`;
+    assert(persona.ordreDimensions.includes(piste.dimension) && restitution?.radar[piste.dimension] !== "Orchestré", `${at} : la dimension visée doit exister dans le parcours et avoir un niveau au-dessus.`);
+    assert(piste.lien?.raison && wordCount(piste.lien.raison) >= 10 && wordCount(piste.lien.raison) <= 34, `${at} : la raison du lien est requise (10 à 34 mots), elle dit pourquoi le lien est là.`);
+    assert(!("libelleLien" in piste) && typeof piste.lien === "object", `${at} : le lien est un objet { demo | ressource, raison }, plus un simple chemin.`);
+    if ("demo" in piste.lien) assert((persona.demos ?? []).some((demo) => demo.id === piste.lien.demo), `${at} : l’animation « ${piste.lien.demo} » n’existe pas dans ce parcours.`);
+    else assert(catalogById.has(piste.lien.ressource) && personas.some((other) => other.etapes.some((step) => (step.ressources ?? []).some((item) => item.ref === piste.lien.ressource))), `${at} : la ressource « ${piste.lien.ressource} » doit être au catalogue et citée dans la démo.`);
+  }
+  // Détail par dimension, affiché au survol du radar : pourquoi ce niveau, appuyé sur ce que la Boussole a relevé.
+  for (const dimension of persona.ordreDimensions) {
+    const at = `${where}, dimension ${dimension}`;
+    const pourquoi = restitution?.detail?.[dimension]?.pourquoi ?? "";
+    assert(wordCount(pourquoi) >= 15 && wordCount(pourquoi) <= 45, `${at} : « pourquoi ce niveau » compte 15 à 45 mots (${wordCount(pourquoi)}).`);
+    assert(steps.some((step) => step.dimension === dimension && (step.retenu?.curseurs ?? []).length > 0), `${at} : au moins un niveau relevé est attendu pour appuyer le détail.`);
   }
   assert(JSON.stringify((restitution?.pistes ?? []).map((piste) => piste.horizon)) === JSON.stringify(["2 semaines", "1 mois", "3–6 mois"]), `${where} : trois pistes (2 semaines, 1 mois, 3–6 mois) sont attendues.`);
   for (const key of ["fonctionne", "ameliorer"]) {
@@ -232,10 +248,10 @@ for (const persona of personas) {
     }
   }
   assert([...(restitution?.fonctionne ?? []), ...(restitution?.ameliorer ?? [])].some((item) => item.ordreDeGrandeur), `${where} : au moins une métrique concrète (ordre de grandeur illustratif) est attendue dans la restitution.`);
-  assert(/Ce qu’on peut évaluer, on peut l’améliorer\./.test(restitution?.lettre ?? ""), `${where} : la lettre doit rappeler le fil rouge « Ce qu’on peut évaluer, on peut l’améliorer. ».`);
-  // Lettre courte et aérée (retours d’Ulrich, 24 novembre 2026) : trois ou quatre paragraphes, le dernier étant le fil rouge.
+  assert(!/peut évaluer/.test(restitution?.lettre ?? ""), `${where} : la lettre ne reprend pas la phrase « Ce qu’on peut évaluer, on peut l’améliorer. » (retour d’Ulrich, 25 novembre 2026).`);
+  // Lettre courte et aérée (retours d’Ulrich, 24 novembre 2026) : trois ou quatre paragraphes.
   const paragraphs = (restitution?.lettre ?? "").split(/\n{2,}/).map((paragraph) => paragraph.trim()).filter(Boolean);
-  assert(paragraphs.length >= 3 && paragraphs.length <= 4 && paragraphs.at(-1) === "Ce qu’on peut évaluer, on peut l’améliorer.", `${where} : la lettre compte trois ou quatre paragraphes, le dernier étant « Ce qu’on peut évaluer, on peut l’améliorer. ».`);
+  assert(paragraphs.length >= 3 && paragraphs.length <= 4, `${where} : la lettre compte trois ou quatre paragraphes.`);
   assert(paragraphs.every((paragraph) => wordCount(paragraph) <= 50) && wordCount(restitution?.lettre) <= 130, `${where} : la lettre reste courte (130 mots au plus, 50 par paragraphe) : ${wordCount(restitution?.lettre)} mots.`);
   assert(!/nommage/i.test(JSON.stringify(restitution ?? {})), `${where} : le nommage de fichiers n’est plus un sujet de la restitution.`);
   const demos = persona.demos ?? [];
@@ -271,6 +287,12 @@ if (personas.every((persona) => persona.statut === "pret")) {
 
 assert(content.restitution?.radarPhrase === "Ni bien ni mal. Un point de départ.", "La phrase de la comparaison des trois radars doit être « Ni bien ni mal. Un point de départ. » (elle ne figure plus sous le radar de la restitution).");
 assert(content.restitution?.legendeTitre === "Légende : ce que veulent dire les niveaux", "La légende des niveaux, sous le radar, s’intitule « Légende : ce que veulent dire les niveaux ».");
+const dimensionIds = Object.keys(content.dimensions ?? {});
+for (const dimension of dimensionIds) {
+  const criteria = content.restitution?.criteres?.[dimension];
+  assert(criteria?.regarde && content.niveauxRadar.every((level) => wordCount(criteria.echelle?.[level] ?? "") >= 8 && wordCount(criteria.echelle[level]) <= 30), `Critères de la dimension ${dimension} : une phrase « ce que la Boussole regarde » et les quatre niveaux (8 à 30 mots chacun) sont requis.`);
+}
+assert(content.restitution?.radarAide && content.restitution?.detailPourquoi && content.restitution?.detailReleve && content.restitution?.detailCriteres && content.restitution?.pisteLienTitre && content.restitution?.pisteVise, "Les libellés du détail du radar et des pistes sont requis.");
 assert(content.lecture?.syntheseTitre === "Synthèse de la Boussole" && content.lecture?.syntheseSurligne && content.lecture?.syntheseSansSurlignage && content.lecture?.syntheseOutils, "La synthèse de la Boussole porte son étiquette, la phrase qui dit ce que fait la Boussole (avec ou sans passage surligné) et le libellé « outil par outil ».");
 assert(!("syntheseExtrait" in (content.lecture ?? {})) && !("syntheseSert" in (content.lecture ?? {})) && !("syntheseNotes" in (content.lecture ?? {})), "La synthèse ne répète ni un passage, ni les notes, ni un « à quoi ça sert » vague : seule la fiche reste.");
 assert(content.lecture?.precisionTitre && content.lecture?.precisionAjoutee && content.lecture?.validationTitre && /\{dimension\}/.test(content.lecture?.validationQuestion ?? "") && content.lecture?.validationAide && content.lecture?.annonceNiveaux, "Les libellés de la précision et de la validation de fin de dimension sont requis (validationQuestion nomme la dimension).");
@@ -298,8 +320,6 @@ assert((content.futur?.fonctions ?? []).length === 5, "Les cinq fonctions future
 
 // --- « D’autres regards » : ressources liées (lot 4, annexe v3) ------------------------------------------
 // Citations courtes, exactes et attribuées, tirées du corpus « Ressources web MW » : inspiration, jamais preuve.
-const catalog = JSON.parse(await readFile(resolve("client/src/data/demo-ressources.json"), "utf8")).ressources ?? [];
-const catalogById = new Map(catalog.map((resource) => [resource.id, resource]));
 const ROLES = new Set(["pratique", "ouverture", "contrepoint"]);
 const STATUSES = new Set(["À définir", "Interne MW", "En ligne"]);
 assert(catalogById.size === catalog.length, "Ressources : chaque identifiant du catalogue doit être unique.");
@@ -320,7 +340,7 @@ assert(content.lecture?.indiceDit && content.lecture?.indiceNonAborde && !("ecou
 assert(content.lecture?.ressourcesTitre === "D’autres regards", "Le bloc des ressources liées doit s’intituler « D’autres regards ».");
 assert(content.lecture?.ressourceLire && content.lecture?.nouvelOnglet && content.lecture?.traduitAnglais, "Les libellés du lien, du nouvel onglet et de la traduction sont requis.");
 assert(!("retenuTitre" in (content.lecture ?? {})), "L’ancien bloc « La Boussole retient » sous la réponse est retiré : le libellé retenuTitre ne doit plus exister.");
-assert(content.restitution?.corpus === "Les citations de ce parcours viennent du corpus de veille du projet." && content.restitution?.corpusLien, "La restitution doit rappeler l’origine des citations, avec un lien vers les ressources.");
+assert(!("corpus" in (content.restitution ?? {})) && !("corpusLien" in (content.restitution ?? {})), "La restitution n’a plus de lien générique vers les ressources : chaque piste porte son propre lien, justifié.");
 const usedResources = new Set();
 for (const persona of personas.filter((item) => item.statut === "pret")) {
   const where = `Persona ${persona.id}`;

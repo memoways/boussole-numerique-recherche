@@ -132,10 +132,69 @@
     "ameliorerTitre": "Ce qui pourrait être plus léger",
     "citationLien": "dit à l’échange {n}",
     "pistesTitre": "Trois pistes",
-    "pistesIntro": "Des pistes, pas des obligations.",
+    "pistesIntro": "Chaque piste fait avancer une dimension du radar. Sous chacune, un lien dit pourquoi il est là.",
     "boutonSuite": "Voir à quoi ça pourrait ressembler",
-    "corpus": "Les citations de ce parcours viennent du corpus de veille du projet.",
-    "corpusLien": "Voir les ressources"
+    "radarAide": "Survole ou touche une dimension : la Boussole montre pourquoi elle est à ce niveau.",
+    "radarChoix": "Choisir une dimension",
+    "detailPourquoi": "Pourquoi ce niveau",
+    "detailReleve": "Ce que la Boussole a relevé",
+    "detailCriteres": "Les critères de cette dimension",
+    "detailLienEchange": "échange {n}",
+    "detailCorrige": "Niveau proposé : {avant}. Corrigé à la voix.",
+    "detailTonNiveau": "Ton niveau",
+    "detailNonAborde": "Pas abordé dans l’échange : niveau confirmé à la voix.",
+    "pisteVise": "Fait avancer : {dimension}",
+    "pisteLienTitre": "Pourquoi ce lien",
+    "pisteLireDemo": "Voir l’animation « {titre} »",
+    "pisteLireRessource": "Lire : {titre}",
+    "pisteAnglais": "article en anglais",
+    "criteres": {
+      "outils": {
+        "regarde": "Les outils du quotidien, la façon de les choisir et ce qui circule entre eux.",
+        "echelle": {
+          "Exploration": "Les outils sont subis ou découverts au fil des demandes ; aucun n’a un rôle défini.",
+          "Improvisation": "Chacun utilise les outils comme il peut ; les fichiers voyagent par mail ou par messagerie.",
+          "Organisé": "Des outils communs et une façon de ranger sont établis ; les versions se recopient encore d’un outil à l’autre.",
+          "Orchestré": "Chaque outil a son rôle, une version fait foi et les informations passent de l’un à l’autre sans recopie."
+        }
+      },
+      "competences": {
+        "regarde": "Ton usage de l’IA et ta capacité à décrire tes façons de faire.",
+        "echelle": {
+          "Exploration": "Quelques essais isolés avec l’IA ; les façons de faire ne sont pas écrites.",
+          "Improvisation": "L’IA sert de temps en temps, selon la personne ; les façons de faire se transmettent à l’oral.",
+          "Organisé": "Des usages de l’IA et des processus écrits servent de repères ; l’IA reçoit encore son contexte au cas par cas.",
+          "Orchestré": "Les processus sont écrits, l’IA y puise son contexte et chacun sait ce qu’on peut lui confier."
+        }
+      },
+      "donnees": {
+        "regarde": "Où sont les fichiers, comment on les retrouve, ce qui est sauvegardé et ce qui fait foi.",
+        "echelle": {
+          "Exploration": "Les fichiers sont là où on les a laissés ; on ne sait pas toujours ce qui existe.",
+          "Improvisation": "On retrouve ce qu’il faut au cas par cas, en fouillant ; une même information vit à plusieurs endroits.",
+          "Organisé": "Un endroit, une façon de nommer et de sauvegarder sont établis ; textes et archives restent dispersés ou recopiés.",
+          "Orchestré": "Un inventaire ou une base fait foi : chaque information a sa place et se retrouve sans recopie."
+        }
+      },
+      "publics": {
+        "regarde": "Comment tu présentes ton travail : site, dossiers, portfolios, réseaux et médiation.",
+        "echelle": {
+          "Exploration": "Peu de supports ; chaque présentation s’écrit au moment de la demande.",
+          "Improvisation": "Les supports existent mais se refont à chaque demande, à partir du dernier envoyé.",
+          "Organisé": "Un socle de textes et de visuels sert de point de départ ; chaque support est encore recomposé à la main.",
+          "Orchestré": "Un même socle alimente le site, les dossiers et les portfolios sans recopie."
+        }
+      },
+      "partage": {
+        "regarde": "Comment les décisions et l’essentiel circulent dans l’équipe, pour une nouvelle personne ou en ton absence.",
+        "echelle": {
+          "Exploration": "L’essentiel est dans la tête d’une personne ; rien d’écrit pour qui arrive.",
+          "Improvisation": "Ça circule au cas par cas, par mail ou à l’oral ; les versions se fusionnent à la main.",
+          "Organisé": "Des repères communs existent (un dossier, une fiche, des échanges réguliers) ; il reste des copies à mettre d’accord.",
+          "Orchestré": "Une version fait foi, tout le monde la retrouve et une nouvelle personne s’y retrouve seule."
+        }
+      }
+    }
   },
   "demos": {
     "titre": "À quoi ça pourrait ressembler",
@@ -619,7 +678,7 @@
         "transcription": "Qu’il y ait un seul endroit où le film existe vraiment : la fiche, le budget à jour, les contrats, qui a validé quoi. Que je puisse dire : envoie à Cinéforom le dossier avec les bonnes pièces, sans chercher. Et qu’une stagiaire puisse s’y retrouver sans moi."
       },
       "restitution": {
-        "lettre": "Claire, tu fais tenir deux films avec des outils simples, et ça marche : tes budgets sont solides, tes médias protégés en double, tes processus connus par cœur.\n\nCe qui te coûte : la même information vit à plusieurs endroits, chaque correction se fait à la main, et les validations passent par des allers-retours de mails.\n\nTu voudrais un seul endroit où le film existe vraiment. C’est l’idée d’une source de vérité : une fiche qui fait foi, d’où partent les dossiers, la presse et le site. C’est aussi ce qui rendrait l’IA utile.\n\nCe qu’on peut évaluer, on peut l’améliorer.",
+        "lettre": "Claire, tu fais tenir deux films avec des outils simples, et ça marche : tes budgets sont solides, tes médias protégés en double, tes processus connus par cœur.\n\nCe qui te coûte : la même information vit à plusieurs endroits, chaque correction se fait à la main, et les validations passent par des allers-retours de mails.\n\nTu voudrais un seul endroit où le film existe vraiment. C’est l’idée d’une source de vérité : une fiche qui fait foi, d’où partent les dossiers, la presse et le site. C’est aussi ce qui rendrait l’IA utile.",
         "radar": {
           "outils": "Organisé",
           "donnees": "Improvisation",
@@ -645,23 +704,49 @@
         "pistes": [
           {
             "horizon": "2 semaines",
+            "dimension": "partage",
             "texte": "Pour chaque film, désigner un seul document de référence pour la fiche technique (durée, format, crédits, synopsis) et y renvoyer au lieu de recopier.",
-            "lien": "/ressources",
-            "libelleLien": "Ressources du projet"
+            "lien": {
+              "demo": "convergence",
+              "raison": "L’animation montre une fiche film qui fait foi et repart identique vers chaque support : c’est cette piste, mise en images."
+            }
           },
           {
             "horizon": "1 mois",
+            "dimension": "competences",
             "texte": "Écrire en une page le déroulé du dossier de financement (étapes, pièces, qui valide) ; il sert à accueillir quelqu’un et à donner du contexte à une IA pour préparer un premier jet.",
-            "lien": "/ressources/etude-complete",
-            "libelleLien": "Étude complète : repères sur l’IA dans la culture"
+            "lien": {
+              "ressource": "maccarone-jugement",
+              "raison": "L’auteur raconte qu’écrire son jugement pour une IA donne aussi le document d’accueil dû à l’équipe : les deux usages de ce déroulé."
+            }
           },
           {
             "horizon": "3–6 mois",
+            "dimension": "donnees",
             "texte": "Une base film structurée (fiche, contrats, médias validés, suivi des validations) d’où partent les dossiers, la presse et le site, avec un suivi de tâches partagé avec l’équipe.",
-            "lien": "/ressources/references-inspirantes",
-            "libelleLien": "Références inspirantes"
+            "lien": {
+              "demo": "tri",
+              "raison": "L’animation range les informations d’un film là où elles vivent le mieux : base, documents, suivi de tâches et stockage des médias."
+            }
           }
-        ]
+        ],
+        "detail": {
+          "outils": {
+            "pourquoi": "Quand l’équipe est carrée, le dossier partagé est bien rangé : c’est le repère stable. Mais les versions voyagent encore par mail, ce qui empêche d’aller plus haut."
+          },
+          "donnees": {
+            "pourquoi": "Les médias sont protégés en double. En revanche, une même information vit à plusieurs endroits sans concorder, et retrouver un ancien document passe par la fouille du Drive."
+          },
+          "partage": {
+            "pourquoi": "Les décisions se fusionnent à la main et l’accueil d’une nouvelle personne repose sur ta mémoire : ça fonctionne, mais d’une personne à l’autre."
+          },
+          "competences": {
+            "pourquoi": "Un seul essai avec l’IA (reformuler une lettre), un processus jamais écrit et un stockage jamais questionné : tu en es à la découverte."
+          },
+          "publics": {
+            "pourquoi": "Le site est mis à jour par un ami quand il a le temps et les textes se recopient d’un support à l’autre : ça marche au cas par cas."
+          }
+        }
       },
       "demos": [
         {
@@ -1153,7 +1238,7 @@
         "transcription": "Que tout ce que je réunis pour un spectacle soit au même endroit, pour moi et pour l’équipe. Que les dossiers pour les programmateurs et les médiateurs se composent à partir de là, sans repartir de zéro. Que reprendre un ancien spectacle ne demande plus de tout rechercher. Que les infos de tournée soient au même endroit pour tout le monde. Et qu’en salle, il n’y ait que nous."
       },
       "restitution": {
-        "lettre": "Marc, ta compagnie vit de la parole. Tu connais tes programmateurs, ta régisseuse tient une fiche technique qui fait référence, et les répétitions restent un moment à part, sans écran : la Boussole les laisse telles quelles.\n\nAutour d’elles, ça s’éparpille : références et croquis arrivent par messages, les documents de médiation sont refaits à chaque demande, la tournée vit dans un fil de messages qui oublie tout.\n\nTu voudrais tout réunir au même endroit, pour toi et pour l’équipe, en gardant la salle pour vous. Réunies, ces informations rendraient aussi l’IA utile pour les tâches qui reviennent.\n\nCe qu’on peut évaluer, on peut l’améliorer.",
+        "lettre": "Marc, ta compagnie vit de la parole. Tu connais tes programmateurs, ta régisseuse tient une fiche technique qui fait référence, et les répétitions restent un moment à part, sans écran : la Boussole les laisse telles quelles.\n\nAutour d’elles, ça s’éparpille : références et croquis arrivent par messages, les documents de médiation sont refaits à chaque demande, la tournée vit dans un fil de messages qui oublie tout.\n\nTu voudrais tout réunir au même endroit, pour toi et pour l’équipe, en gardant la salle pour vous. Réunies, ces informations rendraient aussi l’IA utile pour les tâches qui reviennent.",
         "radar": {
           "partage": "Organisé",
           "publics": "Improvisation",
@@ -1174,23 +1259,49 @@
         "pistes": [
           {
             "horizon": "2 semaines",
+            "dimension": "donnees",
             "texte": "Ouvrir un dossier par spectacle où rassembler références, plans de scénographie et captations, y compris pour les spectacles passés. Faire de la fiche de la régisseuse la seule référence technique, vers laquelle renvoient les autres documents.",
-            "lien": "/ressources",
-            "libelleLien": "Ressources du projet"
+            "lien": {
+              "demo": "source-unique",
+              "raison": "L’animation rassemble croquis, liens et photos dispersés dans le dossier d’un spectacle : c’est le premier geste de cette piste."
+            }
           },
           {
             "horizon": "1 mois",
+            "dimension": "outils",
             "texte": "Tenir un seul tableau de tournée (dates, lieux, horaires, besoins, contacts) d’où partent les mails aux lieux. Puis essayer une IA pour les préremplir.",
-            "lien": "/ressources/etude-complete",
-            "libelleLien": "Étude complète : repères sur l’IA dans la culture"
+            "lien": {
+              "ressource": "neeman-problemes-humains",
+              "raison": "L’auteur écrit qu’un modèle moyen avec un contexte riche et à jour fait mieux qu’un modèle de pointe qui travaille à l’aveugle : un tableau tenu à jour est ce contexte."
+            }
           },
           {
             "horizon": "3–6 mois",
+            "dimension": "publics",
             "texte": "Composer le dossier de diffusion, la note d’intention et le dossier pour les scolaires à partir d’un même socle de textes et de visuels.",
-            "lien": "/ressources/references-inspirantes",
-            "libelleLien": "Références inspirantes"
+            "lien": {
+              "demo": "fiche",
+              "raison": "L’animation montre un socle qui nourrit le dossier de diffusion, le dossier pour les scolaires et le mail aux programmateurs, sans recopie."
+            }
           }
-        ]
+        ],
+        "detail": {
+          "partage": {
+            "pourquoi": "L’équipe se parle beaucoup et la façon de faire est connue : c’est le repère stable. Les plans et les références restent chez chacun, retrouvés au cas par cas."
+          },
+          "publics": {
+            "pourquoi": "Les programmateurs sont joints directement, mais le dossier de diffusion se refait à chaque création et le matériel de médiation n’existe pas encore."
+          },
+          "donnees": {
+            "pourquoi": "La fiche technique est tenue chez la régisseuse, mais ses copies divergent. Les captations tiennent sur une clé USB et reprendre un ancien spectacle dépend un peu de la chance."
+          },
+          "outils": {
+            "pourquoi": "Le planning vit dans un Sheets partagé, un repère stable. La coordination de tournée passe par WhatsApp, où une information importante se noie."
+          },
+          "competences": {
+            "pourquoi": "L’IA impressionne chez d’autres, mais tu ne sais ni quoi lui demander ni quoi lui donner, et tu réécris tes processus à la main : c’est la découverte."
+          }
+        }
       },
       "demos": [
         {
@@ -1638,7 +1749,7 @@
         "transcription": "Que mon tableur devienne mon portfolio et mes dossiers, sans tout refaire à chaque fois. Que mes textes et mes légendes vivent avec les œuvres, sous leur numéro. Qu’on puisse se promener dans mon travail, par séries, avec mes archives. Et que tout reste chez moi."
       },
       "restitution": {
-        "lettre": "Nadia, tu choisis tes outils, suisses ou libres, et tu sais où vont tes fichiers. C’est un choix assumé, et il tient. Ton inventaire existe depuis 1998 : chaque œuvre a son numéro, ses images sauvegardées en double, et un proche s’y retrouverait.\n\nLes textes, les légendes et les prix dorment dans d’anciens dossiers et des mails, et tu les recopies à la main pour chaque portfolio. Trente ans de carnets et de croquis attendent dans des boîtes.\n\nTu voudrais que ton travail se parcoure, avec ses séries et ses archives, sans que rien ne quitte ton ordinateur. La moitié du chemin est faite : les mêmes données permettraient aussi une IA locale.\n\nCe qu’on peut évaluer, on peut l’améliorer.",
+        "lettre": "Nadia, tu choisis tes outils, suisses ou libres, et tu sais où vont tes fichiers. C’est un choix assumé, et il tient. Ton inventaire existe depuis 1998 : chaque œuvre a son numéro, ses images sauvegardées en double, et un proche s’y retrouverait.\n\nLes textes, les légendes et les prix dorment dans d’anciens dossiers et des mails, et tu les recopies à la main pour chaque portfolio. Trente ans de carnets et de croquis attendent dans des boîtes.\n\nTu voudrais que ton travail se parcoure, avec ses séries et ses archives, sans que rien ne quitte ton ordinateur. La moitié du chemin est faite : les mêmes données permettraient aussi une IA locale.",
         "radar": {
           "outils": "Organisé",
           "donnees": "Organisé",
@@ -1657,15 +1768,51 @@
           { "texte": "Trente ans d’archives qu’on ne rouvre pas", "etape": 5, "citation": "je ne les rouvre presque jamais" }
         ],
         "pistes": [
-          { "horizon": "2 semaines", "texte": "Ajouter à l’inventaire les colonnes Texte de présentation, Légende et Prix, pour que tout parte du même endroit.", "lien": "/ressources", "libelleLien": "Ressources du projet" },
-          { "horizon": "1 mois", "texte": "Générer le portfolio PDF depuis le tableur, avec un outil libre.", "lien": "/ressources/analyse-outils", "libelleLien": "Analyse des outils" },
+          {
+            "horizon": "2 semaines",
+            "dimension": "donnees",
+            "texte": "Ajouter à l’inventaire les colonnes Texte de présentation, Légende et Prix, pour que tout parte du même endroit.",
+            "lien": {
+              "demo": "source-unique",
+              "raison": "L’animation fait converger les légendes éparses vers l’œuvre qu’elles décrivent : c’est le but des nouvelles colonnes."
+            }
+          },
+          {
+            "horizon": "1 mois",
+            "dimension": "publics",
+            "texte": "Générer le portfolio PDF depuis le tableur, avec un outil libre.",
+            "lien": {
+              "demo": "fiche",
+              "raison": "L’animation montre l’inventaire qui nourrit d’un coup le portfolio, la page web et le dossier de résidence : le portfolio PDF en est la première sortie."
+            }
+          },
           {
             "horizon": "3–6 mois",
+            "dimension": "competences",
             "texte": "Faire vivre l’existant : un site qui se nourrit de l’inventaire et ouvre les séries, les carnets et les archives, ou une IA locale qui aide à retrouver des liens entre les œuvres.",
-            "lien": "/ressources/references-inspirantes",
-            "libelleLien": "Références inspirantes"
+            "lien": {
+              "ressource": "raphael-competence",
+              "raison": "L’auteur appelle « stock » ses lectures, ses notes et ses expériences : la matière qu’une IA locale pourrait relire dans tes archives."
+            }
           }
-        ]
+        ],
+        "detail": {
+          "outils": {
+            "pourquoi": "Tes outils sont choisis avec cohérence, suisses ou libres : une façon de faire stable. Les hébergeurs ne sont pas vérifiés, tu leur fais confiance."
+          },
+          "donnees": {
+            "pourquoi": "L’inventaire depuis 1998 donne un numéro à chaque œuvre et les photos le portent : une source fait foi pour les œuvres. Textes, légendes et archives restent dispersés."
+          },
+          "publics": {
+            "pourquoi": "Le portfolio se refait en une soirée à chaque demande, avec les légendes recopiées du tableur. La présence en ligne reste à construire."
+          },
+          "competences": {
+            "pourquoi": "Tu refuses l’IA qui classe tes photos et tu découvres l’IA locale, qui t’intéresse si tout reste chez toi : tu en es à la découverte."
+          },
+          "partage": {
+            "pourquoi": "Avec le tableur, un proche retrouverait les œuvres en ton absence. Pour les textes, non : c’est ce qui retient ce niveau."
+          }
+        }
       },
       "demos": [
         {

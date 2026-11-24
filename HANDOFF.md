@@ -39,6 +39,7 @@
 
 - **Principes (annexe v2)** : pratiques plutôt qu’anecdotes, aucun jugement, écouter ce qui pèse, redondance et source de vérité, transmission des processus, place de chaque information, IA utile avec du contexte.
 - **Échelle** : Exploration · Improvisation · Organisé · Orchestré ; phrase « Ni bien ni mal. Un point de départ. » sous les trois radars de la comparaison seulement (retirée sous le radar de la restitution le 24 novembre)
+- **Restitution (25 novembre)** : radar explicatif (survol → détail à droite : pourquoi ce niveau, relevés, critères par dimension) ; chaque piste dit la dimension qu’elle fait avancer et justifie son lien (animation ou article du corpus) ; la phrase « Ce qu’on peut évaluer… » n’est plus dans les lettres. Textes de scénario à relire par Ulrich.
 - **Ressources liées (annexe v3)** :
   - toutes les ressources liées au projet sont éligibles, quel que soit leur statut ; aucune ressource technique ;
   - les citations sont toujours présentées comme inspiration, jamais comme preuve ;
