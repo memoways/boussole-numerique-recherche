@@ -1,5 +1,5 @@
 /**
- * « Ce que la Boussole retient » : extraits surlignés (avec leur lecture et leur usage), puis notes taguées par dimension, puis jauges
+ * « Ce que la Boussole retient » : extraits surlignés, puis notes taguées par dimension, puis jauges
  * qualitatives dans la couleur du niveau. Colonne droite rétractable sur ordinateur, tiroir du bas ouvert par un bouton flottant
  * sur smartphone. Seuls les éléments ajoutés à l’étape courante s’animent.
  */
@@ -42,9 +42,6 @@ function PanelBody({ persona, items, gauges, currentStep, highlight, reducedMoti
             {extracts.map((item) => (
               <motion.li key={item.key} {...itemMotion(item.etape === currentStep, reducedMotion)} className={`rounded-lg border-l-4 bg-white px-3 py-2 text-sm leading-snug text-slate-800 [border-left-color:var(--dim)] ${item.texte === highlight ? highlightClass : ""}`} style={dimensionVar(DIMENSION_COLORS[item.dimension].base)}>
                 <mark className="bg-[#E07428]/15 text-inherit">« {item.texte} »</mark>
-                {/* Un passage surligné dit comment il est lu et à quoi il sert : il ne reste jamais muet. */}
-                {item.lecture && <span className="mt-1.5 block text-xs leading-snug text-slate-700">{item.lecture}</span>}
-                {item.sert && <span className="mt-0.5 block text-xs leading-snug text-slate-600"><span aria-hidden="true">→ </span>{item.sert}</span>}
               </motion.li>
             ))}
           </AnimatePresence>

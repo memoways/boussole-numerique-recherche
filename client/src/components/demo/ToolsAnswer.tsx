@@ -124,7 +124,7 @@ export default function ToolsAnswer({ tools, options, prenom, phase, reducedMoti
 
       {part === 2 && reached("ranking") && (
         <motion.section {...fade} aria-label={lecture.outilsClassement} className="space-y-3">
-          <QuestionCard variant="relance" label={lecture.boussole} text={lecture.outilsClassement} color={color} reducedMotion={reducedMotion} />
+          <QuestionCard id="demo-question" variant="titre" label={lecture.boussole} text={lecture.outilsClassement} color={color} reducedMotion={reducedMotion} />
           <SpokenBubble prenom={prenom} text={tools.classement} speech={rankSpeech} reducedMotion={reducedMotion} />
           <ol className="grid gap-2 sm:grid-cols-2">
             {shown.map((outil, index) => {

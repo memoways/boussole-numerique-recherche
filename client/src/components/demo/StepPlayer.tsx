@@ -1,7 +1,7 @@
 /**
  * Une interaction jouée de bout en bout, selon la grammaire du PRD : la Boussole pose la question (en grand),
  * la personne répond (cases, scénario ou voix, toujours en playback), puis la Boussole en tire une synthèse étiquetée
- * (extraction puis transformation : comment c’est lu, ce qui est retenu, à quoi ça sert), parfois une précision
+ * (extraction puis transformation : la réponse rangée dans une fiche de données structurées), parfois une précision
  * (relance à la voix). Les niveaux qualitatifs se valident une seule fois, à la fin de chaque dimension, sur leur propre page :
  * la personne valide ou corrige à la voix. « D’autres regards » et « Un premier regard » viennent en dernier.
  */
@@ -162,10 +162,10 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
 
         {isFirstPage && step.rebond && <MemoryEcho etape={step.rebond.etape} rappel={step.rebond.rappel} reducedMotion={reducedMotion} />}
 
-        {/* La question de la Boussole est toujours en grand : celle de l’échange, puis, sur les pages suivantes, la validation ou un rappel lisible. */}
-        {isValidationPage && step.dimension
-          ? <QuestionCard id="demo-question" variant="titre" label={lecture.validationTitre} text={fillTemplate(lecture.validationQuestion, { dimension: dimensions[step.dimension] })} color={color.base} reducedMotion={reducedMotion} />
-          : <QuestionCard id="demo-question" variant={isFirstPage ? "titre" : "rappel"} label={lecture.boussole} text={step.question} color={color.base} reducedMotion={isFirstPage ? reducedMotion : true} />}
+        {/* La question de la Boussole est toujours en grand, et chaque page n’affiche que la sienne : page 1, la question de l’échange ;
+            page de classement (outils), la question de classement ; page de validation, la question de validation. */}
+        {isFirstPage && <QuestionCard id="demo-question" variant="titre" label={lecture.boussole} text={step.question} color={color.base} reducedMotion={reducedMotion} />}
+        {isValidationPage && step.dimension && <QuestionCard id="demo-question" variant="titre" label={lecture.validationTitre} text={fillTemplate(lecture.validationQuestion, { dimension: dimensions[step.dimension] })} color={color.base} reducedMotion={reducedMotion} />}
 
         {isFirstPage && showChoices && step.options && (
           <motion.div {...fade(0.15)}>
@@ -187,7 +187,7 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
                 wordsShown={playback.wordsShown}
                 typing={phase === "transcribing"}
                 highlight={retenu?.extrait}
-                showHighlight={extracted}
+                showHighlight={extracted && !tools}
                 onAccelerate={playback.accelerate}
                 hint={lecture.accelerer}
               />
@@ -216,7 +216,7 @@ export default function StepPlayer({ persona, step, previous, next, continueLabe
         {/* Synthèse : toujours après la réponse, étiquetée, avec comment c’est lu, ce qui est retenu et à quoi ça sert. */}
         {retenu && step.dimension && extracted && isSynthesisPage && (
           <div ref={synthesisRef} className="scroll-mb-32 sm:ml-8">
-            <SyntheseCard retenu={retenu} dimension={step.dimension} reducedMotion={reducedMotion}>
+            <SyntheseCard fiche={retenu.fiche} highlighted={Boolean(retenu.extrait) && !tools} reducedMotion={reducedMotion}>
               {tools?.approfondissement && <ToolFocusCards outils={tools.approfondissement.outils} />}
             </SyntheseCard>
           </div>
