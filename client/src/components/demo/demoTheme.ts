@@ -1,6 +1,6 @@
 /** Couleurs des dimensions : teinte de la charte pour les surfaces, variante accessible (AA sur blanc) pour le texte. */
 import type { CSSProperties } from "react";
-import type { DimensionId } from "@/lib/demoContent";
+import type { DimensionId, RadarLevel } from "@/lib/demoContent";
 
 export const DIMENSION_COLORS: Record<DimensionId, { base: string; text: string }> = {
   outils: { base: "#515792", text: "#515792" },
@@ -8,6 +8,17 @@ export const DIMENSION_COLORS: Record<DimensionId, { base: string; text: string 
   donnees: { base: "#3aab8a", text: "#167A5E" },
   publics: { base: "#3a7fc1", text: "#2B619D" },
   partage: { base: "#7ab648", text: "#4C741B" },
+};
+
+/**
+ * Couleur de chaque niveau de l’échelle, la même partout (libellés du radar, liste, légende, jauges) : le niveau se reconnaît
+ * à sa couleur d’un écran à l’autre. Les quatre teintes sont AA sur blanc (5,3 à 6,7) ; le mot du niveau reste toujours écrit.
+ */
+export const LEVEL_COLORS: Record<RadarLevel, string> = {
+  Exploration: "#8A5A00",
+  Improvisation: "#A8440D",
+  Organisé: "#515792",
+  Orchestré: "#167A5E",
 };
 
 /**

@@ -3,9 +3,11 @@
  *   node scripts/check-demo-playback.mjs http://localhost:5173 /tmp/captures-demo
  * Couvre les trois parcours à 1280 et 390 px, la comparaison des trois parcours, sauts de chapitre,
  * rechargement direct, bouton retour, clavier, mouvement réduit, tiroir mobile, « Un premier regard »
- * replié et sa mesure d’ouverture, définitions des niveaux, débordement horizontal et erreurs console. Lot 4 : ancien bloc
- * « La Boussole retient » absent, curseurs induits et correction toujours visibles, « D’autres regards » aux bons échanges
- * (liens en nouvel onglet, mesure `demo_ressource_ouverte`), signal du tiroir mobile. `CHROME_BIN` permet d’utiliser un Chromium déjà
+ * replié et sa mesure d’ouverture, légende des niveaux, débordement horizontal et erreurs console. Lot 4 : ancien bloc
+ * « La Boussole retient » absent, « D’autres regards » aux bons échanges (liens en nouvel onglet, mesure `demo_ressource_ouverte`),
+ * signal du tiroir mobile. Retours du 24 novembre 2026 (principes valables pour les trois parcours) : questions de la Boussole en grand,
+ * synthèse étiquetée qui vient après la réponse, précision à la voix, niveaux validés une seule fois à la fin de chaque dimension,
+ * toutes les réponses en playback, niveaux écrits sur le radar dans leur couleur, lettre courte et aérée. `CHROME_BIN` permet d’utiliser un Chromium déjà
  * installé si la version attendue par Playwright manque. Sort en code 1 si au moins un contrôle échoue.
  */
 import { mkdirSync, readFileSync } from "node:fs";
@@ -41,13 +43,15 @@ const path = (page) => new URL(page.url()).pathname;
 const CONTENT = JSON.parse(readFileSync(new URL("../client/src/data/demo-parcours.json", import.meta.url), "utf8"));
 const contentSteps = (id) => CONTENT.personas.find((persona) => persona.id === id).etapes;
 const resourceSteps = (id) => new Map(contentSteps(id).filter((step) => step.ressources?.length).map((step) => [step.id, step.ressources.length]));
-const inducedSteps = (id) => new Set(contentSteps(id).filter((step) => step.type !== "curseurs" && step.retenu?.curseurs?.length).map((step) => step.id));
+// Niveaux d’une dimension (validés ensemble, à la fin) et corrections de curseur de cette dimension.
+const dimensionSliders = (id, n) => { const dimension = contentSteps(id).find((step) => step.id === n).dimension; return contentSteps(id).filter((step) => step.dimension === dimension).flatMap((step) => step.retenu?.curseurs ?? []); };
+const correctionLines = (id, n, prenom) => dimensionSliders(id, n).filter((slider) => slider.corrigeA).map((slider) => `${prenom} corrige « ${slider.libelle} » : ${slider.valeur} → ${slider.corrigeA}.`);
 const RESOURCE_HOSTS = ["danslesalgorithmes.net", "medium.com", "uxdesign.cc", "substack.com", "ulrichfischer.net", "fredcavazza.net", "flint.media"];
 // Repères propres à chaque parcours (annexe v2) : premiers regards, rebonds, correction de curseur, tiroir mobile.
 const PERSONAS = {
-  cinema: { prenom: "Claire", steps: 12, milestones: [2, 5, 7, 10, 12], rebonds: [7, 12], correction: { step: 4, text: "Claire corrige « Sauvegarde des médias » : Improvisation → Organisé." }, drawer: { step: 7, note: "e-mail au centre" } },
+  cinema: { prenom: "Claire", steps: 12, milestones: [2, 5, 7, 10, 12], rebonds: [7, 12], correction: { step: 5, text: "Claire corrige « Sauvegarde des médias » : Improvisation → Organisé." }, drawer: { step: 7, note: "e-mail au centre" } },
   scene: { prenom: "Marc", steps: 12, milestones: [3, 5, 8, 10, 12], rebonds: [5, 12], correction: { step: 8, text: "Marc corrige « Fiches techniques » : Improvisation → Organisé." }, drawer: { step: 6, note: "références difficiles à retrouver" } },
-  "arts-visuels": { prenom: "Nadia", steps: 12, milestones: [2, 5, 8, 10, 12], rebonds: [2, 10], correction: { step: 7, text: "Nadia corrige « Présence en ligne » : Exploration → Improvisation." }, drawer: { step: 5, note: "inventaire numéroté depuis 1998" } },
+  "arts-visuels": { prenom: "Nadia", steps: 12, milestones: [2, 5, 8, 10, 12], rebonds: [2, 10], correction: { step: 8, text: "Nadia corrige « Présence en ligne » : Exploration → Improvisation." }, drawer: { step: 5, note: "inventaire numéroté depuis 1998" } },
 };
 const CORRECTION = PERSONAS.cinema.correction.text;
 const regardButton = (page) => page.getByRole("button", { name: /Un premier regard/ });
@@ -57,16 +61,40 @@ const labelsOverlap = (page) => page.evaluate(() => [...document.querySelectorAl
   return boxes.some((box, index) => index > 0 && box.left < boxes[index - 1].right - 0.5 && box.top < boxes[index - 1].bottom && boxes[index - 1].top < box.bottom);
 }));
 
+// Relevé d’une page d’échange : questions de la Boussole (taille du titre), synthèse (et sa place après la réponse), précision, validation.
+const snapshot = (page) => page.evaluate(() => {
+  const heading = (el) => parseFloat(getComputedStyle(el.querySelector("h1,h2")).fontSize);
+  const synthese = document.querySelector("[data-demo-synthese]");
+  const top = (el) => el.getBoundingClientRect().top + window.scrollY;
+  const bottom = (el) => el.getBoundingClientRect().bottom + window.scrollY;
+  const mains = [...document.querySelectorAll("[data-demo-reponse='main']")];
+  return {
+    questions: [...document.querySelectorAll("[data-demo-question]")].map((el) => ({ variant: el.dataset.demoQuestion, size: heading(el), text: el.innerText })),
+    synthese: Boolean(synthese),
+    // La synthèse vient après la réponse (jamais en même temps), étiquetée.
+    syntheseApresReponse: synthese ? mains.every((el) => top(synthese) >= bottom(el) - 1) && /Synthèse de la Boussole/i.test(synthese.innerText) : null,
+    precision: document.querySelectorAll("[data-demo-precision]").length,
+    validation: document.querySelectorAll("[data-demo-validation]").length,
+    indices: document.querySelectorAll("[data-demo-indice]").length,
+    capsules: synthese ? synthese.querySelectorAll("ul.lg\\:grid-cols-3 > li").length : 0,
+  };
+});
+
 async function playStep(page, { skip = false, prenom = "Claire" } = {}) {
   await page.getByRole("button", { name: `Réponse de ${prenom}` }).click();
+  const pages = [];
   // Un échange peut avoir plusieurs pages : on enchaîne les « Voir la suite » jusqu’au bouton de sortie.
   const exit = page.locator("main button").filter({ hasText: /^(Continuer|Voir la restitution|Voir la suite)/ });
   for (let guard = 0; guard < 4; guard += 1) {
     if (skip) await page.getByRole("button", { name: "Passer l’animation" }).click({ timeout: 2000 }).catch(() => {});
     await exit.waitFor({ timeout: 45000 });
-    if (!/^Voir la suite/.test((await exit.textContent()) ?? "")) return;
+    // En lecture réelle, la synthèse et la précision s’écrivent encore un instant après l’arrivée du bouton de sortie.
+    await page.waitForTimeout(skip ? 0 : 200);
+    pages.push(await snapshot(page));
+    if (!/^Voir la suite/.test((await exit.textContent()) ?? "")) return { pages };
     await exit.click();
   }
+  return { pages };
 }
 
 async function walk(label, viewport, { skip, persona: id = "cinema" }) {
@@ -99,7 +127,7 @@ async function walk(label, viewport, { skip, persona: id = "cinema" }) {
     await page.waitForURL(`**/${id}/${n}`);
     // Le rappel « Tu disais plus tôt » est sur la première page de l’échange : on le mesure avant de jouer la suite.
     const rebondCount = await page.getByText("Tu disais plus tôt").count();
-    await playStep(page, { skip: skip && n % 2 === 0, prenom: P.prenom });
+    const played = await playStep(page, { skip: skip && n % 2 === 0, prenom: P.prenom });
     await check(`étape ${n}`);
     if ([P.correction.step, P.drawer.step, P.steps].includes(n)) await page.screenshot({ path: `${OUT}/${label}-etape-${n}.png`, fullPage: true });
     const regard = await regardButton(page).count();
@@ -108,7 +136,7 @@ async function walk(label, viewport, { skip, persona: id = "cinema" }) {
       ok((await regardButton(page).getAttribute("aria-expanded")) === "false" && (await page.getByText("Ordre de grandeur illustratif", { exact: false }).count()) === 0, `${label} étape ${n} : premier regard replié par défaut`);
     }
     if (n === P.correction.step) {
-      ok((await page.getByText(P.correction.text).count()) === 1, `${label} étape ${n} : correction de curseur affichée`);
+      ok((await page.getByText(P.correction.text).count()) === 1, `${label} étape ${n} : correction de curseur affichée à la fin de la dimension`);
       ok(!(await labelsOverlap(page)), `${label} étape ${n} : libellés de l’échelle sans chevauchement`);
     }
     if (n === P.steps) {
@@ -119,11 +147,29 @@ async function walk(label, viewport, { skip, persona: id = "cinema" }) {
     ok(rebondCount === (P.rebonds.includes(n) ? 1 : 0), `${label} étape ${n} : rebond mémoire ${P.rebonds.includes(n) ? "présent" : "absent"}`);
     // Lot 4 : l’ancien bloc sous la réponse a disparu ; la validation humaine et « D’autres regards » restent.
     ok((await page.locator("main").getByText("La Boussole retient", { exact: true }).count()) === 0, `${label} étape ${n} : ancien bloc « La Boussole retient » absent`);
-    // Curseurs en contexte : un résumé de ce qui a été dit et, sous chaque curseur, les mots qui le justifient.
-    const sliderCount = contentSteps(id).find((step) => step.id === n).retenu?.curseurs?.length ?? 0;
-    ok((await page.locator("[data-demo-indice]").count()) === sliderCount && (sliderCount === 0 || (await page.locator("[data-demo-resume]").count()) === 1), `${label} étape ${n} : ${sliderCount} curseur(s), chacun avec son indice, et un résumé`);
-    const induced = inducedSteps(id).has(n);
-    ok((await page.locator("[data-demo-induction]").count()) === (induced ? 1 : 0) && (!induced || (await page.getByText(`${P.prenom} valide.`).isVisible())), `${label} étape ${n} : curseurs induits ${induced ? "et validation visibles" : "absents"}`);
+    // Principes des retours du 24 novembre 2026, vérifiés sur chaque échange des trois parcours.
+    const stepContent = contentSteps(id).find((step) => step.id === n);
+    const isEnd = P.milestones.includes(n);
+    // 1. Toute question de la Boussole est en grand : 20 px au moins, 18 px pour le rappel de la question de l’échange.
+    const questions = played.pages.flatMap((snap) => snap.questions);
+    ok(questions.length >= 1 && questions.every((question) => question.size >= (question.variant === "rappel" ? 18 : 20)), `${label} étape ${n} : questions de la Boussole en grand (${questions.map((question) => question.size).join("/")} px)`);
+    // 2. Après chaque réponse, une synthèse étiquetée, placée sous la réponse et jamais en même temps qu’elle.
+    const syntheses = played.pages.filter((snap) => snap.synthese);
+    ok(syntheses.length === 1 && syntheses[0].syntheseApresReponse === true, `${label} étape ${n} : synthèse de la Boussole étiquetée, après la réponse`);
+    // 3. Une précision à la voix seulement quand le passage retenu le demande.
+    ok(played.pages.reduce((total, snap) => total + snap.precision, 0) === (stepContent.retenu?.precision ? 1 : 0), `${label} étape ${n} : précision ${stepContent.retenu?.precision ? "présente" : "absente"}`);
+    // 4. Les niveaux se valident une seule fois, à la fin de la dimension, sur leur page : aucun curseur ailleurs.
+    const validationPages = played.pages.filter((snap) => snap.validation > 0);
+    ok(validationPages.length === (isEnd ? 1 : 0) && played.pages.filter((snap) => snap.validation === 0).every((snap) => snap.indices === 0), `${label} étape ${n} : niveaux ${isEnd ? "validés sur leur page, en fin de dimension" : "absents (validation seulement en fin de dimension)"}`);
+    if (isEnd) {
+      ok(validationPages[0].indices === dimensionSliders(id, n).length, `${label} étape ${n} : ${dimensionSliders(id, n).length} niveau(x) de la dimension, chacun avec ce qui a été dit`);
+      const lines = correctionLines(id, n, P.prenom);
+      const verdicts = lines.length ? await Promise.all(lines.map((line) => page.getByText(line).count())) : [Number(await page.getByText(`${P.prenom} valide.`).isVisible())];
+      ok(verdicts.every((count) => count === 1), `${label} étape ${n} : ${lines.length ? `${lines.length} correction(s) à la voix affichée(s)` : "validation affichée"}`);
+    }
+    if (stepContent.outils?.approfondissement) {
+      ok(syntheses[0].capsules === stepContent.outils.approfondissement.outils.length, `${label} étape ${n} : ce qui fonctionne et ce qui pèse n’arrive que dans la synthèse (${syntheses[0].capsules} capsules)`);
+    }
     const expected = resourceSteps(id).get(n) ?? 0;
     const block = page.locator("[data-demo-ressources]");
     ok((await block.count()) === (expected ? 1 : 0), `${label} étape ${n} : « D’autres regards » ${expected ? "présent" : "absent"}`);
@@ -145,7 +191,7 @@ async function walk(label, viewport, { skip, persona: id = "cinema" }) {
       await trigger.click();
       const dialog = page.getByRole("dialog");
       await dialog.waitFor();
-      ok(await dialog.getByText(P.drawer.note).isVisible(), `${label} tiroir : notes visibles`);
+      ok(await dialog.getByText(P.drawer.note, { exact: true }).isVisible(), `${label} tiroir : notes visibles`);
       await page.screenshot({ path: `${OUT}/${label}-tiroir.png` });
       await dialog.getByRole("button", { name: "Fermer" }).click();
       await dialog.waitFor({ state: "detached" });
@@ -161,11 +207,21 @@ async function walk(label, viewport, { skip, persona: id = "cinema" }) {
   ok((await page.locator(".recharts-radar-polygon").count()) === 1, `${label} restitution : radar dessiné`);
   const radarText = await page.locator("figure").innerText();
   ok(!/\d/.test(radarText), `${label} restitution : aucun chiffre dans le radar`);
-  ok(await page.getByText("Ni bien ni mal. Un point de départ.").first().isVisible(), `${label} restitution : phrase sous le radar`);
+  ok((await page.getByText("Ni bien ni mal. Un point de départ.").count()) === 0, `${label} restitution : plus de phrase sous le radar`);
+  // Lettre courte et aérée : trois ou quatre paragraphes distincts, le dernier est le fil rouge.
+  const letter = await page.locator("section[aria-labelledby=demo-lettre] p").allInnerTexts();
+  ok(letter.length >= 3 && letter.length <= 4 && letter.at(-1) === "Ce qu’on peut évaluer, on peut l’améliorer." && letter.join(" ").split(/\s+/).length <= 130, `${label} restitution : lettre courte en ${letter.length} paragraphes (${letter.join(" ").split(/\s+/).length} mots)`);
+  // Les niveaux s’écrivent sur le radar, sous chaque dimension, dans la couleur de la légende.
+  const onRadar = await page.locator("figure svg text tspan").evaluateAll((items) => items.map((item) => [item.textContent, item.getAttribute("fill")]).filter(([text]) => ["Exploration", "Improvisation", "Organisé", "Orchestré"].includes(text)));
+  const legend = await page.locator("figure dl dt").evaluateAll((items) => Object.fromEntries(items.map((item) => [item.textContent.trim(), getComputedStyle(item).color])));
+  const toRgb = (hex) => { const n = parseInt(hex.slice(1), 16); return `rgb(${n >> 16}, ${(n >> 8) & 255}, ${n & 255})`; };
+  ok(onRadar.length === 5 && onRadar.every(([text, fill]) => legend[text] === toRgb(fill)), `${label} restitution : cinq niveaux écrits sur le radar, dans la couleur de la légende (${onRadar.map(([text]) => text).join(", ")})`);
+  ok((await page.locator("figure ul li").filter({ hasText: /: (Exploration|Improvisation|Organisé|Orchestré)$/ }).count()) === 5, `${label} restitution : la même information reste lisible au lecteur d’écran`);
+  ok(await page.getByText("Légende : ce que veulent dire les niveaux", { exact: true }).isVisible(), `${label} restitution : légende des niveaux titrée`);
   ok(await page.getByText("Les citations de ce parcours viennent du corpus de veille du projet.").isVisible() && (await page.getByRole("link", { name: "Voir les ressources" }).getAttribute("href")) === "/ressources", `${label} restitution : origine des citations, lien vers les ressources`);
   ok((await page.locator("#demo-pistes ~ ol li").count()) === 3, `${label} restitution : 3 pistes`);
   ok(await page.getByRole("heading", { name: "Ce qui pourrait être plus léger" }).isVisible(), `${label} restitution : « Ce qui pourrait être plus léger »`);
-  ok((await page.locator("figure dl dt").allInnerTexts()).join(" · ") === "Exploration · Improvisation · Organisé · Orchestré", `${label} restitution : définitions des 4 niveaux sous le radar`);
+  ok((await page.locator("figure dl dt").allInnerTexts()).map((text) => text.trim()).join(" · ") === "Exploration · Improvisation · Organisé · Orchestré", `${label} restitution : définitions des 4 niveaux sous le radar`);
   await page.screenshot({ path: `${OUT}/${label}-restitution.png`, fullPage: true });
   await page.getByRole("link", { name: /Voir à quoi ça pourrait ressembler/ }).click();
   await page.waitForURL(`**/${id}/demos`);
@@ -185,6 +241,8 @@ async function walk(label, viewport, { skip, persona: id = "cinema" }) {
   ok((await page.locator(".recharts-radar-polygon").count()) === 3, `${label} comparaison : 3 radars`);
   ok((await page.locator("main blockquote").count()) === 3, `${label} comparaison : la même dimension formulée 3 fois`);
   ok(!/\d/.test((await page.locator("main figure").allInnerTexts()).join(" ")), `${label} comparaison : aucun chiffre dans les radars`);
+  ok((await page.locator("main figure svg text tspan").evaluateAll((items) => items.filter((item) => ["Exploration", "Improvisation", "Organisé", "Orchestré"].includes(item.textContent)).length)) === 15, `${label} comparaison : le niveau est écrit sur chacun des trois radars`);
+  ok(await page.getByText("Ni bien ni mal. Un point de départ.").first().isVisible(), `${label} comparaison : phrase « Ni bien ni mal. Un point de départ. »`);
   ok((await page.getByText("Le parcours que tu as suivi").count()) === 1, `${label} comparaison : parcours suivi signalé`);
   const others = Object.values(PERSONAS).filter((item) => item !== P).map((item) => item.prenom);
   ok((await Promise.all(others.map((prenom) => page.getByRole("link", { name: `Voir le parcours de ${prenom}` }).count()))).every((count) => count === 1), `${label} comparaison : liens vers ${others.join(" et ")}`);
@@ -213,10 +271,10 @@ for (const id of Object.keys(PERSONAS)) {
 
   await page.goto(`${BASE}/experience/demo/cinema/7`);
   const panel = page.locator("aside[aria-labelledby='demo-memoire-titre']");
-  ok(await panel.getByText("e-mail au centre").isVisible(), "rechargement direct étape 7 : panneau cumulé (étape 1)");
-  ok(await panel.getByText("Sauvegarde des médias : Organisé").isVisible(), "rechargement direct étape 7 : curseur corrigé conservé");
+  ok(await panel.getByText("e-mail au centre", { exact: true }).isVisible(), "rechargement direct étape 7 : panneau cumulé (étape 1)");
+  ok(await panel.getByText("Sauvegarde des médias : Organisé", { exact: true }).isVisible(), "rechargement direct étape 7 : curseur corrigé conservé");
   ok((await panel.locator(".ring-2").count()) === 1, "rechargement direct étape 7 : élément cité mis en évidence");
-  ok(await panel.getByText("Outils & workflows").first().isVisible(), "rechargement direct étape 7 : jauges des dimensions passées");
+  ok(await panel.getByText("Outils & workflows", { exact: true }).first().isVisible(), "rechargement direct étape 7 : jauges des dimensions passées");
 
   await page.goto(`${BASE}/experience/demo/cinema/5`);
   await playStep(page, { skip: true });
@@ -278,13 +336,14 @@ for (const id of Object.keys(PERSONAS)) {
   ok((await regard.getAttribute("aria-expanded")) === "true" && path(page) === "/experience/demo/cinema/2", "premier regard : Espace rouvre sans changer d’étape");
   ok((await page.evaluate(() => (window.__demoEvents ?? []).filter((event) => event.name === "demo_regard_ouvert").length)) === 2, "premier regard : chaque ouverture est mesurée, pas les replis");
 
-  await page.goto(`${BASE}/experience/demo/cinema/4`);
+  // L’aide des niveaux se trouve sur la page de validation de fin de dimension, repliée sous les curseurs.
+  await page.goto(`${BASE}/experience/demo/cinema/2`);
+  await playStep(page, { skip: true });
   const help = page.locator("main summary").filter({ hasText: "Ce que veulent dire les niveaux" });
   ok((await help.count()) === 1 && !(await page.getByText("Une source fait foi", { exact: false }).isVisible()), "aide des niveaux : repliée sous les curseurs");
   await help.focus();
   await page.keyboard.press("Enter");
-  ok(await page.getByText("Une source fait foi", { exact: false }).isVisible() && path(page) === "/experience/demo/cinema/4", "aide des niveaux : ouverte au clavier sans lancer la réponse");
-  ok((await page.getByRole("button", { name: "Réponse de Claire" }).count()) === 1, "aide des niveaux : la réponse attend toujours le clic");
+  ok(await page.getByText("Une source fait foi", { exact: false }).isVisible() && path(page) === "/experience/demo/cinema/2", "aide des niveaux : ouverte au clavier sans changer d’étape");
   ok(page.errors.length === 0, `premier regard et aide sans erreur console${page.errors.length ? ` : ${page.errors.join(" | ")}` : ""}`);
   await context.close();
 }
@@ -368,14 +427,14 @@ for (const id of Object.keys(PERSONAS)) {
   const expected = CONTENT.personas.find((persona) => persona.id === "cinema").etapes[0].outils.ordre.map((item) => item.outil);
   ok(JSON.stringify(start) !== JSON.stringify(expected), "classement : les outils démarrent dans un ordre qui n’est pas le classement final");
   ok((await page.locator("main ol li span.text-transparent").count()) === expected.length, "classement : aucun numéro tant que la parole n’est pas finie");
-  // Approfondissement : onde et écriture mot à mot, les capsules arrivent l’une après l’autre au fil de la parole.
-  const capsules = page.locator("main section[aria-label] ul.lg\\:grid-cols-3 > li");
-  await page.waitForFunction(() => document.querySelectorAll("main ul.lg\\:grid-cols-3 > li").length >= 1, null, { timeout: 45000 });
-  ok((await capsules.count()) < 3, "approfondissement : la première capsule arrive avant les deux autres");
+  // Approfondissement : la question en grand, la réponse en playback avec l’onde ; ce qui fonctionne et ce qui pèse n’arrive qu’après, dans la synthèse.
+  await page.waitForFunction(() => [...document.querySelectorAll("main [data-demo-question]")].some((el) => /Sur les trois premiers/.test(el.innerText)), null, { timeout: 45000 });
+  ok((await page.locator("main [data-demo-synthese]").count()) === 0 && (await page.locator("main ul.lg\\:grid-cols-3 > li").count()) === 0, "approfondissement : la question est posée, rien n’est encore synthétisé");
   ok((await page.locator("main [aria-hidden='true'].flex.h-8").count()) >= 2, "approfondissement : l’onde accompagne chaque parole de la page");
+  await page.waitForFunction(() => document.querySelectorAll("main [data-demo-synthese]").length === 1, null, { timeout: 45000 });
   await page.locator("main button").filter({ hasText: /^Continuer/ }).waitFor({ timeout: 45000 });
   ok(JSON.stringify(await names()) === JSON.stringify(expected), "classement : à la fin, les outils sont dans l’ordre dit par Claire");
-  ok((await capsules.count()) === 3, "approfondissement : les trois capsules sont là à la fin");
+  ok((await page.locator("main [data-demo-synthese] ul.lg\\:grid-cols-3 > li").count()) === 3, "approfondissement : les trois capsules sont là à la fin, dans la synthèse");
   ok((await page.locator("main ol li span.text-transparent").count()) === 0, "classement : les numéros s’affichent à la fin");
   ok(page.errors.length === 0, `classement sans erreur console${page.errors.length ? ` : ${page.errors.join(" | ")}` : ""}`);
   await context.close();
@@ -386,14 +445,15 @@ for (const id of Object.keys(PERSONAS)) {
   const { context, page } = await newPage({ width: 1280, height: 900 }, { reducedMotion: "reduce" });
   await page.goto(`${BASE}/experience/demo/cinema/4`);
   await page.getByRole("button", { name: "Réponse de Claire" }).click();
-  ok((await page.locator("main button").filter({ hasText: /^(Continuer|Voir la suite)/ }).count()) === 1, "reduced-motion : réponse complète dès le clic");
-  ok(await page.getByText(CORRECTION).isVisible(), "reduced-motion : correction affichée");
-  ok((await regardButton(page).count()) === 0, "reduced-motion : pas de premier regard à l’étape 4");
+  ok((await page.locator("main button").filter({ hasText: /^Continuer/ }).count()) === 1, "reduced-motion : réponse complète dès le clic");
+  ok((await page.locator("main [data-demo-synthese]").count()) === 1 && (await regardButton(page).count()) === 0, "reduced-motion : synthèse affichée, pas de premier regard à l’étape 4");
   await page.goto(`${BASE}/experience/demo/cinema/8`);
   await page.getByRole("button", { name: "Réponse de Claire" }).click();
   ok((await page.locator("[data-demo-ressources] blockquote").count()) === 2, "reduced-motion : « D’autres regards » affiché dès la fin de la réponse");
   await page.goto(`${BASE}/experience/demo/cinema/5`);
   await page.getByRole("button", { name: "Réponse de Claire" }).click();
+  await page.locator("main button").filter({ hasText: /^Voir la suite/ }).click();
+  ok(await page.getByText(CORRECTION).isVisible(), "reduced-motion : validation de fin de dimension, correction affichée");
   await regardButton(page).click();
   ok(await page.getByText("Ordre de grandeur illustratif : une même fiche technique", { exact: false }).isVisible(), "reduced-motion : premier regard ouvert immédiatement");
   await page.goto(`${BASE}/experience/demo/cinema/restitution`);
@@ -415,10 +475,10 @@ for (const id of Object.keys(PERSONAS)) {
   const { context, page } = await newPage({ width: 1280, height: 900 });
   const panel = page.locator("aside[aria-labelledby='demo-memoire-titre']");
   await page.goto(`${BASE}/experience/demo/scene/12`);
-  ok(await panel.getByText("références difficiles à retrouver").isVisible() && await panel.getByText("Fiches techniques : Organisé").isVisible(), "Marc, rechargement direct étape 12 : panneau cumulé, curseur corrigé conservé");
+  ok(await panel.getByText("références difficiles à retrouver", { exact: true }).isVisible() && await panel.getByText("Fiches techniques : Organisé", { exact: true }).isVisible(), "Marc, rechargement direct étape 12 : panneau cumulé, curseur corrigé conservé");
   ok((await panel.locator(".ring-2").count()) === 1, "Marc, rechargement direct étape 12 : élément cité mis en évidence");
   await page.goto(`${BASE}/experience/demo/arts-visuels/10`);
-  ok(await panel.getByText("Présence en ligne : Improvisation").isVisible() && (await panel.locator(".ring-2").count()) === 1, "Nadia, rechargement direct étape 10 : curseur corrigé, élément cité mis en évidence");
+  ok(await panel.getByText("Présence en ligne : Improvisation", { exact: true }).isVisible() && (await panel.locator(".ring-2").count()) === 1, "Nadia, rechargement direct étape 10 : curseur corrigé, élément cité mis en évidence");
   await page.getByRole("navigation", { name: "Progression du parcours" }).getByRole("link", { name: "Publics & communication" }).click();
   ok(path(page) === "/experience/demo/arts-visuels/6", `Nadia, saut de chapitre Publics → ${path(page)}`);
 

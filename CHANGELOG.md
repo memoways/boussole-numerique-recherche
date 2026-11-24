@@ -4,6 +4,15 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 
 ## [Unreleased]
 
+- Démo playback `/experience/demo` — **retours d'Ulrich du 24 novembre 2026**, appliqués par principe aux trois parcours (Claire, Marc, Nadia) :
+  - **Questions** : toute question de la Boussole (échange, relance sur d'autres outils, classement, approfondissement, précision, validation) s'affiche dans un bloc `QuestionCard` en grand ; le rappel de la question sur les pages suivantes reste lisible.
+  - **Extraction puis transformation** : après chaque réponse, une « Synthèse de la Boussole » étiquetée dit comment la réponse est lue (`retenu.lecture`), montre le passage retenu et les notes structurées, et à quoi cela sert (`retenu.sert`). Elle vient après la réponse, jamais en même temps ; le panneau « Ce que la Boussole retient » légende aussi chaque extrait surligné. Ce qui fonctionne et ce qui pèse (échanges « outils ») passe dans cette synthèse.
+  - **Précision** : six questions de relance (deux par parcours) creusent un passage ambigu, la personne répond à la voix et une note s'ajoute (`retenu.precision`).
+  - **Validation en fin de dimension** : les niveaux ne s'affichent plus sous chaque réponse (« D'après ce que tu dis… » disparaît). Le dernier échange de chaque dimension a sa page de validation, où la personne valide ou corrige à la voix (`validation.voix`) ; les quatre échanges « curseurs » deviennent des questions ordinaires (cinéma 4, Marc 8, Nadia 4 et 7), trois dimensions qui n'avaient aucun niveau en reçoivent (cinéma, Marc : publics ; Nadia : outils).
+  - **Playback partout** : la précision et la validation s'écrivent mot à mot avec l'onde, comme la première réponse ; la parole passe avant ce qu'elle déclenche.
+  - **Restitution** : lettre ramenée de 154-173 à 101-120 mots, en courts paragraphes avec le fil rouge à part ; le niveau s'écrit sous chaque dimension du radar (comparaison comprise) ; liste latérale remplacée par une version lisible au lecteur d'écran ; couleur unique par niveau (`LEVEL_COLORS`, AA) dans le radar, la légende, les curseurs et les jauges ; légende titrée « Légende : ce que veulent dire les niveaux » ; phrase « Ni bien ni mal. Un point de départ. » retirée sous le radar de la restitution (reste dans la comparaison).
+  - `verify-demo-content` et `check-demo-playback` contrôlent ces principes sur les trois parcours. Voir [`docs/ETAT_RETOURS_DEMO_PRINCIPES_2026-11-24.md`](docs/ETAT_RETOURS_DEMO_PRINCIPES_2026-11-24.md). Production non publiée.
+
 - Refonte visuelle « spectre », **lot 1 bis** (direction visuelle) — **arrêté, aucune direction choisie** :
   - trois histoires et une grammaire commune (G1–G8) ; histoire A « Le panneau au départ » retenue, noms des cinq chemins fixés (« Partage & collaboration »), nord posé à la fin ;
   - tirage Impeccable et trois esquisses HTML (signalétique de quai, balisage de randonnée, plans coulissants), vérifiées à 1440 et 390 px, toutes écartées par Ulrich ;

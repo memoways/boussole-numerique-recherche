@@ -11,24 +11,39 @@ export type PersonaStatus = "en-preparation" | "pret";
 
 /** Échelle qualitative de l’annexe v2 : chaque niveau a une définition affichée (`niveauxDefinitions`). */
 export type RadarLevel = "Exploration" | "Improvisation" | "Organisé" | "Orchestré";
-export type StepType = "cases" | "question" | "scenario" | "curseurs" | "relance";
+export type StepType = "cases" | "question" | "scenario" | "relance";
 
 /**
- * Curseur qualitatif induit : position proposée par la Boussole, puis éventuelle correction par la personne.
- * `dit` rappelle les mots exacts qui justifient le niveau ; `nonAborde` signale un niveau proposé sans que la
- * personne en ait encore parlé (c’est souvent là qu’elle corrige).
+ * Curseur qualitatif induit : position proposée par la Boussole, validée ou corrigée par la personne à la voix, une seule fois,
+ * à la fin de la dimension (`validation` du dernier échange). `dit` rappelle les mots exacts qui justifient le niveau ;
+ * `nonAborde` signale un niveau proposé sans que la personne en ait encore parlé (c’est souvent là qu’elle corrige).
  */
 export type DemoSlider = { libelle: string; valeur: RadarLevel; corrigeA: RadarLevel | null; dit?: string; nonAborde?: boolean };
 
+/** Question de précision : la Boussole creuse un passage retenu qui reste ambigu, la personne répond à la voix, une note s’ajoute. */
+export type DemoPrecision = { question: string; transcription: string; note: string };
+
+/**
+ * Ce que la Boussole tire d’une réponse (extraction puis transformation). Après la réponse, une synthèse étiquetée montre
+ * `lecture` (comment c’est interprété), le passage retenu (`extrait`), les notes structurées (`tags`) et `sert` (à quoi ça sert).
+ */
 export type DemoRetained = {
-  /** Résumé d’une phrase de ce qui a été dit, affiché avec les curseurs pour qu’ils ne tombent pas hors contexte. */
-  resume?: string;
+  /** Une phrase : comment la Boussole comprend ce qui vient d’être dit. */
+  lecture: string;
   /** Passage de la transcription surligné (niveau 1 du panneau). */
   extrait?: string;
-  /** Notes taguées par la dimension de l’étape (niveau 2). */
+  /** Notes taguées par la dimension de l’échange (niveau 2). */
   tags?: string[];
+  /** Une phrase : à quoi sert ce qui est retenu (restitution, niveau du radar, rappel plus loin…). */
+  sert: string;
+  /** Question de relance quand un passage retenu mérite d’être précisé (facultatif). */
+  precision?: DemoPrecision;
+  /** Niveaux proposés d’après la réponse ; ils ne s’affichent qu’à la validation de fin de dimension. */
   curseurs?: DemoSlider[];
 };
+
+/** Validation de fin de dimension, portée par le dernier échange de la dimension : la personne valide ou corrige à la voix. */
+export type DemoValidation = { voix: string };
 
 /** Outil repéré dans la parole : `dit` reprend les mots exacts de la transcription qui le justifient. */
 export type DemoToolMention = { outil: string; dit: string };
@@ -62,13 +77,13 @@ export type DemoStep = {
   dimension: DimensionId;
   type: StepType;
   question: string;
-  /** Pour les curseurs proposés avant la réponse : la fin de la question, affichée après les curseurs. */
-  questionSuite?: string;
   options?: string[];
   reponse: { choix?: string[]; transcription: string };
   /** Pour une étape « cases » : outils repérés dans la parole, ajouts, classement et approfondissement. */
   outils?: DemoTools;
   retenu?: DemoRetained;
+  /** Dernier échange d’une dimension : la Boussole propose les niveaux de la dimension, la personne valide ou corrige à la voix. */
+  validation?: DemoValidation;
   /** Rebond mémoire : l’élément retenu plus tôt que la Boussole cite. */
   rebond?: { etape: number; rappel: string };
   numeriqueResponsable?: boolean;
@@ -147,6 +162,7 @@ export type DemoPersona = {
   etapes: DemoStep[];
   ideal?: { question: string; transcription: string };
   restitution?: {
+    /** Courts paragraphes séparés par une ligne vide ; le dernier reprend le fil rouge. */
     lettre: string;
     radar: Record<DimensionId, RadarLevel>;
     fonctionne: DemoCitation[];
@@ -174,10 +190,11 @@ export type DemoContent = {
   accueil: { titre: string; fictifTitre: string; fictif: string; avertissementPreparation: string; boutonCommencer: string; aideTitre: string; aideLecture: string; boutonAvis: string; boutonChangerPersona: string };
   preparation: { titre: string; texte: string; comparaisonTexte: string; boutonAccueil: string; boutonAvis: string };
   lecture: Record<
-    | "boussole" | "echange" | "reponseDe" | "passerAnimation" | "continuer" | "suite" | "partie" | "rappelDit" | "consigne" | "retour" | "allerRestitution"
+    | "boussole" | "echange" | "reponseDe" | "passerAnimation" | "continuer" | "suite" | "partie" | "consigne" | "retour" | "allerRestitution"
     | "selectionCases" | "selectionScenario"
+    | "syntheseTitre" | "syntheseExtrait" | "syntheseNotes" | "syntheseSert" | "syntheseOutils" | "precisionTitre" | "precisionAjoutee" | "validationTitre" | "validationQuestion" | "validationAide" | "annonceNiveaux"
     | "outilsReperes" | "outilsPropositions" | "outilsAjoutes" | "outilsAjoute" | "outilsManuel" | "outilsClassement" | "outilsApprofondir" | "outilsFonctionne" | "outilsPese"
-    | "accelerer" | "digestion" | "induction" | "indiceDit" | "indiceNonAborde"
+    | "accelerer" | "digestion" | "indiceDit" | "indiceNonAborde"
     | "valide" | "corrige" | "rebondTitre" | "rebondEchange" | "pointEtapeTitre" | "pointEtapeOuvrir" | "pointEtapeReplier" | "annonceRetenu"
     | "ressourcesTitre" | "ressourceLire" | "nouvelOnglet" | "traduitAnglais",
     string
@@ -185,7 +202,7 @@ export type DemoContent = {
   memoire: Record<"titre" | "boutonMobile" | "vide" | "extraits" | "notes" | "jauges" | "replier" | "deplier" | "fermer", string>;
   ideal: { libelle: string; boutonSuite: string };
   restitution: Record<
-    | "surtitre" | "titre" | "lettreTitre" | "radarTitre" | "radarPhrase" | "fonctionneTitre" | "ameliorerTitre" | "citationLien" | "pistesTitre" | "pistesIntro" | "boutonSuite"
+    | "surtitre" | "titre" | "lettreTitre" | "radarTitre" | "radarPhrase" | "legendeTitre" | "fonctionneTitre" | "ameliorerTitre" | "citationLien" | "pistesTitre" | "pistesIntro" | "boutonSuite"
     | "corpus" | "corpusLien",
     string
   >;
@@ -331,27 +348,47 @@ export function getNeighbours(persona: DemoPersona, step: StepRef) {
   return { previous: sequence[index - 1] ?? null, next: sequence[index + 1] ?? null };
 }
 
+/** Moment de l’échange où un élément retenu apparaît dans le panneau : extraction, précision ou validation de la dimension. */
+export type RetainedStage = "extraction" | "precision" | "validation";
+
 export type RetainedItem = {
   key: string;
   kind: "extrait" | "tag" | "curseur";
   dimension: DimensionId;
   etape: number;
+  stage: RetainedStage;
   texte: string;
   /** Niveau final d’un curseur, après correction éventuelle. */
   niveau?: RadarLevel;
+  /** Pour un extrait : comment la Boussole l’interprète et à quoi il sert, pour qu’un passage surligné ne reste pas muet. */
+  lecture?: string;
+  sert?: string;
 };
 
-/** Éléments retenus par une étape, dans l’ordre d’apparition dans le panneau. */
-export function getRetainedItems(step: DemoStep): RetainedItem[] {
+/** Dernier échange de sa dimension : c’est là que les niveaux sont validés et que le « premier regard » s’ouvre. */
+export function isDimensionEnd(persona: DemoPersona, step: DemoStep) {
+  return persona.etapes.filter((item) => item.dimension === step.dimension).at(-1)?.id === step.id;
+}
+
+/** Curseurs de toute la dimension, dans l’ordre des échanges : ils sont validés ensemble, à la fin. */
+export function getDimensionSliders(persona: DemoPersona, step: DemoStep): DemoSlider[] {
+  return persona.etapes.filter((item) => item.dimension === step.dimension).flatMap((item) => item.retenu?.curseurs ?? []);
+}
+
+/** Éléments retenus par un échange, dans l’ordre d’apparition dans le panneau (extrait, notes, précision, puis niveaux validés en fin de dimension). */
+export function getRetainedItems(step: DemoStep, persona?: DemoPersona): RetainedItem[] {
   const retenu = step.retenu;
   if (!retenu) return [];
   const base = { dimension: step.dimension, etape: step.id };
+  const validated = persona && isDimensionEnd(persona, step) ? getDimensionSliders(persona, step) : [];
   return [
-    ...(retenu.extrait ? [{ ...base, key: `${step.id}-extrait`, kind: "extrait" as const, texte: retenu.extrait }] : []),
-    ...(retenu.tags ?? []).map((tag, index) => ({ ...base, key: `${step.id}-tag-${index}`, kind: "tag" as const, texte: tag })),
-    ...(retenu.curseurs ?? []).map((slider, index) => ({
+    ...(retenu.extrait ? [{ ...base, key: `${step.id}-extrait`, stage: "extraction" as const, kind: "extrait" as const, texte: retenu.extrait, lecture: retenu.lecture, sert: retenu.sert }] : []),
+    ...(retenu.tags ?? []).map((tag, index) => ({ ...base, key: `${step.id}-tag-${index}`, stage: "extraction" as const, kind: "tag" as const, texte: tag })),
+    ...(retenu.precision ? [{ ...base, key: `${step.id}-precision`, stage: "precision" as const, kind: "tag" as const, texte: retenu.precision.note }] : []),
+    ...validated.map((slider, index) => ({
       ...base,
       key: `${step.id}-curseur-${index}`,
+      stage: "validation" as const,
       kind: "curseur" as const,
       texte: slider.libelle,
       niveau: slider.corrigeA ?? slider.valeur,
@@ -359,21 +396,26 @@ export function getRetainedItems(step: DemoStep): RetainedItem[] {
   ];
 }
 
+/** Ce qui est déjà joué dans l’échange courant : l’extraction, la précision et la validation de fin de dimension. */
+export type ReceptionState = { extracted: boolean; precised: boolean; validated: boolean };
+
+const received = (state: ReceptionState, stage: RetainedStage) => (stage === "extraction" ? state.extracted : stage === "precision" ? state.precised : state.validated);
+
 /**
- * Cumul de ce que la Boussole a retenu : toutes les étapes avant `beforeStep`, plus l’étape courante
- * si sa réception est jouée. Déduit du JSON seul, une URL rechargée affiche donc le même panneau.
+ * Cumul de ce que la Boussole a retenu : tous les échanges avant `beforeStep`, plus ce que l’échange courant a déjà joué.
+ * Déduit du JSON seul, une URL rechargée affiche donc le même panneau.
  */
-export function getRetainedUntil(persona: DemoPersona, beforeStep: number, includeCurrent: boolean): RetainedItem[] {
+export function getRetainedUntil(persona: DemoPersona, beforeStep: number, state: ReceptionState): RetainedItem[] {
   return persona.etapes
-    .filter((step) => step.id < beforeStep || (includeCurrent && step.id === beforeStep))
-    .flatMap(getRetainedItems);
+    .filter((step) => step.id <= beforeStep)
+    .flatMap((step) => getRetainedItems(step, persona).filter((item) => step.id < beforeStep || received(state, item.stage)));
 }
 
-/** Jauges qualitatives : une dimension est renseignée dès que son point d’étape est passé. */
-export function getGauges(persona: DemoPersona, beforeStep: number, includeCurrent: boolean) {
+/** Jauges qualitatives : une dimension est renseignée dès que ses niveaux sont validés (fin de la dimension). */
+export function getGauges(persona: DemoPersona, beforeStep: number, validated: boolean) {
   return persona.ordreDimensions.flatMap((dimension) => {
-    const milestone = persona.etapes.filter((step) => step.dimension === dimension && step.pointEtape).at(-1);
-    const reached = milestone && (milestone.id < beforeStep || (includeCurrent && milestone.id === beforeStep));
+    const last = persona.etapes.filter((step) => step.dimension === dimension).at(-1);
+    const reached = last && (last.id < beforeStep || (validated && last.id === beforeStep));
     const level = persona.restitution?.radar[dimension];
     return reached && level ? [{ dimension, level }] : [];
   });

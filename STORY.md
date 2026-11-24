@@ -203,6 +203,10 @@ Les échanges et ateliers de fin 2026 – début 2027 ont maintenant une page à
 
 Le menu du haut garde Projet, Expérience, Partenaires et Calendrier, plus le bouton orange « Participer au projet ». Méthode et Ateliers passent dans le pied de page. `/participer` réunit les actions concrètes : les ateliers en premier, puis le questionnaire partenaire et la demande d’invitation. `/partenaires` redevient une présentation des partenaires, avec un seul bouton vers le calendrier. Les cartes d’atelier montrent le public et les informations pratiques sans clic, puis objectifs et programme en puces ; la ligne « Organisateur » n’est plus affichée. `/ateliers` redirige vers `/participer`. Détail : [`docs/ETAT_NAVIGATION_PARTICIPER_2026-10-16.md`](docs/ETAT_NAVIGATION_PARTICIPER_2026-10-16.md).
 
+### Démo : synthèse après la réponse, niveaux validés en fin de dimension (24 novembre 2026)
+
+Ulrich a relu la démo sur captures et en a tiré des principes plutôt que des corrections pour Claire : les questions de la Boussole se perdaient entre les réponses, rien ne montrait ce que la Boussole faisait d’une phrase dite (un passage surligné restait muet), la synthèse « ce qui fonctionne, ce qui pèse » arrivait en même temps que la parole, et les niveaux se validaient sous chaque réponse, hors contexte. La démo applique désormais, aux trois parcours : des questions en grand ; une synthèse étiquetée après chaque réponse (comment c’est lu, ce qui est retenu, à quoi ça sert) ; une précision à la voix quand un passage reste ambigu ; une seule validation des niveaux par dimension, sur le dernier échange, à la voix ; des niveaux écrits sur le radar dans une couleur qui ne change plus d’un écran à l’autre ; une lettre de restitution courte et aérée. Le mot « Orchestré » reste en question chez Ulrich (voir l’état daté du 24 novembre).
+
 ## 5. Décisions structurantes
 
 | Décision | Raison | Effet pratique |

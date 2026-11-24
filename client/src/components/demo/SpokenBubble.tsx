@@ -11,11 +11,14 @@ type Props = {
   speech: ReturnType<typeof useTypedSpeech>;
   reducedMotion: boolean;
   highlight?: string;
+  /** Nature de la parole, pour les contrôles : réponse principale, précision ou validation de fin de dimension. */
+  kind?: "main" | "precision" | "validation";
 };
 
-export default function SpokenBubble({ prenom, text, speech, reducedMotion, highlight }: Props) {
+export default function SpokenBubble({ prenom, text, speech, reducedMotion, highlight, kind = "main" }: Props) {
   return (
     <motion.div
+      data-demo-reponse={kind}
       initial={reducedMotion ? false : { opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
