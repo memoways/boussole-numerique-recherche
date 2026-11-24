@@ -6,7 +6,8 @@
  * replié et sa mesure d’ouverture, légende des niveaux, débordement horizontal et erreurs console. Lot 4 : ancien bloc
  * « La Boussole retient » absent, « D’autres regards » aux bons échanges (liens en nouvel onglet, mesure `demo_ressource_ouverte`),
  * signal du tiroir mobile. Retours du 24 novembre 2026 (principes valables pour les trois parcours) : questions de la Boussole en grand,
- * synthèse étiquetée qui vient après la réponse, précision à la voix, niveaux validés une seule fois à la fin de chaque dimension,
+ * synthèse étiquetée (une fiche de données structurées) qui vient après la réponse sans citer ce qui n’est pas sur la page, une seule question
+ * de la Boussole en tête de chaque page, précision à la voix, niveaux validés une seule fois à la fin de chaque dimension,
  * toutes les réponses en playback, niveaux écrits sur le radar dans leur couleur, lettre courte et aérée. `CHROME_BIN` permet d’utiliser un Chromium déjà
  * installé si la version attendue par Playwright manque. Sort en code 1 si au moins un contrôle échoue.
  */
@@ -71,6 +72,10 @@ const snapshot = (page) => page.evaluate(() => {
   return {
     questions: [...document.querySelectorAll("[data-demo-question]")].map((el) => ({ variant: el.dataset.demoQuestion, size: heading(el), text: el.innerText })),
     synthese: Boolean(synthese),
+    // La fiche : une ligne (champ, valeur) par donnée, sans citation recopiée ni note répétée.
+    ficheLignes: synthese ? synthese.querySelectorAll("dl > div").length : 0,
+    syntheseCitations: synthese ? synthese.querySelectorAll("blockquote, mark").length : 0,
+    titres: [...document.querySelectorAll("[data-demo-question='titre']")].map((el) => el.querySelector("h1").innerText),
     // La synthèse vient après la réponse (jamais en même temps), étiquetée.
     syntheseApresReponse: synthese ? mains.every((el) => top(synthese) >= bottom(el) - 1) && /Synthèse de la Boussole/i.test(synthese.innerText) : null,
     precision: document.querySelectorAll("[data-demo-precision]").length,
@@ -150,12 +155,15 @@ async function walk(label, viewport, { skip, persona: id = "cinema" }) {
     // Principes des retours du 24 novembre 2026, vérifiés sur chaque échange des trois parcours.
     const stepContent = contentSteps(id).find((step) => step.id === n);
     const isEnd = P.milestones.includes(n);
-    // 1. Toute question de la Boussole est en grand : 20 px au moins, 18 px pour le rappel de la question de l’échange.
+    // 1. Toute question de la Boussole est en grand (20 px au moins) ; chaque page n’a qu’une question en tête, la sienne :
+    //    jamais la question de la page précédente reprise au-dessus.
     const questions = played.pages.flatMap((snap) => snap.questions);
-    ok(questions.length >= 1 && questions.every((question) => question.size >= (question.variant === "rappel" ? 18 : 20)), `${label} étape ${n} : questions de la Boussole en grand (${questions.map((question) => question.size).join("/")} px)`);
+    ok(questions.length >= 1 && questions.every((question) => question.size >= 20), `${label} étape ${n} : questions de la Boussole en grand (${questions.map((question) => question.size).join("/")} px)`);
+    ok(played.pages.every((snap) => snap.titres.length === 1) && new Set(played.pages.map((snap) => snap.titres[0])).size === played.pages.length, `${label} étape ${n} : une seule question en tête de chaque page, jamais répétée d’une page à l’autre`);
     // 2. Après chaque réponse, une synthèse étiquetée, placée sous la réponse et jamais en même temps qu’elle.
     const syntheses = played.pages.filter((snap) => snap.synthese);
     ok(syntheses.length === 1 && syntheses[0].syntheseApresReponse === true, `${label} étape ${n} : synthèse de la Boussole étiquetée, après la réponse`);
+    ok(syntheses[0].ficheLignes === stepContent.retenu.fiche.length && syntheses[0].syntheseCitations === 0, `${label} étape ${n} : la synthèse est une fiche de ${stepContent.retenu.fiche.length} lignes, sans citation absente de la page`);
     // 3. Une précision à la voix seulement quand le passage retenu le demande.
     ok(played.pages.reduce((total, snap) => total + snap.precision, 0) === (stepContent.retenu?.precision ? 1 : 0), `${label} étape ${n} : précision ${stepContent.retenu?.precision ? "présente" : "absente"}`);
     // 4. Les niveaux se valident une seule fois, à la fin de la dimension, sur leur page : aucun curseur ailleurs.

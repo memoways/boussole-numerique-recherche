@@ -176,20 +176,26 @@ for (const persona of personas) {
         assert(saidSoFar.includes(slider.dit), `${at} : « ${slider.dit} » (curseur « ${slider.libelle} ») doit être un passage exact d’une réponse déjà donnée.`);
       }
     }
-    // Extraction puis transformation (retours d’Ulrich, 24 novembre 2026) : chaque réponse devient une synthèse lisible,
-    // qui dit comment elle est interprétée (lecture), ce qui est retenu (extrait, notes) et à quoi cela sert (sert).
+    // Extraction puis transformation (retours d’Ulrich, 24 novembre 2026) : chaque réponse devient une fiche de données structurées
+    // (champ, valeur), jamais une reformulation de la réponse ni une répétition des notes du panneau.
     const retenu = step.retenu;
     assert(Boolean(retenu), `${at} : chaque échange retient quelque chose (retenu requis).`);
     if (retenu) {
-      assert(retenu.lecture && wordCount(retenu.lecture) >= 6 && wordCount(retenu.lecture) <= 32, `${at} : la lecture (comment c’est interprété) tient en une phrase de 6 à 32 mots.`);
-      assert(retenu.sert && wordCount(retenu.sert) >= 5 && wordCount(retenu.sert) <= 28, `${at} : « à quoi ça sert » (sert) tient en une phrase de 5 à 28 mots.`);
-      assert(Boolean(retenu.extrait) || (retenu.tags ?? []).length > 0, `${at} : la synthèse montre au moins un passage retenu ou une note structurée.`);
-      assert(!("resume" in retenu), `${at} : l’ancien résumé (resume) est remplacé par la lecture.`);
+      assert(Array.isArray(retenu.fiche) && retenu.fiche.length >= 2 && retenu.fiche.length <= 4, `${at} : la fiche compte de deux à quatre lignes.`);
+      for (const row of retenu.fiche ?? []) {
+        assert(row.champ && wordCount(row.champ) <= 6 && row.valeur && wordCount(row.valeur) >= 1 && wordCount(row.valeur) <= 16, `${at} : ligne de fiche « ${row.champ} » : champ de 6 mots au plus, valeur de 1 à 16 mots.`);
+      }
+      const fields = (retenu.fiche ?? []).map((row) => row.champ);
+      assert(new Set(fields).size === fields.length, `${at} : chaque champ de la fiche est distinct.`);
+      const values = (retenu.fiche ?? []).map((row) => row.valeur.toLowerCase());
+      assert((retenu.tags ?? []).every((tag) => !values.includes(tag.toLowerCase())), `${at} : une ligne de fiche ne répète pas mot pour mot une note du panneau.`);
+      assert(!("lecture" in retenu) && !("sert" in retenu) && !("resume" in retenu), `${at} : lecture, sert et resume sont remplacés par la fiche.`);
+      assert(Boolean(retenu.extrait) || (retenu.tags ?? []).length > 0, `${at} : l’échange retient au moins un passage ou une note pour le panneau.`);
       if (retenu.precision) {
         const precision = retenu.precision;
         assert(precision.question && precision.transcription && precision.note, `${at} : la précision demande une question, une réponse et la note qui s’ajoute.`);
-        assert(wordCount(precision.transcription) >= 10 && wordCount(precision.transcription) <= 45 && wordCount(precision.note) <= 14, `${at} : réponse de précision de 10 à 45 mots, note de 14 mots au plus.`);
-        assert(Boolean(retenu.extrait), `${at} : une précision creuse un passage retenu (extrait requis).`);
+        assert(wordCount(precision.transcription) >= 10 && wordCount(precision.transcription) <= 45 && wordCount(precision.note) <= 10 && !/:/.test(precision.note), `${at} : réponse de précision de 10 à 45 mots, note de 10 mots au plus, sans deux-points.`);
+        assert(!(retenu.fiche ?? []).some((row) => row.valeur.toLowerCase() === precision.note.toLowerCase()), `${at} : la note de précision ne répète pas la fiche.`);
       }
     }
     if (step.retenu?.extrait) assert(step.reponse.transcription.includes(step.retenu.extrait), `${at} : l’extrait retenu doit être un passage exact de la transcription.`);
@@ -265,7 +271,8 @@ if (personas.every((persona) => persona.statut === "pret")) {
 
 assert(content.restitution?.radarPhrase === "Ni bien ni mal. Un point de départ.", "La phrase de la comparaison des trois radars doit être « Ni bien ni mal. Un point de départ. » (elle ne figure plus sous le radar de la restitution).");
 assert(content.restitution?.legendeTitre === "Légende : ce que veulent dire les niveaux", "La légende des niveaux, sous le radar, s’intitule « Légende : ce que veulent dire les niveaux ».");
-assert(content.lecture?.syntheseTitre === "Synthèse de la Boussole" && content.lecture?.syntheseExtrait && content.lecture?.syntheseNotes && content.lecture?.syntheseSert && content.lecture?.syntheseOutils, "La synthèse de la Boussole porte son étiquette et ses libellés (passage retenu, notes, à quoi ça sert, outil par outil).");
+assert(content.lecture?.syntheseTitre === "Synthèse de la Boussole" && content.lecture?.syntheseSurligne && content.lecture?.syntheseSansSurlignage && content.lecture?.syntheseOutils, "La synthèse de la Boussole porte son étiquette, la phrase qui dit ce que fait la Boussole (avec ou sans passage surligné) et le libellé « outil par outil ».");
+assert(!("syntheseExtrait" in (content.lecture ?? {})) && !("syntheseSert" in (content.lecture ?? {})) && !("syntheseNotes" in (content.lecture ?? {})), "La synthèse ne répète ni un passage, ni les notes, ni un « à quoi ça sert » vague : seule la fiche reste.");
 assert(content.lecture?.precisionTitre && content.lecture?.precisionAjoutee && content.lecture?.validationTitre && /\{dimension\}/.test(content.lecture?.validationQuestion ?? "") && content.lecture?.validationAide && content.lecture?.annonceNiveaux, "Les libellés de la précision et de la validation de fin de dimension sont requis (validationQuestion nomme la dimension).");
 assert(!("induction" in (content.lecture ?? {})) && !("rappelDit" in (content.lecture ?? {})), "Les anciens libellés « D’après ce que tu dis… » et « Ce que {prénom} a dit » disparaissent : les niveaux se valident à la fin de la dimension.");
 

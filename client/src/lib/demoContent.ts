@@ -23,19 +23,22 @@ export type DemoSlider = { libelle: string; valeur: RadarLevel; corrigeA: RadarL
 /** Question de précision : la Boussole creuse un passage retenu qui reste ambigu, la personne répond à la voix, une note s’ajoute. */
 export type DemoPrecision = { question: string; transcription: string; note: string };
 
+/** Une ligne de la fiche : un champ et sa valeur, tirés de ce qui a été dit. */
+export type DemoFicheRow = { champ: string; valeur: string };
+
 /**
- * Ce que la Boussole tire d’une réponse (extraction puis transformation). Après la réponse, une synthèse étiquetée montre
- * `lecture` (comment c’est interprété), le passage retenu (`extrait`), les notes structurées (`tags`) et `sert` (à quoi ça sert).
+ * Ce que la Boussole tire d’une réponse (extraction puis transformation). Après la réponse, une « synthèse » étiquetée range
+ * ce qui a été dit dans une fiche de données structurées (`fiche`) : des champs et des valeurs reformulés, jamais une
+ * répétition de la réponse ni des notes. `extrait` est le passage surligné dans la réponse (il n’apparaît que s’il est sur la même page),
+ * `tags` les notes courtes du panneau « Ce que la Boussole retient ».
  */
 export type DemoRetained = {
-  /** Une phrase : comment la Boussole comprend ce qui vient d’être dit. */
-  lecture: string;
   /** Passage de la transcription surligné (niveau 1 du panneau). */
   extrait?: string;
   /** Notes taguées par la dimension de l’échange (niveau 2). */
   tags?: string[];
-  /** Une phrase : à quoi sert ce qui est retenu (restitution, niveau du radar, rappel plus loin…). */
-  sert: string;
+  /** Fiche structurée tirée de la réponse : de deux à quatre lignes. */
+  fiche: DemoFicheRow[];
   /** Question de relance quand un passage retenu mérite d’être précisé (facultatif). */
   precision?: DemoPrecision;
   /** Niveaux proposés d’après la réponse ; ils ne s’affichent qu’à la validation de fin de dimension. */
@@ -192,7 +195,7 @@ export type DemoContent = {
   lecture: Record<
     | "boussole" | "echange" | "reponseDe" | "passerAnimation" | "continuer" | "suite" | "partie" | "consigne" | "retour" | "allerRestitution"
     | "selectionCases" | "selectionScenario"
-    | "syntheseTitre" | "syntheseExtrait" | "syntheseNotes" | "syntheseSert" | "syntheseOutils" | "precisionTitre" | "precisionAjoutee" | "validationTitre" | "validationQuestion" | "validationAide" | "annonceNiveaux"
+    | "syntheseTitre" | "syntheseSurligne" | "syntheseSansSurlignage" | "syntheseOutils" | "precisionTitre" | "precisionAjoutee" | "validationTitre" | "validationQuestion" | "validationAide" | "annonceNiveaux"
     | "outilsReperes" | "outilsPropositions" | "outilsAjoutes" | "outilsAjoute" | "outilsManuel" | "outilsClassement" | "outilsApprofondir" | "outilsFonctionne" | "outilsPese"
     | "accelerer" | "digestion" | "indiceDit" | "indiceNonAborde"
     | "valide" | "corrige" | "rebondTitre" | "rebondEchange" | "pointEtapeTitre" | "pointEtapeOuvrir" | "pointEtapeReplier" | "annonceRetenu"
@@ -360,9 +363,6 @@ export type RetainedItem = {
   texte: string;
   /** Niveau final d’un curseur, après correction éventuelle. */
   niveau?: RadarLevel;
-  /** Pour un extrait : comment la Boussole l’interprète et à quoi il sert, pour qu’un passage surligné ne reste pas muet. */
-  lecture?: string;
-  sert?: string;
 };
 
 /** Dernier échange de sa dimension : c’est là que les niveaux sont validés et que le « premier regard » s’ouvre. */
@@ -382,7 +382,7 @@ export function getRetainedItems(step: DemoStep, persona?: DemoPersona): Retaine
   const base = { dimension: step.dimension, etape: step.id };
   const validated = persona && isDimensionEnd(persona, step) ? getDimensionSliders(persona, step) : [];
   return [
-    ...(retenu.extrait ? [{ ...base, key: `${step.id}-extrait`, stage: "extraction" as const, kind: "extrait" as const, texte: retenu.extrait, lecture: retenu.lecture, sert: retenu.sert }] : []),
+    ...(retenu.extrait ? [{ ...base, key: `${step.id}-extrait`, stage: "extraction" as const, kind: "extrait" as const, texte: retenu.extrait }] : []),
     ...(retenu.tags ?? []).map((tag, index) => ({ ...base, key: `${step.id}-tag-${index}`, stage: "extraction" as const, kind: "tag" as const, texte: tag })),
     ...(retenu.precision ? [{ ...base, key: `${step.id}-precision`, stage: "precision" as const, kind: "tag" as const, texte: retenu.precision.note }] : []),
     ...validated.map((slider, index) => ({
