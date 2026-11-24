@@ -4,6 +4,12 @@ Ce journal consolide les modifications **effectivement livrées** dans le dépô
 
 ## [Unreleased]
 
+- Démo playback `/experience/demo` — **restitution : retours d'Ulrich du 25 novembre 2026**, appliqués aux trois parcours :
+  - La phrase « Ce qu'on peut évaluer, on peut l'améliorer. » quitte les trois lettres (trois paragraphes) ; elle reste sur la page Projet du site.
+  - **Radar explicatif** : le survol d'une dimension (par secteur, tout le radar compte), le focus ou le toucher d'une des cinq pastilles affiche à droite du radar (sous lui sur mobile) le détail de la dimension : pourquoi ce niveau (`restitution.detail`), ce que la Boussole a relevé dans le parcours (les niveaux `curseurs` avec les mots dits et l'échange), et les critères (`restitution.criteres` : ce que la Boussole regarde, puis l'échelle des quatre niveaux appliquée à la dimension, le niveau du parcours marqué). Le point et le libellé de la dimension affichée se détachent sur le radar.
+  - **Trois pistes** : chaque piste dit quelle dimension elle fait avancer (`dimension`, niveau actuel → suivant) et son lien est justifié par une phrase (`lien.raison`). Six pistes mènent à l'animation correspondante de la page « À quoi ça pourrait ressembler » (ancre `#demo-micro-<id>`, la page s'y place), trois à une ressource du corpus citée dans la démo (nouvel onglet, auteur, média, langue). Le lien générique « Voir les ressources » disparaît.
+  - Contrôles : `verify-demo-content` (critères, détail, raisons, liens existants) et `check-demo-playback` (survol, panneau à droite, liens des pistes). Production non publiée.
+
 - Démo playback `/experience/demo` — **retours d'Ulrich du 24 novembre 2026**, appliqués par principe aux trois parcours (Claire, Marc, Nadia) :
   - **Questions** : toute question de la Boussole (échange, relance sur d'autres outils, classement, approfondissement, précision, validation) s'affiche dans un bloc `QuestionCard` en grand ; le rappel de la question sur les pages suivantes reste lisible.
   - **Extraction puis transformation** : après chaque réponse, une « Synthèse de la Boussole » étiquetée range la réponse dans une fiche de données structurées (`retenu.fiche`, de deux à quatre lignes champ / valeur). Elle vient après la réponse, jamais en même temps, et ne cite que ce qui est visible sur la page : le passage clé est surligné dans la réponse, jamais recopié dans la synthèse. Ce qui fonctionne et ce qui pèse (échanges « outils ») s’y affiche outil par outil.

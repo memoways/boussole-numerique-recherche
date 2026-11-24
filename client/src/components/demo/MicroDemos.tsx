@@ -42,7 +42,7 @@ function DemoCard({ demo, controls, children, status }: { demo: DemoMicro; contr
     <section aria-labelledby={`demo-micro-${demo.id}`} className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="max-w-xl">
-          <h2 id={`demo-micro-${demo.id}`} className="text-xl font-normal text-slate-950">{demo.titre}</h2>
+          <h2 id={`demo-micro-${demo.id}`} className="scroll-mt-24 text-xl font-normal text-slate-950">{demo.titre}</h2>
           <p className="mt-1 text-sm leading-relaxed text-slate-700">{demo.texte}</p>
         </div>
         <button type="button" onClick={controls.running ? undefined : controls.play} aria-disabled={controls.running} className={`${demoSecondaryButton} min-h-11 px-4 text-sm aria-disabled:opacity-60`}>
@@ -319,6 +319,14 @@ function NoteDemo({ demo }: { demo: Extract<DemoMicro, { id: "note" }> }) {
 
 export default function MicroDemos({ persona }: { persona: DemoPersona }) {
   const copy = DEMO_CONTENT.demos;
+  const reducedMotion = useReducedMotion() ?? false;
+  // Un lien de la restitution renvoie à une animation précise (`#demo-micro-<id>`) : on s’y place une fois la page remontée par le changement de route.
+  useEffect(() => {
+    const id = window.location.hash.slice(1);
+    if (!id) return;
+    const timer = window.setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "start" }), 120);
+    return () => window.clearTimeout(timer);
+  }, [reducedMotion]);
   return (
     <div className="space-y-6">
       <header>

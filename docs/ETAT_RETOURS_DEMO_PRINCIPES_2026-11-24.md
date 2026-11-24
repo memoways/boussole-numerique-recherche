@@ -39,6 +39,16 @@ La première livraison (PR #37) a été jugée de mauvaise qualité par Ulrich. 
 - la page 2 d’un échange « outils » reprenait la question de la page 1 au-dessus de sa propre question : chaque page n’affiche plus que sa question ;
 - la synthèse reformulait la réponse, recopiait les notes déjà affichées dans le panneau et ajoutait un « à quoi ça sert » vague : elle est réduite à la fiche de données structurées ; les légendes ajoutées sous les extraits du panneau sont retirées.
 
+## Restitution : radar explicatif et pistes justifiées (25 novembre 2026)
+
+| Retour d’Ulrich | Traitement (trois parcours) |
+|---|---|
+| Ne plus mettre « Ce qu’on peut évaluer, on peut l’améliorer » | Retirée des trois lettres (trois paragraphes). Elle reste sur la page Projet du site, hors démo. |
+| Au survol des cinq dimensions : pourquoi ce niveau, quels critères | Panneau à droite du radar (sous lui sur mobile) : synthèse « pourquoi ce niveau » (`restitution.detail`), niveaux relevés avec les mots dits et l’échange, critères (`restitution.criteres` : ce que la Boussole regarde et l’échelle des quatre niveaux appliquée à la dimension, niveau du parcours marqué). Survol par secteur, pastilles pour clavier et toucher. |
+| Pistes : liens incompréhensibles | Chaque piste indique la dimension qu’elle fait avancer et son lien est précédé d’une raison. Six renvoient à l’animation correspondante (page « À quoi ça pourrait ressembler », ancre `#demo-micro-<id>`), trois à un article du corpus déjà cité dans la démo. Le lien générique vers `/ressources` est retiré. |
+
+Textes écrits pour l’occasion, à relire : 15 synthèses « pourquoi ce niveau », 20 critères d’échelle (5 dimensions × 4 niveaux) et 5 phrases « ce que la Boussole regarde », 9 raisons de lien. Les synthèses reprennent ce que chaque parcours a dit ; les critères prolongent les définitions des niveaux sans les contredire. Les trois articles liés (Maccarone, Neeman, Raphaël) sont paraphrasés d’après les citations déjà validées dans la démo.
+
 ## Questions ouvertes pour Ulrich
 
 1. **« D’où vient “Orchestré” ? »** Décision d’Ulrich le 24 novembre : le mot est conservé. Origine : le mot vient de l’échelle de l’annexe v2 (Exploration · Improvisation · Organisé · Orchestré), validée le 14 octobre 2026 : l’orchestre figure une source unique (la partition) qui coordonne des outils et des personnes qui jouent chacun leur partie. Aucun texte de la démo ne l’explique ; seule la définition le décrit (« Une source fait foi… »). À décider : garder le mot, ajouter une image dans la définition, ou changer de mot.

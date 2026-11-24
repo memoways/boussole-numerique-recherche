@@ -213,23 +213,65 @@ async function walk(label, viewport, { skip, persona: id = "cinema" }) {
   await page.waitForTimeout(2500);
   await check("restitution");
   ok((await page.locator(".recharts-radar-polygon").count()) === 1, `${label} restitution : radar dessiné`);
-  const radarText = await page.locator("figure").innerText();
+  const radarText = await page.locator("figure svg").first().textContent();
   ok(!/\d/.test(radarText), `${label} restitution : aucun chiffre dans le radar`);
   ok((await page.getByText("Ni bien ni mal. Un point de départ.").count()) === 0, `${label} restitution : plus de phrase sous le radar`);
-  // Lettre courte et aérée : trois ou quatre paragraphes distincts, le dernier est le fil rouge.
+  // Lettre courte et aérée : trois ou quatre paragraphes distincts, sans le fil rouge « Ce qu’on peut évaluer… ».
   const letter = await page.locator("section[aria-labelledby=demo-lettre] p").allInnerTexts();
-  ok(letter.length >= 3 && letter.length <= 4 && letter.at(-1) === "Ce qu’on peut évaluer, on peut l’améliorer." && letter.join(" ").split(/\s+/).length <= 130, `${label} restitution : lettre courte en ${letter.length} paragraphes (${letter.join(" ").split(/\s+/).length} mots)`);
+  ok(letter.length >= 3 && letter.length <= 4 && !letter.join(" ").includes("peut évaluer") && letter.join(" ").split(/\s+/).length <= 130, `${label} restitution : lettre courte en ${letter.length} paragraphes (${letter.join(" ").split(/\s+/).length} mots), sans phrase fil rouge`);
   // Les niveaux s’écrivent sur le radar, sous chaque dimension, dans la couleur de la légende.
   const onRadar = await page.locator("figure svg text tspan").evaluateAll((items) => items.map((item) => [item.textContent, item.getAttribute("fill")]).filter(([text]) => ["Exploration", "Improvisation", "Organisé", "Orchestré"].includes(text)));
   const legend = await page.locator("figure dl dt").evaluateAll((items) => Object.fromEntries(items.map((item) => [item.textContent.trim(), getComputedStyle(item).color])));
   const toRgb = (hex) => { const n = parseInt(hex.slice(1), 16); return `rgb(${n >> 16}, ${(n >> 8) & 255}, ${n & 255})`; };
   ok(onRadar.length === 5 && onRadar.every(([text, fill]) => legend[text] === toRgb(fill)), `${label} restitution : cinq niveaux écrits sur le radar, dans la couleur de la légende (${onRadar.map(([text]) => text).join(", ")})`);
-  ok((await page.locator("figure ul li").filter({ hasText: /: (Exploration|Improvisation|Organisé|Orchestré)$/ }).count()) === 5, `${label} restitution : la même information reste lisible au lecteur d’écran`);
+  ok((await page.locator("figure ul.sr-only li").filter({ hasText: /: (Exploration|Improvisation|Organisé|Orchestré)$/ }).count()) === 5, `${label} restitution : la même information reste lisible au lecteur d’écran`);
   ok(await page.getByText("Légende : ce que veulent dire les niveaux", { exact: true }).isVisible(), `${label} restitution : légende des niveaux titrée`);
-  ok(await page.getByText("Les citations de ce parcours viennent du corpus de veille du projet.").isVisible() && (await page.getByRole("link", { name: "Voir les ressources" }).getAttribute("href")) === "/ressources", `${label} restitution : origine des citations, lien vers les ressources`);
-  ok((await page.locator("#demo-pistes ~ ol li").count()) === 3, `${label} restitution : 3 pistes`);
-  ok(await page.getByRole("heading", { name: "Ce qui pourrait être plus léger" }).isVisible(), `${label} restitution : « Ce qui pourrait être plus léger »`);
   ok((await page.locator("figure dl dt").allInnerTexts()).map((text) => text.trim()).join(" · ") === "Exploration · Improvisation · Organisé · Orchestré", `${label} restitution : définitions des 4 niveaux sous le radar`);
+
+  // Détail au survol : le panneau suit la dimension survolée, à droite du radar sur grand écran, avec pourquoi, relevés et critères.
+  const order = CONTENT.personas.find((persona) => persona.id === id).ordreDimensions;
+  const dimensions = order.map((dimension) => CONTENT.dimensions[dimension]);
+  const detail = page.locator("[data-demo-detail]");
+  ok((await detail.count()) === 1 && (await detail.getAttribute("data-demo-detail")) === order[0], `${label} restitution : le détail de la première dimension est affiché d’emblée`);
+  await page.locator("[data-demo-radar]").scrollIntoViewIfNeeded();
+  const radarBox = await page.locator("[data-demo-radar]").boundingBox();
+  const wide = page.viewportSize().width >= 1024;
+  for (let index = 0; index < order.length; index += 1) {
+    const angle = (index * 2 * Math.PI) / order.length;
+    const cx = radarBox.x + radarBox.width / 2;
+    const cy = radarBox.y + radarBox.height / 2;
+    await page.mouse.move(cx + Math.sin(angle) * 90, cy - Math.cos(angle) * 90);
+    await page.waitForTimeout(350);
+    const dim = order[index];
+    ok((await detail.getAttribute("data-demo-detail")) === dim, `${label} restitution : le survol de « ${dimensions[index]} » affiche son détail`);
+    const sections = await detail.locator("h4").allTextContents();
+    ok(sections.join("|") === "Pourquoi ce niveau|Ce que la Boussole a relevé|Les critères de cette dimension", `${label} restitution : ${dim} : pourquoi, relevés et critères`);
+    ok((await detail.locator("ol li").count()) === 4 && (await detail.locator("ol li[aria-current=true]").count()) === 1, `${label} restitution : ${dim} : quatre critères, le niveau du parcours marqué`);
+    ok((await detail.locator("ul li").count()) >= 1, `${label} restitution : ${dim} : au moins un niveau relevé`);
+    if (wide) {
+      const box = await detail.boundingBox();
+      ok(box.x >= radarBox.x + radarBox.width - 4 && Math.abs(box.y - radarBox.y) < 140, `${label} restitution : ${dim} : le détail est à droite du radar`);
+    }
+  }
+  const firstButton = page.getByRole("group", { name: "Choisir une dimension" }).getByRole("button").first();
+  await firstButton.click();
+  ok((await detail.getAttribute("data-demo-detail")) === order[0] && (await firstButton.getAttribute("aria-pressed")) === "true", `${label} restitution : la liste de dimensions pilote aussi le détail (clavier, toucher)`);
+
+  // Pistes : chacune dit quelle dimension elle fait avancer et pourquoi son lien est là ; le lien mène à du contenu qui existe.
+  const pistes = page.locator("#demo-pistes ~ ol > li");
+  ok((await pistes.count()) === 3, `${label} restitution : 3 pistes`);
+  ok((await page.getByText("Les citations de ce parcours viennent du corpus de veille du projet.").count()) === 0 && (await page.locator("#demo-pistes ~ p a[href='/ressources']").count()) === 0, `${label} restitution : plus de lien générique sans raison`);
+  for (let index = 0; index < 3; index += 1) {
+    const piste = pistes.nth(index);
+    const text = await piste.textContent();
+    ok(/Fait avancer : /.test(text) && /Pourquoi ce lien/.test(text), `${label} restitution : piste ${index + 1} : dimension visée et raison du lien`);
+    ok((await piste.locator("a").count()) === 1, `${label} restitution : piste ${index + 1} : un seul lien`);
+    const link = piste.locator("a");
+    const href = await link.getAttribute("href");
+    if (href.startsWith("http")) ok((await link.getAttribute("target")) === "_blank" && /noopener/.test(await link.getAttribute("rel")) && /nouvel onglet/.test(await link.innerText()), `${label} restitution : piste ${index + 1} : lien externe en nouvel onglet, annoncé`);
+    else ok(/\/demos#demo-micro-[a-z-]+$/.test(href), `${label} restitution : piste ${index + 1} : lien vers une animation précise (${href})`);
+  }
+  ok(await page.getByRole("heading", { name: "Ce qui pourrait être plus léger" }).isVisible(), `${label} restitution : « Ce qui pourrait être plus léger »`);
   await page.screenshot({ path: `${OUT}/${label}-restitution.png`, fullPage: true });
   await page.getByRole("link", { name: /Voir à quoi ça pourrait ressembler/ }).click();
   await page.waitForURL(`**/${id}/demos`);
